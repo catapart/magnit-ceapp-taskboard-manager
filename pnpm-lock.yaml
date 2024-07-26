@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: false
   excludeLinksFromLockfile: false
 
+dependencies:
+  record-setter:
+    specifier: ^1.0.6
+    version: 1.0.6
+
 devDependencies:
   '@changesets/cli':
     specifier: ^2.27.7
@@ -1790,6 +1795,10 @@ packages:
       jju: 1.4.0
       try-catch: 3.0.1
     dev: true
+
+  /record-setter@1.0.6:
+    resolution: {integrity: sha512-Xbd6rfrbvbpvffElRxZpCg3yYDM2vqWaZemD4pwI9BX77EdHNYeKMcN5FyqI69m/GH+gvywF7v9rwZ9JvH72Ig==}
+    dev: false
 
   /regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}

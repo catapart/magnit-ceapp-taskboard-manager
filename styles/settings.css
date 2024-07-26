@@ -1,6 +1,6 @@
 task-board
 {
-    background:  var(--board-background-source, url()), var(--board-background-color, transparent);
+    background:  var(--board-background-source), var(--board-background-color, transparent);
     color: var(--board-font-color);
     background-size: var(--background-image-display);
     background-position: var(--background-image-position, var(--background-image-offset));

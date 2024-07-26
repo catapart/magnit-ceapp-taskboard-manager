@@ -6,11 +6,11 @@
   "module": "dist/taskboard-manager.mjs",
   "types": "dist/taskboard-manager.d.ts",
   "scripts": {
-    "build": "tsup taskboard-manager.ts --format cjs,esm --dts --clean && tsc --outDir ./vanilla",
+    "build": "tsup taskboard-manager.ts --format cjs,esm --dts --clean",
     "minify": "minify ./dist/taskboard-manager.js > ./dist/taskboard-manager.min.js",
     "lint": "tsc",
-    "package": "tsup taskboard-manager.ts --format cjs,esm --dts --clean && tsc --outDir ./vanilla && minify ./vanilla/taskboard-manager.js > ./vanilla/taskboard-manager.min.js",
-    "release": "tsup taskboard-manager.ts --format cjs,esm --dts && tsc --outDir ./vanilla && minify ./vanilla/taskboard-manager.js > ./vanilla/taskboard-manager.min.js && changeset publish"
+    "package": "tsup taskboard-manager.ts --format cjs,esm --dts --clean",
+    "release": "tsup taskboard-manager.ts --format cjs,esm --dts && changeset publish"
   },
   "keywords": [
     "custom",
@@ -36,5 +36,8 @@
     "minify": "^11.4.0",
     "tsup": "^8.2.3",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "record-setter": "^1.0.6"
   }
 }
