@@ -1,0 +1,40 @@
+{
+  "name": "@magnit-ceapp/taskboard-manager",
+  "version": "0.0.1",
+  "description": "An app to manage kanban-style task boards built as a custom html element",
+  "main": "index.js",
+  "module": "dist/taskboard-manager.mjs",
+  "types": "dist/taskboard-manager.d.ts",
+  "scripts": {
+    "build": "tsup taskboard-manager.ts --format cjs,esm --dts --clean && tsc --outDir ./vanilla",
+    "minify": "minify ./dist/taskboard-manager.js > ./dist/taskboard-manager.min.js",
+    "lint": "tsc",
+    "package": "tsup taskboard-manager.ts --format cjs,esm --dts --clean && tsc --outDir ./vanilla && minify ./vanilla/taskboard-manager.js > ./vanilla/taskboard-manager.min.js",
+    "release": "tsup taskboard-manager.ts --format cjs,esm --dts && tsc --outDir ./vanilla && minify ./vanilla/taskboard-manager.js > ./vanilla/taskboard-manager.min.js && changeset publish"
+  },
+  "keywords": [
+    "custom",
+    "element",
+    "html",
+    "browser",
+    "component",
+    "task",
+    "taskboard",
+    "app",
+    "task management",
+    "kanban",
+    "tasklist"
+  ],
+  "author": "catapart",
+  "license": "CC0-1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/catapart/magnitce-editable-list"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.7",
+    "minify": "^11.4.0",
+    "tsup": "^8.2.3",
+    "typescript": "^5.5.4"
+  }
+}
