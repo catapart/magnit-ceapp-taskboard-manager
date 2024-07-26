@@ -1,0 +1,5 @@
+export const Profile = `<svg id="icon-definition_profile" class="icon profile" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+<path
+   style="fill:var(--icon-primary-color,InfoText);fill-opacity:1;stroke:var(--icon-secondary-color,InfoBackground);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+   d="m 11.405696,0.60086147 c -2.6349905,0 -4.7961505,2.16117003 -4.7961505,4.79616003 -1e-5,1.66616 0.86481,3.14225 2.16641,4.00292 h -0.0536 c -1.59386,0 -3.77968,1.8748995 -3.77968,5.4964695 v 1.82092 c 0,3.62158 -0.69262,5.49647 1.97372,5.49647 h 8.9799305 c 2.66634,0 1.97371,-1.87489 1.97371,-5.49647 v -1.82092 c 0,-3.62157 -2.18581,-5.4964695 -3.77968,-5.4964695 h -0.0549 c 1.30196,-0.86063 2.16702,-2.33662 2.16702,-4.00292 0,-2.635 -2.16178,-4.79618003 -4.79677,-4.79616003 z" />
+</svg>`;

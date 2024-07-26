@@ -1,0 +1,74 @@
+:host
+{
+    display: grid;
+    grid-template-columns: min-content min-content min-content;
+    justify-content: center;
+}
+
+fieldset
+{
+    display: grid;
+    gap: 1em;
+    min-width: 0;
+    width: auto;
+}
+input,select,textarea
+{
+    font: inherit;
+    min-width: 0;
+    width: auto;
+}
+
+input[type="text"]
+{
+    min-width: 5ch;
+}
+
+[part="appearance-fields"]
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+[part="appearance-fields"] [part="container"] > input
+{
+    flex: 1;
+    min-height: 2ch;
+}
+
+[part="border-radius-field"] [part="option"]
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+[part="border-weights-fields"]
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: min-content min-content;
+}
+
+[part="font-size-field"] [part="container"]
+,[part="card-width-field"] [part="container"]
+,[part="border-weights-fields"] [part="container"]
+{
+    align-items: flex-start;
+    column-gap: .25em !important;
+}
+
+[part="font-size-field"] [slot="postfix"]
+,[part="card-width-field"] [part="container"]
+,[part="card-width-field"] [slot="postfix"]
+,[part="card-width-field"] input[type="text"]
+,[part="border-weights-fields"] [slot="postfix"]
+{
+    align-self: flex-end;
+}
+
+[part="center-checkbox-field"] input
+,[part="center-remove-button-field"] input
+{
+    justify-self: flex-start;
+    margin: 0;
+}

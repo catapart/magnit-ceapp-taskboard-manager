@@ -1,0 +1,8 @@
+export const Image = `<svg id="icon-definition_image" class="icon picture" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+    <path
+        style="fill:var(--icon-primary-color,InfoText);stroke:var(--icon-secondary-color,InfoBackground);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+        d="M 1.4148868,2.4681265 H 21.397817 c 0.25758,0 0.46494,0.20731 0.46494,0.4648 V 19.881746 c 0,0.25749 -0.20736,0.46479 -0.46494,0.46479 H 1.4148868 c -0.25757,0 -0.46492999,-0.2073 -0.46492999,-0.46479 V 2.9329265 c 0,-0.25749 0.20735999,-0.4648 0.46492999,-0.4648 z" />
+    <path
+        style="fill:var(--icon-secondary-color,InfoBackground);stroke-width:0.999994;stroke-linecap:round;stroke-linejoin:round"
+        d="m 16.864987,4.9730465 c -1.11495,0 -2.01231,0.93615 -2.01231,2.09899 v 0.92032 c 0,1.16285 0.89736,2.0989895 2.01231,2.0989895 h 0.88241 c 1.11495,0 2.01281,-0.9361395 2.01281,-2.0989895 v -0.92032 c 0,-1.16284 -0.89786,-2.09899 -2.01281,-2.09899 z m -7.7437002,3.26724 c -0.2302,-0.007 -0.4579,0.0739 -0.62895,0.24496 l -7.05127,7.0491895 v 4.33335 c 1e-5,0.31395 0.2529,0.56628 0.56693,0.56628 H 20.804797 c 0.062,-9e-5 0.12029,-0.0121 0.17608,-0.0302 0.0891,-0.3069 0.009,-0.65983 -0.24552,-0.91388 L 9.7660968,8.5239765 c -0.18175,-0.18168 -0.41463,-0.27663 -0.64481,-0.28364 z" />
+</svg>`;

@@ -1,0 +1,191 @@
+:host
+{    
+    font: inherit;
+    display: grid;
+    border: solid 1px;
+    position: relative;
+    background: canvas;
+    color: canvastext;
+
+    --icon-size: 12px;
+    --brand-icon-size: 24px;
+    --button-icon-size: var(--icon-size);
+    --pill-icon-size: var(--icon-size);
+    --dialog-header-icon-size: 32px;
+}
+input, button, textarea, select 
+{
+    font: inherit; 
+}
+
+button
+{
+    display: inline-flex;
+    align-items: center;
+    gap: .5em;
+}
+
+button svg
+{
+    width: var(--button-icon-size);
+    height: var(--button-icon-size);
+}
+
+image-input [slot="placeholder"]
+{
+    display: grid;
+    justify-items: center;
+    gap: .25em;
+    padding: .5em;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+[part="welcome"]
+{
+    align-self: center;
+    justify-self: center;
+    padding: 1em;
+}
+
+[part="logo"]
+{
+    width: 100%;
+    height: 80px;
+}
+
+[part="loading"]
+{
+    align-self: center;
+    justify-self: center;
+
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 3px solid highlighttext;
+    border-radius: 50%;
+    border-top-color: highlight;
+    animation: loading-spin 1s ease-in-out infinite;
+    -webkit-animation: loading-spin 1s ease-in-out infinite;
+    opacity: 0;
+    transition: opacity 200ms linear;
+    pointer-events: none;
+    position: absolute;
+}
+:host([loading]) [part="loading"]
+{
+    opacity: 1;
+    pointer-events: initial;
+    position: static;
+}
+
+dialog
+{
+    max-height: 80%;
+    overflow: hidden;
+    flex-direction: column;
+    transition: transform 200ms ease, opacity 200ms ease;
+}
+dialog[open]
+{
+    display: flex;
+    opacity: 1;
+}
+@starting-style 
+{
+    dialog[open]
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+[part="action-history"]
+{
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    height: 200px;
+}
+
+
+[part="deleted-items"] [data-restore="false"]
+{
+    scale: .98 .9;
+    opacity: .5;
+    pointer-events: none;
+}
+
+[to-delete]
+{
+    text-decoration: line-through;
+    color: #444;
+}
+
+[part="notifications"]
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
+    width: 375px;
+}
+  
+@keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }
+@-webkit-keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }
+
+[part="icon-definitions"]
+{
+    display: none;
+}
+
+@media (max-width: 665px) 
+{
+    :host
+    {
+        grid-template-rows: auto 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: 'menu'
+        'taskboard';
+    }
+
+    task-board
+    {
+        scroll-snap-type: x mandatory;
+    }
+    task-list
+    {
+        scroll-snap-align: start;
+        width: 100%;
+    } 
+}
+@media (max-width: 800px) 
+{
+    
+}
+
+/* only desktop */
+@media (min-width: 665px) 
+{
+    :host
+    {
+        grid-template-columns: auto 1fr;
+        grid-template-areas: 'menu taskboard';
+    }
+
+    [part="app-router"]
+    {
+        grid-column: 2;
+        grid-row: 1;
+        flex: 1;
+    }
+
+    [part="loading"]
+    {
+        grid-column: 2;
+        grid-row: 1;
+    }
+}
+@media (min-width: 800px) 
+{
+
+}

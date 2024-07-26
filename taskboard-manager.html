@@ -1,0 +1,324 @@
+<menu part="menu">
+    <header part="header">
+        <div part="branding" title="Manager Icon">
+            <svg class="logo mark" alt="Manager Brand Mark">
+                <use href="#icon-definition_logo-mark"></use>
+            </svg>
+        </div>
+        <button type="button" is="route-button" target="[part='app-router']" path="#boards" part="open-board-browser" title="Find Board">
+            <svg class="icon magnifying-glass" >
+                <use href="#icon-definition_magnifying-glass"></use>
+            </svg>
+            <span class="label">Find Board</span>
+        </button>
+        <button type="button" is="route-button" target="[part='app-router']" path="#config" part="open-settings" title="App Administration">
+            <svg class="icon gear" >
+                <use href="#icon-definition_gear"></use>
+            </svg>
+        </button>
+    </header>
+    <editable-list part="boards" remove="false" edit="true" cancel-edit>
+        <button type="button" slot="add" part="new-board-button_list" title="New Board">
+            <svg class="icon plus" >
+                <use href="#icon-definition_plus"></use>
+            </svg>
+            <span class="label">New Board</span>
+        </button>
+        <template part="edit-button">
+            <svg class="icon expand" >
+                <use href="#icon-definition_stylus"></use>
+            </svg>
+        </template>
+    </editable-list>
+</menu>
+<path-router part="app-router" manual>
+    <path-route path="/">
+        <div part="welcome">
+            <fieldset>
+                <legend>Welcome</legend>
+                <svg part="logo" >
+                    <use href="#icon-definition_logo"></use>
+                </svg>
+                <div class="description">
+                    <p>Welcome to your Taskboard Manager!</p>
+                    <p>Create a <a part="new-board-link">new board</a>, or select a recently-opened board below.</p>
+                </div>
+                <fieldset>
+                    <legend>Recent Boards</legend>
+                    <editable-list part="recent-boards">
+                        <button type="button" slot="add" part="new-board-button_welcome" title="New Board">
+                            <svg class="icon plus" >
+                                <use href="#icon-definition_plus"></use>
+                            </svg>
+                            <span class="label">New Board</span>
+                        </button>
+                    </editable-list>
+                </fieldset>
+            </fieldset>
+        </div>
+    </path-route>
+    <path-route path="/board/:id" part="board-route">
+        <task-board part="task-board"></task-board>
+    </path-route>
+    <dialog part="board-browser-dialog" is="route-dialog" path="boards">
+        <header part="board-browser-header">
+            <svg part="board-browser-icon" >
+                <use href="#icon-definition_task-board"></use>
+            </svg>
+            <span part="board-browser-title">Boards</span>
+            <collection-filter part="board-browser-filter"></collection-filter>
+        </header>
+        <collection-browser part="board-browser"></collection-browser>
+        <footer part="board-browser-footer">
+            <form part="board-browser-actions" method="dialog">
+                <button type="submit" part="board-browser-cancel">Cancel</button>
+                <button type="submit" part="board-browser-ok">Open</button>
+            </form>
+        </footer>
+    </dialog>
+    <dialog part="config-dialog" is="route-dialog" path="config/:subpage">
+        <header part="config-header">
+            <svg part="config-dialog-icon" >
+                <use href="#icon-definition_gear"></use>
+            </svg>
+            <span part="config-title">Configuration</span>
+        </header>
+        <menu>
+            <nav>
+                <a is="route-link" path="/settings" target="[part='config-router']">
+                    <svg part="settings-route-icon">
+                        <use href="#icon-definition_gear"></use>
+                    </svg>
+                    <span>Settings</span>
+                </a>
+                <a is="route-link" path="/data" target="[part='config-router']">
+                    <svg part="data-route-icon">
+                        <use href="#icon-definition_clock"></use>
+                    </svg>
+                    <span>Data</span>
+                </a>
+                <a is="route-link" path="/history" target="[part='config-router']">
+                    <svg part="history-route-icon">
+                        <use href="#icon-definition_clock"></use>
+                    </svg>
+                    <span>History</span>
+                </a>
+                <a is="route-link" path="/about" target="[part='config-router']">
+                    <svg part="about-route-icon">
+                        <use href="#icon-definition_info"></use>
+                    </svg>
+                    <span>About</span>
+                </a>
+            </nav>
+        </menu>
+        <path-router part="config-router">
+            <path-route path="/settings">
+                <header>App Settings</header>
+                <fieldset>
+                    <legend>Color Scheme</legend>
+                    <div class="button-group" part="scheme-options">
+                        <button data-value="inherit">Inherit</button>
+                        <button data-value="browser">Browser</button>
+                        <button data-value="light">Light</button>
+                        <button data-value="dark">Dark</button>
+                    </div>
+                </fieldset>
+            </path-route>
+            <path-route path="/data">
+                <div>
+                </div>
+                <fieldset>
+                    <legend>Import</legend>
+                    <form-field label="Import File">
+                        <file-input part="import-board-file">
+                            <svg slot="icon" part="import-file-icon" >
+                                <use href="#icon-definition_file"></use>
+                            </svg>
+                        </file-input>
+                    </form-field>
+                    <button part="import-button">
+                        <svg part="import-button-icon" >
+                            <use href="#icon-definition_import"></use>
+                        </svg>
+                        <span part="import-button-label">Import Board</span>
+                    </button>
+                </fieldset>
+                <div>
+                    <fieldset>
+                        <legend>Data Cleanup</legend>
+                        <p>Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>
+                        <p>Set how many days deleted item should perisist using the slider below.</p>
+                        <form-field label="Days">
+                            <input type="range" id="data-persist-days" part="data-persist-days" max="30" list="data-persist-days-values" />
+                            <datalist id="data-persist-days-values"  part="data-persist-days-values"></datalist>
+                            <span slot="postfix" part="data-persist-days-value"></span>
+                            <button slot="postfix" part="apply-data-persist-days-button">
+                                <svg part="apply-data-persist-days-icon">
+                                    <use href="#icon-definition_confirm-check"></use>
+                                </svg>
+                                <span part="apply-data-persist-days-label">Apply</span>
+                            </button>
+                        </form-field>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Pending Cleanup</legend>
+                        <p>The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>
+                        <editable-list part="deleted-items">
+                            <template slot="remove-button">
+                                <svg part="restore-item-icon" title="Restore">
+                                    <use href="#icon-definition_file"></use>
+                                </svg>
+                            </template>
+                        </editable-list>
+                        <button part="clear-deleted-button">
+                            <svg part="clear-deleted-icon" title="Clear">
+                                <use href="#icon-definition_trash"></use>
+                            </svg>
+                            <span part="clear-deleted-label">Clear Pending Items</span>
+                        </button>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Image Cache</legend>
+                        <p>Caching some image files provides undo and redo support.</p>
+                        <p>The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>
+                        <editable-list part="deleted-images"></editable-list>
+                        <button part="clear-image-cache-button">
+                            <svg part="clear-images-icon" title="Clear">
+                                <use href="#icon-definition_trash"></use>
+                            </svg>
+                            <span part="clear-images-label">Clear Image Cache</span>
+                        </button>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Clear Data</legend>
+                        <p>Delete all data, including app settings and history.</p>
+                        <button part="clear-data-button">
+                            <svg part="clear-data-icon" title="Clear">
+                                <use href="#icon-definition_trash"></use>
+                            </svg>
+                            <span part="clear-data-label">Clear All Data</span>
+                        </button>
+                    </fieldset>
+                </div>
+            </path-route>
+            <path-route path="/history">
+                <header>History</header>
+                <form-field label="History Length">
+                    <input type="range" id="action-history-length" part="action-history-length" max="150" list="action-history-length-values" />
+                    <datalist id="action-history-length-values"  part="action-history-length-values"></datalist>
+                    <span slot="postfix" part="action-history-length-value"></span>
+                    <button slot="postfix" part="apply-history-length-button">
+                        <svg part="apply-history-length-icon">
+                            <use href="#icon-definition_confirm-check"></use>
+                        </svg>
+                        <span part="apply-history-length-label">Apply</span>
+                    </button>
+                </form-field>
+                <div part="history-controls">
+                    <button part="history-control-undo">
+                        <span part="history-control-undo-label">Undo</span>
+                    </button>
+                    <button part="history-control-redo">
+                        <span part="history-control-redo-label">Redo</span>
+                    </button>
+                </div>
+                <action-history part="action-history"></action-history>
+                <button part="clear-history-button">
+                    <svg part="clear-history-icon" title="Clear">
+                        <use href="#icon-definition_trash"></use>
+                    </svg>
+                    <span part="clear-history-label">Clear History</span>
+                </button>
+            </path-route>
+            <path-route path="/about">
+                <fieldset>
+                    <legend>Version</legend>
+                    <div part="version-value">--.--.--</div>
+                </fieldset>
+                <fieldset>
+                    <legend>Copyright</legend>
+                    <div part="copyright-description">
+                        <!-- For derivative work, replace this license with your own copyright -->
+                        <p>The <em>My Boards</em> app is a PWA implementation of the <code>taskboard-manager</code> custom element.</p>
+                        <p xmlns:cc="http://creativecommons.org/ns#" >
+                            Both are released with 
+                            <a href="https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1" 
+                            target="_blank" 
+                            rel="license noopener noreferrer" 
+                            style="display:inline-block;">
+                                CC0 1.0
+                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt="">
+                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1" alt="">
+                            </a>
+                        </p>
+                        <!-- End of CC0 License -->
+                    </div>
+                </fieldset>
+            </path-route>
+        </path-router>
+        <footer part="config-footer">
+            <form part="config-actions" method="dialog">
+                <button type="submit" part="config-cancel">Cancel</button>
+                <button type="submit" part="config-ok">Ok</button>
+            </form>
+        </footer>
+    </dialog>
+    <dialog part="board-settings" is="route-dialog" path="board-settings">
+        <form method="dialog" part="board-settings-form">
+            <header part="board-settings-header">
+                <svg part="board-settings-icon" >
+                    <use href="#icon-definition_task-board"></use>
+                </svg>
+                <span part="board-settings-title">Board</span>
+            </header>
+            <taskboard-fields part="board-fields"></taskboard-fields>
+            <footer part="board-settings-footer">
+                <button type="submit" part="close-board-button">
+                <svg part="close-board-icon" >
+                    <use href="#icon-definition_trash"></use>
+                </svg>
+                </button>
+                <button type="submit" part="board-settings-cancel">Cancel</button>
+                <button type="submit" part="board-settings-save">Save</button>
+            </footer>
+        </form>
+    </dialog>
+    <dialog part="import-dialog" is="route-dialog" path="import">
+        <header part="import-header">
+            <svg part="import-dialog-icon" >
+                <use href="#icon-definition_import"></use>
+            </svg>
+            <span part="import-title">Import</span>
+        </header>
+        <div part="import-content">
+            <import-manager part="import-manager"></import-manager>
+        </div>
+        <footer part="import-footer">
+            <form part="import-actions" method="dialog">
+                <button type="submit" part="import-cancel">Cancel</button>
+                <button type="submit" part="import-ok">Import</button>
+            </form>
+        </footer>
+    </dialog>
+</path-router>
+<dialog part="confirmation-dialog">
+    <header part="confirmation-dialog-header">
+        <svg part="confirmation-dialog-icon" >
+            <use href="#icon-definition_import"></use>
+        </svg>
+        <span part="confirmation-dialog-header-label">Confirmation</span>
+    </header>
+    <path-router part="confirmation-router" manual>
+        <path-route path="info"></path-route>
+        <path-route path="warn"></path-route>
+        <path-route path="danger"></path-route>
+    </path-router>
+    <footer part="confirmation-dialog-footer">
+        <form part="confirmation-dialog-form" method="dialog">
+            <button type="submit" part="confirmation-cancel-button">Cancel</button>
+            <button type="submit" part="confirmation-confirm-button">Confirm</button>
+        </form>
+    </footer>
+</dialog>
+<div part="notifications"></div>
+<div part="loading"></div>

@@ -1,0 +1,38 @@
+import-manager .value
+{
+    display: flex;
+    align-items: center;
+}
+
+import-manager .old
+{
+    text-decoration: line-through;
+    opacity: .8;
+    padding-inline: .5em;
+    display: inline-block;
+    width: 100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+import-manager .value
+{
+    max-width: 500px;
+    overflow: hidden;
+    word-break: break-word;
+}
+import-manager .value:has(.display)
+{
+    display: flex;
+    flex-direction: column;
+}
+import-manager .value .view-link
+{
+    align-self: flex-end;
+}
+
+import-manager .removed
+{
+    text-decoration: line-through;
+}

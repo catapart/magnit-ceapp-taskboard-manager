@@ -1,0 +1,97 @@
+task-board
+{
+    background:  var(--board-background-source, url()), var(--board-background-color, transparent);
+    color: var(--board-font-color);
+    background-size: var(--background-image-display);
+    background-position: var(--background-image-position, var(--background-image-offset));
+    background-repeat: var(--background-image-repeat);
+}
+
+task-list
+{
+    background: var(--list-background-color);
+    color: var(--list-font-color);
+    border-color: var(--list-border-color, transparent);
+}
+task-list::part(name)
+{
+    color: inherit;
+}
+task-list.hide-color::part(color)
+{
+    display: none;
+}
+task-list.hide-color::part(header)
+{
+    grid-template-columns: 1fr auto;
+}
+
+task-card
+{
+    background-color: var(--task-background-color, none);
+    width: var(--task-width, 300px);
+    overflow: hidden;
+    font-family: sans-serif;
+    color: var(--task-font-color, currentcolor);
+    font-size: var(--task-font-size, 12px);
+    border-color: var(--task-border-color, var(--input-border-color));
+    border-radius: var(--task-border-radius, 2px);
+    border-top-width: var(--task-border-top, 1px);
+    border-right-width: var(--task-border-right, 1px);
+    border-bottom-width: var(--task-border-bottom, 1px);
+    border-left-width: var(--task-border-left, 1px);
+}
+task-card::part(description)
+{
+    font: inherit;
+}
+.center-remove task-card::part(remove-button)
+{
+    align-self: center;
+}
+task-card::part(is-finished)
+{
+    align-self: flex-start;
+}
+.center-checkbox task-card::part(is-finished)
+{
+    align-self: center;
+}
+
+.hide-task-color task-card::part(color)
+{
+    display: none;
+}
+
+.task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card
+{
+    border-color: var(--task-color);
+}
+.task-color-border.color-border-top task-card
+{
+    border-top-color: var(--task-color);
+}
+.task-color-border.color-border-right task-card
+{
+    border-right-color: var(--task-color);
+}
+.task-color-border.color-border-bottom task-card
+{
+    border-bottom-color: var(--task-color);
+}
+.task-color-border.color-border-left task-card
+{
+    border-left-color: var(--task-color);
+}
+.task-color-background task-card
+{
+    background-color: var(--task-color);
+}
+
+@media (min-width: 665px) 
+{
+    task-list
+    {
+        width: var(--list-width);
+    } 
+}

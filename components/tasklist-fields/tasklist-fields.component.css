@@ -1,0 +1,114 @@
+:host([removed])
+{
+    opacity: .6;
+    scale: .98 .9;
+    user-select: none;
+}
+
+input,select,textarea
+{
+    font: inherit;
+    min-width: 0;
+    width: auto;
+}
+
+[part="handle"]
+{
+    display: flex;
+    width: 15px;
+    align-self: stretch;
+    cursor: grab;
+    border-radius: 3px;
+    
+    background-image: radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%),
+    radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%);
+    background-size: 5px 5px;
+    background-position: 0 0, 2px 2px;
+}
+[part="handle"]:active
+{
+    cursor: grabbing;
+}
+
+[part="remove-icon"]
+,[part="duplicate-icon"]
+{
+    width: var(--icon-size, 12px);
+    height: var(--icon-size, 12px);
+}
+
+details summary
+{
+    user-select: none;
+    display: flex;
+    gap: .25em;
+}
+summary:before
+{
+    content: '▶';
+    transform-origin: 45% 50%;
+    transition: transform 100ms ease-out;
+    font-size: .78em;
+    align-self: center;
+    margin-right: .25em;
+}
+details[open] summary:before
+{
+    transform: rotate(90deg);
+}
+
+details [part="detail-content"]
+{
+    display: grid;
+    gap: 1em;
+    padding: 1em;
+}
+
+fieldset
+{
+    display: grid;
+    gap: 1em;
+    min-width: 0;
+    width: auto;
+}
+
+[part="color"]
+{
+    width: 3ch;
+}
+
+[part="name"]
+{
+    flex: 1;
+}
+
+[part="list-settings"]
+{
+    grid-template-columns: 1fr minmax(min-content, 18ch);
+}
+
+[part="list-settings"] .column
+{
+    display: grid;
+    gap: .5em;
+}
+
+[part="list-settings"] .column input[type="color"]
+{
+    height: auto;
+}
+
+input[type="text"]
+{
+    min-width: 5ch;
+}
+
+[part="list-width-field"] [part="container"]
+{
+    column-gap: .25em !important;
+}
+
+[part="list-width-field"] [slot="postfix"]
+{
+    align-self: flex-end;
+}

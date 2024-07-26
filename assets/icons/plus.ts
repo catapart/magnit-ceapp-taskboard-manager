@@ -1,0 +1,5 @@
+export const PlusIcon = `<svg id="icon-definition_plus" class="icon plus" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+    <path
+    style="color:#000000;fill:var(--icon-primary-color,InfoText);fill-opacity:1;stroke:var(--icon-secondary-color,InfoBackground);stroke-width:1;stroke-linecap:round;stroke-opacity:1;-inkscape-stroke:none"
+    d="M 11.406117,0.76837147 A 1.6733008,1.6733014 0 0 0 9.7322668,2.4422315 v 7.29197 h -7.29198 a 1.6733008,1.6733014 0 0 0 -1.67190999,1.6738595 1.6733008,1.6733014 0 0 0 1.67190999,1.67239 h 7.29198 v 7.29343 a 1.6733008,1.6733014 0 0 0 1.6738502,1.67241 1.6733008,1.6733014 0 0 0 1.67433,-1.67241 v -7.29343 h 7.29149 a 1.6733008,1.6733014 0 0 0 1.6724,-1.67239 1.6733008,1.6733014 0 0 0 -1.6724,-1.6738595 h -7.29149 v -7.29197 a 1.6733008,1.6733014 0 0 0 -1.67433,-1.67386003 z" />
+</svg>`;

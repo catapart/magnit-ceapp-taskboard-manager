@@ -1,0 +1,43 @@
+{
+  "id": "/",
+  "scope": "/",
+  "name": "My Boards",
+  "display": "standalone",
+  "start_url": "/",
+  "short_name": "My Boards",
+  "theme_color": "#00B4D8",
+  "description": "An app for managing tasks with 'kanban-like', lane-based task boards.",
+  "orientation": "any",
+  "background_color": "#03045E",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "display_override": ["window-controls-overlay"],
+  "icons": [
+    {
+      "src": "assets/icons/logo-mark.svg",
+      "sizes": "512x512 192x192 48x48 24x24"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/screenshots/screen.png",
+      "sizes": "1617x1012",
+      "type": "image/png"
+    }
+  ],
+  "features": [
+    "Cross Platform",
+    "Local Data",
+    "Customization",
+    "No Setup"
+  ],
+  "categories": [
+    "task",
+    "note",
+    "list",
+    "taskboard",
+    "kanban",
+    "task list"
+  ],
+  "version": "0.0.0"
+}

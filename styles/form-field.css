@@ -1,0 +1,40 @@
+[part="field-label"]
+{
+    white-space: nowrap;
+}
+form-field [part="label"]
+,form-field [part="field-label"]
+{
+    display: flex;
+    gap: .25em;
+    align-items: center;
+}
+form-field [part="label"] input
+,form-field [part="field-label"] input
+{
+    margin: 0;
+}
+form-field [part="label"] [part="text"]
+,form-field [part="field-label"] [part="text"]
+{
+    flex: 1;
+}
+
+form-field [part="container"]
+{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: .25em;
+}
+form-field [part="container"]:has([slot="postfix"])
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 0;
+    row-gap: .25em;
+}
+form-field [part="container"]:has([slot="postfix"]) [part="field-label"]
+{
+    grid-column: span 2;
+}
+

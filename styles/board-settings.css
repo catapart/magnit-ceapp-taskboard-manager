@@ -1,0 +1,33 @@
+[part="board-settings-form"]
+{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+[part="board-settings-header"]
+{
+    display: flex;
+    align-items: center;
+    gap: .5em;
+    font-size: 1.2em;
+}
+[part="board-settings-header"] svg
+{
+    width: var(--dialog-header-icon-size);
+    height: var(--dialog-header-icon-size);
+}
+
+[part="board-fields"]
+{
+    overflow-y: auto;
+    flex: 1;
+}
+
+@media (min-width: 800px) 
+{
+    [part="board-settings"]
+    {
+        width: 801px;
+    }
+}

@@ -1,0 +1,14 @@
+.pill
+{
+    border-radius: 30px;
+    display: inline-flex;
+    gap: 10px;
+    background-color: field;
+    border: solid 1px fieldtext;
+}
+
+.pill svg
+{
+    width: var(--pill-icon-size);
+    height: var(--pill-icon-size);
+}
