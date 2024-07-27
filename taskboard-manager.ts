@@ -11,7 +11,7 @@ import html from './taskboard-manager.html?raw';
 import { Icons } from './assets/icons/icons.asset';
 
 // component definitions
-// import '../../simple/editable-list/editable-list.component';
+import { EditableListElement } from '@magnit-ce/editable-list';
 // import '../../simple/path-router/path-router.component';
 // import '../../simple/path-router/route-dialog.component';
 // import '../../simple/path-router/route-button.component';
@@ -203,6 +203,7 @@ export class TaskboardManagerComponent extends HTMLElement
         this.attachShadow({ mode: "open" });
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
+        console.log(EditableListElement, DataRecord);
 
         // const datastoreName = this.getAttribute('datastore-name');
         // this.#data = new TaskManagerComponentData((datastoreName == null) ? undefined : {name: datastoreName});

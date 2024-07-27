@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@magnit-ce/editable-list':
+    specifier: ^0.0.6
+    version: 0.0.6
   record-setter:
     specifier: ^1.0.6
     version: 1.0.6
@@ -489,6 +492,10 @@ packages:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
     dev: true
+
+  /@magnit-ce/editable-list@0.0.6:
+    resolution: {integrity: sha512-x9qdNqr7W8ygMpcF5IjeHFfkz8szxqdfp6R2xCAFqxSPNo/mHKWBZ1swboL6sj2okMOirsDBAtZ2hfz87cjVSQ==}
+    dev: false
 
   /@manypkg/find-root@1.1.0:
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
