@@ -5,7 +5,9 @@
   "main": "index.js",
   "module": "dist/taskboard-manager.mjs",
   "types": "dist/taskboard-manager.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup taskboard-manager.ts --format cjs,esm --dts --clean",
     "minify": "minify ./dist/taskboard-manager.js > ./dist/taskboard-manager.min.js",
@@ -40,6 +42,7 @@
   },
   "dependencies": {
     "@magnit-ce/editable-list": "^0.0.6",
+    "@magnit-ce/path-router": "^0.1.1",
     "record-setter": "^1.0.6"
   }
 }
