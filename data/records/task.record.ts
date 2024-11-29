@@ -8,6 +8,4 @@ export class TaskRecord extends DataRecord
     color: string = "#858585";
     description: string = "";
     isFinished: boolean = false;
-
-    deletedTimestamp?: number;
 }

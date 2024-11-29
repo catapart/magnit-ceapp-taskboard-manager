@@ -7,6 +7,4 @@ export class CustomImageRecord extends DataRecord
     name: string = "";
     description: string = "";
     image?: Blob;
-
-    deletedTimestamp?: number;
 }

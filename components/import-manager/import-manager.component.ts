@@ -1,11 +1,9 @@
-import '../../../../simple/record-tree/record-tree.component';
-
 import style from './import-manager.component.css?raw';
 import html from './import-manager.component.html?raw';
 
 import { BoardExport } from '../../data/foreign/exported-board';
-import { RecordTreeComponent } from '../../../../simple/record-tree/record-tree.component';
 import { RecordSetter } from 'record-setter';
+import { RecordTreeElement } from '@magnit-ce/record-tree';
 
 const ID_PROPERTIES = new Set(['id', 'listId', 'taskSettingsId', 'backgroundImageId', 'boardId']);
 
@@ -38,10 +36,10 @@ export class ImportManagerComponent extends HTMLElement
         let parent = this.getRootNode() as Document|ShadowRoot;
         parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
 
-        this.findPart<RecordTreeComponent>('import-preview').addCustomPropertyValueGenerator((title) =>
+        this.findPart<RecordTreeElement>('import-preview').addCustomPropertyValueGenerator((title: string) =>
         {
             return ID_PROPERTIES.has(title);
-        }, (title, value) =>
+        }, (_title: string, value: string) =>
         {
             const valueSpan = document.createElement('span');
             valueSpan.classList.add('value');
@@ -66,10 +64,10 @@ export class ImportManagerComponent extends HTMLElement
 
             return valueSpan;
         });
-        this.findPart<RecordTreeComponent>('import-preview').addCustomPropertyValueGenerator((title) =>
+        this.findPart<RecordTreeElement>('import-preview').addCustomPropertyValueGenerator((title: string) =>
         {
             return title.endsWith('_base64');
-        }, (title, value) =>
+        }, (_title: string, value: string) =>
         {
             const valueSpan = document.createElement('span');
             valueSpan.classList.add('value');
@@ -103,7 +101,7 @@ export class ImportManagerComponent extends HTMLElement
         this.#generatedIdMap.clear();
         const modifiedData = this.prepareData(boardData);
 
-        this.findPart<RecordTreeComponent>('import-preview').setData(modifiedData);
+        this.findPart<RecordTreeElement>('import-preview').setData(modifiedData);
     }
     prepareData(boardData: BoardExport)
     {
@@ -192,7 +190,7 @@ export class ImportManagerComponent extends HTMLElement
     
     getRecord()
     {
-        const data = this.findPart<RecordTreeComponent>('import-preview').getUpdatedData<BoardExport>();
+        const data = this.findPart<RecordTreeElement>('import-preview').getUpdatedData<BoardExport>();
         return data;
     }
 }

@@ -8,6 +8,7 @@
     color: canvastext;
 
     --icon-size: 12px;
+    --tab-icon-size: var(--icon-size);
     --brand-icon-size: 24px;
     --button-icon-size: var(--icon-size);
     --pill-icon-size: var(--icon-size);
@@ -79,6 +80,12 @@ image-input [slot="placeholder"]
     position: static;
 }
 
+[part="app-router"]
+{
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
 dialog
 {
     max-height: 80%;
@@ -128,6 +135,10 @@ dialog[open]
     right: 0;
     padding: 1em;
     width: 375px;
+}
+[part="notifications"]:empty
+{
+    pointer-events: none;
 }
   
 @keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }

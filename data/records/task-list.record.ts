@@ -24,6 +24,4 @@ export class TaskListRecord extends DataRecord
     useCustomWidth: boolean = false;
     width: number = 500;
     isCollapsed: boolean = false;
-
-    deletedTimestamp?: number;
 }

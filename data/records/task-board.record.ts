@@ -21,6 +21,4 @@ export class TaskBoardRecord extends DataRecord
     useCustomFontColor: boolean = false;
     fontColor: string = "#060703";
     taskSettingsId: string = "";
-
-    deletedTimestamp?: number;
 }

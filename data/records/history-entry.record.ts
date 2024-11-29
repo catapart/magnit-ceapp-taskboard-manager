@@ -1,4 +1,4 @@
-import { HistoryEntryType } from "../../../action-history/history-entry-type.enum";
+import { HistoryEntryType } from "@magnit-ce/action-history";
 import { HistoryEntryTargetType, HistoryEntryData } from "../history/history-entry-data";
 import { DataRecord } from "record-setter";
 

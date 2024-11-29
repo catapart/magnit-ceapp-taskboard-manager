@@ -49,6 +49,4 @@ export class TaskSettingsRecord extends DataRecord
     customBorderColor: string = "#0657A3";
 
     centerRemoveButton: boolean = false;
-
-    deletedTimestamp?: number;
 }

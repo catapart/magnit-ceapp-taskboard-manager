@@ -4,6 +4,11 @@
     width: var(--dialog-header-icon-size);
     height: var(--dialog-header-icon-size);
 }
+svg
+{
+    width: var(--tab-icon-size);
+    height: var(--tab-icon-size);
+}
 
 [part="import-board-file"]
 {

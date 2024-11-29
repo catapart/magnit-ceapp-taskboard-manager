@@ -5,13 +5,13 @@
                 <use href="#icon-definition_logo-mark"></use>
             </svg>
         </div>
-        <button type="button" is="route-button" target="[part='app-router']" path="#boards" part="open-board-browser" title="Find Board">
+        <button type="button" data-route="#boards" part="open-board-browser" title="Find Board">
             <svg class="icon magnifying-glass" >
                 <use href="#icon-definition_magnifying-glass"></use>
             </svg>
             <span class="label">Find Board</span>
         </button>
-        <button type="button" is="route-button" target="[part='app-router']" path="#config" part="open-settings" title="App Administration">
+        <button type="button" data-route="#config" part="open-settings" title="App Administration">
             <svg class="icon gear" >
                 <use href="#icon-definition_gear"></use>
             </svg>
@@ -31,8 +31,8 @@
         </template>
     </editable-list>
 </menu>
-<path-router part="app-router" manual>
-    <path-route path="/">
+<path-router part="app-router" path="">
+    <route-page>
         <div part="welcome">
             <fieldset>
                 <legend>Welcome</legend>
@@ -56,10 +56,10 @@
                 </fieldset>
             </fieldset>
         </div>
-    </path-route>
-    <path-route path="/board/:id" part="board-route">
+    </route-page>
+    <route-page path="board/:id" part="board-route">
         <task-board part="task-board"></task-board>
-    </path-route>
+    </route-page>
     <dialog part="board-browser-dialog" is="route-dialog" path="boards">
         <header part="board-browser-header">
             <svg part="board-browser-icon" >
@@ -76,7 +76,7 @@
             </form>
         </footer>
     </dialog>
-    <dialog part="config-dialog" is="route-dialog" path="config/:subpage">
+    <dialog part="config-dialog" is="route-dialog" path="config">
         <header part="config-header">
             <svg part="config-dialog-icon" >
                 <use href="#icon-definition_gear"></use>
@@ -85,25 +85,25 @@
         </header>
         <menu>
             <nav>
-                <a is="route-link" path="/settings" target="[part='config-router']">
+                <a data-route="#config/settings">
                     <svg part="settings-route-icon">
                         <use href="#icon-definition_gear"></use>
                     </svg>
                     <span>Settings</span>
                 </a>
-                <a is="route-link" path="/data" target="[part='config-router']">
+                <a data-route="#config/data">
                     <svg part="data-route-icon">
                         <use href="#icon-definition_clock"></use>
                     </svg>
                     <span>Data</span>
                 </a>
-                <a is="route-link" path="/history" target="[part='config-router']">
+                <a data-route="#config/history">
                     <svg part="history-route-icon">
                         <use href="#icon-definition_clock"></use>
                     </svg>
                     <span>History</span>
                 </a>
-                <a is="route-link" path="/about" target="[part='config-router']">
+                <a data-route="#config/about">
                     <svg part="about-route-icon">
                         <use href="#icon-definition_info"></use>
                     </svg>
@@ -111,8 +111,8 @@
                 </a>
             </nav>
         </menu>
-        <path-router part="config-router">
-            <path-route path="/settings">
+        <div part="config-route-view" class="route-view">
+            <route-page path="settings">
                 <header>App Settings</header>
                 <fieldset>
                     <legend>Color Scheme</legend>
@@ -123,8 +123,8 @@
                         <button data-value="dark">Dark</button>
                     </div>
                 </fieldset>
-            </path-route>
-            <path-route path="/data">
+            </route-page>
+            <route-page path="data">
                 <div>
                 </div>
                 <fieldset>
@@ -200,8 +200,8 @@
                         </button>
                     </fieldset>
                 </div>
-            </path-route>
-            <path-route path="/history">
+            </route-page>
+            <route-page path="history">
                 <header>History</header>
                 <form-field label="History Length">
                     <input type="range" id="action-history-length" part="action-history-length" max="150" list="action-history-length-values" />
@@ -229,8 +229,8 @@
                     </svg>
                     <span part="clear-history-label">Clear History</span>
                 </button>
-            </path-route>
-            <path-route path="/about">
+            </route-page>
+            <route-page path="about">
                 <fieldset>
                     <legend>Version</legend>
                     <div part="version-value">--.--.--</div>
@@ -254,7 +254,7 @@
                         <!-- End of CC0 License -->
                     </div>
                 </fieldset>
-            </path-route>
+            </route-page>
         </path-router>
         <footer part="config-footer">
             <form part="config-actions" method="dialog">
@@ -309,9 +309,9 @@
         <span part="confirmation-dialog-header-label">Confirmation</span>
     </header>
     <path-router part="confirmation-router" manual>
-        <path-route path="info"></path-route>
-        <path-route path="warn"></path-route>
-        <path-route path="danger"></path-route>
+        <route-page path="info"></route-page>
+        <route-page path="warn"></route-page>
+        <route-page path="danger"></route-page>
     </path-router>
     <footer part="confirmation-dialog-footer">
         <form part="confirmation-dialog-form" method="dialog">

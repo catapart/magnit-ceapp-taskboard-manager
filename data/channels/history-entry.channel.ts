@@ -2,7 +2,7 @@ import { RecordSetter } from "record-setter";
 import { DataChannel } from "./data.channel";
 import { HistoryEntryRecord } from "../records/history-entry.record";
 import { HistoryEntryData, HistoryEntryTargetType } from "../history/history-entry-data";
-import { HistoryEntryType } from "../../../action-history/history-entry-type.enum";
+import { HistoryEntryType } from "@magnit-ce/action-history";
 
 export class HistoryEntryChannel extends DataChannel<HistoryEntryRecord<HistoryEntryTargetType>>
 {
