@@ -780,7 +780,7 @@ export class TaskboardManagerElement extends HTMLElement
         for(let i = 0; i < boardItems.length; i++)
         {
             const boardItem = boardItems[i];
-            const boardId = boardItem.getAttribute('path')!.split('/')[2];
+            const boardId = boardItem.dataset.route!.split('/')[1];
             if(boardId == null) { throw new Error('Unset board id'); }
             orderedIds.push(boardId);
         }
