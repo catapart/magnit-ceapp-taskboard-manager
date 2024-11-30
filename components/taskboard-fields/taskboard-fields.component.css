@@ -37,7 +37,7 @@ form-field:not([part^="background-image-offset"]) input[inputmode="numeric"]
     width: 5ch;
 }
 
-form-field:not([part^="background-image-offset"]) [part="container"]
+form-field:not([part^="background-image-offset"]) .container
 {
     display: flex;
     flex-direction: column;
@@ -59,22 +59,28 @@ fieldset legend
     align-items: center;
 }
 
-form-field [part="label"]
-,form-field [part="field-label"]
+form-field .label
+,form-field .field-label
 {
     display: flex;
     gap: .25em;
     align-items: center;
 }
-form-field [part="label"] input
-,form-field [part="field-label"] input
+form-field .label input
+,form-field .field-label input
 {
     margin: 0;
 }
-form-field [part="label"] [part="text"]
-,form-field [part="field-label"] [part="text"]
+form-field .label [part="text"]
+,form-field .field-label [part="text"]
 {
     flex: 1;
+}
+
+image-input::part(label)
+{
+    grid-column: span 2;
+    grid-row: 1;
 }
 
 image-input::part(field)
@@ -88,6 +94,18 @@ image-input::part(preview)
 {
     max-height: 64px;
     height: 100%;
+}
+
+image-input::part(clear)
+{
+    grid-row: 2;
+    grid-column: 2;
+}
+
+image-input::part(view-link)
+{
+    grid-row: 2;
+    grid-column: 1;
 }
 
 image-input [slot="placeholder"]
@@ -113,12 +131,12 @@ image-input[specified] [slot="placeholder"]
     grid-column: span 2;
 }
 
-[part="name-field"] [part="container"]
+[part="name-field"] .container
 {
     flex: 1;
 }
 
-[part="appearance-fieldset"] [part="container"] > input
+[part="appearance-fieldset"] .container > input
 {
     flex: 1;
     min-height: 2ch;
@@ -135,7 +153,7 @@ image-input[specified] [slot="placeholder"]
     grid-column: span 2;
 }
 
-[part="background-image-offset"] form-field [part="container"]
+[part="background-image-offset"] form-field .container
 {
     display: flex;
     gap: .5em;
@@ -175,6 +193,17 @@ image-input[specified] [slot="placeholder"]
     grid-column: span 2;
 }
 
+
+[part="delete-fieldset"]
+{
+    grid-template-rows: 1fr auto;
+}
+
+[part="duplicate-fieldset"]
+{
+    grid-column: 2;
+}
+
 [part="export-fieldset"]
 {
     grid-column: span 2;
@@ -191,7 +220,7 @@ image-input[specified] [slot="placeholder"]
     padding: .5em 0;
 }
 
-[part="export-fieldset"] form-field [part="container"]
+[part="export-fieldset"] form-field .container
 {
     display: flex;
     flex-direction: row-reverse;

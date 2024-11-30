@@ -11,7 +11,7 @@ var board_browser_default = '[part="board-browser-header"]\r\n{\r\n    display: 
 var board_settings_default = '[part="board-settings-form"]\r\n{\r\n    display: flex;\r\n    flex-direction: column;\r\n    overflow: hidden;\r\n}\r\n\r\n[part="board-settings-header"]\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: .5em;\r\n    font-size: 1.2em;\r\n}\r\n[part="board-settings-header"] svg\r\n{\r\n    width: var(--dialog-header-icon-size);\r\n    height: var(--dialog-header-icon-size);\r\n}\r\n\r\n[part="board-fields"]\r\n{\r\n    overflow-y: auto;\r\n    flex: 1;\r\n}\r\n\r\n@media (min-width: 800px) \r\n{\r\n    [part="board-settings"]\r\n    {\r\n        width: 801px;\r\n    }\r\n}';
 
 // styles/settings.css?raw
-var settings_default = "task-board\r\n{\r\n    background:  var(--board-background-source), var(--board-background-color, transparent);\r\n    color: var(--board-font-color);\r\n    background-size: var(--background-image-display);\r\n    background-position: var(--background-image-position, var(--background-image-offset));\r\n    background-repeat: var(--background-image-repeat);\r\n}\r\n\r\ntask-list\r\n{\r\n    background: var(--list-background-color);\r\n    color: var(--list-font-color);\r\n    border-color: var(--list-border-color, transparent);\r\n}\r\ntask-list::part(name)\r\n{\r\n    color: inherit;\r\n}\r\ntask-list.hide-color::part(color)\r\n{\r\n    display: none;\r\n}\r\ntask-list.hide-color::part(header)\r\n{\r\n    grid-template-columns: 1fr auto;\r\n}\r\n\r\ntask-card\r\n{\r\n    background-color: var(--task-background-color, none);\r\n    width: var(--task-width, 300px);\r\n    overflow: hidden;\r\n    font-family: sans-serif;\r\n    color: var(--task-font-color, currentcolor);\r\n    font-size: var(--task-font-size, 12px);\r\n    border-color: var(--task-border-color, var(--input-border-color));\r\n    border-radius: var(--task-border-radius, 2px);\r\n    border-top-width: var(--task-border-top, 1px);\r\n    border-right-width: var(--task-border-right, 1px);\r\n    border-bottom-width: var(--task-border-bottom, 1px);\r\n    border-left-width: var(--task-border-left, 1px);\r\n}\r\ntask-card::part(description)\r\n{\r\n    font: inherit;\r\n}\r\n.center-remove task-card::part(remove-button)\r\n{\r\n    align-self: center;\r\n}\r\ntask-card::part(is-finished)\r\n{\r\n    align-self: flex-start;\r\n}\r\n.center-checkbox task-card::part(is-finished)\r\n{\r\n    align-self: center;\r\n}\r\n\r\n.hide-task-color task-card::part(color)\r\n{\r\n    display: none;\r\n}\r\n\r\n.task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card\r\n{\r\n    border-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-top task-card\r\n{\r\n    border-top-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-right task-card\r\n{\r\n    border-right-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-bottom task-card\r\n{\r\n    border-bottom-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-left task-card\r\n{\r\n    border-left-color: var(--task-color);\r\n}\r\n.task-color-background task-card\r\n{\r\n    background-color: var(--task-color);\r\n}\r\n\r\n@media (min-width: 665px) \r\n{\r\n    task-list\r\n    {\r\n        width: var(--list-width);\r\n    } \r\n}";
+var settings_default = 'task-board\r\n{\r\n    background-color: var(--board-background-color, transparent);\r\n    color: var(--board-font-color);\r\n}\r\ntask-board[style*="--board-background-source"]\r\n{\r\n    background:  var(--board-background-source), var(--board-background-color, transparent);\r\n    background-size: var(--background-image-display);\r\n    background-position: var(--background-image-position, var(--background-image-offset));\r\n    background-repeat: var(--background-image-repeat);\r\n}\r\n\r\ntask-list\r\n{\r\n    background: var(--list-background-color);\r\n    color: var(--list-font-color);\r\n    border-color: var(--list-border-color, transparent);\r\n}\r\ntask-list::part(name)\r\n{\r\n    color: inherit;\r\n}\r\ntask-list.hide-color::part(color)\r\n{\r\n    display: none;\r\n}\r\ntask-list.hide-color::part(header)\r\n{\r\n    grid-template-columns: 1fr auto;\r\n}\r\n\r\ntask-card\r\n{\r\n    background-color: var(--task-background-color, none);\r\n    width: var(--task-width, 300px);\r\n    overflow: hidden;\r\n    font-family: sans-serif;\r\n    color: var(--task-font-color, currentcolor);\r\n    font-size: var(--task-font-size, 12px);\r\n    border-color: var(--task-border-color, var(--input-border-color));\r\n    border-radius: var(--task-border-radius, 2px);\r\n    border-top-width: var(--task-border-top, 1px);\r\n    border-right-width: var(--task-border-right, 1px);\r\n    border-bottom-width: var(--task-border-bottom, 1px);\r\n    border-left-width: var(--task-border-left, 1px);\r\n}\r\ntask-card::part(description)\r\n{\r\n    font: inherit;\r\n}\r\n.center-remove task-card::part(remove-button)\r\n{\r\n    align-self: center;\r\n}\r\ntask-card::part(is-finished)\r\n{\r\n    align-self: flex-start;\r\n}\r\n.center-checkbox task-card::part(is-finished)\r\n{\r\n    align-self: center;\r\n}\r\n\r\n.hide-task-color task-card::part(color)\r\n{\r\n    display: none;\r\n}\r\n\r\n.task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card\r\n{\r\n    border-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-top task-card\r\n{\r\n    border-top-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-right task-card\r\n{\r\n    border-right-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-bottom task-card\r\n{\r\n    border-bottom-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-left task-card\r\n{\r\n    border-left-color: var(--task-color);\r\n}\r\n.task-color-background task-card\r\n{\r\n    background-color: var(--task-color);\r\n}\r\n\r\n@media (min-width: 665px) \r\n{\r\n    task-list\r\n    {\r\n        width: var(--list-width);\r\n    } \r\n}';
 
 // taskboard-manager.css?raw
 var taskboard_manager_default = `*\r
@@ -34,6 +34,8 @@ var taskboard_manager_default = `*\r
     --button-icon-size: var(--icon-size);\r
     --pill-icon-size: var(--icon-size);\r
     --dialog-header-icon-size: 32px;\r
+\r
+    --task-width: auto;\r
 }\r
 input, button, textarea, select \r
 {\r
@@ -103,8 +105,14 @@ image-input [slot="placeholder"]\r
 \r
 [part="app-router"]\r
 {\r
-    overflow-x: auto;\r
-    overflow-y: hidden;\r
+    /* overflow-x: auto;\r
+    overflow-y: hidden; */\r
+}\r
+\r
+[part="board-route"]\r
+{\r
+    display: flex;\r
+    overflow: hidden;\r
 }\r
 \r
 dialog\r
@@ -1791,6 +1799,18 @@ fieldset\r
     width: auto;\r
 }\r
 \r
+form-field .container\r
+{\r
+    display: grid;\r
+    grid-template-rows: auto 1fr;\r
+    gap: 7px;\r
+}\r
+\r
+form-field input[type="color"]\r
+{\r
+    width: 100%;\r
+}\r
+\r
 [part="color"]\r
 {\r
     width: 3ch;\r
@@ -1822,7 +1842,7 @@ input[type="text"]\r
     min-width: 5ch;\r
 }\r
 \r
-[part="list-width-field"] [part="container"]\r
+[part="list-width-field"] .container\r
 {\r
     column-gap: .25em !important;\r
 }\r
@@ -1958,10 +1978,10 @@ var TaskSettingsRecord = class extends DataRecord {
 };
 
 // components/task-fields/task-fields.component.css?raw
-var task_fields_component_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-columns: min-content min-content min-content;\r\n    justify-content: center;\r\n}\r\n\r\nfieldset\r\n{\r\n    display: grid;\r\n    gap: 1em;\r\n    min-width: 0;\r\n    width: auto;\r\n}\r\ninput,select,textarea\r\n{\r\n    font: inherit;\r\n    min-width: 0;\r\n    width: auto;\r\n}\r\n\r\ninput[type="text"]\r\n{\r\n    min-width: 5ch;\r\n}\r\n\r\n[part="appearance-fields"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr;\r\n}\r\n\r\n[part="appearance-fields"] [part="container"] > input\r\n{\r\n    flex: 1;\r\n    min-height: 2ch;\r\n}\r\n\r\n[part="border-radius-field"] [part="option"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto;\r\n}\r\n\r\n[part="border-weights-fields"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto;\r\n    grid-template-rows: min-content min-content;\r\n}\r\n\r\n[part="font-size-field"] [part="container"]\r\n,[part="card-width-field"] [part="container"]\r\n,[part="border-weights-fields"] [part="container"]\r\n{\r\n    align-items: flex-start;\r\n    column-gap: .25em !important;\r\n}\r\n\r\n[part="font-size-field"] [slot="postfix"]\r\n,[part="card-width-field"] [part="container"]\r\n,[part="card-width-field"] [slot="postfix"]\r\n,[part="card-width-field"] input[type="text"]\r\n,[part="border-weights-fields"] [slot="postfix"]\r\n{\r\n    align-self: flex-end;\r\n}\r\n\r\n[part="center-checkbox-field"] input\r\n,[part="center-remove-button-field"] input\r\n{\r\n    justify-self: flex-start;\r\n    margin: 0;\r\n}';
+var task_fields_component_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto minmax(160px, 1fr) auto;\r\n}\r\n\r\nfieldset\r\n{\r\n    display: grid;\r\n    gap: 1em;\r\n    min-width: 0;\r\n    width: auto;\r\n}\r\ninput,select,textarea\r\n{\r\n    font: inherit;\r\n    min-width: 0;\r\n    width: auto;\r\n}\r\n\r\ninput[type="color"]\r\n{\r\n    width: 100%;\r\n}\r\ninput[type="text"][inputmode="numeric"]\r\n{\r\n    width: 5ch;\r\n}\r\n\r\nform-field .container\r\n{\r\n}\r\nform-field .field-label\r\n{\r\n    display: flex;\r\n    gap: 5px;\r\n    margin-bottom: 7px;\r\n}\r\n\r\n[part="appearance-fields"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr;\r\n}\r\n\r\n[part="appearance-fields"] .container > input\r\n{\r\n    flex: 1;\r\n    min-height: 2ch;\r\n}\r\n\r\n[part="border-radius-field"] .option\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto 1fr;\r\n    gap: 5px;\r\n}\r\n\r\n[part="border-weights-fields"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto;\r\n    grid-template-rows: min-content min-content;\r\n}\r\n\r\n[part="font-size-field"] .container\r\n,[part="card-width-field"] .container\r\n,[part="border-weights-fields"] .container\r\n{\r\n    align-items: flex-start;\r\n    column-gap: .25em !important;\r\n}\r\n\r\n[part="font-size-field"] [slot="postfix"]\r\n,[part="card-width-field"] .container\r\n,[part="card-width-field"] [slot="postfix"]\r\n,[part="card-width-field"] input[type="text"]\r\n,[part="border-weights-fields"] [slot="postfix"]\r\n{\r\n    align-self: flex-end;\r\n}\r\n\r\n[part="center-checkbox-field"] input\r\n,[part="center-remove-button-field"] input\r\n{\r\n    justify-self: flex-start;\r\n    margin: 0;\r\n}';
 
 // components/task-fields/task-fields.component.html?raw
-var task_fields_component_default2 = '<input type="hidden" name="record-id" part="record-id" />\r\n<fieldset part="appearance-fields">\r\n    <legend part="appearance-legend">Appearance</legend>\r\n\r\n    <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\r\n        <input type="color" name="background-color" part="background-color" value="#f9faf5" />\r\n    </form-field>\r\n    <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\r\n        <input type="color" name="font-color" part="font-color" value="#060703" />\r\n    </form-field>\r\n    <form-field part="font-size-field" label="Font Size" optional optional-title="Override Font Size?">\r\n        <input type="text" inputmode="numeric" name="font-size" part="font-size" />\r\n        <span part="font-size-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="border-color-field" label="Border Color" optional optional-title="Override Border Color?">\r\n        <input type="color" name="border-color" part="border-color" value="#060703" />\r\n    </form-field>\r\n    <form-field part="border-radius-field" label="Border Radius" optional optional-title="Override Border Radius?">\r\n        <input type="text" inputmode="numeric" name="border-radius" part="border-radius" />\r\n        <select part="border-radius-unit" slot="postfix">\r\n            <option value="px">px</option>\r\n            <option value="%">%</option>\r\n        </select>\r\n    </form-field>\r\n    <form-field part="color-display-field" label="Color Display">\r\n        <select name="color-display" part="color-display"></select>\r\n    </form-field>\r\n</fieldset>  \r\n\r\n<fieldset part="layout-fields">\r\n    <legend part="layout-legend">Layout</legend>\r\n    <form-field part="center-checkbox-field" label="Center Checkbox">\r\n        <input type="checkbox" name="center-checkbox" part="center-checkbox" title="Center the checkbox?" />\r\n    </form-field>\r\n    <form-field part="center-remove-button-field" label="Center Remove Button">\r\n        <input type="checkbox" name="center-remove-button" part="center-remove-button" title="Center the remove button?" />\r\n    </form-field>\r\n    <form-field part="card-width-field" label="Card Width" optional option-title="Override Task Card Width?">\r\n        <input type="text" inputmode="numeric" name="card-width" part="card-width" value="" />\r\n        <span part="card-width-unit" slot="postfix">px</span>\r\n    </form-field>\r\n</fieldset>      \r\n\r\n<fieldset part="border-weights-fields">\r\n    <legend part="border-weights-legend">Border Weights</legend>\r\n    <form-field part="border-top-field" label="Top" optional optional-title="Use a custom top border size?">\r\n        <input type="text" inputmode="numeric" name="border-top" part="border-top" />\r\n        <span part="border-top-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="border-right-field" label="Right" optional optional-title="Use a custom right border size?">\r\n        <input type="text" inputmode="numeric" name="border-right" part="border-right" />\r\n        <span part="border-right-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="border-bottom-field" label="Bottom" optional optional-title="Use a custom bottom border size?">\r\n        <input type="text" inputmode="numeric" name="border-bottom" part="border-bottom" />\r\n        <span part="border-bottom-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="border-left-field" label="Left" optional optional-title="Use a custom left border size?">\r\n        <input type="text" inputmode="numeric" name="border-left" part="border-left" />\r\n        <span part="border-left-unit" slot="postfix">px</span>\r\n    </form-field>\r\n</fieldset>';
+var task_fields_component_default2 = '<input type="hidden" name="record-id" part="record-id" />\r\n<fieldset part="appearance-fields">\r\n    <legend part="appearance-legend">Appearance</legend>\r\n\r\n    <form-field part="font-size-field" label="Font Size" optional optional-title="Override Font Size?">\r\n        <input type="text" inputmode="numeric" name="font-size" part="font-size" />\r\n        <span part="font-size-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\r\n        <input type="color" name="background-color" part="background-color" value="#f9faf5" />\r\n    </form-field>\r\n    <form-field part="border-radius-field" label="Border Radius" optional optional-title="Override Border Radius?">\r\n        <input type="text" inputmode="numeric" name="border-radius" part="border-radius" />\r\n        <select part="border-radius-unit" slot="postfix">\r\n            <option value="px">px</option>\r\n            <option value="%">%</option>\r\n        </select>\r\n    </form-field>\r\n    <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\r\n        <input type="color" name="font-color" part="font-color" value="#060703" />\r\n    </form-field>\r\n    <form-field part="color-display-field" label="Color Display">\r\n        <select name="color-display" part="color-display"></select>\r\n    </form-field>\r\n    <form-field part="border-color-field" label="Border Color" optional optional-title="Override Border Color?">\r\n        <input type="color" name="border-color" part="border-color" value="#060703" />\r\n    </form-field>\r\n</fieldset>  \r\n\r\n<fieldset part="layout-fields">\r\n    <legend part="layout-legend">Layout</legend>\r\n    <form-field part="center-checkbox-field" label="Center Checkbox">\r\n        <input type="checkbox" name="center-checkbox" part="center-checkbox" title="Center the checkbox?" />\r\n    </form-field>\r\n    <form-field part="center-remove-button-field" label="Center Remove Button">\r\n        <input type="checkbox" name="center-remove-button" part="center-remove-button" title="Center the remove button?" />\r\n    </form-field>\r\n    <form-field part="card-width-field" label="Card Width" optional option-title="Override Task Card Width?">\r\n        <input type="text" inputmode="numeric" name="card-width" part="card-width" value="" />\r\n        <span part="card-width-unit" slot="postfix">px</span>\r\n    </form-field>\r\n</fieldset>      \r\n\r\n<fieldset part="border-weights-fields">\r\n    <legend part="border-weights-legend">Border Weights</legend>\r\n    <form-field part="border-top-field" label="Top" optional optional-title="Use a custom top border size?">\r\n        <input type="text" inputmode="numeric" name="border-top" part="border-top" />\r\n        <span part="border-top-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="border-right-field" label="Right" optional optional-title="Use a custom right border size?">\r\n        <input type="text" inputmode="numeric" name="border-right" part="border-right" />\r\n        <span part="border-right-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="border-bottom-field" label="Bottom" optional optional-title="Use a custom bottom border size?">\r\n        <input type="text" inputmode="numeric" name="border-bottom" part="border-bottom" />\r\n        <span part="border-bottom-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="border-left-field" label="Left" optional optional-title="Use a custom left border size?">\r\n        <input type="text" inputmode="numeric" name="border-left" part="border-left" />\r\n        <span part="border-left-unit" slot="postfix">px</span>\r\n    </form-field>\r\n</fieldset>';
 
 // components/task-fields/task-fields.component.ts
 var COMPONENT_STYLESHEET2 = new CSSStyleSheet();
@@ -2098,7 +2118,7 @@ form-field:not([part^="background-image-offset"]) input[inputmode="numeric"]\r
     width: 5ch;\r
 }\r
 \r
-form-field:not([part^="background-image-offset"]) [part="container"]\r
+form-field:not([part^="background-image-offset"]) .container\r
 {\r
     display: flex;\r
     flex-direction: column;\r
@@ -2120,22 +2140,28 @@ fieldset legend\r
     align-items: center;\r
 }\r
 \r
-form-field [part="label"]\r
-,form-field [part="field-label"]\r
+form-field .label\r
+,form-field .field-label\r
 {\r
     display: flex;\r
     gap: .25em;\r
     align-items: center;\r
 }\r
-form-field [part="label"] input\r
-,form-field [part="field-label"] input\r
+form-field .label input\r
+,form-field .field-label input\r
 {\r
     margin: 0;\r
 }\r
-form-field [part="label"] [part="text"]\r
-,form-field [part="field-label"] [part="text"]\r
+form-field .label [part="text"]\r
+,form-field .field-label [part="text"]\r
 {\r
     flex: 1;\r
+}\r
+\r
+image-input::part(label)\r
+{\r
+    grid-column: span 2;\r
+    grid-row: 1;\r
 }\r
 \r
 image-input::part(field)\r
@@ -2149,6 +2175,18 @@ image-input::part(preview)\r
 {\r
     max-height: 64px;\r
     height: 100%;\r
+}\r
+\r
+image-input::part(clear)\r
+{\r
+    grid-row: 2;\r
+    grid-column: 2;\r
+}\r
+\r
+image-input::part(view-link)\r
+{\r
+    grid-row: 2;\r
+    grid-column: 1;\r
 }\r
 \r
 image-input [slot="placeholder"]\r
@@ -2174,12 +2212,12 @@ image-input[specified] [slot="placeholder"]\r
     grid-column: span 2;\r
 }\r
 \r
-[part="name-field"] [part="container"]\r
+[part="name-field"] .container\r
 {\r
     flex: 1;\r
 }\r
 \r
-[part="appearance-fieldset"] [part="container"] > input\r
+[part="appearance-fieldset"] .container > input\r
 {\r
     flex: 1;\r
     min-height: 2ch;\r
@@ -2196,7 +2234,7 @@ image-input[specified] [slot="placeholder"]\r
     grid-column: span 2;\r
 }\r
 \r
-[part="background-image-offset"] form-field [part="container"]\r
+[part="background-image-offset"] form-field .container\r
 {\r
     display: flex;\r
     gap: .5em;\r
@@ -2236,6 +2274,17 @@ image-input[specified] [slot="placeholder"]\r
     grid-column: span 2;\r
 }\r
 \r
+\r
+[part="delete-fieldset"]\r
+{\r
+    grid-template-rows: 1fr auto;\r
+}\r
+\r
+[part="duplicate-fieldset"]\r
+{\r
+    grid-column: 2;\r
+}\r
+\r
 [part="export-fieldset"]\r
 {\r
     grid-column: span 2;\r
@@ -2252,7 +2301,7 @@ image-input[specified] [slot="placeholder"]\r
     padding: .5em 0;\r
 }\r
 \r
-[part="export-fieldset"] form-field [part="container"]\r
+[part="export-fieldset"] form-field .container\r
 {\r
     display: flex;\r
     flex-direction: row-reverse;\r
@@ -2300,7 +2349,7 @@ button svg\r
 }`;
 
 // components/taskboard-fields/taskboard-fields.component.html?raw
-var taskboard_fields_component_default2 = '<form part="form">\r\n    <input type="hidden" name="record-id" part="record-id" />\r\n    <div part="properties">\r\n        <form-field label="Color" part="color-field">\r\n            <input type="color" part="color" name="color" value="#000000" />\r\n        </form-field>\r\n        <form-field label="Name" part="name-field">\r\n            <input type="text" part="name" name="name" value="New Board" />\r\n        </form-field>\r\n        <form-field label="Order" part="order-field">\r\n            <input type="text" part="order" name="order" inputmode="numeric" disabled />\r\n        </form-field>\r\n    </div>\r\n    <fieldset part="appearance-fieldset">\r\n        <legend>\r\n            <svg part="image-icon" >\r\n                <use href="#icon-definition_color"></use>\r\n            </svg>\r\n            <span part="appearance-label">Appearance</span>\r\n        </legend>\r\n        <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\r\n            <input type="color" name="background-color" part="background-color" value="#f9faf5" />\r\n        </form-field>\r\n        <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\r\n            <input type="color" name="font-color" part="font-color" value="#060703" />\r\n        </form-field>\r\n    </fieldset>\r\n    <fieldset part="image-fieldset">\r\n        <legend>\r\n            <svg part="image-icon" >\r\n                <use href="#icon-definition_image"></use>\r\n            </svg>\r\n            <span part="image-label">Background Image</span>\r\n        </legend>\r\n        <form-field part="background-image-field" label="Background Image" input-selector="image-input">\r\n            <image-input name="background-image" part="background-image">\r\n                <span slot="placeholder">\r\n                    <svg part="image-icon" >\r\n                        <use href="#icon-definition_image"></use>\r\n                    </svg>\r\n                    <span>Select an image...</span>\r\n                </span>\r\n            </image-input>\r\n        </form-field>\r\n        <form-field part="background-image-display-field" label="Display">\r\n            <select part="background-image-display" name="background-image-display">\r\n                <option value="stretch">Stretch</option>\r\n                <option value="center">Center</option>\r\n                <option value="tile">Tile</option>\r\n            </select>\r\n        </form-field>\r\n        <div part="background-image-offset">\r\n            <div part="offset-header">\r\n                <span part="offset-label">Offset</span>\r\n            </div>\r\n            <form-field part="background-image-offset-x-field" label="X">\r\n                <input type="text" inputmode="numeric" part="background-image-offset-x" name="background-image-offset-x" />\r\n            </form-field>\r\n            <form-field part="background-image-offset-y-field" label="Y">\r\n                <input type="text" inputmode="numeric" part="background-image-offset-y" name="background-image-offset-y" />\r\n            </form-field>\r\n        </div>\r\n    </fieldset>\r\n    <details open part="lists">\r\n        <summary part="lists-summary">\r\n            <svg part="lists-icon" >\r\n                <use href="#icon-definition_task-list"></use>\r\n            </svg>\r\n            <span part="lists-legend-label">Lists<span>\r\n        </summary>\r\n        <div part="list-items"><slot><em part="lists-placeholder">No Lists</em></slot></div>\r\n        <div part="list-actions">\r\n            <button type="button" part="clear-lists-button" title="Clear All Lists">\r\n                <svg part="clear-lists-button-icon" >\r\n                    <use href="#icon-definition_trash"></use>\r\n                </svg>\r\n                <span part="clear-board-lists-label">Clear</span>\r\n            </button>\r\n            <button type="button" part="add-list-button">\r\n                <svg part="add-list-button-icon" >\r\n                    <use href="#icon-definition_plus"></use>\r\n                </svg>\r\n                <span part="add-list-label">Add List</span>\r\n            </button>\r\n        </div>\r\n    </details>\r\n    <details part="tasks" open>\r\n        <summary part="tasks-summary">\r\n            <svg part="tasks-icon" >\r\n                <use href="#icon-definition_task"></use>\r\n            </svg>\r\n            <span part="tasks-label">Task Settings</span>\r\n        </summary>\r\n        <task-fields part="task-fields"></task-fields>\r\n    </details>\r\n    <fieldset part="delete-fieldset">\r\n        <legend part="delete-legend">Delete</legend>\r\n        <p>Delete this board?</p>\r\n        <button type="submit" part="remove-board-button">\r\n            <svg part="remove-board-icon" >\r\n                <use href="#icon-definition_trash"></use>\r\n            </svg>\r\n            <span part="remove-board-label">Delete</span>\r\n        </button>\r\n    </fieldset>\r\n    <fieldset part="export-fieldset">\r\n        <legend part="export-legend">Export</legend>\r\n        <div part="export-options">\r\n            <header>Options</header>\r\n            <form-field part="export-images-field" label="Export Background Image?">\r\n                <svg part="export-images-icon" slot="prefix">\r\n                    <use href="#icon-definition_image"></use>\r\n                </svg>\r\n                <input type="checkbox" part="export-background-image" checked="true">\r\n            </form-field>\r\n        </div>\r\n        <button part="export-button" type="button">\r\n            <svg part="export-button-icon" >\r\n                <use href="#icon-definition_export"></use>\r\n            </svg>\r\n            <span part="export-button-label">Export Board</span>\r\n        </button>\r\n    </fieldset>\r\n    <fieldset part="duplicate-fieldset">\r\n        <legend part="duplicate-legend">Duplicate</legend>\r\n        <p>Duplicate this board?</p>\r\n        <form-field label="New Board Name">\r\n            <input type="text" part="duplicate-board-new-name" />\r\n        </form-field>\r\n        <button type="button" part="duplicate-board-button">\r\n            <svg part="duplicate-board-icon" >\r\n                <use href="#icon-definition_trash"></use>\r\n            </svg>\r\n            <span part="duplicate-board-label">Duplicate</span>\r\n        </button>\r\n    </fieldset>\r\n</form>';
+var taskboard_fields_component_default2 = '\r\n<input type="hidden" name="record-id" part="record-id" />\r\n<div part="properties">\r\n    <form-field label="Color" part="color-field">\r\n        <input type="color" part="color" name="color" value="#000000" />\r\n    </form-field>\r\n    <form-field label="Name" part="name-field">\r\n        <input type="text" part="name" name="name" value="New Board" />\r\n    </form-field>\r\n    <form-field label="Order" part="order-field">\r\n        <input type="text" part="order" name="order" inputmode="numeric" disabled />\r\n    </form-field>\r\n</div>\r\n<fieldset part="appearance-fieldset">\r\n    <legend>\r\n        <svg part="image-icon" >\r\n            <use href="#icon-definition_color"></use>\r\n        </svg>\r\n        <span part="appearance-label">Appearance</span>\r\n    </legend>\r\n    <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\r\n        <input type="color" name="background-color" part="background-color" value="#f9faf5" />\r\n    </form-field>\r\n    <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\r\n        <input type="color" name="font-color" part="font-color" value="#060703" />\r\n    </form-field>\r\n</fieldset>\r\n<fieldset part="image-fieldset">\r\n    <legend>\r\n        <svg part="image-icon" >\r\n            <use href="#icon-definition_image"></use>\r\n        </svg>\r\n        <span part="image-label">Background Image</span>\r\n    </legend>\r\n    <form-field part="background-image-field" label="Background Image" input-selector="image-input">\r\n        <image-input name="background-image" part="background-image">\r\n            <span slot="placeholder">\r\n                <svg part="image-icon" >\r\n                    <use href="#icon-definition_image"></use>\r\n                </svg>\r\n                <span>Select an image...</span>\r\n            </span>\r\n        </image-input>\r\n    </form-field>\r\n    <form-field part="background-image-display-field" label="Display">\r\n        <select part="background-image-display" name="background-image-display">\r\n            <option value="stretch">Stretch</option>\r\n            <option value="center">Center</option>\r\n            <option value="tile">Tile</option>\r\n        </select>\r\n    </form-field>\r\n    <div part="background-image-offset">\r\n        <div part="offset-header">\r\n            <span part="offset-label">Offset</span>\r\n        </div>\r\n        <form-field part="background-image-offset-x-field" label="X">\r\n            <input type="text" inputmode="numeric" part="background-image-offset-x" name="background-image-offset-x" />\r\n        </form-field>\r\n        <form-field part="background-image-offset-y-field" label="Y">\r\n            <input type="text" inputmode="numeric" part="background-image-offset-y" name="background-image-offset-y" />\r\n        </form-field>\r\n    </div>\r\n</fieldset>\r\n<details open part="lists">\r\n    <summary part="lists-summary">\r\n        <svg part="lists-icon" >\r\n            <use href="#icon-definition_task-list"></use>\r\n        </svg>\r\n        <span part="lists-legend-label">Lists<span>\r\n    </summary>\r\n    <div part="list-items"><slot><em part="lists-placeholder">No Lists</em></slot></div>\r\n    <div part="list-actions">\r\n        <button type="button" part="clear-lists-button" title="Clear All Lists">\r\n            <svg part="clear-lists-button-icon" >\r\n                <use href="#icon-definition_trash"></use>\r\n            </svg>\r\n            <span part="clear-board-lists-label">Clear</span>\r\n        </button>\r\n        <button type="button" part="add-list-button">\r\n            <svg part="add-list-button-icon" >\r\n                <use href="#icon-definition_plus"></use>\r\n            </svg>\r\n            <span part="add-list-label">Add List</span>\r\n        </button>\r\n    </div>\r\n</details>\r\n<details part="tasks" open>\r\n    <summary part="tasks-summary">\r\n        <svg part="tasks-icon" >\r\n            <use href="#icon-definition_task"></use>\r\n        </svg>\r\n        <span part="tasks-label">Task Settings</span>\r\n    </summary>\r\n    <task-fields part="task-fields"></task-fields>\r\n</details>\r\n<fieldset part="delete-fieldset">\r\n    <legend part="delete-legend">Delete</legend>\r\n    <p>Delete this board?</p>\r\n    <button type="submit" part="remove-board-button">\r\n        <svg part="remove-board-icon" >\r\n            <use href="#icon-definition_trash"></use>\r\n        </svg>\r\n        <span part="remove-board-label">Delete</span>\r\n    </button>\r\n</fieldset>\r\n<fieldset part="duplicate-fieldset">\r\n    <legend part="duplicate-legend">Duplicate</legend>\r\n    <p>Duplicate this board?</p>\r\n    <form-field label="New Board Name">\r\n        <input type="text" part="duplicate-board-new-name" />\r\n    </form-field>\r\n    <button type="button" part="duplicate-board-button">\r\n        <svg part="duplicate-board-icon" >\r\n            <use href="#icon-definition_trash"></use>\r\n        </svg>\r\n        <span part="duplicate-board-label">Duplicate</span>\r\n    </button>\r\n</fieldset>\r\n<fieldset part="export-fieldset">\r\n    <legend part="export-legend">Export</legend>\r\n    <div part="export-options">\r\n        <header>Options</header>\r\n        <form-field part="export-images-field" label="Export Background Image?">\r\n            <svg part="export-images-icon" slot="prefix">\r\n                <use href="#icon-definition_image"></use>\r\n            </svg>\r\n            <input type="checkbox" part="export-background-image" checked="true">\r\n        </form-field>\r\n    </div>\r\n    <button part="export-button" type="button">\r\n        <svg part="export-button-icon" >\r\n            <use href="#icon-definition_export"></use>\r\n        </svg>\r\n        <span part="export-button-label">Export Board</span>\r\n    </button>\r\n</fieldset>';
 
 // data/records/task-board.record.ts
 var TaskBoardRecord = class extends DataRecord {

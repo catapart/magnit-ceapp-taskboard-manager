@@ -1,8 +1,7 @@
 :host
 {
     display: grid;
-    grid-template-columns: min-content min-content min-content;
-    justify-content: center;
+    grid-template-columns: auto minmax(160px, 1fr) auto;
 }
 
 fieldset
@@ -19,9 +18,23 @@ input,select,textarea
     width: auto;
 }
 
-input[type="text"]
+input[type="color"]
 {
-    min-width: 5ch;
+    width: 100%;
+}
+input[type="text"][inputmode="numeric"]
+{
+    width: 5ch;
+}
+
+form-field .container
+{
+}
+form-field .field-label
+{
+    display: flex;
+    gap: 5px;
+    margin-bottom: 7px;
 }
 
 [part="appearance-fields"]
@@ -30,16 +43,17 @@ input[type="text"]
     grid-template-columns: 1fr 1fr;
 }
 
-[part="appearance-fields"] [part="container"] > input
+[part="appearance-fields"] .container > input
 {
     flex: 1;
     min-height: 2ch;
 }
 
-[part="border-radius-field"] [part="option"]
+[part="border-radius-field"] .option
 {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr;
+    gap: 5px;
 }
 
 [part="border-weights-fields"]
@@ -49,16 +63,16 @@ input[type="text"]
     grid-template-rows: min-content min-content;
 }
 
-[part="font-size-field"] [part="container"]
-,[part="card-width-field"] [part="container"]
-,[part="border-weights-fields"] [part="container"]
+[part="font-size-field"] .container
+,[part="card-width-field"] .container
+,[part="border-weights-fields"] .container
 {
     align-items: flex-start;
     column-gap: .25em !important;
 }
 
 [part="font-size-field"] [slot="postfix"]
-,[part="card-width-field"] [part="container"]
+,[part="card-width-field"] .container
 ,[part="card-width-field"] [slot="postfix"]
 ,[part="card-width-field"] input[type="text"]
 ,[part="border-weights-fields"] [slot="postfix"]

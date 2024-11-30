@@ -1,7 +1,11 @@
 task-board
 {
-    background:  var(--board-background-source), var(--board-background-color, transparent);
+    background-color: var(--board-background-color, transparent);
     color: var(--board-font-color);
+}
+task-board[style*="--board-background-source"]
+{
+    background:  var(--board-background-source), var(--board-background-color, transparent);
     background-size: var(--background-image-display);
     background-position: var(--background-image-position, var(--background-image-offset));
     background-repeat: var(--background-image-repeat);

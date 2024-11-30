@@ -72,6 +72,18 @@ fieldset
     width: auto;
 }
 
+form-field .container
+{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 7px;
+}
+
+form-field input[type="color"]
+{
+    width: 100%;
+}
+
 [part="color"]
 {
     width: 3ch;
@@ -103,7 +115,7 @@ input[type="text"]
     min-width: 5ch;
 }
 
-[part="list-width-field"] [part="container"]
+[part="list-width-field"] .container
 {
     column-gap: .25em !important;
 }

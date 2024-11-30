@@ -18,6 +18,8 @@
     --button-icon-size: var(--icon-size);
     --pill-icon-size: var(--icon-size);
     --dialog-header-icon-size: 32px;
+
+    --task-width: auto;
 }
 input, button, textarea, select 
 {
@@ -87,8 +89,14 @@ image-input [slot="placeholder"]
 
 [part="app-router"]
 {
-    overflow-x: auto;
-    overflow-y: hidden;
+    /* overflow-x: auto;
+    overflow-y: hidden; */
+}
+
+[part="board-route"]
+{
+    display: flex;
+    overflow: hidden;
 }
 
 dialog
