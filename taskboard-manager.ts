@@ -497,7 +497,7 @@ export class TaskboardManagerElement extends HTMLElement
         // if(urlRequestedRoute.startsWith('/demo/app.html')) { urlRequestedRoute = urlRequestedRoute.substring(14); }
         
         const { windowPath, windowHash } = parseWindowPath();
-        await this.getPart<PathRouterElement>('app-router').navigate(windowPath + windowHash);
+        await this.getPart<PathRouterElement>('app-router').navigate(`${windowPath}#${windowHash}`);
 
         this.#removeExpiredData();
         // check each day if any deleted records expired
@@ -923,7 +923,7 @@ export class TaskboardManagerElement extends HTMLElement
             return;
         }
         
-        const boardItem = boards.querySelector(`a[path*="${board.id}"]`) as HTMLAnchorElement;
+        const boardItem = boards.querySelector(`a[data-route*="${board.id}"]`) as HTMLAnchorElement;
         if(boardItem == null)
         {
             MessageCardElement.notify(`An error occurred saving a task board.`, 
@@ -2405,7 +2405,7 @@ export class TaskboardManagerElement extends HTMLElement
     
     #getConfirmation(message: string, type: 'info'|'warn'|'danger' = 'info')
     {
-        this.getPart('confirmation-dialog').querySelector(`path-route[path="${type}"]`)!.innerHTML = message;
+        this.getPart('confirmation-dialog').querySelector(`route-page[path="${type}"]`)!.innerHTML = message;
         this.getPart<HTMLDialogElement>('confirmation-dialog').showModal();
         this.getPart<PathRouterElement>('confirmation-router').navigate(type);
         return new Promise<boolean>((resolve) => 

@@ -37,10 +37,27 @@ function boardBrowserOkButton_onClick(this: TaskboardManagerElement, event: Even
     // console.log(selected, selected[0].getAttribute('data-board-id') ?? 'no id');
     this.findPart<PathRouterElement>('app-router').navigate(`board/${boardId}`)
 }
+
 function boardBrowserSelection_onChange(this: TaskboardManagerElement, event: Event|CustomEvent)
 {
-    const { detail } = event as CustomEvent;
-    (detail.previousSelection as CaptionedThumbnailElement[]).forEach(item => item.isSelected = false);
+    if(event.target == this.findPart<CollectionBrowserElement>('board-browser'))
+    {
+        event.preventDefault();
+        return;
+    }
+
+    // if we're still going, this is a change event that
+    // was fired by the captioned-thumbnail, and has bubbled
+    // up to the collection-browser
+
+
+    // de-select other captioned thumbnail elements    
+    ([...this.findPart<CollectionBrowserElement>('board-browser')
+    .querySelectorAll('.selected')] as CaptionedThumbnailElement[])
+    .forEach(item => {
+        if(item == event.target) { return; }
+        item.isSelected = false;
+    })
 }
 function boardBrowserFilter_onChange(this: TaskboardManagerElement, event: Event|CustomEvent)
 {

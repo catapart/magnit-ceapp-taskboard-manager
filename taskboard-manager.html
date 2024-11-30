@@ -11,7 +11,7 @@
             </svg>
             <span class="label">Find Board</span>
         </button>
-        <button type="button" data-route="#config" part="open-settings" title="App Administration">
+        <button type="button" data-route="#config/settings" part="open-settings" title="App Administration">
             <svg class="icon gear" >
                 <use href="#icon-definition_gear"></use>
             </svg>
@@ -232,6 +232,10 @@
             </route-page>
             <route-page path="about">
                 <fieldset>
+                        <p>The <em>My Boards</em> app is a Single Page App (SPA) implementation of the <code>taskboard-manager</code> custom element.</p>
+                        <p>To see a Progress Web App implementation of the <code>taskboard-manager</code> custom element, see the <!--<a class="thin-task-logo" href="https://www.thin-task.com">Thin<span class="highlight">Task</span></a> app.--></p>
+                </fieldset>
+                <fieldset>
                     <legend>Version</legend>
                     <div part="version-value">--.--.--</div>
                 </fieldset>
@@ -239,7 +243,6 @@
                     <legend>Copyright</legend>
                     <div part="copyright-description">
                         <!-- For derivative work, replace this license with your own copyright -->
-                        <p>The <em>My Boards</em> app is a PWA implementation of the <code>taskboard-manager</code> custom element.</p>
                         <p xmlns:cc="http://creativecommons.org/ns#" >
                             Both are released with 
                             <a href="https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1" 
@@ -255,7 +258,7 @@
                     </div>
                 </fieldset>
             </route-page>
-        </path-router>
+        </div>
         <footer part="config-footer">
             <form part="config-actions" method="dialog">
                 <button type="submit" part="config-cancel">Cancel</button>

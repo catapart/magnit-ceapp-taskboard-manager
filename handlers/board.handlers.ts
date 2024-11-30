@@ -6,57 +6,51 @@ import { MessageCardElement, MessageCardType } from "@magnit-ce/message-card";
 
 export function addBoardHandlers(this: TaskboardManagerElement)
 {
-    const board = this.findPart<TaskBoardElement>('task-board');
-
-    // board.addEventListener('change', taskBoard_onChange.bind(this));
-
-    // board.addEventListener('listchange', taskBoard_onListChange.bind(this));
-    // board.addEventListener('listcollapse', taskBoard_onListCollapse.bind(this));
-    // board.addEventListener('taskchange', taskBoard_onTaskChange.bind(this));
-    // board.addEventListener('taskadd', taskBoard_onTaskAdd.bind(this));
-    // board.addEventListener('taskremove', taskBoard_onTaskRemove.bind(this));
-    // board.addEventListener('taskmove', taskBoard_onTaskMove.bind(this));
-
-    
+    const board = this.findPart<TaskBoardElement>('task-board');    
     board.addEventListener('change', taskBoard_onChange.bind(this));
     board.addEventListener('collapse', taskBoard_onListCollapse.bind(this));
-    // board.addEventListener('change', taskBoard_onTaskChange.bind(this));
     board.addEventListener('add', taskBoard_onTaskAdd.bind(this));
     board.addEventListener('remove', taskBoard_onTaskRemove.bind(this));
-    // board.addEventListener('taskmove', taskBoard_onTaskMove.bind(this));
+    board.addEventListener('added', taskBoard_onTaskMove.bind(this));
 }
 
 function taskBoard_onChange(this: TaskboardManagerElement, event: Event|CustomEvent)
 {
-    const data = (event as CustomEvent).detail;
-    console.log(data);
-
-    // taskBoard_onListChange
-    // taskBoard_onTaskChange
-    // taskBoard_onTaskMove
+    if(event.target instanceof TaskCardElement)
+    {
+        taskBoard_onTaskChange.call(this, event);
+    }
+    else if(event.target instanceof TaskListElement)
+    {
+        const { detail } = event as CustomEvent;
+        if(detail.order != null)
+        {
+            taskBoard_onTaskMove.call(this, event);
+        }
+        taskBoard_onListChange.call(this, event);
+    }
 }
 function taskBoard_onListChange(this: TaskboardManagerElement, event: Event|CustomEvent)
 {
-    const data = (event as CustomEvent).detail;
-    const target = data.list;
-    this[SHAREDACCESSKEY].updateListRecord(target);
+    this[SHAREDACCESSKEY].updateListRecord(event.target as TaskListElement);
 }
 function taskBoard_onListCollapse(this: TaskboardManagerElement, event: Event|CustomEvent)
 {
-    // const data = (event as CustomEvent).detail;
-    // console.log(data);
+    console.log(event.target);
 }
 async function taskBoard_onTaskChange(this: TaskboardManagerElement, event: Event|CustomEvent)
 {
-    const data = (event as CustomEvent).detail;
-    const target = data.card as TaskCardElement;
-    const parent = data.list as TaskListElement;
-    
-    if(data.target.getAttribute('type') == 'color')
+    const cardElement = (event.target as TaskCardElement);
+    const listElement = cardElement.closest('task-list') as TaskListElement;
+    if(listElement == null)
     {
-        data.card.style.setProperty('--task-color', data.target.value)
+        MessageCardElement.notify(`An error occurred updating a task.`, 
+        this.getPart('notifications'), { type: MessageCardType.Error });
+        console.error(new Error("Unable to identify a parent task-list element for an updated task-card element.."));
+        return;
     }
-    this[SHAREDACCESSKEY].updateTaskRecord(target, parent);
+    this[SHAREDACCESSKEY].updateTaskRecord(cardElement, listElement);
+    cardElement.style.setProperty('--task-color', cardElement.findPart<HTMLInputElement>('color').value);
 }
 async function taskBoard_onTaskAdd(this: TaskboardManagerElement, event: Event|CustomEvent)
 {
@@ -70,17 +64,16 @@ async function taskBoard_onTaskAdd(this: TaskboardManagerElement, event: Event|C
 
 function taskBoard_onTaskRemove(this: TaskboardManagerElement, event: Event|CustomEvent)
 {
-    // const data = (event as CustomEvent).detail;
     const card = (event.target as HTMLElement).closest('task-card') as TaskCardElement;
     card.remove();
     this[SHAREDACCESSKEY].deleteTaskRecord(card);
 }
 async function taskBoard_onTaskMove(this: TaskboardManagerElement, event: Event|CustomEvent)
 {
-    const data = (event as CustomEvent).detail;
-    const target = data.card as TaskCardElement;
-    const parent = data.newList as TaskListElement;
-    this[SHAREDACCESSKEY].updateTaskRecordsAfterMove(target, parent);
+    const { detail } = event as CustomEvent;
+    const cardElement = (detail.target as TaskCardElement);
+    const listElement = event.target as TaskListElement;
+    this[SHAREDACCESSKEY].updateTaskRecordsAfterMove(cardElement, listElement);
 }
 export async function taskDescription_onKeyUp(this: TaskboardManagerElement, event: KeyboardEvent)
 {
