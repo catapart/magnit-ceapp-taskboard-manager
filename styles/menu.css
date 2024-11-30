@@ -124,8 +124,8 @@
         margin: 0;
         padding: 0;
         display: grid;
-        align-items: flex-start;
-        grid-auto-rows: max-content;
+        grid-template-rows: 1fr auto;
+        overflow: hidden;
     }
     [part="boards"]::part(items)
     {
@@ -133,6 +133,7 @@
         padding: 0;
         display: grid;
         gap: .5em;
+        overflow-y: auto;
     }
     [part="boards"] [part="edit"]
     {

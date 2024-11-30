@@ -42,11 +42,11 @@ importers:
         specifier: ^0.0.2
         version: 0.0.2
       '@magnit-ce/task-board':
-        specifier: ^0.0.2
-        version: 0.0.2
-      '@magnit-ce/task-card':
         specifier: ^0.0.3
         version: 0.0.3
+      '@magnit-ce/task-card':
+        specifier: ^0.0.7
+        version: 0.0.7
       '@magnit-ce/task-list':
         specifier: ^0.0.10
         version: 0.0.10
@@ -333,11 +333,11 @@ packages:
   '@magnit-ce/selectable-items@0.0.6':
     resolution: {integrity: sha512-dR3MrdvRwyomu4dJa9QahT3fiHkexNXZYGzZLDRTHyLtusrDPCij7+OsvPPq0+fDPReSudTcjsZf3TnM01ytew==}
 
-  '@magnit-ce/task-board@0.0.2':
-    resolution: {integrity: sha512-yYcNhdS2DgrybKN+Qcz2Z/NoZvOryMax9hkTPGwCDW54osHXHfBZjdJUe7kpQ6E2vnZ3LiFPPINho9eMBPvNuA==}
+  '@magnit-ce/task-board@0.0.3':
+    resolution: {integrity: sha512-DqcAuYCl/iHKpEb7w/3zdcLqFt7Zv8UMZmzropS5ungeLT6BrPaWI7Oo2kh0UfJgT1mccNdwEgWuvOjP5wMedw==}
 
-  '@magnit-ce/task-card@0.0.3':
-    resolution: {integrity: sha512-rl/bGQhzzUazNYO/+hsALnwQ88uYeFJPRhb7ySlKtWgd6HcfVYBtCBAqcDVtvmdKwCgKylqXIfSEgZhWA4I/iA==}
+  '@magnit-ce/task-card@0.0.7':
+    resolution: {integrity: sha512-FUsIozMJ8pgtHaN95Fo8OouLZfkRvLx4ji5kzt1PlerAu6ZYXuoVfNSKIVcDGe48/ho3NoYeM4FqRAVfSmfytA==}
 
   '@magnit-ce/task-list@0.0.10':
     resolution: {integrity: sha512-DCfLsP7CYWFD7li/ATcmkYm2SpXxR6ZSodmQ0yPH0d1gb5gdvWz2fN4d8SCGb7Wx1uPU96sViRSFnR7ohE2Ewg==}
@@ -1699,9 +1699,9 @@ snapshots:
 
   '@magnit-ce/selectable-items@0.0.6': {}
 
-  '@magnit-ce/task-board@0.0.2': {}
+  '@magnit-ce/task-board@0.0.3': {}
 
-  '@magnit-ce/task-card@0.0.3': {}
+  '@magnit-ce/task-card@0.0.7': {}
 
   '@magnit-ce/task-list@0.0.10': {}
 
