@@ -72,7 +72,16 @@ export class ImportManagerComponent extends HTMLElement
             const valueSpan = document.createElement('span');
             valueSpan.classList.add('value');
 
-            if(value.length <= 1024)
+            if(value.startsWith("data:image"))
+            {
+                // image
+                const imagePreview = document.createElement('img');
+                imagePreview.classList.add('preview');
+                imagePreview.src = value;
+
+                valueSpan.append(imagePreview);
+            }
+            else if(value.length <= 1024)
             {
                 valueSpan.textContent = value;
             }

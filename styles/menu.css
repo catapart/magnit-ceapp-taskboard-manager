@@ -134,6 +134,7 @@
         display: grid;
         gap: .5em;
         overflow-y: auto;
+        grid-auto-rows: max-content;
     }
     [part="boards"] [part="edit"]
     {

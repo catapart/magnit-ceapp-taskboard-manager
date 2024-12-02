@@ -129,7 +129,7 @@
                 </div>
                 <fieldset>
                     <legend>Import</legend>
-                    <form-field label="Import File">
+                    <form-field label="Taskboard Data File" input-selector="file-input">
                         <file-input part="import-board-file">
                             <svg slot="icon" part="import-file-icon" >
                                 <use href="#icon-definition_file"></use>
@@ -222,7 +222,7 @@
                         <span part="history-control-redo-label">Redo</span>
                     </button>
                 </div>
-                <action-history part="action-history"></action-history>
+                <action-history part="action-history" reverse></action-history>
                 <button part="clear-history-button">
                     <svg part="clear-history-icon" title="Clear">
                         <use href="#icon-definition_trash"></use>

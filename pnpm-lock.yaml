@@ -24,14 +24,14 @@ importers:
         specifier: ^0.0.10
         version: 0.0.10
       '@magnit-ce/file-input':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
       '@magnit-ce/form-field':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.6
+        version: 0.0.6
       '@magnit-ce/image-input':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.4
+        version: 0.0.4
       '@magnit-ce/message-card':
         specifier: ^0.0.2
         version: 0.0.2
@@ -39,8 +39,8 @@ importers:
         specifier: ^0.2.8
         version: 0.2.8
       '@magnit-ce/record-tree':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.3
+        version: 0.0.3
       '@magnit-ce/task-board':
         specifier: ^0.0.3
         version: 0.0.3
@@ -312,14 +312,14 @@ packages:
   '@magnit-ce/editable-list@0.0.10':
     resolution: {integrity: sha512-C8tjc8dnzamnCj7zr76Rw/ZkrLSjc2AfFP5lHVyVmeqRRX3qdfApdRMRBEqn0SezPLASITU7yhquVfk7RnIqSQ==}
 
-  '@magnit-ce/file-input@0.0.3':
-    resolution: {integrity: sha512-8v+1GcocVrwzKixplPZYQGwgqVz3JeAUZ7O541qRBxYCOKnJ8DDoGwdOt7RIhqI6ePEMNtX55vd7weC4Qa/EsA==}
+  '@magnit-ce/file-input@0.0.4':
+    resolution: {integrity: sha512-maRG7NY+Bko+ZGcNdIu+gilc+g1FzOiUhM8BEAVh95jmte366SnmYSrP7Wcm4rnxkqv4cDpRS+Ora88GDAZnWw==}
 
-  '@magnit-ce/form-field@0.0.3':
-    resolution: {integrity: sha512-0JDBA3zrJFZSsvM+eGEVPfWjU+QR2zy11dNa0xp58Ds8DVWR4ZgNbjvScZb3JlxaBvB0Pksx5VmwM011x1xSUA==}
+  '@magnit-ce/form-field@0.0.6':
+    resolution: {integrity: sha512-m1hHuAiELItvjd2kJI1a1GK1ZsfFD3IWkhFvlIK7ebuKGoOvxqrBRqLufoFFVHs6nrxQFYahsJ6LwY+d1KjYiA==}
 
-  '@magnit-ce/image-input@0.0.3':
-    resolution: {integrity: sha512-jn2Z0jwQw3kEKfB7DFfK8zLw0gTJRvzX1Sl5goNBElTPM5aP17fP1VBQNYQgSfgcQWK+yV4MeI4kqY1XWqqIaA==}
+  '@magnit-ce/image-input@0.0.4':
+    resolution: {integrity: sha512-mM0PVbEH+M45ntmaYKPQgv8tIwx2QqnH3Jis41zcoRhOtvMCPqf/XyzcC9mHO7G08eO/q9in1MByMLeaoPiO1Q==}
 
   '@magnit-ce/message-card@0.0.2':
     resolution: {integrity: sha512-gzfbhi5KvDzH56tWsdKLJ9woPoI6mHm+yiZauVexbsn59P7f5dLv1Rj0QcIVqzAHWO/bbZl3uOhRhJWZj9To+g==}
@@ -327,8 +327,8 @@ packages:
   '@magnit-ce/path-router@0.2.8':
     resolution: {integrity: sha512-g9VsyBpEqbxYB3IJG+HVE/JKR9yBMiYwMpglsuAsJk8fXq1fPeNjEPZXIdp+bTsuWlR4PCk+phhK2oGq54w6lw==}
 
-  '@magnit-ce/record-tree@0.0.2':
-    resolution: {integrity: sha512-EzRKgcMSiNQ317S6oXdVBsgsQgLn5B7dXWqQipfwdVlsvHbniLxfcUA5yhXjqY+LCla7qN7gF9zOD3cjTDLIbA==}
+  '@magnit-ce/record-tree@0.0.3':
+    resolution: {integrity: sha512-awy3q8UGfACencogSOdVXa1E63V78thE3OBtZirzSCCszOe+8Qj1gjPHxukO7N9sIRPjwWSqHRIPCiTAe5KDJg==}
 
   '@magnit-ce/selectable-items@0.0.6':
     resolution: {integrity: sha512-dR3MrdvRwyomu4dJa9QahT3fiHkexNXZYGzZLDRTHyLtusrDPCij7+OsvPPq0+fDPReSudTcjsZf3TnM01ytew==}
@@ -1685,17 +1685,17 @@ snapshots:
 
   '@magnit-ce/editable-list@0.0.10': {}
 
-  '@magnit-ce/file-input@0.0.3': {}
+  '@magnit-ce/file-input@0.0.4': {}
 
-  '@magnit-ce/form-field@0.0.3': {}
+  '@magnit-ce/form-field@0.0.6': {}
 
-  '@magnit-ce/image-input@0.0.3': {}
+  '@magnit-ce/image-input@0.0.4': {}
 
   '@magnit-ce/message-card@0.0.2': {}
 
   '@magnit-ce/path-router@0.2.8': {}
 
-  '@magnit-ce/record-tree@0.0.2': {}
+  '@magnit-ce/record-tree@0.0.3': {}
 
   '@magnit-ce/selectable-items@0.0.6': {}
 

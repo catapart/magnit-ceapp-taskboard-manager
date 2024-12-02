@@ -18,7 +18,7 @@
     --button-icon-size: var(--icon-size);
     --pill-icon-size: var(--icon-size);
     --dialog-margin: 10px;
-    --dialog-header-icon-size: 32px;
+    --dialog-header-icon-size: 16px;
 
     --task-width: auto;
 }
@@ -122,6 +122,23 @@ dialog[open]
     }
 }
 
+dialog > header
+,dialog > form > header
+{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 7px;
+    align-items: center;
+    font-weight: bold;
+    padding-block: 5px;
+}
+dialog > header svg
+,dialog > form > header svg
+{
+    width: var(--dialog-header-icon-size);
+    height: var(--dialog-header-icon-size);
+}
+
 dialog .route-view
 {
     flex:1;
@@ -131,13 +148,6 @@ dialog .route-view
 dialog .route-view route-page
 {
     overflow: auto;
-}
-
-[part="action-history"]
-{
-    flex-direction: column-reverse;
-    justify-content: flex-end;
-    height: 200px;
 }
 
 
@@ -165,6 +175,18 @@ dialog .route-view route-page
 [part="notifications"]:empty
 {
     pointer-events: none;
+}
+
+
+[part="confirmation-router"]
+{
+    margin-block: 1em;
+}
+[part="confirmation-dialog-form"]
+{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
 }
   
 @keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }
@@ -221,6 +243,12 @@ dialog .route-view route-page
         grid-column: 2;
         grid-row: 1;
     }
+    dialog
+    {
+        min-width: 500px;
+        max-width: 850px;
+        top: 50px;
+    }
 
     task-card::part(description)
     {
@@ -229,5 +257,4 @@ dialog .route-view route-page
 }
 @media (min-width: 800px) 
 {
-
 }

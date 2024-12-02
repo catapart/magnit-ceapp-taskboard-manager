@@ -36,3 +36,8 @@ import-manager .removed
 {
     text-decoration: line-through;
 }
+
+import-manager .value img.preview
+{
+    max-height: 200px;
+}

@@ -1,15 +1,4 @@
-[part="board-browser-header"]
-{
-    display: flex;
-    align-items: center;
-    gap: .5em;
-    font-size: 1.2em;
-}
-[part="board-browser-header"] svg
-{
-    width: var(--dialog-header-icon-size);
-    height: var(--dialog-header-icon-size);
-}
+
 captioned-thumbnail svg
 {
     width: 36px;

@@ -5,23 +5,26 @@
     overflow: hidden;
 }
 
-[part="board-settings-header"]
-{
-    display: flex;
-    align-items: center;
-    gap: .5em;
-    font-size: 1.2em;
-}
-[part="board-settings-header"] svg
-{
-    width: var(--dialog-header-icon-size);
-    height: var(--dialog-header-icon-size);
-}
-
 [part="board-fields"]
 {
     overflow-y: auto;
     flex: 1;
+}
+
+[part="board-settings-footer"]
+{
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 7px;
+    padding-block: 5px;
+}
+[part="board-settings-cancel"]
+{
+    grid-column: 3;
+}
+[part="board-settings-save"]
+{
+    grid-column: 4;
 }
 
 @media (min-width: 800px) 

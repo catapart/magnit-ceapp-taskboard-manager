@@ -137,8 +137,7 @@ export function parseWindowPath_pwa()
     return { windowPath, windowHash }
 }
 export function parseWindowPath()
-{    
-    // let windowPath = window.location.search.substring(1);
+{
     const pathArray = window.location.search.substring(1).split('=');
     let windowPath = pathArray[1] ?? "";
     if(windowPath.startsWith('/')) { windowPath = windowPath.substring(1); }

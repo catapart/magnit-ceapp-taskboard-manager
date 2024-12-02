@@ -497,7 +497,17 @@ export class TaskboardManagerElement extends HTMLElement
         // if(urlRequestedRoute.startsWith('/demo/app.html')) { urlRequestedRoute = urlRequestedRoute.substring(14); }
         
         const { windowPath, windowHash } = parseWindowPath();
-        await this.getPart<PathRouterElement>('app-router').navigate(`${windowPath}#${windowHash}`);
+        const filteredWindowHash = windowHash.replace('import', '');
+        await this.getPart<PathRouterElement>('app-router').navigate(`${windowPath}#${filteredWindowHash}`);
+        
+        if(filteredWindowHash != windowHash)
+        {
+            // if the last session ended with a dialog open that
+            // was not one allowed to be open on startup (like the 
+            // import dialog), we update the url, as well as the router's path
+            const newHistoryState =  `${window.origin}/demo/app.html?path=${windowPath}${(filteredWindowHash != "") ? `#${filteredWindowHash}` : ''}`;
+            window.history.replaceState(null, '', newHistoryState);
+        }
 
         this.#removeExpiredData();
         // check each day if any deleted records expired
@@ -749,8 +759,7 @@ export class TaskboardManagerElement extends HTMLElement
         {
             const entry = boards[i];
             const element = document.createElement('a');
-            element.setAttribute('path', `/board/${entry.id}`);
-            element.setAttribute('target', `[part='app-router']`);
+            element.setAttribute('data-route', `board/${entry.id}`);
             element.textContent = entry.description;
             entries.push(element);
         }
@@ -1664,7 +1673,7 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const channel = this.#getChannel(this.#data.historyEntries, HISTORY_ERROR_MESSAGE, 'danger');
 
-        [...this.getPart('action-history').querySelectorAll('action-history-entry')].map(item => item.remove());
+        [...this.getPart('action-history').querySelectorAll('[data-entry]')].map(item => item.remove());
 
         const records = await channel.getAll('timestamp');
         if(records.length == 0)
@@ -1687,7 +1696,7 @@ export class TaskboardManagerElement extends HTMLElement
             entries.push(entry);
             if(i == activeEntryIndex)
             {
-                entry.classList.add(ATTRIBUTENAME_ACTIVE); 
+                entry.toggleAttribute(ATTRIBUTENAME_ACTIVE, true); 
                 activeEntry = entry;
                 continue;
             }
@@ -1705,7 +1714,7 @@ export class TaskboardManagerElement extends HTMLElement
     #createActionHistoryEntryElement(entry: HistoryEntryRecord)
     {
         const element = document.createElement('div');
-        element.classList.add('history-entry');
+        element.toggleAttribute('data-entry', true);
         element.setAttribute('timestamp', entry.timestamp.toString());
         element.setAttribute('data-entry-id', entry.id);
         element.innerHTML = `<span class="action-type">${entry.action.toUpperCase()}</span>
@@ -2253,7 +2262,12 @@ export class TaskboardManagerElement extends HTMLElement
     async #openImportManager(data: any)
     {
         const boardData = new BoardExport(data, data.taskSettings, data.backgroundImage, data.lists);
-        this.findPart<PathRouterElement>('app-router').navigate('#import');
+        const router = this.findPart<PathRouterElement>('app-router');
+        const currentPath = router.path ?? "";
+        const currentPathArray = currentPath.split('#');
+        currentPathArray[1] = 'import';
+        const importPath = currentPathArray.join('#');
+        router.navigate(importPath);
         this.findPart<ImportManagerComponent>('import-manager').setData(boardData);
     }
 
