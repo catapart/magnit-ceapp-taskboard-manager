@@ -1,0 +1,29 @@
+html
+{
+    color-scheme: light dark;
+    height: 100%;
+    width: 100%;
+}
+
+html
+,body
+{
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+}
+
+taskboard-manager
+{
+    flex: 1;
+    overflow: hidden;
+}
