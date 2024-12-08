@@ -1717,6 +1717,7 @@ export class TaskboardManagerElement extends HTMLElement
         element.toggleAttribute('data-entry', true);
         element.setAttribute('timestamp', entry.timestamp.toString());
         element.setAttribute('data-entry-id', entry.id);
+        element.setAttribute('part', "action-history-entry");
         element.innerHTML = `<span class="action-type">${entry.action.toUpperCase()}</span>
         <span class="data">
             <span class="target-type">${entry.data.targetType[0].toUpperCase()}${entry.data.targetType.substring(1)}</span>

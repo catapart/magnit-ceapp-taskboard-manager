@@ -5,9 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taskboard Manager App Demo</title>
     <link rel="stylesheet" href="./app.css">
+    <style>
+        taskboard-manager::part(custom-settings-fieldset)
+        {
+            color: inherit;
+            display: grid;
+            align-items: stretch;
+            justify-content: flex-start;
+        }
+    </style>
 </head>
 <body>
-    <taskboard-manager></taskboard-manager>
+    <taskboard-manager>
+        <span slot="custom-settings-legend">Display</span>
+        <div slot="custom-settings">
+            <form-field label="Theme">
+                <select id="theme-select">
+                    <option value="a">A</option>
+                    <option value="b">B</option>
+                    <option value="c">C</option>
+                </select>
+            </form-field>
+        </div>
+    </taskboard-manager>
     <script type="module" src="../vanilla/taskboard-manager.js"></script>
 </body>
 </html>

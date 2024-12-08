@@ -32,7 +32,7 @@
     </editable-list>
 </menu>
 <path-router part="app-router" path="">
-    <route-page>
+    <route-page part="welcome-page">
         <div part="welcome">
             <fieldset>
                 <legend>Welcome</legend>
@@ -83,39 +83,37 @@
             </svg>
             <span part="config-title">Configuration</span>
         </header>
-        <menu>
-            <nav>
-                <a data-route="#config/settings">
-                    <svg part="settings-route-icon">
-                        <use href="#icon-definition_gear"></use>
-                    </svg>
-                    <span>Settings</span>
-                </a>
-                <a data-route="#config/data">
-                    <svg part="data-route-icon">
-                        <use href="#icon-definition_clock"></use>
-                    </svg>
-                    <span>Data</span>
-                </a>
-                <a data-route="#config/history">
-                    <svg part="history-route-icon">
-                        <use href="#icon-definition_clock"></use>
-                    </svg>
-                    <span>History</span>
-                </a>
-                <a data-route="#config/about">
-                    <svg part="about-route-icon">
-                        <use href="#icon-definition_info"></use>
-                    </svg>
-                    <span>About</span>
-                </a>
-            </nav>
+        <menu part="config-navigation">
+            <a data-route="#config/settings" part="config-nav-item">
+                <svg part="settings-route-icon">
+                    <use href="#icon-definition_gear"></use>
+                </svg>
+                <span>Settings</span>
+            </a>
+            <a data-route="#config/data" part="config-nav-item">
+                <svg part="data-route-icon">
+                    <use href="#icon-definition_clock"></use>
+                </svg>
+                <span>Data</span>
+            </a>
+            <a data-route="#config/history" part="config-nav-item">
+                <svg part="history-route-icon">
+                    <use href="#icon-definition_clock"></use>
+                </svg>
+                <span>History</span>
+            </a>
+            <a data-route="#config/about" part="config-nav-item">
+                <svg part="about-route-icon">
+                    <use href="#icon-definition_info"></use>
+                </svg>
+                <span>About</span>
+            </a>
         </menu>
         <div part="config-route-view" class="route-view">
-            <route-page path="settings">
-                <header>App Settings</header>
-                <fieldset>
-                    <legend>Color Scheme</legend>
+            <route-page path="settings" part="settings-page">
+                <header part="settings-header">App Settings</header>
+                <fieldset part="color-scheme-fieldset">
+                    <legend part="color-scheme-legend">Color Scheme</legend>
                     <div class="button-group" part="scheme-options">
                         <button data-value="inherit">Inherit</button>
                         <button data-value="browser">Browser</button>
@@ -123,13 +121,16 @@
                         <button data-value="dark">Dark</button>
                     </div>
                 </fieldset>
+                <fieldset part="custom-settings-fieldset">
+                    <legend part="custom-settings-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>
+                    <slot name="custom-settings">[ No Custom Settings ]</slot>
+                </fieldset>
             </route-page>
-            <route-page path="data">
-                <div>
-                </div>
-                <fieldset>
-                    <legend>Import</legend>
-                    <form-field label="Taskboard Data File" input-selector="file-input">
+            <route-page path="data" part="config-data-page">
+                <header part="data-header">Data</header>
+                <fieldset part="import-fieldset">
+                    <legend part="import-legend">Import</legend>
+                    <form-field part="import-field" label="Taskboard Data File" input-selector="file-input">
                         <file-input part="import-board-file">
                             <svg slot="icon" part="import-file-icon" >
                                 <use href="#icon-definition_file"></use>
@@ -143,12 +144,14 @@
                         <span part="import-button-label">Import Board</span>
                     </button>
                 </fieldset>
-                <div>
-                    <fieldset>
-                        <legend>Data Cleanup</legend>
-                        <p>Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>
-                        <p>Set how many days deleted item should perisist using the slider below.</p>
-                        <form-field label="Days">
+                <div part="config-data-caches">
+                    <fieldset part="data-cleanup-fieldset">
+                        <legend part="data-cleanup-legend">Data Cleanup</legend>
+                        <div part="data-cleanup-description">
+                            <p>Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>
+                            <p>Set how many days deleted item should perisist using the slider below.</p>
+                        </div>
+                        <form-field label="Days" part="data-cleanup-range">
                             <input type="range" id="data-persist-days" part="data-persist-days" max="30" list="data-persist-days-values" />
                             <datalist id="data-persist-days-values"  part="data-persist-days-values"></datalist>
                             <span slot="postfix" part="data-persist-days-value"></span>
@@ -160,9 +163,11 @@
                             </button>
                         </form-field>
                     </fieldset>
-                    <fieldset>
-                        <legend>Pending Cleanup</legend>
-                        <p>The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>
+                    <fieldset part="data-pending-fieldset">
+                        <legend part="data-pending-legend">Pending Cleanup</legend>
+                        <div part="data-pending-description">
+                            <p>The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>
+                        </div>
                         <editable-list part="deleted-items">
                             <template slot="remove-button">
                                 <svg part="restore-item-icon" title="Restore">
@@ -177,10 +182,12 @@
                             <span part="clear-deleted-label">Clear Pending Items</span>
                         </button>
                     </fieldset>
-                    <fieldset>
-                        <legend>Image Cache</legend>
-                        <p>Caching some image files provides undo and redo support.</p>
-                        <p>The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>
+                    <fieldset part="image-cache-fieldset">
+                        <legend part="image-cache-legend">Image Cache</legend>
+                        <div part="image-cache-description">
+                            <p>Caching some image files provides undo and redo support.</p>
+                            <p>The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>
+                        </div>
                         <editable-list part="deleted-images"></editable-list>
                         <button part="clear-image-cache-button">
                             <svg part="clear-images-icon" title="Clear">
@@ -189,58 +196,66 @@
                             <span part="clear-images-label">Clear Image Cache</span>
                         </button>
                     </fieldset>
-                    <fieldset>
-                        <legend>Clear Data</legend>
-                        <p>Delete all data, including app settings and history.</p>
-                        <button part="clear-data-button">
-                            <svg part="clear-data-icon" title="Clear">
-                                <use href="#icon-definition_trash"></use>
-                            </svg>
-                            <span part="clear-data-label">Clear All Data</span>
-                        </button>
-                    </fieldset>
                 </div>
-            </route-page>
-            <route-page path="history">
-                <header>History</header>
-                <form-field label="History Length">
-                    <input type="range" id="action-history-length" part="action-history-length" max="150" list="action-history-length-values" />
-                    <datalist id="action-history-length-values"  part="action-history-length-values"></datalist>
-                    <span slot="postfix" part="action-history-length-value"></span>
-                    <button slot="postfix" part="apply-history-length-button">
-                        <svg part="apply-history-length-icon">
-                            <use href="#icon-definition_confirm-check"></use>
+                <fieldset part="data-clear-fieldset">
+                    <legend part="data-clear-legend">Clear Data</legend>
+                    <div part="data-clear-description">
+                        <p>Delete all data, including app settings and history.</p>
+                    </div>
+                    <button part="clear-data-button">
+                        <svg part="clear-data-icon" title="Clear">
+                            <use href="#icon-definition_trash"></use>
                         </svg>
-                        <span part="apply-history-length-label">Apply</span>
+                        <span part="clear-data-label">Clear All Data</span>
                     </button>
-                </form-field>
-                <div part="history-controls">
+                </fieldset>
+            </route-page>
+            <route-page path="history" part="history-page">
+                <header part="history-header">History</header>
+                <fieldset part="history-navigation">
+                    <legend part="history-navigation-legend">Navigation</legend>
                     <button part="history-control-undo">
                         <span part="history-control-undo-label">Undo</span>
                     </button>
                     <button part="history-control-redo">
                         <span part="history-control-redo-label">Redo</span>
                     </button>
-                </div>
-                <action-history part="action-history" reverse></action-history>
-                <button part="clear-history-button">
-                    <svg part="clear-history-icon" title="Clear">
-                        <use href="#icon-definition_trash"></use>
-                    </svg>
-                    <span part="clear-history-label">Clear History</span>
-                </button>
-            </route-page>
-            <route-page path="about">
-                <fieldset>
-                        <p>The <em>My Boards</em> app is a Single Page App (SPA) implementation of the <code>taskboard-manager</code> custom element.</p>
-                        <p>To see a Progress Web App implementation of the <code>taskboard-manager</code> custom element, see the <!--<a class="thin-task-logo" href="https://www.thin-task.com">Thin<span class="highlight">Task</span></a> app.--></p>
+                    <button part="clear-history-button">
+                        <svg part="clear-history-icon" title="Clear">
+                            <use href="#icon-definition_trash"></use>
+                        </svg>
+                        <span part="clear-history-label">Clear History</span>
+                    </button>
+                    <action-history part="action-history" reverse></action-history>
                 </fieldset>
-                <fieldset>
-                    <legend>Version</legend>
+                <fieldset part="history-length-fieldset">
+                    <legend part="history-length-legend">History Length</legend>
+                    <form-field part="history-length-field">
+                        <input type="range" id="action-history-length" part="action-history-length" max="150" list="action-history-length-values" />
+                        <datalist id="action-history-length-values"  part="action-history-length-values"></datalist>
+                        <span slot="postfix" part="action-history-length-value"></span>
+                        <button slot="postfix" part="apply-history-length-button">
+                            <svg part="apply-history-length-icon">
+                                <use href="#icon-definition_confirm-check"></use>
+                            </svg>
+                            <span part="apply-history-length-label">Apply</span>
+                        </button>
+                    </form-field>
+                </fieldset>
+            </route-page>
+            <route-page path="about" part="about-page">
+                <header part="about-header">About</header>
+                <fieldset part="about-app-fieldset">
+                    <legend part="about-app-legend">App</legend>
+                    <p>The <em>My Boards</em> app is a Single Page App (SPA) implementation of the <code>taskboard-manager</code> custom element.</p>
+                    <p>To see a Progress Web App implementation of the <code>taskboard-manager</code> custom element, see the <!--<a class="thin-task-logo" href="https://www.thin-task.com">Thin<span class="highlight">Task</span></a> app.--></p>
+                </fieldset>
+                <fieldset part="version-fieldset">
+                    <legend part="version-legend">Version</legend>
                     <div part="version-value">--.--.--</div>
                 </fieldset>
-                <fieldset>
-                    <legend>Copyright</legend>
+                <fieldset part="copyright-fieldset">
+                    <legend part="copyright-legend">Copyright</legend>
                     <div part="copyright-description">
                         <!-- For derivative work, replace this license with your own copyright -->
                         <p xmlns:cc="http://creativecommons.org/ns#" >

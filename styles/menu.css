@@ -153,6 +153,11 @@
         white-space: nowrap;
     }
 
+    [part="new-board-button_list"]
+    {
+        margin: 10px;
+    }
+
     [part="handle"]
     {
         display: flex;
@@ -160,6 +165,7 @@
         align-self: stretch;
         cursor: grab;
         border-radius: 3px;
+        transform: translateY(-2px);
         
         background-image: radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%),
         radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%);
