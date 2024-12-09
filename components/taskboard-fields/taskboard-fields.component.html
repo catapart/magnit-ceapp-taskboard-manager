@@ -33,13 +33,10 @@
         <span part="image-label">Background Image</span>
     </legend>
     <form-field part="background-image-field" label="Background Image" input-selector="image-input">
-        <image-input name="background-image" part="background-image">
-            <span slot="placeholder">
-                <svg part="image-icon" >
-                    <use href="#icon-definition_image"></use>
-                </svg>
-                <span>Select an image...</span>
-            </span>
+        <image-input name="background-image" part="background-image" placeholder="Select an image...">
+            <svg part="image-icon" slot="placeholder-icon">
+                <use href="#icon-definition_image"></use>
+            </svg>
         </image-input>
     </form-field>
     <form-field part="background-image-display-field" label="Display">

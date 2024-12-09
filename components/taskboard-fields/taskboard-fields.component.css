@@ -108,7 +108,7 @@ image-input::part(view-link)
     grid-column: 1;
 }
 
-image-input [slot="placeholder"]
+/* image-input [slot="placeholder"]
 {
     display: grid;
     justify-items: center;
@@ -120,7 +120,7 @@ image-input [slot="placeholder"]
 image-input[specified] [slot="placeholder"]
 {
     display: none;
-}
+} */
 
 
 [part="properties"]

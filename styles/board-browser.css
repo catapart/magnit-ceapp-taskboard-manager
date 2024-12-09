@@ -1,3 +1,12 @@
+captioned-thumbnail
+{
+    height: auto;
+}
+
+captioned-thumbnail::part(figure)
+{
+    padding: 3px;
+}
 
 captioned-thumbnail svg
 {
@@ -22,11 +31,6 @@ collection-browser::part(items)
     flex-wrap: wrap;
     padding: 7px;
     overflow: hidden auto;
-}
-
-collection-browser captioned-thumbnail
-{
-    /* transition: all ease 1s; */
 }
 
 collection-browser captioned-thumbnail.match
@@ -56,4 +60,12 @@ collection-browser::part(add-button)
 {
     width: 70px;
     justify-content: center;
+}
+
+@media (max-width: 665px) 
+{
+    [part="board-browser-filter"]::part(input)
+    {
+        width: 157px;
+    }
 }

@@ -258,6 +258,7 @@ svg
     grid-template-columns: auto auto 1fr auto;
     grid-template-rows: auto 1fr;
     gap: 7px;
+    overflow: hidden;
 }
 [part="clear-history-button"]
 {
@@ -313,6 +314,7 @@ svg
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 [part="config-actions"]

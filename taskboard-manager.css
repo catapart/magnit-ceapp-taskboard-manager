@@ -127,8 +127,7 @@ image-input [slot="placeholder"]
 
 [part="app-router"]
 {
-    /* overflow-x: auto;
-    overflow-y: hidden; */
+    overflow: hidden;
 }
 
 [part="board-route"]
@@ -213,6 +212,18 @@ dialog .route-view route-page
 {
     pointer-events: none;
 }
+    
+message-card
+{
+    background-color: field;
+    box-shadow: 1px 1px 7px 3px rgb(0 0 0 / .4);
+}
+
+message-card::part(message)
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
 
 
 [part="confirmation-router"]
@@ -238,21 +249,31 @@ dialog .route-view route-page
 {
     :host
     {
-        grid-template-rows: auto 1fr;
+        grid-template-rows: 1fr auto auto;
         grid-template-columns: 1fr;
-        grid-template-areas: 'menu'
-        'taskboard';
+        /* grid-template-areas: 'menu'
+        'taskboard'; */
     }
 
-    task-board
+    task-board::part(lists)
     {
         scroll-snap-type: x mandatory;
     }
     task-list
     {
         scroll-snap-align: start;
-        width: 100%;
-    } 
+        width: 100vw;
+    }
+    
+    [part="notifications"]
+    {
+        width: 100vw;
+    }
+
+    dialog
+    {
+        bottom: 25px;
+    }
 }
 @media (max-width: 800px) 
 {
