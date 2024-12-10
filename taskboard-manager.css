@@ -136,6 +136,14 @@ image-input [slot="placeholder"]
     overflow: hidden;
 }
 
+task-card[data-drag-id]
+{
+    /* background-color: red; */
+    padding: 10px;
+    scale: .9;
+    border: dashed 1px graytext;
+}
+
 dialog
 {
     max-height: 80%;

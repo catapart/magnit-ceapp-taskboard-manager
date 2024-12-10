@@ -25,6 +25,7 @@ svg
     border: solid 1px graytext;
     border-radius: 2px;
     margin-bottom: 20px;
+    user-select: none;
 }
 
 [part="config-nav-item"]
@@ -109,8 +110,34 @@ svg
 
 [part="import-content"]
 {
-    overflow: auto;
+    overflow: hidden;
     padding: 1em;
+    display: flex;
+}
+
+[part="import-manager"]
+{
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+[part="import-actions"]
+{
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 7px;
+}
+
+[part="import-cancel"]
+{
+    grid-column: 2;
+}
+
+[part="import-ok"]
+{
+    grid-column: 3;
 }
 
 [part="config-data-caches"]
@@ -222,6 +249,10 @@ svg
         grid-template-columns: 1fr;
         gap: 7px;
     }
+    [part="action-history-length"]
+    {
+        width: 50px;
+    }
 }
 
 [part="history-page"]
@@ -263,6 +294,7 @@ svg
 [part="clear-history-button"]
 {
     grid-column: 4;
+    white-space: nowrap;
 }
 [part="action-history"]
 {
