@@ -64,6 +64,29 @@ function router_onPathChange(this: TaskboardManagerElement, event: Event|CustomE
         }
     }
 
+    // current route selected status
+    const currentPathArray = updatedPath!.split('#');
+    const pageRoute = currentPathArray[0];
+    const hashRoute = currentPathArray[1];
+
+    if(pageRoute != null)
+    {
+        const currentMenuItem = this.findPart('boards').querySelector(`[data-route="${pageRoute}"]`);
+        if(currentMenuItem != null)
+        {
+            currentMenuItem.setAttribute('aria-current', 'page');
+        }
+    }
+    if(hashRoute != null)
+    {
+        const configMenuItem = this.findPart('config-navigation').querySelector(`[data-route="#${hashRoute}"`);
+        if(configMenuItem != null)
+        {
+            configMenuItem.setAttribute('aria-current', 'page');
+        }
+    }
+
+
     // if(!this.hasAttribute('update-url')) { return; }
     // const data = (event as CustomEvent).detail;
     // // console.log(data);

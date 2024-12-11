@@ -72,6 +72,7 @@ import { ActionHistoryElement, ATTRIBUTENAME_ACTIVE, ATTRIBUTENAME_REVERSED, His
 import { HistoryEntryRecord } from './data/records/history-entry.record';
 import { ImportManagerComponent } from './components/import-manager/import-manager.component';
 import { HistoryEntryChannel } from './data/channels/history-entry.channel';
+import { addKeyHandlers } from './handlers/key.handlers';
 
 
 // export type TaskboardManagerProperties = 
@@ -342,6 +343,7 @@ export class TaskboardManagerElement extends HTMLElement
     #addUndoNotification(message: string, entryId: string)
     {
         const content = document.createElement('span');
+        content.setAttribute('part', 'message-content');
 
         const messageText = document.createElement('span');
         messageText.setAttribute('part', 'undo-message');
@@ -364,6 +366,7 @@ export class TaskboardManagerElement extends HTMLElement
             }
             this.getPart<ActionHistoryElement>('action-history').reverseEntry(entry);
             notification.dispatchEvent(new CustomEvent(MessageCardEvent.Cancel));
+            notification.remove();
         });
         notification.show();
     }
@@ -428,20 +431,20 @@ export class TaskboardManagerElement extends HTMLElement
         this.findPart<TaskBoardFieldsComponent>('board-fields').addList(list, settings);
     }
 
-    async addTask(listId: string)
-    {
-        const list = this.shadowRoot!.querySelector(`task-list[data-tasklist-id="${listId}"]`);
-        if(list == null)
-        {
-            this.#showMessageDialog('An error occurred creating a new task.', 'danger');
-            console.error(`An error occurred accessing task-list element. Unable to save new task.`);
-            return;
-        }
+    // async addTask(listId: string)
+    // {
+    //     const list = this.shadowRoot!.querySelector(`task-list[data-tasklist-id="${listId}"]`);
+    //     if(list == null)
+    //     {
+    //         this.#showMessageDialog('An error occurred creating a new task.', 'danger');
+    //         console.error(`An error occurred accessing task-list element. Unable to save new task.`);
+    //         return;
+    //     }
 
-        const newCard = new TaskCardElement();
-        list.append(newCard);
-        newCard.findPart('description').focus();
-    }
+    //     const newCard = new TaskCardElement();
+    //     list.append(newCard);
+    //     newCard.findPart('description').focus();
+    // }
 
     async undo()
     {
@@ -489,7 +492,7 @@ export class TaskboardManagerElement extends HTMLElement
         this.#addHandlers();
 
         this.#refreshRecentBoards();
-        this.#refreshBoards();
+        const boardsPromise = this.#refreshBoards();
         this.#refreshActionHistory();
         this.#refreshDeletedItems();
 
@@ -507,6 +510,28 @@ export class TaskboardManagerElement extends HTMLElement
             // import dialog), we update the url, as well as the router's path
             const newHistoryState =  `${window.origin}/demo/app.html?path=${windowPath}${(filteredWindowHash != "") ? `#${filteredWindowHash}` : ''}`;
             window.history.replaceState(null, '', newHistoryState);
+        }
+        
+        boardsPromise.then(() =>
+        {
+            let boardIdIndex = windowPath.indexOf('board/');
+            if(boardIdIndex > -1)
+            {
+                const currentMenuItem = this.findPart('boards').querySelector(`[data-route="${windowPath}"]`);
+                if(currentMenuItem != null)
+                {
+                    currentMenuItem.setAttribute('aria-current', 'page');
+                }
+            }
+        });
+        
+        if(windowHash.indexOf('config/') > -1)
+        {
+            const configMenuItem = this.findPart('config-navigation').querySelector(`[data-route="#${windowHash}"`);
+            if(configMenuItem != null)
+            {
+                configMenuItem.setAttribute('aria-current', 'page');
+            }
         }
 
         this.#removeExpiredData();
@@ -617,6 +642,7 @@ export class TaskboardManagerElement extends HTMLElement
         addBoardHandlers.call(this);
         addBoardSettingsHandlers.call(this);
         addBoardBrowserHandlers.call(this);
+        addKeyHandlers.call(this);
     }
 
     // settings
@@ -825,7 +851,7 @@ export class TaskboardManagerElement extends HTMLElement
         taskBoard.innerHTML = '';
         taskBoard.setAttribute('data-board-id', board.id);
 
-        this.#renderBoardBackground(board);        
+        this.#renderBoardBackground(board);
         if(board.useCustomFontColor == true)
         {
             taskBoard.style.setProperty('--board-font-color', board.fontColor);

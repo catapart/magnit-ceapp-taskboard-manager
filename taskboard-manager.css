@@ -215,13 +215,22 @@ dialog .route-view route-page
     right: 0;
     padding: 1em;
     width: 375px;
+    display: grid;
+    row-gap: 7px;
 }
 [part="notifications"]:empty
 {
     pointer-events: none;
 }
+
+[part="message-content"]
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
     
-message-card
+/* message-card
 {
     background-color: field;
     box-shadow: 1px 1px 7px 3px rgb(0 0 0 / .4);
@@ -231,7 +240,7 @@ message-card::part(message)
 {
     display: grid;
     grid-template-columns: 1fr auto;
-}
+} */
 
 
 [part="confirmation-router"]

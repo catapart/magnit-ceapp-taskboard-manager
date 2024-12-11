@@ -91,6 +91,21 @@ task-card::part(is-finished)
 {
     background-color: var(--task-color);
 }
+.task-color-border task-card::part(color-container)
+{
+    display: block;
+    margin-block: 1em;
+    margin-inline-start: 1em;
+    width: 16px;
+    height: 16px;
+    background-color: var(--task-color);
+    border-radius: 50%;
+    align-self: center;
+}
+.task-color-border task-card::part(color)
+{
+    display: none;
+}
 
 @media (min-width: 665px) 
 {

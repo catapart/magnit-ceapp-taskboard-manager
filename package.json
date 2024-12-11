@@ -51,12 +51,12 @@
     "@magnit-ce/file-input": "^0.0.4",
     "@magnit-ce/form-field": "^0.0.6",
     "@magnit-ce/image-input": "^0.0.4",
-    "@magnit-ce/message-card": "^0.0.2",
+    "@magnit-ce/message-card": "^0.0.3",
     "@magnit-ce/path-router": "^0.2.8",
     "@magnit-ce/record-tree": "^0.0.3",
     "@magnit-ce/task-board": "^0.0.3",
-    "@magnit-ce/task-card": "^0.0.7",
-    "@magnit-ce/task-list": "^0.0.10",
+    "@magnit-ce/task-card": "^0.0.8",
+    "@magnit-ce/task-list": "^0.0.11",
     "record-setter": "^1.0.6"
   }
 }

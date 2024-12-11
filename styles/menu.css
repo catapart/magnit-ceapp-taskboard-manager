@@ -71,12 +71,14 @@
     [part="menu"]
     {
         max-width: 100vw;
-        display: contents;
+        display: grid;
         border-right: none;
+        order: 2;
     }
 
     [part="header"]
     {
+        grid-row: 2;
         display: flex;
         justify-content: space-between;
         order: 3;

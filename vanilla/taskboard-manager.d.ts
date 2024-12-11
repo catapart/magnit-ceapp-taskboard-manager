@@ -339,7 +339,6 @@ declare class TaskboardManagerElement extends HTMLElement {
     importBoard(boardData: BoardExport, errorMessage?: string): Promise<void>;
     closeBoardSettings(): Promise<unknown>;
     addList(): void;
-    addTask(listId: string): Promise<void>;
     undo(): Promise<void>;
     redo(): Promise<void>;
     clearData(): Promise<void>;

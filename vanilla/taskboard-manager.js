@@ -1,5 +1,5 @@
 // styles/menu.css?raw
-var menu_default = '[part="menu"]\n{\n    padding: 0;\n    margin: 0;\n    background-color: field;\n    color: fieldtext;\n    border-right: solid 1px graytext;\n}\n\n[part="menu"] header\n{\n    display: flex;\n    gap: .5em;\n    padding: .5em;\n}\n\n[part="branding"]\n{\n    grid-area: brand;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n[part="branding"] .logo.mark\n{\n    width: var(--brand-icon-size);\n    height: var(--brand-icon-size);\n}\n\n[part="open-app-settings"]\n{\n}\n\n[part="open-board-browser"]\n{\n}\n\n[part="boards"]\n{\n    margin: 0;\n    padding: 0;\n}\n\n[part="boards"] a\n{\n    margin: 0;\n    flex-shrink: 0;\n    display: flex;\n    align-items: center;\n    gap: var(--list-item-gap, .25em);\n    padding: var(--list-item-padding, .25em 1em);\n}\n[part="boards"] a [part="name"]\n{\n    flex: 1;\n}\n[part="boards"] a:hover\n{\n    background-color: var(--highlight-background, highlight);\n    color: var(--highlight-text, highlighttext);\n}\n[part="boards"] a.selected\n{\n    background-color: var(--highlight-background, highlight);\n    color: var(--highlight-text, highlighttext);\n}\n\n@media (max-width: 665px) \n{\n    [part="menu"]\n    {\n        max-width: 100vw;\n        display: contents;\n        border-right: none;\n    }\n\n    [part="header"]\n    {\n        display: flex;\n        justify-content: space-between;\n        order: 3;\n        background-color: field;\n    }\n    \n    [part="menu"] .board-search\n    {\n        align-items: center;\n        justify-content: center;\n    }\n    [part="menu"] > editable-list\n    {\n        display: flex;\n        align-items: center;\n        order: 2;\n        background-color: field;\n        border-top: solid 1px graytext;\n    }\n    [part="menu"] > editable-list::part(items)\n    {\n        display: flex;\n        flex-wrap: nowrap;\n        overflow-x: auto;\n        overflow-y: hidden;\n        flex: 1;\n        box-shadow: inset -10px 0 10px -10px rgb(0 0 0 / .8);\n    }\n\n    [part="menu"] > editable-list [part="handle"]\n    ,[part="menu"] > editable-list [part="edit"]\n    {\n        display: none;\n    }\n    [part="menu"] > editable-list a\n    {\n        padding: 12px 7px;\n    }\n\n    [part="new-board-button_list"]\n    {\n        display: flex;\n        align-self: stretch;\n        margin: 7px;\n    }\n\n    [part="new-board-button_list"] .label\n    {\n        display: none;\n    }\n\n    [part="app-status"]\n    {\n        display: none;\n    }\n}\n@media (max-width: 800px) \n{\n    \n}\n\n/* only desktop */\n@media (min-width: 665px) \n{\n    [part="menu"]\n    {\n        display: grid;\n        grid-template-rows: auto 1fr;\n        overflow: hidden;\n    }\n\n\n    [part="boards"]\n    {\n        display: grid;\n        grid-template-rows: 1fr auto;\n        overflow: hidden;\n    }\n    [part="boards"]::part(items)\n    {\n        margin: 0;\n        padding: 0;\n        display: grid;\n        gap: .5em;\n        overflow-y: auto;\n        grid-auto-rows: max-content;\n    }\n    [part="boards"] [part="edit"]\n    {\n        opacity: 0;\n        transition: opacity 200ms ease;\n    }\n\n    [part="boards"] a:hover [part="edit"]\n    {\n        opacity: 1;\n    }\n\n    [part="boards"] [part="board-item-name"]\n    {\n        flex: 1;\n        white-space: nowrap;\n    }\n\n    [part="new-board-button_list"]\n    {\n        margin: 10px;\n    }\n\n    [part="handle"]\n    {\n        display: flex;\n        width: 15px;\n        align-self: stretch;\n        cursor: grab;\n        border-radius: 3px;\n        transform: translateY(-2px);\n        \n        background-image: radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%),\n        radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%);\n        background-size: 5px 5px;\n        background-position: 0 0, 2px 2px;\n    }\n    [part="handle"]:active\n    {\n        cursor: grabbing;\n    }\n\n    [part="open-board-browser"][aria-current="page"]\n    ,[part="open-settings"][aria-current="page"]\n    {\n        border: solid 1px highlight;\n    }\n\n    [part="boards"] [aria-current="page"]\n    {\n        background-color: highlight;\n        color: highlighttext;\n    }\n\n    [part="new-board-button_list"]\n    {\n        margin-top: 1em;\n        justify-self: center;\n    }\n\n    [part="app-status"]\n    {\n        padding: var(--panel-padding);\n        display: grid;\n        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;\n        grid-template-rows: auto auto;\n        gap: var(--status-item-gap);\n        align-items: center;\n    }\n\n    [part="connection-status"]\n    ,[part="login-status"]\n    ,[part="sync-status"]\n    {\n        grid-row: 1;\n        justify-self: center;\n    }\n\n    [part="connection-status"]\n    {\n        grid-column: 1/3;\n    }\n    \n    [part="login-status"]\n    {\n        grid-column: 3/5;\n    }\n    \n    [part="sync-status"]\n    {\n        grid-column: 5/7;\n    }\n    [part="upload-status"]\n    {\n        grid-row: 2;\n        grid-column: 1/4;\n        display: flex;\n        align-items: center;\n        gap: var(--status-item-gap);\n    }\n    [part="remote-storage-status"]\n    {\n        grid-row: 2;\n        grid-column: 4/7;\n        display: flex;\n        align-items: center;\n        gap: var(--status-item-gap);\n    }\n\n\n    [part="app-status"] progress\n    {\n        min-width: 0;\n        width: auto;\n    }\n}\n@media (min-width: 800px) \n{\n\n}';
+var menu_default = '[part="menu"]\n{\n    padding: 0;\n    margin: 0;\n    background-color: field;\n    color: fieldtext;\n    border-right: solid 1px graytext;\n}\n\n[part="menu"] header\n{\n    display: flex;\n    gap: .5em;\n    padding: .5em;\n}\n\n[part="branding"]\n{\n    grid-area: brand;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n[part="branding"] .logo.mark\n{\n    width: var(--brand-icon-size);\n    height: var(--brand-icon-size);\n}\n\n[part="open-app-settings"]\n{\n}\n\n[part="open-board-browser"]\n{\n}\n\n[part="boards"]\n{\n    margin: 0;\n    padding: 0;\n}\n\n[part="boards"] a\n{\n    margin: 0;\n    flex-shrink: 0;\n    display: flex;\n    align-items: center;\n    gap: var(--list-item-gap, .25em);\n    padding: var(--list-item-padding, .25em 1em);\n}\n[part="boards"] a [part="name"]\n{\n    flex: 1;\n}\n[part="boards"] a:hover\n{\n    background-color: var(--highlight-background, highlight);\n    color: var(--highlight-text, highlighttext);\n}\n[part="boards"] a.selected\n{\n    background-color: var(--highlight-background, highlight);\n    color: var(--highlight-text, highlighttext);\n}\n\n@media (max-width: 665px) \n{\n    [part="menu"]\n    {\n        max-width: 100vw;\n        display: grid;\n        border-right: none;\n        order: 2;\n    }\n\n    [part="header"]\n    {\n        grid-row: 2;\n        display: flex;\n        justify-content: space-between;\n        order: 3;\n        background-color: field;\n    }\n    \n    [part="menu"] .board-search\n    {\n        align-items: center;\n        justify-content: center;\n    }\n    [part="menu"] > editable-list\n    {\n        display: flex;\n        align-items: center;\n        order: 2;\n        background-color: field;\n        border-top: solid 1px graytext;\n    }\n    [part="menu"] > editable-list::part(items)\n    {\n        display: flex;\n        flex-wrap: nowrap;\n        overflow-x: auto;\n        overflow-y: hidden;\n        flex: 1;\n        box-shadow: inset -10px 0 10px -10px rgb(0 0 0 / .8);\n    }\n\n    [part="menu"] > editable-list [part="handle"]\n    ,[part="menu"] > editable-list [part="edit"]\n    {\n        display: none;\n    }\n    [part="menu"] > editable-list a\n    {\n        padding: 12px 7px;\n    }\n\n    [part="new-board-button_list"]\n    {\n        display: flex;\n        align-self: stretch;\n        margin: 7px;\n    }\n\n    [part="new-board-button_list"] .label\n    {\n        display: none;\n    }\n\n    [part="app-status"]\n    {\n        display: none;\n    }\n}\n@media (max-width: 800px) \n{\n    \n}\n\n/* only desktop */\n@media (min-width: 665px) \n{\n    [part="menu"]\n    {\n        display: grid;\n        grid-template-rows: auto 1fr;\n        overflow: hidden;\n    }\n\n\n    [part="boards"]\n    {\n        display: grid;\n        grid-template-rows: 1fr auto;\n        overflow: hidden;\n    }\n    [part="boards"]::part(items)\n    {\n        margin: 0;\n        padding: 0;\n        display: grid;\n        gap: .5em;\n        overflow-y: auto;\n        grid-auto-rows: max-content;\n    }\n    [part="boards"] [part="edit"]\n    {\n        opacity: 0;\n        transition: opacity 200ms ease;\n    }\n\n    [part="boards"] a:hover [part="edit"]\n    {\n        opacity: 1;\n    }\n\n    [part="boards"] [part="board-item-name"]\n    {\n        flex: 1;\n        white-space: nowrap;\n    }\n\n    [part="new-board-button_list"]\n    {\n        margin: 10px;\n    }\n\n    [part="handle"]\n    {\n        display: flex;\n        width: 15px;\n        align-self: stretch;\n        cursor: grab;\n        border-radius: 3px;\n        transform: translateY(-2px);\n        \n        background-image: radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%),\n        radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%);\n        background-size: 5px 5px;\n        background-position: 0 0, 2px 2px;\n    }\n    [part="handle"]:active\n    {\n        cursor: grabbing;\n    }\n\n    [part="open-board-browser"][aria-current="page"]\n    ,[part="open-settings"][aria-current="page"]\n    {\n        border: solid 1px highlight;\n    }\n\n    [part="boards"] [aria-current="page"]\n    {\n        background-color: highlight;\n        color: highlighttext;\n    }\n\n    [part="new-board-button_list"]\n    {\n        margin-top: 1em;\n        justify-self: center;\n    }\n\n    [part="app-status"]\n    {\n        padding: var(--panel-padding);\n        display: grid;\n        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;\n        grid-template-rows: auto auto;\n        gap: var(--status-item-gap);\n        align-items: center;\n    }\n\n    [part="connection-status"]\n    ,[part="login-status"]\n    ,[part="sync-status"]\n    {\n        grid-row: 1;\n        justify-self: center;\n    }\n\n    [part="connection-status"]\n    {\n        grid-column: 1/3;\n    }\n    \n    [part="login-status"]\n    {\n        grid-column: 3/5;\n    }\n    \n    [part="sync-status"]\n    {\n        grid-column: 5/7;\n    }\n    [part="upload-status"]\n    {\n        grid-row: 2;\n        grid-column: 1/4;\n        display: flex;\n        align-items: center;\n        gap: var(--status-item-gap);\n    }\n    [part="remote-storage-status"]\n    {\n        grid-row: 2;\n        grid-column: 4/7;\n        display: flex;\n        align-items: center;\n        gap: var(--status-item-gap);\n    }\n\n\n    [part="app-status"] progress\n    {\n        min-width: 0;\n        width: auto;\n    }\n}\n@media (min-width: 800px) \n{\n\n}';
 
 // styles/app-settings.css?raw
 var app_settings_default = '[part="config-header"]\n{\n    margin-bottom: 20px;\n}\n\n[part="config-header"] svg\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n}\nsvg\n{\n    width: var(--tab-icon-size);\n    height: var(--tab-icon-size);\n}\n\n[part="config-navigation"]\n{\n    margin: 0;\n    padding: 0;\n    display: flex;\n    align-items: center;\n    background-color: field;\n    color: fieldtext;\n    border: solid 1px graytext;\n    border-radius: 2px;\n    margin-bottom: 20px;\n    user-select: none;\n}\n\n[part="config-nav-item"]\n{\n    --tab-icon-size: 14px;\n    padding: 7px 12px;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n}\n\n@media (max-width: 665px) \n{\n    [part="config-navigation"]\n    {\n        display: grid;\n        grid-template-columns: 1fr 1fr;\n        grid-template-rows: 1fr 1fr;\n    }\n\n    [part="config-nav-item"]\n    {\n        justify-content: center;\n    }\n}\n\n[part="config-nav-item"][aria-current="page"]\n,[part="config-nav-item"]:hover\n{\n    background-color: highlight;\n    color: highlighttext;\n}\n\n[part="settings-header"]\n,[part="data-header"]\n,[part="history-header"]\n,[part="about-header"]\n{\n    font-size: 14px;\n    font-weight: bold;\n}\n\n[part="settings-page"]\n{\n    display: grid;\n    grid-template-rows: auto auto 1fr;\n    gap: 7px;\n}\n\n[part="custom-settings-fieldset"]\n{\n    color: graytext;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n[part="config-data-page"]\n{\n    display: grid;\n    gap: 7px;\n}\n\n[part="import-fieldset"]\n{\n    display: flex;\n    gap: 7px;\n}\n\n[part="import-field"] .container\n{\n    flex: 1;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n}\n\n[part="import-board-file"]\n{\n    flex: 1;\n}\n\n[part="import-content"]\n{\n    overflow: hidden;\n    padding: 1em;\n    display: flex;\n}\n\n[part="import-manager"]\n{\n    overflow: hidden;\n    display: flex;\n    flex-direction: column;\n    flex: 1;\n}\n\n[part="import-actions"]\n{\n    display: grid;\n    grid-template-columns: 1fr auto auto;\n    gap: 7px;\n}\n\n[part="import-cancel"]\n{\n    grid-column: 2;\n}\n\n[part="import-ok"]\n{\n    grid-column: 3;\n}\n\n[part="config-data-caches"]\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 7px;\n}\n\n[part="data-cleanup-fieldset"]\n{\n    display: grid;\n    grid-template-rows: max-content 1fr max-content;\n    gap: 7px;\n}\n\n[part="data-cleanup-range"] .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    align-self: flex-end;\n}\n[part="data-persist-days"]\n{\n    flex: 1;\n}\n\n[part="apply-data-persist-days-button"]\n{\n    justify-self: flex-end;\n}\n\n[part="data-pending-fieldset"]\n,[part="image-cache-fieldset"]\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n}\n\n[part="deleted-items"]\n,[part="deleted-images"]\n{\n    display: grid;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    height: 130px;\n    overflow: auto;\n    margin: 0;\n    padding: 0;\n    align-self: flex-end;\n}\n[part="deleted-item"]\n{\n    display: flex;\n    align-items: center;\n    padding: 3px 7px;\n}\n[part="deleted-item-label"]\n{\n    flex: 1;\n    gap: 5px;\n}\n\n[part="deleted-items"]::part(add)\n,[part="deleted-images"]::part(add)\n{\n    display: none;\n}\n\n[part="clear-deleted-button"]\n,[part="clear-image-cache-button"]\n{\n    justify-self: flex-end;\n}\n\n[part="data-clear-fieldset"]\n{\n    display: grid;\n    gap: 7px;\n}\n\n[part="clear-data-button"]\n{\n    justify-self: flex-end;\n}\n@media (max-width: 665px) \n{\n\n    [part="import-fieldset"]\n    {\n        flex-direction: column;\n    }\n    [part="import-field"] .container\n    {\n        flex-direction: column;\n        align-items: stretch;\n    }\n    [part="import-button"]\n    {\n        align-self: flex-end;\n    }\n    [part="config-data-caches"]\n    {\n        display: grid;\n        grid-template-columns: 1fr;\n        gap: 7px;\n    }\n    [part="action-history-length"]\n    {\n        width: 50px;\n    }\n}\n\n[part="history-page"]\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n}\n\n[part="history-length-fieldset"]\n{\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    flex: 1;\n}\n\n[part="history-length-field"] .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    flex: 1;\n}\n\n[part="action-history-length"]\n{\n    flex: 1;\n}\n\n[part="history-navigation"]\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n    gap: 7px;\n    overflow: hidden;\n}\n[part="clear-history-button"]\n{\n    grid-column: 4;\n    white-space: nowrap;\n}\n[part="action-history"]\n{\n    grid-column: span 4;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    overflow: auto;\n    flex: 1;\n}\n[part="action-history-entry"]\n{\n    padding: 3px 7px;\n    border-radius: 2px;\n}\n[part="action-history-entry"]:hover\n{\n    background-color: rgb(0 0 0 / .3);\n}\n\n[part="about-page"]\n{\n    display: grid;\n    gap: 7px;\n    grid-template-columns: 1fr 1fr;\n    grid-template-rows: auto 1fr auto;\n}\n\n[part="about-app-fieldset"]\n{\n    grid-column: span 2;\n}\n[part="about-app-fieldset"] p\n{\n    text-align: center;\n}\n\n[part="version-fieldset"]\n{\n    grid-column: 1;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n[part="copyright-fieldset"]\n{\n    grid-column: 2;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-align: center;\n}\n\n[part="config-actions"]\n{\n    display: grid;\n    grid-template-columns: 1fr auto auto;\n    gap: 10px;\n    padding-block-start: 10px;\n}\n\n[part="config-ok"]\n,[part="config-cancel"]\n{\n    width: 75px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n[part="config-cancel"]\n{\n    grid-column: 2;\n}\n[part="config-ok"]\n{\n    grid-column: 3;\n}';
@@ -11,7 +11,7 @@ var board_browser_default = 'captioned-thumbnail\n{\n    height: auto;\n}\n\ncap
 var board_settings_default = '[part="board-settings-form"]\n{\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n}\n\n[part="board-fields"]\n{\n    overflow-y: auto;\n    flex: 1;\n}\n\n[part="board-settings-footer"]\n{\n    display: grid;\n    grid-template-columns: auto 1fr auto auto;\n    gap: 7px;\n    padding-block: 5px;\n}\n[part="board-settings-cancel"]\n{\n    grid-column: 3;\n}\n[part="board-settings-save"]\n{\n    grid-column: 4;\n}\n\n@media (min-width: 800px) \n{\n    [part="board-settings"]\n    {\n        width: 801px;\n    }\n}';
 
 // styles/settings.css?raw
-var settings_default = 'task-board\n{\n    background-color: var(--board-background-color, transparent);\n    color: var(--board-font-color);\n}\ntask-board[style*="--board-background-source"]\n{\n    background:  var(--board-background-source), var(--board-background-color, transparent);\n    background-size: var(--background-image-display);\n    background-position: var(--background-image-position, var(--background-image-offset));\n    background-repeat: var(--background-image-repeat);\n}\n\ntask-list\n{\n    background: var(--list-background-color);\n    color: var(--list-font-color);\n    border-color: var(--list-border-color, transparent);\n}\ntask-list::part(name)\n{\n    color: inherit;\n}\ntask-list.hide-color::part(color)\n{\n    display: none;\n}\ntask-list.hide-color::part(header)\n{\n    grid-template-columns: 1fr auto;\n}\n\ntask-card\n{\n    background-color: var(--task-background-color, none);\n    width: var(--task-width, 300px);\n    overflow: hidden;\n    font-family: sans-serif;\n    color: var(--task-font-color, currentcolor);\n    font-size: var(--task-font-size, 12px);\n    border-color: var(--task-border-color, var(--input-border-color));\n    border-radius: var(--task-border-radius, 2px);\n    border-top-width: var(--task-border-top, 1px);\n    border-right-width: var(--task-border-right, 1px);\n    border-bottom-width: var(--task-border-bottom, 1px);\n    border-left-width: var(--task-border-left, 1px);\n}\ntask-card::part(description)\n{\n    font: inherit;\n}\n.center-remove task-card::part(remove-button)\n{\n    align-self: center;\n}\ntask-card::part(is-finished)\n{\n    align-self: flex-start;\n}\n.center-checkbox task-card::part(is-finished)\n{\n    align-self: center;\n}\n\n.hide-task-color task-card::part(color)\n{\n    display: none;\n}\n\n.task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card\n{\n    border-color: var(--task-color);\n}\n.task-color-border.color-border-top task-card\n{\n    border-top-color: var(--task-color);\n}\n.task-color-border.color-border-right task-card\n{\n    border-right-color: var(--task-color);\n}\n.task-color-border.color-border-bottom task-card\n{\n    border-bottom-color: var(--task-color);\n}\n.task-color-border.color-border-left task-card\n{\n    border-left-color: var(--task-color);\n}\n.task-color-background task-card\n{\n    background-color: var(--task-color);\n}\n\n@media (min-width: 665px) \n{\n    task-list\n    {\n        width: var(--list-width);\n    } \n}';
+var settings_default = 'task-board\n{\n    background-color: var(--board-background-color, transparent);\n    color: var(--board-font-color);\n}\ntask-board[style*="--board-background-source"]\n{\n    background:  var(--board-background-source), var(--board-background-color, transparent);\n    background-size: var(--background-image-display);\n    background-position: var(--background-image-position, var(--background-image-offset));\n    background-repeat: var(--background-image-repeat);\n}\n\ntask-list\n{\n    background: var(--list-background-color);\n    color: var(--list-font-color);\n    border-color: var(--list-border-color, transparent);\n}\ntask-list::part(name)\n{\n    color: inherit;\n}\ntask-list.hide-color::part(color)\n{\n    display: none;\n}\ntask-list.hide-color::part(header)\n{\n    grid-template-columns: 1fr auto;\n}\n\ntask-card\n{\n    background-color: var(--task-background-color, none);\n    width: var(--task-width, 300px);\n    overflow: hidden;\n    font-family: sans-serif;\n    color: var(--task-font-color, currentcolor);\n    font-size: var(--task-font-size, 12px);\n    border-color: var(--task-border-color, var(--input-border-color));\n    border-radius: var(--task-border-radius, 2px);\n    border-top-width: var(--task-border-top, 1px);\n    border-right-width: var(--task-border-right, 1px);\n    border-bottom-width: var(--task-border-bottom, 1px);\n    border-left-width: var(--task-border-left, 1px);\n}\ntask-card::part(description)\n{\n    font: inherit;\n}\n.center-remove task-card::part(remove-button)\n{\n    align-self: center;\n}\ntask-card::part(is-finished)\n{\n    align-self: flex-start;\n}\n.center-checkbox task-card::part(is-finished)\n{\n    align-self: center;\n}\n\n.hide-task-color task-card::part(color)\n{\n    display: none;\n}\n\n.task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card\n{\n    border-color: var(--task-color);\n}\n.task-color-border.color-border-top task-card\n{\n    border-top-color: var(--task-color);\n}\n.task-color-border.color-border-right task-card\n{\n    border-right-color: var(--task-color);\n}\n.task-color-border.color-border-bottom task-card\n{\n    border-bottom-color: var(--task-color);\n}\n.task-color-border.color-border-left task-card\n{\n    border-left-color: var(--task-color);\n}\n.task-color-background task-card\n{\n    background-color: var(--task-color);\n}\n.task-color-border task-card::part(color-container)\n{\n    display: block;\n    margin-block: 1em;\n    margin-inline-start: 1em;\n    width: 16px;\n    height: 16px;\n    background-color: var(--task-color);\n    border-radius: 50%;\n    align-self: center;\n}\n.task-color-border task-card::part(color)\n{\n    display: none;\n}\n\n@media (min-width: 665px) \n{\n    task-list\n    {\n        width: var(--list-width);\n    } \n}';
 
 // taskboard-manager.css?raw
 var taskboard_manager_default = `*
@@ -231,13 +231,22 @@ dialog .route-view route-page
     right: 0;
     padding: 1em;
     width: 375px;
+    display: grid;
+    row-gap: 7px;
 }
 [part="notifications"]:empty
 {
     pointer-events: none;
 }
+
+[part="message-content"]
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
     
-message-card
+/* message-card
 {
     background-color: field;
     box-shadow: 1px 1px 7px 3px rgb(0 0 0 / .4);
@@ -247,7 +256,7 @@ message-card::part(message)
 {
     display: grid;
     grid-template-columns: 1fr auto;
-}
+} */
 
 
 [part="confirmation-router"]
@@ -3636,8 +3645,8 @@ if (customElements.get(COMPONENT_TAG_NAME7) == null) {
   customElements.define(COMPONENT_TAG_NAME7, TaskBoardElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+task-list@0.0.10/node_modules/@magnit-ce/task-list/dist/task-list.js
-var task_list_default = ':host\n{\n    --border-color: rgb(95, 95, 95);\n    display: inline-block;\n    border: solid 1px var(--border-color);\n    border-radius: 3px;\n    padding: .5em;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(71, 71, 71);\n    }\n}\n\n\n[part="header"]\n{\n    display: grid;\n    grid-template-columns: auto minmax(0, 1fr) auto;\n    align-items: center;\n    position: sticky;\n}\n\n[part="color-container"]\n{\n    display: contents;\n}\n\n[part="color"]\n{\n    padding: 0;\n    width: 12px;\n    min-height: 0;\n    height: auto;\n    border: solid 1px transparent;\n    align-self: stretch;\n}\n[part="color"]::-moz-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch-wrapper \n{\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="tasks"]\n{\n    list-style: none;\n    margin: 0;\n    padding: 0;\n    display: flex;\n    flex-direction: column;\n}\n\n[part="add-button"]\n{\n    margin-top: 1rem;\n    margin-inline: auto;\n    min-width: 100px;\n    align-self: center;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 5px;\n}\n\n:host([collapsed]) > [part="tasks"]\n{\n    overflow: hidden;\n    height: min-content;\n    height: 0;\n    opacity: 0;\n    white-space: nowrap;\n    padding: 0;\n    margin: 0;\n    border: none;\n    pointer-events: none;\n    user-select: none;\n}\n\n::slotted([data-drag-id])\n{\n    opacity: .7;\n    scale: .97;\n    transition: opacity 100ms ease, scale 100ms ease;\n}\n\n::slotted(task-list)\n{\n    margin-block: 7px;\n}';
+// node_modules/.pnpm/@magnit-ce+task-list@0.0.11/node_modules/@magnit-ce/task-list/dist/task-list.js
+var task_list_default = ':host\n{\n    --border-color: rgb(95, 95, 95);\n    display: inline-block;\n    border: solid 1px var(--border-color);\n    border-radius: 3px;\n    padding: .5em;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(71, 71, 71);\n    }\n}\n\n\n[part="header"]\n{\n    display: grid;\n    grid-template-columns: auto minmax(0, 1fr) auto;\n    align-items: center;\n    position: sticky;\n}\n\n[part="color-container"]\n{\n    display: contents;\n}\n\n[part="color"]\n{\n    padding: 0;\n    width: 12px;\n    min-height: 0;\n    height: auto;\n    border: solid 1px transparent;\n    align-self: stretch;\n}\n[part="color"]::-moz-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch-wrapper \n{\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="tasks"]\n{\n    list-style: none;\n    margin: 0;\n    padding: 0;\n    display: flex;\n    flex-direction: column;\n}\n\n[part="add-button"]\n{\n    margin-top: 1rem;\n    margin-inline: auto;\n    min-width: 100px;\n    align-self: center;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 5px;\n}\n\n:host([collapsed]) > [part="tasks"]\n{\n    overflow: hidden;\n    height: min-content;\n    height: 0;\n    opacity: 0;\n    padding: 0;\n    margin: 0;\n    border: none;\n    pointer-events: none;\n    user-select: none;\n}\n\n::slotted([data-drag-id])\n{\n    opacity: .7;\n    scale: .97;\n    transition: opacity 100ms ease, scale 100ms ease;\n}\n\n::slotted(task-list)\n{\n    margin-block: 7px;\n}';
 var task_list_default2 = '<slot name="header">\n    <header part="header">\n        <label part="color-container" title="Color">\n            <input type="color" part="color" value="#919191" />\n        </label>\n        <input type="text" part="name" placeholder="List Name" />\n        <button type="button" part="collapse-button" title="Collapse">\n            <span part="collapse-icon">\u25B2</span>\n        </button>\n    </header>\n</slot>\n<ul part="tasks">\n    <slot></slot>\n</ul>\n<slot name="add-button"><button type="button" part="add-button" title="Add">\n    <span part="add-icon">&plus;</span>\n    <span part="add-label">Add Task</span>\n</button></slot>\n<slot name="footer"></slot>';
 var COMPONENT_STYLESHEET8 = new CSSStyleSheet();
 COMPONENT_STYLESHEET8.replaceSync(task_list_default);
@@ -3821,9 +3830,9 @@ if (customElements.get(COMPONENT_TAG_NAME8) == null) {
   customElements.define(COMPONENT_TAG_NAME8, TaskListElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+task-card@0.0.7/node_modules/@magnit-ce/task-card/dist/task-card.js
+// node_modules/.pnpm/@magnit-ce+task-card@0.0.8/node_modules/@magnit-ce/task-card/dist/task-card.js
 var task_card_default = ':host\n{\n    --border-color: rgb(95, 95, 95);\n    border: solid 1px var(--border-color);\n    border-radius: 3px;\n    padding: 0;\n    margin: .25em;\n    display: inline-flex;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(71, 71, 71);\n    }\n}\n\n[part="color-container"]\n{\n    display: contents;\n}\n\n[part="color"]\n{\n    margin: 0;\n    padding: 0;\n    width: 7.5px;\n    min-height: 0;\n    height: auto;\n    border: none;\n}\n[part="color"]::-moz-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch-wrapper \n{\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="is-finished"]\n{\n    margin: 1em .5em;\n}\n\n\n[part="is-finished"]:checked + slot [part="description"]\n,[part="is-finished"]:checked + ::slotted([slot="description"])\n{\n    text-decoration: line-through;\n}\n\n[part="description"]\n{\n    /* user-agent input defaults */\n    --input-border-color: rgb(118, 118, 118);\n\n    min-height: 1.2em;\n    min-width: 24px;\n    resize: both;\n    background-color: field;\n    color: fieldtext;\n    border: solid 1px var(--input-border-color, fieldtext);\n    padding: 3px 15px 3px 5px;\n    font-size: 12px;\n    font-family: sans-serif;\n    display: block;\n    border-radius: 2px;\n    overflow: auto;\n    overflow-wrap: normal;\n\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        /* user-agent input defaults */\n        --input-border-color: rgb(133, 133, 133);\n    }\n}\n\n[part="description"]\n,::slotted([slot="description"])\n{\n    margin: 1em .5em 1em 0;\n    flex: 1;\n}\n\n[part="remove-button"]\n{\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n}\n[part="remove-icon"]\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}';
-var task_card_default2 = '<slot name="handle">\n    <span part="handle"></span>\n</slot>\n<span part="color-container">\n    <input type="color" part="color" value="#919191" />\n</span>\n<input type="checkbox" part="is-finished" title="Finished?" />\n<slot name="description"><div part="description" contenteditable="true"></div></slot>\n<button type="button" part="remove-button" title="Delete">\n    <slot name="remove-button-label">\n        <svg part="remove-icon" class="icon close-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">\n            <path\n            style="display:inline;fill:var(--icon-primary-color,InfoText);fill-opacity:1;stroke:var(--icon-secondary-color,InfoBackground);stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"\n            d="m 3.8656768,2.2287478 a 1.6392814,1.6392814 0 0 0 -1.15929,0.48032 1.6392814,1.6392814 0 0 0 0,2.31816 l 6.38181,6.3818002 -6.38181,6.38182 a 1.6392814,1.6392814 0 0 0 0,2.31814 1.6392814,1.6392814 0 0 0 2.31816,0 l 6.3818102,-6.3818 6.38181,6.3818 a 1.6392814,1.6392814 0 0 0 2.31816,0 1.6392814,1.6392814 0 0 0 0,-2.31814 l -6.38182,-6.38182 6.38182,-6.3818002 a 1.6392814,1.6392814 0 0 0 0,-2.31816 1.6392814,1.6392814 0 0 0 -1.15929,-0.48032 1.6392814,1.6392814 0 0 0 -1.15887,0.48032 l -6.38181,6.38181 -6.3818102,-6.38181 a 1.6392814,1.6392814 0 0 0 -1.15887,-0.48032 z" />\n        </svg>\n    </slot>\n</button>';
+var task_card_default2 = '<slot name="handle">\n    <span part="handle"></span>\n</slot>\n<label part="color-container">\n    <input type="color" part="color" value="#919191" />\n</label>\n<input type="checkbox" part="is-finished" title="Finished?" />\n<slot name="description"><div part="description" contenteditable="true"></div></slot>\n<button type="button" part="remove-button" title="Delete">\n    <slot name="remove-button-label">\n        <svg part="remove-icon" class="icon close-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">\n            <path\n            style="display:inline;fill:var(--icon-primary-color,InfoText);fill-opacity:1;stroke:var(--icon-secondary-color,InfoBackground);stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"\n            d="m 3.8656768,2.2287478 a 1.6392814,1.6392814 0 0 0 -1.15929,0.48032 1.6392814,1.6392814 0 0 0 0,2.31816 l 6.38181,6.3818002 -6.38181,6.38182 a 1.6392814,1.6392814 0 0 0 0,2.31814 1.6392814,1.6392814 0 0 0 2.31816,0 l 6.3818102,-6.3818 6.38181,6.3818 a 1.6392814,1.6392814 0 0 0 2.31816,0 1.6392814,1.6392814 0 0 0 0,-2.31814 l -6.38182,-6.38182 6.38182,-6.3818002 a 1.6392814,1.6392814 0 0 0 0,-2.31816 1.6392814,1.6392814 0 0 0 -1.15929,-0.48032 1.6392814,1.6392814 0 0 0 -1.15887,0.48032 l -6.38181,6.38181 -6.3818102,-6.38181 a 1.6392814,1.6392814 0 0 0 -1.15887,-0.48032 z" />\n        </svg>\n    </slot>\n</button>';
 var COMPONENT_STYLESHEET9 = new CSSStyleSheet();
 COMPONENT_STYLESHEET9.replaceSync(task_card_default);
 var COMPONENT_TAG_NAME9 = "task-card";
@@ -5860,8 +5869,8 @@ if (customElements.get(COMPONENT_TAG_NAME17) == null) {
   customElements.define(COMPONENT_TAG_NAME17, RecordTreeElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+message-card@0.0.2/node_modules/@magnit-ce/message-card/dist/message-card.js
-var message_card_default = '\n:host([type="info"])    { --primary-color:#0184db; }\n:host([type="success"]) { --primary-color:#20a453; }\n:host([type="warning"]) { --primary-color:#f0cb52; }\n:host([type="error"])   { --primary-color:#db283b; }\n:host([type="aside"])   { --primary-color:#1f3cd0; }\n:host([type="note"])    { --primary-color:#db8630; }\n:host([type="report"])  { --primary-color:#4d5168; }\n\n@media (prefers-color-scheme: dark) \n{\n    :host([type="info"])    { --primary-color:#3baee9; }\n    :host([type="success"]) { --primary-color:#4fc872; }\n    :host([type="warning"]) { --primary-color:#f0cb52; }\n    :host([type="error"])   { --primary-color:#e95a5c; }\n    :host([type="aside"])   { --primary-color:#3760ff; }\n    :host([type="note"])    { --primary-color:#e9ac60; }\n    :host([type="report"])  { --primary-color:#707177; }\n}\n\n:host\n{\n    --primary-color: canvastext;\n    --font-color: canvastext;\n    background-color: var(--background-color);\n    color: var(--font-color);\n    border: solid 1px var(--primary-color);\n    border-radius: 3px;\n    padding: .5em;\n    display: none;\n    font-family: sans-serif;\n    font-size: 12px;\n    position: relative;\n\n    grid-template-columns: auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n:host([open])\n{\n    display: grid;\n}\n\n[part="message-icon"]\n,::slotted([slot="message-icon"])\n{\n    align-self: center;\n    grid-row: span 2;\n    margin-right: 1em;\n}\n\n[part="heading"]\n,::slotted([slot="heading"])\n{\n    color: var(--primary-color);\n    font-weight: bold;\n    font-size: 13px;\n    align-self: center;\n    display: inline-block;\n}\n\n[part="message"]\n{\n    grid-row: 2;\n    grid-column: 2;\n    margin-top: .3em;\n}\n\nsvg path { fill: var(--primary-color); }\n\n:host([prevent-close]) [part="close-button"]\n{\n    display: none;\n}\n[part="close-button"]\n{\n    align-self: center;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n    background: none;\n    padding: 2px 5px;\n    margin: 0;\n    border: solid 1px transparent;\n    border-radius: 3px;\n}\n[part="close-button"]:hover\n{\n    background-color: rgb(0 0 0 / .05);\n    border-color: rgb(0 0 0 / .1);\n}\n@media (prefers-color-scheme: dark) \n{\n    [part="close-button"]:hover\n    {\n        background-color: rgb(0 0 0 / .4);\n        border-color: rgb(0 0 0 / .7);\n    }\n}\n[part="close-icon"]\n,::slotted([slot="close-icon"])\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}\n\n[part="duration"]\n{\n    width: 100%;\n    position: absolute;\n    bottom: 0;\n    appearance: none;\n    height: 2px;\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n    border: none;\n    transition: all 50ms ease;\n    accent-color: var(--primary-color);\n}\n\n[part="duration"]::-webkit-progress-value\n{\n    background-color: var(--primary-color, canvastext);\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n}\n\n[part="duration"]::-webkit-progress-bar\n{\n    background: none;\n}\n[part="duration"]::-moz-progress-bar\n{\n    background-color: var(--primary-color, canvastext);\n}\n\n:host(:not([duration])) [part="duration"]\n{\n    display: none;\n}\n\n/* progress {\n}\nprogress::-webkit-progress-bar {\n}\nprogress::-webkit-progress-value {\n}\nprogress::-moz-progress-bar {\n} */';
+// node_modules/.pnpm/@magnit-ce+message-card@0.0.3/node_modules/@magnit-ce/message-card/dist/message-card.js
+var message_card_default = '\n:host([type="info"])    { --primary-color:#0184db; }\n:host([type="success"]) { --primary-color:#20a453; }\n:host([type="warning"]) { --primary-color:#f0cb52; }\n:host([type="error"])   { --primary-color:#db283b; }\n:host([type="aside"])   { --primary-color:#1f3cd0; }\n:host([type="note"])    { --primary-color:#db8630; }\n:host([type="report"])  { --primary-color:#4d5168; }\n\n@media (prefers-color-scheme: dark) \n{\n    :host([type="info"])    { --primary-color:#3baee9; }\n    :host([type="success"]) { --primary-color:#4fc872; }\n    :host([type="warning"]) { --primary-color:#f0cb52; }\n    :host([type="error"])   { --primary-color:#e95a5c; }\n    :host([type="aside"])   { --primary-color:#3760ff; }\n    :host([type="note"])    { --primary-color:#e9ac60; }\n    :host([type="report"])  { --primary-color:#707177; }\n}\n\n:host\n{\n    --primary-color: graytext;\n    --font-color: fieldtext;\n    background-color: var(--background-color, field);\n    color: var(--font-color);\n    border: solid 1px var(--primary-color);\n    border-radius: 3px;\n    padding: .5em;\n    display: none;\n    font-family: sans-serif;\n    font-size: 12px;\n    position: relative;\n\n    grid-template-columns: auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n:host([open])\n{\n    display: grid;\n}\n\n[part="message-icon"]\n,::slotted([slot="message-icon"])\n{\n    align-self: center;\n    grid-row: span 2;\n    margin-right: 1em;\n}\n\n[part="heading"]\n,::slotted([slot="heading"])\n{\n    color: var(--primary-color);\n    font-weight: bold;\n    font-size: 13px;\n    align-self: center;\n    display: inline-block;\n}\n\n[part="message"]\n{\n    grid-row: 2;\n    grid-column: 2;\n    margin-top: .3em;\n}\n\nsvg path { fill: var(--primary-color); }\n\n:host([prevent-close]) [part="close-button"]\n{\n    display: none;\n}\n[part="close-button"]\n{\n    align-self: center;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n    background: none;\n    padding: 2px 5px;\n    margin: 0;\n    border: solid 1px transparent;\n    border-radius: 3px;\n}\n[part="close-button"]:hover\n{\n    background-color: rgb(0 0 0 / .05);\n    border-color: rgb(0 0 0 / .1);\n}\n@media (prefers-color-scheme: dark) \n{\n    [part="close-button"]:hover\n    {\n        background-color: rgb(0 0 0 / .4);\n        border-color: rgb(0 0 0 / .7);\n    }\n}\n[part="close-icon"]\n,::slotted([slot="close-icon"])\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}\n\n[part="duration"]\n{\n    width: 100%;\n    position: absolute;\n    bottom: 0;\n    appearance: none;\n    height: 2px;\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n    border: none;\n    transition: all 50ms ease;\n    accent-color: var(--primary-color);\n}\n\n[part="duration"]::-webkit-progress-value\n{\n    background-color: var(--primary-color, canvastext);\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n}\n\n[part="duration"]::-webkit-progress-bar\n{\n    background: none;\n}\n[part="duration"]::-moz-progress-bar\n{\n    background-color: var(--primary-color, canvastext);\n}\n\n:host(:not([duration])) [part="duration"]\n{\n    display: none;\n}\n\n/* progress {\n}\nprogress::-webkit-progress-bar {\n}\nprogress::-webkit-progress-value {\n}\nprogress::-moz-progress-bar {\n} */';
 var message_card_default2 = '<slot name="message-icon">\n    <svg part="message-icon" class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">\n        <path d="M16.142 2l5.858 5.858v8.284l-5.858 5.858h-8.284l-5.858-5.858v-8.284l5.858-5.858h8.284zm.829-2h-9.942l-7.029 7.029v9.941l7.029 7.03h9.941l7.03-7.029v-9.942l-7.029-7.029zm-5.971 6h2v8h-2v-8zm1 12.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"></path>\n    </svg>\n</slot>\n<header part="header">\n    <slot name="heading"><span part="heading">Message</span></slot>\n</header>\n<div part="message">\n    <slot></slot>\n</div>\n<button part="close-button">\n    <slot name="close-icon">\n        <svg part="close-icon" class="icon" width="14" height="14" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">\n            <path\n            style="color:#000000;fill:var(--primary-color,InfoText);stroke:var(--outline-color,transparent);stroke-linecap:square;stroke-miterlimit:6.3;stroke-dashoffset:29.2913;stroke-opacity:1;-inkscape-stroke:none"\n            d="m 1237.4389,207.63366 -1.8991,1.8987 a 0.65841136,0.65841136 90.003442 0 0 0,0.93116 l 0.4831,0.48317 a 14628.329,14628.329 44.999244 0 0 0.9312,0.93118 l 3.7936,3.79311 a 0.65840885,0.65840885 89.998393 0 1 0,0.93116 l -3.7936,3.7936 a 8783.6896,8783.6896 135.00442 0 1 -0.9313,0.93111 l -0.4829,0.48283 a 0.65811,0.65811 89.993977 0 0 10e-5,0.93094 l 1.8987,1.89741 a 0.65867085,0.65867085 179.98891 0 0 0.9314,-1.8e-4 l 0.4826,-0.48267 a 45427.77,45427.77 134.99941 0 1 0.9312,-0.93119 l 3.7931,-3.79308 a 0.65848899,0.65848899 179.99848 0 1 0.9312,-2e-5 l 3.7936,3.79312 a 10110.91,10110.91 44.992994 0 0 0.9313,0.93108 l 0.483,0.48285 a 0.65856615,0.65856615 179.99438 0 0 0.9313,-9e-5 l 1.897,-1.89705 a 0.65833101,0.65833101 89.994378 0 0 -10e-5,-0.93111 l -0.483,-0.48285 a 5293.5057,5293.5057 44.99639 0 1 -0.9313,-0.93113 l -3.793,-3.79354 a 0.65849247,0.65849247 90.001607 0 1 0,-0.93122 l 3.793,-3.79305 a 149190.44,149190.44 134.99995 0 1 0.9312,-0.93119 l 0.4832,-0.48321 a 0.65863247,0.65863247 90.008202 0 0 10e-5,-0.93132 l -1.8972,-1.89834 a 0.65838576,0.65838576 0.01346964 0 0 -0.9312,-2.2e-4 l -0.483,0.48285 a 7148.543,7148.543 135.00546 0 0 -0.9313,0.9311 l -3.7936,3.79359 a 0.65841791,0.65841791 0.00151591 0 1 -0.9312,-3e-5 l -3.7931,-3.79353 a 52707.551,52707.551 45.002134 0 0 -0.9312,-0.93122 l -0.4826,-0.48267 a 0.65849044,0.65849044 0.00323988 0 0 -0.9312,-5e-5 z"\n            transform="translate(-1232.6358,-204.72848)" />\n        </svg>\n    </slot>\n</button>\n<progress part="duration" min="0" max="100" step="1" value="100"></progress>';
 var ProgressTimeout = class {
   duration;
@@ -7216,6 +7225,21 @@ function router_onPathChange(event) {
       window.history.pushState(null, "", newHistoryState);
     }
   }
+  const currentPathArray = updatedPath.split("#");
+  const pageRoute = currentPathArray[0];
+  const hashRoute = currentPathArray[1];
+  if (pageRoute != null) {
+    const currentMenuItem = this.findPart("boards").querySelector(`[data-route="${pageRoute}"]`);
+    if (currentMenuItem != null) {
+      currentMenuItem.setAttribute("aria-current", "page");
+    }
+  }
+  if (hashRoute != null) {
+    const configMenuItem = this.findPart("config-navigation").querySelector(`[data-route="#${hashRoute}"`);
+    if (configMenuItem != null) {
+      configMenuItem.setAttribute("aria-current", "page");
+    }
+  }
 }
 function parseWindowPath() {
   const pathArray = window.location.search.substring(1).split("=");
@@ -7339,7 +7363,11 @@ async function taskDescription_onKeyUp(event) {
     console.error(new Error("List data not found."));
     return;
   }
-  this.addTask(listId);
+  const card = new TaskCardElement();
+  list.append(card);
+  this[SHAREDACCESSKEY].registerTaskCard(card, listId, list.children.length);
+  list.append(card);
+  card.findPart("description").focus();
 }
 
 // handlers/drag.handlers.ts
@@ -7430,6 +7458,196 @@ async function duplicateBoard_onClick(_event) {
 async function closeBoard_onClick(_event) {
   await this.closeBoardSettings();
   this.closeBoard();
+}
+
+// handlers/key.handlers.ts
+function addKeyHandlers() {
+  document.addEventListener("keydown", key_onDown.bind(this));
+}
+function key_onDown(event) {
+  const taskboard = event.target == this ? this : null;
+  if (taskboard == null) {
+    return;
+  }
+  const activeList = taskboard.shadowRoot?.activeElement;
+  if (activeList instanceof TaskListElement) {
+    if (event.altKey == true) {
+      const addButton = activeList.findPart("add-button");
+      const activeButton = activeList.shadowRoot.activeElement == addButton ? addButton : null;
+      if (activeButton != null) {
+        if (event.code == "ArrowUp") {
+          const lastTask = findLastTask(activeButton);
+          if (lastTask != null) {
+            lastTask.findPart("description").focus();
+            return;
+          }
+        }
+      }
+      if (event.code == "ArrowDown") {
+        activeList.querySelector("task-card")?.findPart("description").focus();
+        return;
+      }
+    }
+  }
+  const activeCard = taskboard.shadowRoot?.activeElement;
+  if (activeCard == null || !(activeCard instanceof TaskCardElement)) {
+    return;
+  }
+  if (event.altKey == true && activeCard != null) {
+    if (event.code == "ArrowUp") {
+      if (event.shiftKey == true) {
+        const firstTask = findFirstTask(activeCard);
+        if (firstTask != null) {
+          firstTask.findPart("description").focus();
+        }
+      } else {
+        const previousTask = findPreviousTask(activeCard);
+        if (previousTask != null) {
+          previousTask.findPart("description").focus();
+        } else {
+          activeCard.parentElement.findPart("name").focus();
+        }
+      }
+    } else if (event.code == "ArrowDown") {
+      if (event.shiftKey == true) {
+        const lastTask = findLastTask(activeCard);
+        if (lastTask != null) {
+          lastTask.findPart("description").focus();
+        }
+      } else {
+        const nextTask = findNextTask(activeCard);
+        if (nextTask != null) {
+          nextTask.findPart("description").focus();
+        } else {
+          activeCard.parentElement.findPart("add-button").focus();
+        }
+      }
+    } else if (event.code == "ArrowLeft") {
+      if (event.shiftKey == false) {
+        const previousListTask = findPreviousListTask(activeCard);
+        if (previousListTask != null) {
+          previousListTask.findPart("description").focus();
+        }
+      }
+    } else if (event.code == "ArrowRight") {
+      if (event.shiftKey == false) {
+        const nextListTask = findNextListTask(activeCard);
+        if (nextListTask != null) {
+          nextListTask.findPart("description").focus();
+        }
+      }
+    }
+  }
+}
+function findPreviousListWithTasks(list) {
+  let previousList = list.previousElementSibling;
+  if (previousList == null) {
+    return null;
+  }
+  let firstTask = previousList.querySelector("task-card");
+  if (firstTask != null) {
+    return previousList;
+  }
+  while (previousList.previousElementSibling != null) {
+    firstTask = previousList.querySelector("task-card");
+    if (firstTask != null) {
+      return previousList;
+    }
+    previousList = previousList.previousElementSibling;
+  }
+  return null;
+}
+function findNextListWithTasks(list) {
+  let nextList = list.nextElementSibling;
+  if (nextList == null) {
+    return null;
+  }
+  let firstTask = nextList.querySelector("task-card");
+  if (firstTask != null) {
+    return nextList;
+  }
+  while (nextList.nextElementSibling != null) {
+    firstTask = nextList.querySelector("task-card");
+    if (firstTask != null) {
+      return nextList;
+    }
+    nextList = nextList.nextElementSibling;
+  }
+  return null;
+}
+function findPreviousListTask(task) {
+  const parentList = task.closest("task-list");
+  if (parentList == null) {
+    return null;
+  }
+  let previousList = findPreviousListWithTasks(parentList);
+  if (previousList == null) {
+    return;
+    null;
+  }
+  let targetTask = previousList.querySelector("task-card");
+  if (targetTask == null) {
+    previousList = previousList.previousElementSibling;
+    if (previousList != null) {
+    }
+  }
+  const taskRect = task.getBoundingClientRect();
+  for (let i = 1; i < previousList.children.length; i++) {
+    const currentTask = previousList.children[i];
+    const currentTaskRect = currentTask.getBoundingClientRect();
+    if (currentTaskRect.top <= taskRect.top) {
+      targetTask = currentTask;
+    } else {
+      break;
+    }
+  }
+  return targetTask;
+}
+function findNextListTask(task) {
+  const parentList = task.closest("task-list");
+  if (parentList == null) {
+    return null;
+  }
+  const nextList = findNextListWithTasks(parentList);
+  if (nextList == null) {
+    return;
+    null;
+  }
+  let targetTask = nextList.querySelector("task-card");
+  if (targetTask == null) {
+    return null;
+  }
+  const taskRect = task.getBoundingClientRect();
+  for (let i = 1; i < nextList.children.length; i++) {
+    const currentTask = nextList.children[i];
+    const currentTaskRect = currentTask.getBoundingClientRect();
+    if (currentTaskRect.top <= taskRect.top) {
+      targetTask = currentTask;
+    } else {
+      break;
+    }
+  }
+  return targetTask;
+}
+function findFirstTask(task) {
+  const parentList = task.closest("task-list");
+  if (parentList == null) {
+    return null;
+  }
+  return parentList.querySelector("task-card");
+}
+function findPreviousTask(task) {
+  return task.previousElementSibling instanceof TaskCardElement ? task.previousElementSibling : null;
+}
+function findNextTask(task) {
+  return task.nextElementSibling instanceof TaskCardElement ? task.nextElementSibling : null;
+}
+function findLastTask(target) {
+  const parentList = target instanceof TaskCardElement ? target.closest("task-list") : target.getRootNode().host;
+  if (parentList == null) {
+    return null;
+  }
+  return parentList.querySelector("task-card:last-of-type");
 }
 
 // taskboard-manager.ts
@@ -7604,6 +7822,7 @@ var TaskboardManagerElement7 = class extends HTMLElement {
   }
   #addUndoNotification(message, entryId) {
     const content = document.createElement("span");
+    content.setAttribute("part", "message-content");
     const messageText = document.createElement("span");
     messageText.setAttribute("part", "undo-message");
     messageText.textContent = message;
@@ -7624,6 +7843,7 @@ var TaskboardManagerElement7 = class extends HTMLElement {
       }
       this.getPart("action-history").reverseEntry(entry);
       notification.dispatchEvent(new CustomEvent(MessageCardEvent.Cancel));
+      notification.remove();
     });
     notification.show();
   }
@@ -7667,17 +7887,19 @@ var TaskboardManagerElement7 = class extends HTMLElement {
     const [list, settings] = channel.create();
     this.findPart("board-fields").addList(list, settings);
   }
-  async addTask(listId) {
-    const list = this.shadowRoot.querySelector(`task-list[data-tasklist-id="${listId}"]`);
-    if (list == null) {
-      this.#showMessageDialog("An error occurred creating a new task.", "danger");
-      console.error(`An error occurred accessing task-list element. Unable to save new task.`);
-      return;
-    }
-    const newCard = new TaskCardElement();
-    list.append(newCard);
-    newCard.findPart("description").focus();
-  }
+  // async addTask(listId: string)
+  // {
+  //     const list = this.shadowRoot!.querySelector(`task-list[data-tasklist-id="${listId}"]`);
+  //     if(list == null)
+  //     {
+  //         this.#showMessageDialog('An error occurred creating a new task.', 'danger');
+  //         console.error(`An error occurred accessing task-list element. Unable to save new task.`);
+  //         return;
+  //     }
+  //     const newCard = new TaskCardElement();
+  //     list.append(newCard);
+  //     newCard.findPart('description').focus();
+  // }
   async undo() {
     this.findPart("action-history").back();
   }
@@ -7717,7 +7939,7 @@ var TaskboardManagerElement7 = class extends HTMLElement {
     await this.#prepareDynamicContent();
     this.#addHandlers();
     this.#refreshRecentBoards();
-    this.#refreshBoards();
+    const boardsPromise = this.#refreshBoards();
     this.#refreshActionHistory();
     this.#refreshDeletedItems();
     const { windowPath, windowHash } = parseWindowPath();
@@ -7726,6 +7948,21 @@ var TaskboardManagerElement7 = class extends HTMLElement {
     if (filteredWindowHash != windowHash) {
       const newHistoryState = `${window.origin}/demo/app.html?path=${windowPath}${filteredWindowHash != "" ? `#${filteredWindowHash}` : ""}`;
       window.history.replaceState(null, "", newHistoryState);
+    }
+    boardsPromise.then(() => {
+      let boardIdIndex = windowPath.indexOf("board/");
+      if (boardIdIndex > -1) {
+        const currentMenuItem = this.findPart("boards").querySelector(`[data-route="${windowPath}"]`);
+        if (currentMenuItem != null) {
+          currentMenuItem.setAttribute("aria-current", "page");
+        }
+      }
+    });
+    if (windowHash.indexOf("config/") > -1) {
+      const configMenuItem = this.findPart("config-navigation").querySelector(`[data-route="#${windowHash}"`);
+      if (configMenuItem != null) {
+        configMenuItem.setAttribute("aria-current", "page");
+      }
     }
     this.#removeExpiredData();
     setInterval(() => {
@@ -7808,6 +8045,7 @@ var TaskboardManagerElement7 = class extends HTMLElement {
     addBoardHandlers.call(this);
     addBoardSettingsHandlers.call(this);
     addBoardBrowserHandlers.call(this);
+    addKeyHandlers.call(this);
   }
   // settings
   #getAppSetting(key) {

@@ -90,6 +90,10 @@ export async function taskDescription_onKeyUp(this: TaskboardManagerElement, eve
         console.error(new Error("List data not found."));
         return;
     }
-
-    this.addTask(listId);
+    const card = new TaskCardElement();
+    list.append(card);
+    this[SHAREDACCESSKEY].registerTaskCard(card, listId, list.children.length);
+    
+    list.append(card);
+    card.findPart('description').focus();
 }
