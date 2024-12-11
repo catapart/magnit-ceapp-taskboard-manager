@@ -125,6 +125,37 @@
                     <legend part="custom-settings-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>
                     <slot name="custom-settings">[ No Custom Settings ]</slot>
                 </fieldset>
+                <fieldset part="hotkeys-fieldset">
+                    <legend part="hotkeyss-legend">Hot Keys</legend>
+                    <dl part="hotkeys-list">
+                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Left</key></dt>
+                        <dd part="hotkey-description">Move text cursor to previous word.</dd>
+                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Right</key></dt>
+                        <dd part="hotkey-description">Move text cursor to next word.</dd>
+                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Up</key></dt>
+                        <dd part="hotkey-description">Move text cursor to closest word in previous line.</dd>
+                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Down</key></dt>
+                        <dd part="hotkey-description">Move text cursor to closest word in next line.</dd>
+
+                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Left</key></dt>
+                        <dd part="hotkey-description">Highlight from the current cursor position to the start of the previous word.</dd>
+                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Right</key></dt>
+                        <dd part="hotkey-description">Highlight from the current cursor position to the end of the next word.</dd>
+                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Up</key></dt>
+                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the previous line.</dd>
+                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Down</key></dt>
+                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the next line.</dd>
+
+                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Left</key></dt>
+                        <dd part="hotkey-description">Move to the task in the previous list.</dd>
+                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Right</key></dt>
+                        <dd part="hotkey-description">Move to the task in the previous list.</dd>
+                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Up</key></dt>
+                        <dd part="hotkey-description">Move to the task in the previous list.</dd>
+                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Down</key></dt>
+                        <dd part="hotkey-description">Move to the task in the previous list.</dd>
+                    </dl>
+                </fieldset>
             </route-page>
             <route-page path="data" part="config-data-page">
                 <header part="data-header">Data</header>

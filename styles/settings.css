@@ -17,6 +17,10 @@ task-list
     color: var(--list-font-color);
     border-color: var(--list-border-color, transparent);
 }
+task-list::part(header)
+{
+    top: 0;
+}
 task-list::part(name)
 {
     color: inherit;

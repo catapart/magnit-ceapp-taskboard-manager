@@ -19,6 +19,25 @@ export class ImageExport extends extendableType<ExportedImage>()
         if(this.image != null)
         {
             this.image_base64 = await toBase64(this.image);
+            if(this.image instanceof File)
+            {
+                if(this.image.name.endsWith('jpg') || this.image.name.endsWith('jpeg'))
+                {
+                    this.image_base64 = this.image_base64.replace("application/octet-stream", "image/jpg");
+                }
+                else if(this.image.name.endsWith('png'))
+                {
+                    this.image_base64 = this.image_base64.replace("application/octet-stream", "image/png");
+                }
+                else if(this.image.name.endsWith('webp'))
+                {
+                    this.image_base64 = this.image_base64.replace("application/octet-stream", "image/webp");
+                }
+                else if(this.image.name.endsWith('gif'))
+                {
+                    this.image_base64 = this.image_base64.replace("application/octet-stream", "image/gif");
+                }
+            }
         }
     }
 }
