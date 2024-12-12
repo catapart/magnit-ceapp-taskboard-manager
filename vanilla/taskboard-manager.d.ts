@@ -300,6 +300,7 @@ type SharedContent = {
     updateBoardSettings: () => void;
     updateBoardRecordsAfterMove: () => void;
     updateBoardItemOrder: (draggingCursorY: number) => void;
+    updateRecentBoardEntry: (id: string, description?: string) => Promise<void>;
     removeBoardFromRecentBoards: (id: string) => Promise<void>;
     updateListRecord: (taskListComponent: TaskListElement) => void;
     duplicateList: (target: HTMLElement, list: TaskListRecord, settings: TaskSettingsRecord) => void;

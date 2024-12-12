@@ -139,6 +139,7 @@ type SharedContent =
     updateBoardSettings: () => void,
     updateBoardRecordsAfterMove: () => void,
     updateBoardItemOrder: (draggingCursorY: number) => void,
+    updateRecentBoardEntry: (id: string, description?: string) => Promise<void>,
     removeBoardFromRecentBoards: (id: string) => Promise<void>,
 
     updateListRecord: (taskListComponent: TaskListElement) => void,
@@ -587,6 +588,7 @@ export class TaskboardManagerElement extends HTMLElement
             updateListRecord: this.#updateListRecord.bind(this),
             duplicateList: this.#duplicateList.bind(this),
             updateBoardRecordsAfterMove: this.#updateBoardRecordsAfterMove.bind(this),
+            updateRecentBoardEntry: this.#updateRecentBoardEntry.bind(this),
             removeBoardFromRecentBoards: this.#removeBoardFromRecentBoards.bind(this),
 
             registerTaskCard: this.#registerTaskCard.bind(this),
@@ -1066,6 +1068,9 @@ export class TaskboardManagerElement extends HTMLElement
             const removedList = removedLists[i];
             await this.#addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.List, { id: removedList.id });
         }
+
+        // update recent entries
+        this.#updateRecentBoardEntry(board.id, board.name);
     }
     
     async #prepareExportData(id: string)
@@ -2088,6 +2093,19 @@ export class TaskboardManagerElement extends HTMLElement
         }
         const boardsString = JSON.stringify(boards);
         this.#saveAppSetting(AppSettingKey.RecentBoards, boardsString);
+    }
+    async #updateRecentBoardEntry(id: string, description?: string)
+    {
+        const boards = await this.#getRecentBoards();
+        const existingEntry = boards.find(item => item.id == id);
+        if(existingEntry == null) { return; }
+
+        existingEntry.description = description ?? existingEntry.description;
+        existingEntry.timestamp = Date.now();
+
+        const boardsString = JSON.stringify(boards);
+        this.#saveAppSetting(AppSettingKey.RecentBoards, boardsString);
+        this.#refreshRecentBoards();
     }
     async #removeBoardFromRecentBoards(id: string)
     {

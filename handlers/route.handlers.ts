@@ -188,6 +188,7 @@ function boardRoute_beforeOpen(this: TaskboardManagerElement, event: Event|Custo
         throw new Error('Unable to open board route with unknown id');
     }
     this[SHAREDACCESSKEY].renderBoard(boardId);
+    this[SHAREDACCESSKEY].updateRecentBoardEntry(boardId);
 }
 async function boardSettingsRoute_beforeOpen(this: TaskboardManagerElement, event: Event|CustomEvent)
 {
