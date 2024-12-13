@@ -234,6 +234,7 @@ function findLastTask(target: TaskCardElement|HTMLButtonElement)
 {
     const parentList = (target instanceof TaskCardElement)
     ? target.closest('task-list') as TaskListElement
+    // @ts-expect-error ts doesn't think host exists?
     : target.getRootNode().host;
     if(parentList == null) { return null; }
     return parentList.querySelector('task-card:last-of-type');

@@ -1,644 +1,644 @@
 // styles/menu.css?raw
-var menu_default = `[part="menu"]\r
-{\r
-    padding: 0;\r
-    margin: 0;\r
-    background-color: field;\r
-    color: fieldtext;\r
-    border-right: solid 1px graytext;\r
-}\r
-\r
-[part="menu"] header\r
-{\r
-    display: flex;\r
-    gap: .5em;\r
-    padding: .5em;\r
-}\r
-\r
-[part="branding"]\r
-{\r
-    grid-area: brand;\r
-    display: flex;\r
-    align-items: center;\r
-    justify-content: center;\r
-}\r
-\r
-[part="branding"] .logo.mark\r
-{\r
-    width: var(--brand-icon-size);\r
-    height: var(--brand-icon-size);\r
-}\r
-\r
-[part="open-app-settings"]\r
-{\r
-}\r
-\r
-[part="open-board-browser"]\r
-{\r
-}\r
-\r
-[part="boards"]\r
-{\r
-    margin: 0;\r
-    padding: 0;\r
-}\r
-\r
-[part="boards"] a\r
-{\r
-    margin: 0;\r
-    flex-shrink: 0;\r
-    display: flex;\r
-    align-items: center;\r
-    gap: var(--list-item-gap, .25em);\r
-    padding: var(--list-item-padding, .25em 1em);\r
-}\r
-[part="boards"] a [part="name"]\r
-{\r
-    flex: 1;\r
-}\r
-[part="boards"] a:hover\r
-{\r
-    background-color: var(--highlight-background, highlight);\r
-    color: var(--highlight-text, highlighttext);\r
-}\r
-[part="boards"] a.selected\r
-{\r
-    background-color: var(--highlight-background, highlight);\r
-    color: var(--highlight-text, highlighttext);\r
-}\r
-\r
-@media (max-width: 665px) \r
-{\r
-    [part="menu"]\r
-    {\r
-        max-width: 100vw;\r
-        display: grid;\r
-        border-right: none;\r
-        order: 2;\r
-    }\r
-\r
-    [part="header"]\r
-    {\r
-        grid-row: 2;\r
-        display: flex;\r
-        justify-content: space-between;\r
-        order: 3;\r
-        background-color: field;\r
-    }\r
-    \r
-    [part="menu"] .board-search\r
-    {\r
-        align-items: center;\r
-        justify-content: center;\r
-    }\r
-    [part="menu"] > editable-list\r
-    {\r
-        display: flex;\r
-        align-items: center;\r
-        order: 2;\r
-        background-color: field;\r
-        border-top: solid 1px graytext;\r
-    }\r
-    [part="menu"] > editable-list::part(items)\r
-    {\r
-        display: flex;\r
-        flex-wrap: nowrap;\r
-        overflow-x: auto;\r
-        overflow-y: hidden;\r
-        width: 0; /* doesn't actually set width, just corrects weird overflow issue */\r
-        flex: 1;\r
-        box-shadow: inset -10px 0 10px -10px rgb(0 0 0 / .8);\r
-    }\r
-\r
-    [part="menu"] > editable-list [part="handle"]\r
-    ,[part="menu"] > editable-list [part="edit"]\r
-    {\r
-        display: none;\r
-    }\r
-    [part="menu"] > editable-list a\r
-    {\r
-        padding: 12px 7px;\r
-    }\r
-\r
-    [part="new-board-button_list"]\r
-    {\r
-        display: flex;\r
-        align-self: stretch;\r
-        margin: 7px;\r
-    }\r
-\r
-    [part="new-board-button_list"] .label\r
-    {\r
-        display: none;\r
-    }\r
-\r
-    [part="app-status"]\r
-    {\r
-        display: none;\r
-    }\r
-}\r
-@media (max-width: 800px) \r
-{\r
-    \r
-}\r
-\r
-/* only desktop */\r
-@media (min-width: 665px) \r
-{\r
-    [part="menu"]\r
-    {\r
-        display: grid;\r
-        grid-template-rows: auto 1fr;\r
-        overflow: hidden;\r
-    }\r
-\r
-\r
-    [part="boards"]\r
-    {\r
-        display: grid;\r
-        grid-template-rows: 1fr auto;\r
-        overflow: hidden;\r
-    }\r
-    [part="boards"]::part(items)\r
-    {\r
-        margin: 0;\r
-        padding: 0;\r
-        display: grid;\r
-        gap: .5em;\r
-        overflow-y: auto;\r
-        grid-auto-rows: max-content;\r
-    }\r
-    [part="boards"] [part="edit"]\r
-    {\r
-        opacity: 0;\r
-        transition: opacity 200ms ease;\r
-    }\r
-\r
-    [part="boards"] a:hover [part="edit"]\r
-    {\r
-        opacity: 1;\r
-    }\r
-\r
-    [part="boards"] [part="board-item-name"]\r
-    {\r
-        flex: 1;\r
-        white-space: nowrap;\r
-    }\r
-\r
-    [part="new-board-button_list"]\r
-    {\r
-        margin: 10px;\r
-    }\r
-\r
-    [part="handle"]\r
-    {\r
-        display: flex;\r
-        width: 15px;\r
-        align-self: stretch;\r
-        cursor: grab;\r
-        border-radius: 3px;\r
-        transform: translateY(-2px);\r
-        \r
-        background-image: radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%),\r
-        radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%);\r
-        background-size: 5px 5px;\r
-        background-position: 0 0, 2px 2px;\r
-    }\r
-    [part="handle"]:active\r
-    {\r
-        cursor: grabbing;\r
-    }\r
-\r
-    [part="open-board-browser"][aria-current="page"]\r
-    ,[part="open-settings"][aria-current="page"]\r
-    {\r
-        border: solid 1px highlight;\r
-    }\r
-\r
-    [part="boards"] [aria-current="page"]\r
-    {\r
-        background-color: highlight;\r
-        color: highlighttext;\r
-    }\r
-\r
-    [part="new-board-button_list"]\r
-    {\r
-        margin-top: 1em;\r
-        justify-self: center;\r
-    }\r
-\r
-    [part="app-status"]\r
-    {\r
-        padding: var(--panel-padding);\r
-        display: grid;\r
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;\r
-        grid-template-rows: auto auto;\r
-        gap: var(--status-item-gap);\r
-        align-items: center;\r
-    }\r
-\r
-    [part="connection-status"]\r
-    ,[part="login-status"]\r
-    ,[part="sync-status"]\r
-    {\r
-        grid-row: 1;\r
-        justify-self: center;\r
-    }\r
-\r
-    [part="connection-status"]\r
-    {\r
-        grid-column: 1/3;\r
-    }\r
-    \r
-    [part="login-status"]\r
-    {\r
-        grid-column: 3/5;\r
-    }\r
-    \r
-    [part="sync-status"]\r
-    {\r
-        grid-column: 5/7;\r
-    }\r
-    [part="upload-status"]\r
-    {\r
-        grid-row: 2;\r
-        grid-column: 1/4;\r
-        display: flex;\r
-        align-items: center;\r
-        gap: var(--status-item-gap);\r
-    }\r
-    [part="remote-storage-status"]\r
-    {\r
-        grid-row: 2;\r
-        grid-column: 4/7;\r
-        display: flex;\r
-        align-items: center;\r
-        gap: var(--status-item-gap);\r
-    }\r
-\r
-\r
-    [part="app-status"] progress\r
-    {\r
-        min-width: 0;\r
-        width: auto;\r
-    }\r
-}\r
-@media (min-width: 800px) \r
-{\r
-\r
+var menu_default = `[part="menu"]
+{
+    padding: 0;
+    margin: 0;
+    background-color: field;
+    color: fieldtext;
+    border-right: solid 1px graytext;
+}
+
+[part="menu"] header
+{
+    display: flex;
+    gap: .5em;
+    padding: .5em;
+}
+
+[part="branding"]
+{
+    grid-area: brand;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+[part="branding"] .logo.mark
+{
+    width: var(--brand-icon-size);
+    height: var(--brand-icon-size);
+}
+
+[part="open-app-settings"]
+{
+}
+
+[part="open-board-browser"]
+{
+}
+
+[part="boards"]
+{
+    margin: 0;
+    padding: 0;
+}
+
+[part="boards"] a
+{
+    margin: 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--list-item-gap, .25em);
+    padding: var(--list-item-padding, .25em 1em);
+}
+[part="boards"] a [part="name"]
+{
+    flex: 1;
+}
+[part="boards"] a:hover
+{
+    background-color: var(--highlight-background, highlight);
+    color: var(--highlight-text, highlighttext);
+}
+[part="boards"] a.selected
+{
+    background-color: var(--highlight-background, highlight);
+    color: var(--highlight-text, highlighttext);
+}
+
+@media (max-width: 665px) 
+{
+    [part="menu"]
+    {
+        max-width: 100vw;
+        display: grid;
+        border-right: none;
+        order: 2;
+    }
+
+    [part="header"]
+    {
+        grid-row: 2;
+        display: flex;
+        justify-content: space-between;
+        order: 3;
+        background-color: field;
+    }
+    
+    [part="menu"] .board-search
+    {
+        align-items: center;
+        justify-content: center;
+    }
+    [part="menu"] > editable-list
+    {
+        display: flex;
+        align-items: center;
+        order: 2;
+        background-color: field;
+        border-top: solid 1px graytext;
+    }
+    [part="menu"] > editable-list::part(items)
+    {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 0; /* doesn't actually set width, just corrects weird overflow issue */
+        flex: 1;
+        box-shadow: inset -10px 0 10px -10px rgb(0 0 0 / .8);
+    }
+
+    [part="menu"] > editable-list [part="handle"]
+    ,[part="menu"] > editable-list [part="edit"]
+    {
+        display: none;
+    }
+    [part="menu"] > editable-list a
+    {
+        padding: 12px 7px;
+    }
+
+    [part="new-board-button_list"]
+    {
+        display: flex;
+        align-self: stretch;
+        margin: 7px;
+    }
+
+    [part="new-board-button_list"] .label
+    {
+        display: none;
+    }
+
+    [part="app-status"]
+    {
+        display: none;
+    }
+}
+@media (max-width: 800px) 
+{
+    
+}
+
+/* only desktop */
+@media (min-width: 665px) 
+{
+    [part="menu"]
+    {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        overflow: hidden;
+    }
+
+
+    [part="boards"]
+    {
+        display: grid;
+        grid-template-rows: 1fr auto;
+        overflow: hidden;
+    }
+    [part="boards"]::part(items)
+    {
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: .5em;
+        overflow-y: auto;
+        grid-auto-rows: max-content;
+    }
+    [part="boards"] [part="edit"]
+    {
+        opacity: 0;
+        transition: opacity 200ms ease;
+    }
+
+    [part="boards"] a:hover [part="edit"]
+    {
+        opacity: 1;
+    }
+
+    [part="boards"] [part="board-item-name"]
+    {
+        flex: 1;
+        white-space: nowrap;
+    }
+
+    [part="new-board-button_list"]
+    {
+        margin: 10px;
+    }
+
+    [part="handle"]
+    {
+        display: flex;
+        width: 15px;
+        align-self: stretch;
+        cursor: grab;
+        border-radius: 3px;
+        transform: translateY(-2px);
+        
+        background-image: radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%),
+        radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%);
+        background-size: 5px 5px;
+        background-position: 0 0, 2px 2px;
+    }
+    [part="handle"]:active
+    {
+        cursor: grabbing;
+    }
+
+    [part="open-board-browser"][aria-current="page"]
+    ,[part="open-settings"][aria-current="page"]
+    {
+        border: solid 1px highlight;
+    }
+
+    [part="boards"] [aria-current="page"]
+    {
+        background-color: highlight;
+        color: highlighttext;
+    }
+
+    [part="new-board-button_list"]
+    {
+        margin-top: 1em;
+        justify-self: center;
+    }
+
+    [part="app-status"]
+    {
+        padding: var(--panel-padding);
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: var(--status-item-gap);
+        align-items: center;
+    }
+
+    [part="connection-status"]
+    ,[part="login-status"]
+    ,[part="sync-status"]
+    {
+        grid-row: 1;
+        justify-self: center;
+    }
+
+    [part="connection-status"]
+    {
+        grid-column: 1/3;
+    }
+    
+    [part="login-status"]
+    {
+        grid-column: 3/5;
+    }
+    
+    [part="sync-status"]
+    {
+        grid-column: 5/7;
+    }
+    [part="upload-status"]
+    {
+        grid-row: 2;
+        grid-column: 1/4;
+        display: flex;
+        align-items: center;
+        gap: var(--status-item-gap);
+    }
+    [part="remote-storage-status"]
+    {
+        grid-row: 2;
+        grid-column: 4/7;
+        display: flex;
+        align-items: center;
+        gap: var(--status-item-gap);
+    }
+
+
+    [part="app-status"] progress
+    {
+        min-width: 0;
+        width: auto;
+    }
+}
+@media (min-width: 800px) 
+{
+
 }`;
 
 // styles/app-settings.css?raw
-var app_settings_default = '[part="config-header"]\r\n{\r\n    margin-bottom: 20px;\r\n}\r\n\r\n[part="config-header"] svg\r\n{\r\n    width: var(--dialog-header-icon-size);\r\n    height: var(--dialog-header-icon-size);\r\n}\r\nsvg\r\n{\r\n    width: var(--tab-icon-size);\r\n    height: var(--tab-icon-size);\r\n}\r\n\r\n[part="config-navigation"]\r\n{\r\n    margin: 0;\r\n    padding: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: field;\r\n    color: fieldtext;\r\n    border: solid 1px graytext;\r\n    border-radius: 2px;\r\n    margin-bottom: 20px;\r\n    user-select: none;\r\n}\r\n\r\n[part="config-nav-item"]\r\n{\r\n    --tab-icon-size: 14px;\r\n    padding: 7px 12px;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n    [part="config-navigation"]\r\n    {\r\n        display: grid;\r\n        grid-template-columns: 1fr 1fr;\r\n        grid-template-rows: 1fr 1fr;\r\n    }\r\n\r\n    [part="config-nav-item"]\r\n    {\r\n        justify-content: center;\r\n    }\r\n}\r\n\r\n[part="config-nav-item"][aria-current="page"]\r\n,[part="config-nav-item"]:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n\r\n[part="settings-header"]\r\n,[part="data-header"]\r\n,[part="history-header"]\r\n,[part="about-header"]\r\n{\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n}\r\n\r\n[part="settings-page"]\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto auto 1fr;\r\n    gap: 7px;\r\n}\r\n\r\n[part="custom-settings-fieldset"]\r\n{\r\n    color: graytext;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n[part="config-data-page"]\r\n{\r\n    display: grid;\r\n    gap: 7px;\r\n}\r\n\r\n[part="import-fieldset"]\r\n{\r\n    display: flex;\r\n    gap: 7px;\r\n}\r\n\r\n[part="import-field"] .container\r\n{\r\n    flex: 1;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n}\r\n\r\n[part="import-board-file"]\r\n{\r\n    flex: 1;\r\n}\r\n\r\n[part="import-content"]\r\n{\r\n    overflow: hidden;\r\n    padding: 1em;\r\n    display: flex;\r\n}\r\n\r\n[part="import-manager"]\r\n{\r\n    overflow: hidden;\r\n    display: flex;\r\n    flex-direction: column;\r\n    flex: 1;\r\n}\r\n\r\n[part="import-actions"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto auto;\r\n    gap: 7px;\r\n}\r\n\r\n[part="import-cancel"]\r\n{\r\n    grid-column: 2;\r\n}\r\n\r\n[part="import-ok"]\r\n{\r\n    grid-column: 3;\r\n}\r\n\r\n[part="config-data-caches"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr 1fr;\r\n    gap: 7px;\r\n}\r\n\r\n[part="data-cleanup-fieldset"]\r\n{\r\n    display: grid;\r\n    grid-template-rows: max-content 1fr max-content;\r\n    gap: 7px;\r\n}\r\n\r\n[part="data-cleanup-range"] .container\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 5px;\r\n    align-self: flex-end;\r\n}\r\n[part="data-persist-days"]\r\n{\r\n    flex: 1;\r\n}\r\n\r\n[part="apply-data-persist-days-button"]\r\n{\r\n    justify-self: flex-end;\r\n}\r\n\r\n[part="data-pending-fieldset"]\r\n,[part="image-cache-fieldset"]\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto 1fr auto;\r\n    gap: 7px;\r\n}\r\n\r\n[part="deleted-items"]\r\n,[part="deleted-images"]\r\n{\r\n    display: grid;\r\n    background: field;\r\n    border-radius: 2px;\r\n    border: 1px solid graytext;\r\n    color: fieldtext;\r\n    height: 130px;\r\n    overflow: auto;\r\n    margin: 0;\r\n    padding: 0;\r\n    align-self: flex-end;\r\n}\r\n[part="deleted-item"]\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    padding: 3px 7px;\r\n}\r\n[part="deleted-item-label"]\r\n{\r\n    flex: 1;\r\n    gap: 5px;\r\n}\r\n\r\n[part="deleted-items"]::part(add)\r\n,[part="deleted-images"]::part(add)\r\n{\r\n    display: none;\r\n}\r\n\r\n[part="clear-deleted-button"]\r\n,[part="clear-image-cache-button"]\r\n{\r\n    justify-self: flex-end;\r\n}\r\n\r\n[part="data-clear-fieldset"]\r\n{\r\n    display: grid;\r\n    gap: 7px;\r\n}\r\n\r\n[part="clear-data-button"]\r\n{\r\n    justify-self: flex-end;\r\n}\r\n@media (max-width: 665px) \r\n{\r\n\r\n    [part="import-fieldset"]\r\n    {\r\n        flex-direction: column;\r\n    }\r\n    [part="import-field"] .container\r\n    {\r\n        flex-direction: column;\r\n        align-items: stretch;\r\n    }\r\n    [part="import-button"]\r\n    {\r\n        align-self: flex-end;\r\n    }\r\n    [part="config-data-caches"]\r\n    {\r\n        display: grid;\r\n        grid-template-columns: 1fr;\r\n        gap: 7px;\r\n    }\r\n    [part="action-history-length"]\r\n    {\r\n        width: 50px;\r\n    }\r\n}\r\n\r\n[part="history-page"]\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto 1fr auto;\r\n    gap: 7px;\r\n}\r\n\r\n[part="history-length-fieldset"]\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 10px;\r\n    flex: 1;\r\n}\r\n\r\n[part="history-length-field"] .container\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 5px;\r\n    flex: 1;\r\n}\r\n\r\n[part="action-history-length"]\r\n{\r\n    flex: 1;\r\n}\r\n\r\n[part="history-navigation"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto auto 1fr auto;\r\n    grid-template-rows: auto 1fr;\r\n    gap: 7px;\r\n    overflow: hidden;\r\n}\r\n[part="clear-history-button"]\r\n{\r\n    grid-column: 4;\r\n    white-space: nowrap;\r\n}\r\n[part="action-history"]\r\n{\r\n    grid-column: span 4;\r\n    background: field;\r\n    border-radius: 2px;\r\n    border: 1px solid graytext;\r\n    color: fieldtext;\r\n    overflow: auto;\r\n    flex: 1;\r\n}\r\n[part="action-history-entry"]\r\n{\r\n    padding: 3px 7px;\r\n    border-radius: 2px;\r\n}\r\n[part="action-history-entry"]:hover\r\n{\r\n    background-color: rgb(0 0 0 / .3);\r\n}\r\n\r\n[part="about-page"]\r\n{\r\n    display: grid;\r\n    gap: 7px;\r\n    grid-template-columns: 1fr 1fr;\r\n    grid-template-rows: auto 1fr auto;\r\n}\r\n\r\n[part="about-app-fieldset"]\r\n{\r\n    grid-column: span 2;\r\n}\r\n[part="about-app-fieldset"] p\r\n{\r\n    text-align: center;\r\n}\r\n\r\n[part="version-fieldset"]\r\n{\r\n    grid-column: 1;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n[part="copyright-fieldset"]\r\n{\r\n    grid-column: 2;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    text-align: center;\r\n}\r\n\r\n[part="config-actions"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto auto;\r\n    gap: 10px;\r\n    padding-block-start: 10px;\r\n}\r\n\r\n[part="config-ok"]\r\n,[part="config-cancel"]\r\n{\r\n    width: 75px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n[part="config-cancel"]\r\n{\r\n    grid-column: 2;\r\n}\r\n[part="config-ok"]\r\n{\r\n    grid-column: 3;\r\n}';
+var app_settings_default = '[part="config-header"]\n{\n    margin-bottom: 20px;\n}\n\n[part="config-header"] svg\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n}\nsvg\n{\n    width: var(--tab-icon-size);\n    height: var(--tab-icon-size);\n}\n\n[part="config-navigation"]\n{\n    margin: 0;\n    padding: 0;\n    display: flex;\n    align-items: center;\n    background-color: field;\n    color: fieldtext;\n    border: solid 1px graytext;\n    border-radius: 2px;\n    margin-bottom: 20px;\n    user-select: none;\n}\n\n[part="config-nav-item"]\n{\n    --tab-icon-size: 14px;\n    padding: 7px 12px;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n}\n\n@media (max-width: 665px) \n{\n    [part="config-navigation"]\n    {\n        display: grid;\n        grid-template-columns: 1fr 1fr;\n        grid-template-rows: 1fr 1fr;\n    }\n\n    [part="config-nav-item"]\n    {\n        justify-content: center;\n    }\n}\n\n[part="config-nav-item"][aria-current="page"]\n,[part="config-nav-item"]:hover\n{\n    background-color: highlight;\n    color: highlighttext;\n}\n\n[part="settings-header"]\n,[part="data-header"]\n,[part="history-header"]\n,[part="about-header"]\n{\n    font-size: 14px;\n    font-weight: bold;\n}\n\n[part="settings-page"]\n{\n    display: grid;\n    grid-template-rows: auto auto 1fr;\n    gap: 7px;\n}\n\n[part="custom-settings-fieldset"]\n{\n    color: graytext;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n[part="config-data-page"]\n{\n    display: grid;\n    gap: 7px;\n}\n\n[part="import-fieldset"]\n{\n    display: flex;\n    gap: 7px;\n}\n\n[part="import-field"] .container\n{\n    flex: 1;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n}\n\n[part="import-board-file"]\n{\n    flex: 1;\n}\n\n[part="import-content"]\n{\n    overflow: hidden;\n    padding: 1em;\n    display: flex;\n}\n\n[part="import-manager"]\n{\n    overflow: hidden;\n    display: flex;\n    flex-direction: column;\n    flex: 1;\n}\n\n[part="import-actions"]\n{\n    display: grid;\n    grid-template-columns: 1fr auto auto;\n    gap: 7px;\n}\n\n[part="import-cancel"]\n{\n    grid-column: 2;\n}\n\n[part="import-ok"]\n{\n    grid-column: 3;\n}\n\n[part="config-data-caches"]\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 7px;\n}\n\n[part="data-cleanup-fieldset"]\n{\n    display: grid;\n    grid-template-rows: max-content 1fr max-content;\n    gap: 7px;\n}\n\n[part="data-cleanup-range"] .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    align-self: flex-end;\n}\n[part="data-persist-days"]\n{\n    flex: 1;\n}\n\n[part="apply-data-persist-days-button"]\n{\n    justify-self: flex-end;\n}\n\n[part="data-pending-fieldset"]\n,[part="image-cache-fieldset"]\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n}\n\n[part="deleted-items"]\n,[part="deleted-images"]\n{\n    display: grid;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    height: 130px;\n    overflow: auto;\n    margin: 0;\n    padding: 0;\n    align-self: flex-end;\n}\n[part="deleted-item"]\n{\n    display: flex;\n    align-items: center;\n    padding: 3px 7px;\n}\n[part="deleted-item-label"]\n{\n    flex: 1;\n    gap: 5px;\n}\n\n[part="deleted-items"]::part(add)\n,[part="deleted-images"]::part(add)\n{\n    display: none;\n}\n\n[part="clear-deleted-button"]\n,[part="clear-image-cache-button"]\n{\n    justify-self: flex-end;\n}\n\n[part="data-clear-fieldset"]\n{\n    display: grid;\n    gap: 7px;\n}\n\n[part="clear-data-button"]\n{\n    justify-self: flex-end;\n}\n@media (max-width: 665px) \n{\n\n    [part="import-fieldset"]\n    {\n        flex-direction: column;\n    }\n    [part="import-field"] .container\n    {\n        flex-direction: column;\n        align-items: stretch;\n    }\n    [part="import-button"]\n    {\n        align-self: flex-end;\n    }\n    [part="config-data-caches"]\n    {\n        display: grid;\n        grid-template-columns: 1fr;\n        gap: 7px;\n    }\n    [part="action-history-length"]\n    {\n        width: 50px;\n    }\n}\n\n[part="history-page"]\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n}\n\n[part="history-length-fieldset"]\n{\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    flex: 1;\n}\n\n[part="history-length-field"] .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    flex: 1;\n}\n\n[part="action-history-length"]\n{\n    flex: 1;\n}\n\n[part="history-navigation"]\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n    gap: 7px;\n    overflow: hidden;\n}\n[part="clear-history-button"]\n{\n    grid-column: 4;\n    white-space: nowrap;\n}\n[part="action-history"]\n{\n    grid-column: span 4;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    overflow: auto;\n    flex: 1;\n}\n[part="action-history-entry"]\n{\n    padding: 3px 7px;\n    border-radius: 2px;\n}\n[part="action-history-entry"]:hover\n{\n    background-color: rgb(0 0 0 / .3);\n}\n\n[part="about-page"]\n{\n    display: grid;\n    gap: 7px;\n    grid-template-columns: 1fr 1fr;\n    grid-template-rows: auto 1fr auto;\n}\n\n[part="about-app-fieldset"]\n{\n    grid-column: span 2;\n}\n[part="about-app-fieldset"] p\n{\n    text-align: center;\n}\n\n[part="version-fieldset"]\n{\n    grid-column: 1;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n[part="copyright-fieldset"]\n{\n    grid-column: 2;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-align: center;\n}\n\n[part="config-actions"]\n{\n    display: grid;\n    grid-template-columns: 1fr auto auto;\n    gap: 10px;\n    padding-block-start: 10px;\n}\n\n[part="config-ok"]\n,[part="config-cancel"]\n{\n    width: 75px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n[part="config-cancel"]\n{\n    grid-column: 2;\n}\n[part="config-ok"]\n{\n    grid-column: 3;\n}';
 
 // styles/board-browser.css?raw
-var board_browser_default = 'captioned-thumbnail\r\n{\r\n    height: auto;\r\n}\r\n\r\ncaptioned-thumbnail::part(figure)\r\n{\r\n    padding: 3px;\r\n}\r\n\r\ncaptioned-thumbnail svg\r\n{\r\n    width: 36px;\r\n    height: 36px;\r\n}\r\n\r\ncollection-browser\r\n{\r\n    margin: 1em;\r\n    overflow: hidden;\r\n}\r\n\r\ncollection-browser::part(gallery)\r\n{\r\n}\r\n\r\ncollection-browser::part(items)\r\n{\r\n    display: flex;\r\n    gap: .5em;\r\n    flex-wrap: wrap;\r\n    padding: 7px;\r\n    overflow: hidden auto;\r\n}\r\n\r\ncollection-browser captioned-thumbnail.match\r\n{\r\n    border: solid 1px highlight;\r\n    order: 0;\r\n}\r\ncollection-browser:has(captioned-thumbnail.match) captioned-thumbnail:not(.match)\r\n{\r\n    order: 1;\r\n}\r\n\r\ncollection-browser::part(add-button)\r\n{\r\n    display: none;\r\n}\r\n\r\n[part="board-browser-actions"]\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    gap: 1em;\r\n}\r\n\r\n[part="board-browser-actions"] button\r\n{\r\n    width: 70px;\r\n    justify-content: center;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n    [part="board-browser-filter"]::part(input)\r\n    {\r\n        width: 157px;\r\n    }\r\n}';
+var board_browser_default = 'captioned-thumbnail\n{\n    height: auto;\n}\n\ncaptioned-thumbnail::part(figure)\n{\n    padding: 3px;\n}\n\ncaptioned-thumbnail svg\n{\n    width: 36px;\n    height: 36px;\n}\n\ncollection-browser\n{\n    margin: 1em;\n    overflow: hidden;\n}\n\ncollection-browser::part(gallery)\n{\n}\n\ncollection-browser::part(items)\n{\n    display: flex;\n    gap: .5em;\n    flex-wrap: wrap;\n    padding: 7px;\n    overflow: hidden auto;\n}\n\ncollection-browser captioned-thumbnail.match\n{\n    border: solid 1px highlight;\n    order: 0;\n}\ncollection-browser:has(captioned-thumbnail.match) captioned-thumbnail:not(.match)\n{\n    order: 1;\n}\n\ncollection-browser::part(add-button)\n{\n    display: none;\n}\n\n[part="board-browser-actions"]\n{\n    display: flex;\n    align-items: center;\n    justify-content: flex-end;\n    gap: 1em;\n}\n\n[part="board-browser-actions"] button\n{\n    width: 70px;\n    justify-content: center;\n}\n\n@media (max-width: 665px) \n{\n    [part="board-browser-filter"]::part(input)\n    {\n        width: 157px;\n    }\n}';
 
 // styles/board-settings.css?raw
-var board_settings_default = '[part="board-settings-form"]\r\n{\r\n    display: flex;\r\n    flex-direction: column;\r\n    overflow: hidden;\r\n}\r\n\r\n[part="board-fields"]\r\n{\r\n    overflow-y: auto;\r\n    flex: 1;\r\n}\r\n\r\n[part="board-settings-footer"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto 1fr auto auto;\r\n    gap: 7px;\r\n    padding-block: 5px;\r\n}\r\n[part="board-settings-cancel"]\r\n{\r\n    grid-column: 3;\r\n}\r\n[part="board-settings-save"]\r\n{\r\n    grid-column: 4;\r\n}\r\n\r\n@media (min-width: 800px) \r\n{\r\n    [part="board-settings"]\r\n    {\r\n        width: 801px;\r\n    }\r\n}';
+var board_settings_default = '[part="board-settings-form"]\n{\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n}\n\n[part="board-fields"]\n{\n    overflow-y: auto;\n    flex: 1;\n}\n\n[part="board-settings-footer"]\n{\n    display: grid;\n    grid-template-columns: auto 1fr auto auto;\n    gap: 7px;\n    padding-block: 5px;\n}\n[part="board-settings-cancel"]\n{\n    grid-column: 3;\n}\n[part="board-settings-save"]\n{\n    grid-column: 4;\n}\n\n@media (min-width: 800px) \n{\n    [part="board-settings"]\n    {\n        width: 801px;\n    }\n}';
 
 // styles/settings.css?raw
-var settings_default = 'task-board\r\n{\r\n    background-color: var(--board-background-color, transparent);\r\n    color: var(--board-font-color);\r\n}\r\ntask-board[style*="--board-background-source"]\r\n{\r\n    background:  var(--board-background-source), var(--board-background-color, transparent);\r\n    background-size: var(--background-image-display);\r\n    background-position: var(--background-image-position, var(--background-image-offset));\r\n    background-repeat: var(--background-image-repeat);\r\n}\r\n\r\ntask-list\r\n{\r\n    background: var(--list-background-color);\r\n    color: var(--list-font-color);\r\n    border-color: var(--list-border-color, transparent);\r\n}\r\ntask-list::part(header)\r\n{\r\n    top: 0;\r\n}\r\ntask-list::part(name)\r\n{\r\n    color: inherit;\r\n}\r\ntask-list.hide-color::part(color)\r\n{\r\n    display: none;\r\n}\r\ntask-list.hide-color::part(header)\r\n{\r\n    grid-template-columns: 1fr auto;\r\n}\r\n\r\ntask-card\r\n{\r\n    background-color: var(--task-background-color, none);\r\n    width: var(--task-width, 300px);\r\n    overflow: hidden;\r\n    font-family: sans-serif;\r\n    color: var(--task-font-color, currentcolor);\r\n    font-size: var(--task-font-size, 12px);\r\n    border-color: var(--task-border-color, var(--input-border-color));\r\n    border-radius: var(--task-border-radius, 2px);\r\n    border-top-width: var(--task-border-top, 1px);\r\n    border-right-width: var(--task-border-right, 1px);\r\n    border-bottom-width: var(--task-border-bottom, 1px);\r\n    border-left-width: var(--task-border-left, 1px);\r\n}\r\ntask-card::part(description)\r\n{\r\n    font: inherit;\r\n}\r\n.center-remove task-card::part(remove-button)\r\n{\r\n    align-self: center;\r\n}\r\ntask-card::part(is-finished)\r\n{\r\n    align-self: flex-start;\r\n}\r\n.center-checkbox task-card::part(is-finished)\r\n{\r\n    align-self: center;\r\n}\r\n\r\n.hide-task-color task-card::part(color)\r\n{\r\n    display: none;\r\n}\r\n\r\n.task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card\r\n{\r\n    border-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-top task-card\r\n{\r\n    border-top-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-right task-card\r\n{\r\n    border-right-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-bottom task-card\r\n{\r\n    border-bottom-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-left task-card\r\n{\r\n    border-left-color: var(--task-color);\r\n}\r\n.task-color-background task-card\r\n{\r\n    background-color: var(--task-color);\r\n}\r\n.task-color-border task-card::part(color-container)\r\n{\r\n    display: block;\r\n    margin-block: 1em;\r\n    margin-inline-start: 1em;\r\n    width: 16px;\r\n    height: 16px;\r\n    background-color: var(--task-color);\r\n    border-radius: 50%;\r\n    align-self: center;\r\n}\r\n.task-color-border task-card::part(color)\r\n{\r\n    display: none;\r\n}\r\n\r\n@media (min-width: 665px) \r\n{\r\n    task-list\r\n    {\r\n        width: var(--list-width);\r\n    } \r\n}';
+var settings_default = 'task-board\n{\n    background-color: var(--board-background-color, transparent);\n    color: var(--board-font-color);\n}\ntask-board[style*="--board-background-source"]\n{\n    background:  var(--board-background-source), var(--board-background-color, transparent);\n    background-size: var(--background-image-display);\n    background-position: var(--background-image-position, var(--background-image-offset));\n    background-repeat: var(--background-image-repeat);\n}\n\ntask-list\n{\n    background: var(--list-background-color);\n    color: var(--list-font-color);\n    border-color: var(--list-border-color, transparent);\n}\ntask-list::part(header)\n{\n    top: 0;\n}\ntask-list::part(name)\n{\n    color: inherit;\n}\ntask-list.hide-color::part(color)\n{\n    display: none;\n}\ntask-list.hide-color::part(header)\n{\n    grid-template-columns: 1fr auto;\n}\n\ntask-card\n{\n    background-color: var(--task-background-color, none);\n    width: var(--task-width, 300px);\n    overflow: hidden;\n    font-family: sans-serif;\n    color: var(--task-font-color, currentcolor);\n    font-size: var(--task-font-size, 12px);\n    border-color: var(--task-border-color, var(--input-border-color));\n    border-radius: var(--task-border-radius, 2px);\n    border-top-width: var(--task-border-top, 1px);\n    border-right-width: var(--task-border-right, 1px);\n    border-bottom-width: var(--task-border-bottom, 1px);\n    border-left-width: var(--task-border-left, 1px);\n}\ntask-card::part(description)\n{\n    font: inherit;\n}\n.center-remove task-card::part(remove-button)\n{\n    align-self: center;\n}\ntask-card::part(is-finished)\n{\n    align-self: flex-start;\n}\n.center-checkbox task-card::part(is-finished)\n{\n    align-self: center;\n}\n\n.hide-task-color task-card::part(color)\n{\n    display: none;\n}\n\n.task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card\n{\n    border-color: var(--task-color);\n}\n.task-color-border.color-border-top task-card\n{\n    border-top-color: var(--task-color);\n}\n.task-color-border.color-border-right task-card\n{\n    border-right-color: var(--task-color);\n}\n.task-color-border.color-border-bottom task-card\n{\n    border-bottom-color: var(--task-color);\n}\n.task-color-border.color-border-left task-card\n{\n    border-left-color: var(--task-color);\n}\n.task-color-background task-card\n{\n    background-color: var(--task-color);\n}\n.task-color-border task-card::part(color-container)\n{\n    display: block;\n    margin-block: 1em;\n    margin-inline-start: 1em;\n    width: 16px;\n    height: 16px;\n    background-color: var(--task-color);\n    border-radius: 50%;\n    align-self: center;\n}\n.task-color-border task-card::part(color)\n{\n    display: none;\n}\n\n@media (min-width: 665px) \n{\n    task-list\n    {\n        width: var(--list-width);\n    } \n}';
 
 // taskboard-manager.css?raw
-var taskboard_manager_default = `*\r
-{\r
-    box-sizing: border-box;\r
-}\r
-\r
-:host\r
-{    \r
-    font: inherit;\r
-    display: grid;\r
-    border: solid 1px;\r
-    position: relative;\r
-    background: canvas;\r
-    color: canvastext;\r
-\r
-    --icon-size: 12px;\r
-    --tab-icon-size: var(--icon-size);\r
-    --brand-icon-size: 24px;\r
-    --button-icon-size: var(--icon-size);\r
-    --pill-icon-size: var(--icon-size);\r
-    --dialog-margin: 10px;\r
-    --dialog-header-icon-size: 16px;\r
-\r
-    --task-width: auto;\r
-}\r
-input, button, textarea, select \r
-{\r
-    font: inherit; \r
-}\r
-\r
-button\r
-{\r
-    display: inline-flex;\r
-    align-items: center;\r
-    gap: .5em;\r
-}\r
-\r
-button svg\r
-{\r
-    width: var(--button-icon-size);\r
-    height: var(--button-icon-size);\r
-}\r
-\r
-image-input [slot="placeholder"]\r
-{\r
-    display: grid;\r
-    justify-items: center;\r
-    gap: .25em;\r
-    padding: .5em;\r
-    max-width: 300px;\r
-    max-height: 300px;\r
-}\r
-\r
-[part="welcome-page"]\r
-{\r
-    display: grid;\r
-}\r
-\r
-[part="welcome"]\r
-{\r
-    align-self: center;\r
-    justify-self: center;\r
-    padding: 1em;\r
-}\r
-\r
-[part="recent-boards"]\r
-{\r
-    display: grid;\r
-    margin: 0;\r
-    padding: 0;\r
-}\r
-[part="recent-boards"]::part(items)\r
-{\r
-    display: grid;\r
-    \r
-}\r
-[part="recent-boards"] a\r
-{\r
-    display: flex;\r
-    align-items: center;\r
-    justify-content: space-between;\r
-    padding: 3px 7px;\r
-}\r
-[part="recent-boards"] a:hover\r
-{\r
-    background-color: highlight;\r
-    color: highlighttext;\r
-}\r
-[part="new-board-button_welcome"]\r
-{\r
-    text-align: center;\r
-    display: flex;\r
-    justify-content: center;\r
-    align-items: center;\r
-    margin: 10px;\r
-}\r
-\r
-[part="logo"]\r
-{\r
-    width: 100%;\r
-    height: 80px;\r
-}\r
-\r
-[part="loading"]\r
-{\r
-    align-self: center;\r
-    justify-self: center;\r
-\r
-    display: inline-block;\r
-    width: 50px;\r
-    height: 50px;\r
-    border: 3px solid highlighttext;\r
-    border-radius: 50%;\r
-    border-top-color: highlight;\r
-    animation: loading-spin 1s ease-in-out infinite;\r
-    -webkit-animation: loading-spin 1s ease-in-out infinite;\r
-    opacity: 0;\r
-    transition: opacity 200ms linear;\r
-    pointer-events: none;\r
-    position: absolute;\r
-}\r
-:host([loading]) [part="loading"]\r
-{\r
-    opacity: 1;\r
-    pointer-events: initial;\r
-    position: static;\r
-}\r
-\r
-[part="app-router"]\r
-{\r
-    overflow: hidden;\r
-}\r
-\r
-[part="board-route"]\r
-{\r
-    display: flex;\r
-    overflow: hidden;\r
-}\r
-\r
-task-card[data-drag-id]\r
-{\r
-    /* background-color: red; */\r
-    padding: 10px;\r
-    scale: .9;\r
-    border: dashed 1px graytext;\r
-}\r
-\r
-dialog\r
-{\r
-    max-height: 80%;\r
-    max-width: calc(100% - (var(--dialog-margin)*2));\r
-    overflow: hidden;\r
-    flex-direction: column;\r
-    transition: transform 200ms ease, opacity 200ms ease;\r
-}\r
-dialog[open]\r
-{\r
-    display: flex;\r
-    opacity: 1;\r
-}\r
-@starting-style \r
-{\r
-    dialog[open]\r
-    {\r
-        opacity: 0;\r
-        transform: translateY(20px);\r
-    }\r
-}\r
-\r
-dialog > header\r
-,dialog > form > header\r
-{\r
-    display: grid;\r
-    grid-template-columns: auto 1fr auto;\r
-    gap: 7px;\r
-    align-items: center;\r
-    font-weight: bold;\r
-    padding-block: 5px;\r
-}\r
-dialog > header svg\r
-,dialog > form > header svg\r
-{\r
-    width: var(--dialog-header-icon-size);\r
-    height: var(--dialog-header-icon-size);\r
-}\r
-\r
-dialog .route-view\r
-{\r
-    flex:1;\r
-    overflow: hidden;\r
-}\r
-\r
-dialog .route-view route-page\r
-{\r
-    overflow: auto;\r
-}\r
-\r
-\r
-[part="deleted-items"] [data-restore="false"]\r
-{\r
-    scale: .98 .9;\r
-    opacity: .5;\r
-    pointer-events: none;\r
-}\r
-\r
-[to-delete]\r
-{\r
-    text-decoration: line-through;\r
-    color: #444;\r
-}\r
-\r
-[part="notifications"]\r
-{\r
-    position: absolute;\r
-    top: 0;\r
-    right: 0;\r
-    padding: 1em;\r
-    width: 375px;\r
-    display: grid;\r
-    row-gap: 7px;\r
-}\r
-[part="notifications"]:empty\r
-{\r
-    pointer-events: none;\r
-}\r
-\r
-[part="message-content"]\r
-{\r
-    display: grid;\r
-    grid-template-columns: 1fr auto;\r
-    align-items: center;\r
-}\r
-    \r
-/* message-card\r
-{\r
-    background-color: field;\r
-    box-shadow: 1px 1px 7px 3px rgb(0 0 0 / .4);\r
-}\r
-\r
-message-card::part(message)\r
-{\r
-    display: grid;\r
-    grid-template-columns: 1fr auto;\r
-} */\r
-\r
-\r
-[part="confirmation-router"]\r
-{\r
-    margin-block: 1em;\r
-}\r
-[part="confirmation-dialog-form"]\r
-{\r
-    display: flex;\r
-    justify-content: flex-end;\r
-    gap: 10px;\r
-}\r
-  \r
-@keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }\r
-@-webkit-keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }\r
-\r
-[part="icon-definitions"]\r
-{\r
-    display: none;\r
-}\r
-\r
-@media (max-width: 665px) \r
-{\r
-    :host\r
-    {\r
-        grid-template-rows: 1fr auto auto;\r
-        grid-template-columns: 1fr;\r
-        /* grid-template-areas: 'menu'\r
-        'taskboard'; */\r
-    }\r
-\r
-    task-board::part(lists)\r
-    {\r
-        scroll-snap-type: x mandatory;\r
-    }\r
-    task-list\r
-    {\r
-        scroll-snap-align: start;\r
-        width: 100vw;\r
-    }\r
-    \r
-    [part="notifications"]\r
-    {\r
-        width: 100vw;\r
-    }\r
-\r
-    dialog\r
-    {\r
-        bottom: 25px;\r
-    }\r
-}\r
-@media (max-width: 800px) \r
-{\r
-    \r
-}\r
-\r
-/* only desktop */\r
-@media (min-width: 665px) \r
-{\r
-    :host\r
-    {\r
-        grid-template-columns: auto 1fr;\r
-        grid-template-areas: 'menu taskboard';\r
-    }\r
-\r
-    [part="app-router"]\r
-    {\r
-        grid-column: 2;\r
-        grid-row: 1;\r
-        flex: 1;\r
-    }\r
-\r
-    [part="loading"]\r
-    {\r
-        grid-column: 2;\r
-        grid-row: 1;\r
-    }\r
-    dialog\r
-    {\r
-        min-width: 500px;\r
-        max-width: 850px;\r
-        top: 50px;\r
-    }\r
-\r
-    task-card::part(description)\r
-    {\r
-        width: min-content;\r
-    }\r
-}\r
-@media (min-width: 800px) \r
-{\r
+var taskboard_manager_default = `*
+{
+    box-sizing: border-box;
+}
+
+:host
+{    
+    font: inherit;
+    display: grid;
+    border: solid 1px;
+    position: relative;
+    background: canvas;
+    color: canvastext;
+
+    --icon-size: 12px;
+    --tab-icon-size: var(--icon-size);
+    --brand-icon-size: 24px;
+    --button-icon-size: var(--icon-size);
+    --pill-icon-size: var(--icon-size);
+    --dialog-margin: 10px;
+    --dialog-header-icon-size: 16px;
+
+    --task-width: auto;
+}
+input, button, textarea, select 
+{
+    font: inherit; 
+}
+
+button
+{
+    display: inline-flex;
+    align-items: center;
+    gap: .5em;
+}
+
+button svg
+{
+    width: var(--button-icon-size);
+    height: var(--button-icon-size);
+}
+
+image-input [slot="placeholder"]
+{
+    display: grid;
+    justify-items: center;
+    gap: .25em;
+    padding: .5em;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+[part="welcome-page"]
+{
+    display: grid;
+}
+
+[part="welcome"]
+{
+    align-self: center;
+    justify-self: center;
+    padding: 1em;
+}
+
+[part="recent-boards"]
+{
+    display: grid;
+    margin: 0;
+    padding: 0;
+}
+[part="recent-boards"]::part(items)
+{
+    display: grid;
+    
+}
+[part="recent-boards"] a
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px 7px;
+}
+[part="recent-boards"] a:hover
+{
+    background-color: highlight;
+    color: highlighttext;
+}
+[part="new-board-button_welcome"]
+{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+[part="logo"]
+{
+    width: 100%;
+    height: 80px;
+}
+
+[part="loading"]
+{
+    align-self: center;
+    justify-self: center;
+
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 3px solid highlighttext;
+    border-radius: 50%;
+    border-top-color: highlight;
+    animation: loading-spin 1s ease-in-out infinite;
+    -webkit-animation: loading-spin 1s ease-in-out infinite;
+    opacity: 0;
+    transition: opacity 200ms linear;
+    pointer-events: none;
+    position: absolute;
+}
+:host([loading]) [part="loading"]
+{
+    opacity: 1;
+    pointer-events: initial;
+    position: static;
+}
+
+[part="app-router"]
+{
+    overflow: hidden;
+}
+
+[part="board-route"]
+{
+    display: flex;
+    overflow: hidden;
+}
+
+task-card[data-drag-id]
+{
+    /* background-color: red; */
+    padding: 10px;
+    scale: .9;
+    border: dashed 1px graytext;
+}
+
+dialog
+{
+    max-height: 80%;
+    max-width: calc(100% - (var(--dialog-margin)*2));
+    overflow: hidden;
+    flex-direction: column;
+    transition: transform 200ms ease, opacity 200ms ease;
+}
+dialog[open]
+{
+    display: flex;
+    opacity: 1;
+}
+@starting-style 
+{
+    dialog[open]
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+dialog > header
+,dialog > form > header
+{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 7px;
+    align-items: center;
+    font-weight: bold;
+    padding-block: 5px;
+}
+dialog > header svg
+,dialog > form > header svg
+{
+    width: var(--dialog-header-icon-size);
+    height: var(--dialog-header-icon-size);
+}
+
+dialog .route-view
+{
+    flex:1;
+    overflow: hidden;
+}
+
+dialog .route-view route-page
+{
+    overflow: auto;
+}
+
+
+[part="deleted-items"] [data-restore="false"]
+{
+    scale: .98 .9;
+    opacity: .5;
+    pointer-events: none;
+}
+
+[to-delete]
+{
+    text-decoration: line-through;
+    color: #444;
+}
+
+[part="notifications"]
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
+    width: 375px;
+    display: grid;
+    row-gap: 7px;
+}
+[part="notifications"]:empty
+{
+    pointer-events: none;
+}
+
+[part="message-content"]
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
+    
+/* message-card
+{
+    background-color: field;
+    box-shadow: 1px 1px 7px 3px rgb(0 0 0 / .4);
+}
+
+message-card::part(message)
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+} */
+
+
+[part="confirmation-router"]
+{
+    margin-block: 1em;
+}
+[part="confirmation-dialog-form"]
+{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+  
+@keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }
+@-webkit-keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }
+
+[part="icon-definitions"]
+{
+    display: none;
+}
+
+@media (max-width: 665px) 
+{
+    :host
+    {
+        grid-template-rows: 1fr auto auto;
+        grid-template-columns: 1fr;
+        /* grid-template-areas: 'menu'
+        'taskboard'; */
+    }
+
+    task-board::part(lists)
+    {
+        scroll-snap-type: x mandatory;
+    }
+    task-list
+    {
+        scroll-snap-align: start;
+        width: 100vw;
+    }
+    
+    [part="notifications"]
+    {
+        width: 100vw;
+    }
+
+    dialog
+    {
+        bottom: 25px;
+    }
+}
+@media (max-width: 800px) 
+{
+    
+}
+
+/* only desktop */
+@media (min-width: 665px) 
+{
+    :host
+    {
+        grid-template-columns: auto 1fr;
+        grid-template-areas: 'menu taskboard';
+    }
+
+    [part="app-router"]
+    {
+        grid-column: 2;
+        grid-row: 1;
+        flex: 1;
+    }
+
+    [part="loading"]
+    {
+        grid-column: 2;
+        grid-row: 1;
+    }
+    dialog
+    {
+        min-width: 500px;
+        max-width: 850px;
+        top: 50px;
+    }
+
+    task-card::part(description)
+    {
+        width: min-content;
+    }
+}
+@media (min-width: 800px) 
+{
 }`;
 
 // taskboard-manager.html?raw
-var taskboard_manager_default2 = '<menu part="menu">\r\n    <header part="header">\r\n        <div part="branding" title="Manager Icon">\r\n            <svg class="logo mark" alt="Manager Brand Mark">\r\n                <use href="#icon-definition_logo-mark"></use>\r\n            </svg>\r\n        </div>\r\n        <button type="button" data-route="#boards" part="open-board-browser" title="Find Board">\r\n            <svg class="icon magnifying-glass" >\r\n                <use href="#icon-definition_magnifying-glass"></use>\r\n            </svg>\r\n            <span class="label">Find Board</span>\r\n        </button>\r\n        <button type="button" data-route="#config/settings" part="open-settings" title="App Administration">\r\n            <svg class="icon gear" >\r\n                <use href="#icon-definition_gear"></use>\r\n            </svg>\r\n        </button>\r\n    </header>\r\n    <editable-list part="boards" remove="false" edit="true" cancel-edit>\r\n        <button type="button" slot="add" part="new-board-button_list" title="New Board">\r\n            <svg class="icon plus" >\r\n                <use href="#icon-definition_plus"></use>\r\n            </svg>\r\n            <span class="label">New Board</span>\r\n        </button>\r\n        <template part="edit-button">\r\n            <svg class="icon expand" >\r\n                <use href="#icon-definition_stylus"></use>\r\n            </svg>\r\n        </template>\r\n    </editable-list>\r\n</menu>\r\n<path-router part="app-router" path="">\r\n    <route-page part="welcome-page">\r\n        <div part="welcome">\r\n            <fieldset>\r\n                <legend>Welcome</legend>\r\n                <svg part="logo" >\r\n                    <use href="#icon-definition_logo"></use>\r\n                </svg>\r\n                <div class="description">\r\n                    <p>Welcome to your Taskboard Manager!</p>\r\n                    <p>Create a <a part="new-board-link">new board</a>, or select a recently-opened board below.</p>\r\n                </div>\r\n                <fieldset>\r\n                    <legend>Recent Boards</legend>\r\n                    <editable-list part="recent-boards">\r\n                        <button type="button" slot="add" part="new-board-button_welcome" title="New Board">\r\n                            <svg class="icon plus" >\r\n                                <use href="#icon-definition_plus"></use>\r\n                            </svg>\r\n                            <span class="label">New Board</span>\r\n                        </button>\r\n                    </editable-list>\r\n                </fieldset>\r\n            </fieldset>\r\n        </div>\r\n    </route-page>\r\n    <route-page path="board/:id" part="board-route">\r\n        <task-board part="task-board"></task-board>\r\n    </route-page>\r\n    <dialog part="board-browser-dialog" is="route-dialog" path="boards">\r\n        <header part="board-browser-header">\r\n            <svg part="board-browser-icon" >\r\n                <use href="#icon-definition_task-board"></use>\r\n            </svg>\r\n            <span part="board-browser-title">Boards</span>\r\n            <collection-filter part="board-browser-filter"></collection-filter>\r\n        </header>\r\n        <collection-browser part="board-browser"></collection-browser>\r\n        <footer part="board-browser-footer">\r\n            <form part="board-browser-actions" method="dialog">\r\n                <button type="submit" part="board-browser-cancel">Cancel</button>\r\n                <button type="submit" part="board-browser-ok">Open</button>\r\n            </form>\r\n        </footer>\r\n    </dialog>\r\n    <dialog part="config-dialog" is="route-dialog" path="config">\r\n        <header part="config-header">\r\n            <svg part="config-dialog-icon" >\r\n                <use href="#icon-definition_gear"></use>\r\n            </svg>\r\n            <span part="config-title">Configuration</span>\r\n        </header>\r\n        <menu part="config-navigation">\r\n            <a data-route="#config/settings" part="config-nav-item">\r\n                <svg part="settings-route-icon">\r\n                    <use href="#icon-definition_gear"></use>\r\n                </svg>\r\n                <span>Settings</span>\r\n            </a>\r\n            <a data-route="#config/data" part="config-nav-item">\r\n                <svg part="data-route-icon">\r\n                    <use href="#icon-definition_clock"></use>\r\n                </svg>\r\n                <span>Data</span>\r\n            </a>\r\n            <a data-route="#config/history" part="config-nav-item">\r\n                <svg part="history-route-icon">\r\n                    <use href="#icon-definition_clock"></use>\r\n                </svg>\r\n                <span>History</span>\r\n            </a>\r\n            <a data-route="#config/about" part="config-nav-item">\r\n                <svg part="about-route-icon">\r\n                    <use href="#icon-definition_info"></use>\r\n                </svg>\r\n                <span>About</span>\r\n            </a>\r\n        </menu>\r\n        <div part="config-route-view" class="route-view">\r\n            <route-page path="settings" part="settings-page">\r\n                <header part="settings-header">App Settings</header>\r\n                <fieldset part="color-scheme-fieldset">\r\n                    <legend part="color-scheme-legend">Color Scheme</legend>\r\n                    <div class="button-group" part="scheme-options">\r\n                        <button data-value="inherit">Inherit</button>\r\n                        <button data-value="browser">Browser</button>\r\n                        <button data-value="light">Light</button>\r\n                        <button data-value="dark">Dark</button>\r\n                    </div>\r\n                </fieldset>\r\n                <fieldset part="custom-settings-fieldset">\r\n                    <legend part="custom-settings-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>\r\n                    <slot name="custom-settings">[ No Custom Settings ]</slot>\r\n                </fieldset>\r\n                <fieldset part="hotkeys-fieldset">\r\n                    <legend part="hotkeyss-legend">Hot Keys</legend>\r\n                    <dl part="hotkeys-list">\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Left</key></dt>\r\n                        <dd part="hotkey-description">Move text cursor to previous word.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Right</key></dt>\r\n                        <dd part="hotkey-description">Move text cursor to next word.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Up</key></dt>\r\n                        <dd part="hotkey-description">Move text cursor to closest word in previous line.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Down</key></dt>\r\n                        <dd part="hotkey-description">Move text cursor to closest word in next line.</dd>\r\n\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Left</key></dt>\r\n                        <dd part="hotkey-description">Highlight from the current cursor position to the start of the previous word.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Right</key></dt>\r\n                        <dd part="hotkey-description">Highlight from the current cursor position to the end of the next word.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Up</key></dt>\r\n                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the previous line.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Down</key></dt>\r\n                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the next line.</dd>\r\n\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Left</key></dt>\r\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Right</key></dt>\r\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Up</key></dt>\r\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Down</key></dt>\r\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\r\n                    </dl>\r\n                </fieldset>\r\n            </route-page>\r\n            <route-page path="data" part="config-data-page">\r\n                <header part="data-header">Data</header>\r\n                <fieldset part="import-fieldset">\r\n                    <legend part="import-legend">Import</legend>\r\n                    <form-field part="import-field" label="Taskboard Data File" input-selector="file-input">\r\n                        <file-input part="import-board-file">\r\n                            <svg slot="icon" part="import-file-icon" >\r\n                                <use href="#icon-definition_file"></use>\r\n                            </svg>\r\n                        </file-input>\r\n                    </form-field>\r\n                    <button part="import-button">\r\n                        <svg part="import-button-icon" >\r\n                            <use href="#icon-definition_import"></use>\r\n                        </svg>\r\n                        <span part="import-button-label">Import Board</span>\r\n                    </button>\r\n                </fieldset>\r\n                <div part="config-data-caches">\r\n                    <fieldset part="data-cleanup-fieldset">\r\n                        <legend part="data-cleanup-legend">Data Cleanup</legend>\r\n                        <div part="data-cleanup-description">\r\n                            <p>Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>\r\n                            <p>Set how many days deleted item should perisist using the slider below.</p>\r\n                        </div>\r\n                        <form-field label="Days" part="data-cleanup-range">\r\n                            <input type="range" id="data-persist-days" part="data-persist-days" max="30" list="data-persist-days-values" />\r\n                            <datalist id="data-persist-days-values"  part="data-persist-days-values"></datalist>\r\n                            <span slot="postfix" part="data-persist-days-value"></span>\r\n                            <button slot="postfix" part="apply-data-persist-days-button">\r\n                                <svg part="apply-data-persist-days-icon">\r\n                                    <use href="#icon-definition_confirm-check"></use>\r\n                                </svg>\r\n                                <span part="apply-data-persist-days-label">Apply</span>\r\n                            </button>\r\n                        </form-field>\r\n                    </fieldset>\r\n                    <fieldset part="data-pending-fieldset">\r\n                        <legend part="data-pending-legend">Pending Cleanup</legend>\r\n                        <div part="data-pending-description">\r\n                            <p>The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>\r\n                        </div>\r\n                        <editable-list part="deleted-items">\r\n                            <template slot="remove-button">\r\n                                <svg part="restore-item-icon" title="Restore">\r\n                                    <use href="#icon-definition_file"></use>\r\n                                </svg>\r\n                            </template>\r\n                        </editable-list>\r\n                        <button part="clear-deleted-button">\r\n                            <svg part="clear-deleted-icon" title="Clear">\r\n                                <use href="#icon-definition_trash"></use>\r\n                            </svg>\r\n                            <span part="clear-deleted-label">Clear Pending Items</span>\r\n                        </button>\r\n                    </fieldset>\r\n                    <fieldset part="image-cache-fieldset">\r\n                        <legend part="image-cache-legend">Image Cache</legend>\r\n                        <div part="image-cache-description">\r\n                            <p>Caching some image files provides undo and redo support.</p>\r\n                            <p>The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>\r\n                        </div>\r\n                        <editable-list part="deleted-images"></editable-list>\r\n                        <button part="clear-image-cache-button">\r\n                            <svg part="clear-images-icon" title="Clear">\r\n                                <use href="#icon-definition_trash"></use>\r\n                            </svg>\r\n                            <span part="clear-images-label">Clear Image Cache</span>\r\n                        </button>\r\n                    </fieldset>\r\n                </div>\r\n                <fieldset part="data-clear-fieldset">\r\n                    <legend part="data-clear-legend">Clear Data</legend>\r\n                    <div part="data-clear-description">\r\n                        <p>Delete all data, including app settings and history.</p>\r\n                    </div>\r\n                    <button part="clear-data-button">\r\n                        <svg part="clear-data-icon" title="Clear">\r\n                            <use href="#icon-definition_trash"></use>\r\n                        </svg>\r\n                        <span part="clear-data-label">Clear All Data</span>\r\n                    </button>\r\n                </fieldset>\r\n            </route-page>\r\n            <route-page path="history" part="history-page">\r\n                <header part="history-header">History</header>\r\n                <fieldset part="history-navigation">\r\n                    <legend part="history-navigation-legend">Navigation</legend>\r\n                    <button part="history-control-undo">\r\n                        <span part="history-control-undo-label">Undo</span>\r\n                    </button>\r\n                    <button part="history-control-redo">\r\n                        <span part="history-control-redo-label">Redo</span>\r\n                    </button>\r\n                    <button part="clear-history-button">\r\n                        <svg part="clear-history-icon" title="Clear">\r\n                            <use href="#icon-definition_trash"></use>\r\n                        </svg>\r\n                        <span part="clear-history-label">Clear History</span>\r\n                    </button>\r\n                    <action-history part="action-history" reverse></action-history>\r\n                </fieldset>\r\n                <fieldset part="history-length-fieldset">\r\n                    <legend part="history-length-legend">History Length</legend>\r\n                    <form-field part="history-length-field">\r\n                        <input type="range" id="action-history-length" part="action-history-length" max="150" list="action-history-length-values" />\r\n                        <datalist id="action-history-length-values"  part="action-history-length-values"></datalist>\r\n                        <span slot="postfix" part="action-history-length-value"></span>\r\n                        <button slot="postfix" part="apply-history-length-button">\r\n                            <svg part="apply-history-length-icon">\r\n                                <use href="#icon-definition_confirm-check"></use>\r\n                            </svg>\r\n                            <span part="apply-history-length-label">Apply</span>\r\n                        </button>\r\n                    </form-field>\r\n                </fieldset>\r\n            </route-page>\r\n            <route-page path="about" part="about-page">\r\n                <header part="about-header">About</header>\r\n                <fieldset part="about-app-fieldset">\r\n                    <legend part="about-app-legend">App</legend>\r\n                    <p>The <em>My Boards</em> app is a Single Page App (SPA) implementation of the <code>taskboard-manager</code> custom element.</p>\r\n                    <p>To see a Progress Web App implementation of the <code>taskboard-manager</code> custom element, see the <!--<a class="thin-task-logo" href="https://www.thin-task.com">Thin<span class="highlight">Task</span></a> app.--></p>\r\n                </fieldset>\r\n                <fieldset part="version-fieldset">\r\n                    <legend part="version-legend">Version</legend>\r\n                    <div part="version-value">--.--.--</div>\r\n                </fieldset>\r\n                <fieldset part="copyright-fieldset">\r\n                    <legend part="copyright-legend">Copyright</legend>\r\n                    <div part="copyright-description">\r\n                        <!-- For derivative work, replace this license with your own copyright -->\r\n                        <p xmlns:cc="http://creativecommons.org/ns#" >\r\n                            Both are released with \r\n                            <a href="https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1" \r\n                            target="_blank" \r\n                            rel="license noopener noreferrer" \r\n                            style="display:inline-block;">\r\n                                CC0 1.0\r\n                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt="">\r\n                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1" alt="">\r\n                            </a>\r\n                        </p>\r\n                        <!-- End of CC0 License -->\r\n                    </div>\r\n                </fieldset>\r\n            </route-page>\r\n        </div>\r\n        <footer part="config-footer">\r\n            <form part="config-actions" method="dialog">\r\n                <button type="submit" part="config-cancel">Cancel</button>\r\n                <button type="submit" part="config-ok">Ok</button>\r\n            </form>\r\n        </footer>\r\n    </dialog>\r\n    <dialog part="board-settings" is="route-dialog" path="board-settings">\r\n        <form method="dialog" part="board-settings-form">\r\n            <header part="board-settings-header">\r\n                <svg part="board-settings-icon" >\r\n                    <use href="#icon-definition_task-board"></use>\r\n                </svg>\r\n                <span part="board-settings-title">Board</span>\r\n            </header>\r\n            <taskboard-fields part="board-fields"></taskboard-fields>\r\n            <footer part="board-settings-footer">\r\n                <button type="submit" part="close-board-button">\r\n                <svg part="close-board-icon" >\r\n                    <use href="#icon-definition_trash"></use>\r\n                </svg>\r\n                </button>\r\n                <button type="submit" part="board-settings-cancel">Cancel</button>\r\n                <button type="submit" part="board-settings-save">Save</button>\r\n            </footer>\r\n        </form>\r\n    </dialog>\r\n    <dialog part="import-dialog" is="route-dialog" path="import">\r\n        <header part="import-header">\r\n            <svg part="import-dialog-icon" >\r\n                <use href="#icon-definition_import"></use>\r\n            </svg>\r\n            <span part="import-title">Import</span>\r\n        </header>\r\n        <div part="import-content">\r\n            <import-manager part="import-manager"></import-manager>\r\n        </div>\r\n        <footer part="import-footer">\r\n            <form part="import-actions" method="dialog">\r\n                <button type="submit" part="import-cancel">Cancel</button>\r\n                <button type="submit" part="import-ok">Import</button>\r\n            </form>\r\n        </footer>\r\n    </dialog>\r\n</path-router>\r\n<dialog part="confirmation-dialog">\r\n    <header part="confirmation-dialog-header">\r\n        <svg part="confirmation-dialog-icon" >\r\n            <use href="#icon-definition_import"></use>\r\n        </svg>\r\n        <span part="confirmation-dialog-header-label">Confirmation</span>\r\n    </header>\r\n    <path-router part="confirmation-router" manual>\r\n        <route-page path="info"></route-page>\r\n        <route-page path="warn"></route-page>\r\n        <route-page path="danger"></route-page>\r\n    </path-router>\r\n    <footer part="confirmation-dialog-footer">\r\n        <form part="confirmation-dialog-form" method="dialog">\r\n            <button type="submit" part="confirmation-cancel-button">Cancel</button>\r\n            <button type="submit" part="confirmation-confirm-button">Confirm</button>\r\n        </form>\r\n    </footer>\r\n</dialog>\r\n<div part="notifications"></div>\r\n<div part="loading"></div>\r\n';
+var taskboard_manager_default2 = '<menu part="menu">\n    <header part="header">\n        <div part="branding" title="Manager Icon">\n            <svg class="logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button type="button" data-route="#boards" part="open-board-browser" title="Find Board">\n            <svg class="icon magnifying-glass" >\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="label">Find Board</span>\n        </button>\n        <button type="button" data-route="#config/settings" part="open-settings" title="App Administration">\n            <svg class="icon gear" >\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list part="boards" remove="false" edit="true" cancel-edit>\n        <button type="button" slot="add" part="new-board-button_list" title="New Board">\n            <svg class="icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label">New Board</span>\n        </button>\n        <template part="edit-button">\n            <svg class="icon expand" >\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n<path-router part="app-router" path="">\n    <route-page part="welcome-page">\n        <div part="welcome">\n            <fieldset>\n                <legend>Welcome</legend>\n                <svg part="logo" >\n                    <use href="#icon-definition_logo"></use>\n                </svg>\n                <div class="description">\n                    <p>Welcome to your Taskboard Manager!</p>\n                    <p>Create a <a part="new-board-link">new board</a>, or select a recently-opened board below.</p>\n                </div>\n                <fieldset>\n                    <legend>Recent Boards</legend>\n                    <editable-list part="recent-boards">\n                        <button type="button" slot="add" part="new-board-button_welcome" title="New Board">\n                            <svg class="icon plus" >\n                                <use href="#icon-definition_plus"></use>\n                            </svg>\n                            <span class="label">New Board</span>\n                        </button>\n                    </editable-list>\n                </fieldset>\n            </fieldset>\n        </div>\n    </route-page>\n    <route-page path="board/:id" part="board-route">\n        <task-board part="task-board"></task-board>\n    </route-page>\n    <dialog part="board-browser-dialog" is="route-dialog" path="boards">\n        <header part="board-browser-header">\n            <svg part="board-browser-icon" >\n                <use href="#icon-definition_task-board"></use>\n            </svg>\n            <span part="board-browser-title">Boards</span>\n            <collection-filter part="board-browser-filter"></collection-filter>\n        </header>\n        <collection-browser part="board-browser"></collection-browser>\n        <footer part="board-browser-footer">\n            <form part="board-browser-actions" method="dialog">\n                <button type="submit" part="board-browser-cancel">Cancel</button>\n                <button type="submit" part="board-browser-ok">Open</button>\n            </form>\n        </footer>\n    </dialog>\n    <dialog part="config-dialog" is="route-dialog" path="config">\n        <header part="config-header">\n            <svg part="config-dialog-icon" >\n                <use href="#icon-definition_gear"></use>\n            </svg>\n            <span part="config-title">Configuration</span>\n        </header>\n        <menu part="config-navigation">\n            <a data-route="#config/settings" part="config-nav-item">\n                <svg part="settings-route-icon">\n                    <use href="#icon-definition_gear"></use>\n                </svg>\n                <span>Settings</span>\n            </a>\n            <a data-route="#config/data" part="config-nav-item">\n                <svg part="data-route-icon">\n                    <use href="#icon-definition_clock"></use>\n                </svg>\n                <span>Data</span>\n            </a>\n            <a data-route="#config/history" part="config-nav-item">\n                <svg part="history-route-icon">\n                    <use href="#icon-definition_clock"></use>\n                </svg>\n                <span>History</span>\n            </a>\n            <a data-route="#config/about" part="config-nav-item">\n                <svg part="about-route-icon">\n                    <use href="#icon-definition_info"></use>\n                </svg>\n                <span>About</span>\n            </a>\n        </menu>\n        <div part="config-route-view" class="route-view">\n            <route-page path="settings" part="settings-page">\n                <header part="settings-header">App Settings</header>\n                <fieldset part="color-scheme-fieldset">\n                    <legend part="color-scheme-legend">Color Scheme</legend>\n                    <div class="button-group" part="scheme-options">\n                        <button data-value="inherit">Inherit</button>\n                        <button data-value="browser">Browser</button>\n                        <button data-value="light">Light</button>\n                        <button data-value="dark">Dark</button>\n                    </div>\n                </fieldset>\n                <fieldset part="custom-settings-fieldset">\n                    <legend part="custom-settings-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>\n                    <slot name="custom-settings">[ No Custom Settings ]</slot>\n                </fieldset>\n                <fieldset part="hotkeys-fieldset">\n                    <legend part="hotkeyss-legend">Hot Keys</legend>\n                    <dl part="hotkeys-list">\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Left</key></dt>\n                        <dd part="hotkey-description">Move text cursor to previous word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Right</key></dt>\n                        <dd part="hotkey-description">Move text cursor to next word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Up</key></dt>\n                        <dd part="hotkey-description">Move text cursor to closest word in previous line.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Down</key></dt>\n                        <dd part="hotkey-description">Move text cursor to closest word in next line.</dd>\n\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Left</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the start of the previous word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Right</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the end of the next word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Up</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the previous line.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Down</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the next line.</dd>\n\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Left</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Right</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Up</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Down</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                    </dl>\n                </fieldset>\n            </route-page>\n            <route-page path="data" part="config-data-page">\n                <header part="data-header">Data</header>\n                <fieldset part="import-fieldset">\n                    <legend part="import-legend">Import</legend>\n                    <form-field part="import-field" label="Taskboard Data File" input-selector="file-input">\n                        <file-input part="import-board-file">\n                            <svg slot="icon" part="import-file-icon" >\n                                <use href="#icon-definition_file"></use>\n                            </svg>\n                        </file-input>\n                    </form-field>\n                    <button part="import-button">\n                        <svg part="import-button-icon" >\n                            <use href="#icon-definition_import"></use>\n                        </svg>\n                        <span part="import-button-label">Import Board</span>\n                    </button>\n                </fieldset>\n                <div part="config-data-caches">\n                    <fieldset part="data-cleanup-fieldset">\n                        <legend part="data-cleanup-legend">Data Cleanup</legend>\n                        <div part="data-cleanup-description">\n                            <p>Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>\n                            <p>Set how many days deleted item should perisist using the slider below.</p>\n                        </div>\n                        <form-field label="Days" part="data-cleanup-range">\n                            <input type="range" id="data-persist-days" part="data-persist-days" max="30" list="data-persist-days-values" />\n                            <datalist id="data-persist-days-values"  part="data-persist-days-values"></datalist>\n                            <span slot="postfix" part="data-persist-days-value"></span>\n                            <button slot="postfix" part="apply-data-persist-days-button">\n                                <svg part="apply-data-persist-days-icon">\n                                    <use href="#icon-definition_confirm-check"></use>\n                                </svg>\n                                <span part="apply-data-persist-days-label">Apply</span>\n                            </button>\n                        </form-field>\n                    </fieldset>\n                    <fieldset part="data-pending-fieldset">\n                        <legend part="data-pending-legend">Pending Cleanup</legend>\n                        <div part="data-pending-description">\n                            <p>The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>\n                        </div>\n                        <editable-list part="deleted-items">\n                            <template part="remove-button">\n                                <svg part="restore-item-icon" title="Restore">\n                                    <use href="#icon-definition_restore"></use>\n                                </svg>\n                            </template>\n                        </editable-list>\n                        <button part="clear-deleted-button">\n                            <svg part="clear-deleted-icon" title="Clear">\n                                <use href="#icon-definition_trash"></use>\n                            </svg>\n                            <span part="clear-deleted-label">Clear Pending Items</span>\n                        </button>\n                    </fieldset>\n                    <fieldset part="image-cache-fieldset">\n                        <legend part="image-cache-legend">Image Cache</legend>\n                        <div part="image-cache-description">\n                            <p>Caching some image files provides undo and redo support.</p>\n                            <p>The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>\n                        </div>\n                        <editable-list part="deleted-images"></editable-list>\n                        <button part="clear-image-cache-button">\n                            <svg part="clear-images-icon" title="Clear">\n                                <use href="#icon-definition_trash"></use>\n                            </svg>\n                            <span part="clear-images-label">Clear Image Cache</span>\n                        </button>\n                    </fieldset>\n                </div>\n                <fieldset part="data-clear-fieldset">\n                    <legend part="data-clear-legend">Clear Data</legend>\n                    <div part="data-clear-description">\n                        <p>Delete all data, including app settings and history.</p>\n                    </div>\n                    <button part="clear-data-button">\n                        <svg part="clear-data-icon" title="Clear">\n                            <use href="#icon-definition_trash"></use>\n                        </svg>\n                        <span part="clear-data-label">Clear All Data</span>\n                    </button>\n                </fieldset>\n            </route-page>\n            <route-page path="history" part="history-page">\n                <header part="history-header">History</header>\n                <fieldset part="history-navigation">\n                    <legend part="history-navigation-legend">Navigation</legend>\n                    <button part="history-control-undo">\n                        <svg part="restore-item-icon" title="Undo">\n                            <use href="#icon-definition_undo-redo"></use>\n                        </svg>\n                        <span part="history-control-undo-label">Undo</span>\n                    </button>\n                    <button part="history-control-redo">\n                        <svg part="restore-item-icon" title="Redo" style="transform: scaleX(-1);">\n                            <use href="#icon-definition_undo-redo"></use>\n                        </svg>\n                        <span part="history-control-redo-label">Redo</span>\n                    </button>\n                    <button part="clear-history-button">\n                        <svg part="clear-history-icon" title="Clear">\n                            <use href="#icon-definition_trash"></use>\n                        </svg>\n                        <span part="clear-history-label">Clear History</span>\n                    </button>\n                    <action-history part="action-history" reverse></action-history>\n                </fieldset>\n                <fieldset part="history-length-fieldset">\n                    <legend part="history-length-legend">History Length</legend>\n                    <form-field part="history-length-field">\n                        <input type="range" id="action-history-length" part="action-history-length" max="150" list="action-history-length-values" />\n                        <datalist id="action-history-length-values"  part="action-history-length-values"></datalist>\n                        <span slot="postfix" part="action-history-length-value"></span>\n                        <button slot="postfix" part="apply-history-length-button">\n                            <svg part="apply-history-length-icon">\n                                <use href="#icon-definition_confirm-check"></use>\n                            </svg>\n                            <span part="apply-history-length-label">Apply</span>\n                        </button>\n                    </form-field>\n                </fieldset>\n            </route-page>\n            <route-page path="about" part="about-page">\n                <header part="about-header">About</header>\n                <fieldset part="about-app-fieldset">\n                    <legend part="about-app-legend">App</legend>\n                    <p>The <em>My Boards</em> app is a Single Page App (SPA) implementation of the <code>taskboard-manager</code> custom element.</p>\n                    <p>To see a Progress Web App implementation of the <code>taskboard-manager</code> custom element, see the <!--<a class="thin-task-logo" href="https://www.thin-task.com">Thin<span class="highlight">Task</span></a> app.--></p>\n                </fieldset>\n                <fieldset part="version-fieldset">\n                    <legend part="version-legend">Version</legend>\n                    <div part="version-value">--.--.--</div>\n                </fieldset>\n                <fieldset part="copyright-fieldset">\n                    <legend part="copyright-legend">Copyright</legend>\n                    <div part="copyright-description">\n                        <!-- For derivative work, replace this license with your own copyright -->\n                        <p xmlns:cc="http://creativecommons.org/ns#" >\n                            Both are released with \n                            <a href="https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1" \n                            target="_blank" \n                            rel="license noopener noreferrer" \n                            style="display:inline-block;">\n                                CC0 1.0\n                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt="">\n                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1" alt="">\n                            </a>\n                        </p>\n                        <!-- End of CC0 License -->\n                    </div>\n                </fieldset>\n            </route-page>\n        </div>\n        <footer part="config-footer">\n            <form part="config-actions" method="dialog">\n                <button type="submit" part="config-cancel">Cancel</button>\n                <button type="submit" part="config-ok">Ok</button>\n            </form>\n        </footer>\n    </dialog>\n    <dialog part="board-settings" is="route-dialog" path="board-settings">\n        <form method="dialog" part="board-settings-form">\n            <header part="board-settings-header">\n                <svg part="board-settings-icon" >\n                    <use href="#icon-definition_task-board"></use>\n                </svg>\n                <span part="board-settings-title">Board</span>\n            </header>\n            <taskboard-fields part="board-fields"></taskboard-fields>\n            <footer part="board-settings-footer">\n                <button type="submit" part="close-board-button">\n                <svg part="close-board-icon" >\n                    <use href="#icon-definition_trash"></use>\n                </svg>\n                </button>\n                <button type="submit" part="board-settings-cancel">Cancel</button>\n                <button type="submit" part="board-settings-save">Save</button>\n            </footer>\n        </form>\n    </dialog>\n    <dialog part="import-dialog" is="route-dialog" path="import">\n        <header part="import-header">\n            <svg part="import-dialog-icon" >\n                <use href="#icon-definition_import"></use>\n            </svg>\n            <span part="import-title">Import</span>\n        </header>\n        <div part="import-content">\n            <import-manager part="import-manager"></import-manager>\n        </div>\n        <footer part="import-footer">\n            <form part="import-actions" method="dialog">\n                <button type="submit" part="import-cancel">Cancel</button>\n                <button type="submit" part="import-ok">Import</button>\n            </form>\n        </footer>\n    </dialog>\n</path-router>\n<dialog part="confirmation-dialog">\n    <header part="confirmation-dialog-header">\n        <svg part="confirmation-dialog-icon" >\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span part="confirmation-dialog-header-label">Confirmation</span>\n    </header>\n    <path-router part="confirmation-router" manual>\n        <route-page path="info"></route-page>\n        <route-page path="warn"></route-page>\n        <route-page path="danger"></route-page>\n    </path-router>\n    <footer part="confirmation-dialog-footer">\n        <form part="confirmation-dialog-form" method="dialog">\n            <button type="submit" part="confirmation-cancel-button">Cancel</button>\n            <button type="submit" part="confirmation-confirm-button">Confirm</button>\n        </form>\n    </footer>\n</dialog>\n<div part="notifications"></div>\n<div part="loading"></div>\n';
 
 // assets/icons/cancel-cross.ts
 var CancelCross = `<svg id="icon-definition_cancel-cross" class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -1067,6 +1067,49 @@ var Trash = `<svg id="icon-definition_trash" class="icon trash" viewBox="0 0 22.
         d="m 8.0273518,1.322497 a 0.750075,0.750075 0 0 0 -0.75,0.75 v 2.33594 a 0.75,0.75 0 0 0 0.75,0.75 0.75,0.75 0 0 0 0.75,-0.75 v -1.58594 h 5.2597602 v 1.5293 a 0.75,0.75 0 0 0 0.75,0.75 0.75,0.75 0 0 0 0.75,-0.75 v -2.2793 a 0.750075,0.750075 0 0 0 -0.75,-0.75 z" />
     </svg>`;
 
+// assets/icons/undo-redo.ts
+var UndoRedo = `<svg id="icon-definition_undo-redo" class="icon undo-redo" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+<path
+   style="color:#000000;fill:var(--icon-primary-color,InfoText);stroke:var(--icon-secondary-color,CanvasText);fill-opacity:1;stroke-width:0.999999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+   d="M 8.7359009 1.1063924 C 8.3768905 1.0950243 8.0017196 1.1736712 7.641394 1.3523722 L 1.6107544 6.1205566 L 1.5916341 6.1386434 L 1.53479 6.1939372 C 1.0620233 6.6537208 0.70744486 7.6004515 1.0769368 8.152474 L 5.3030355 14.40894 C 6.1798306 15.219356 7.5994445 15.083541 8.4749349 14.106116 C 9.2135837 13.277519 9.3398045 12.086041 8.7787923 11.23549 L 11.334192 11.410673 C 14.129266 11.815808 17.330477 13.067707 18.931144 18.826241 C 19.313756 19.953163 19.735424 21.309718 20.245793 22.173324 C 20.976132 22.497497 21.420713 20.679238 21.478792 18.791101 C 21.506716 14.251463 18.262689 8.6142076 13.845667 6.7716797 C 13.291103 6.5403477 11.805521 5.8978235 10.30118 5.3355916 L 9.7994019 5.1107992 C 10.609379 4.4184442 10.916638 3.2966427 10.55026 2.3703979 C 10.238366 1.5905459 9.5257236 1.1314023 8.7359009 1.1063924 z " />
+</svg>`;
+
+// assets/icons/restore.ts
+var Restore = `<svg id="icon-definition_restore" class="icon restore" viewBox="0 0 22.812714 22.814663" version="1.1">
+<path
+   style="color:#000000;display:inline;fill:var(--icon-primary-color,CanvasText);stroke:none;stroke-width:0.999996;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+   d="M 11.407056,2.2096842 C 10.601147,2.2062787 9.5769182,2.3504531 8.9410559,2.5507485 7.3655671,3.0382019 5.7755868,3.6890402 4.6054036,4.8958252 4.0832449,5.1345101 3.3963233,6.1784636 3.0597616,6.0084188 2.8410621,5.2501271 1.6783304,5.0535512 1.3182675,5.80275 1.0360676,6.3840324 1.3729726,7.0107804 1.4206093,7.6133474 1.5714857,8.3606317 1.6560017,9.1255313 1.8479506,9.8619335 2.0554434,10.462171 2.6923385,10.326838 3.1690454,10.240923 4.0790727,10.098459 5.0096001,10.027659 5.9066157,9.8397099 6.8039333,9.3949249 6.4554656,7.863657 5.466336,7.8238087 5.2821792,7.5654268 6.1923105,6.7375076 6.5066646,6.2891705 7.3075254,5.2889634 8.4575281,4.6415111 9.7026133,4.3765775 10.473926,4.3250017 10.312172,3.6722223 11.142298,3.8359187 14.530568,3.653488 17.823867,6.0523018 18.695479,9.3300885 19.63212,12.454048 18.269935,16.074973 15.493333,17.791314 12.686533,19.654342 8.6650864,19.287905 6.2404746,16.951947 5.6240732,16.377522 5.1041212,15.699794 4.70979,14.955161 c -0.5961738,0 -1.1923475,0 -1.7885213,0 1.4208006,3.50921 5.1747179,5.889303 8.9584753,5.637794 3.68308,-0.139071 7.097784,-2.740152 8.240293,-6.239104 1.17328,-3.340505 0.172166,-7.2988852 -2.450599,-9.6779299 -1.678213,-1.5746928 -3.960006,-2.477287 -6.262382,-2.4662369 z" />
+<path
+   style="color:#000000;display:inline;fill:var(--icon-primary-color,CanvasText);stroke-width:0.999996;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+   d="m 11.407056,1.4195516 c -2.6651249,0 -5.0868942,1.0553074 -6.8802005,2.7646891 -0.01738,0.0138 -0.035453,0.026272 -0.05271,0.040308 C 3.9319613,4.652239 3.4560709,5.159977 3.0396077,5.709729 2.8080619,5.3516396 2.5207525,4.865411 2.0164144,4.959904 1.230173,5.0131862 0.64759721,5.8806433 0.87539876,6.6290527 1.0727845,7.7032888 1.2483821,8.7829196 1.4593424,9.8536621 1.6004331,10.373499 2.1370893,10.823132 2.6907918,10.672734 3.7749207,10.518408 4.863747,10.388216 5.9448568,10.218498 6.7084856,9.9449407 7.039327,8.8960717 6.5980469,8.2274048 6.3834766,7.8990229 5.5668194,8.0088099 5.8931803,7.477063 6.3304505,6.5903713 7.1341687,5.9571801 7.9070109,5.3712484 8.5534559,4.9322054 9.2282737,4.44339 10.019543,4.3325521 10.37185,4.1576995 11.101685,4.2101887 10.876855,3.6106323 10.513569,3.51126 9.9171078,3.7649557 9.4903768,3.8860677 7.6007986,4.5759203 6.117465,6.0525145 4.9754069,7.6651652 4.7511996,8.4029365 5.7911347,8.0027498 5.9670776,8.5410807 6.2148051,8.9185823 5.9931139,9.5695858 5.4988892,9.5591064 L 2.4334432,9.9751017 C 2.0688988,9.7961797 2.1306676,9.3464926 2.0396688,9.0123698 L 1.55236,6.3019409 c -0.03249,-0.4532967 0.5188865,-0.819145 0.8976197,-0.513147 0.1424252,0.111963 0.248223,0.3509353 0.3694864,0.530717 L 3.0117349,6.669273 c 1.749318,-2.3314321 4.8748444,-4.1355775 8.3953211,-4.1355775 4.897821,0 8.872843,3.9750221 8.872843,8.8728435 0,4.897821 -3.975119,8.874394 -8.872843,8.874394 -3.6360426,0 -6.76281,-2.19253 -8.133354,-5.325773 H 2.0732585 c 1.4356802,3.758946 5.0790963,6.439916 9.3337975,6.439916 5.50397,0 9.986987,-4.484663 9.986987,-9.988537 0,-5.5038829 -4.483105,-9.9869874 -9.986987,-9.9869874 z" />
+<path
+   style="color:#000000;fill:var(--icon-primary-color,CanvasText);stroke:var(--icon-secondary-color,canvas);fill-opacity:1;stroke-width:0.999996;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+   d="m 11.104501,4.0336004 a 0.63168166,0.63168166 0 0 0 -0.634972,0.6283833 l -0.04765,7.3778483 a 0.63174483,0.63174483 0 0 0 0.787954,0.615233 l 4.911986,-1.260079 A 0.63168166,0.63168166 0 0 0 16.57748,10.626771 0.63168166,0.63168166 0 0 0 15.807618,10.17111 l -4.11909,1.056096 0.04439,-6.5569954 a 0.63168166,0.63168166 0 0 0 -0.62839,-0.6366102 z" />
+<path
+   style="color:#000000;fill:var(--icon-primary-color,CanvasText);fill-opacity:1;stroke:none;stroke-width:0.999996;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+   d="M 11.109857,4.3736972 A 0.60741073,0.60741073 0 0 0 10.499284,4.977937 l -0.0458,7.094371 a 0.60747147,0.60747147 0 0 0 0.75768,0.591591 l 4.723251,-1.211659 a 0.60741073,0.60741073 0 0 0 0.43815,-0.738698 0.60741073,0.60741073 0 0 0 -0.740275,-0.43816 l -3.960823,1.015525 0.04272,-6.3050513 A 0.60741073,0.60741073 0 0 0 11.109936,4.3736972 Z" />
+</svg>`;
+
+// assets/icons/copy.ts
+var Copy = `<svg id="icon-definition_copy" class="icon copy" viewBox="0 0 22.812714 26.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+<rect
+   style="fill:var(--icon-primary-color,canvas);stroke:var(--icon-secondary-color,CanvasText);fill-opacity:1;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+   width="13.417392"
+   height="18.483608"
+   x="3.3747442"
+   y="5.2238607"
+   rx="0.35822684"
+   ry="0.41754472" />
+<rect
+   style="fill:var(--icon-primary-color,canvas);stroke:var(--icon-secondary-color,CanvasText);fill-opacity:1;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+   width="13.417392"
+   height="18.483608"
+   x="8.0205779"
+   y="1.1071939"
+   rx="0.35822684"
+   ry="0.41754472" />
+</svg>`;
+
 // assets/icons/icons.asset.ts
 var Icons = {
   LogoMark,
@@ -1091,7 +1134,10 @@ var Icons = {
   File: File2,
   ConfirmCheck,
   Clock,
-  Info
+  Info,
+  UndoRedo,
+  Restore,
+  Copy
 };
 
 // node_modules/.pnpm/record-setter@1.0.6/node_modules/record-setter/dist/record-setter.mjs
@@ -2118,144 +2164,154 @@ var TaskListRecord = class extends DataRecord {
 };
 
 // styles/form-field.css?raw
-var form_field_default = '[part="field-label"]\r\n{\r\n    white-space: nowrap;\r\n}\r\nform-field [part="label"]\r\n,form-field [part="field-label"]\r\n{\r\n    display: flex;\r\n    gap: .25em;\r\n    align-items: center;\r\n}\r\nform-field [part="label"] input\r\n,form-field [part="field-label"] input\r\n{\r\n    margin: 0;\r\n}\r\nform-field [part="label"] [part="text"]\r\n,form-field [part="field-label"] [part="text"]\r\n{\r\n    flex: 1;\r\n}\r\n\r\nform-field [part="container"]\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto 1fr;\r\n    gap: .25em;\r\n}\r\nform-field [part="container"]:has([slot="postfix"])\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto;\r\n    column-gap: 0;\r\n    row-gap: .25em;\r\n}\r\nform-field [part="container"]:has([slot="postfix"]) [part="field-label"]\r\n{\r\n    grid-column: span 2;\r\n}\r\n\r\n';
+var form_field_default = '[part="field-label"]\n{\n    white-space: nowrap;\n}\nform-field [part="label"]\n,form-field [part="field-label"]\n{\n    display: flex;\n    gap: .25em;\n    align-items: center;\n}\nform-field [part="label"] input\n,form-field [part="field-label"] input\n{\n    margin: 0;\n}\nform-field [part="label"] [part="text"]\n,form-field [part="field-label"] [part="text"]\n{\n    flex: 1;\n}\n\nform-field [part="container"]\n{\n    display: grid;\n    grid-template-rows: auto 1fr;\n    gap: .25em;\n}\nform-field [part="container"]:has([slot="postfix"])\n{\n    display: grid;\n    grid-template-columns: 1fr auto;\n    column-gap: 0;\n    row-gap: .25em;\n}\nform-field [part="container"]:has([slot="postfix"]) [part="field-label"]\n{\n    grid-column: span 2;\n}\n\n';
 
 // components/tasklist-fields/tasklist-fields.component.css?raw
-var tasklist_fields_component_default = `:host([removed])\r
-{\r
-    opacity: .6;\r
-    scale: .98 .9;\r
-    user-select: none;\r
-}\r
-\r
-input,select,textarea\r
-{\r
-    font: inherit;\r
-    min-width: 0;\r
-    width: auto;\r
-}\r
-\r
-[part="handle"]\r
-{\r
-    display: flex;\r
-    width: 15px;\r
-    align-self: stretch;\r
-    cursor: grab;\r
-    border-radius: 3px;\r
-    \r
-    background-image: radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%),\r
-    radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%);\r
-    background-size: 5px 5px;\r
-    background-position: 0 0, 2px 2px;\r
-}\r
-[part="handle"]:active\r
-{\r
-    cursor: grabbing;\r
-}\r
-\r
-[part="remove-icon"]\r
-,[part="duplicate-icon"]\r
-{\r
-    width: var(--icon-size, 12px);\r
-    height: var(--icon-size, 12px);\r
-}\r
-\r
-details summary\r
-{\r
-    user-select: none;\r
-    display: flex;\r
-    gap: .25em;\r
-}\r
-summary:before\r
-{\r
-    content: '\u25B6';\r
-    transform-origin: 45% 50%;\r
-    transition: transform 100ms ease-out;\r
-    font-size: .78em;\r
-    align-self: center;\r
-    margin-right: .25em;\r
-}\r
-details[open] summary:before\r
-{\r
-    transform: rotate(90deg);\r
-}\r
-\r
-details [part="detail-content"]\r
-{\r
-    display: grid;\r
-    gap: 1em;\r
-    padding: 1em;\r
-}\r
-\r
-fieldset\r
-{\r
-    display: grid;\r
-    gap: 1em;\r
-    min-width: 0;\r
-    width: auto;\r
-}\r
-\r
-form-field .container\r
-{\r
-    display: grid;\r
-    grid-template-rows: auto 1fr;\r
-    gap: 7px;\r
-}\r
-\r
-form-field input[type="color"]\r
-{\r
-    width: 100%;\r
-}\r
-\r
-[part="color"]\r
-{\r
-    width: 3ch;\r
-}\r
-\r
-[part="name"]\r
-{\r
-    flex: 1;\r
-}\r
-\r
-[part="list-settings"]\r
-{\r
-    grid-template-columns: 1fr minmax(min-content, 18ch);\r
-}\r
-\r
-[part="list-settings"] .column\r
-{\r
-    display: grid;\r
-    gap: .5em;\r
-}\r
-\r
-[part="list-settings"] .column input[type="color"]\r
-{\r
-    height: auto;\r
-}\r
-\r
-input[type="text"]\r
-{\r
-    min-width: 5ch;\r
-}\r
-\r
-[part="list-width-field"] .container\r
-{\r
-    column-gap: .25em !important;\r
-}\r
-\r
-[part="list-width-field"] [slot="postfix"]\r
-{\r
-    align-self: flex-end;\r
+var tasklist_fields_component_default = `:host([removed])
+{
+    opacity: .6;
+    scale: .98 .9;
+    user-select: none;
+}
+
+input,select,textarea
+{
+    font: inherit;
+    min-width: 0;
+    width: auto;
+}
+
+[part="icon-definitions"]
+{
+    display: none;
+}
+
+[part="handle"]
+{
+    display: flex;
+    width: 15px;
+    align-self: stretch;
+    cursor: grab;
+    border-radius: 3px;
+    
+    background-image: radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%),
+    radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%);
+    background-size: 5px 5px;
+    background-position: 0 0, 2px 2px;
+}
+[part="handle"]:active
+{
+    cursor: grabbing;
+}
+
+[part="remove-icon"]
+,[part="duplicate-icon"]
+{
+    width: var(--icon-size, 12px);
+    height: var(--icon-size, 12px);
+}
+
+details summary
+{
+    user-select: none;
+    display: flex;
+    gap: .25em;
+}
+summary:before
+{
+    content: '\u25B6';
+    transform-origin: 45% 50%;
+    transition: transform 100ms ease-out;
+    font-size: .78em;
+    align-self: center;
+    margin-right: .25em;
+}
+details[open] summary:before
+{
+    transform: rotate(90deg);
+}
+
+details [part="detail-content"]
+{
+    display: grid;
+    gap: 1em;
+    padding: 1em;
+}
+
+fieldset
+{
+    display: grid;
+    gap: 1em;
+    min-width: 0;
+    width: auto;
+}
+
+form-field .container
+{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 7px;
+}
+
+form-field input[type="color"]
+{
+    width: 100%;
+}
+
+[part="color"]
+{
+    width: 3ch;
+}
+
+[part="name"]
+{
+    flex: 1;
+}
+
+[part="list-settings"]
+{
+    grid-template-columns: 1fr minmax(min-content, 18ch);
+}
+
+[part="list-settings"] .column
+{
+    display: grid;
+    gap: .5em;
+}
+
+[part="list-settings"] .column input[type="color"]
+{
+    height: auto;
+}
+
+input[type="text"]
+{
+    min-width: 5ch;
+}
+
+[part="list-width-field"] .container
+{
+    column-gap: .25em !important;
+}
+
+[part="list-width-field"] [slot="postfix"]
+{
+    align-self: flex-end;
 }`;
 
 // components/tasklist-fields/tasklist-fields.component.html?raw
-var tasklist_fields_component_default2 = '<details part="details">\r\n    <summary part="summary">\r\n        <div part="handle"></div>\r\n        <input part="color" type="color" />\r\n        <input part="name" type="text" />\r\n        <button part="duplicate-button" type="button">\r\n            <svg part="duplicate-icon" class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">\r\n                <path\r\n                style="color:#000000;fill:var(--icon-primary-color,InfoText);stroke:var(--icon-secondary-color,InfoBackground);stroke-linecap:square;stroke-miterlimit:6.3;stroke-dashoffset:29.2913;stroke-opacity:1;-inkscape-stroke:none"\r\n                d="m 1237.4389,207.63366 -1.8991,1.8987 a 0.65841136,0.65841136 90.003442 0 0 0,0.93116 l 0.4831,0.48317 a 14628.329,14628.329 44.999244 0 0 0.9312,0.93118 l 3.7936,3.79311 a 0.65840885,0.65840885 89.998393 0 1 0,0.93116 l -3.7936,3.7936 a 8783.6896,8783.6896 135.00442 0 1 -0.9313,0.93111 l -0.4829,0.48283 a 0.65811,0.65811 89.993977 0 0 10e-5,0.93094 l 1.8987,1.89741 a 0.65867085,0.65867085 179.98891 0 0 0.9314,-1.8e-4 l 0.4826,-0.48267 a 45427.77,45427.77 134.99941 0 1 0.9312,-0.93119 l 3.7931,-3.79308 a 0.65848899,0.65848899 179.99848 0 1 0.9312,-2e-5 l 3.7936,3.79312 a 10110.91,10110.91 44.992994 0 0 0.9313,0.93108 l 0.483,0.48285 a 0.65856615,0.65856615 179.99438 0 0 0.9313,-9e-5 l 1.897,-1.89705 a 0.65833101,0.65833101 89.994378 0 0 -10e-5,-0.93111 l -0.483,-0.48285 a 5293.5057,5293.5057 44.99639 0 1 -0.9313,-0.93113 l -3.793,-3.79354 a 0.65849247,0.65849247 90.001607 0 1 0,-0.93122 l 3.793,-3.79305 a 149190.44,149190.44 134.99995 0 1 0.9312,-0.93119 l 0.4832,-0.48321 a 0.65863247,0.65863247 90.008202 0 0 10e-5,-0.93132 l -1.8972,-1.89834 a 0.65838576,0.65838576 0.01346964 0 0 -0.9312,-2.2e-4 l -0.483,0.48285 a 7148.543,7148.543 135.00546 0 0 -0.9313,0.9311 l -3.7936,3.79359 a 0.65841791,0.65841791 0.00151591 0 1 -0.9312,-3e-5 l -3.7931,-3.79353 a 52707.551,52707.551 45.002134 0 0 -0.9312,-0.93122 l -0.4826,-0.48267 a 0.65849044,0.65849044 0.00323988 0 0 -0.9312,-5e-5 z"\r\n                transform="translate(-1232.6358,-204.72848)" />\r\n            </svg>\r\n        </button>\r\n        <button part="remove-button" type="button">\r\n            <svg part="remove-icon" class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">\r\n                <path\r\n                style="color:#000000;fill:var(--icon-primary-color,InfoText);stroke:var(--icon-secondary-color,InfoBackground);stroke-linecap:square;stroke-miterlimit:6.3;stroke-dashoffset:29.2913;stroke-opacity:1;-inkscape-stroke:none"\r\n                d="m 1237.4389,207.63366 -1.8991,1.8987 a 0.65841136,0.65841136 90.003442 0 0 0,0.93116 l 0.4831,0.48317 a 14628.329,14628.329 44.999244 0 0 0.9312,0.93118 l 3.7936,3.79311 a 0.65840885,0.65840885 89.998393 0 1 0,0.93116 l -3.7936,3.7936 a 8783.6896,8783.6896 135.00442 0 1 -0.9313,0.93111 l -0.4829,0.48283 a 0.65811,0.65811 89.993977 0 0 10e-5,0.93094 l 1.8987,1.89741 a 0.65867085,0.65867085 179.98891 0 0 0.9314,-1.8e-4 l 0.4826,-0.48267 a 45427.77,45427.77 134.99941 0 1 0.9312,-0.93119 l 3.7931,-3.79308 a 0.65848899,0.65848899 179.99848 0 1 0.9312,-2e-5 l 3.7936,3.79312 a 10110.91,10110.91 44.992994 0 0 0.9313,0.93108 l 0.483,0.48285 a 0.65856615,0.65856615 179.99438 0 0 0.9313,-9e-5 l 1.897,-1.89705 a 0.65833101,0.65833101 89.994378 0 0 -10e-5,-0.93111 l -0.483,-0.48285 a 5293.5057,5293.5057 44.99639 0 1 -0.9313,-0.93113 l -3.793,-3.79354 a 0.65849247,0.65849247 90.001607 0 1 0,-0.93122 l 3.793,-3.79305 a 149190.44,149190.44 134.99995 0 1 0.9312,-0.93119 l 0.4832,-0.48321 a 0.65863247,0.65863247 90.008202 0 0 10e-5,-0.93132 l -1.8972,-1.89834 a 0.65838576,0.65838576 0.01346964 0 0 -0.9312,-2.2e-4 l -0.483,0.48285 a 7148.543,7148.543 135.00546 0 0 -0.9313,0.9311 l -3.7936,3.79359 a 0.65841791,0.65841791 0.00151591 0 1 -0.9312,-3e-5 l -3.7931,-3.79353 a 52707.551,52707.551 45.002134 0 0 -0.9312,-0.93122 l -0.4826,-0.48267 a 0.65849044,0.65849044 0.00323988 0 0 -0.9312,-5e-5 z"\r\n                transform="translate(-1232.6358,-204.72848)" />\r\n            </svg>\r\n        </button>\r\n    </summary>\r\n    <div part="detail-content">\r\n        <fieldset part="list-settings">\r\n            <legend part="list-settings-legend">\r\n                <span part="list-setting-title">List</span>\r\n            </legend>\r\n            <div class="column">\r\n                <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\r\n                    <input type="color" name="background-color" part="background-color" value="#f9faf5" />\r\n                </form-field>\r\n                <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\r\n                    <input type="color" name="font-color" part="font-color" value="#060703" />\r\n                </form-field>\r\n            </div>\r\n            <div class="column">\r\n                <form-field label="Order" part="order-field">\r\n                    <input type="text" part="order" name="order" inputmode="numeric" disabled />\r\n                </form-field>\r\n                <form-field part="list-width-field" label="List Width" optional optional-title="Use a custom list width?">\r\n                    <input type="text" inputmode="numeric" name="list-width" part="list-width" value="" />\r\n                    <span part="list-width-unit" slot="postfix">px</span>\r\n                </form-field>\r\n                <form-field part="color-display-field" label="Color Display">\r\n                    <select name="color-display" part="color-display"></select>\r\n                </form-field>\r\n            </div>\r\n        </fieldset>\r\n        <fieldset part="task-settings">\r\n            <legend part="task-settings-legend">\r\n                <span part="task-setting-title">List Tasks</span>\r\n            </legend>\r\n            <task-fields part="task-fields"></task-fields>\r\n        </fieldset>\r\n    </div>\r\n</details>';
+var tasklist_fields_component_default2 = '<details part="details">\n    <summary part="summary">\n        <div part="handle"></div>\n        <input part="color" type="color" />\n        <input part="name" type="text" />\n        <button part="duplicate-button" type="button">\n            <svg part="duplicate-icon">\n                <use href="#icon-definition_copy"></use>\n            </svg>\n        </button>\n        <button part="remove-button" type="button">\n            <svg part="remove-icon">\n                <use href="#icon-definition_cancel-cross"></use>\n            </svg>\n        </button>\n    </summary>\n    <div part="detail-content">\n        <fieldset part="list-settings">\n            <legend part="list-settings-legend">\n                <span part="list-setting-title">List</span>\n            </legend>\n            <div class="column">\n                <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\n                    <input type="color" name="background-color" part="background-color" value="#f9faf5" />\n                </form-field>\n                <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\n                    <input type="color" name="font-color" part="font-color" value="#060703" />\n                </form-field>\n            </div>\n            <div class="column">\n                <form-field label="Order" part="order-field">\n                    <input type="text" part="order" name="order" inputmode="numeric" disabled />\n                </form-field>\n                <form-field part="list-width-field" label="List Width" optional optional-title="Use a custom list width?">\n                    <input type="text" inputmode="numeric" name="list-width" part="list-width" value="" />\n                    <span part="list-width-unit" slot="postfix">px</span>\n                </form-field>\n                <form-field part="color-display-field" label="Color Display">\n                    <select name="color-display" part="color-display"></select>\n                </form-field>\n            </div>\n        </fieldset>\n        <fieldset part="task-settings">\n            <legend part="task-settings-legend">\n                <span part="task-setting-title">List Tasks</span>\n            </legend>\n            <task-fields part="task-fields"></task-fields>\n        </fieldset>\n    </div>\n</details>';
 
 // components/tasklist-fields/tasklist-fields.component.ts
 var COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${form_field_default}
 ${tasklist_fields_component_default}
 `);
+var COMPONENT_TEMPLATE = `${tasklist_fields_component_default2}
+<div part="icon-definitions">
+    ${Icons.CancelCross}
+    ${Icons.Copy}
+</div>`;
 var COMPONENT_TAG_NAME = "tasklist-fields";
 var TaskListFieldsComponent = class extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
@@ -2274,7 +2330,7 @@ var TaskListFieldsComponent = class extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = tasklist_fields_component_default2;
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
     const options = [];
     for (const [key, value] of Object.entries(TaskListColorDisplay)) {
@@ -2374,10 +2430,10 @@ var TaskSettingsRecord = class extends DataRecord {
 };
 
 // components/task-fields/task-fields.component.css?raw
-var task_fields_component_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto minmax(160px, 1fr) auto;\r\n}\r\n\r\nfieldset\r\n{\r\n    display: grid;\r\n    gap: 1em;\r\n    min-width: 0;\r\n    width: auto;\r\n}\r\ninput,select,textarea\r\n{\r\n    font: inherit;\r\n    min-width: 0;\r\n    width: auto;\r\n}\r\n\r\ninput[type="color"]\r\n{\r\n    width: 100%;\r\n}\r\ninput[type="text"][inputmode="numeric"]\r\n{\r\n    width: 5ch;\r\n}\r\n\r\nform-field .container\r\n{\r\n}\r\nform-field .field-label\r\n{\r\n    display: flex;\r\n    gap: 5px;\r\n    margin-bottom: 7px;\r\n}\r\n\r\n[part="appearance-fields"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr;\r\n}\r\n\r\n[part="appearance-fields"] .container > input\r\n{\r\n    flex: 1;\r\n    min-height: 2ch;\r\n}\r\n\r\n[part="border-radius-field"] .option\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto 1fr;\r\n    gap: 5px;\r\n}\r\n\r\n[part="border-weights-fields"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto;\r\n    grid-template-rows: min-content min-content;\r\n}\r\n\r\n[part="font-size-field"] .container\r\n,[part="card-width-field"] .container\r\n,[part="border-weights-fields"] .container\r\n{\r\n    align-items: flex-start;\r\n    column-gap: .25em !important;\r\n}\r\n\r\n[part="font-size-field"] [slot="postfix"]\r\n,[part="card-width-field"] .container\r\n,[part="card-width-field"] [slot="postfix"]\r\n,[part="card-width-field"] input[type="text"]\r\n,[part="border-weights-fields"] [slot="postfix"]\r\n{\r\n    align-self: flex-end;\r\n}\r\n\r\n[part="center-checkbox-field"] input\r\n,[part="center-remove-button-field"] input\r\n{\r\n    justify-self: flex-start;\r\n    margin: 0;\r\n}';
+var task_fields_component_default = ':host\n{\n    display: grid;\n    grid-template-columns: auto minmax(160px, 1fr) auto;\n}\n\nfieldset\n{\n    display: grid;\n    gap: 1em;\n    min-width: 0;\n    width: auto;\n}\ninput,select,textarea\n{\n    font: inherit;\n    min-width: 0;\n    width: auto;\n}\n\ninput[type="color"]\n{\n    width: 100%;\n}\ninput[type="text"][inputmode="numeric"]\n{\n    width: 5ch;\n}\n\nform-field .container\n{\n}\nform-field .field-label\n{\n    display: flex;\n    gap: 5px;\n    margin-bottom: 7px;\n}\n\n[part="appearance-fields"]\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n[part="appearance-fields"] .container > input\n{\n    flex: 1;\n    min-height: 2ch;\n}\n\n[part="border-radius-field"] .option\n{\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 5px;\n}\n\n[part="border-weights-fields"]\n{\n    display: grid;\n    grid-template-columns: 1fr auto;\n    grid-template-rows: min-content min-content;\n}\n\n[part="font-size-field"] .container\n,[part="card-width-field"] .container\n,[part="border-weights-fields"] .container\n{\n    align-items: flex-start;\n    column-gap: .25em !important;\n}\n\n[part="font-size-field"] [slot="postfix"]\n,[part="card-width-field"] .container\n,[part="card-width-field"] [slot="postfix"]\n,[part="card-width-field"] input[type="text"]\n,[part="border-weights-fields"] [slot="postfix"]\n{\n    align-self: flex-end;\n}\n\n[part="center-checkbox-field"] input\n,[part="center-remove-button-field"] input\n{\n    justify-self: flex-start;\n    margin: 0;\n}';
 
 // components/task-fields/task-fields.component.html?raw
-var task_fields_component_default2 = '<input type="hidden" name="record-id" part="record-id" />\r\n<fieldset part="appearance-fields">\r\n    <legend part="appearance-legend">Appearance</legend>\r\n\r\n    <form-field part="font-size-field" label="Font Size" optional optional-title="Override Font Size?">\r\n        <input type="text" inputmode="numeric" name="font-size" part="font-size" />\r\n        <span part="font-size-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\r\n        <input type="color" name="background-color" part="background-color" value="#f9faf5" />\r\n    </form-field>\r\n    <form-field part="border-radius-field" label="Border Radius" optional optional-title="Override Border Radius?">\r\n        <input type="text" inputmode="numeric" name="border-radius" part="border-radius" />\r\n        <select part="border-radius-unit" slot="postfix">\r\n            <option value="px">px</option>\r\n            <option value="%">%</option>\r\n        </select>\r\n    </form-field>\r\n    <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\r\n        <input type="color" name="font-color" part="font-color" value="#060703" />\r\n    </form-field>\r\n    <form-field part="color-display-field" label="Color Display">\r\n        <select name="color-display" part="color-display"></select>\r\n    </form-field>\r\n    <form-field part="border-color-field" label="Border Color" optional optional-title="Override Border Color?">\r\n        <input type="color" name="border-color" part="border-color" value="#060703" />\r\n    </form-field>\r\n</fieldset>  \r\n\r\n<fieldset part="layout-fields">\r\n    <legend part="layout-legend">Layout</legend>\r\n    <form-field part="center-checkbox-field" label="Center Checkbox">\r\n        <input type="checkbox" name="center-checkbox" part="center-checkbox" title="Center the checkbox?" />\r\n    </form-field>\r\n    <form-field part="center-remove-button-field" label="Center Remove Button">\r\n        <input type="checkbox" name="center-remove-button" part="center-remove-button" title="Center the remove button?" />\r\n    </form-field>\r\n    <form-field part="card-width-field" label="Card Width" optional option-title="Override Task Card Width?">\r\n        <input type="text" inputmode="numeric" name="card-width" part="card-width" value="" />\r\n        <span part="card-width-unit" slot="postfix">px</span>\r\n    </form-field>\r\n</fieldset>      \r\n\r\n<fieldset part="border-weights-fields">\r\n    <legend part="border-weights-legend">Border Weights</legend>\r\n    <form-field part="border-top-field" label="Top" optional optional-title="Use a custom top border size?">\r\n        <input type="text" inputmode="numeric" name="border-top" part="border-top" />\r\n        <span part="border-top-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="border-right-field" label="Right" optional optional-title="Use a custom right border size?">\r\n        <input type="text" inputmode="numeric" name="border-right" part="border-right" />\r\n        <span part="border-right-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="border-bottom-field" label="Bottom" optional optional-title="Use a custom bottom border size?">\r\n        <input type="text" inputmode="numeric" name="border-bottom" part="border-bottom" />\r\n        <span part="border-bottom-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="border-left-field" label="Left" optional optional-title="Use a custom left border size?">\r\n        <input type="text" inputmode="numeric" name="border-left" part="border-left" />\r\n        <span part="border-left-unit" slot="postfix">px</span>\r\n    </form-field>\r\n</fieldset>';
+var task_fields_component_default2 = '<input type="hidden" name="record-id" part="record-id" />\n<fieldset part="appearance-fields">\n    <legend part="appearance-legend">Appearance</legend>\n\n    <form-field part="font-size-field" label="Font Size" optional optional-title="Override Font Size?">\n        <input type="text" inputmode="numeric" name="font-size" part="font-size" />\n        <span part="font-size-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\n        <input type="color" name="background-color" part="background-color" value="#f9faf5" />\n    </form-field>\n    <form-field part="border-radius-field" label="Border Radius" optional optional-title="Override Border Radius?">\n        <input type="text" inputmode="numeric" name="border-radius" part="border-radius" />\n        <select part="border-radius-unit" slot="postfix">\n            <option value="px">px</option>\n            <option value="%">%</option>\n        </select>\n    </form-field>\n    <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\n        <input type="color" name="font-color" part="font-color" value="#060703" />\n    </form-field>\n    <form-field part="color-display-field" label="Color Display">\n        <select name="color-display" part="color-display"></select>\n    </form-field>\n    <form-field part="border-color-field" label="Border Color" optional optional-title="Override Border Color?">\n        <input type="color" name="border-color" part="border-color" value="#060703" />\n    </form-field>\n</fieldset>  \n\n<fieldset part="layout-fields">\n    <legend part="layout-legend">Layout</legend>\n    <form-field part="center-checkbox-field" label="Center Checkbox">\n        <input type="checkbox" name="center-checkbox" part="center-checkbox" title="Center the checkbox?" />\n    </form-field>\n    <form-field part="center-remove-button-field" label="Center Remove Button">\n        <input type="checkbox" name="center-remove-button" part="center-remove-button" title="Center the remove button?" />\n    </form-field>\n    <form-field part="card-width-field" label="Card Width" optional option-title="Override Task Card Width?">\n        <input type="text" inputmode="numeric" name="card-width" part="card-width" value="" />\n        <span part="card-width-unit" slot="postfix">px</span>\n    </form-field>\n</fieldset>      \n\n<fieldset part="border-weights-fields">\n    <legend part="border-weights-legend">Border Weights</legend>\n    <form-field part="border-top-field" label="Top" optional optional-title="Use a custom top border size?">\n        <input type="text" inputmode="numeric" name="border-top" part="border-top" />\n        <span part="border-top-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field part="border-right-field" label="Right" optional optional-title="Use a custom right border size?">\n        <input type="text" inputmode="numeric" name="border-right" part="border-right" />\n        <span part="border-right-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field part="border-bottom-field" label="Bottom" optional optional-title="Use a custom bottom border size?">\n        <input type="text" inputmode="numeric" name="border-bottom" part="border-bottom" />\n        <span part="border-bottom-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field part="border-left-field" label="Left" optional optional-title="Use a custom left border size?">\n        <input type="text" inputmode="numeric" name="border-left" part="border-left" />\n        <span part="border-left-unit" slot="postfix">px</span>\n    </form-field>\n</fieldset>';
 
 // components/task-fields/task-fields.component.ts
 var COMPONENT_STYLESHEET2 = new CSSStyleSheet();
@@ -2475,277 +2531,277 @@ if (customElements.get(COMPONENT_TAG_NAME2) == null) {
 }
 
 // components/taskboard-fields/taskboard-fields.component.css?raw
-var taskboard_fields_component_default = `:host\r
-{\r
-    display: grid;\r
-    gap: 1em;\r
-    padding: 1em;\r
-}\r
-input,select,textarea\r
-{\r
-    font: inherit;\r
-    min-width: 0;\r
-    width: auto;\r
-}\r
-\r
-details summary\r
-{\r
-    user-select: none;\r
-    display: inline-flex;\r
-    gap: .25em;\r
-    margin-bottom: 1em;\r
-}\r
-summary:before\r
-{\r
-    content: '\u25B6';\r
-    transform-origin: 45% 50%;\r
-    transition: transform 100ms ease-out;\r
-    font-size: .78em;\r
-    align-self: center;\r
-    margin-right: .25em;\r
-}\r
-details[open] summary:before\r
-{\r
-    transform: rotate(90deg);\r
-}\r
-\r
-form-field:not([part^="background-image-offset"]) input[inputmode="numeric"]\r
-{\r
-    width: 5ch;\r
-}\r
-\r
-form-field:not([part^="background-image-offset"]) .container\r
-{\r
-    display: flex;\r
-    flex-direction: column;\r
-    gap: .25em;\r
-}\r
-\r
-fieldset\r
-{\r
-    display: grid;\r
-    gap: 1em;\r
-    min-width: 0;\r
-    width: auto;\r
-}\r
-\r
-fieldset legend\r
-{\r
-    display: flex;\r
-    gap: .25em;\r
-    align-items: center;\r
-}\r
-\r
-form-field .label\r
-,form-field .field-label\r
-{\r
-    display: flex;\r
-    gap: .25em;\r
-    align-items: center;\r
-}\r
-form-field .label input\r
-,form-field .field-label input\r
-{\r
-    margin: 0;\r
-}\r
-form-field .label [part="text"]\r
-,form-field .field-label [part="text"]\r
-{\r
-    flex: 1;\r
-}\r
-\r
-image-input::part(label)\r
-{\r
-    grid-column: span 2;\r
-    grid-row: 1;\r
-}\r
-\r
-image-input::part(field)\r
-{\r
-    display: grid;\r
-    align-items: center;\r
-    justify-items: center;\r
-}\r
-\r
-image-input::part(preview)\r
-{\r
-    max-height: 64px;\r
-    height: 100%;\r
-}\r
-\r
-image-input::part(clear)\r
-{\r
-    grid-row: 2;\r
-    grid-column: 2;\r
-}\r
-\r
-image-input::part(view-link)\r
-{\r
-    grid-row: 2;\r
-    grid-column: 1;\r
-}\r
-\r
-/* image-input [slot="placeholder"]\r
-{\r
-    display: grid;\r
-    justify-items: center;\r
-    gap: .25em;\r
-    padding: .5em;\r
-    max-width: 600px;\r
-    max-height: 300px;\r
-}\r
-image-input[specified] [slot="placeholder"]\r
-{\r
-    display: none;\r
-} */\r
-\r
-\r
-[part="properties"]\r
-{\r
-    display: flex;\r
-    align-items: center;\r
-    gap: 1em;\r
-    grid-column: span 2;\r
-}\r
-\r
-[part="name-field"] .container\r
-{\r
-    flex: 1;\r
-}\r
-\r
-[part="appearance-fieldset"] .container > input\r
-{\r
-    flex: 1;\r
-    min-height: 2ch;\r
-}\r
-\r
-[part="background-image-offset"]\r
-{\r
-    display: grid;\r
-    gap: .5em;\r
-}\r
-\r
-[part="offset-header"]\r
-{\r
-    grid-column: span 2;\r
-}\r
-\r
-[part="background-image-offset"] form-field .container\r
-{\r
-    display: flex;\r
-    gap: .5em;\r
-    align-items: center;\r
-}\r
-\r
-[part="background-image-offset"] input\r
-{\r
-    flex: 1;\r
-    width: 0;\r
-    min-width: 5ch;\r
-    /* max-width: 10ch; */\r
-}\r
-\r
-[part="lists"]\r
-{\r
-    grid-column: span 2;\r
-}\r
-\r
-[part="list-items"]\r
-{\r
-    gap: 1em;\r
-    display: grid;\r
-}\r
-\r
-[part="list-actions"]\r
-{\r
-    display: flex;\r
-    align-items: center;\r
-    justify-content: space-between;\r
-    gap: .5em;\r
-    padding: .5em 0;\r
-}\r
-\r
-[part="tasks"]\r
-{\r
-    grid-column: span 2;\r
-}\r
-\r
-\r
-[part="delete-fieldset"]\r
-{\r
-    grid-template-rows: 1fr auto;\r
-}\r
-\r
-[part="duplicate-fieldset"]\r
-{\r
-    grid-column: 2;\r
-}\r
-\r
-[part="export-fieldset"]\r
-{\r
-    grid-column: span 2;\r
-    padding: 1em;\r
-    display: block;\r
-}\r
-\r
-[part="export-actions"]\r
-{\r
-    display: flex;\r
-    align-items: center;\r
-    justify-content: flex-end;\r
-    gap: .5em;\r
-    padding: .5em 0;\r
-}\r
-\r
-[part="export-fieldset"] form-field .container\r
-{\r
-    display: flex;\r
-    flex-direction: row-reverse;\r
-    align-items: center;\r
-    justify-content: flex-end;\r
-    gap: .25em;\r
-}\r
-\r
-[part="export-options"]\r
-{\r
-    display: inline-block;\r
-}\r
-\r
-[part="export-options"] > header\r
-{\r
-    margin-bottom: 1em;\r
-    border-bottom: solid 2px;\r
-}\r
-\r
-[part="export-fieldset"] button\r
-{\r
-    margin-left: auto;\r
-    display: block;\r
-}\r
-\r
-svg\r
-{\r
-    width: 18px;\r
-    height: 18px;\r
-}\r
-button svg\r
-{\r
-    width: 12px;\r
-    height: 12px;\r
-}\r
-\r
-[part="list-items"]::part(add-button)\r
-{\r
-    display: none;\r
-}\r
-\r
-[part="icon-definitions"]\r
-{\r
-    display: none;\r
+var taskboard_fields_component_default = `:host
+{
+    display: grid;
+    gap: 1em;
+    padding: 1em;
+}
+input,select,textarea
+{
+    font: inherit;
+    min-width: 0;
+    width: auto;
+}
+
+details summary
+{
+    user-select: none;
+    display: inline-flex;
+    gap: .25em;
+    margin-bottom: 1em;
+}
+summary:before
+{
+    content: '\u25B6';
+    transform-origin: 45% 50%;
+    transition: transform 100ms ease-out;
+    font-size: .78em;
+    align-self: center;
+    margin-right: .25em;
+}
+details[open] summary:before
+{
+    transform: rotate(90deg);
+}
+
+form-field:not([part^="background-image-offset"]) input[inputmode="numeric"]
+{
+    width: 5ch;
+}
+
+form-field:not([part^="background-image-offset"]) .container
+{
+    display: flex;
+    flex-direction: column;
+    gap: .25em;
+}
+
+fieldset
+{
+    display: grid;
+    gap: 1em;
+    min-width: 0;
+    width: auto;
+}
+
+fieldset legend
+{
+    display: flex;
+    gap: .25em;
+    align-items: center;
+}
+
+form-field .label
+,form-field .field-label
+{
+    display: flex;
+    gap: .25em;
+    align-items: center;
+}
+form-field .label input
+,form-field .field-label input
+{
+    margin: 0;
+}
+form-field .label [part="text"]
+,form-field .field-label [part="text"]
+{
+    flex: 1;
+}
+
+image-input::part(label)
+{
+    grid-column: span 2;
+    grid-row: 1;
+}
+
+image-input::part(field)
+{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+image-input::part(preview)
+{
+    max-height: 64px;
+    height: 100%;
+}
+
+image-input::part(clear)
+{
+    grid-row: 2;
+    grid-column: 2;
+}
+
+image-input::part(view-link)
+{
+    grid-row: 2;
+    grid-column: 1;
+}
+
+/* image-input [slot="placeholder"]
+{
+    display: grid;
+    justify-items: center;
+    gap: .25em;
+    padding: .5em;
+    max-width: 600px;
+    max-height: 300px;
+}
+image-input[specified] [slot="placeholder"]
+{
+    display: none;
+} */
+
+
+[part="properties"]
+{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    grid-column: span 2;
+}
+
+[part="name-field"] .container
+{
+    flex: 1;
+}
+
+[part="appearance-fieldset"] .container > input
+{
+    flex: 1;
+    min-height: 2ch;
+}
+
+[part="background-image-offset"]
+{
+    display: grid;
+    gap: .5em;
+}
+
+[part="offset-header"]
+{
+    grid-column: span 2;
+}
+
+[part="background-image-offset"] form-field .container
+{
+    display: flex;
+    gap: .5em;
+    align-items: center;
+}
+
+[part="background-image-offset"] input
+{
+    flex: 1;
+    width: 0;
+    min-width: 5ch;
+    /* max-width: 10ch; */
+}
+
+[part="lists"]
+{
+    grid-column: span 2;
+}
+
+[part="list-items"]
+{
+    gap: 1em;
+    display: grid;
+}
+
+[part="list-actions"]
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5em;
+    padding: .5em 0;
+}
+
+[part="tasks"]
+{
+    grid-column: span 2;
+}
+
+
+[part="delete-fieldset"]
+{
+    grid-template-rows: 1fr auto;
+}
+
+[part="duplicate-fieldset"]
+{
+    grid-column: 2;
+}
+
+[part="export-fieldset"]
+{
+    grid-column: span 2;
+    padding: 1em;
+    display: block;
+}
+
+[part="export-actions"]
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: .5em;
+    padding: .5em 0;
+}
+
+[part="export-fieldset"] form-field .container
+{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    gap: .25em;
+}
+
+[part="export-options"]
+{
+    display: inline-block;
+}
+
+[part="export-options"] > header
+{
+    margin-bottom: 1em;
+    border-bottom: solid 2px;
+}
+
+[part="export-fieldset"] button
+{
+    margin-left: auto;
+    display: block;
+}
+
+svg
+{
+    width: 18px;
+    height: 18px;
+}
+button svg
+{
+    width: 12px;
+    height: 12px;
+}
+
+[part="list-items"]::part(add-button)
+{
+    display: none;
+}
+
+[part="icon-definitions"]
+{
+    display: none;
 }`;
 
 // components/taskboard-fields/taskboard-fields.component.html?raw
-var taskboard_fields_component_default2 = '\r\n<input type="hidden" name="record-id" part="record-id" />\r\n<div part="properties">\r\n    <form-field label="Color" part="color-field">\r\n        <input type="color" part="color" name="color" value="#000000" />\r\n    </form-field>\r\n    <form-field label="Name" part="name-field">\r\n        <input type="text" part="name" name="name" value="New Board" />\r\n    </form-field>\r\n    <form-field label="Order" part="order-field">\r\n        <input type="text" part="order" name="order" inputmode="numeric" disabled />\r\n    </form-field>\r\n</div>\r\n<fieldset part="appearance-fieldset">\r\n    <legend>\r\n        <svg part="image-icon" >\r\n            <use href="#icon-definition_color"></use>\r\n        </svg>\r\n        <span part="appearance-label">Appearance</span>\r\n    </legend>\r\n    <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\r\n        <input type="color" name="background-color" part="background-color" value="#f9faf5" />\r\n    </form-field>\r\n    <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\r\n        <input type="color" name="font-color" part="font-color" value="#060703" />\r\n    </form-field>\r\n</fieldset>\r\n<fieldset part="image-fieldset">\r\n    <legend>\r\n        <svg part="image-icon" >\r\n            <use href="#icon-definition_image"></use>\r\n        </svg>\r\n        <span part="image-label">Background Image</span>\r\n    </legend>\r\n    <form-field part="background-image-field" label="Background Image" input-selector="image-input">\r\n        <image-input name="background-image" part="background-image" placeholder="Select an image...">\r\n            <svg part="image-icon" slot="placeholder-icon">\r\n                <use href="#icon-definition_image"></use>\r\n            </svg>\r\n        </image-input>\r\n    </form-field>\r\n    <form-field part="background-image-display-field" label="Display">\r\n        <select part="background-image-display" name="background-image-display">\r\n            <option value="stretch">Stretch</option>\r\n            <option value="center">Center</option>\r\n            <option value="tile">Tile</option>\r\n        </select>\r\n    </form-field>\r\n    <div part="background-image-offset">\r\n        <div part="offset-header">\r\n            <span part="offset-label">Offset</span>\r\n        </div>\r\n        <form-field part="background-image-offset-x-field" label="X">\r\n            <input type="text" inputmode="numeric" part="background-image-offset-x" name="background-image-offset-x" />\r\n        </form-field>\r\n        <form-field part="background-image-offset-y-field" label="Y">\r\n            <input type="text" inputmode="numeric" part="background-image-offset-y" name="background-image-offset-y" />\r\n        </form-field>\r\n    </div>\r\n</fieldset>\r\n<details open part="lists">\r\n    <summary part="lists-summary">\r\n        <svg part="lists-icon" >\r\n            <use href="#icon-definition_task-list"></use>\r\n        </svg>\r\n        <span part="lists-legend-label">Lists<span>\r\n    </summary>\r\n    <div part="list-items"><slot><em part="lists-placeholder">No Lists</em></slot></div>\r\n    <div part="list-actions">\r\n        <button type="button" part="clear-lists-button" title="Clear All Lists">\r\n            <svg part="clear-lists-button-icon" >\r\n                <use href="#icon-definition_trash"></use>\r\n            </svg>\r\n            <span part="clear-board-lists-label">Clear</span>\r\n        </button>\r\n        <button type="button" part="add-list-button">\r\n            <svg part="add-list-button-icon" >\r\n                <use href="#icon-definition_plus"></use>\r\n            </svg>\r\n            <span part="add-list-label">Add List</span>\r\n        </button>\r\n    </div>\r\n</details>\r\n<details part="tasks" open>\r\n    <summary part="tasks-summary">\r\n        <svg part="tasks-icon" >\r\n            <use href="#icon-definition_task"></use>\r\n        </svg>\r\n        <span part="tasks-label">Task Settings</span>\r\n    </summary>\r\n    <task-fields part="task-fields"></task-fields>\r\n</details>\r\n<fieldset part="delete-fieldset">\r\n    <legend part="delete-legend">Delete</legend>\r\n    <p>Delete this board?</p>\r\n    <button type="submit" part="remove-board-button">\r\n        <svg part="remove-board-icon" >\r\n            <use href="#icon-definition_trash"></use>\r\n        </svg>\r\n        <span part="remove-board-label">Delete</span>\r\n    </button>\r\n</fieldset>\r\n<fieldset part="duplicate-fieldset">\r\n    <legend part="duplicate-legend">Duplicate</legend>\r\n    <p>Duplicate this board?</p>\r\n    <form-field label="New Board Name">\r\n        <input type="text" part="duplicate-board-new-name" />\r\n    </form-field>\r\n    <button type="button" part="duplicate-board-button">\r\n        <svg part="duplicate-board-icon" >\r\n            <use href="#icon-definition_trash"></use>\r\n        </svg>\r\n        <span part="duplicate-board-label">Duplicate</span>\r\n    </button>\r\n</fieldset>\r\n<fieldset part="export-fieldset">\r\n    <legend part="export-legend">Export</legend>\r\n    <div part="export-options">\r\n        <header>Options</header>\r\n        <form-field part="export-images-field" label="Export Background Image?">\r\n            <svg part="export-images-icon" slot="prefix">\r\n                <use href="#icon-definition_image"></use>\r\n            </svg>\r\n            <input type="checkbox" part="export-background-image" checked="true">\r\n        </form-field>\r\n    </div>\r\n    <button part="export-button" type="button">\r\n        <svg part="export-button-icon" >\r\n            <use href="#icon-definition_export"></use>\r\n        </svg>\r\n        <span part="export-button-label">Export Board</span>\r\n    </button>\r\n</fieldset>';
+var taskboard_fields_component_default2 = '\n<input type="hidden" name="record-id" part="record-id" />\n<div part="properties">\n    <form-field label="Color" part="color-field">\n        <input type="color" part="color" name="color" value="#000000" />\n    </form-field>\n    <form-field label="Name" part="name-field">\n        <input type="text" part="name" name="name" value="New Board" />\n    </form-field>\n    <form-field label="Order" part="order-field">\n        <input type="text" part="order" name="order" inputmode="numeric" disabled />\n    </form-field>\n</div>\n<fieldset part="appearance-fieldset">\n    <legend>\n        <svg part="image-icon" >\n            <use href="#icon-definition_color"></use>\n        </svg>\n        <span part="appearance-label">Appearance</span>\n    </legend>\n    <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\n        <input type="color" name="background-color" part="background-color" value="#f9faf5" />\n    </form-field>\n    <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\n        <input type="color" name="font-color" part="font-color" value="#060703" />\n    </form-field>\n</fieldset>\n<fieldset part="image-fieldset">\n    <legend>\n        <svg part="image-icon" >\n            <use href="#icon-definition_image"></use>\n        </svg>\n        <span part="image-label">Background Image</span>\n    </legend>\n    <form-field part="background-image-field" label="Background Image" input-selector="image-input">\n        <image-input name="background-image" part="background-image" placeholder="Select an image...">\n            <svg part="image-icon" slot="placeholder-icon">\n                <use href="#icon-definition_image"></use>\n            </svg>\n        </image-input>\n    </form-field>\n    <form-field part="background-image-display-field" label="Display">\n        <select part="background-image-display" name="background-image-display">\n            <option value="stretch">Stretch</option>\n            <option value="center">Center</option>\n            <option value="tile">Tile</option>\n        </select>\n    </form-field>\n    <div part="background-image-offset">\n        <div part="offset-header">\n            <span part="offset-label">Offset</span>\n        </div>\n        <form-field part="background-image-offset-x-field" label="X">\n            <input type="text" inputmode="numeric" part="background-image-offset-x" name="background-image-offset-x" />\n        </form-field>\n        <form-field part="background-image-offset-y-field" label="Y">\n            <input type="text" inputmode="numeric" part="background-image-offset-y" name="background-image-offset-y" />\n        </form-field>\n    </div>\n</fieldset>\n<details open part="lists">\n    <summary part="lists-summary">\n        <svg part="lists-icon" >\n            <use href="#icon-definition_task-list"></use>\n        </svg>\n        <span part="lists-legend-label">Lists<span>\n    </summary>\n    <div part="list-items"><slot><em part="lists-placeholder">No Lists</em></slot></div>\n    <div part="list-actions">\n        <button type="button" part="clear-lists-button" title="Clear All Lists">\n            <svg part="clear-lists-button-icon" >\n                <use href="#icon-definition_trash"></use>\n            </svg>\n            <span part="clear-board-lists-label">Clear</span>\n        </button>\n        <button type="button" part="add-list-button">\n            <svg part="add-list-button-icon" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span part="add-list-label">Add List</span>\n        </button>\n    </div>\n</details>\n<details part="tasks" open>\n    <summary part="tasks-summary">\n        <svg part="tasks-icon" >\n            <use href="#icon-definition_task"></use>\n        </svg>\n        <span part="tasks-label">Task Settings</span>\n    </summary>\n    <task-fields part="task-fields"></task-fields>\n</details>\n<fieldset part="delete-fieldset">\n    <legend part="delete-legend">Delete</legend>\n    <p>Delete this board?</p>\n    <button type="submit" part="remove-board-button">\n        <svg part="remove-board-icon" >\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span part="remove-board-label">Delete</span>\n    </button>\n</fieldset>\n<fieldset part="duplicate-fieldset">\n    <legend part="duplicate-legend">Duplicate</legend>\n    <p>Duplicate this board?</p>\n    <form-field label="New Board Name">\n        <input type="text" part="duplicate-board-new-name" />\n    </form-field>\n    <button type="button" part="duplicate-board-button">\n        <svg part="duplicate-board-icon" >\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span part="duplicate-board-label">Duplicate</span>\n    </button>\n</fieldset>\n<fieldset part="export-fieldset">\n    <legend part="export-legend">Export</legend>\n    <div part="export-options">\n        <header>Options</header>\n        <form-field part="export-images-field" label="Export Background Image?">\n            <svg part="export-images-icon" slot="prefix">\n                <use href="#icon-definition_image"></use>\n            </svg>\n            <input type="checkbox" part="export-background-image" checked="true">\n        </form-field>\n    </div>\n    <button part="export-button" type="button">\n        <svg part="export-button-icon" >\n            <use href="#icon-definition_export"></use>\n        </svg>\n        <span part="export-button-label">Export Board</span>\n    </button>\n</fieldset>';
 
 // data/records/task-board.record.ts
 var TaskBoardRecord = class extends DataRecord {
@@ -2766,7 +2822,7 @@ var TaskBoardRecord = class extends DataRecord {
 // components/taskboard-fields/taskboard-fields.component.ts
 var COMPONENT_STYLESHEET3 = new CSSStyleSheet();
 COMPONENT_STYLESHEET3.replaceSync(taskboard_fields_component_default);
-var COMPONENT_TEMPLATE = `${taskboard_fields_component_default2}
+var COMPONENT_TEMPLATE2 = `${taskboard_fields_component_default2}
 <div part="icon-definitions">
     ${Icons.Gear}
     ${Icons.Export}
@@ -2797,7 +2853,7 @@ var TaskBoardFieldsComponent = class extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE;
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE2;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET3);
     this.findPart("clear-lists-button").addEventListener("click", () => {
       this.querySelectorAll("tasklist-fields").forEach((item) => item.toggleAttribute("removed", true));
@@ -2957,10 +3013,10 @@ if (customElements.get(COMPONENT_TAG_NAME3) == null) {
 }
 
 // components/import-manager/import-manager.component.css?raw
-var import_manager_component_default = 'import-manager .value\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\nimport-manager .old\r\n{\r\n    text-decoration: line-through;\r\n    opacity: .8;\r\n    padding-inline: .5em;\r\n    display: inline-block;\r\n    width: 100px;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    overflow: hidden;\r\n}\r\n\r\nimport-manager .value\r\n{\r\n    max-width: 500px;\r\n    overflow: hidden;\r\n    word-break: break-word;\r\n}\r\nimport-manager .value:has(.display)\r\n{\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\nimport-manager .value .view-link\r\n{\r\n    align-self: flex-end;\r\n}\r\n\r\nimport-manager .removed\r\n{\r\n    text-decoration: line-through;\r\n}\r\n\r\nimport-manager .value img.preview\r\n{\r\n    max-height: 200px;\r\n}\r\n\r\n[part="import-manager-fieldset"]\r\n{\r\n    overflow: hidden;\r\n    flex: 1;\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n[part="import-preview"]\r\n{\r\n    overflow: auto;\r\n}\r\n@media (max-width: 665px) \r\n{\r\n    [part="import-preview"]\r\n    {\r\n        --indent: 5px;\r\n        --property-name-width: 75px;\r\n    }\r\n    [part="import-preview"] .property .name\r\n    {\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n    }\r\n    [part="import-preview"] .property .value\r\n    {\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        word-break: break-all;\r\n    }\r\n}';
+var import_manager_component_default = 'import-manager .value\n{\n    display: flex;\n    align-items: center;\n}\n\nimport-manager .old\n{\n    text-decoration: line-through;\n    opacity: .8;\n    padding-inline: .5em;\n    display: inline-block;\n    width: 100px;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    overflow: hidden;\n}\n\nimport-manager .value\n{\n    max-width: 500px;\n    overflow: hidden;\n    word-break: break-word;\n}\nimport-manager .value:has(.display)\n{\n    display: flex;\n    flex-direction: column;\n}\nimport-manager .value .view-link\n{\n    align-self: flex-end;\n}\n\nimport-manager .removed\n{\n    text-decoration: line-through;\n}\n\nimport-manager .value img.preview\n{\n    max-height: 200px;\n}\n\n[part="import-manager-fieldset"]\n{\n    overflow: hidden;\n    flex: 1;\n    display: flex;\n    flex-direction: column;\n}\n\n[part="import-preview"]\n{\n    overflow: auto;\n}\n@media (max-width: 665px) \n{\n    [part="import-preview"]\n    {\n        --indent: 5px;\n        --property-name-width: 75px;\n    }\n    [part="import-preview"] .property .name\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n    }\n    [part="import-preview"] .property .value\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n        word-break: break-all;\n    }\n}';
 
 // components/import-manager/import-manager.component.html?raw
-var import_manager_component_default2 = '<fieldset part="import-manager-fieldset">\r\n    <legend part="import-manager-legend">Board Data</legend>\r\n    <p part="import-description">The following Taskboard, Tasklists, and Tasks will be imported with their settings. Make final adjustments and select "Import" to complete the import.</p>\r\n    <record-tree part="import-preview" remove-attribute parent-name="Board"></record-tree>\r\n</fieldset>';
+var import_manager_component_default2 = '<fieldset part="import-manager-fieldset">\n    <legend part="import-manager-legend">Board Data</legend>\n    <p part="import-description">The following Taskboard, Tasklists, and Tasks will be imported with their settings. Make final adjustments and select "Import" to complete the import.</p>\n    <record-tree part="import-preview" remove-attribute parent-name="Board"></record-tree>\n</fieldset>';
 
 // components/import-manager/import-manager.component.ts
 var ID_PROPERTIES = /* @__PURE__ */ new Set(["id", "listId", "taskSettingsId", "backgroundImageId", "boardId"]);
@@ -7982,7 +8038,7 @@ ${board_browser_default}
 ${board_settings_default}
 ${settings_default}
 ${taskboard_manager_default}`);
-var COMPONENT_TEMPLATE2 = `${taskboard_manager_default2}
+var COMPONENT_TEMPLATE3 = `${taskboard_manager_default2}
 <div part="icon-definitions">
     ${Array.from(Object.values(Icons)).reduce((accumulatedValues, value) => `${accumulatedValues}
 ${value}`)}
@@ -8012,7 +8068,7 @@ var TaskboardManagerElement7 = class extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE2;
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE3;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET18);
     const datastoreName = this.getAttribute("datastore-name");
     this.#data = new TaskManagerComponentData(datastoreName == null ? void 0 : { name: datastoreName });
@@ -8126,6 +8182,7 @@ var TaskboardManagerElement7 = class extends HTMLElement {
     messageText.setAttribute("part", "undo-message");
     messageText.textContent = message;
     const messageButton = document.createElement("button");
+    messageButton.setAttribute("part", "notification-undo-button");
     messageButton.innerHTML = `<span part="button-label">Undo?</span>`;
     messageButton.type = "button";
     content.append(messageText, messageButton);

@@ -200,9 +200,9 @@
                             <p>The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>
                         </div>
                         <editable-list part="deleted-items">
-                            <template slot="remove-button">
+                            <template part="remove-button">
                                 <svg part="restore-item-icon" title="Restore">
-                                    <use href="#icon-definition_file"></use>
+                                    <use href="#icon-definition_restore"></use>
                                 </svg>
                             </template>
                         </editable-list>
@@ -246,9 +246,15 @@
                 <fieldset part="history-navigation">
                     <legend part="history-navigation-legend">Navigation</legend>
                     <button part="history-control-undo">
+                        <svg part="restore-item-icon" title="Undo">
+                            <use href="#icon-definition_undo-redo"></use>
+                        </svg>
                         <span part="history-control-undo-label">Undo</span>
                     </button>
                     <button part="history-control-redo">
+                        <svg part="restore-item-icon" title="Redo" style="transform: scaleX(-1);">
+                            <use href="#icon-definition_undo-redo"></use>
+                        </svg>
                         <span part="history-control-redo-label">Redo</span>
                     </button>
                     <button part="clear-history-button">

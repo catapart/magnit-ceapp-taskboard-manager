@@ -21,6 +21,9 @@ import { Task } from "./task";
 import { TaskBoard } from "./taskboard";
 import { TaskList } from "./tasklist";
 import { Trash } from "./trash";
+import { UndoRedo } from "./undo-redo";
+import { Restore } from "./restore";
+import { Copy } from './copy';
 
 
 export const Icons = {
@@ -46,5 +49,8 @@ export const Icons = {
     File,
     ConfirmCheck,
     Clock,
-    Info
+    Info,
+    UndoRedo,
+    Restore,
+    Copy,
 };

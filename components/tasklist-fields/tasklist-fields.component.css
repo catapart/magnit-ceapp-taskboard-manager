@@ -12,6 +12,11 @@ input,select,textarea
     width: auto;
 }
 
+[part="icon-definitions"]
+{
+    display: none;
+}
+
 [part="handle"]
 {
     display: flex;

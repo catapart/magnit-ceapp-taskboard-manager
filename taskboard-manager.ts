@@ -351,6 +351,7 @@ export class TaskboardManagerElement extends HTMLElement
         messageText.textContent = message;
 
         const messageButton = document.createElement('button');
+        messageButton.setAttribute('part', 'notification-undo-button');
         messageButton.innerHTML = `<span part="button-label">Undo?</span>`;
         messageButton.type = 'button';
 

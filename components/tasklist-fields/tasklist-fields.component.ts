@@ -1,3 +1,4 @@
+import { Icons } from '../../assets/icons/icons.asset';
 import { TaskListColorDisplay, TaskListRecord } from '../../data/records/task-list.record';
 import { TaskSettingsRecord } from '../../data/records/task-settings.record';
 import formFieldStyle from '../../styles/form-field.css?raw';
@@ -10,6 +11,11 @@ COMPONENT_STYLESHEET.replaceSync(`${formFieldStyle}
 ${style}
 `);
 
+const COMPONENT_TEMPLATE = `${html}
+<div part="icon-definitions">
+    ${Icons.CancelCross}
+    ${Icons.Copy}
+</div>`;
 
 const COMPONENT_TAG_NAME = 'tasklist-fields';
 export class TaskListFieldsComponent extends HTMLElement
@@ -32,7 +38,7 @@ export class TaskListFieldsComponent extends HTMLElement
     {
         super();
         this.attachShadow({ mode: 'open' });
-        this.shadowRoot!.innerHTML = html;
+        this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
 
         const options: HTMLOptionElement[] = [];
