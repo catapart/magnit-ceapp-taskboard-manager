@@ -11,7 +11,7 @@ import { Icons } from '../../assets/icons/icons.asset';
 import { TaskSettingsRecord } from '../../data/records/task-settings.record';
 import { TaskFieldsComponent } from '../task-fields/task-fields.component';
 import { CustomImageRecord } from '../../data/records/custom-image.record';
-import { ImageInputElement } from '@magnit-ce/image-input';
+import { FileImageInputElement } from '@magnit-ce/fileimage-input';
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(style);
@@ -110,11 +110,11 @@ export class TaskBoardFieldsComponent extends HTMLElement
 
         if(backgroundImage != null)
         {
-            this.findPart<ImageInputElement>('background-image').value = backgroundImage.image as File;
+            this.findPart<FileImageInputElement>('background-image').value = backgroundImage.image as File;
         }
         else
         {
-            this.findPart<ImageInputElement>('background-image').value = null;
+            this.findPart<FileImageInputElement>('background-image').value = null;
         }
 
         this.findPart<TaskFieldsComponent>('task-fields').setValues(taskSettings);

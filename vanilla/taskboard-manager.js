@@ -638,7 +638,7 @@ message-card::part(message)
 }`;
 
 // taskboard-manager.html?raw
-var taskboard_manager_default2 = '<menu part="menu">\n    <header part="header">\n        <div part="branding" title="Manager Icon">\n            <svg class="logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button type="button" data-route="#boards" part="open-board-browser" title="Find Board">\n            <svg class="icon magnifying-glass" >\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="label">Find Board</span>\n        </button>\n        <button type="button" data-route="#config/settings" part="open-settings" title="App Administration">\n            <svg class="icon gear" >\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list part="boards" remove="false" edit="true" cancel-edit>\n        <button type="button" slot="add" part="new-board-button_list" title="New Board">\n            <svg class="icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label">New Board</span>\n        </button>\n        <template part="edit-button">\n            <svg class="icon expand" >\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n<path-router part="app-router" path="">\n    <route-page part="welcome-page">\n        <div part="welcome">\n            <fieldset>\n                <legend>Welcome</legend>\n                <svg part="logo" >\n                    <use href="#icon-definition_logo"></use>\n                </svg>\n                <div class="description">\n                    <p>Welcome to your Taskboard Manager!</p>\n                    <p>Create a <a part="new-board-link">new board</a>, or select a recently-opened board below.</p>\n                </div>\n                <fieldset>\n                    <legend>Recent Boards</legend>\n                    <editable-list part="recent-boards">\n                        <button type="button" slot="add" part="new-board-button_welcome" title="New Board">\n                            <svg class="icon plus" >\n                                <use href="#icon-definition_plus"></use>\n                            </svg>\n                            <span class="label">New Board</span>\n                        </button>\n                    </editable-list>\n                </fieldset>\n            </fieldset>\n        </div>\n    </route-page>\n    <route-page path="board/:id" part="board-route">\n        <task-board part="task-board"></task-board>\n    </route-page>\n    <dialog part="board-browser-dialog" is="route-dialog" path="boards">\n        <header part="board-browser-header">\n            <svg part="board-browser-icon" >\n                <use href="#icon-definition_task-board"></use>\n            </svg>\n            <span part="board-browser-title">Boards</span>\n            <collection-filter part="board-browser-filter"></collection-filter>\n        </header>\n        <collection-browser part="board-browser"></collection-browser>\n        <footer part="board-browser-footer">\n            <form part="board-browser-actions" method="dialog">\n                <button type="submit" part="board-browser-cancel">Cancel</button>\n                <button type="submit" part="board-browser-ok">Open</button>\n            </form>\n        </footer>\n    </dialog>\n    <dialog part="config-dialog" is="route-dialog" path="config">\n        <header part="config-header">\n            <svg part="config-dialog-icon" >\n                <use href="#icon-definition_gear"></use>\n            </svg>\n            <span part="config-title">Configuration</span>\n        </header>\n        <menu part="config-navigation">\n            <a data-route="#config/settings" part="config-nav-item">\n                <svg part="settings-route-icon">\n                    <use href="#icon-definition_gear"></use>\n                </svg>\n                <span>Settings</span>\n            </a>\n            <a data-route="#config/data" part="config-nav-item">\n                <svg part="data-route-icon">\n                    <use href="#icon-definition_clock"></use>\n                </svg>\n                <span>Data</span>\n            </a>\n            <a data-route="#config/history" part="config-nav-item">\n                <svg part="history-route-icon">\n                    <use href="#icon-definition_clock"></use>\n                </svg>\n                <span>History</span>\n            </a>\n            <a data-route="#config/about" part="config-nav-item">\n                <svg part="about-route-icon">\n                    <use href="#icon-definition_info"></use>\n                </svg>\n                <span>About</span>\n            </a>\n        </menu>\n        <div part="config-route-view" class="route-view">\n            <route-page path="settings" part="settings-page">\n                <header part="settings-header">App Settings</header>\n                <fieldset part="color-scheme-fieldset">\n                    <legend part="color-scheme-legend">Color Scheme</legend>\n                    <div class="button-group" part="scheme-options">\n                        <button data-value="inherit">Inherit</button>\n                        <button data-value="browser">Browser</button>\n                        <button data-value="light">Light</button>\n                        <button data-value="dark">Dark</button>\n                    </div>\n                </fieldset>\n                <fieldset part="custom-settings-fieldset">\n                    <legend part="custom-settings-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>\n                    <slot name="custom-settings">[ No Custom Settings ]</slot>\n                </fieldset>\n                <fieldset part="hotkeys-fieldset">\n                    <legend part="hotkeyss-legend">Hot Keys</legend>\n                    <dl part="hotkeys-list">\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Left</key></dt>\n                        <dd part="hotkey-description">Move text cursor to previous word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Right</key></dt>\n                        <dd part="hotkey-description">Move text cursor to next word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Up</key></dt>\n                        <dd part="hotkey-description">Move text cursor to closest word in previous line.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Down</key></dt>\n                        <dd part="hotkey-description">Move text cursor to closest word in next line.</dd>\n\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Left</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the start of the previous word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Right</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the end of the next word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Up</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the previous line.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Down</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the next line.</dd>\n\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Left</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Right</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Up</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Down</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                    </dl>\n                </fieldset>\n            </route-page>\n            <route-page path="data" part="config-data-page">\n                <header part="data-header">Data</header>\n                <fieldset part="import-fieldset">\n                    <legend part="import-legend">Import</legend>\n                    <form-field part="import-field" label="Taskboard Data File" input-selector="file-input">\n                        <file-input part="import-board-file">\n                            <svg slot="icon" part="import-file-icon" >\n                                <use href="#icon-definition_file"></use>\n                            </svg>\n                        </file-input>\n                    </form-field>\n                    <button part="import-button">\n                        <svg part="import-button-icon" >\n                            <use href="#icon-definition_import"></use>\n                        </svg>\n                        <span part="import-button-label">Import Board</span>\n                    </button>\n                </fieldset>\n                <div part="config-data-caches">\n                    <fieldset part="data-cleanup-fieldset">\n                        <legend part="data-cleanup-legend">Data Cleanup</legend>\n                        <div part="data-cleanup-description">\n                            <p>Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>\n                            <p>Set how many days deleted item should perisist using the slider below.</p>\n                        </div>\n                        <form-field label="Days" part="data-cleanup-range">\n                            <input type="range" id="data-persist-days" part="data-persist-days" max="30" list="data-persist-days-values" />\n                            <datalist id="data-persist-days-values"  part="data-persist-days-values"></datalist>\n                            <span slot="postfix" part="data-persist-days-value"></span>\n                            <button slot="postfix" part="apply-data-persist-days-button">\n                                <svg part="apply-data-persist-days-icon">\n                                    <use href="#icon-definition_confirm-check"></use>\n                                </svg>\n                                <span part="apply-data-persist-days-label">Apply</span>\n                            </button>\n                        </form-field>\n                    </fieldset>\n                    <fieldset part="data-pending-fieldset">\n                        <legend part="data-pending-legend">Pending Cleanup</legend>\n                        <div part="data-pending-description">\n                            <p>The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>\n                        </div>\n                        <editable-list part="deleted-items">\n                            <template part="remove-button">\n                                <svg part="restore-item-icon" title="Restore">\n                                    <use href="#icon-definition_restore"></use>\n                                </svg>\n                            </template>\n                        </editable-list>\n                        <button part="clear-deleted-button">\n                            <svg part="clear-deleted-icon" title="Clear">\n                                <use href="#icon-definition_trash"></use>\n                            </svg>\n                            <span part="clear-deleted-label">Clear Pending Items</span>\n                        </button>\n                    </fieldset>\n                    <fieldset part="image-cache-fieldset">\n                        <legend part="image-cache-legend">Image Cache</legend>\n                        <div part="image-cache-description">\n                            <p>Caching some image files provides undo and redo support.</p>\n                            <p>The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>\n                        </div>\n                        <editable-list part="deleted-images"></editable-list>\n                        <button part="clear-image-cache-button">\n                            <svg part="clear-images-icon" title="Clear">\n                                <use href="#icon-definition_trash"></use>\n                            </svg>\n                            <span part="clear-images-label">Clear Image Cache</span>\n                        </button>\n                    </fieldset>\n                </div>\n                <fieldset part="data-clear-fieldset">\n                    <legend part="data-clear-legend">Clear Data</legend>\n                    <div part="data-clear-description">\n                        <p>Delete all data, including app settings and history.</p>\n                    </div>\n                    <button part="clear-data-button">\n                        <svg part="clear-data-icon" title="Clear">\n                            <use href="#icon-definition_trash"></use>\n                        </svg>\n                        <span part="clear-data-label">Clear All Data</span>\n                    </button>\n                </fieldset>\n            </route-page>\n            <route-page path="history" part="history-page">\n                <header part="history-header">History</header>\n                <fieldset part="history-navigation">\n                    <legend part="history-navigation-legend">Navigation</legend>\n                    <button part="history-control-undo">\n                        <svg part="restore-item-icon" title="Undo">\n                            <use href="#icon-definition_undo-redo"></use>\n                        </svg>\n                        <span part="history-control-undo-label">Undo</span>\n                    </button>\n                    <button part="history-control-redo">\n                        <svg part="restore-item-icon" title="Redo" style="transform: scaleX(-1);">\n                            <use href="#icon-definition_undo-redo"></use>\n                        </svg>\n                        <span part="history-control-redo-label">Redo</span>\n                    </button>\n                    <button part="clear-history-button">\n                        <svg part="clear-history-icon" title="Clear">\n                            <use href="#icon-definition_trash"></use>\n                        </svg>\n                        <span part="clear-history-label">Clear History</span>\n                    </button>\n                    <action-history part="action-history" reverse></action-history>\n                </fieldset>\n                <fieldset part="history-length-fieldset">\n                    <legend part="history-length-legend">History Length</legend>\n                    <form-field part="history-length-field">\n                        <input type="range" id="action-history-length" part="action-history-length" max="150" list="action-history-length-values" />\n                        <datalist id="action-history-length-values"  part="action-history-length-values"></datalist>\n                        <span slot="postfix" part="action-history-length-value"></span>\n                        <button slot="postfix" part="apply-history-length-button">\n                            <svg part="apply-history-length-icon">\n                                <use href="#icon-definition_confirm-check"></use>\n                            </svg>\n                            <span part="apply-history-length-label">Apply</span>\n                        </button>\n                    </form-field>\n                </fieldset>\n            </route-page>\n            <route-page path="about" part="about-page">\n                <header part="about-header">About</header>\n                <fieldset part="about-app-fieldset">\n                    <legend part="about-app-legend">App</legend>\n                    <p>The <em>My Boards</em> app is a Single Page App (SPA) implementation of the <code>taskboard-manager</code> custom element.</p>\n                    <p>To see a Progress Web App implementation of the <code>taskboard-manager</code> custom element, see the <!--<a class="thin-task-logo" href="https://www.thin-task.com">Thin<span class="highlight">Task</span></a> app.--></p>\n                </fieldset>\n                <fieldset part="version-fieldset">\n                    <legend part="version-legend">Version</legend>\n                    <div part="version-value">--.--.--</div>\n                </fieldset>\n                <fieldset part="copyright-fieldset">\n                    <legend part="copyright-legend">Copyright</legend>\n                    <div part="copyright-description">\n                        <!-- For derivative work, replace this license with your own copyright -->\n                        <p xmlns:cc="http://creativecommons.org/ns#" >\n                            Both are released with \n                            <a href="https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1" \n                            target="_blank" \n                            rel="license noopener noreferrer" \n                            style="display:inline-block;">\n                                CC0 1.0\n                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt="">\n                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1" alt="">\n                            </a>\n                        </p>\n                        <!-- End of CC0 License -->\n                    </div>\n                </fieldset>\n            </route-page>\n        </div>\n        <footer part="config-footer">\n            <form part="config-actions" method="dialog">\n                <button type="submit" part="config-cancel">Cancel</button>\n                <button type="submit" part="config-ok">Ok</button>\n            </form>\n        </footer>\n    </dialog>\n    <dialog part="board-settings" is="route-dialog" path="board-settings">\n        <form method="dialog" part="board-settings-form">\n            <header part="board-settings-header">\n                <svg part="board-settings-icon" >\n                    <use href="#icon-definition_task-board"></use>\n                </svg>\n                <span part="board-settings-title">Board</span>\n            </header>\n            <taskboard-fields part="board-fields"></taskboard-fields>\n            <footer part="board-settings-footer">\n                <button type="submit" part="close-board-button">\n                <svg part="close-board-icon" >\n                    <use href="#icon-definition_trash"></use>\n                </svg>\n                </button>\n                <button type="submit" part="board-settings-cancel">Cancel</button>\n                <button type="submit" part="board-settings-save">Save</button>\n            </footer>\n        </form>\n    </dialog>\n    <dialog part="import-dialog" is="route-dialog" path="import">\n        <header part="import-header">\n            <svg part="import-dialog-icon" >\n                <use href="#icon-definition_import"></use>\n            </svg>\n            <span part="import-title">Import</span>\n        </header>\n        <div part="import-content">\n            <import-manager part="import-manager"></import-manager>\n        </div>\n        <footer part="import-footer">\n            <form part="import-actions" method="dialog">\n                <button type="submit" part="import-cancel">Cancel</button>\n                <button type="submit" part="import-ok">Import</button>\n            </form>\n        </footer>\n    </dialog>\n</path-router>\n<dialog part="confirmation-dialog">\n    <header part="confirmation-dialog-header">\n        <svg part="confirmation-dialog-icon" >\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span part="confirmation-dialog-header-label">Confirmation</span>\n    </header>\n    <path-router part="confirmation-router" manual>\n        <route-page path="info"></route-page>\n        <route-page path="warn"></route-page>\n        <route-page path="danger"></route-page>\n    </path-router>\n    <footer part="confirmation-dialog-footer">\n        <form part="confirmation-dialog-form" method="dialog">\n            <button type="submit" part="confirmation-cancel-button">Cancel</button>\n            <button type="submit" part="confirmation-confirm-button">Confirm</button>\n        </form>\n    </footer>\n</dialog>\n<div part="notifications"></div>\n<div part="loading"></div>\n';
+var taskboard_manager_default2 = '<menu part="menu">\n    <header part="header">\n        <div part="branding" title="Manager Icon">\n            <svg class="logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button type="button" data-route="#boards" part="open-board-browser" title="Find Board">\n            <svg class="icon magnifying-glass" >\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="label">Find Board</span>\n        </button>\n        <button type="button" data-route="#config/settings" part="open-settings" title="App Administration">\n            <svg class="icon gear" >\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list part="boards" remove="false" edit="true" cancel-edit>\n        <button type="button" slot="add" part="new-board-button_list" title="New Board">\n            <svg class="icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label">New Board</span>\n        </button>\n        <template part="edit-button">\n            <svg class="icon expand" >\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n<path-router part="app-router" path="">\n    <route-page part="welcome-page">\n        <div part="welcome">\n            <fieldset>\n                <legend>Welcome</legend>\n                <svg part="logo" >\n                    <use href="#icon-definition_logo"></use>\n                </svg>\n                <div class="description">\n                    <p>Welcome to your Taskboard Manager!</p>\n                    <p>Create a <a part="new-board-link">new board</a>, or select a recently-opened board below.</p>\n                </div>\n                <fieldset>\n                    <legend>Recent Boards</legend>\n                    <editable-list part="recent-boards">\n                        <button type="button" slot="add" part="new-board-button_welcome" title="New Board">\n                            <svg class="icon plus" >\n                                <use href="#icon-definition_plus"></use>\n                            </svg>\n                            <span class="label">New Board</span>\n                        </button>\n                    </editable-list>\n                </fieldset>\n            </fieldset>\n        </div>\n    </route-page>\n    <route-page path="board/:id" part="board-route">\n        <task-board part="task-board"></task-board>\n    </route-page>\n    <dialog part="board-browser-dialog" is="route-dialog" path="boards">\n        <header part="board-browser-header">\n            <svg part="board-browser-icon" >\n                <use href="#icon-definition_task-board"></use>\n            </svg>\n            <span part="board-browser-title">Boards</span>\n            <collection-filter part="board-browser-filter"></collection-filter>\n        </header>\n        <collection-browser part="board-browser"></collection-browser>\n        <footer part="board-browser-footer">\n            <form part="board-browser-actions" method="dialog">\n                <button type="submit" part="board-browser-cancel">Cancel</button>\n                <button type="submit" part="board-browser-ok">Open</button>\n            </form>\n        </footer>\n    </dialog>\n    <dialog part="config-dialog" is="route-dialog" path="config">\n        <header part="config-header">\n            <svg part="config-dialog-icon" >\n                <use href="#icon-definition_gear"></use>\n            </svg>\n            <span part="config-title">Configuration</span>\n        </header>\n        <menu part="config-navigation">\n            <a data-route="#config/settings" part="config-nav-item">\n                <svg part="settings-route-icon">\n                    <use href="#icon-definition_gear"></use>\n                </svg>\n                <span>Settings</span>\n            </a>\n            <a data-route="#config/data" part="config-nav-item">\n                <svg part="data-route-icon">\n                    <use href="#icon-definition_clock"></use>\n                </svg>\n                <span>Data</span>\n            </a>\n            <a data-route="#config/history" part="config-nav-item">\n                <svg part="history-route-icon">\n                    <use href="#icon-definition_clock"></use>\n                </svg>\n                <span>History</span>\n            </a>\n            <a data-route="#config/about" part="config-nav-item">\n                <svg part="about-route-icon">\n                    <use href="#icon-definition_info"></use>\n                </svg>\n                <span>About</span>\n            </a>\n        </menu>\n        <div part="config-route-view" class="route-view">\n            <route-page path="settings" part="settings-page">\n                <header part="settings-header">App Settings</header>\n                <fieldset part="color-scheme-fieldset">\n                    <legend part="color-scheme-legend">Color Scheme</legend>\n                    <div class="button-group" part="scheme-options">\n                        <button data-value="inherit">Inherit</button>\n                        <button data-value="browser">Browser</button>\n                        <button data-value="light">Light</button>\n                        <button data-value="dark">Dark</button>\n                    </div>\n                </fieldset>\n                <fieldset part="custom-settings-fieldset">\n                    <legend part="custom-settings-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>\n                    <slot name="custom-settings">[ No Custom Settings ]</slot>\n                </fieldset>\n                <fieldset part="hotkeys-fieldset">\n                    <legend part="hotkeyss-legend">Hot Keys</legend>\n                    <dl part="hotkeys-list">\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Left</key></dt>\n                        <dd part="hotkey-description">Move text cursor to previous word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Right</key></dt>\n                        <dd part="hotkey-description">Move text cursor to next word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Up</key></dt>\n                        <dd part="hotkey-description">Move text cursor to closest word in previous line.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Down</key></dt>\n                        <dd part="hotkey-description">Move text cursor to closest word in next line.</dd>\n\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Left</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the start of the previous word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Right</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the end of the next word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Up</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the previous line.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Down</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the next line.</dd>\n\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Left</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Right</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Up</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Down</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                    </dl>\n                </fieldset>\n            </route-page>\n            <route-page path="data" part="config-data-page">\n                <header part="data-header">Data</header>\n                <fieldset part="import-fieldset">\n                    <legend part="import-legend">Import</legend>\n                    <form-field part="import-field" label="Taskboard Data File" input-selector="fileimage-input">\n                        <fileimage-input part="import-board-file">\n                            <svg slot="icon" part="import-file-icon" >\n                                <use href="#icon-definition_file"></use>\n                            </svg>\n                        </fileimage-input>\n                    </form-field>\n                    <button part="import-button">\n                        <svg part="import-button-icon" >\n                            <use href="#icon-definition_import"></use>\n                        </svg>\n                        <span part="import-button-label">Import Board</span>\n                    </button>\n                </fieldset>\n                <div part="config-data-caches">\n                    <fieldset part="data-cleanup-fieldset">\n                        <legend part="data-cleanup-legend">Data Cleanup</legend>\n                        <div part="data-cleanup-description">\n                            <p>Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>\n                            <p>Set how many days deleted item should perisist using the slider below.</p>\n                        </div>\n                        <form-field label="Days" part="data-cleanup-range">\n                            <input type="range" id="data-persist-days" part="data-persist-days" max="30" list="data-persist-days-values" />\n                            <datalist id="data-persist-days-values"  part="data-persist-days-values"></datalist>\n                            <span slot="postfix" part="data-persist-days-value"></span>\n                            <button slot="postfix" part="apply-data-persist-days-button">\n                                <svg part="apply-data-persist-days-icon">\n                                    <use href="#icon-definition_confirm-check"></use>\n                                </svg>\n                                <span part="apply-data-persist-days-label">Apply</span>\n                            </button>\n                        </form-field>\n                    </fieldset>\n                    <fieldset part="data-pending-fieldset">\n                        <legend part="data-pending-legend">Pending Cleanup</legend>\n                        <div part="data-pending-description">\n                            <p>The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>\n                        </div>\n                        <editable-list part="deleted-items">\n                            <template part="remove-button">\n                                <svg part="restore-item-icon" title="Restore">\n                                    <use href="#icon-definition_restore"></use>\n                                </svg>\n                            </template>\n                        </editable-list>\n                        <button part="clear-deleted-button">\n                            <svg part="clear-deleted-icon" title="Clear">\n                                <use href="#icon-definition_trash"></use>\n                            </svg>\n                            <span part="clear-deleted-label">Clear Pending Items</span>\n                        </button>\n                    </fieldset>\n                    <fieldset part="image-cache-fieldset">\n                        <legend part="image-cache-legend">Image Cache</legend>\n                        <div part="image-cache-description">\n                            <p>Caching some image files provides undo and redo support.</p>\n                            <p>The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>\n                        </div>\n                        <editable-list part="deleted-images"></editable-list>\n                        <button part="clear-image-cache-button">\n                            <svg part="clear-images-icon" title="Clear">\n                                <use href="#icon-definition_trash"></use>\n                            </svg>\n                            <span part="clear-images-label">Clear Image Cache</span>\n                        </button>\n                    </fieldset>\n                </div>\n                <fieldset part="data-clear-fieldset">\n                    <legend part="data-clear-legend">Clear Data</legend>\n                    <div part="data-clear-description">\n                        <p>Delete all data, including app settings and history.</p>\n                    </div>\n                    <button part="clear-data-button">\n                        <svg part="clear-data-icon" title="Clear">\n                            <use href="#icon-definition_trash"></use>\n                        </svg>\n                        <span part="clear-data-label">Clear All Data</span>\n                    </button>\n                </fieldset>\n            </route-page>\n            <route-page path="history" part="history-page">\n                <header part="history-header">History</header>\n                <fieldset part="history-navigation">\n                    <legend part="history-navigation-legend">Navigation</legend>\n                    <button part="history-control-undo">\n                        <svg part="restore-item-icon" title="Undo">\n                            <use href="#icon-definition_undo-redo"></use>\n                        </svg>\n                        <span part="history-control-undo-label">Undo</span>\n                    </button>\n                    <button part="history-control-redo">\n                        <svg part="restore-item-icon" title="Redo" style="transform: scaleX(-1);">\n                            <use href="#icon-definition_undo-redo"></use>\n                        </svg>\n                        <span part="history-control-redo-label">Redo</span>\n                    </button>\n                    <button part="clear-history-button">\n                        <svg part="clear-history-icon" title="Clear">\n                            <use href="#icon-definition_trash"></use>\n                        </svg>\n                        <span part="clear-history-label">Clear History</span>\n                    </button>\n                    <action-history part="action-history" reverse></action-history>\n                </fieldset>\n                <fieldset part="history-length-fieldset">\n                    <legend part="history-length-legend">History Length</legend>\n                    <form-field part="history-length-field">\n                        <input type="range" id="action-history-length" part="action-history-length" max="150" list="action-history-length-values" />\n                        <datalist id="action-history-length-values"  part="action-history-length-values"></datalist>\n                        <span slot="postfix" part="action-history-length-value"></span>\n                        <button slot="postfix" part="apply-history-length-button">\n                            <svg part="apply-history-length-icon">\n                                <use href="#icon-definition_confirm-check"></use>\n                            </svg>\n                            <span part="apply-history-length-label">Apply</span>\n                        </button>\n                    </form-field>\n                </fieldset>\n            </route-page>\n            <route-page path="about" part="about-page">\n                <header part="about-header">About</header>\n                <fieldset part="about-app-fieldset">\n                    <legend part="about-app-legend">App</legend>\n                    <p>The <em>My Boards</em> app is a Single Page App (SPA) implementation of the <code>taskboard-manager</code> custom element.</p>\n                    <p>To see a Progress Web App implementation of the <code>taskboard-manager</code> custom element, see the <!--<a class="thin-task-logo" href="https://www.thin-task.com">Thin<span class="highlight">Task</span></a> app.--></p>\n                </fieldset>\n                <fieldset part="version-fieldset">\n                    <legend part="version-legend">Version</legend>\n                    <div part="version-value">--.--.--</div>\n                </fieldset>\n                <fieldset part="copyright-fieldset">\n                    <legend part="copyright-legend">Copyright</legend>\n                    <div part="copyright-description">\n                        <!-- For derivative work, replace this license with your own copyright -->\n                        <p xmlns:cc="http://creativecommons.org/ns#" >\n                            Both are released with \n                            <a href="https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1" \n                            target="_blank" \n                            rel="license noopener noreferrer" \n                            style="display:inline-block;">\n                                CC0 1.0\n                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt="">\n                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1" alt="">\n                            </a>\n                        </p>\n                        <!-- End of CC0 License -->\n                    </div>\n                </fieldset>\n            </route-page>\n        </div>\n        <footer part="config-footer">\n            <form part="config-actions" method="dialog">\n                <button type="submit" part="config-cancel">Cancel</button>\n                <button type="submit" part="config-ok">Ok</button>\n            </form>\n        </footer>\n    </dialog>\n    <dialog part="board-settings" is="route-dialog" path="board-settings">\n        <form method="dialog" part="board-settings-form">\n            <header part="board-settings-header">\n                <svg part="board-settings-icon" >\n                    <use href="#icon-definition_task-board"></use>\n                </svg>\n                <span part="board-settings-title">Board</span>\n            </header>\n            <taskboard-fields part="board-fields"></taskboard-fields>\n            <footer part="board-settings-footer">\n                <button type="submit" part="close-board-button">\n                <svg part="close-board-icon" >\n                    <use href="#icon-definition_trash"></use>\n                </svg>\n                </button>\n                <button type="submit" part="board-settings-cancel">Cancel</button>\n                <button type="submit" part="board-settings-save">Save</button>\n            </footer>\n        </form>\n    </dialog>\n    <dialog part="import-dialog" is="route-dialog" path="import">\n        <header part="import-header">\n            <svg part="import-dialog-icon" >\n                <use href="#icon-definition_import"></use>\n            </svg>\n            <span part="import-title">Import</span>\n        </header>\n        <div part="import-content">\n            <import-manager part="import-manager"></import-manager>\n        </div>\n        <footer part="import-footer">\n            <form part="import-actions" method="dialog">\n                <button type="submit" part="import-cancel">Cancel</button>\n                <button type="submit" part="import-ok">Import</button>\n            </form>\n        </footer>\n    </dialog>\n</path-router>\n<dialog part="confirmation-dialog">\n    <header part="confirmation-dialog-header">\n        <svg part="confirmation-dialog-icon" >\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span part="confirmation-dialog-header-label">Confirmation</span>\n    </header>\n    <path-router part="confirmation-router" manual>\n        <route-page path="info"></route-page>\n        <route-page path="warn"></route-page>\n        <route-page path="danger"></route-page>\n    </path-router>\n    <footer part="confirmation-dialog-footer">\n        <form part="confirmation-dialog-form" method="dialog">\n            <button type="submit" part="confirmation-cancel-button">Cancel</button>\n            <button type="submit" part="confirmation-confirm-button">Confirm</button>\n        </form>\n    </footer>\n</dialog>\n<div part="notifications"></div>\n<div part="loading"></div>\n';
 
 // assets/icons/cancel-cross.ts
 var CancelCross = `<svg id="icon-definition_cancel-cross" class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -2610,50 +2610,36 @@ form-field .label [part="text"]
     flex: 1;
 }
 
-image-input::part(label)
+fileimage-input::part(label)
 {
     grid-column: span 2;
     grid-row: 1;
 }
 
-image-input::part(field)
+fileimage-input::part(field)
 {
     display: grid;
     align-items: center;
     justify-items: center;
 }
 
-image-input::part(preview)
+fileimage-input::part(preview)
 {
     max-height: 64px;
     height: 100%;
 }
 
-image-input::part(clear)
+fileimage-input::part(clear)
 {
     grid-row: 2;
     grid-column: 2;
 }
 
-image-input::part(view-link)
+fileimage-input::part(view-link)
 {
     grid-row: 2;
     grid-column: 1;
 }
-
-/* image-input [slot="placeholder"]
-{
-    display: grid;
-    justify-items: center;
-    gap: .25em;
-    padding: .5em;
-    max-width: 600px;
-    max-height: 300px;
-}
-image-input[specified] [slot="placeholder"]
-{
-    display: none;
-} */
 
 
 [part="properties"]
@@ -2801,7 +2787,7 @@ button svg
 }`;
 
 // components/taskboard-fields/taskboard-fields.component.html?raw
-var taskboard_fields_component_default2 = '\n<input type="hidden" name="record-id" part="record-id" />\n<div part="properties">\n    <form-field label="Color" part="color-field">\n        <input type="color" part="color" name="color" value="#000000" />\n    </form-field>\n    <form-field label="Name" part="name-field">\n        <input type="text" part="name" name="name" value="New Board" />\n    </form-field>\n    <form-field label="Order" part="order-field">\n        <input type="text" part="order" name="order" inputmode="numeric" disabled />\n    </form-field>\n</div>\n<fieldset part="appearance-fieldset">\n    <legend>\n        <svg part="image-icon" >\n            <use href="#icon-definition_color"></use>\n        </svg>\n        <span part="appearance-label">Appearance</span>\n    </legend>\n    <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\n        <input type="color" name="background-color" part="background-color" value="#f9faf5" />\n    </form-field>\n    <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\n        <input type="color" name="font-color" part="font-color" value="#060703" />\n    </form-field>\n</fieldset>\n<fieldset part="image-fieldset">\n    <legend>\n        <svg part="image-icon" >\n            <use href="#icon-definition_image"></use>\n        </svg>\n        <span part="image-label">Background Image</span>\n    </legend>\n    <form-field part="background-image-field" label="Background Image" input-selector="image-input">\n        <image-input name="background-image" part="background-image" placeholder="Select an image...">\n            <svg part="image-icon" slot="placeholder-icon">\n                <use href="#icon-definition_image"></use>\n            </svg>\n        </image-input>\n    </form-field>\n    <form-field part="background-image-display-field" label="Display">\n        <select part="background-image-display" name="background-image-display">\n            <option value="stretch">Stretch</option>\n            <option value="center">Center</option>\n            <option value="tile">Tile</option>\n        </select>\n    </form-field>\n    <div part="background-image-offset">\n        <div part="offset-header">\n            <span part="offset-label">Offset</span>\n        </div>\n        <form-field part="background-image-offset-x-field" label="X">\n            <input type="text" inputmode="numeric" part="background-image-offset-x" name="background-image-offset-x" />\n        </form-field>\n        <form-field part="background-image-offset-y-field" label="Y">\n            <input type="text" inputmode="numeric" part="background-image-offset-y" name="background-image-offset-y" />\n        </form-field>\n    </div>\n</fieldset>\n<details open part="lists">\n    <summary part="lists-summary">\n        <svg part="lists-icon" >\n            <use href="#icon-definition_task-list"></use>\n        </svg>\n        <span part="lists-legend-label">Lists<span>\n    </summary>\n    <div part="list-items"><slot><em part="lists-placeholder">No Lists</em></slot></div>\n    <div part="list-actions">\n        <button type="button" part="clear-lists-button" title="Clear All Lists">\n            <svg part="clear-lists-button-icon" >\n                <use href="#icon-definition_trash"></use>\n            </svg>\n            <span part="clear-board-lists-label">Clear</span>\n        </button>\n        <button type="button" part="add-list-button">\n            <svg part="add-list-button-icon" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span part="add-list-label">Add List</span>\n        </button>\n    </div>\n</details>\n<details part="tasks" open>\n    <summary part="tasks-summary">\n        <svg part="tasks-icon" >\n            <use href="#icon-definition_task"></use>\n        </svg>\n        <span part="tasks-label">Task Settings</span>\n    </summary>\n    <task-fields part="task-fields"></task-fields>\n</details>\n<fieldset part="delete-fieldset">\n    <legend part="delete-legend">Delete</legend>\n    <p>Delete this board?</p>\n    <button type="submit" part="remove-board-button">\n        <svg part="remove-board-icon" >\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span part="remove-board-label">Delete</span>\n    </button>\n</fieldset>\n<fieldset part="duplicate-fieldset">\n    <legend part="duplicate-legend">Duplicate</legend>\n    <p>Duplicate this board?</p>\n    <form-field label="New Board Name">\n        <input type="text" part="duplicate-board-new-name" />\n    </form-field>\n    <button type="button" part="duplicate-board-button">\n        <svg part="duplicate-board-icon" >\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span part="duplicate-board-label">Duplicate</span>\n    </button>\n</fieldset>\n<fieldset part="export-fieldset">\n    <legend part="export-legend">Export</legend>\n    <div part="export-options">\n        <header>Options</header>\n        <form-field part="export-images-field" label="Export Background Image?">\n            <svg part="export-images-icon" slot="prefix">\n                <use href="#icon-definition_image"></use>\n            </svg>\n            <input type="checkbox" part="export-background-image" checked="true">\n        </form-field>\n    </div>\n    <button part="export-button" type="button">\n        <svg part="export-button-icon" >\n            <use href="#icon-definition_export"></use>\n        </svg>\n        <span part="export-button-label">Export Board</span>\n    </button>\n</fieldset>';
+var taskboard_fields_component_default2 = '\n<input type="hidden" name="record-id" part="record-id" />\n<div part="properties">\n    <form-field label="Color" part="color-field">\n        <input type="color" part="color" name="color" value="#000000" />\n    </form-field>\n    <form-field label="Name" part="name-field">\n        <input type="text" part="name" name="name" value="New Board" />\n    </form-field>\n    <form-field label="Order" part="order-field">\n        <input type="text" part="order" name="order" inputmode="numeric" disabled />\n    </form-field>\n</div>\n<fieldset part="appearance-fieldset">\n    <legend>\n        <svg part="image-icon" >\n            <use href="#icon-definition_color"></use>\n        </svg>\n        <span part="appearance-label">Appearance</span>\n    </legend>\n    <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\n        <input type="color" name="background-color" part="background-color" value="#f9faf5" />\n    </form-field>\n    <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\n        <input type="color" name="font-color" part="font-color" value="#060703" />\n    </form-field>\n</fieldset>\n<fieldset part="image-fieldset">\n    <legend>\n        <svg part="image-icon" >\n            <use href="#icon-definition_image"></use>\n        </svg>\n        <span part="image-label">Background Image</span>\n    </legend>\n    <form-field part="background-image-field" label="Background Image" input-selector="fileimage-input">\n        <fileimage-input name="background-image" part="background-image" placeholder="Select an image...">\n            <svg part="image-icon" slot="placeholder-icon">\n                <use href="#icon-definition_image"></use>\n            </svg>\n        </fileimage-input>\n    </form-field>\n    <form-field part="background-image-display-field" label="Display">\n        <select part="background-image-display" name="background-image-display">\n            <option value="stretch">Stretch</option>\n            <option value="center">Center</option>\n            <option value="tile">Tile</option>\n        </select>\n    </form-field>\n    <div part="background-image-offset">\n        <div part="offset-header">\n            <span part="offset-label">Offset</span>\n        </div>\n        <form-field part="background-image-offset-x-field" label="X">\n            <input type="text" inputmode="numeric" part="background-image-offset-x" name="background-image-offset-x" />\n        </form-field>\n        <form-field part="background-image-offset-y-field" label="Y">\n            <input type="text" inputmode="numeric" part="background-image-offset-y" name="background-image-offset-y" />\n        </form-field>\n    </div>\n</fieldset>\n<details open part="lists">\n    <summary part="lists-summary">\n        <svg part="lists-icon" >\n            <use href="#icon-definition_task-list"></use>\n        </svg>\n        <span part="lists-legend-label">Lists<span>\n    </summary>\n    <div part="list-items"><slot><em part="lists-placeholder">No Lists</em></slot></div>\n    <div part="list-actions">\n        <button type="button" part="clear-lists-button" title="Clear All Lists">\n            <svg part="clear-lists-button-icon" >\n                <use href="#icon-definition_trash"></use>\n            </svg>\n            <span part="clear-board-lists-label">Clear</span>\n        </button>\n        <button type="button" part="add-list-button">\n            <svg part="add-list-button-icon" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span part="add-list-label">Add List</span>\n        </button>\n    </div>\n</details>\n<details part="tasks" open>\n    <summary part="tasks-summary">\n        <svg part="tasks-icon" >\n            <use href="#icon-definition_task"></use>\n        </svg>\n        <span part="tasks-label">Task Settings</span>\n    </summary>\n    <task-fields part="task-fields"></task-fields>\n</details>\n<fieldset part="delete-fieldset">\n    <legend part="delete-legend">Delete</legend>\n    <p>Delete this board?</p>\n    <button type="submit" part="remove-board-button">\n        <svg part="remove-board-icon" >\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span part="remove-board-label">Delete</span>\n    </button>\n</fieldset>\n<fieldset part="duplicate-fieldset">\n    <legend part="duplicate-legend">Duplicate</legend>\n    <p>Duplicate this board?</p>\n    <form-field label="New Board Name">\n        <input type="text" part="duplicate-board-new-name" />\n    </form-field>\n    <button type="button" part="duplicate-board-button">\n        <svg part="duplicate-board-icon" >\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span part="duplicate-board-label">Duplicate</span>\n    </button>\n</fieldset>\n<fieldset part="export-fieldset">\n    <legend part="export-legend">Export</legend>\n    <div part="export-options">\n        <header>Options</header>\n        <form-field part="export-images-field" label="Export Background Image?">\n            <svg part="export-images-icon" slot="prefix">\n                <use href="#icon-definition_image"></use>\n            </svg>\n            <input type="checkbox" part="export-background-image" checked="true">\n        </form-field>\n    </div>\n    <button part="export-button" type="button">\n        <svg part="export-button-icon" >\n            <use href="#icon-definition_export"></use>\n        </svg>\n        <span part="export-button-label">Export Board</span>\n    </button>\n</fieldset>';
 
 // data/records/task-board.record.ts
 var TaskBoardRecord = class extends DataRecord {
@@ -3016,7 +3002,7 @@ if (customElements.get(COMPONENT_TAG_NAME3) == null) {
 var import_manager_component_default = 'import-manager .value\n{\n    display: flex;\n    align-items: center;\n}\n\nimport-manager .old\n{\n    text-decoration: line-through;\n    opacity: .8;\n    padding-inline: .5em;\n    display: inline-block;\n    width: 100px;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    overflow: hidden;\n}\n\nimport-manager .value\n{\n    max-width: 500px;\n    overflow: hidden;\n    word-break: break-word;\n}\nimport-manager .value:has(.display)\n{\n    display: flex;\n    flex-direction: column;\n}\nimport-manager .value .view-link\n{\n    align-self: flex-end;\n}\n\nimport-manager .removed\n{\n    text-decoration: line-through;\n}\n\nimport-manager .value img.preview\n{\n    max-height: 200px;\n}\n\n[part="import-manager-fieldset"]\n{\n    overflow: hidden;\n    flex: 1;\n    display: flex;\n    flex-direction: column;\n}\n\n[part="import-preview"]\n{\n    overflow: auto;\n}\n@media (max-width: 665px) \n{\n    [part="import-preview"]\n    {\n        --indent: 5px;\n        --property-name-width: 75px;\n    }\n    [part="import-preview"] .property .name\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n    }\n    [part="import-preview"] .property .value\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n        word-break: break-all;\n    }\n}';
 
 // components/import-manager/import-manager.component.html?raw
-var import_manager_component_default2 = '<fieldset part="import-manager-fieldset">\n    <legend part="import-manager-legend">Board Data</legend>\n    <p part="import-description">The following Taskboard, Tasklists, and Tasks will be imported with their settings. Make final adjustments and select "Import" to complete the import.</p>\n    <record-tree part="import-preview" remove-attribute parent-name="Board"></record-tree>\n</fieldset>';
+var import_manager_component_default2 = '<fieldset part="import-manager-fieldset">\n    <legend part="import-manager-legend">Board Data</legend>\n    <p part="import-description">The following Taskboard, Tasklists, and Tasks will be imported with their settings. Make final adjustments and select "Import" to complete the import.</p>\n    <record-tree part="import-preview" removed-class parent-name="Board"></record-tree>\n</fieldset>';
 
 // components/import-manager/import-manager.component.ts
 var ID_PROPERTIES = /* @__PURE__ */ new Set(["id", "listId", "taskSettingsId", "backgroundImageId", "boardId"]);
@@ -4831,13 +4817,13 @@ if (customElements.get(COMPONENT_TAG_NAME12) == null) {
   customElements.define(COMPONENT_TAG_NAME12, CaptionedThumbnailElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+file-input@0.0.4/node_modules/@magnit-ce/file-input/dist/file-input.js
-var file_input_default = '\n:host \n{ \n    display: inline-grid;\n    grid-template-columns: 1fr auto;\n    gap: .25em;\n    min-height: 34px;\n\n    /* user-agent input defaults */\n    --border-color: rgb(118, 118, 118);\n\n    /* slotted elements can inherit this for easy color matching */\n    --placeholder-color: #757575;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n      --border-color: rgb(133, 133, 133);\n    }\n}\n\n/* block styles */\n:host(.block)\n{\n    grid-template-columns: 1fr 1fr;\n}\n:host(.block) [part="label"]\n{\n    grid-column: span 2;\n    grid-row: 1;\n}\n:host(.block) [part="field"]\n{\n    border: dashed 1px #666;\n    display: grid;\n    gap: .5em;\n    justify-items: center;\n}\n:host(.block) [part="icon"]\n{\n    font-size: 3em;\n}\n:host(.block) [part="clear"]\n{\n    grid-column: 1;\n    grid-row: 2;\n}\n:host(.block) [part="view-link"]\n{\n    grid-column: 2;\n    grid-row: 2;\n    justify-self: flex-end;\n}\n/* end block styles */\n\ninput\n{\n    display: none;\n}\n\n[part="label"]\n{\n    flex: 1;\n    display: flex;\n    grid-row: span 2;\n    grid-column: 1;\n    overflow: hidden;\n}\n\n[part="field"]\n{\n    flex: 1;\n    white-space: nowrap;\n\n    box-sizing: border-box;\n    display: inline-flex;\n    align-items: center;\n    gap: .25em;\n    padding: .25em .5em;\n    min-width: 0;\n\n    background-color: field;\n    color: fieldtext;\n\n    font-size: 13.33px;\n    border-width: 1px;\n    border-style: solid;\n    border-color: var(--border-color);\n    border-radius: 2px;\n    overflow: hidden;\n\n}\n[part="field"]:focus-visible\n,[part="field"]:focus\n{\n    outline: solid 2px;\n    border-radius: 3px;\n}\n\n[part="view-link"][href="#"]\n{\n    display: none;\n}\n[part="view-link"]\n{\n    white-space: nowrap;\n    font-size: .75em;\n    grid-column: 2;\n    grid-row: 2;\n    align-self: center;\n}\n\n[part="status"]\n{\n    overflow: hidden;\n}\n\n[part="placeholder"]\n,[part="icon"]\n,::slotted([slot="placeholder"])\n,::slotted([slot="icon"])\n{\n    color: var(--placeholder-color);\n}\n:host([specified]) [part="placeholder"]\n,:host([specified]) ::slotted([slot="placeholder"])\n{\n    display: none;\n}\n\n[part="clear"]\n{\n    display: none;\n    white-space: nowrap;\n    font-size: .75em;\n    grid-column: 2;\n    grid-row: 1;\n    align-self: center;\n}\n:host([specified]) [part="clear"]\n{\n    display: block;\n}';
-var file_input_default2 = '<label part="label" tabindex="0">\n    <input type="file" part="input" />\n    <span part="field">\n        <slot name="icon"><span part="icon">\u{1F5CE}</span></slot>\n        <span part="status">\n            <span part="filename"></span>\n            <slot name="placeholder"><span part="placeholder"></span></slot>\n        </span>\n    </span>\n</label>\n<a href="" part="clear" tabindex="0"><slot name="clear">Clear Selection</slot></a>\n<a href="#" target="_blank" part="view-link" tabindex="0"><slot name="view-link">View Document</slot></a>';
+// node_modules/.pnpm/@magnit-ce+fileimage-input@0.0.2/node_modules/@magnit-ce/fileimage-input/dist/fileimage-input.js
+var fileimage_input_default = '\n:host \n{ \n    display: inline-grid;\n    grid-template-columns: 1fr auto;\n    gap: .25em;\n    min-height: 34px;\n\n    /* user-agent input defaults */\n    --border-color: rgb(118, 118, 118);\n\n    /* slotted elements can inherit this for easy color matching */\n    --placeholder-color: #757575;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n      --border-color: rgb(133, 133, 133);\n    }\n}\n\n/* block styles */\n:host(.block)\n{\n    grid-template-columns: 1fr 1fr;\n}\n:host(.block) [part="label"]\n{\n    grid-column: span 2;\n    grid-row: 1;\n}\n:host(.block) [part="field"]\n{\n    border: dashed 1px #666;\n    display: grid;\n    gap: .5em;\n    justify-items: center;\n}\n:host(.block) [part="preview"]\n{\n    height: 70px;\n}\n:host(.block) [part="placeholder-icon"]\n{\n    font-size: 3em;\n}\n:host(.block) [part="clear"]\n{\n    grid-column: 1;\n    grid-row: 2;\n}\n:host(.block) [part="view-link"]\n{\n    grid-column: 2;\n    grid-row: 2;\n    justify-self: flex-end;\n}\n/* end block styles */\n\ninput\n{\n    display: none;\n}\n\n[part="label"]\n{\n    flex: 1;\n    display: flex;\n    grid-row: span 2;\n    grid-column: 1;\n    overflow: hidden;\n}\n\n[part="field"]\n{\n    flex: 1;\n    white-space: nowrap;\n\n    box-sizing: border-box;\n    display: inline-flex;\n    align-items: center;\n    gap: .25em;\n    padding: .25em .5em;\n\n    background-color: field;\n    color: fieldtext;\n\n    font-size: 13.33px;\n    border-width: 1px;\n    border-style: solid;\n    border-color: var(--border-color);\n    border-radius: 2px;\n    overflow: hidden;\n    min-width: 0;\n\n}\n[part="field"]:focus-visible\n,[part="field"]:focus\n{\n    outline: solid 2px;\n    border-radius: 3px;\n}\n\n[part="status"]\n{\n    overflow: hidden;\n}\n\n[part="preview"][src=""]\n,[part="preview"]:not([src])\n{\n    display: none;\n}\n[part="preview"]\n{\n    height: 1em;\n}\n\n[part="view-link"][href="#"]\n{\n    display: none;\n}\n[part="view-link"]\n{\n    white-space: nowrap;\n    font-size: .75em;\n    grid-column: 2;\n    grid-row: 2;\n    align-self: center;\n}\n\n[part="thumbnail"]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n[part="placeholder-label"]\n,[part="placeholder-icon"]\n,::slotted([slot="placeholder"])\n,::slotted([slot="placeholder-icon"])\n{\n    color: var(--placeholder-color);\n}\n:host([specified]) [part="placeholder-label"]\n,:host([specified].image) [part="placeholder-icon"]\n,:host([specified]) ::slotted([slot="placeholder"])\n,:host([specified].image) ::slotted([slot="placeholder-icon"])\n{\n    display: none;\n}\n\n[part="clear"]\n{\n    display: none;\n    white-space: nowrap;\n    font-size: .75em;\n    grid-column: 2;\n    grid-row: 1;\n    align-self: center;\n}\n:host([specified]) [part="clear"]\n{\n    display: block;\n}';
+var fileimage_input_default2 = '<label part="label" tabindex="0">\n    <input type="file" part="input" />\n    <span part="field">\n        <span part="thumbnail">\n            <slot name="placeholder-icon"><span part="placeholder-icon">\u{1F5CE}</span></slot>\n            <img alt="image preview" title="Image Preview" part="preview" />\n        </span>\n        <span part="status">\n            <span part="filename"></span>\n            <slot name="placeholder"><span part="placeholder-label"></span></slot>\n        </span>\n    </span>\n</label>\n<a href="" part="clear" tabindex="0"><slot name="clear">Clear Selection</slot></a>\n<a href="#" target="_blank" part="view-link" tabindex="0"><slot name="view-link">View Selection</slot></a>';
 var COMPONENT_STYLESHEET13 = new CSSStyleSheet();
-COMPONENT_STYLESHEET13.replaceSync(file_input_default);
-var COMPONENT_TAG_NAME13 = "file-input";
-var FileInputElement = class extends HTMLElement {
+COMPONENT_STYLESHEET13.replaceSync(fileimage_input_default);
+var COMPONENT_TAG_NAME13 = "fileimage-input";
+var FileImageInputElement = class extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
   getPart(key) {
     if (this.componentParts.get(key) == null) {
@@ -4860,223 +4846,12 @@ var FileInputElement = class extends HTMLElement {
     this.#internals = this.attachInternals();
     this.#internals.role = "file";
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = file_input_default2;
+    this.shadowRoot.innerHTML = fileimage_input_default2;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET13);
-    const placeholderLabel = this.findPart("placeholder");
-    if (placeholderLabel != null) {
-      placeholderLabel.textContent = this.getAttribute("placeholder") ?? "Select a file...";
-    }
-    this.updateFormStatus();
-    const input = this.findPart("input");
-    input.addEventListener("input", () => {
-      const value = input.files == null ? null : input.files[0];
-      this.updateFormStatus();
-      this.updatePreview(value);
-      this.dispatchEvent(new Event("change"));
-    });
-    this.addEventListener("keydown", (event) => {
-      if (event.code == "Space" || event.code == "Enter" || event.code == "NumpadEnter") {
-        this.findPart("input").click();
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    });
-    this.findPart("clear").addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      this.value = null;
-      this.dispatchEvent(new Event("change"));
-      return false;
-    });
-    this.findPart("clear").addEventListener("keydown", (event) => {
-      if (event.code == "Space" || event.code == "Enter" || event.code == "NumpadEnter") {
-        event.preventDefault();
-        event.stopPropagation();
-        this.value = null;
-        this.dispatchEvent(new Event("change"));
-        return false;
-      }
-    });
-    this.addEventListener("dragover", (event) => {
-      event.preventDefault();
-    });
-    this.addEventListener("drop", (event) => {
-      event.preventDefault();
-      if (event.dataTransfer == null) {
-        return;
-      }
-      const accepted = this.findPart("input").getAttribute("accept").split(",").map((item) => item.trim());
-      if (event.dataTransfer.items) {
-        const dataItems = [...event.dataTransfer.items];
-        for (let i = 0; i < dataItems.length; i++) {
-          const item = dataItems[i];
-          if (item.kind == "file") {
-            const file = item.getAsFile();
-            if (file == null) {
-              this.value = file;
-              return;
-            }
-            if (accepted.indexOf(file.type) > -1) {
-              this.value = file;
-            } else {
-              this.dispatchEvent(new CustomEvent("deny", { detail: {
-                file,
-                message: "File type disallowed by accepted list",
-                accepted
-              } }));
-            }
-          }
-        }
-      } else {
-        const dataFiles = [...event.dataTransfer.files];
-        for (let i = 0; i < dataFiles.length; i++) {
-          const file = dataFiles[i];
-          if (file == null) {
-            this.value = file;
-            return;
-          }
-          if (accepted.indexOf(file.type) > -1) {
-            this.value = file;
-          } else {
-            this.dispatchEvent(new CustomEvent("deny", { detail: {
-              file,
-              message: "File type disallowed by accepted list",
-              accepted
-            } }));
-          }
-        }
-      }
-    });
-  }
-  connectedCallback() {
-    this.updateFormStatus();
-    this.updatePreview(this.value);
-  }
-  // custom elements reference
-  static observedAttributes = ["accept"];
-  attributeChangedCallback(attributeName, _oldValue, newValue) {
-    if (attributeName == "accept") {
-      this.findPart("input").setAttribute("accept", newValue);
-    }
-  }
-  updatePreview(file) {
-    if (file == null) {
-      this.findPart("view-link").href = "#";
-      this.findPart("filename").textContent = "";
-      this.removeAttribute("specified");
-      const placeholderLabel = this.findPart("placeholder");
-      if (placeholderLabel != null) {
-        placeholderLabel.textContent = this.getAttribute("placeholder") ?? "Select a file...";
-      }
-      if (this.#previewURL != null) {
-        window.URL.revokeObjectURL(this.#previewURL);
-        this.#previewURL = void 0;
-      }
-      return;
-    }
-    this.findPart("filename").textContent = file.name;
-    this.toggleAttribute("specified", true);
-    this.#previewURL = window.URL.createObjectURL(file);
-    this.findPart("view-link").href = this.#previewURL;
-  }
-  ///// Form Functionality ///// 
-  static formAssociated = true;
-  // this allows form event functionality;
-  #internals;
-  // #defaultValue: null = null;
-  get value() {
-    const input = this.findPart("input");
-    return input.files == null ? null : input.files[0];
-  }
-  set value(val) {
-    const transfer = new DataTransfer();
-    if (val != null) {
-      transfer.items.add(val);
-    }
-    const input = this.findPart("input");
-    input.files = transfer.files;
-    this.updateFormStatus();
-    this.updatePreview(input.files == null ? null : input.files[0]);
-  }
-  get validity() {
-    return this.#internals.validity;
-  }
-  #validationMessage = "Please fill out this field.";
-  get validationMessage() {
-    return this.#validationMessage;
-  }
-  setCustomValidity(value) {
-    this.#validationMessage = value;
-    const input = this.findPart("input");
-    const formValue = input.files == null ? null : input.files[0];
-    this.#internals.setValidity(
-      { valueMissing: this.getAttribute("required") != null && formValue == null },
-      this.#validationMessage,
-      this.findPart("label")
-    );
-  }
-  formDisabledCallback(disabled) {
-    this.findPart("input").disabled = disabled;
-  }
-  formResetCallback() {
-    this.value = null;
-  }
-  checkValidity() {
-    return this.#internals.checkValidity();
-  }
-  reportValidity() {
-    return this.#internals.reportValidity();
-  }
-  updateFormStatus() {
-    const input = this.findPart("input");
-    const formValue = input.files == null ? null : input.files[0];
-    this.#internals.setValidity(
-      { valueMissing: this.getAttribute("required") != null && formValue == null },
-      this.#validationMessage,
-      this.findPart("label")
-    );
-    this.#internals.setFormValue(formValue);
-  }
-};
-if (customElements.get(COMPONENT_TAG_NAME13) == null) {
-  customElements.define(COMPONENT_TAG_NAME13, FileInputElement);
-}
-
-// node_modules/.pnpm/@magnit-ce+image-input@0.0.4/node_modules/@magnit-ce/image-input/dist/image-input.js
-var image_input_default = '\n:host \n{ \n    display: inline-grid;\n    grid-template-columns: 1fr auto;\n    gap: .25em;\n    min-height: 34px;\n\n    /* user-agent input defaults */\n    --border-color: rgb(118, 118, 118);\n\n    /* slotted elements can inherit this for easy color matching */\n    --placeholder-color: #757575;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n      --border-color: rgb(133, 133, 133);\n    }\n}\n\n/* block styles */\n:host(.block)\n{\n    grid-template-columns: 1fr 1fr;\n}\n:host(.block) [part="label"]\n{\n    grid-column: span 2;\n    grid-row: 1;\n}\n:host(.block) [part="field"]\n{\n    border: dashed 1px #666;\n    display: grid;\n    gap: .5em;\n    justify-items: center;\n}\n:host(.block) [part="preview"]\n{\n    height: 70px;\n}\n:host(.block) [part="placeholder-icon"]\n{\n    font-size: 3em;\n}\n:host(.block) [part="clear"]\n{\n    grid-column: 1;\n    grid-row: 2;\n}\n:host(.block) [part="view-link"]\n{\n    grid-column: 2;\n    grid-row: 2;\n    justify-self: flex-end;\n}\n/* end block styles */\n\ninput\n{\n    display: none;\n}\n\n[part="label"]\n{\n    flex: 1;\n    display: flex;\n    grid-row: span 2;\n    grid-column: 1;\n    overflow: hidden;\n}\n\n[part="field"]\n{\n    flex: 1;\n    white-space: nowrap;\n\n    box-sizing: border-box;\n    display: inline-flex;\n    align-items: center;\n    gap: .25em;\n    padding: .25em .5em;\n\n    background-color: field;\n    color: fieldtext;\n\n    font-size: 13.33px;\n    border-width: 1px;\n    border-style: solid;\n    border-color: var(--border-color);\n    border-radius: 2px;\n    overflow: hidden;\n    min-width: 0;\n\n}\n[part="field"]:focus-visible\n,[part="field"]:focus\n{\n    outline: solid 2px;\n    border-radius: 3px;\n}\n\n[part="status"]\n{\n    overflow: hidden;\n}\n\n[part="preview"][src=""]\n,[part="preview"]:not([src])\n{\n    display: none;\n}\n[part="preview"]\n{\n    height: 1em;\n}\n\n[part="view-link"][href="#"]\n{\n    display: none;\n}\n[part="view-link"]\n{\n    white-space: nowrap;\n    font-size: .75em;\n    grid-column: 2;\n    grid-row: 2;\n    align-self: center;\n}\n\n[part="thumbnail"]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n[part="placeholder-label"]\n,[part="placeholder-icon"]\n,::slotted([slot="placeholder"])\n,::slotted([slot="placeholder-icon"])\n{\n    color: var(--placeholder-color);\n}\n:host([specified]) [part="placeholder-label"]\n,:host([specified]) [part="placeholder-icon"]\n,:host([specified]) ::slotted([slot="placeholder"])\n,:host([specified]) ::slotted([slot="placeholder-icon"])\n{\n    display: none;\n}\n\n[part="clear"]\n{\n    display: none;\n    white-space: nowrap;\n    font-size: .75em;\n    grid-column: 2;\n    grid-row: 1;\n    align-self: center;\n}\n:host([specified]) [part="clear"]\n{\n    display: block;\n}';
-var image_input_default2 = '<label part="label" tabindex="0">\n    <input type="file" part="input" accept="image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp" />\n    <span part="field">\n        <span part="thumbnail">\n            <slot name="placeholder-icon"><span part="placeholder-icon" style="margin-top: -5px;">\u{1F5BB}</span></slot>\n            <img alt="image preview" title="Image Preview" part="preview" />\n        </span>\n        <span part="status">\n            <span part="filename"></span>\n            <slot name="placeholder"><span part="placeholder-label"></span></slot>\n        </span>\n    </span>\n</label>\n<a href="" part="clear" tabindex="0"><slot name="clear">Clear Selection</slot></a>\n<a href="#" target="_blank" part="view-link" tabindex="0"><slot name="view-link">View Full Size</slot></a>';
-var COMPONENT_STYLESHEET14 = new CSSStyleSheet();
-COMPONENT_STYLESHEET14.replaceSync(image_input_default);
-var COMPONENT_TAG_NAME14 = "image-input";
-var ImageInputElement = class extends HTMLElement {
-  componentParts = /* @__PURE__ */ new Map();
-  getPart(key) {
-    if (this.componentParts.get(key) == null) {
-      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
-      if (part != null) {
-        this.componentParts.set(key, part);
-      }
-    }
-    return this.componentParts.get(key);
-  }
-  findPart(key) {
-    return this.shadowRoot.querySelector(`[part="${key}"]`);
-  }
-  get files() {
-    return this.findPart("input").files;
-  }
-  #previewURL;
-  constructor() {
-    super();
-    this.#internals = this.attachInternals();
-    this.#internals.role = "file";
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = image_input_default2;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET14);
     this.findPart("label").tabIndex = 0;
     const placeholderLabel = this.findPart("placeholder-label");
     if (placeholderLabel != null) {
-      placeholderLabel.textContent = this.getAttribute("placeholder") ?? "\u{1F5BB} Select an image...";
+      placeholderLabel.textContent = this.getAttribute("placeholder") ?? "Select a file...";
     }
     this.updateFormStatus();
     const input = this.findPart("input");
@@ -5177,9 +4952,10 @@ var ImageInputElement = class extends HTMLElement {
       this.findPart("view-link").href = "#";
       this.findPart("filename").textContent = "";
       this.removeAttribute("specified");
+      this.classList.remove("file", "image");
       const placeholderLabel = this.findPart("placeholder-label");
       if (placeholderLabel != null) {
-        placeholderLabel.textContent = this.getAttribute("placeholder") ?? "Select an image...";
+        placeholderLabel.textContent = this.getAttribute("placeholder") ?? "Select a file...";
       }
       if (this.#previewURL != null) {
         window.URL.revokeObjectURL(this.#previewURL);
@@ -5189,12 +4965,17 @@ var ImageInputElement = class extends HTMLElement {
     }
     this.findPart("filename").textContent = file.name;
     this.toggleAttribute("specified", true);
-    const reader = new FileReader();
-    reader.addEventListener("load", (event) => {
-      const result = event.target?.result;
-      this.findPart("preview").src = result;
-    });
-    reader.readAsDataURL(file);
+    if (file.type.startsWith("image")) {
+      this.classList.add("image");
+      const reader = new FileReader();
+      reader.addEventListener("load", (event) => {
+        const result = event.target?.result;
+        this.findPart("preview").src = result;
+      });
+      reader.readAsDataURL(file);
+    } else {
+      this.classList.add("file");
+    }
     this.#previewURL = window.URL.createObjectURL(file);
     this.findPart("view-link").href = this.#previewURL;
   }
@@ -5257,13 +5038,13 @@ var ImageInputElement = class extends HTMLElement {
     this.#internals.setFormValue(formValue);
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME14) == null) {
-  customElements.define(COMPONENT_TAG_NAME14, ImageInputElement);
+if (customElements.get(COMPONENT_TAG_NAME13) == null) {
+  customElements.define(COMPONENT_TAG_NAME13, FileImageInputElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+form-field@0.0.6/node_modules/@magnit-ce/form-field/dist/form-field.js
-var COMPONENT_STYLESHEET15 = new CSSStyleSheet();
-COMPONENT_STYLESHEET15.replaceSync(`form-field { display: var(--form-field-display, contents) }`);
+var COMPONENT_STYLESHEET14 = new CSSStyleSheet();
+COMPONENT_STYLESHEET14.replaceSync(`form-field { display: var(--form-field-display, contents) }`);
 var singleTemplate = `<label class="container">
 <slot class="field-label" name="field-label"></slot>
 <slot class="prefix" name="prefix"></slot>
@@ -5279,7 +5060,7 @@ var groupTemplate = `<div class="container">
     <span class="label"></span>
 </label>
 </div>`;
-var COMPONENT_TAG_NAME15 = "form-field";
+var COMPONENT_TAG_NAME14 = "form-field";
 var FormFieldElement = class _FormFieldElement extends HTMLElement {
   static parser = new DOMParser();
   static singleTemplateDOM;
@@ -5500,12 +5281,12 @@ var FormFieldElement = class _FormFieldElement extends HTMLElement {
   }
   connectedCallback() {
     let parent = this.getRootNode();
-    parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET15);
+    parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET14);
     this.renderIntoTemplate();
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME15) == null) {
-  customElements.define(COMPONENT_TAG_NAME15, FormFieldElement);
+if (customElements.get(COMPONENT_TAG_NAME14) == null) {
+  customElements.define(COMPONENT_TAG_NAME14, FormFieldElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+action-history@0.0.3/node_modules/@magnit-ce/action-history/dist/action-history.js
@@ -5522,9 +5303,9 @@ var ATTRIBUTENAME_REVERSED = "data-reversed";
 var ATTRIBUTENAME_ACTIVE = "data-active";
 var ATTRIBUTENAME_ENTRY = "data-entry";
 var ATTRIBUTENAME_TIMESTAMP = "data-timestamp";
-var COMPONENT_STYLESHEET16 = new CSSStyleSheet();
-COMPONENT_STYLESHEET16.replaceSync(action_history_default);
-var COMPONENT_TAG_NAME16 = "action-history";
+var COMPONENT_STYLESHEET15 = new CSSStyleSheet();
+COMPONENT_STYLESHEET15.replaceSync(action_history_default);
+var COMPONENT_TAG_NAME15 = "action-history";
 var ActionHistoryElement = class extends HTMLElement {
   onBack = async (target, previous, toReverse, targetIndex, previousActiveEntryIndex) => {
   };
@@ -5547,7 +5328,7 @@ var ActionHistoryElement = class extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `<slot></slot>`;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET16);
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET15);
     this.#slot = this.shadowRoot.querySelector(`slot`);
     this.#slot.addEventListener("slotchange", (event) => {
       const children = this.#slot.assignedElements();
@@ -5767,26 +5548,26 @@ var ActionHistoryElement = class extends HTMLElement {
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME16) == null) {
-  customElements.define(COMPONENT_TAG_NAME16, ActionHistoryElement);
+if (customElements.get(COMPONENT_TAG_NAME15) == null) {
+  customElements.define(COMPONENT_TAG_NAME15, ActionHistoryElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+record-tree@0.0.3/node_modules/@magnit-ce/record-tree/dist/record-tree.js
+// node_modules/.pnpm/@magnit-ce+record-tree@0.0.4/node_modules/@magnit-ce/record-tree/dist/record-tree.js
 var record_tree_default = "record-tree\n{\n    display: block;\n    --spacing: 7px;\n    --indent: 20px;\n}\n\nrecord-tree .collection\n{\n    border-radius: 3px;\n    padding: var(--spacing);\n    border: solid 1px transparent;\n}\nrecord-tree .collection:hover\n{\n    border-color: graytext;\n}\n\nrecord-tree .collection > .collection\n{\n    margin-left: var(--indent);\n    margin-block: var(--spacing);\n}\n\nrecord-tree .collection > .property:first-of-type\n{\n    margin-top: var(--spacing);\n}\nrecord-tree .collection > .property\n{\n    margin-left: var(--indent);\n}\nrecord-tree .collection > .property:last-of-type\n{\n    margin-bottom: var(--spacing);\n}\n\nrecord-tree .removed\n{\n    scale: .99;\n    color: graytext;\n}\n\nrecord-tree summary\n{\n    user-select: none;\n    display: flex;\n    gap: var(--spacing);\n}\nrecord-tree summary:before\n{\n    content: '\u25B6';\n    transition: transform 100ms ease-out;\n    font-size: .78em;\n    align-self: center;\n    margin-right: var(--spacing);\n}\nrecord-tree details[open] > summary:before\n{\n    transform: rotate(90deg);\n}\nrecord-tree summary .name\n{\n    flex: 1;\n}\nrecord-tree :not(.properties) > summary .name\n{\n    font-weight: bold;\n    font-size: .8em;\n}\n\nrecord-tree ul\n{\n    margin-block: var(--spacing);\n    margin-left: var(--indent);\n    padding: 0;\n}\n\nrecord-tree .property\n{\n    user-select: none;\n    display: flex;\n    align-items: center;\n    border-radius: 3px;\n    border: solid 1px transparent;\n}\nrecord-tree .property:hover\n{\n    border-color: graytext;\n}\n\nrecord-tree .property .name\n{\n    font-weight: bold;\n    font-size: .8em;    \n    text-align: right;\n\n    padding-left: var(--spacing);\n    padding-block: var(--spacing);\n    width: var(--property-name-width);\n}\nrecord-tree .property .value\n{\n    padding-inline: var(--spacing);\n    padding-block: var(--spacing);\n    flex: 1;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\nrecord-tree button\n{\n    display: inline-flex;\n    align-items: center;\n    margin-left: auto;\n    margin-right: var(--spacing);\n}\n\nrecord-tree button .icon\n{\n    --size: 14px;\n    width: var(--size);\n    height: var(--size);\n}";
-var COMPONENT_STYLESHEET17 = new CSSStyleSheet();
-COMPONENT_STYLESHEET17.replaceSync(record_tree_default);
+var COMPONENT_STYLESHEET16 = new CSSStyleSheet();
+COMPONENT_STYLESHEET16.replaceSync(record_tree_default);
 var DEFAULT_REMOVED_CLASS_NAME = "removed";
 var ICON_CANCEL_CROSS = `<svg class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
     <path style="color:#000000;fill:var(--icon-primary-color,InfoText);stroke:var(--icon-secondary-color,InfoBackground);stroke-linecap:square;stroke-miterlimit:6.3;stroke-dashoffset:29.2913;stroke-opacity:1;-inkscape-stroke:none"
     d="m 1237.4389,207.63366 -1.8991,1.8987 a 0.65841136,0.65841136 90.003442 0 0 0,0.93116 l 0.4831,0.48317 a 14628.329,14628.329 44.999244 0 0 0.9312,0.93118 l 3.7936,3.79311 a 0.65840885,0.65840885 89.998393 0 1 0,0.93116 l -3.7936,3.7936 a 8783.6896,8783.6896 135.00442 0 1 -0.9313,0.93111 l -0.4829,0.48283 a 0.65811,0.65811 89.993977 0 0 10e-5,0.93094 l 1.8987,1.89741 a 0.65867085,0.65867085 179.98891 0 0 0.9314,-1.8e-4 l 0.4826,-0.48267 a 45427.77,45427.77 134.99941 0 1 0.9312,-0.93119 l 3.7931,-3.79308 a 0.65848899,0.65848899 179.99848 0 1 0.9312,-2e-5 l 3.7936,3.79312 a 10110.91,10110.91 44.992994 0 0 0.9313,0.93108 l 0.483,0.48285 a 0.65856615,0.65856615 179.99438 0 0 0.9313,-9e-5 l 1.897,-1.89705 a 0.65833101,0.65833101 89.994378 0 0 -10e-5,-0.93111 l -0.483,-0.48285 a 5293.5057,5293.5057 44.99639 0 1 -0.9313,-0.93113 l -3.793,-3.79354 a 0.65849247,0.65849247 90.001607 0 1 0,-0.93122 l 3.793,-3.79305 a 149190.44,149190.44 134.99995 0 1 0.9312,-0.93119 l 0.4832,-0.48321 a 0.65863247,0.65863247 90.008202 0 0 10e-5,-0.93132 l -1.8972,-1.89834 a 0.65838576,0.65838576 0.01346964 0 0 -0.9312,-2.2e-4 l -0.483,0.48285 a 7148.543,7148.543 135.00546 0 0 -0.9313,0.9311 l -3.7936,3.79359 a 0.65841791,0.65841791 0.00151591 0 1 -0.9312,-3e-5 l -3.7931,-3.79353 a 52707.551,52707.551 45.002134 0 0 -0.9312,-0.93122 l -0.4826,-0.48267 a 0.65849044,0.65849044 0.00323988 0 0 -0.9312,-5e-5 z"
     transform="translate(-1232.6358,-204.72848)" />
 </svg>`;
-var ICON_UNDO = `<svg class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-    <path style="color:#000000;fill:var(--icon-primary-color,InfoText);stroke:var(--icon-secondary-color,InfoBackground);stroke-linecap:square;stroke-miterlimit:6.3;stroke-dashoffset:29.2913;stroke-opacity:1;-inkscape-stroke:none"
-    d="m 1237.4389,207.63366 -1.8991,1.8987 a 0.65841136,0.65841136 90.003442 0 0 0,0.93116 l 0.4831,0.48317 a 14628.329,14628.329 44.999244 0 0 0.9312,0.93118 l 3.7936,3.79311 a 0.65840885,0.65840885 89.998393 0 1 0,0.93116 l -3.7936,3.7936 a 8783.6896,8783.6896 135.00442 0 1 -0.9313,0.93111 l -0.4829,0.48283 a 0.65811,0.65811 89.993977 0 0 10e-5,0.93094 l 1.8987,1.89741 a 0.65867085,0.65867085 179.98891 0 0 0.9314,-1.8e-4 l 0.4826,-0.48267 a 45427.77,45427.77 134.99941 0 1 0.9312,-0.93119 l 3.7931,-3.79308 a 0.65848899,0.65848899 179.99848 0 1 0.9312,-2e-5 l 3.7936,3.79312 a 10110.91,10110.91 44.992994 0 0 0.9313,0.93108 l 0.483,0.48285 a 0.65856615,0.65856615 179.99438 0 0 0.9313,-9e-5 l 1.897,-1.89705 a 0.65833101,0.65833101 89.994378 0 0 -10e-5,-0.93111 l -0.483,-0.48285 a 5293.5057,5293.5057 44.99639 0 1 -0.9313,-0.93113 l -3.793,-3.79354 a 0.65849247,0.65849247 90.001607 0 1 0,-0.93122 l 3.793,-3.79305 a 149190.44,149190.44 134.99995 0 1 0.9312,-0.93119 l 0.4832,-0.48321 a 0.65863247,0.65863247 90.008202 0 0 10e-5,-0.93132 l -1.8972,-1.89834 a 0.65838576,0.65838576 0.01346964 0 0 -0.9312,-2.2e-4 l -0.483,0.48285 a 7148.543,7148.543 135.00546 0 0 -0.9313,0.9311 l -3.7936,3.79359 a 0.65841791,0.65841791 0.00151591 0 1 -0.9312,-3e-5 l -3.7931,-3.79353 a 52707.551,52707.551 45.002134 0 0 -0.9312,-0.93122 l -0.4826,-0.48267 a 0.65849044,0.65849044 0.00323988 0 0 -0.9312,-5e-5 z"
-    transform="translate(-1232.6358,-204.72848)" />
+var ICON_UNDO = `<svg class="icon undo-redo" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+<path
+   style="color:#000000;fill:var(--icon-primary-color,InfoText);stroke:var(--icon-secondary-color,CanvasText);fill-opacity:1;stroke-width:0.999999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+   d="M 8.7359009 1.1063924 C 8.3768905 1.0950243 8.0017196 1.1736712 7.641394 1.3523722 L 1.6107544 6.1205566 L 1.5916341 6.1386434 L 1.53479 6.1939372 C 1.0620233 6.6537208 0.70744486 7.6004515 1.0769368 8.152474 L 5.3030355 14.40894 C 6.1798306 15.219356 7.5994445 15.083541 8.4749349 14.106116 C 9.2135837 13.277519 9.3398045 12.086041 8.7787923 11.23549 L 11.334192 11.410673 C 14.129266 11.815808 17.330477 13.067707 18.931144 18.826241 C 19.313756 19.953163 19.735424 21.309718 20.245793 22.173324 C 20.976132 22.497497 21.420713 20.679238 21.478792 18.791101 C 21.506716 14.251463 18.262689 8.6142076 13.845667 6.7716797 C 13.291103 6.5403477 11.805521 5.8978235 10.30118 5.3355916 L 9.7994019 5.1107992 C 10.609379 4.4184442 10.916638 3.2966427 10.55026 2.3703979 C 10.238366 1.5905459 9.5257236 1.1314023 8.7359009 1.1063924 z " />
 </svg>`;
-var COMPONENT_TAG_NAME17 = "record-tree";
+var COMPONENT_TAG_NAME16 = "record-tree";
 var RecordTreeElement = class extends HTMLElement {
   static observedAttributes = [];
   #data;
@@ -5801,7 +5582,7 @@ var RecordTreeElement = class extends HTMLElement {
   constructor() {
     super();
     let parent = this.getRootNode();
-    parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET17);
+    parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET16);
     this.addEventListener("click", this.#onClick.bind(this));
   }
   #onClick(event) {
@@ -6208,8 +5989,8 @@ var RecordTreeElement = class extends HTMLElement {
     return Object.entries(descriptors).filter((entry) => typeof entry[1].get === "function" && entry[0] !== "__proto__").map((entry) => entry[0]);
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME17) == null) {
-  customElements.define(COMPONENT_TAG_NAME17, RecordTreeElement);
+if (customElements.get(COMPONENT_TAG_NAME16) == null) {
+  customElements.define(COMPONENT_TAG_NAME16, RecordTreeElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+message-card@0.0.3/node_modules/@magnit-ce/message-card/dist/message-card.js
@@ -6293,7 +6074,7 @@ var MessageCardEvent = /* @__PURE__ */ ((MessageCardEvent2) => {
 var DEFAULT_DURATION_MILLISECONDS = 5e3;
 var componentTemplate = `<style>${message_card_default}</style>
 ${message_card_default2}`;
-var COMPONENT_TAG_NAME18 = "message-card";
+var COMPONENT_TAG_NAME17 = "message-card";
 var MessageCardElement = class _MessageCardElement extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
   getPart(key) {
@@ -6387,7 +6168,7 @@ var MessageCardElement = class _MessageCardElement extends HTMLElement {
     return card;
   }
   static create(props) {
-    const element = document.createElement(COMPONENT_TAG_NAME18);
+    const element = document.createElement(COMPONENT_TAG_NAME17);
     if (props == null) {
       return element;
     }
@@ -6483,8 +6264,8 @@ var MessageCardElement = class _MessageCardElement extends HTMLElement {
     this.tabIndex = 0;
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME18) == null) {
-  customElements.define(COMPONENT_TAG_NAME18, MessageCardElement);
+if (customElements.get(COMPONENT_TAG_NAME17) == null) {
+  customElements.define(COMPONENT_TAG_NAME17, MessageCardElement);
 }
 
 // data/records/custom-image.record.ts
@@ -8031,8 +7812,8 @@ var HISTORY_ERROR_MESSAGE = DATA_ERROR_MESSAGE.replace("[subject]", "History");
 var SETTINGS_ERROR_MESSAGE = DATA_ERROR_MESSAGE.replace("[subject]", "Settings");
 var ATTRIBUTE_PREPARED_FOR_DELETE = "to-delete";
 var SHAREDACCESSKEY = Symbol("SHAREDACCESSKEY");
-var COMPONENT_STYLESHEET18 = new CSSStyleSheet();
-COMPONENT_STYLESHEET18.replaceSync(`${menu_default}
+var COMPONENT_STYLESHEET17 = new CSSStyleSheet();
+COMPONENT_STYLESHEET17.replaceSync(`${menu_default}
 ${app_settings_default}
 ${board_browser_default}
 ${board_settings_default}
@@ -8043,7 +7824,7 @@ var COMPONENT_TEMPLATE3 = `${taskboard_manager_default2}
     ${Array.from(Object.values(Icons)).reduce((accumulatedValues, value) => `${accumulatedValues}
 ${value}`)}
 </div>`;
-var COMPONENT_TAG_NAME19 = "taskboard-manager";
+var COMPONENT_TAG_NAME18 = "taskboard-manager";
 var TaskboardManagerElement7 = class extends HTMLElement {
   static observedAttributes = [];
   componentParts = /* @__PURE__ */ new Map();
@@ -8069,7 +7850,7 @@ var TaskboardManagerElement7 = class extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = COMPONENT_TEMPLATE3;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET18);
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET17);
     const datastoreName = this.getAttribute("datastore-name");
     this.#data = new TaskManagerComponentData(datastoreName == null ? void 0 : { name: datastoreName });
     const autoLaunch = this.getAttribute("autolaunch") != "false";
@@ -9813,8 +9594,8 @@ var TaskboardManagerElement7 = class extends HTMLElement {
     });
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME19) == null) {
-  customElements.define(COMPONENT_TAG_NAME19, TaskboardManagerElement7);
+if (customElements.get(COMPONENT_TAG_NAME18) == null) {
+  customElements.define(COMPONENT_TAG_NAME18, TaskboardManagerElement7);
 }
 export {
   AppSettingKey,

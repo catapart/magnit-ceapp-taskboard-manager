@@ -24,8 +24,7 @@ import '@magnit-ce/task-card';
 import '@magnit-ce/collection-browser';
 import '@magnit-ce/collection-filter';
 import '@magnit-ce/captioned-thumbnail';
-import '@magnit-ce/file-input';
-import '@magnit-ce/image-input';
+import '@magnit-ce/fileimage-input';
 import '@magnit-ce/form-field';
 import '@magnit-ce/action-history';
 import '@magnit-ce/record-tree';
@@ -66,13 +65,13 @@ import { EditableListElement } from '@magnit-ce/editable-list';
 import { MessageCardElement, MessageCardEvent, MessageCardType } from '@magnit-ce/message-card';
 import { TaskBoardElement } from '@magnit-ce/task-board';
 import { TaskBoardFieldsComponent } from './components/taskboard-fields/taskboard-fields.component';
-import { ImageInputElement } from '@magnit-ce/image-input';
 import { CustomImageRecord } from './data/records/custom-image.record';
 import { ActionHistoryElement, ATTRIBUTENAME_ACTIVE, ATTRIBUTENAME_REVERSED, HistoryEntryType } from '@magnit-ce/action-history';
 import { HistoryEntryRecord } from './data/records/history-entry.record';
 import { ImportManagerComponent } from './components/import-manager/import-manager.component';
 import { HistoryEntryChannel } from './data/channels/history-entry.channel';
 import { addKeyHandlers } from './handlers/key.handlers';
+import { FileImageInputElement } from '@magnit-ce/fileimage-input';
 
 
 // export type TaskboardManagerProperties = 
@@ -977,7 +976,7 @@ export class TaskboardManagerElement extends HTMLElement
         let existingImageActionProperties: CustomImageActionProperties = { id: board.backgroundImageId, updates: new Map() };
         const imageUpdates: CustomImageActionProperties[] = [];
 
-        const imageValue = boardFields.findPart<ImageInputElement>('background-image').value;
+        const imageValue = boardFields.findPart<FileImageInputElement>('background-image').value;
         let backgroundImageRecord: CustomImageRecord|null = null;
         if(imageValue != null)
         {
