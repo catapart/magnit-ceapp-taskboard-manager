@@ -6,7 +6,7 @@ import { MessageCardElement, MessageCardType } from "@magnit-ce/message-card";
 
 export function addBoardHandlers(this: TaskboardManagerElement)
 {
-    const board = this.findPart<TaskBoardElement>('task-board');    
+    const board = this.findElement<TaskBoardElement>('task-board');    
     board.addEventListener('change', taskBoard_onChange.bind(this));
     board.addEventListener('collapse', taskBoard_onListCollapse.bind(this));
     board.addEventListener('add', taskBoard_onTaskAdd.bind(this));
@@ -45,7 +45,7 @@ async function taskBoard_onTaskChange(this: TaskboardManagerElement, event: Even
     if(listElement == null)
     {
         MessageCardElement.notify(`An error occurred updating a task.`, 
-        this.getPart('notifications'), { type: MessageCardType.Error });
+        this.getElement('notifications'), { type: MessageCardType.Error });
         console.error(new Error("Unable to identify a parent task-list element for an updated task-card element.."));
         return;
     }
@@ -86,7 +86,7 @@ export async function taskDescription_onKeyUp(this: TaskboardManagerElement, eve
     if(list == null || listId == null)
     {
         MessageCardElement.notify(`An error occurred creating a new task.`, 
-        this.getPart('notifications'), { type: MessageCardType.Error });
+        this.getElement('notifications'), { type: MessageCardType.Error });
         console.error(new Error("List data not found."));
         return;
     }

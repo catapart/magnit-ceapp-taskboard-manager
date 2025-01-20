@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taskboard Manager App Demo</title>
     <link rel="stylesheet" href="./app.css">
+    <link rel="stylesheet" href="./dossier.theme.css">
     <style>
         taskboard-manager::part(custom-settings-fieldset)
         {
@@ -16,18 +17,75 @@
     </style>
 </head>
 <body>
-    <taskboard-manager>
+    <taskboard-manager id="app" data-theme="dossier">
         <span slot="custom-settings-legend">Display</span>
         <div slot="custom-settings">
             <form-field label="Theme">
-                <select id="theme-select">
-                    <option value="a">A</option>
-                    <option value="b">B</option>
-                    <option value="c">C</option>
-                </select>
+                <select id="theme-select"></select>
+                <div id="theme-description"></div>
+            </form-field>
+            <form-field label="Accent Color">
+                <input type="color" value="" />
             </form-field>
         </div>
     </taskboard-manager>
     <script type="module" src="../vanilla/taskboard-manager.js"></script>
+    <script type="module">
+        const stylesheets = {};
+        const themes = [
+            // { id: 'compact', label: "Compact", description: "The Compact theme..." },
+            { id: 'dossier', label: "Dossier", description: "The Dossier theme..." },
+            { id: 'creative', label: "Creative", description: "The Creative theme..." },
+            { id: 'web-gothic', label: "Web Gothic", description: "The Web Gothic theme..." },
+        ]
+        document.addEventListener('DOMContentLoaded', () =>
+        {
+            const taskboardManager = document.getElementById('app');
+            const themeSelect = document.getElementById('theme-select');
+            const themeDescription = document.getElementById('theme-description');
+
+            const themeOptions = [];
+            for(let i = 0; i < themes.length; i++)
+            {
+                const theme = themes[i];
+                const themeOption = document.createElement('option');
+                themeOption.value = theme.id;
+                themeOption.textContent = theme.label;
+                themeOptions.push(themeOption);
+            }
+            requestAnimationFrame(() =>
+            {
+                themeSelect.append(...themeOptions);
+                themeSelect.value = 'dossier';
+                themeSelect.dispatchEvent(new Event('change'));
+            });
+
+            themeSelect.addEventListener('change', () =>
+            {
+                const theme = themes.find(item => item.id == themeSelect.value)
+                themeDescription.textContent = theme.description;
+                taskboardManager.dataset.theme = themeSelect.value;
+
+                if(themeSelect.value == 'creative' || themeSelect.value == 'dossier')
+                {
+                    taskboardManager.classList.add('button-vars');
+                }
+                else
+                {
+                    taskboardManager.classList.remove('button-vars');
+                }
+
+                if(themeSelect.value == 'creative' && document.head.querySelector('link[href="./creative.theme.css"]') == null)
+                {
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = './creative.theme.css';
+
+                    document.head.appendChild(link);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

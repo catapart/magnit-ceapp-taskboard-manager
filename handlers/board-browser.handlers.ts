@@ -7,14 +7,14 @@ import { MessageCardElement, MessageCardType } from "@magnit-ce/message-card";
 
 export function addBoardBrowserHandlers(this: TaskboardManagerElement)
 {
-    this.findPart<HTMLButtonElement>('board-browser-ok').addEventListener('click', boardBrowserOkButton_onClick.bind(this));
-    this.findPart<CollectionBrowserElement>('board-browser').addEventListener('change', boardBrowserSelection_onChange.bind(this));
-    this.findPart<CollectionFilterElement>('board-browser-filter').addEventListener('change', boardBrowserFilter_onChange.bind(this));
+    this.findElement<HTMLButtonElement>('board-browser-ok').addEventListener('click', boardBrowserOkButton_onClick.bind(this));
+    this.findElement<CollectionBrowserElement>('board-browser').addEventListener('change', boardBrowserSelection_onChange.bind(this));
+    this.findElement<CollectionFilterElement>('board-browser-filter').addEventListener('change', boardBrowserFilter_onChange.bind(this));
 }
 
 function boardBrowserOkButton_onClick(this: TaskboardManagerElement, event: Event)
 {
-    const selected = this.findPart<CollectionBrowserElement>('board-browser').selected;
+    const selected = this.findElement<CollectionBrowserElement>('board-browser').selected;
     if(selected == null)
     {
         // no warning; assume the user cancelled the dialog.
@@ -30,17 +30,17 @@ function boardBrowserOkButton_onClick(this: TaskboardManagerElement, event: Even
     if(boardId == null)
     {
         MessageCardElement.notify(`An error occurred attempting to open the board.`, 
-        this.getPart('notifications'), { type: MessageCardType.Error });
+        this.getElement('notifications'), { type: MessageCardType.Error });
         console.error('Unable to open board: data-board-id attribute is unset on target element.');
         return;
     }
     // console.log(selected, selected[0].getAttribute('data-board-id') ?? 'no id');
-    this.findPart<PathRouterElement>('app-router').navigate(`board/${boardId}`)
+    this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}`)
 }
 
 function boardBrowserSelection_onChange(this: TaskboardManagerElement, event: Event|CustomEvent)
 {
-    if(event.target == this.findPart<CollectionBrowserElement>('board-browser'))
+    if(event.target == this.findElement<CollectionBrowserElement>('board-browser'))
     {
         event.preventDefault();
         return;
@@ -52,7 +52,7 @@ function boardBrowserSelection_onChange(this: TaskboardManagerElement, event: Ev
 
 
     // de-select other captioned thumbnail elements    
-    ([...this.findPart<CollectionBrowserElement>('board-browser')
+    ([...this.findElement<CollectionBrowserElement>('board-browser')
     .querySelectorAll('.selected')] as CaptionedThumbnailElement[])
     .forEach(item => {
         if(item == event.target) { return; }
@@ -63,7 +63,7 @@ function boardBrowserFilter_onChange(this: TaskboardManagerElement, event: Event
 {
     const customEvent = event as CustomEvent;
 
-    const allItems = [...this.findPart<CollectionBrowserElement>('board-browser').querySelectorAll('captioned-thumbnail')] as HTMLElement[];
+    const allItems = [...this.findElement<CollectionBrowserElement>('board-browser').querySelectorAll('captioned-thumbnail')] as HTMLElement[];
 
     const filters = customEvent.detail.filters;
     if(filters.length == 0)
@@ -75,7 +75,7 @@ function boardBrowserFilter_onChange(this: TaskboardManagerElement, event: Event
         return;
     }
 
-    const items = this.findPart<CollectionFilterElement>('board-browser-filter').filterElements(allItems).map((match: any) => match.item as HTMLElement);
+    const items = this.findElement<CollectionFilterElement>('board-browser-filter').filterElements(allItems).map((match: any) => match.item as HTMLElement);
     for(let i = 0; i < allItems.length; i++)
     {
         allItems[i].classList.remove('match');

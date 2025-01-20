@@ -7,40 +7,40 @@ import { MessageCardElement, MessageCardType } from "@magnit-ce/message-card";
 
 export function addAdminHandlers(this: TaskboardManagerElement)
 {
-    const schemeOptions = [...this.findPart('scheme-options').querySelectorAll('button')] as HTMLElement[];
+    const schemeOptions = [...this.findElement('scheme-options').querySelectorAll('button')] as HTMLElement[];
     for(let i = 0; i < schemeOptions.length; i++)
     {
         schemeOptions[i].addEventListener('click', colorSchemeButton_onClick.bind(this));
     }
 
-    this.findPart<HTMLButtonElement>('import-button').addEventListener('click', importButton_onClick.bind(this));
-    this.findPart<HTMLButtonElement>('import-ok').addEventListener('click', importDialog_import_onClick.bind(this));
+    this.findElement<HTMLButtonElement>('import-button').addEventListener('click', importButton_onClick.bind(this));
+    this.findElement<HTMLButtonElement>('import-ok').addEventListener('click', importDialog_import_onClick.bind(this));
 
-    this.findPart('data-persist-days').addEventListener("change", daysToPersist_onChange.bind(this));
-    this.findPart('apply-data-persist-days-button').addEventListener("click", applyDaysToPersist_onClick.bind(this));
+    this.findElement('data-persist-days').addEventListener("change", daysToPersist_onChange.bind(this));
+    this.findElement('apply-data-persist-days-button').addEventListener("click", applyDaysToPersist_onClick.bind(this));
 
-    this.findPart<HTMLButtonElement>('clear-data-button').addEventListener('click', clearData_onClick.bind(this));
+    this.findElement<HTMLButtonElement>('clear-data-button').addEventListener('click', clearData_onClick.bind(this));
 
-    this.findPart<EditableListElement>('deleted-items').addEventListener('remove', deletedItems_onRemove.bind(this));
-    this.findPart<HTMLButtonElement>('clear-deleted-button').addEventListener('click', clearDeleted_onClick.bind(this));
+    this.findElement<EditableListElement>('deleted-items').addEventListener('remove', deletedItems_onRemove.bind(this));
+    this.findElement<HTMLButtonElement>('clear-deleted-button').addEventListener('click', clearDeleted_onClick.bind(this));
 
-    this.findPart<EditableListElement>('deleted-images').addEventListener('remove', deletedImages_onRemove.bind(this));
-    this.findPart<HTMLButtonElement>('clear-image-cache-button').addEventListener('click', clearImageCache_onClick.bind(this));
+    this.findElement<EditableListElement>('deleted-images').addEventListener('remove', deletedImages_onRemove.bind(this));
+    this.findElement<HTMLButtonElement>('clear-image-cache-button').addEventListener('click', clearImageCache_onClick.bind(this));
     
     
-    this.findPart<HTMLButtonElement>('history-control-undo').addEventListener('click', history_undo_onClick.bind(this));
-    this.findPart<HTMLButtonElement>('history-control-redo').addEventListener('click', history_redo_onClick.bind(this));
+    this.findElement<HTMLButtonElement>('history-control-undo').addEventListener('click', history_undo_onClick.bind(this));
+    this.findElement<HTMLButtonElement>('history-control-redo').addEventListener('click', history_redo_onClick.bind(this));
 
-    const actionHistory = this.getPart<ActionHistoryElement>('action-history');
+    const actionHistory = this.getElement<ActionHistoryElement>('action-history');
     actionHistory.onBack = actionHistory_onBack.bind(this);
     actionHistory.onForward = actionHistory_onForward.bind(this);
 
-    this.findPart('action-history-length').addEventListener("change", historyLength_onChange.bind(this));
-    this.findPart('apply-history-length-button').addEventListener("click", applyHistoryLength_onClick.bind(this));
+    this.findElement('action-history-length').addEventListener("change", historyLength_onChange.bind(this));
+    this.findElement('apply-history-length-button').addEventListener("click", applyHistoryLength_onClick.bind(this));
 
-    this.findPart('clear-history-button').addEventListener("click", clearHistory_onClick.bind(this));
+    this.findElement('clear-history-button').addEventListener("click", clearHistory_onClick.bind(this));
 
-    this.getPart('recent-boards').addEventListener("remove", recentBoard_onRemove.bind(this));
+    this.getElement('recent-boards').addEventListener("remove", recentBoard_onRemove.bind(this));
 }
 function colorSchemeButton_onClick(this: TaskboardManagerElement, event: Event)
 {
@@ -48,14 +48,14 @@ function colorSchemeButton_onClick(this: TaskboardManagerElement, event: Event)
     if(scheme == null)
     {
         MessageCardElement.notify(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`, 
-        this.getPart('notifications'), { type: MessageCardType.Error });
+        this.getElement('notifications'), { type: MessageCardType.Error });
         console.error(new Error('Scheme value was undefined.'));
         return;
     }
     if(scheme != 'inherit' && scheme != 'browser' && scheme != 'light' && scheme != 'dark')
     {
         MessageCardElement.notify(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`, 
-        this.getPart('notifications'), { type: MessageCardType.Error });
+        this.getElement('notifications'), { type: MessageCardType.Error });
         console.error(new Error('Scheme value was not recognized as a valid scheme.'));
         return;
     }
@@ -64,12 +64,12 @@ function colorSchemeButton_onClick(this: TaskboardManagerElement, event: Event)
 }
 async function importButton_onClick(this: TaskboardManagerElement, _event: Event)
 {
-    const importFileInput = this.findPart<HTMLInputElement>('import-board-file');
+    const importFileInput = this.findElement<HTMLInputElement>('import-board-file');
     const boardDataFile = (importFileInput.files != null) ?importFileInput.files[0] : null;
     if(boardDataFile == null)
     { 
         MessageCardElement.notify(`An error occurred attempting to import board data. Confirm that the selected import file is a valid board export.`, 
-        this.getPart('notifications'), { type: MessageCardType.Error });
+        this.getElement('notifications'), { type: MessageCardType.Error });
         throw new Error("Unable to import selected file.");
     }
 
@@ -79,7 +79,7 @@ async function importButton_onClick(this: TaskboardManagerElement, _event: Event
 }
 async function importDialog_import_onClick(this: TaskboardManagerElement, event: Event)
 {
-    const boardData = this.findPart<ImportManagerComponent>('import-manager').getRecord();
+    const boardData = this.findElement<ImportManagerComponent>('import-manager').getRecord();
     await this.importBoard(boardData);
 
     this[SHAREDACCESSKEY].refreshBoards();
@@ -89,11 +89,11 @@ function daysToPersist_onChange(this: TaskboardManagerElement, event: Event)
     const dataPersistsDaysValues = this[SHAREDACCESSKEY].DaysToPersistValues;
     const input = event.target as HTMLInputElement;
     this[SHAREDACCESSKEY].snapToStep(input, dataPersistsDaysValues);
-    this.findPart('data-persist-days-value').textContent = input.value;
+    this.findElement('data-persist-days-value').textContent = input.value;
 }
 function applyDaysToPersist_onClick(this: TaskboardManagerElement, _event: Event)
 {
-    return this[SHAREDACCESSKEY].saveAppSetting(AppSettingKey.DaysToPersistData, this.findPart<HTMLInputElement>('data-persist-days').value);
+    return this[SHAREDACCESSKEY].saveAppSetting(AppSettingKey.DaysToPersistData, this.findElement<HTMLInputElement>('data-persist-days').value);
 }
 function clearData_onClick(this: TaskboardManagerElement, _event: Event)
 {
@@ -119,7 +119,7 @@ function deletedItems_onRemove(this: TaskboardManagerElement, event: Event|Custo
 }
 async function clearDeleted_onClick(this: TaskboardManagerElement, _event: Event)
 {
-    const items = [...this.findPart('deleted-items').querySelectorAll('[data-record-id]:not([data-restore="false"])')] as HTMLElement[];
+    const items = [...this.findElement('deleted-items').querySelectorAll('[data-record-id]:not([data-restore="false"])')] as HTMLElement[];
     console.log(items);
     for(let i = 0; i < items.length; i++)
     {
@@ -136,7 +136,7 @@ function deletedImages_onRemove(this: TaskboardManagerElement, event: Event|Cust
 }
 async function clearImageCache_onClick(this: TaskboardManagerElement, _event: Event)
 {
-    const items = [...this.findPart('deleted-images').querySelectorAll('[data-record-id]')] as HTMLElement[];
+    const items = [...this.findElement('deleted-images').querySelectorAll('[data-record-id]')] as HTMLElement[];
     for(let i = 0; i < items.length; i++)
     {
         const item = items[i];
@@ -165,7 +165,7 @@ async function actionHistory_onBack(this: TaskboardManagerElement, target: HTMLE
         {
             this[SHAREDACCESSKEY].refreshBoards();
         }
-        const currentBoardId = this.findPart('task-board').dataset.boardId ?? "";
+        const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
         if(currentBoardId != "")
         {
             this[SHAREDACCESSKEY].renderBoard(currentBoardId);
@@ -186,7 +186,7 @@ async function actionHistory_onForward(this: TaskboardManagerElement, target: HT
         {
             this[SHAREDACCESSKEY].refreshBoards();
         }
-        const currentBoardId = this.findPart('task-board').dataset.boardId ?? "";
+        const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
         if(currentBoardId != "")
         {
             this[SHAREDACCESSKEY].renderBoard(currentBoardId);
@@ -199,7 +199,7 @@ async function historyLength_onChange(this: TaskboardManagerElement, event: Even
 {
     const input = event.target as HTMLInputElement;
     this[SHAREDACCESSKEY].snapToStep(input, this[SHAREDACCESSKEY].HistoryLengthSteps);
-    this.findPart('action-history-length-value').textContent = input.value;
+    this.findElement('action-history-length-value').textContent = input.value;
     this[SHAREDACCESSKEY].prepareHistoryEntries();
 }
 async function applyHistoryLength_onClick(this: TaskboardManagerElement, _event: Event)

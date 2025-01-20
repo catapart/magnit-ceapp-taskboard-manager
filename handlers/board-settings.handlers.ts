@@ -4,9 +4,9 @@ import { SHAREDACCESSKEY, TaskboardManagerElement } from "../taskboard-manager";
 
 export function addBoardSettingsHandlers(this: TaskboardManagerElement)
 {
-    this.findPart<HTMLButtonElement>('board-settings-save').addEventListener('click', boardSettings_ok_onClick.bind(this));
-    this.findPart<HTMLButtonElement>('close-board-button').addEventListener('click', closeBoard_onClick.bind(this));
-    const boardFields = this.findPart<TaskBoardFieldsComponent>('board-fields');
+    this.findElement<HTMLButtonElement>('board-settings-save').addEventListener('click', boardSettings_ok_onClick.bind(this));
+    this.findElement<HTMLButtonElement>('close-board-button').addEventListener('click', closeBoard_onClick.bind(this));
+    const boardFields = this.findElement<TaskBoardFieldsComponent>('board-fields');
     boardFields.findPart('remove-board-button').addEventListener('click', boardSettings_remove_onClick.bind(this));
     boardFields.findPart('duplicate-board-button').addEventListener('click', duplicateBoard_onClick.bind(this));
     boardFields.findPart('export-button').addEventListener('click', exportBoardButton_onClick.bind(this));
@@ -19,11 +19,11 @@ async function boardSettings_ok_onClick(this: TaskboardManagerElement, event: Ev
     await this[SHAREDACCESSKEY].updateBoardSettings();
     this[SHAREDACCESSKEY].refreshBoards();
     this[SHAREDACCESSKEY].refreshDeletedItems();
-    const id  =this.findPart<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id') ?? this[SHAREDACCESSKEY].getIdFromRoute();
+    const id  =this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id') ?? this[SHAREDACCESSKEY].getIdFromRoute();
     if(id == null)
     {
         MessageCardElement.notify(`An error occurred saving the board settings.`, 
-        this.getPart('notifications'), { type: MessageCardType.Error });
+        this.getElement('notifications'), { type: MessageCardType.Error });
         throw new Error('Unable to determine the target board\'s id');
     }
     // console.log(id);
@@ -33,11 +33,11 @@ async function boardSettings_ok_onClick(this: TaskboardManagerElement, event: Ev
 }
 async function boardSettings_remove_onClick(this: TaskboardManagerElement, event: Event)
 {
-    const id  =this.findPart<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id') ?? this[SHAREDACCESSKEY].getIdFromRoute();
+    const id  =this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id') ?? this[SHAREDACCESSKEY].getIdFromRoute();
     if(id == null)
     {
         MessageCardElement.notify(`An error occurred deleting a board.`, 
-        this.getPart('notifications'), { type: MessageCardType.Error });
+        this.getElement('notifications'), { type: MessageCardType.Error });
         throw new Error('Unable to determine the target board\'s id');
     }
 
@@ -45,11 +45,11 @@ async function boardSettings_remove_onClick(this: TaskboardManagerElement, event
 }
 async function exportBoardButton_onClick(this: TaskboardManagerElement, event: Event)
 {        
-    const boardId = this.findPart('board-fields').getAttribute('record-id');
+    const boardId = this.findElement('board-fields').getAttribute('record-id');
     if(boardId == null || boardId == '')
     {
         MessageCardElement.notify(`An error occurred attempting to export the board.`, 
-        this.getPart('notifications'), { type: MessageCardType.Error });
+        this.getElement('notifications'), { type: MessageCardType.Error });
         throw new Error('Unable to determine the target board\'s id');
     }
     this.exportBoard(boardId);
@@ -65,11 +65,11 @@ function list_onDuplicate(this: TaskboardManagerElement, event: Event)
 }
 async function duplicateBoard_onClick(this: TaskboardManagerElement, _event: Event)
 {
-    const id = this.findPart<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id');
+    const id = this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id');
     if(id == null)
     {
         MessageCardElement.notify(`An error occurred duplicating theboard.`, 
-        this.getPart('notifications'), { type: MessageCardType.Error });
+        this.getElement('notifications'), { type: MessageCardType.Error });
         throw new Error('Unable to determine the target board\'s id');
     }
     await this.duplicateBoard(id);

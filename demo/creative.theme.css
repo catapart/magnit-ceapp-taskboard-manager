@@ -1,0 +1,13 @@
+taskboard-manager[data-theme="creative"]
+{
+    background-color: green;
+}
+
+taskboard-manager[data-theme="creative"]::part(menu)
+{
+    background-color: green;
+}
+@media (prefers-color-scheme: dark) 
+{
+    
+}

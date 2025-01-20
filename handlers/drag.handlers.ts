@@ -2,7 +2,7 @@ import { SHAREDACCESSKEY, TaskboardManagerElement } from "../taskboard-manager";
 
 export function addDragHandlers(this: TaskboardManagerElement)
 {
-    const boards = this.findPart('boards');
+    const boards = this.findElement('boards');
     boards.addEventListener('dragover', boardsList_onDragover.bind(this));
     boards.addEventListener('drop', boardsList_onDrop.bind(this));
 }

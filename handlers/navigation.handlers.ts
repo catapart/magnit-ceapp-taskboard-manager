@@ -5,9 +5,9 @@ import { MessageCardElement, MessageCardType } from "@magnit-ce/message-card";
 
 export function addNavigationhandlers(this: TaskboardManagerElement)
 {
-    this.findPart<HTMLButtonElement>('new-board-button_list').addEventListener('click', newBoard_onClick.bind(this));
-    this.findPart<HTMLButtonElement>('new-board-button_welcome').addEventListener('click', newBoard_onClick.bind(this));
-    this.findPart<HTMLButtonElement>('boards').addEventListener('edit', board_edit_onClick.bind(this));
+    this.findElement<HTMLButtonElement>('new-board-button_list').addEventListener('click', newBoard_onClick.bind(this));
+    this.findElement<HTMLButtonElement>('new-board-button_welcome').addEventListener('click', newBoard_onClick.bind(this));
+    this.findElement<HTMLButtonElement>('boards').addEventListener('edit', board_edit_onClick.bind(this));
 }
 
 async function newBoard_onClick(this: TaskboardManagerElement, _event: Event)
@@ -23,9 +23,9 @@ function board_edit_onClick(this: TaskboardManagerElement, event: Event|CustomEv
     if(pathName == null)
     {
         MessageCardElement.notify(`An error occurred attempting to open the board for editing.`, 
-        this.getPart('notifications'), { type: MessageCardType.Error });
+        this.getElement('notifications'), { type: MessageCardType.Error });
         throw new Error("Unable to collected path from board item's path attribute.");
     }
     
-    this.findPart<PathRouterElement>('app-router').navigate(`${pathName}#board-settings`);
+    this.findElement<PathRouterElement>('app-router').navigate(`${pathName}#board-settings`);
 }

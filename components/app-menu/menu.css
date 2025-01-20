@@ -28,12 +28,14 @@
     height: var(--brand-icon-size);
 }
 
-[part="open-app-settings"]
-{
-}
-
 [part="open-board-browser"]
 {
+    flex: 1;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: center;
+    gap: 5px;
+    text-align: center;
 }
 
 [part="boards"]
@@ -42,28 +44,28 @@
     padding: 0;
 }
 
-[part="boards"] a
+[part="boards"] [part*="board-menu-item"]
 {
     margin: 0;
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    gap: var(--list-item-gap, .25em);
-    padding: var(--list-item-padding, .25em 1em);
+    gap: .25em;
+    padding: .25em 1em;
 }
-[part="boards"] a [part="name"]
+[part="boards"] [part*="board-menu-item"] [part="name"]
 {
     flex: 1;
 }
-[part="boards"] a:hover
+[part*="board-menu-item"]:hover
 {
-    background-color: var(--highlight-background, highlight);
-    color: var(--highlight-text, highlighttext);
+    background: highlight;
+    color: highlighttext;
 }
-[part="boards"] a.selected
+[part*="board-menu-item"][aria-current="page"]
 {
-    background-color: var(--highlight-background, highlight);
-    color: var(--highlight-text, highlighttext);
+    background: highlight;
+    color: highlighttext;
 }
 
 @media (max-width: 665px) 
@@ -106,10 +108,12 @@
         overflow-y: hidden;
         width: 0; /* doesn't actually set width, just corrects weird overflow issue */
         flex: 1;
+        gap: var(--menu-gap);
+        padding: var(--menu-padding);
         box-shadow: inset -10px 0 10px -10px rgb(0 0 0 / .8);
     }
 
-    [part="menu"] > editable-list [part="handle"]
+    [part="menu"] > editable-list [part="menu-item-handle"]
     ,[part="menu"] > editable-list [part="edit"]
     {
         display: none;
@@ -149,6 +153,7 @@
         display: grid;
         grid-template-rows: auto 1fr;
         overflow: hidden;
+        max-width: 330px;
     }
 
 
@@ -165,6 +170,7 @@
         display: grid;
         gap: .5em;
         overflow-y: auto;
+        overflow-x: hidden;
         grid-auto-rows: max-content;
     }
     [part="boards"] [part="edit"]
@@ -173,15 +179,27 @@
         transition: opacity 200ms ease;
     }
 
-    [part="boards"] a:hover [part="edit"]
+    [part="boards"] [part*="board-menu-item"]
+    {
+        overflow: hidden;
+    }
+
+    [part="boards"] [part*="board-menu-item"]:hover [part="edit"]
     {
         opacity: 1;
     }
 
-    [part="boards"] [part="board-item-name"]
+    [part="boards"] [part*="board-menu-item"] [part="edit"]:hover
+    {
+        opacity: 1;
+    }
+
+    [part="boards"] [part*="board-item-name"]
     {
         flex: 1;
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     [part="new-board-button_list"]
@@ -189,35 +207,23 @@
         margin: 10px;
     }
 
-    [part="handle"]
+    [part="menu-item-handle"]
     {
         display: flex;
-        width: 15px;
+        width: 10px;
         align-self: stretch;
         cursor: grab;
         border-radius: 3px;
         transform: translateY(-2px);
         
-        background-image: radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%),
-        radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%);
+        background-image: radial-gradient(var(--grip-color, canvastext) 24%, transparent 24%),
+        radial-gradient(var(--grip-color, canvastext) 10%, transparent 10%);
         background-size: 5px 5px;
-        background-position: 0 0, 2px 2px;
+        background-position: 0 0, 2px 4px;
     }
-    [part="handle"]:active
+    [part="menu-item-handle"]:active
     {
         cursor: grabbing;
-    }
-
-    [part="open-board-browser"][aria-current="page"]
-    ,[part="open-settings"][aria-current="page"]
-    {
-        border: solid 1px highlight;
-    }
-
-    [part="boards"] [aria-current="page"]
-    {
-        background-color: highlight;
-        color: highlighttext;
     }
 
     [part="new-board-button_list"]

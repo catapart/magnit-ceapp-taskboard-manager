@@ -319,8 +319,8 @@ declare class TaskboardManagerElement extends HTMLElement {
     #private;
     static observedAttributes: never[];
     componentParts: Map<string, HTMLElement>;
-    getPart<T extends HTMLElement = HTMLElement>(key: string): T;
-    findPart<T extends HTMLElement = HTMLElement>(key: string): T;
+    getElement<T extends HTMLElement = HTMLElement>(id: string): T;
+    findElement<T extends HTMLElement = HTMLElement>(id: string): T;
     initPromise?: Promise<void>;
     /** Exposes "shared" private functions/properties to external modules. */
     [SHAREDACCESSKEY]: SharedContent;

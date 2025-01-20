@@ -1,27 +1,29 @@
 import { PathRouterElement, RoutePageElement } from "@magnit-ce/path-router";
 import { SHAREDACCESSKEY, TaskboardManagerElement } from "../taskboard-manager";
 import { MessageCardElement, MessageCardType } from "@magnit-ce/message-card";
+import { EditableListElement } from "@magnit-ce/editable-list";
 
 let historyIsUpdating = false;
 
 export function addRouteHandlers(this: TaskboardManagerElement)
 {
-    this.findPart<PathRouterElement>('app-router').addRouteLinkClickHandlers(this.shadowRoot!);
+    this.findElement<PathRouterElement>('app-router').addRouteLinkClickHandlers(this.shadowRoot!);
+    // this.findPart('boards').addEventListener('click', onMenuItemClick.bind(this));
     // this.findPart<PathRouterElement>('app-router').addRouteLinkClickHandlers(this.findPart('boards'));
-    this.findPart<PathRouterElement>('app-router').addEventListener('pathchange', router_onPathChange.bind(this));
+    this.findElement<PathRouterElement>('app-router').addEventListener('pathchange', router_onPathChange.bind(this));
     window.addEventListener('popstate', async (event) =>
     {
         historyIsUpdating = true;
         const { windowPath, windowHash } = parseWindowPath();
         let route = windowPath + windowHash;
         console.log(route);
-        await this.findPart<PathRouterElement>('app-router').navigate(route);
+        await this.findElement<PathRouterElement>('app-router').navigate(route);
         historyIsUpdating = false;
     });
     // this.findPart<PathRouterElement>('config-router').addEventListener('pathchange', configRouter_onPathChange.bind(this));
 
-    (this.findPart('board-route') as unknown as RoutePageElement).applyEventListener('beforeopen', boardRoute_beforeOpen.bind(this));
-    (this.findPart('board-settings') as unknown as RoutePageElement).applyEventListener('beforeopen', boardSettingsRoute_beforeOpen.bind(this));
+    (this.findElement('board-route') as unknown as RoutePageElement).applyEventListener('beforeopen', boardRoute_beforeOpen.bind(this));
+    (this.findElement('board-settings') as unknown as RoutePageElement).applyEventListener('beforeopen', boardSettingsRoute_beforeOpen.bind(this));
     // this.findPart<RoutePageElement>('config-dialog').applyEventListener('beforeopen', settingsRoute_beforeOpen.bind(this));
 }
 
@@ -69,22 +71,34 @@ function router_onPathChange(this: TaskboardManagerElement, event: Event|CustomE
     const pageRoute = currentPathArray[0];
     const hashRoute = currentPathArray[1];
 
+    // const item = event.composedPath().find(item => item instanceof HTMLElement ? item.part.contains('board-menu-item') : false) as HTMLElement;
+    // if(item == null) { return; }
+
+    const items = [...this.findElement('boards').querySelectorAll('a')];
+    for(let i = 0; i < items.length; i++)
+    {
+        items[i].part.remove('selected');
+    }
+
     if(pageRoute != null)
     {
-        const currentMenuItem = this.findPart('boards').querySelector(`[data-route="${pageRoute}"]`);
+        const currentMenuItem = this.findElement('boards').querySelector(`[data-route="${pageRoute}"]`);
         if(currentMenuItem != null)
         {
             currentMenuItem.setAttribute('aria-current', 'page');
+            currentMenuItem.part.add('selected');
         }
     }
     if(hashRoute != null)
     {
-        const configMenuItem = this.findPart('config-navigation').querySelector(`[data-route="#${hashRoute}"`);
+        const configMenuItem = this.findElement('config-navigation').querySelector(`[data-route="#${hashRoute}"`);
         if(configMenuItem != null)
         {
             configMenuItem.setAttribute('aria-current', 'page');
         }
     }
+
+
 
 
     // if(!this.hasAttribute('update-url')) { return; }
@@ -184,7 +198,7 @@ function boardRoute_beforeOpen(this: TaskboardManagerElement, event: Event|Custo
     if(boardId == null)
     {
         MessageCardElement.notify(`An error occurred attempting to open the board.`, 
-        this.getPart('notifications'), { type: MessageCardType.Error });
+        this.getElement('notifications'), { type: MessageCardType.Error });
         throw new Error('Unable to open board route with unknown id');
     }
     this[SHAREDACCESSKEY].renderBoard(boardId);
@@ -194,7 +208,7 @@ async function boardSettingsRoute_beforeOpen(this: TaskboardManagerElement, even
 {
     const data = (event as CustomEvent).detail;
 
-    const router = this.findPart<PathRouterElement>('app-router');
+    const router = this.findElement<PathRouterElement>('app-router');
     const properties = await router.getRouteProperties();
     // const fullPath = router.getAttribute('path') ?? "";
     // // if(fullPath == null)
@@ -209,7 +223,7 @@ async function boardSettingsRoute_beforeOpen(this: TaskboardManagerElement, even
     if(properties.id == null)
     {
         MessageCardElement.notify(`An error occurred attempting to open the board for editing.`, 
-        this.getPart('notifications'), { type: MessageCardType.Error });
+        this.getElement('notifications'), { type: MessageCardType.Error });
         throw new Error('Unable to determine the selected board\'s id');
     }
 

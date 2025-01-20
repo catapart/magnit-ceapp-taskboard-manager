@@ -136,6 +136,11 @@ image-input [slot="placeholder"]
     overflow: hidden;
 }
 
+task-board
+{
+    flex: 1;
+}
+
 task-card[data-drag-id]
 {
     /* background-color: red; */
@@ -281,6 +286,10 @@ message-card::part(message)
         scroll-snap-align: start;
         width: 100vw;
     }
+    task-list::part(collapse-button)
+    {
+        display: none;
+    }
     
     [part="notifications"]
     {
@@ -328,6 +337,33 @@ message-card::part(message)
     task-card::part(description)
     {
         width: min-content;
+    }
+
+    task-list
+    {
+        transition: width 200ms linear;
+    }
+    task-list::part(collapse-icon)
+    {
+        rotate: -90deg;
+        transition: color 200ms linear;
+    }
+    task-list[collapsed]
+    {
+        overflow: hidden;
+        --list-min-width: var(--collapsed-list-width, calc(1ch + 45px));
+        width: 0;
+    }
+    task-list[collapsed]::part(collapse-icon)
+    {
+        font-size: 24px;
+        color: var(--list-color);
+    }
+    task-list[collapsed]::part(color-container)
+    ,task-list[collapsed]::part(name)
+    ,task-list[collapsed]::part(add-button)
+    {
+        display: none;
     }
 }
 @media (min-width: 800px) 

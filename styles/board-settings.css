@@ -29,7 +29,7 @@
 
 @media (min-width: 800px) 
 {
-    [part="board-settings"]
+    [part*="board-settings"]
     {
         width: 801px;
     }
