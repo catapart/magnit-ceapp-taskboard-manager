@@ -1,0 +1,22 @@
+<fieldset id="panel-fieldset">
+    <legend id="panel-legend">Welcome</legend>
+    <svg id="logo" part="logo" >
+        <use href="#icon-definition_logo"></use>
+    </svg>
+    <div id="description">
+        <p id="welcome-text">Welcome to your Taskboard Manager!</p>
+        <p id="create-text">Create a <a id="new-board-link">new board</a>, or select a recently-opened board below.</p>
+    </div>
+    <fieldset id="recent-fieldset">
+        <legend id="recent-legend">Recent Boards</legend>
+        <editable-list id="recent-boards" exportparts="edit:edit-button, handle: edit-handle">
+            <slot></slot>
+            <button type="button" slot="add" id="new-board-button" title="New Board">
+                <svg class="icon plus" >
+                    <use href="#icon-definition_plus"></use>
+                </svg>
+                <span class="label">New Board</span>
+            </button>
+        </editable-list>
+    </fieldset>
+</fieldset>

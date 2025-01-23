@@ -1,0 +1,25 @@
+captioned-thumbnail
+{
+    height: auto;
+}
+
+captioned-thumbnail::part(figure)
+{
+    padding: 3px;
+}
+
+captioned-thumbnail svg
+{
+    width: 36px;
+    height: 36px;
+}
+
+captioned-thumbnail.match
+{
+    border: solid 1px highlight;
+    order: 0;
+}
+board-browser:has(captioned-thumbnail.match) captioned-thumbnail:not(.match)
+{
+    order: 1;
+}

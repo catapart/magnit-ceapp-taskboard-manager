@@ -48,7 +48,7 @@ dialog[open]
         transform: translateY(20px);
     }
 }
-
+/* 
 dialog > header
 ,dialog > form > header
 {
@@ -64,7 +64,7 @@ dialog > header svg
 {
     width: var(--dialog-header-icon-size);
     height: var(--dialog-header-icon-size);
-}
+} */
 
 dialog .route-view
 {

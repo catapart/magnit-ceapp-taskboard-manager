@@ -1,9 +1,61 @@
-:host
+:host { display: contents; }
+#header
 {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 7px;
+    align-items: center;
+    font-weight: bold;
+    padding-block: 5px;
+}
+#icon
+{
+    width: var(--dialog-header-icon-size);
+    height: var(--dialog-header-icon-size);
+}
+
+#form
+{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#fields
+{
+    overflow-y: auto;
+    flex: 1;
+
     display: grid;
     gap: 1em;
     padding: 1em;
 }
+
+#footer
+{
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 7px;
+    padding-block: 5px;
+}
+#cancel
+{
+    grid-column: 3;
+}
+#save
+{
+    grid-column: 4;
+}
+
+@media (min-width: 800px) 
+{
+    :host
+    {
+        width: 801px;
+    }
+}
+
+
 input,select,textarea
 {
     font: inherit;
@@ -32,12 +84,12 @@ details[open] summary:before
     transform: rotate(90deg);
 }
 
-form-field:not([part^="background-image-offset"]) input[inputmode="numeric"]
+form-field:not([id^="background-image-offset"]) input[inputmode="numeric"]
 {
     width: 5ch;
 }
 
-form-field:not([part^="background-image-offset"]) .container
+form-field:not([id^="background-image-offset"]) .container
 {
     display: flex;
     flex-direction: column;
@@ -71,11 +123,11 @@ form-field .label input
 {
     margin: 0;
 }
-form-field .label [part="text"]
+/* form-field .label [part="text"]
 ,form-field .field-label [part="text"]
 {
     flex: 1;
-}
+} */
 
 fileimage-input::part(label)
 {
@@ -109,7 +161,7 @@ fileimage-input::part(view-link)
 }
 
 
-[part="properties"]
+#properties
 {
     display: flex;
     align-items: center;
@@ -117,36 +169,36 @@ fileimage-input::part(view-link)
     grid-column: span 2;
 }
 
-[part="name-field"] .container
+#name-field .container
 {
     flex: 1;
 }
 
-[part="appearance-fieldset"] .container > input
+#appearance-fieldset .container > input
 {
     flex: 1;
     min-height: 2ch;
 }
 
-[part="background-image-offset"]
+#background-image-offset
 {
     display: grid;
     gap: .5em;
 }
 
-[part="offset-header"]
+#offset-header
 {
     grid-column: span 2;
 }
 
-[part="background-image-offset"] form-field .container
+#background-image-offset form-field .container
 {
     display: flex;
     gap: .5em;
     align-items: center;
 }
 
-[part="background-image-offset"] input
+#background-image-offset input
 {
     flex: 1;
     width: 0;
@@ -154,18 +206,18 @@ fileimage-input::part(view-link)
     /* max-width: 10ch; */
 }
 
-[part="lists"]
+#lists
 {
     grid-column: span 2;
 }
 
-[part="list-items"]
+#list-items
 {
     gap: 1em;
     display: grid;
 }
 
-[part="list-actions"]
+#list-actions
 {
     display: flex;
     align-items: center;
@@ -174,30 +226,30 @@ fileimage-input::part(view-link)
     padding: .5em 0;
 }
 
-[part="tasks"]
+#tasks
 {
     grid-column: span 2;
 }
 
 
-[part="delete-fieldset"]
+#delete-fieldset
 {
     grid-template-rows: 1fr auto;
 }
 
-[part="duplicate-fieldset"]
+#duplicate-fieldset
 {
     grid-column: 2;
 }
 
-[part="export-fieldset"]
+#export-fieldset
 {
     grid-column: span 2;
     padding: 1em;
     display: block;
 }
 
-[part="export-actions"]
+#export-actions
 {
     display: flex;
     align-items: center;
@@ -206,7 +258,7 @@ fileimage-input::part(view-link)
     padding: .5em 0;
 }
 
-[part="export-fieldset"] form-field .container
+#export-fieldset form-field .container
 {
     display: flex;
     flex-direction: row-reverse;
@@ -215,40 +267,40 @@ fileimage-input::part(view-link)
     gap: .25em;
 }
 
-[part="export-options"]
+#export-options
 {
     display: inline-block;
 }
 
-[part="export-options"] > header
+#export-options > header
 {
     margin-bottom: 1em;
     border-bottom: solid 2px;
 }
 
-[part="export-fieldset"] button
+#export-fieldset button
 {
     margin-left: auto;
     display: block;
 }
 
-svg
+.icon
 {
     width: 18px;
     height: 18px;
 }
-button svg
+button .icon
 {
     width: 12px;
     height: 12px;
 }
 
-[part="list-items"]::part(add-button)
+#list-items::part(add-button)
 {
     display: none;
 }
 
-[part="icon-definitions"]
+#icon-definitions
 {
     display: none;
 }

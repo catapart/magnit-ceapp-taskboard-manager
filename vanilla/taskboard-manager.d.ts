@@ -3,27 +3,32 @@ import { TaskListElement } from '@magnit-ce/task-list';
 import { TaskCardElement } from '@magnit-ce/task-card';
 import { HistoryEntryType } from '@magnit-ce/action-history';
 
-declare enum TaskListColorDisplay {
-    Element = "element",
-    BorderColor = "border-color",
-    FontColor = "font-color"
-}
-declare class TaskListRecord extends DataRecord {
+declare class CustomImageRecord extends DataRecord {
     boardId: string;
-    taskSettingsId: string;
-    category: string;
-    order: number;
-    color: string;
+    isSingleBoard: boolean;
     name: string;
     description: string;
-    colorDisplay: TaskListColorDisplay;
+    image?: Blob;
+}
+
+declare enum TaskBoardBackgroundDisplay {
+    Stretch = "stretch",
+    Center = "center",
+    Tile = "tile"
+}
+declare class TaskBoardRecord extends DataRecord {
+    name: string;
+    color: string;
+    order: number;
+    backgroundImageId: string;
+    backgroundDisplay: TaskBoardBackgroundDisplay;
+    backgroundOffsetX: number;
+    backgroundOffsetY: number;
     useCustomBackgroundColor: boolean;
     backgroundColor: string;
     useCustomFontColor: boolean;
     fontColor: string;
-    useCustomWidth: boolean;
-    width: number;
-    isCollapsed: boolean;
+    taskSettingsId: string;
 }
 
 declare enum TaskColorDisplay {
@@ -66,37 +71,32 @@ declare class TaskSettingsRecord extends DataRecord {
     centerRemoveButton: boolean;
 }
 
-declare enum TaskBoardBackgroundDisplay {
-    Stretch = "stretch",
-    Center = "center",
-    Tile = "tile"
+type ExportedImage = Partial<CustomImageRecord> & {
+    image_base64?: string;
+};
+
+declare enum TaskListColorDisplay {
+    Element = "element",
+    BorderColor = "border-color",
+    FontColor = "font-color"
 }
-declare class TaskBoardRecord extends DataRecord {
-    name: string;
-    color: string;
+declare class TaskListRecord extends DataRecord {
+    boardId: string;
+    taskSettingsId: string;
+    category: string;
     order: number;
-    backgroundImageId: string;
-    backgroundDisplay: TaskBoardBackgroundDisplay;
-    backgroundOffsetX: number;
-    backgroundOffsetY: number;
+    color: string;
+    name: string;
+    description: string;
+    colorDisplay: TaskListColorDisplay;
     useCustomBackgroundColor: boolean;
     backgroundColor: string;
     useCustomFontColor: boolean;
     fontColor: string;
-    taskSettingsId: string;
+    useCustomWidth: boolean;
+    width: number;
+    isCollapsed: boolean;
 }
-
-declare class CustomImageRecord extends DataRecord {
-    boardId: string;
-    isSingleBoard: boolean;
-    name: string;
-    description: string;
-    image?: Blob;
-}
-
-type ExportedImage = Partial<CustomImageRecord> & {
-    image_base64?: string;
-};
 
 declare class TaskRecord extends DataRecord {
     boardId: string;

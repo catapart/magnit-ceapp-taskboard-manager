@@ -1,8 +1,9 @@
 // styles
 import sharedStyles from './styles/shared.css?raw';
+import global_boardItem from './styles/board-item.global.css?raw';
+import global_browserItem from './styles/browser-item.global.css?raw';
+
 import appSettingsStyle from './styles/app-settings.css?raw';
-import boardBrowserStyle from './styles/board-browser.css?raw';
-import boardSettingsStyle from './styles/board-settings.css?raw';
 import settingsStyle from './styles/settings.css?raw';
 import componentStyle from './taskboard-manager.css?raw';
 // html
@@ -11,12 +12,14 @@ import html from './taskboard-manager.html?raw';
 import { defineIcons, Icons, IconType } from './assets/icons/icons.asset';
 
 // component definitions
-import './components/taskboard-fields/taskboard-fields.component';
 import './components/import-manager/import-manager.component';
-import './components/task-fields/task-fields.component';
-import './components/tasklist-fields/tasklist-fields.component';
+import './components/board-settings/task-fields/task-fields.component';
+import './components/board-settings/tasklist-fields/tasklist-fields.component';
 
 import './components/app-menu/app-menu';
+import './components/welcome-panel/welcome-panel';
+import './components/board-browser/board-browser';
+import './components/board-settings/board-settings';
 
 import '@magnit-ce/editable-list';
 import '@magnit-ce/path-router';
@@ -53,7 +56,7 @@ import { ListActionProperties } from './data/history/list-action-properties';
 import { CustomImageActionProperties } from './data/history/custom-image-action-properties';
 import { DataChannel } from './data/channels/data.channel';
 import { addAdminHandlers } from './handlers/admin.handlers';
-import { addNavigationhandlers } from './handlers/navigation.handlers';
+// import { addNavigationhandlers } from './handlers/navigation.handlers';
 import { addBoardBrowserHandlers } from './handlers/board-browser.handlers';
 import { addRouteHandlers, parseWindowPath } from './handlers/route.handlers';
 import { addBoardHandlers, taskDescription_onKeyUp } from './handlers/board.handlers';
@@ -66,7 +69,6 @@ import { CaptionedThumbnailElement } from '@magnit-ce/captioned-thumbnail';
 import { EditableListElement } from '@magnit-ce/editable-list';
 import { MessageCardElement, MessageCardEvent, MessageCardType } from '@magnit-ce/message-card';
 import { TaskBoardElement } from '@magnit-ce/task-board';
-import { TaskBoardFieldsComponent } from './components/taskboard-fields/taskboard-fields.component';
 import { CustomImageRecord } from './data/records/custom-image.record';
 import { ActionHistoryElement, ATTRIBUTENAME_ACTIVE, ATTRIBUTENAME_REVERSED, HistoryEntryType } from '@magnit-ce/action-history';
 import { HistoryEntryRecord } from './data/records/history-entry.record';
@@ -75,7 +77,10 @@ import { HistoryEntryChannel } from './data/channels/history-entry.channel';
 import { addKeyHandlers } from './handlers/key.handlers';
 import { FileImageInputElement } from '@magnit-ce/fileimage-input';
 import { AppMenuElement } from './components/app-menu/app-menu';
-
+import { WelcomePanelElement } from './components/welcome-panel/welcome-panel';
+import { RecentBoardData } from './data/types/recent-board-data.type';
+import { BoardBrowserElement } from './components/board-browser/board-browser';
+import { BoardSettingsElement } from './components/board-settings/board-settings';
 
 // export type TaskboardManagerProperties = 
 // {
@@ -164,9 +169,9 @@ type SharedContent =
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
+${global_boardItem}
+${global_browserItem}
 ${appSettingsStyle}
-${boardBrowserStyle}
-${boardSettingsStyle}
 ${settingsStyle}
 ${componentStyle}`);
 
@@ -178,6 +183,8 @@ ${defineIcons(
     IconType.LogoType,
     IconType.Logo,
     IconType.PlusIcon,
+    IconType.Stylus,
+    IconType.TaskBoard,
 )}`;
 
 const COMPONENT_TAG_NAME = 'taskboard-manager';
@@ -243,7 +250,7 @@ export class TaskboardManagerElement extends HTMLElement
         const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
 
         const [ board, taskSettings, listData ] = await boardChannel.create();
-        board.order = this.findElement('boards').querySelectorAll('a').length;   
+        board.order = this.findElement('app-menu').querySelectorAll('a').length;   
         boardChannel.save(board);
 
         const lists: TaskListRecord[] = [];
@@ -303,16 +310,19 @@ export class TaskboardManagerElement extends HTMLElement
 
         const backgroundImage = (board.backgroundImageId == "") ? null : await imagesChannel.get(board.backgroundImageId);
 
-        const boardFields = this.findElement<TaskBoardFieldsComponent>('board-fields');
-        boardFields.setValues(board, boardTaskSettings, backgroundImage);
-        boardFields.setLists(taskLists, listTaskSettings);
+        const boardSettings =this.findElement<BoardSettingsElement>('board-settings');
+        boardSettings.setValues(board, boardTaskSettings, backgroundImage);
+        boardSettings.setLists(taskLists, listTaskSettings);
+        // const boardFields = this.findElement<TaskBoardFieldsComponent>('board-fields');
+        // boardFields.setValues(board, boardTaskSettings, backgroundImage);
+        // boardFields.setLists(taskLists, listTaskSettings);
     }
     async duplicateBoard(id: string)
     {
         const boardExportData = await this.#prepareExportData(id);
         const duplicateData = this.findElement<ImportManagerComponent>('import-manager').prepareData(boardExportData);
 
-        const newNameInput = this.findElement<TaskBoardFieldsComponent>('board-fields').findPart<HTMLInputElement>('duplicate-board-new-name');
+        const newNameInput = this.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('duplicate-board-name');
         if(newNameInput?.value != null && newNameInput.value.trim() != "")
         {
             duplicateData.name = newNameInput.value;
@@ -393,7 +403,7 @@ export class TaskboardManagerElement extends HTMLElement
             const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
             const imageChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
 
-            const order = this.findElement('boards').querySelectorAll('a').length;
+            const order = this.findElement('app-menu').querySelectorAll('a').length;
             const [ board, lists, tasks, settings, images ] = await this.#data.naturalizeForeignData(boardData, order);
 
             // console.log(board, lists, tasks, settings, images);
@@ -417,7 +427,7 @@ export class TaskboardManagerElement extends HTMLElement
     {
         return new Promise((resolve) =>
         {
-            this.findElement<HTMLDialogElement>('board-settings').close();
+            this.findElement<HTMLDialogElement>('board-settings-dialog').close();
 
             // wait for the settings to close and update the window location
             // to prevent the board settings from trying to open, after the
@@ -436,7 +446,7 @@ export class TaskboardManagerElement extends HTMLElement
         }
         const channel = this.#getChannel<TaskListChannel>(this.#data.lists, DATA_ERROR_MESSAGE.replace('[subject]', "Task List"));
         const [ list, settings ] = channel.create();
-        this.findElement<TaskBoardFieldsComponent>('board-fields').addList(list, settings);
+        this.findElement<BoardSettingsElement>('board-settings').addList(list, settings);
     }
 
     // async addTask(listId: string)
@@ -641,6 +651,10 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const menu = this.getElement<AppMenuElement>('app-menu');
         menu.onBoardMove = this.#updateBoardRecordsAfterMove.bind(this);
+        menu.onEdit = this.#board_edit_onClick.bind(this);
+        menu.onNew = this.#newBoard_onClick.bind(this);
+
+
         // this.addEventListener('click', (event) =>
         // {
         //     console.log(event.target);
@@ -648,7 +662,7 @@ export class TaskboardManagerElement extends HTMLElement
         // addAdminHandlers.call(this);
         // addNavigationhandlers.call(this);
         // // addDragHandlers.call(this);
-        // addRouteHandlers.call(this);
+        addRouteHandlers.call(this);
         // addBoardHandlers.call(this);
         // addBoardSettingsHandlers.call(this);
         // addBoardBrowserHandlers.call(this);
@@ -695,12 +709,15 @@ export class TaskboardManagerElement extends HTMLElement
             // const menuItem = this.#createBoardMenuItem(boardRecord);
             // menuItems.push(menuItem);
 
-            const collectionItem = this.#createBoardCollectionItem(boardRecord);
-            collectionItems.push(collectionItem);
+            // const collectionItem = this.#createBoardCollectionItem(boardRecord);
+            // collectionItems.push(collectionItem);
         }
 
         const menu = this.findElement<AppMenuElement>('app-menu');
         menu.updateBoards(boardRecords);
+
+        const boardBrowser = this.findElement<BoardBrowserElement>('board-browser');
+        boardBrowser.updateBoards(boardRecords);
 
         // menu items
         // const boardsList = this.findElement('app-menu');
@@ -708,9 +725,9 @@ export class TaskboardManagerElement extends HTMLElement
         // boardsList.append(...menuItems);
 
         // collection items
-        const boardBrowser = this.findElement('board-browser');
-        [...boardBrowser.querySelectorAll('captioned-thumbnail')].map(item => item.remove());
-        boardBrowser.append(...collectionItems);
+        // const boardBrowser = this.findElement('board-browser');
+        // [...boardBrowser.querySelectorAll('captioned-thumbnail')].map(item => item.remove());
+        // boardBrowser.append(...collectionItems);
     }
     // #createBoardMenuItem(boardRecord: TaskBoardRecord)
     // {
@@ -744,22 +761,38 @@ export class TaskboardManagerElement extends HTMLElement
 
     //     return element;
     // }
-    #createBoardCollectionItem(boardRecord: TaskBoardRecord)
-    {
-        const element = new CaptionedThumbnailElement();
-        element.innerHTML = `<svg part="board-browser-icon" slot="icon">
-            <use href="#icon-definition_task-board"></use>
-        </svg>
-        ${boardRecord.name}`;
-        element.setAttribute('data-board-id', boardRecord.id);
-        element.toggleAttribute('select', true);
-        return element;
-    }
+    // #createBoardCollectionItem(boardRecord: TaskBoardRecord)
+    // {
+    //     const element = new CaptionedThumbnailElement();
+    //     element.innerHTML = `<svg part="board-browser-icon" slot="icon">
+    //         <use href="#icon-definition_task-board"></use>
+    //     </svg>
+    //     ${boardRecord.name}`;
+    //     element.setAttribute('data-board-id', boardRecord.id);
+    //     element.toggleAttribute('select', true);
+    //     return element;
+    // }
     async #updateBoardRecordsAfterMove()
     {
         const toSave = await this.#getOrderedBoards();
         const channel = this.#getChannel<BoardChannel>(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
         await channel.saveItems(toSave);
+    }
+    #board_edit_onClick(boardRoute?: string)
+    {
+        if(boardRoute == null)
+        {
+            MessageCardElement.notify(`An error occurred attempting to open the board for editing.`, 
+            this.getElement('notifications'), { type: MessageCardType.Error });
+            throw new Error("Unable to collected path from board item's path attribute.");
+        }
+        
+        this.findElement<PathRouterElement>('app-router').navigate(`${boardRoute}#board-settings`);
+    }
+    async #newBoard_onClick()
+    {
+        await this.addBoard();
+        this.#refreshBoards();
     }
     // async #updateBoardItemOrder(draggingCursorY: number)
     // {
@@ -789,22 +822,8 @@ export class TaskboardManagerElement extends HTMLElement
     async #refreshRecentBoards()
     {
         const boards = await this.#getRecentBoards();
-        const recentBoards = this.getElement<EditableListElement>('recent-boards');
-        const staleEntries = [...recentBoards.querySelectorAll('a')] as HTMLElement[];
-        for(let i = 0; i < staleEntries.length; i++)
-        {
-            staleEntries[i].remove();
-        }
-        const entries: HTMLElement[] = [];
-        for(let i = 0; i < boards.length; i++)
-        {
-            const entry = boards[i];
-            const element = document.createElement('a');
-            element.setAttribute('data-route', `board/${entry.id}`);
-            element.textContent = entry.description;
-            entries.push(element);
-        }
-        recentBoards.append(...entries);
+        const welcomePanel = this.shadowRoot!.querySelector<WelcomePanelElement>('welcome-panel')!;
+        welcomePanel.updateBoards(boards);
     }
 
     // #getNextBoardItem(mouseY: number)
@@ -826,7 +845,7 @@ export class TaskboardManagerElement extends HTMLElement
         const channel = this.#getChannel<BoardChannel>(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
 
         const orderedIds: string[] = [];
-        const boardItems = [...this.findElement('boards').querySelectorAll('a')] as HTMLElement[];
+        const boardItems = [...this.findElement('app-menu').querySelectorAll('a.board')] as HTMLElement[];
         for(let i = 0; i < boardItems.length; i++)
         {
             const boardItem = boardItems[i];
@@ -957,8 +976,8 @@ export class TaskboardManagerElement extends HTMLElement
 
         const boards = this.findElement('boards');
 
-        const boardFields = this.findElement<TaskBoardFieldsComponent>('board-fields');
-        const [ board, taskLists, taskSettings, removedListIds ] = boardFields.getRecords();
+        const boardSettings = this.findElement<BoardSettingsElement>('board-settings');
+        const [ board, taskLists, taskSettings, removedListIds ] = boardSettings.getRecords();
 
         const [existingBoard, existingTaskLists, existingTaskSettings ] = await Promise.all([
             boardChannel.get(board.id),
@@ -981,7 +1000,7 @@ export class TaskboardManagerElement extends HTMLElement
             console.error(`An error occurred finding the board's menu item.`);
             return;
         }
-        board.order = [...this.findElement('boards').querySelectorAll('a')].indexOf(boardItem);
+        board.order = [...this.shadowRoot!.querySelectorAll('a')].indexOf(boardItem);
         board.backgroundImageId = existingBoard.backgroundImageId;
 
 
@@ -989,7 +1008,7 @@ export class TaskboardManagerElement extends HTMLElement
         let existingImageActionProperties: CustomImageActionProperties = { id: board.backgroundImageId, updates: new Map() };
         const imageUpdates: CustomImageActionProperties[] = [];
 
-        const imageValue = boardFields.findPart<FileImageInputElement>('background-image').value;
+        const imageValue = boardSettings.findElement<FileImageInputElement>('background-image').value;
         let backgroundImageRecord: CustomImageRecord|null = null;
         if(imageValue != null)
         {
@@ -1088,7 +1107,7 @@ export class TaskboardManagerElement extends HTMLElement
     
     async #prepareExportData(id: string)
     {
-        const exportBackgroundImage = this.findElement<TaskBoardFieldsComponent>('board-fields').findPart<HTMLInputElement>('export-background-image').checked;
+        const exportBackgroundImage = this.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('export-background-image').checked;
         
         const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
         const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
@@ -1524,7 +1543,7 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const taskLists = this.#getChannel<TaskListChannel>(this.#data.lists, DATA_ERROR_MESSAGE.replace('[subject]', "Task List"));
         const [ duplicateList, duplicateSettings ] = taskLists.create(list, settings);
-        this.findElement<TaskBoardFieldsComponent>('board-fields').insertList(target, duplicateList, duplicateSettings);
+        this.findElement<BoardSettingsElement>('board-settings').insertList(target, duplicateList, duplicateSettings);
     }
     
     #canAddList()
@@ -2094,7 +2113,7 @@ export class TaskboardManagerElement extends HTMLElement
         {
             boardsString = "[]";
         }
-        const boards = JSON.parse(boardsString) as Array<{id: string, description: string, timestamp: number}>;
+        const boards = JSON.parse(boardsString) as Array<RecentBoardData>;
         boards.sort((a, b) => b.timestamp - a.timestamp);
         return boards;
     }

@@ -1,66 +1,81 @@
-import '../tasklist-fields/tasklist-fields.component';
-import '../task-fields/task-fields.component';
-
-import style from './taskboard-fields.component.css?raw';
-import html from './taskboard-fields.component.html?raw';
+// styles
+import style from './board-settings.css?raw';
+import sharedStyles from '../../styles/shared.css?raw';
+// html
+import html from './board-settings.html?raw';
+// icons
+import { defineIcons, IconType } from '../../assets/icons/icons.asset';
+import { TaskListFieldsComponent } from './tasklist-fields/tasklist-fields.component';
 import { TaskBoardBackgroundDisplay, TaskBoardRecord } from '../../data/records/task-board.record';
 import { TaskListRecord } from '../../data/records/task-list.record';
-import { TaskListFieldsComponent } from '../tasklist-fields/tasklist-fields.component';
-// icons
-import { Icons } from '../../assets/icons/icons.asset';
 import { TaskSettingsRecord } from '../../data/records/task-settings.record';
-import { TaskFieldsComponent } from '../task-fields/task-fields.component';
-import { CustomImageRecord } from '../../data/records/custom-image.record';
+import { TaskFieldsComponent } from './task-fields/task-fields.component';
 import { FileImageInputElement } from '@magnit-ce/fileimage-input';
+import { CustomImageRecord } from '../../data/records/custom-image.record';
+
+export enum BoardSettingsAttributes
+{
+    pathId = 'path-id',
+}
+
+export type BoardSettingsProperties = { [key in BoardSettingsAttributes]: string } &
+{
+    onNavigate: (path: string) => void;
+};
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
-COMPONENT_STYLESHEET.replaceSync(style);
+COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
+    ${style}`);
 
 const COMPONENT_TEMPLATE = `${html}
-<div part="icon-definitions">
-    ${Icons.Gear}
-    ${Icons.Export}
-    ${Icons.PlusIcon}
-    ${Icons.Image}
-    ${Icons.Color}
-    ${Icons.Task}
-    ${Icons.TaskList}
-    ${Icons.TaskBoard}
-    ${Icons.Trash}
-</div>`;
-const COMPONENT_TAG_NAME = 'taskboard-fields';
-export class TaskBoardFieldsComponent extends HTMLElement
+${defineIcons(
+    IconType.Gear,
+    IconType.Export,
+    IconType.PlusIcon,
+    IconType.Image,
+    IconType.Color,
+    IconType.Task,
+    IconType.TaskList,
+    IconType.TaskBoard,
+    IconType.CloseCross,
+)}`;
+
+const COMPONENT_TAG_NAME = 'board-settings';
+export class BoardSettingsElement extends HTMLElement
 {
+    static observedAttributes = [
+        ...Object.values(BoardSettingsAttributes),
+    ];
+
     componentParts: Map<string, HTMLElement> = new Map();
-    getPart<T extends HTMLElement = HTMLElement>(key: string)
+    getElement<T extends HTMLElement = HTMLElement>(id: string)
     {
-        if(this.componentParts.get(key) == null)
+        if(this.componentParts.get(id) == null)
         {
-            const part = this.shadowRoot!.querySelector(`[part="${key}"]`) as HTMLElement;
-            if(part != null) { this.componentParts.set(key, part); }
+            const part = this.findElement(id);
+            if(part != null) { this.componentParts.set(id, part); }
         }
 
-        return this.componentParts.get(key) as T;
+        return this.componentParts.get(id) as T;
     }
-    findPart<T extends HTMLElement = HTMLElement>(key: string) { return this.shadowRoot!.querySelector(`[part="${key}"]`) as T; }
-
+    findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
+    
     #draggingList: TaskListFieldsComponent|null = null;
 
+    onNavigate?: (path: string) => void;
+    onBoardMove?: (boards: HTMLElement[]) => void;
 
     constructor()
     {
         super();
-        this.attachShadow({ mode: 'open' });
+        this.attachShadow({ mode: "open" });
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
-
-
-        this.findPart('clear-lists-button').addEventListener('click', () =>
+        this.#applyPartAttributes();
+        this.findElement('clear-lists-button').addEventListener('click', () =>
         {
             this.querySelectorAll('tasklist-fields').forEach(item => item.toggleAttribute('removed', true));
         });
-
-        const listItems = this.findPart('list-items');
         this.addEventListener('dragover', (event) =>
         {
             event.preventDefault();
@@ -92,32 +107,45 @@ export class TaskBoardFieldsComponent extends HTMLElement
             }
         });
     }
+    #applyPartAttributes()
+    {
+        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
+        for(let i = 0; i < identifiedElements.length; i++)
+        {
+            identifiedElements[i].part.add(identifiedElements[i].id);
+        }
+        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
+        for(let i = 0; i < classedElements.length; i++)
+        {
+            classedElements[i].part.add(...classedElements[i].classList);
+        }
+    }    
 
     setValues(board: TaskBoardRecord, taskSettings: TaskSettingsRecord, backgroundImage: CustomImageRecord|null = null)
     {
         this.setAttribute('record-id', board.id);
-        this.findPart<HTMLInputElement>('color').value = board.color;
-        this.findPart<HTMLInputElement>('name').value = board.name;
-        this.findPart<HTMLInputElement>('order').value = board.order.toString();
-        this.findPart('background-color-field').setAttribute('optional-value', (board.useCustomBackgroundColor == true) ? "true" : "false");
-        this.findPart<HTMLInputElement>('background-color').value = board.backgroundColor;
-        this.findPart('font-color-field').setAttribute('optional-value', (board.useCustomFontColor == true) ? "true" : "false");
-        this.findPart<HTMLInputElement>('font-color').value = board.fontColor;
-        this.findPart<HTMLInputElement>('background-image-display').value = board.backgroundDisplay;
-        this.findPart<HTMLInputElement>('background-image-offset-x').value = board.backgroundOffsetX.toString();
-        this.findPart<HTMLInputElement>('background-image-offset-y').value = board.backgroundOffsetY.toString();
-        this.findPart<HTMLInputElement>('background-image-offset-y').value = board.backgroundOffsetY.toString();
+        this.findElement<HTMLInputElement>('color').value = board.color;
+        this.findElement<HTMLInputElement>('name').value = board.name;
+        this.findElement<HTMLInputElement>('order').value = board.order.toString();
+        this.findElement('background-color-field').setAttribute('optional-value', (board.useCustomBackgroundColor == true) ? "true" : "false");
+        this.findElement<HTMLInputElement>('background-color').value = board.backgroundColor;
+        this.findElement('font-color-field').setAttribute('optional-value', (board.useCustomFontColor == true) ? "true" : "false");
+        this.findElement<HTMLInputElement>('font-color').value = board.fontColor;
+        this.findElement<HTMLInputElement>('background-image-display').value = board.backgroundDisplay;
+        this.findElement<HTMLInputElement>('background-image-offset-x').value = board.backgroundOffsetX.toString();
+        this.findElement<HTMLInputElement>('background-image-offset-y').value = board.backgroundOffsetY.toString();
+        this.findElement<HTMLInputElement>('background-image-offset-y').value = board.backgroundOffsetY.toString();
 
         if(backgroundImage != null)
         {
-            this.findPart<FileImageInputElement>('background-image').value = backgroundImage.image as File;
+            this.findElement<FileImageInputElement>('background-image').value = backgroundImage.image as File;
         }
         else
         {
-            this.findPart<FileImageInputElement>('background-image').value = null;
+            this.findElement<FileImageInputElement>('background-image').value = null;
         }
 
-        this.findPart<TaskFieldsComponent>('task-fields').setValues(taskSettings);
+        this.findElement<TaskFieldsComponent>('task-fields').setValues(taskSettings);
     }
     setLists(taskLists: TaskListRecord[], taskLists_TaskSettings: TaskSettingsRecord[])
     {
@@ -201,22 +229,22 @@ export class TaskBoardFieldsComponent extends HTMLElement
     {
         const board = new TaskBoardRecord();
         board.id = this.getAttribute('record-id')!;
-        board.color = this.findPart<HTMLInputElement>('color').value;
-        board.name = this.findPart<HTMLInputElement>('name').value;
-        // board.order = parseInt(this.findPart<HTMLInputElement>('order').value);
-        board.useCustomBackgroundColor = this.findPart<HTMLInputElement>('background-color-field').getAttribute('optional-value') == "true";
-        board.backgroundColor = this.findPart<HTMLInputElement>('background-color').value;
-        board.useCustomFontColor = this.findPart<HTMLInputElement>('font-color-field').getAttribute('optional-value') == "true";
-        board.fontColor = this.findPart<HTMLInputElement>('font-color').value;
+        board.color = this.findElement<HTMLInputElement>('color').value;
+        board.name = this.findElement<HTMLInputElement>('name').value;
+        // board.order = parseInt(this.findElement<HTMLInputElement>('order').value);
+        board.useCustomBackgroundColor = this.findElement<HTMLInputElement>('background-color-field').getAttribute('optional-value') == "true";
+        board.backgroundColor = this.findElement<HTMLInputElement>('background-color').value;
+        board.useCustomFontColor = this.findElement<HTMLInputElement>('font-color-field').getAttribute('optional-value') == "true";
+        board.fontColor = this.findElement<HTMLInputElement>('font-color').value;
 
-        board.backgroundDisplay = this.findPart<HTMLInputElement>('background-image-display').value as TaskBoardBackgroundDisplay;
-        board.backgroundOffsetX = parseInt(this.findPart<HTMLInputElement>('background-image-offset-x').value);
-        board.backgroundOffsetY = parseInt(this.findPart<HTMLInputElement>('background-image-offset-y').value);
+        board.backgroundDisplay = this.findElement<HTMLInputElement>('background-image-display').value as TaskBoardBackgroundDisplay;
+        board.backgroundOffsetX = parseInt(this.findElement<HTMLInputElement>('background-image-offset-x').value);
+        board.backgroundOffsetY = parseInt(this.findElement<HTMLInputElement>('background-image-offset-y').value);
 
-        const boardTaskSettings = this.findPart<TaskFieldsComponent>('task-fields').getRecord();
+        const boardTaskSettings = this.findElement<TaskFieldsComponent>('task-fields').getRecord();
         boardTaskSettings.parentRecordType = 'board';
 
-        board.taskSettingsId = this.findPart<TaskFieldsComponent>('task-fields').getAttribute('record-id')!;
+        board.taskSettingsId = this.findElement<TaskFieldsComponent>('task-fields').getAttribute('record-id')!;
 
         const listFields = [...this.querySelectorAll('tasklist-fields')] as TaskListFieldsComponent[];
         const lists: TaskListRecord[] = [];
@@ -256,9 +284,30 @@ export class TaskBoardFieldsComponent extends HTMLElement
             return closest;
         }, { offset: Number.NEGATIVE_INFINITY });
     }
+
+
+    static create(properties: BoardSettingsProperties)
+    {
+        const element = document.createElement(COMPONENT_TAG_NAME) as BoardSettingsElement;
+        for(const [propertyName, value] of Object.entries(properties))
+        {
+            if(!propertyName.startsWith('on'))
+            {
+                element.setAttribute(propertyName, value as string);
+            }
+        }
+    }
+
+    attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) 
+    {
+        if(attributeName == BoardSettingsAttributes.pathId)
+        {
+            // this.findElement('description').textContent = newValue;
+        }
+    }
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)
 {
-    customElements.define(COMPONENT_TAG_NAME, TaskBoardFieldsComponent);
+    customElements.define(COMPONENT_TAG_NAME, BoardSettingsElement);
 }

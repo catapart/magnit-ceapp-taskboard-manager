@@ -44,30 +44,6 @@
     padding: 0;
 }
 
-.board-menu-item
-{
-    margin: 0;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    gap: .25em;
-    padding: .25em 1em;
-}
-.board-menu-item .name
-{
-    flex: 1;
-}
-.board-menu-item:hover
-{
-    background: highlight;
-    color: highlighttext;
-}
-.board-menu-item[aria-current="page"]
-{
-    background: highlight;
-    color: highlighttext;
-}
-
 @media (max-width: 665px) 
 {
     #menu
@@ -113,24 +89,14 @@
         box-shadow: inset -10px 0 10px -10px rgb(0 0 0 / .8);
     }
 
-    .menu-item-handle
-    ,.board-menu-item [part="edit"]
-    {
-        display: none;
-    }
-    #boards a
-    {
-        padding: 12px 7px;
-    }
-
-    #new-board-button_list
+    #new-board-button
     {
         display: flex;
         align-self: stretch;
         margin: 7px;
     }
 
-    #new-board-button_list .label
+    #new-board-button .label
     {
         display: none;
     }
@@ -169,56 +135,9 @@
         grid-auto-rows: max-content;
     }
 
-    .board-menu-item
-    {
-        overflow: hidden;
-    }
-
-    .board-menu-item [part="edit"]
-    {
-        opacity: 0;
-        transition: opacity 200ms ease;
-    }
-    .board-menu-item:hover [part="edit"]
-    {
-        opacity: 1;
-    }
-
-    .board-menu-item [part="edit"]:hover
-    {
-        opacity: 1;
-    }
-
-    .board-item-name
-    {
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    #new-board-button_list
+    #new-board-button
     {
         margin: 10px;
-    }
-
-    .menu-item-handle
-    {
-        display: flex;
-        width: 10px;
-        align-self: stretch;
-        cursor: grab;
-        border-radius: 3px;
-        transform: translateY(-2px);
-        
-        background-image: radial-gradient(var(--grip-color, canvastext) 24%, transparent 24%),
-        radial-gradient(var(--grip-color, canvastext) 10%, transparent 10%);
-        background-size: 5px 5px;
-        background-position: 0 0, 2px 4px;
-    }
-    .menu-item-handle:active
-    {
-        cursor: grabbing;
     }
 
     #new-board-button_list

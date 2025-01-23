@@ -1,317 +1,272 @@
 // styles/shared.css?raw
-var shared_default = '\ninput, button, textarea, select \n{\n    font: inherit; \n}\n\nbutton\n{\n    display: inline-flex;\n    align-items: center;\n    gap: .5em;\n}\n\nbutton svg\n{\n    width: var(--button-icon-size);\n    height: var(--button-icon-size);\n}\n\nimage-input [slot="placeholder"]\n{\n    display: grid;\n    justify-items: center;\n    gap: .25em;\n    padding: .5em;\n    max-width: 300px;\n    max-height: 300px;\n}\n\ndialog\n{\n    max-height: 80%;\n    max-width: calc(100% - (var(--dialog-margin)*2));\n    overflow: hidden;\n    flex-direction: column;\n    transition: transform 200ms ease, opacity 200ms ease;\n}\ndialog[open]\n{\n    display: flex;\n    opacity: 1;\n}\n@starting-style \n{\n    dialog[open]\n    {\n        opacity: 0;\n        transform: translateY(20px);\n    }\n}\n\ndialog > header\n,dialog > form > header\n{\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    gap: 7px;\n    align-items: center;\n    font-weight: bold;\n    padding-block: 5px;\n}\ndialog > header svg\n,dialog > form > header svg\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n}\n\ndialog .route-view\n{\n    flex:1;\n    overflow: hidden;\n}\n\ndialog .route-view route-page\n{\n    overflow: auto;\n}\n\n@media (max-width: 665px) \n{\n    dialog\n    {\n        bottom: 25px;\n    }\n}\n@media (max-width: 800px) \n{\n    \n}\n\n/* only desktop */\n@media (min-width: 665px) \n{\n    dialog\n    {\n        min-width: 500px;\n        max-width: 850px;\n        top: 50px;\n    }\n}\n@media (min-width: 800px) \n{\n}';
+var shared_default = '\r\ninput, button, textarea, select \r\n{\r\n    font: inherit; \r\n}\r\n\r\nbutton\r\n{\r\n    display: inline-flex;\r\n    align-items: center;\r\n    gap: .5em;\r\n}\r\n\r\nbutton svg\r\n{\r\n    width: var(--button-icon-size);\r\n    height: var(--button-icon-size);\r\n}\r\n\r\nimage-input [slot="placeholder"]\r\n{\r\n    display: grid;\r\n    justify-items: center;\r\n    gap: .25em;\r\n    padding: .5em;\r\n    max-width: 300px;\r\n    max-height: 300px;\r\n}\r\n\r\ndialog\r\n{\r\n    max-height: 80%;\r\n    max-width: calc(100% - (var(--dialog-margin)*2));\r\n    overflow: hidden;\r\n    flex-direction: column;\r\n    transition: transform 200ms ease, opacity 200ms ease;\r\n}\r\ndialog[open]\r\n{\r\n    display: flex;\r\n    opacity: 1;\r\n}\r\n@starting-style \r\n{\r\n    dialog[open]\r\n    {\r\n        opacity: 0;\r\n        transform: translateY(20px);\r\n    }\r\n}\r\n/* \r\ndialog > header\r\n,dialog > form > header\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto 1fr auto;\r\n    gap: 7px;\r\n    align-items: center;\r\n    font-weight: bold;\r\n    padding-block: 5px;\r\n}\r\ndialog > header svg\r\n,dialog > form > header svg\r\n{\r\n    width: var(--dialog-header-icon-size);\r\n    height: var(--dialog-header-icon-size);\r\n} */\r\n\r\ndialog .route-view\r\n{\r\n    flex:1;\r\n    overflow: hidden;\r\n}\r\n\r\ndialog .route-view route-page\r\n{\r\n    overflow: auto;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n    dialog\r\n    {\r\n        bottom: 25px;\r\n    }\r\n}\r\n@media (max-width: 800px) \r\n{\r\n    \r\n}\r\n\r\n/* only desktop */\r\n@media (min-width: 665px) \r\n{\r\n    dialog\r\n    {\r\n        min-width: 500px;\r\n        max-width: 850px;\r\n        top: 50px;\r\n    }\r\n}\r\n@media (min-width: 800px) \r\n{\r\n}';
+
+// styles/board-item.global.css?raw
+var board_item_global_default = '\r\na.board\r\n{\r\n    margin: 0;\r\n    flex-shrink: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: .25em;\r\n    padding: .25em 1em;\r\n}\r\na.board .name\r\n{\r\n    flex: 1;\r\n}\r\na.board:hover\r\n{\r\n    background: highlight;\r\n    color: highlighttext;\r\n}\r\na.board[aria-current="page"]\r\n{\r\n    background: highlight;\r\n    color: highlighttext;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n\r\n    a.board [part="edit"]\r\n    {\r\n        display: none;\r\n    }\r\n}\r\n@media (max-width: 800px) \r\n{\r\n    \r\n}\r\n\r\n/* only desktop */\r\n@media (min-width: 665px) \r\n{\r\n\r\n    a.board\r\n    {\r\n        overflow: hidden;\r\n    }\r\n\r\n    .menu-item-handle\r\n    ,a.board [part="edit"]\r\n    {\r\n        opacity: 0;\r\n        transition: opacity 200ms ease;\r\n    }\r\n    .menu-item-handle\r\n    ,a.board:hover [part="edit"]\r\n    {\r\n        opacity: 1;\r\n    }\r\n\r\n    a.board [part="edit"]:hover\r\n    {\r\n        opacity: 1;\r\n    }\r\n\r\n    a.board .board-item-name\r\n    {\r\n        flex: 1;\r\n        white-space: nowrap;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n    }\r\n\r\n    \r\n    .menu-item-handle\r\n    {\r\n        display: flex;\r\n        width: 10px;\r\n        align-self: stretch;\r\n        cursor: grab;\r\n        border-radius: 3px;\r\n        transform: translateY(-2px);\r\n        \r\n        background-image: radial-gradient(var(--grip-color, canvastext) 24%, transparent 24%),\r\n        radial-gradient(var(--grip-color, canvastext) 10%, transparent 10%);\r\n        background-size: 5px 5px;\r\n        background-position: 0 0, 2px 4px;\r\n    }\r\n    .menu-item-handle:active\r\n    {\r\n        cursor: grabbing;\r\n    }\r\n}\r\n@media (min-width: 800px) \r\n{\r\n\r\n}';
+
+// styles/browser-item.global.css?raw
+var browser_item_global_default = "captioned-thumbnail\r\n{\r\n    height: auto;\r\n}\r\n\r\ncaptioned-thumbnail::part(figure)\r\n{\r\n    padding: 3px;\r\n}\r\n\r\ncaptioned-thumbnail svg\r\n{\r\n    width: 36px;\r\n    height: 36px;\r\n}\r\n\r\ncaptioned-thumbnail.match\r\n{\r\n    border: solid 1px highlight;\r\n    order: 0;\r\n}\r\nboard-browser:has(captioned-thumbnail.match) captioned-thumbnail:not(.match)\r\n{\r\n    order: 1;\r\n}";
 
 // styles/app-settings.css?raw
-var app_settings_default = '[part="config-header"]\n{\n    margin-bottom: 20px;\n}\n\n[part="config-header"] svg\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n}\nsvg\n{\n    width: var(--tab-icon-size);\n    height: var(--tab-icon-size);\n}\n\n[part="config-navigation"]\n{\n    margin: 0;\n    padding: 0;\n    display: flex;\n    align-items: center;\n    background-color: field;\n    color: fieldtext;\n    border: solid 1px graytext;\n    border-radius: 2px;\n    margin-bottom: 20px;\n    user-select: none;\n}\n\n[part="config-nav-item"]\n{\n    --tab-icon-size: 14px;\n    padding: 7px 12px;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n}\n\n@media (max-width: 665px) \n{\n    [part="config-navigation"]\n    {\n        display: grid;\n        grid-template-columns: 1fr 1fr;\n        grid-template-rows: 1fr 1fr;\n    }\n\n    [part="config-nav-item"]\n    {\n        justify-content: center;\n    }\n}\n\n[part="config-nav-item"][aria-current="page"]\n,[part="config-nav-item"]:hover\n{\n    background-color: highlight;\n    color: highlighttext;\n}\n\n[part="settings-header"]\n,[part="data-header"]\n,[part="history-header"]\n,[part="about-header"]\n{\n    font-size: 14px;\n    font-weight: bold;\n}\n\n[part="settings-page"]\n{\n    display: grid;\n    grid-template-rows: auto auto 1fr;\n    gap: 7px;\n}\n\n[part="custom-settings-fieldset"]\n{\n    color: graytext;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n[part="config-data-page"]\n{\n    display: grid;\n    gap: 7px;\n}\n\n[part="import-fieldset"]\n{\n    display: flex;\n    gap: 7px;\n}\n\n[part="import-field"] .container\n{\n    flex: 1;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n}\n\n[part="import-board-file"]\n{\n    flex: 1;\n}\n\n[part="import-content"]\n{\n    overflow: hidden;\n    padding: 1em;\n    display: flex;\n}\n\n[part="import-manager"]\n{\n    overflow: hidden;\n    display: flex;\n    flex-direction: column;\n    flex: 1;\n}\n\n[part="import-actions"]\n{\n    display: grid;\n    grid-template-columns: 1fr auto auto;\n    gap: 7px;\n}\n\n[part="import-cancel"]\n{\n    grid-column: 2;\n}\n\n[part="import-ok"]\n{\n    grid-column: 3;\n}\n\n[part="config-data-caches"]\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 7px;\n}\n\n[part="data-cleanup-fieldset"]\n{\n    display: grid;\n    grid-template-rows: max-content 1fr max-content;\n    gap: 7px;\n}\n\n[part="data-cleanup-range"] .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    align-self: flex-end;\n}\n[part="data-persist-days"]\n{\n    flex: 1;\n}\n\n[part="apply-data-persist-days-button"]\n{\n    justify-self: flex-end;\n}\n\n[part="data-pending-fieldset"]\n,[part="image-cache-fieldset"]\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n}\n\n[part="deleted-items"]\n,[part="deleted-images"]\n{\n    display: grid;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    height: 130px;\n    overflow: auto;\n    margin: 0;\n    padding: 0;\n    align-self: flex-end;\n}\n[part="deleted-item"]\n{\n    display: flex;\n    align-items: center;\n    padding: 3px 7px;\n}\n[part="deleted-item-label"]\n{\n    flex: 1;\n    gap: 5px;\n}\n\n[part="deleted-items"]::part(add)\n,[part="deleted-images"]::part(add)\n{\n    display: none;\n}\n\n[part="clear-deleted-button"]\n,[part="clear-image-cache-button"]\n{\n    justify-self: flex-end;\n}\n\n[part="data-clear-fieldset"]\n{\n    display: grid;\n    gap: 7px;\n}\n\n[part="clear-data-button"]\n{\n    justify-self: flex-end;\n}\n@media (max-width: 665px) \n{\n\n    [part="import-fieldset"]\n    {\n        flex-direction: column;\n    }\n    [part="import-field"] .container\n    {\n        flex-direction: column;\n        align-items: stretch;\n    }\n    [part="import-button"]\n    {\n        align-self: flex-end;\n    }\n    [part="config-data-caches"]\n    {\n        display: grid;\n        grid-template-columns: 1fr;\n        gap: 7px;\n    }\n    [part="action-history-length"]\n    {\n        width: 50px;\n    }\n}\n\n[part="history-page"]\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n}\n\n[part="history-length-fieldset"]\n{\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    flex: 1;\n}\n\n[part="history-length-field"] .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    flex: 1;\n}\n\n[part="action-history-length"]\n{\n    flex: 1;\n}\n\n[part="history-navigation"]\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n    gap: 7px;\n    overflow: hidden;\n}\n[part="clear-history-button"]\n{\n    grid-column: 4;\n    white-space: nowrap;\n}\n[part="action-history"]\n{\n    grid-column: span 4;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    overflow: auto;\n    flex: 1;\n}\n[part="action-history-entry"]\n{\n    padding: 3px 7px;\n    border-radius: 2px;\n}\n[part="action-history-entry"]:hover\n{\n    background-color: rgb(0 0 0 / .3);\n}\n\n[part="about-page"]\n{\n    display: grid;\n    gap: 7px;\n    grid-template-columns: 1fr 1fr;\n    grid-template-rows: auto 1fr auto;\n}\n\n[part="about-app-fieldset"]\n{\n    grid-column: span 2;\n}\n[part="about-app-fieldset"] p\n{\n    text-align: center;\n}\n\n[part="version-fieldset"]\n{\n    grid-column: 1;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n[part="copyright-fieldset"]\n{\n    grid-column: 2;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-align: center;\n}\n\n[part="config-actions"]\n{\n    display: grid;\n    grid-template-columns: 1fr auto auto;\n    gap: 10px;\n    padding-block-start: 10px;\n}\n\n[part="config-ok"]\n,[part="config-cancel"]\n{\n    width: 75px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n[part="config-cancel"]\n{\n    grid-column: 2;\n}\n[part="config-ok"]\n{\n    grid-column: 3;\n}';
-
-// styles/board-browser.css?raw
-var board_browser_default = 'captioned-thumbnail\n{\n    height: auto;\n}\n\ncaptioned-thumbnail::part(figure)\n{\n    padding: 3px;\n}\n\ncaptioned-thumbnail svg\n{\n    width: 36px;\n    height: 36px;\n}\n\ncollection-browser\n{\n    margin: 1em;\n    overflow: hidden;\n}\n\ncollection-browser::part(gallery)\n{\n}\n\ncollection-browser::part(items)\n{\n    display: flex;\n    gap: .5em;\n    flex-wrap: wrap;\n    padding: 7px;\n    overflow: hidden auto;\n}\n\ncollection-browser captioned-thumbnail.match\n{\n    border: solid 1px highlight;\n    order: 0;\n}\ncollection-browser:has(captioned-thumbnail.match) captioned-thumbnail:not(.match)\n{\n    order: 1;\n}\n\ncollection-browser::part(add-button)\n{\n    display: none;\n}\n\n[part="board-browser-actions"]\n{\n    display: flex;\n    align-items: center;\n    justify-content: flex-end;\n    gap: 1em;\n}\n\n[part="board-browser-actions"] button\n{\n    width: 70px;\n    justify-content: center;\n}\n\n@media (max-width: 665px) \n{\n    [part="board-browser-filter"]::part(input)\n    {\n        width: 157px;\n    }\n}';
-
-// styles/board-settings.css?raw
-var board_settings_default = '[part="board-settings-form"]\n{\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n}\n\n[part="board-fields"]\n{\n    overflow-y: auto;\n    flex: 1;\n}\n\n[part="board-settings-footer"]\n{\n    display: grid;\n    grid-template-columns: auto 1fr auto auto;\n    gap: 7px;\n    padding-block: 5px;\n}\n[part="board-settings-cancel"]\n{\n    grid-column: 3;\n}\n[part="board-settings-save"]\n{\n    grid-column: 4;\n}\n\n@media (min-width: 800px) \n{\n    [part*="board-settings"]\n    {\n        width: 801px;\n    }\n}';
+var app_settings_default = '[part="config-header"]\r\n{\r\n    margin-bottom: 20px;\r\n}\r\n\r\n[part="config-header"] svg\r\n{\r\n    width: var(--dialog-header-icon-size);\r\n    height: var(--dialog-header-icon-size);\r\n}\r\nsvg\r\n{\r\n    width: var(--tab-icon-size);\r\n    height: var(--tab-icon-size);\r\n}\r\n\r\n[part="config-navigation"]\r\n{\r\n    margin: 0;\r\n    padding: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: field;\r\n    color: fieldtext;\r\n    border: solid 1px graytext;\r\n    border-radius: 2px;\r\n    margin-bottom: 20px;\r\n    user-select: none;\r\n}\r\n\r\n[part="config-nav-item"]\r\n{\r\n    --tab-icon-size: 14px;\r\n    padding: 7px 12px;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n    [part="config-navigation"]\r\n    {\r\n        display: grid;\r\n        grid-template-columns: 1fr 1fr;\r\n        grid-template-rows: 1fr 1fr;\r\n    }\r\n\r\n    [part="config-nav-item"]\r\n    {\r\n        justify-content: center;\r\n    }\r\n}\r\n\r\n[part="config-nav-item"][aria-current="page"]\r\n,[part="config-nav-item"]:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n\r\n[part="settings-header"]\r\n,[part="data-header"]\r\n,[part="history-header"]\r\n,[part="about-header"]\r\n{\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n}\r\n\r\n[part="settings-page"]\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto auto 1fr;\r\n    gap: 7px;\r\n}\r\n\r\n[part="custom-settings-fieldset"]\r\n{\r\n    color: graytext;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n[part="config-data-page"]\r\n{\r\n    display: grid;\r\n    gap: 7px;\r\n}\r\n\r\n[part="import-fieldset"]\r\n{\r\n    display: flex;\r\n    gap: 7px;\r\n}\r\n\r\n[part="import-field"] .container\r\n{\r\n    flex: 1;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n}\r\n\r\n[part="import-board-file"]\r\n{\r\n    flex: 1;\r\n}\r\n\r\n[part="import-content"]\r\n{\r\n    overflow: hidden;\r\n    padding: 1em;\r\n    display: flex;\r\n}\r\n\r\n[part="import-manager"]\r\n{\r\n    overflow: hidden;\r\n    display: flex;\r\n    flex-direction: column;\r\n    flex: 1;\r\n}\r\n\r\n[part="import-actions"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto auto;\r\n    gap: 7px;\r\n}\r\n\r\n[part="import-cancel"]\r\n{\r\n    grid-column: 2;\r\n}\r\n\r\n[part="import-ok"]\r\n{\r\n    grid-column: 3;\r\n}\r\n\r\n[part="config-data-caches"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr 1fr;\r\n    gap: 7px;\r\n}\r\n\r\n[part="data-cleanup-fieldset"]\r\n{\r\n    display: grid;\r\n    grid-template-rows: max-content 1fr max-content;\r\n    gap: 7px;\r\n}\r\n\r\n[part="data-cleanup-range"] .container\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 5px;\r\n    align-self: flex-end;\r\n}\r\n[part="data-persist-days"]\r\n{\r\n    flex: 1;\r\n}\r\n\r\n[part="apply-data-persist-days-button"]\r\n{\r\n    justify-self: flex-end;\r\n}\r\n\r\n[part="data-pending-fieldset"]\r\n,[part="image-cache-fieldset"]\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto 1fr auto;\r\n    gap: 7px;\r\n}\r\n\r\n[part="deleted-items"]\r\n,[part="deleted-images"]\r\n{\r\n    display: grid;\r\n    background: field;\r\n    border-radius: 2px;\r\n    border: 1px solid graytext;\r\n    color: fieldtext;\r\n    height: 130px;\r\n    overflow: auto;\r\n    margin: 0;\r\n    padding: 0;\r\n    align-self: flex-end;\r\n}\r\n[part="deleted-item"]\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    padding: 3px 7px;\r\n}\r\n[part="deleted-item-label"]\r\n{\r\n    flex: 1;\r\n    gap: 5px;\r\n}\r\n\r\n[part="deleted-items"]::part(add)\r\n,[part="deleted-images"]::part(add)\r\n{\r\n    display: none;\r\n}\r\n\r\n[part="clear-deleted-button"]\r\n,[part="clear-image-cache-button"]\r\n{\r\n    justify-self: flex-end;\r\n}\r\n\r\n[part="data-clear-fieldset"]\r\n{\r\n    display: grid;\r\n    gap: 7px;\r\n}\r\n\r\n[part="clear-data-button"]\r\n{\r\n    justify-self: flex-end;\r\n}\r\n@media (max-width: 665px) \r\n{\r\n\r\n    [part="import-fieldset"]\r\n    {\r\n        flex-direction: column;\r\n    }\r\n    [part="import-field"] .container\r\n    {\r\n        flex-direction: column;\r\n        align-items: stretch;\r\n    }\r\n    [part="import-button"]\r\n    {\r\n        align-self: flex-end;\r\n    }\r\n    [part="config-data-caches"]\r\n    {\r\n        display: grid;\r\n        grid-template-columns: 1fr;\r\n        gap: 7px;\r\n    }\r\n    [part="action-history-length"]\r\n    {\r\n        width: 50px;\r\n    }\r\n}\r\n\r\n[part="history-page"]\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto 1fr auto;\r\n    gap: 7px;\r\n}\r\n\r\n[part="history-length-fieldset"]\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 10px;\r\n    flex: 1;\r\n}\r\n\r\n[part="history-length-field"] .container\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 5px;\r\n    flex: 1;\r\n}\r\n\r\n[part="action-history-length"]\r\n{\r\n    flex: 1;\r\n}\r\n\r\n[part="history-navigation"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto auto 1fr auto;\r\n    grid-template-rows: auto 1fr;\r\n    gap: 7px;\r\n    overflow: hidden;\r\n}\r\n[part="clear-history-button"]\r\n{\r\n    grid-column: 4;\r\n    white-space: nowrap;\r\n}\r\n[part="action-history"]\r\n{\r\n    grid-column: span 4;\r\n    background: field;\r\n    border-radius: 2px;\r\n    border: 1px solid graytext;\r\n    color: fieldtext;\r\n    overflow: auto;\r\n    flex: 1;\r\n}\r\n[part="action-history-entry"]\r\n{\r\n    padding: 3px 7px;\r\n    border-radius: 2px;\r\n}\r\n[part="action-history-entry"]:hover\r\n{\r\n    background-color: rgb(0 0 0 / .3);\r\n}\r\n\r\n[part="about-page"]\r\n{\r\n    display: grid;\r\n    gap: 7px;\r\n    grid-template-columns: 1fr 1fr;\r\n    grid-template-rows: auto 1fr auto;\r\n}\r\n\r\n[part="about-app-fieldset"]\r\n{\r\n    grid-column: span 2;\r\n}\r\n[part="about-app-fieldset"] p\r\n{\r\n    text-align: center;\r\n}\r\n\r\n[part="version-fieldset"]\r\n{\r\n    grid-column: 1;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n[part="copyright-fieldset"]\r\n{\r\n    grid-column: 2;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    text-align: center;\r\n}\r\n\r\n[part="config-actions"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto auto;\r\n    gap: 10px;\r\n    padding-block-start: 10px;\r\n}\r\n\r\n[part="config-ok"]\r\n,[part="config-cancel"]\r\n{\r\n    width: 75px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n[part="config-cancel"]\r\n{\r\n    grid-column: 2;\r\n}\r\n[part="config-ok"]\r\n{\r\n    grid-column: 3;\r\n}';
 
 // styles/settings.css?raw
-var settings_default = 'task-board\n{\n    background-color: var(--board-background-color, transparent);\n    color: var(--board-font-color);\n}\ntask-board[style*="--board-background-source"]\n{\n    background:  var(--board-background-source), var(--board-background-color, transparent);\n    background-size: var(--background-image-display);\n    background-position: var(--background-image-position, var(--background-image-offset));\n    background-repeat: var(--background-image-repeat);\n}\n\ntask-list\n{\n    background: var(--list-background-color);\n    color: var(--list-font-color);\n    border-color: var(--list-border-color, transparent);\n}\ntask-list::part(header)\n{\n    top: 0;\n}\ntask-list::part(name)\n{\n    color: inherit;\n}\ntask-list.hide-color::part(color)\n{\n    display: none;\n}\ntask-list.hide-color::part(header)\n{\n    grid-template-columns: 1fr auto;\n}\n\ntask-card\n{\n    background-color: var(--task-background-color, none);\n    width: var(--task-width, 300px);\n    overflow: hidden;\n    font-family: sans-serif;\n    color: var(--task-font-color, currentcolor);\n    font-size: var(--task-font-size, 12px);\n    border-color: var(--task-border-color, var(--input-border-color));\n    border-radius: var(--task-border-radius, 2px);\n    border-top-width: var(--task-border-top, 1px);\n    border-right-width: var(--task-border-right, 1px);\n    border-bottom-width: var(--task-border-bottom, 1px);\n    border-left-width: var(--task-border-left, 1px);\n}\ntask-card::part(description)\n{\n    font: inherit;\n}\n.center-remove task-card::part(remove-button)\n{\n    align-self: center;\n}\ntask-card::part(is-finished)\n{\n    align-self: flex-start;\n}\n.center-checkbox task-card::part(is-finished)\n{\n    align-self: center;\n}\n\n.hide-task-color task-card::part(color)\n{\n    display: none;\n}\n\n.task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card\n{\n    border-color: var(--task-color);\n}\n.task-color-border.color-border-top task-card\n{\n    border-top-color: var(--task-color);\n}\n.task-color-border.color-border-right task-card\n{\n    border-right-color: var(--task-color);\n}\n.task-color-border.color-border-bottom task-card\n{\n    border-bottom-color: var(--task-color);\n}\n.task-color-border.color-border-left task-card\n{\n    border-left-color: var(--task-color);\n}\n.task-color-background task-card\n{\n    background-color: var(--task-color);\n}\n.task-color-border task-card::part(color-container)\n{\n    display: block;\n    margin-block: 1em;\n    margin-inline-start: 1em;\n    width: 16px;\n    height: 16px;\n    background-color: var(--task-color);\n    border-radius: 50%;\n    align-self: center;\n}\n.task-color-border task-card::part(color)\n{\n    display: none;\n}\n\n/* .task-color-border task-card\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n.task-color-border task-card::part(color-container)\n,.task-color-border task-card::part(color)\n{\n    grid-row: 2;\n    grid-column: 2;\n    width: 14px;\n    height: 14px;\n    margin-block-end: 7px;\n    margin-block-start: 0;\n    border-radius: 3px;\n    align-self: center;\n    justify-self: center;\n}\n\n.task-color-border task-card::part(handle)\n{\n    grid-row: span 2;\n    grid-column: 1;\n}\n\n.task-color-border task-card::part(is-finished)\n,.task-color-border task-card::part(finished-indicator)\n{\n    grid-row: 1;\n    grid-column: 2;\n    margin-block-start: 7px;\n    margin-block-end: 0;\n}\n\n.task-color-border task-card::part(description)\n,.task-color-border task-card::part(remove-button)\n{\n    grid-row: span 2;\n} */\n\n@media (min-width: 665px) \n{\n    task-list\n    {\n        width: var(--list-width);\n    } \n}';
+var settings_default = 'task-board\r\n{\r\n    background-color: var(--board-background-color, transparent);\r\n    color: var(--board-font-color);\r\n}\r\ntask-board[style*="--board-background-source"]\r\n{\r\n    background:  var(--board-background-source), var(--board-background-color, transparent);\r\n    background-size: var(--background-image-display);\r\n    background-position: var(--background-image-position, var(--background-image-offset));\r\n    background-repeat: var(--background-image-repeat);\r\n}\r\n\r\ntask-list\r\n{\r\n    background: var(--list-background-color);\r\n    color: var(--list-font-color);\r\n    border-color: var(--list-border-color, transparent);\r\n}\r\ntask-list::part(header)\r\n{\r\n    top: 0;\r\n}\r\ntask-list::part(name)\r\n{\r\n    color: inherit;\r\n}\r\ntask-list.hide-color::part(color)\r\n{\r\n    display: none;\r\n}\r\ntask-list.hide-color::part(header)\r\n{\r\n    grid-template-columns: 1fr auto;\r\n}\r\n\r\ntask-card\r\n{\r\n    background-color: var(--task-background-color, none);\r\n    width: var(--task-width, 300px);\r\n    overflow: hidden;\r\n    font-family: sans-serif;\r\n    color: var(--task-font-color, currentcolor);\r\n    font-size: var(--task-font-size, 12px);\r\n    border-color: var(--task-border-color, var(--input-border-color));\r\n    border-radius: var(--task-border-radius, 2px);\r\n    border-top-width: var(--task-border-top, 1px);\r\n    border-right-width: var(--task-border-right, 1px);\r\n    border-bottom-width: var(--task-border-bottom, 1px);\r\n    border-left-width: var(--task-border-left, 1px);\r\n}\r\ntask-card::part(description)\r\n{\r\n    font: inherit;\r\n}\r\n.center-remove task-card::part(remove-button)\r\n{\r\n    align-self: center;\r\n}\r\ntask-card::part(is-finished)\r\n{\r\n    align-self: flex-start;\r\n}\r\n.center-checkbox task-card::part(is-finished)\r\n{\r\n    align-self: center;\r\n}\r\n\r\n.hide-task-color task-card::part(color)\r\n{\r\n    display: none;\r\n}\r\n\r\n.task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card\r\n{\r\n    border-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-top task-card\r\n{\r\n    border-top-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-right task-card\r\n{\r\n    border-right-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-bottom task-card\r\n{\r\n    border-bottom-color: var(--task-color);\r\n}\r\n.task-color-border.color-border-left task-card\r\n{\r\n    border-left-color: var(--task-color);\r\n}\r\n.task-color-background task-card\r\n{\r\n    background-color: var(--task-color);\r\n}\r\n.task-color-border task-card::part(color-container)\r\n{\r\n    display: block;\r\n    margin-block: 1em;\r\n    margin-inline-start: 1em;\r\n    width: 16px;\r\n    height: 16px;\r\n    background-color: var(--task-color);\r\n    border-radius: 50%;\r\n    align-self: center;\r\n}\r\n.task-color-border task-card::part(color)\r\n{\r\n    display: none;\r\n}\r\n\r\n/* .task-color-border task-card\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto auto 1fr auto;\r\n    grid-template-rows: auto 1fr;\r\n}\r\n\r\n.task-color-border task-card::part(color-container)\r\n,.task-color-border task-card::part(color)\r\n{\r\n    grid-row: 2;\r\n    grid-column: 2;\r\n    width: 14px;\r\n    height: 14px;\r\n    margin-block-end: 7px;\r\n    margin-block-start: 0;\r\n    border-radius: 3px;\r\n    align-self: center;\r\n    justify-self: center;\r\n}\r\n\r\n.task-color-border task-card::part(handle)\r\n{\r\n    grid-row: span 2;\r\n    grid-column: 1;\r\n}\r\n\r\n.task-color-border task-card::part(is-finished)\r\n,.task-color-border task-card::part(finished-indicator)\r\n{\r\n    grid-row: 1;\r\n    grid-column: 2;\r\n    margin-block-start: 7px;\r\n    margin-block-end: 0;\r\n}\r\n\r\n.task-color-border task-card::part(description)\r\n,.task-color-border task-card::part(remove-button)\r\n{\r\n    grid-row: span 2;\r\n} */\r\n\r\n@media (min-width: 665px) \r\n{\r\n    task-list\r\n    {\r\n        width: var(--list-width);\r\n    } \r\n}';
 
 // taskboard-manager.css?raw
-var taskboard_manager_default = `*
-{
-    box-sizing: border-box;
-}
-
-:host
-{    
-    font: inherit;
-    display: grid;
-    border: solid 1px;
-    position: relative;
-    background: canvas;
-    color: canvastext;
-
-    --icon-size: 12px;
-    --tab-icon-size: var(--icon-size);
-    --brand-icon-size: 24px;
-    --button-icon-size: var(--icon-size);
-    --pill-icon-size: var(--icon-size);
-    --dialog-margin: 10px;
-    --dialog-header-icon-size: 16px;
-
-    --task-width: auto;
-}
-
-[part="welcome-page"]
-{
-    display: grid;
-}
-
-[part="welcome"]
-{
-    align-self: center;
-    justify-self: center;
-    padding: 1em;
-}
-
-[part="recent-boards"]
-{
-    display: grid;
-    margin: 0;
-    padding: 0;
-}
-[part="recent-boards"]::part(items)
-{
-    display: grid;
-    
-}
-[part="recent-boards"] a
-{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 3px 7px;
-}
-[part="recent-boards"] a:hover
-{
-    background-color: highlight;
-    color: highlighttext;
-}
-[part="new-board-button_welcome"]
-{
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
-}
-
-[part="logo"]
-{
-    width: 100%;
-    height: 80px;
-}
-
-[part="loading"]
-{
-    align-self: center;
-    justify-self: center;
-
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    border: 3px solid highlighttext;
-    border-radius: 50%;
-    border-top-color: highlight;
-    animation: loading-spin 1s ease-in-out infinite;
-    -webkit-animation: loading-spin 1s ease-in-out infinite;
-    opacity: 0;
-    transition: opacity 200ms linear;
-    pointer-events: none;
-    position: absolute;
-}
-:host([loading]) [part="loading"]
-{
-    opacity: 1;
-    pointer-events: initial;
-    position: static;
-}
-
-app-menu
-{
-    display: contents;
-}
-
-[part="app-router"]
-{
-    overflow: hidden;
-}
-
-[part="board-route"]
-{
-    display: flex;
-    overflow: hidden;
-}
-
-task-board
-{
-    flex: 1;
-}
-
-task-card[data-drag-id]
-{
-    /* background-color: red; */
-    padding: 10px;
-    scale: .9;
-    border: dashed 1px graytext;
-}
-
-
-[part="deleted-items"] [data-restore="false"]
-{
-    scale: .98 .9;
-    opacity: .5;
-    pointer-events: none;
-}
-
-[to-delete]
-{
-    text-decoration: line-through;
-    color: #444;
-}
-
-[part="notifications"]
-{
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 1em;
-    width: 375px;
-    display: grid;
-    row-gap: 7px;
-}
-[part="notifications"]:empty
-{
-    pointer-events: none;
-}
-
-[part="message-content"]
-{
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-}
-    
-/* message-card
-{
-    background-color: field;
-    box-shadow: 1px 1px 7px 3px rgb(0 0 0 / .4);
-}
-
-message-card::part(message)
-{
-    display: grid;
-    grid-template-columns: 1fr auto;
-} */
-
-
-[part="confirmation-router"]
-{
-    margin-block: 1em;
-}
-[part="confirmation-dialog-form"]
-{
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-}
-  
-@keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }
-@-webkit-keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }
-
-
-@media (max-width: 665px) 
-{
-    :host
-    {
-        grid-template-rows: 1fr auto auto;
-        grid-template-columns: 1fr;
-        /* grid-template-areas: 'menu'
-        'taskboard'; */
-    }
-
-    task-board::part(lists)
-    {
-        scroll-snap-type: x mandatory;
-    }
-    task-list
-    {
-        scroll-snap-align: start;
-        width: 100vw;
-    }
-    task-list::part(collapse-button)
-    {
-        display: none;
-    }
-    
-    [part="notifications"]
-    {
-        width: 100vw;
-    }
-
-    dialog
-    {
-        bottom: 25px;
-    }
-}
-@media (max-width: 800px) 
-{
-    
-}
-
-/* only desktop */
-@media (min-width: 665px) 
-{
-    :host
-    {
-        grid-template-columns: auto 1fr;
-        grid-template-areas: 'menu taskboard';
-    }
-
-    [part="app-router"]
-    {
-        grid-column: 2;
-        grid-row: 1;
-        flex: 1;
-    }
-
-    [part="loading"]
-    {
-        grid-column: 2;
-        grid-row: 1;
-    }
-    dialog
-    {
-        min-width: 500px;
-        max-width: 850px;
-        top: 50px;
-    }
-
-    task-card::part(description)
-    {
-        width: min-content;
-    }
-
-    task-list
-    {
-        transition: width 200ms linear;
-    }
-    task-list::part(collapse-icon)
-    {
-        rotate: -90deg;
-        transition: color 200ms linear;
-    }
-    task-list[collapsed]
-    {
-        overflow: hidden;
-        --list-min-width: var(--collapsed-list-width, calc(1ch + 45px));
-        width: 0;
-    }
-    task-list[collapsed]::part(collapse-icon)
-    {
-        font-size: 24px;
-        color: var(--list-color);
-    }
-    task-list[collapsed]::part(color-container)
-    ,task-list[collapsed]::part(name)
-    ,task-list[collapsed]::part(add-button)
-    {
-        display: none;
-    }
-}
-@media (min-width: 800px) 
-{
+var taskboard_manager_default = `*\r
+{\r
+    box-sizing: border-box;\r
+}\r
+\r
+:host\r
+{    \r
+    font: inherit;\r
+    display: grid;\r
+    border: solid 1px;\r
+    position: relative;\r
+    background: canvas;\r
+    color: canvastext;\r
+\r
+    --icon-size: 12px;\r
+    --tab-icon-size: var(--icon-size);\r
+    --brand-icon-size: 24px;\r
+    --button-icon-size: var(--icon-size);\r
+    --pill-icon-size: var(--icon-size);\r
+    --dialog-margin: 10px;\r
+    --dialog-header-icon-size: 16px;\r
+\r
+    --task-width: auto;\r
+}\r
+\r
+[part="welcome-page"]\r
+{\r
+    display: grid;\r
+}\r
+\r
+[part="loading"]\r
+{\r
+    align-self: center;\r
+    justify-self: center;\r
+\r
+    display: inline-block;\r
+    width: 50px;\r
+    height: 50px;\r
+    border: 3px solid highlighttext;\r
+    border-radius: 50%;\r
+    border-top-color: highlight;\r
+    animation: loading-spin 1s ease-in-out infinite;\r
+    -webkit-animation: loading-spin 1s ease-in-out infinite;\r
+    opacity: 0;\r
+    transition: opacity 200ms linear;\r
+    pointer-events: none;\r
+    position: absolute;\r
+}\r
+:host([loading]) [part="loading"]\r
+{\r
+    opacity: 1;\r
+    pointer-events: initial;\r
+    position: static;\r
+}\r
+\r
+app-menu\r
+{\r
+    display: contents;\r
+}\r
+\r
+[part="app-router"]\r
+{\r
+    overflow: hidden;\r
+}\r
+\r
+[part="board-route"]\r
+{\r
+    display: flex;\r
+    overflow: hidden;\r
+}\r
+\r
+task-board\r
+{\r
+    flex: 1;\r
+}\r
+\r
+task-card[data-drag-id]\r
+{\r
+    /* background-color: red; */\r
+    padding: 10px;\r
+    scale: .9;\r
+    border: dashed 1px graytext;\r
+}\r
+\r
+\r
+[part="deleted-items"] [data-restore="false"]\r
+{\r
+    scale: .98 .9;\r
+    opacity: .5;\r
+    pointer-events: none;\r
+}\r
+\r
+[to-delete]\r
+{\r
+    text-decoration: line-through;\r
+    color: #444;\r
+}\r
+\r
+[part="notifications"]\r
+{\r
+    position: absolute;\r
+    top: 0;\r
+    right: 0;\r
+    padding: 1em;\r
+    width: 375px;\r
+    display: grid;\r
+    row-gap: 7px;\r
+}\r
+[part="notifications"]:empty\r
+{\r
+    pointer-events: none;\r
+}\r
+\r
+[part="message-content"]\r
+{\r
+    display: grid;\r
+    grid-template-columns: 1fr auto;\r
+    align-items: center;\r
+}\r
+    \r
+/* message-card\r
+{\r
+    background-color: field;\r
+    box-shadow: 1px 1px 7px 3px rgb(0 0 0 / .4);\r
+}\r
+\r
+message-card::part(message)\r
+{\r
+    display: grid;\r
+    grid-template-columns: 1fr auto;\r
+} */\r
+\r
+\r
+[part="confirmation-router"]\r
+{\r
+    margin-block: 1em;\r
+}\r
+[part="confirmation-dialog-form"]\r
+{\r
+    display: flex;\r
+    justify-content: flex-end;\r
+    gap: 10px;\r
+}\r
+  \r
+@keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }\r
+@-webkit-keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }\r
+\r
+\r
+@media (max-width: 665px) \r
+{\r
+    :host\r
+    {\r
+        grid-template-rows: 1fr auto auto;\r
+        grid-template-columns: 1fr;\r
+        /* grid-template-areas: 'menu'\r
+        'taskboard'; */\r
+    }\r
+\r
+    task-board::part(lists)\r
+    {\r
+        scroll-snap-type: x mandatory;\r
+    }\r
+    task-list\r
+    {\r
+        scroll-snap-align: start;\r
+        width: 100vw;\r
+    }\r
+    task-list::part(collapse-button)\r
+    {\r
+        display: none;\r
+    }\r
+    \r
+    [part="notifications"]\r
+    {\r
+        width: 100vw;\r
+    }\r
+\r
+    dialog\r
+    {\r
+        bottom: 25px;\r
+    }\r
+}\r
+@media (max-width: 800px) \r
+{\r
+    \r
+}\r
+\r
+/* only desktop */\r
+@media (min-width: 665px) \r
+{\r
+    :host\r
+    {\r
+        grid-template-columns: auto 1fr;\r
+        grid-template-areas: 'menu taskboard';\r
+    }\r
+\r
+    [part="app-router"]\r
+    {\r
+        grid-column: 2;\r
+        grid-row: 1;\r
+        flex: 1;\r
+    }\r
+\r
+    [part="loading"]\r
+    {\r
+        grid-column: 2;\r
+        grid-row: 1;\r
+    }\r
+    dialog\r
+    {\r
+        min-width: 500px;\r
+        max-width: 850px;\r
+        top: 50px;\r
+    }\r
+\r
+    task-card::part(description)\r
+    {\r
+        width: min-content;\r
+    }\r
+\r
+    task-list\r
+    {\r
+        transition: width 200ms linear;\r
+    }\r
+    task-list::part(collapse-icon)\r
+    {\r
+        rotate: -90deg;\r
+        transition: color 200ms linear;\r
+    }\r
+    task-list[collapsed]\r
+    {\r
+        overflow: hidden;\r
+        --list-min-width: var(--collapsed-list-width, calc(1ch + 45px));\r
+        width: 0;\r
+    }\r
+    task-list[collapsed]::part(collapse-icon)\r
+    {\r
+        font-size: 24px;\r
+        color: var(--list-color);\r
+    }\r
+    task-list[collapsed]::part(color-container)\r
+    ,task-list[collapsed]::part(name)\r
+    ,task-list[collapsed]::part(add-button)\r
+    {\r
+        display: none;\r
+    }\r
+}\r
+@media (min-width: 800px) \r
+{\r
 }`;
 
 // taskboard-manager.html?raw
-var taskboard_manager_default2 = '<!-- <menu part="menu">\n    <header part="header">\n        <div part="branding" title="Manager Icon">\n            <svg class="logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button type="button" data-route="#boards" part="open-board-browser" title="Find Board">\n            <svg class="icon magnifying-glass" >\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="label">Find Board</span>\n        </button>\n        <button type="button" data-route="#config/settings" part="open-settings" title="App Administration">\n            <svg class="icon gear" >\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list part="boards" id="boards" remove="false" edit="true" cancel-edit exportparts="items: board-items">\n        <button type="button" slot="add" part="new-board-button_list" id="new-board-button_list" title="New Board">\n            <svg class="icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label">New Board</span>\n        </button>\n        <template part="edit-button">\n            <svg class="icon expand" >\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu> -->\n<app-menu id="app-menu"></app-menu>\n<path-router part="app-router" id="app-router" path="">\n    <route-page part="welcome-page">\n        <div part="welcome">\n            <fieldset>\n                <legend>Welcome</legend>\n                <svg part="logo" >\n                    <use href="#icon-definition_logo"></use>\n                </svg>\n                <div class="description">\n                    <p>Welcome to your Taskboard Manager!</p>\n                    <p>Create a <a part="new-board-link">new board</a>, or select a recently-opened board below.</p>\n                </div>\n                <fieldset>\n                    <legend>Recent Boards</legend>\n                    <editable-list part="recent-boards" id="recent-boards" exportparts="edit:recent-item-edit-button, handle: recent-item-handle">\n                        <button type="button" slot="add" part="new-board-button_welcome" id="new-board-button_welcome" title="New Board">\n                            <svg class="icon plus" >\n                                <use href="#icon-definition_plus"></use>\n                            </svg>\n                            <span class="label">New Board</span>\n                        </button>\n                    </editable-list>\n                </fieldset>\n            </fieldset>\n        </div>\n    </route-page>\n    <route-page path="board/:id" part="board-route" id="board-route">\n        <task-board part="task-board" id="task-board" exportparts="lists:task-board-lists"></task-board>\n    </route-page>\n    <dialog part="board-browser-dialog" is="route-dialog" path="boards">\n        <header part="board-browser-header">\n            <svg part="board-browser-icon" >\n                <use href="#icon-definition_task-board"></use>\n            </svg>\n            <span part="board-browser-title">Boards</span>\n            <collection-filter part="board-browser-filter" id="board-browser-filter"></collection-filter>\n        </header>\n        <collection-browser part="board-browser" id="board-browser"></collection-browser>\n        <footer part="board-browser-footer">\n            <form part="board-browser-actions" method="dialog">\n                <button type="submit" part="board-browser-cancel" id="board-browser-cancel">Cancel</button>\n                <button type="submit" part="board-browser-ok" id="board-browser-ok">Open</button>\n            </form>\n        </footer>\n    </dialog>\n    <dialog part="dialog config-dialog" is="route-dialog" path="config">\n        <header part="config-header">\n            <svg part="config-dialog-icon" >\n                <use href="#icon-definition_gear"></use>\n            </svg>\n            <span part="config-title">Configuration</span>\n        </header>\n        <menu part="config-navigation" id="config-navigation">\n            <a data-route="#config/settings" part="config-nav-item">\n                <svg part="settings-route-icon">\n                    <use href="#icon-definition_gear"></use>\n                </svg>\n                <span>Settings</span>\n            </a>\n            <a data-route="#config/data" part="config-nav-item">\n                <svg part="data-route-icon">\n                    <use href="#icon-definition_clock"></use>\n                </svg>\n                <span>Data</span>\n            </a>\n            <a data-route="#config/history" part="config-nav-item">\n                <svg part="history-route-icon">\n                    <use href="#icon-definition_clock"></use>\n                </svg>\n                <span>History</span>\n            </a>\n            <a data-route="#config/about" part="config-nav-item">\n                <svg part="about-route-icon">\n                    <use href="#icon-definition_info"></use>\n                </svg>\n                <span>About</span>\n            </a>\n        </menu>\n        <div part="config-route-view" class="route-view">\n            <route-page path="settings" part="settings-page">\n                <header part="settings-header">App Settings</header>\n                <fieldset part="color-scheme-fieldset">\n                    <legend part="color-scheme-legend">Color Scheme</legend>\n                    <div class="button-group" part="scheme-options" id="scheme-options">\n                        <button data-value="inherit">Inherit</button>\n                        <button data-value="browser">Browser</button>\n                        <button data-value="light">Light</button>\n                        <button data-value="dark">Dark</button>\n                    </div>\n                </fieldset>\n                <fieldset part="custom-settings-fieldset">\n                    <legend part="custom-settings-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>\n                    <slot name="custom-settings">[ No Custom Settings ]</slot>\n                </fieldset>\n                <fieldset part="hotkeys-fieldset">\n                    <legend part="hotkeyss-legend">Hot Keys</legend>\n                    <dl part="hotkeys-list">\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Left</key></dt>\n                        <dd part="hotkey-description">Move text cursor to previous word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Right</key></dt>\n                        <dd part="hotkey-description">Move text cursor to next word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Up</key></dt>\n                        <dd part="hotkey-description">Move text cursor to closest word in previous line.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Down</key></dt>\n                        <dd part="hotkey-description">Move text cursor to closest word in next line.</dd>\n\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Left</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the start of the previous word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Right</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the end of the next word.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Up</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the previous line.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Down</key></dt>\n                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the next line.</dd>\n\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Left</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Right</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Up</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Down</key></dt>\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\n                    </dl>\n                </fieldset>\n            </route-page>\n            <route-page path="data" part="config-data-page">\n                <header part="data-header">Data</header>\n                <fieldset part="import-fieldset">\n                    <legend part="import-legend">Import</legend>\n                    <form-field part="import-field" label="Taskboard Data File" input-selector="fileimage-input">\n                        <fileimage-input part="import-board-file" id="import-board-file">\n                            <svg slot="icon" part="import-file-icon" >\n                                <use href="#icon-definition_file"></use>\n                            </svg>\n                        </fileimage-input>\n                    </form-field>\n                    <button part="import-button" id="import-button">\n                        <svg part="import-button-icon" >\n                            <use href="#icon-definition_import"></use>\n                        </svg>\n                        <span part="import-button-label">Import Board</span>\n                    </button>\n                </fieldset>\n                <div part="config-data-caches">\n                    <fieldset part="data-cleanup-fieldset">\n                        <legend part="data-cleanup-legend">Data Cleanup</legend>\n                        <div part="data-cleanup-description">\n                            <p>Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>\n                            <p>Set how many days deleted item should perisist using the slider below.</p>\n                        </div>\n                        <form-field label="Days" part="data-cleanup-range">\n                            <input type="range" id="data-persist-days" part="data-persist-days" max="30" list="data-persist-days-values" />\n                            <datalist id="data-persist-days-values"  part="data-persist-days-values"></datalist>\n                            <span slot="postfix" part="data-persist-days-value" id="data-persist-days-value"></span>\n                            <button slot="postfix" part="apply-data-persist-days-button" id="apply-data-persist-days-button">\n                                <svg part="apply-data-persist-days-icon">\n                                    <use href="#icon-definition_confirm-check"></use>\n                                </svg>\n                                <span part="apply-data-persist-days-label">Apply</span>\n                            </button>\n                        </form-field>\n                    </fieldset>\n                    <fieldset part="data-pending-fieldset">\n                        <legend part="data-pending-legend">Pending Cleanup</legend>\n                        <div part="data-pending-description">\n                            <p>The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>\n                        </div>\n                        <editable-list part="deleted-items" id="deleted-items">\n                            <template part="remove-button">\n                                <svg part="restore-item-icon" title="Restore">\n                                    <use href="#icon-definition_restore"></use>\n                                </svg>\n                            </template>\n                        </editable-list>\n                        <button part="clear-deleted-button" id="clear-deleted-button">\n                            <svg part="clear-deleted-icon" title="Clear">\n                                <use href="#icon-definition_trash"></use>\n                            </svg>\n                            <span part="clear-deleted-label">Clear Pending Items</span>\n                        </button>\n                    </fieldset>\n                    <fieldset part="image-cache-fieldset">\n                        <legend part="image-cache-legend">Image Cache</legend>\n                        <div part="image-cache-description">\n                            <p>Caching some image files provides undo and redo support.</p>\n                            <p>The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>\n                        </div>\n                        <editable-list part="deleted-images" id="deleted-images"></editable-list>\n                        <button part="clear-image-cache-button" id="clear-image-cache-button">\n                            <svg part="clear-images-icon" title="Clear">\n                                <use href="#icon-definition_trash"></use>\n                            </svg>\n                            <span part="clear-images-label">Clear Image Cache</span>\n                        </button>\n                    </fieldset>\n                </div>\n                <fieldset part="data-clear-fieldset">\n                    <legend part="data-clear-legend">Clear Data</legend>\n                    <div part="data-clear-description">\n                        <p>Delete all data, including app settings and history.</p>\n                    </div>\n                    <button part="clear-data-button" id="clear-data-button">\n                        <svg part="clear-data-icon" title="Clear">\n                            <use href="#icon-definition_trash"></use>\n                        </svg>\n                        <span part="clear-data-label">Clear All Data</span>\n                    </button>\n                </fieldset>\n            </route-page>\n            <route-page path="history" part="history-page">\n                <header part="history-header">History</header>\n                <fieldset part="history-navigation">\n                    <legend part="history-navigation-legend">Navigation</legend>\n                    <button part="history-control-undo" id="history-control-undo">\n                        <svg part="restore-item-icon" title="Undo">\n                            <use href="#icon-definition_undo-redo"></use>\n                        </svg>\n                        <span part="history-control-undo-label">Undo</span>\n                    </button>\n                    <button part="history-control-redo" id="history-control-redo">\n                        <svg part="restore-item-icon" title="Redo" style="transform: scaleX(-1);">\n                            <use href="#icon-definition_undo-redo"></use>\n                        </svg>\n                        <span part="history-control-redo-label">Redo</span>\n                    </button>\n                    <button part="clear-history-button" id="clear-history-button">\n                        <svg part="clear-history-icon" title="Clear">\n                            <use href="#icon-definition_trash"></use>\n                        </svg>\n                        <span part="clear-history-label">Clear History</span>\n                    </button>\n                    <action-history part="action-history" id="action-history" reverse></action-history>\n                </fieldset>\n                <fieldset part="history-length-fieldset">\n                    <legend part="history-length-legend">History Length</legend>\n                    <form-field part="history-length-field">\n                        <input type="range" id="action-history-length" part="action-history-length" max="150" list="action-history-length-values" />\n                        <datalist id="action-history-length-values"  part="action-history-length-values"></datalist>\n                        <span slot="postfix" part="action-history-length-value" id="action-history-length-value"></span>\n                        <button slot="postfix" part="apply-history-length-button" id="apply-history-length-button">\n                            <svg part="apply-history-length-icon">\n                                <use href="#icon-definition_confirm-check"></use>\n                            </svg>\n                            <span part="apply-history-length-label">Apply</span>\n                        </button>\n                    </form-field>\n                </fieldset>\n            </route-page>\n            <route-page path="about" part="about-page">\n                <header part="about-header">About</header>\n                <fieldset part="about-app-fieldset">\n                    <legend part="about-app-legend">App</legend>\n                    <p>The <em>My Boards</em> app is a Single Page App (SPA) implementation of the <code>taskboard-manager</code> custom element.</p>\n                    <p>To see a Progress Web App implementation of the <code>taskboard-manager</code> custom element, see the <!--<a class="thin-task-logo" href="https://www.thin-task.com">Thin<span class="highlight">Task</span></a> app.--></p>\n                </fieldset>\n                <fieldset part="version-fieldset">\n                    <legend part="version-legend">Version</legend>\n                    <div part="version-value" id="version-value">--.--.--</div>\n                </fieldset>\n                <fieldset part="copyright-fieldset">\n                    <legend part="copyright-legend">Copyright</legend>\n                    <div part="copyright-description">\n                        <!-- For derivative work, replace this license with your own copyright -->\n                        <p xmlns:cc="http://creativecommons.org/ns#" >\n                            Both are released with \n                            <a href="https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1" \n                            target="_blank" \n                            rel="license noopener noreferrer" \n                            style="display:inline-block;">\n                                CC0 1.0\n                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt="">\n                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1" alt="">\n                            </a>\n                        </p>\n                        <!-- End of CC0 License -->\n                    </div>\n                </fieldset>\n            </route-page>\n        </div>\n        <footer part="config-footer">\n            <form part="config-actions" method="dialog">\n                <button type="submit" part="config-cancel">Cancel</button>\n                <button type="submit" part="config-ok">Ok</button>\n            </form>\n        </footer>\n    </dialog>\n    <dialog part="dialog board-settings" id="board-settings" is="route-dialog" path="board-settings">\n        <form method="dialog" part="board-settings-form">\n            <header part="board-settings-header">\n                <svg part="board-settings-icon" >\n                    <use href="#icon-definition_task-board"></use>\n                </svg>\n                <span part="board-settings-title">Board</span>\n            </header>\n            <taskboard-fields part="board-fields" id="board-fields"></taskboard-fields>\n            <footer part="board-settings-footer">\n                <button type="submit" part="close-board-button" id="close-board-button">\n                <svg part="close-board-icon" >\n                    <use href="#icon-definition_trash"></use>\n                </svg>\n                </button>\n                <button type="submit" part="board-settings-cancel" id="board-settings-cancel">Cancel</button>\n                <button type="submit" part="board-settings-save" id="board-settings-save">Save</button>\n            </footer>\n        </form>\n    </dialog>\n    <dialog part="dialog import-dialog" is="route-dialog" path="import">\n        <header part="import-header">\n            <svg part="import-dialog-icon" >\n                <use href="#icon-definition_import"></use>\n            </svg>\n            <span part="import-title">Import</span>\n        </header>\n        <div part="import-content">\n            <import-manager part="import-manager" id="import-manager"></import-manager>\n        </div>\n        <footer part="import-footer">\n            <form part="import-actions" method="dialog">\n                <button type="submit" part="import-cancel" id="import-cancel">Cancel</button>\n                <button type="submit" part="import-ok" id="import-ok">Import</button>\n            </form>\n        </footer>\n    </dialog>\n</path-router>\n<dialog part="dialog confirmation-dialog">\n    <header part="confirmation-dialog-header">\n        <svg part="confirmation-dialog-icon" >\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span part="confirmation-dialog-header-label">Confirmation</span>\n    </header>\n    <path-router part="confirmation-router" manual>\n        <route-page path="info"></route-page>\n        <route-page path="warn"></route-page>\n        <route-page path="danger"></route-page>\n    </path-router>\n    <footer part="confirmation-dialog-footer">\n        <form part="confirmation-dialog-form" method="dialog">\n            <button type="submit" part="confirmation-cancel-button">Cancel</button>\n            <button type="submit" part="confirmation-confirm-button">Confirm</button>\n        </form>\n    </footer>\n</dialog>\n<div part="notifications" id="notifications"></div>\n<div part="loading"></div>\n';
+var taskboard_manager_default2 = '<!-- <menu part="menu">\r\n    <header part="header">\r\n        <div part="branding" title="Manager Icon">\r\n            <svg class="logo mark" alt="Manager Brand Mark">\r\n                <use href="#icon-definition_logo-mark"></use>\r\n            </svg>\r\n        </div>\r\n        <button type="button" data-route="#boards" part="open-board-browser" title="Find Board">\r\n            <svg class="icon magnifying-glass" >\r\n                <use href="#icon-definition_magnifying-glass"></use>\r\n            </svg>\r\n            <span class="label">Find Board</span>\r\n        </button>\r\n        <button type="button" data-route="#config/settings" part="open-settings" title="App Administration">\r\n            <svg class="icon gear" >\r\n                <use href="#icon-definition_gear"></use>\r\n            </svg>\r\n        </button>\r\n    </header>\r\n    <editable-list part="boards" id="boards" remove="false" edit="true" cancel-edit exportparts="items: board-items">\r\n        <button type="button" slot="add" part="new-board-button_list" id="new-board-button_list" title="New Board">\r\n            <svg class="icon plus" >\r\n                <use href="#icon-definition_plus"></use>\r\n            </svg>\r\n            <span class="label">New Board</span>\r\n        </button>\r\n        <template part="edit-button">\r\n            <svg class="icon expand" >\r\n                <use href="#icon-definition_stylus"></use>\r\n            </svg>\r\n        </template>\r\n    </editable-list>\r\n</menu> -->\r\n<app-menu id="app-menu"></app-menu>\r\n<path-router id="app-router" path="">\r\n    <route-page part="welcome-page">\r\n        <welcome-panel id="welcome-panel"></welcome-panel>\r\n    </route-page>\r\n    <route-page path="board/:id" part="board-route" id="board-route">\r\n        <task-board part="task-board" id="task-board" exportparts="lists:task-board-lists"></task-board>\r\n    </route-page>\r\n    <dialog part="board-browser-dialog" is="route-dialog" path="boards">\r\n        <board-browser id="board-browser"></board-browser>\r\n    </dialog>\r\n    <dialog part="dialog config-dialog" is="route-dialog" path="config">\r\n        <header part="config-header">\r\n            <svg part="config-dialog-icon" >\r\n                <use href="#icon-definition_gear"></use>\r\n            </svg>\r\n            <span part="config-title">Configuration</span>\r\n        </header>\r\n        <menu part="config-navigation" id="config-navigation">\r\n            <a data-route="#config/settings" part="config-nav-item">\r\n                <svg part="settings-route-icon">\r\n                    <use href="#icon-definition_gear"></use>\r\n                </svg>\r\n                <span>Settings</span>\r\n            </a>\r\n            <a data-route="#config/data" part="config-nav-item">\r\n                <svg part="data-route-icon">\r\n                    <use href="#icon-definition_clock"></use>\r\n                </svg>\r\n                <span>Data</span>\r\n            </a>\r\n            <a data-route="#config/history" part="config-nav-item">\r\n                <svg part="history-route-icon">\r\n                    <use href="#icon-definition_clock"></use>\r\n                </svg>\r\n                <span>History</span>\r\n            </a>\r\n            <a data-route="#config/about" part="config-nav-item">\r\n                <svg part="about-route-icon">\r\n                    <use href="#icon-definition_info"></use>\r\n                </svg>\r\n                <span>About</span>\r\n            </a>\r\n        </menu>\r\n        <div part="config-route-view" class="route-view">\r\n            <route-page path="settings" part="settings-page">\r\n                <header part="settings-header">App Settings</header>\r\n                <fieldset part="color-scheme-fieldset">\r\n                    <legend part="color-scheme-legend">Color Scheme</legend>\r\n                    <div class="button-group" part="scheme-options" id="scheme-options">\r\n                        <button data-value="inherit">Inherit</button>\r\n                        <button data-value="browser">Browser</button>\r\n                        <button data-value="light">Light</button>\r\n                        <button data-value="dark">Dark</button>\r\n                    </div>\r\n                </fieldset>\r\n                <fieldset part="custom-settings-fieldset">\r\n                    <legend part="custom-settings-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>\r\n                    <slot name="custom-settings">[ No Custom Settings ]</slot>\r\n                </fieldset>\r\n                <fieldset part="hotkeys-fieldset">\r\n                    <legend part="hotkeyss-legend">Hot Keys</legend>\r\n                    <dl part="hotkeys-list">\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Left</key></dt>\r\n                        <dd part="hotkey-description">Move text cursor to previous word.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Right</key></dt>\r\n                        <dd part="hotkey-description">Move text cursor to next word.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Up</key></dt>\r\n                        <dd part="hotkey-description">Move text cursor to closest word in previous line.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Arrow Down</key></dt>\r\n                        <dd part="hotkey-description">Move text cursor to closest word in next line.</dd>\r\n\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Left</key></dt>\r\n                        <dd part="hotkey-description">Highlight from the current cursor position to the start of the previous word.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Right</key></dt>\r\n                        <dd part="hotkey-description">Highlight from the current cursor position to the end of the next word.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Up</key></dt>\r\n                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the previous line.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Shift</key> + <key part="key">Arrow Down</key></dt>\r\n                        <dd part="hotkey-description">Highlight from the current cursor position to the closest position in the next line.</dd>\r\n\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Left</key></dt>\r\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Right</key></dt>\r\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Up</key></dt>\r\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\r\n                        <dt part="hotkey-title"><key part="key">Ctrl</key> + <key part="key">Alt</key> + <key part="key">Arrow Down</key></dt>\r\n                        <dd part="hotkey-description">Move to the task in the previous list.</dd>\r\n                    </dl>\r\n                </fieldset>\r\n            </route-page>\r\n            <route-page path="data" part="config-data-page">\r\n                <header part="data-header">Data</header>\r\n                <fieldset part="import-fieldset">\r\n                    <legend part="import-legend">Import</legend>\r\n                    <form-field part="import-field" label="Taskboard Data File" input-selector="fileimage-input">\r\n                        <fileimage-input part="import-board-file" id="import-board-file">\r\n                            <svg slot="icon" part="import-file-icon" >\r\n                                <use href="#icon-definition_file"></use>\r\n                            </svg>\r\n                        </fileimage-input>\r\n                    </form-field>\r\n                    <button part="import-button" id="import-button">\r\n                        <svg part="import-button-icon" >\r\n                            <use href="#icon-definition_import"></use>\r\n                        </svg>\r\n                        <span part="import-button-label">Import Board</span>\r\n                    </button>\r\n                </fieldset>\r\n                <div part="config-data-caches">\r\n                    <fieldset part="data-cleanup-fieldset">\r\n                        <legend part="data-cleanup-legend">Data Cleanup</legend>\r\n                        <div part="data-cleanup-description">\r\n                            <p>Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>\r\n                            <p>Set how many days deleted item should perisist using the slider below.</p>\r\n                        </div>\r\n                        <form-field label="Days" part="data-cleanup-range">\r\n                            <input type="range" id="data-persist-days" part="data-persist-days" max="30" list="data-persist-days-values" />\r\n                            <datalist id="data-persist-days-values"  part="data-persist-days-values"></datalist>\r\n                            <span slot="postfix" part="data-persist-days-value" id="data-persist-days-value"></span>\r\n                            <button slot="postfix" part="apply-data-persist-days-button" id="apply-data-persist-days-button">\r\n                                <svg part="apply-data-persist-days-icon">\r\n                                    <use href="#icon-definition_confirm-check"></use>\r\n                                </svg>\r\n                                <span part="apply-data-persist-days-label">Apply</span>\r\n                            </button>\r\n                        </form-field>\r\n                    </fieldset>\r\n                    <fieldset part="data-pending-fieldset">\r\n                        <legend part="data-pending-legend">Pending Cleanup</legend>\r\n                        <div part="data-pending-description">\r\n                            <p>The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>\r\n                        </div>\r\n                        <editable-list part="deleted-items" id="deleted-items">\r\n                            <template part="remove-button">\r\n                                <svg part="restore-item-icon" title="Restore">\r\n                                    <use href="#icon-definition_restore"></use>\r\n                                </svg>\r\n                            </template>\r\n                        </editable-list>\r\n                        <button part="clear-deleted-button" id="clear-deleted-button">\r\n                            <svg part="clear-deleted-icon" title="Clear">\r\n                                <use href="#icon-definition_trash"></use>\r\n                            </svg>\r\n                            <span part="clear-deleted-label">Clear Pending Items</span>\r\n                        </button>\r\n                    </fieldset>\r\n                    <fieldset part="image-cache-fieldset">\r\n                        <legend part="image-cache-legend">Image Cache</legend>\r\n                        <div part="image-cache-description">\r\n                            <p>Caching some image files provides undo and redo support.</p>\r\n                            <p>The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>\r\n                        </div>\r\n                        <editable-list part="deleted-images" id="deleted-images"></editable-list>\r\n                        <button part="clear-image-cache-button" id="clear-image-cache-button">\r\n                            <svg part="clear-images-icon" title="Clear">\r\n                                <use href="#icon-definition_trash"></use>\r\n                            </svg>\r\n                            <span part="clear-images-label">Clear Image Cache</span>\r\n                        </button>\r\n                    </fieldset>\r\n                </div>\r\n                <fieldset part="data-clear-fieldset">\r\n                    <legend part="data-clear-legend">Clear Data</legend>\r\n                    <div part="data-clear-description">\r\n                        <p>Delete all data, including app settings and history.</p>\r\n                    </div>\r\n                    <button part="clear-data-button" id="clear-data-button">\r\n                        <svg part="clear-data-icon" title="Clear">\r\n                            <use href="#icon-definition_trash"></use>\r\n                        </svg>\r\n                        <span part="clear-data-label">Clear All Data</span>\r\n                    </button>\r\n                </fieldset>\r\n            </route-page>\r\n            <route-page path="history" part="history-page">\r\n                <header part="history-header">History</header>\r\n                <fieldset part="history-navigation">\r\n                    <legend part="history-navigation-legend">Navigation</legend>\r\n                    <button part="history-control-undo" id="history-control-undo">\r\n                        <svg part="restore-item-icon" title="Undo">\r\n                            <use href="#icon-definition_undo-redo"></use>\r\n                        </svg>\r\n                        <span part="history-control-undo-label">Undo</span>\r\n                    </button>\r\n                    <button part="history-control-redo" id="history-control-redo">\r\n                        <svg part="restore-item-icon" title="Redo" style="transform: scaleX(-1);">\r\n                            <use href="#icon-definition_undo-redo"></use>\r\n                        </svg>\r\n                        <span part="history-control-redo-label">Redo</span>\r\n                    </button>\r\n                    <button part="clear-history-button" id="clear-history-button">\r\n                        <svg part="clear-history-icon" title="Clear">\r\n                            <use href="#icon-definition_trash"></use>\r\n                        </svg>\r\n                        <span part="clear-history-label">Clear History</span>\r\n                    </button>\r\n                    <action-history part="action-history" id="action-history" reverse></action-history>\r\n                </fieldset>\r\n                <fieldset part="history-length-fieldset">\r\n                    <legend part="history-length-legend">History Length</legend>\r\n                    <form-field part="history-length-field">\r\n                        <input type="range" id="action-history-length" part="action-history-length" max="150" list="action-history-length-values" />\r\n                        <datalist id="action-history-length-values"  part="action-history-length-values"></datalist>\r\n                        <span slot="postfix" part="action-history-length-value" id="action-history-length-value"></span>\r\n                        <button slot="postfix" part="apply-history-length-button" id="apply-history-length-button">\r\n                            <svg part="apply-history-length-icon">\r\n                                <use href="#icon-definition_confirm-check"></use>\r\n                            </svg>\r\n                            <span part="apply-history-length-label">Apply</span>\r\n                        </button>\r\n                    </form-field>\r\n                </fieldset>\r\n            </route-page>\r\n            <route-page path="about" part="about-page">\r\n                <header part="about-header">About</header>\r\n                <fieldset part="about-app-fieldset">\r\n                    <legend part="about-app-legend">App</legend>\r\n                    <p>The <em>My Boards</em> app is a Single Page App (SPA) implementation of the <code>taskboard-manager</code> custom element.</p>\r\n                    <p>To see a Progress Web App implementation of the <code>taskboard-manager</code> custom element, see the <!--<a class="thin-task-logo" href="https://www.thin-task.com">Thin<span class="highlight">Task</span></a> app.--></p>\r\n                </fieldset>\r\n                <fieldset part="version-fieldset">\r\n                    <legend part="version-legend">Version</legend>\r\n                    <div part="version-value" id="version-value">--.--.--</div>\r\n                </fieldset>\r\n                <fieldset part="copyright-fieldset">\r\n                    <legend part="copyright-legend">Copyright</legend>\r\n                    <div part="copyright-description">\r\n                        <!-- For derivative work, replace this license with your own copyright -->\r\n                        <p xmlns:cc="http://creativecommons.org/ns#" >\r\n                            Both are released with \r\n                            <a href="https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1" \r\n                            target="_blank" \r\n                            rel="license noopener noreferrer" \r\n                            style="display:inline-block;">\r\n                                CC0 1.0\r\n                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt="">\r\n                                <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1" alt="">\r\n                            </a>\r\n                        </p>\r\n                        <!-- End of CC0 License -->\r\n                    </div>\r\n                </fieldset>\r\n            </route-page>\r\n        </div>\r\n        <footer part="config-footer">\r\n            <form part="config-actions" method="dialog">\r\n                <button type="submit" part="config-cancel">Cancel</button>\r\n                <button type="submit" part="config-ok">Ok</button>\r\n            </form>\r\n        </footer>\r\n    </dialog>\r\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\r\n        <board-settings id="board-settings"></board-settings>\r\n    </dialog>\r\n    <dialog part="dialog import-dialog" is="route-dialog" path="import">\r\n        <header part="import-header">\r\n            <svg part="import-dialog-icon" >\r\n                <use href="#icon-definition_import"></use>\r\n            </svg>\r\n            <span part="import-title">Import</span>\r\n        </header>\r\n        <div part="import-content">\r\n            <import-manager part="import-manager" id="import-manager"></import-manager>\r\n        </div>\r\n        <footer part="import-footer">\r\n            <form part="import-actions" method="dialog">\r\n                <button type="submit" part="import-cancel" id="import-cancel">Cancel</button>\r\n                <button type="submit" part="import-ok" id="import-ok">Import</button>\r\n            </form>\r\n        </footer>\r\n    </dialog>\r\n</path-router>\r\n<dialog part="dialog confirmation-dialog">\r\n    <header part="confirmation-dialog-header">\r\n        <svg part="confirmation-dialog-icon" >\r\n            <use href="#icon-definition_import"></use>\r\n        </svg>\r\n        <span part="confirmation-dialog-header-label">Confirmation</span>\r\n    </header>\r\n    <path-router part="confirmation-router" manual>\r\n        <route-page path="info"></route-page>\r\n        <route-page path="warn"></route-page>\r\n        <route-page path="danger"></route-page>\r\n    </path-router>\r\n    <footer part="confirmation-dialog-footer">\r\n        <form part="confirmation-dialog-form" method="dialog">\r\n            <button type="submit" part="confirmation-cancel-button">Cancel</button>\r\n            <button type="submit" part="confirmation-confirm-button">Confirm</button>\r\n        </form>\r\n    </footer>\r\n</dialog>\r\n<div part="notifications" id="notifications"></div>\r\n<div part="loading"></div>\r\n';
 
 // assets/icons/cancel-cross.ts
 var CancelCross = `<svg id="icon-definition_cancel-cross" class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -766,7 +721,7 @@ var Restore = `<svg id="icon-definition_restore" class="icon restore" viewBox="0
 // assets/icons/copy.ts
 var Copy = `<svg id="icon-definition_copy" class="icon copy" viewBox="0 0 22.812714 26.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
 <rect
-   style="fill:var(--icon-primary-color,canvas);stroke:var(--icon-secondary-color,CanvasText);fill-opacity:1;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+   style="fill:var(--icon-primary-color,CanvasText);stroke:var(--icon-secondary-color,canvas);fill-opacity:1;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
    width="13.417392"
    height="18.483608"
    x="3.3747442"
@@ -774,7 +729,7 @@ var Copy = `<svg id="icon-definition_copy" class="icon copy" viewBox="0 0 22.812
    rx="0.35822684"
    ry="0.41754472" />
 <rect
-   style="fill:var(--icon-primary-color,canvas);stroke:var(--icon-secondary-color,CanvasText);fill-opacity:1;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+   style="fill:var(--icon-primary-color,CanvasText);stroke:var(--icon-secondary-color,canvas);fill-opacity:1;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
    width="13.417392"
    height="18.483608"
    x="8.0205779"
@@ -820,6 +775,12 @@ ${value}`
   )}
     </div>`;
 }
+
+// components/import-manager/import-manager.component.css?raw
+var import_manager_component_default = 'import-manager .value\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\nimport-manager .old\r\n{\r\n    text-decoration: line-through;\r\n    opacity: .8;\r\n    padding-inline: .5em;\r\n    display: inline-block;\r\n    width: 100px;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    overflow: hidden;\r\n}\r\n\r\nimport-manager .value\r\n{\r\n    max-width: 500px;\r\n    overflow: hidden;\r\n    word-break: break-word;\r\n}\r\nimport-manager .value:has(.display)\r\n{\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\nimport-manager .value .view-link\r\n{\r\n    align-self: flex-end;\r\n}\r\n\r\nimport-manager .removed\r\n{\r\n    text-decoration: line-through;\r\n}\r\n\r\nimport-manager .value img.preview\r\n{\r\n    max-height: 200px;\r\n}\r\n\r\n[part="import-manager-fieldset"]\r\n{\r\n    overflow: hidden;\r\n    flex: 1;\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n[part="import-preview"]\r\n{\r\n    overflow: auto;\r\n}\r\n@media (max-width: 665px) \r\n{\r\n    [part="import-preview"]\r\n    {\r\n        --indent: 5px;\r\n        --property-name-width: 75px;\r\n    }\r\n    [part="import-preview"] .property .name\r\n    {\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n    }\r\n    [part="import-preview"] .property .value\r\n    {\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        word-break: break-all;\r\n    }\r\n}';
+
+// components/import-manager/import-manager.component.html?raw
+var import_manager_component_default2 = '<fieldset part="import-manager-fieldset">\r\n    <legend part="import-manager-legend">Board Data</legend>\r\n    <p part="import-description">The following Taskboard, Tasklists, and Tasks will be imported with their settings. Make final adjustments and select "Import" to complete the import.</p>\r\n    <record-tree part="import-preview" removed-class parent-name="Board"></record-tree>\r\n</fieldset>';
 
 // node_modules/.pnpm/record-setter@1.0.6/node_modules/record-setter/dist/record-setter.mjs
 var RecordBase = class {
@@ -1819,877 +1780,11 @@ var RecordSetter = class _RecordSetter {
   }
 };
 
-// data/records/task-list.record.ts
-var TaskListColorDisplay = /* @__PURE__ */ ((TaskListColorDisplay2) => {
-  TaskListColorDisplay2["Element"] = "element";
-  TaskListColorDisplay2["BorderColor"] = "border-color";
-  TaskListColorDisplay2["FontColor"] = "font-color";
-  return TaskListColorDisplay2;
-})(TaskListColorDisplay || {});
-var TaskListRecord = class extends DataRecord {
-  boardId = "";
-  taskSettingsId = "";
-  category = "";
-  order = -1;
-  color = "#1C67E8";
-  name = "New List";
-  description = "";
-  colorDisplay = "element" /* Element */;
-  useCustomBackgroundColor = false;
-  backgroundColor = "#f9faf5";
-  useCustomFontColor = false;
-  fontColor = "#060703";
-  useCustomWidth = false;
-  width = 500;
-  isCollapsed = false;
-};
-
-// styles/form-field.css?raw
-var form_field_default = '[part="field-label"]\n{\n    white-space: nowrap;\n}\nform-field [part="label"]\n,form-field [part="field-label"]\n{\n    display: flex;\n    gap: .25em;\n    align-items: center;\n}\nform-field [part="label"] input\n,form-field [part="field-label"] input\n{\n    margin: 0;\n}\nform-field [part="label"] [part="text"]\n,form-field [part="field-label"] [part="text"]\n{\n    flex: 1;\n}\n\nform-field [part="container"]\n{\n    display: grid;\n    grid-template-rows: auto 1fr;\n    gap: .25em;\n}\nform-field [part="container"]:has([slot="postfix"])\n{\n    display: grid;\n    grid-template-columns: 1fr auto;\n    column-gap: 0;\n    row-gap: .25em;\n}\nform-field [part="container"]:has([slot="postfix"]) [part="field-label"]\n{\n    grid-column: span 2;\n}\n\n';
-
-// components/tasklist-fields/tasklist-fields.component.css?raw
-var tasklist_fields_component_default = `:host([removed])
-{
-    opacity: .6;
-    scale: .98 .9;
-    user-select: none;
-}
-
-input,select,textarea
-{
-    font: inherit;
-    min-width: 0;
-    width: auto;
-}
-
-[part="icon-definitions"]
-{
-    display: none;
-}
-
-[part="handle"]
-{
-    display: flex;
-    width: 15px;
-    align-self: stretch;
-    cursor: grab;
-    border-radius: 3px;
-    
-    background-image: radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%),
-    radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%);
-    background-size: 5px 5px;
-    background-position: 0 0, 2px 2px;
-}
-[part="handle"]:active
-{
-    cursor: grabbing;
-}
-
-[part="remove-icon"]
-,[part="duplicate-icon"]
-{
-    width: var(--icon-size, 12px);
-    height: var(--icon-size, 12px);
-}
-
-details summary
-{
-    user-select: none;
-    display: flex;
-    gap: .25em;
-}
-summary:before
-{
-    content: '\u25B6';
-    transform-origin: 45% 50%;
-    transition: transform 100ms ease-out;
-    font-size: .78em;
-    align-self: center;
-    margin-right: .25em;
-}
-details[open] summary:before
-{
-    transform: rotate(90deg);
-}
-
-details [part="detail-content"]
-{
-    display: grid;
-    gap: 1em;
-    padding: 1em;
-}
-
-fieldset
-{
-    display: grid;
-    gap: 1em;
-    min-width: 0;
-    width: auto;
-}
-
-form-field .container
-{
-    display: grid;
-    grid-template-rows: auto 1fr;
-    gap: 7px;
-}
-
-form-field input[type="color"]
-{
-    width: 100%;
-}
-
-[part="color"]
-{
-    width: 3ch;
-}
-
-[part="name"]
-{
-    flex: 1;
-}
-
-[part="list-settings"]
-{
-    grid-template-columns: 1fr minmax(min-content, 18ch);
-}
-
-[part="list-settings"] .column
-{
-    display: grid;
-    gap: .5em;
-}
-
-[part="list-settings"] .column input[type="color"]
-{
-    height: auto;
-}
-
-input[type="text"]
-{
-    min-width: 5ch;
-}
-
-[part="list-width-field"] .container
-{
-    column-gap: .25em !important;
-}
-
-[part="list-width-field"] [slot="postfix"]
-{
-    align-self: flex-end;
-}`;
-
-// components/tasklist-fields/tasklist-fields.component.html?raw
-var tasklist_fields_component_default2 = '<details part="details">\n    <summary part="summary">\n        <div part="handle"></div>\n        <input part="color" type="color" />\n        <input part="name" type="text" />\n        <button part="duplicate-button" type="button">\n            <svg part="duplicate-icon">\n                <use href="#icon-definition_copy"></use>\n            </svg>\n        </button>\n        <button part="remove-button" type="button">\n            <svg part="remove-icon">\n                <use href="#icon-definition_cancel-cross"></use>\n            </svg>\n        </button>\n    </summary>\n    <div part="detail-content">\n        <fieldset part="list-settings">\n            <legend part="list-settings-legend">\n                <span part="list-setting-title">List</span>\n            </legend>\n            <div class="column">\n                <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\n                    <input type="color" name="background-color" part="background-color" value="#f9faf5" />\n                </form-field>\n                <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\n                    <input type="color" name="font-color" part="font-color" value="#060703" />\n                </form-field>\n            </div>\n            <div class="column">\n                <form-field label="Order" part="order-field">\n                    <input type="text" part="order" name="order" inputmode="numeric" disabled />\n                </form-field>\n                <form-field part="list-width-field" label="List Width" optional optional-title="Use a custom list width?">\n                    <input type="text" inputmode="numeric" name="list-width" part="list-width" value="" />\n                    <span part="list-width-unit" slot="postfix">px</span>\n                </form-field>\n                <form-field part="color-display-field" label="Color Display">\n                    <select name="color-display" part="color-display"></select>\n                </form-field>\n            </div>\n        </fieldset>\n        <fieldset part="task-settings">\n            <legend part="task-settings-legend">\n                <span part="task-setting-title">List Tasks</span>\n            </legend>\n            <task-fields part="task-fields"></task-fields>\n        </fieldset>\n    </div>\n</details>';
-
-// components/tasklist-fields/tasklist-fields.component.ts
-var COMPONENT_STYLESHEET = new CSSStyleSheet();
-COMPONENT_STYLESHEET.replaceSync(`${form_field_default}
-${tasklist_fields_component_default}
-`);
-var COMPONENT_TEMPLATE = `${tasklist_fields_component_default2}
-<div part="icon-definitions">
-    ${Icons.CancelCross}
-    ${Icons.Copy}
-</div>`;
-var COMPONENT_TAG_NAME = "tasklist-fields";
-var TaskListFieldsComponent = class extends HTMLElement {
-  componentParts = /* @__PURE__ */ new Map();
-  getPart(key) {
-    if (this.componentParts.get(key) == null) {
-      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
-      if (part != null) {
-        this.componentParts.set(key, part);
-      }
-    }
-    return this.componentParts.get(key);
-  }
-  findPart(key) {
-    return this.shadowRoot.querySelector(`[part="${key}"]`);
-  }
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
-    const options = [];
-    for (const [key, value] of Object.entries(TaskListColorDisplay)) {
-      const option = document.createElement("option");
-      option.value = value;
-      option.textContent = key.replace(/([A-Z])/g, " $1").trim();
-      options.push(option);
-    }
-    this.findPart("color-display").append(...options);
-    this.findPart("remove-button").addEventListener("click", () => {
-      this.toggleAttribute("removed");
-    });
-    this.findPart("duplicate-button").addEventListener("click", () => {
-      this.dispatchEvent(new Event("duplicate"));
-    });
-    this.findPart("name").addEventListener("keyup", (event) => {
-      if (event.code == "Space") {
-        event.preventDefault();
-      }
-    });
-  }
-  setValues(taskList, taskSettings) {
-    this.setAttribute("record-id", taskList.id);
-    this.findPart("color").value = taskList.color;
-    this.findPart("name").value = taskList.name;
-    this.findPart("order").value = taskList.order.toString();
-    this.findPart("background-color-field").setAttribute("optional-value", taskList.useCustomBackgroundColor == true ? "true" : "false");
-    this.findPart("background-color").value = taskList.backgroundColor;
-    this.findPart("font-color-field").setAttribute("optional-value", taskList.useCustomFontColor == true ? "true" : "false");
-    this.findPart("font-color").value = taskList.fontColor;
-    this.findPart("list-width-field").setAttribute("optional-value", taskList.useCustomWidth == true ? "true" : "false");
-    this.findPart("list-width").value = taskList.width.toString();
-    this.findPart("color-display").value = taskList.colorDisplay;
-    this.findPart("task-fields").setValues(taskSettings);
-  }
-  getRecords() {
-    const taskList = new TaskListRecord();
-    taskList.id = this.getAttribute("record-id");
-    taskList.color = this.findPart("color").value;
-    taskList.name = this.findPart("name").value;
-    taskList.useCustomBackgroundColor = this.findPart("background-color-field").getAttribute("optional-value") == "true";
-    taskList.backgroundColor = this.findPart("background-color").value;
-    taskList.useCustomFontColor = this.findPart("font-color-field").getAttribute("optional-value") == "true";
-    taskList.fontColor = this.findPart("font-color").value;
-    taskList.useCustomWidth = this.findPart("list-width-field").getAttribute("optional-value") == "true";
-    taskList.width = parseFloat(this.findPart("list-width").value);
-    taskList.colorDisplay = this.findPart("color-display").value;
-    const taskSettings = this.findPart("task-fields").getRecord();
-    taskSettings.parentRecordType = "list";
-    taskList.taskSettingsId = this.findPart("task-fields").getAttribute("record-id");
-    const result = [taskList, taskSettings];
-    return result;
-  }
-};
-if (customElements.get(COMPONENT_TAG_NAME) == null) {
-  customElements.define(COMPONENT_TAG_NAME, TaskListFieldsComponent);
-}
-
-// data/records/task-settings.record.ts
-var TaskColorDisplay = /* @__PURE__ */ ((TaskColorDisplay2) => {
-  TaskColorDisplay2["Hidden"] = "hidden";
-  TaskColorDisplay2["Element"] = "element";
-  TaskColorDisplay2["Borders"] = "border";
-  TaskColorDisplay2["TopBorder"] = "top-border";
-  TaskColorDisplay2["RightBorder"] = "right-border";
-  TaskColorDisplay2["BottomBorder"] = "bottom-border";
-  TaskColorDisplay2["LeftBorder"] = "left-border";
-  TaskColorDisplay2["Background"] = "background";
-  return TaskColorDisplay2;
-})(TaskColorDisplay || {});
-var TaskSettingsRecord = class extends DataRecord {
-  parentRecordType = "board";
-  centerCheckbox = true;
-  colorDisplay = "element" /* Element */;
-  useCustomBackgroundColor = false;
-  customBackgroundColor = "#f9faf5";
-  useCustomFontSize = false;
-  customFontSize = 12;
-  useCustomFontColor = false;
-  customFontColor = "#060703";
-  useCustomWidth = false;
-  customWidth = 300;
-  useCustomBorderWidth_top = false;
-  borderWidth_top = 1;
-  useCustomBorderWidth_right = false;
-  borderWidth_right = 1;
-  useCustomBorderWidth_bottom = false;
-  borderWidth_bottom = 1;
-  useCustomBorderWidth_left = false;
-  borderWidth_left = 1;
-  useCustomBorderRadius = false;
-  borderRadiusValue = 3;
-  borderRadiusUnit = "px";
-  useCustomBorderColor = false;
-  customBorderColor = "#0657A3";
-  centerRemoveButton = false;
-};
-
-// components/task-fields/task-fields.component.css?raw
-var task_fields_component_default = ':host\n{\n    display: grid;\n    grid-template-columns: auto minmax(160px, 1fr) auto;\n}\n\nfieldset\n{\n    display: grid;\n    gap: 1em;\n    min-width: 0;\n    width: auto;\n}\ninput,select,textarea\n{\n    font: inherit;\n    min-width: 0;\n    width: auto;\n}\n\ninput[type="color"]\n{\n    width: 100%;\n}\ninput[type="text"][inputmode="numeric"]\n{\n    width: 5ch;\n}\n\nform-field .container\n{\n}\nform-field .field-label\n{\n    display: flex;\n    gap: 5px;\n    margin-bottom: 7px;\n}\n\n[part="appearance-fields"]\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n[part="appearance-fields"] .container > input\n{\n    flex: 1;\n    min-height: 2ch;\n}\n\n[part="border-radius-field"] .option\n{\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 5px;\n}\n\n[part="border-weights-fields"]\n{\n    display: grid;\n    grid-template-columns: 1fr auto;\n    grid-template-rows: min-content min-content;\n}\n\n[part="font-size-field"] .container\n,[part="card-width-field"] .container\n,[part="border-weights-fields"] .container\n{\n    align-items: flex-start;\n    column-gap: .25em !important;\n}\n\n[part="font-size-field"] [slot="postfix"]\n,[part="card-width-field"] .container\n,[part="card-width-field"] [slot="postfix"]\n,[part="card-width-field"] input[type="text"]\n,[part="border-weights-fields"] [slot="postfix"]\n{\n    align-self: flex-end;\n}\n\n[part="center-checkbox-field"] input\n,[part="center-remove-button-field"] input\n{\n    justify-self: flex-start;\n    margin: 0;\n}';
-
-// components/task-fields/task-fields.component.html?raw
-var task_fields_component_default2 = '<input type="hidden" name="record-id" part="record-id" />\n<fieldset part="appearance-fields">\n    <legend part="appearance-legend">Appearance</legend>\n\n    <form-field part="font-size-field" label="Font Size" optional optional-title="Override Font Size?">\n        <input type="text" inputmode="numeric" name="font-size" part="font-size" />\n        <span part="font-size-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\n        <input type="color" name="background-color" part="background-color" value="#f9faf5" />\n    </form-field>\n    <form-field part="border-radius-field" label="Border Radius" optional optional-title="Override Border Radius?">\n        <input type="text" inputmode="numeric" name="border-radius" part="border-radius" />\n        <select part="border-radius-unit" slot="postfix">\n            <option value="px">px</option>\n            <option value="%">%</option>\n        </select>\n    </form-field>\n    <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\n        <input type="color" name="font-color" part="font-color" value="#060703" />\n    </form-field>\n    <form-field part="color-display-field" label="Color Display">\n        <select name="color-display" part="color-display"></select>\n    </form-field>\n    <form-field part="border-color-field" label="Border Color" optional optional-title="Override Border Color?">\n        <input type="color" name="border-color" part="border-color" value="#060703" />\n    </form-field>\n</fieldset>  \n\n<fieldset part="layout-fields">\n    <legend part="layout-legend">Layout</legend>\n    <form-field part="center-checkbox-field" label="Center Checkbox">\n        <input type="checkbox" name="center-checkbox" part="center-checkbox" title="Center the checkbox?" />\n    </form-field>\n    <form-field part="center-remove-button-field" label="Center Remove Button">\n        <input type="checkbox" name="center-remove-button" part="center-remove-button" title="Center the remove button?" />\n    </form-field>\n    <form-field part="card-width-field" label="Card Width" optional option-title="Override Task Card Width?">\n        <input type="text" inputmode="numeric" name="card-width" part="card-width" value="" />\n        <span part="card-width-unit" slot="postfix">px</span>\n    </form-field>\n</fieldset>      \n\n<fieldset part="border-weights-fields">\n    <legend part="border-weights-legend">Border Weights</legend>\n    <form-field part="border-top-field" label="Top" optional optional-title="Use a custom top border size?">\n        <input type="text" inputmode="numeric" name="border-top" part="border-top" />\n        <span part="border-top-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field part="border-right-field" label="Right" optional optional-title="Use a custom right border size?">\n        <input type="text" inputmode="numeric" name="border-right" part="border-right" />\n        <span part="border-right-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field part="border-bottom-field" label="Bottom" optional optional-title="Use a custom bottom border size?">\n        <input type="text" inputmode="numeric" name="border-bottom" part="border-bottom" />\n        <span part="border-bottom-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field part="border-left-field" label="Left" optional optional-title="Use a custom left border size?">\n        <input type="text" inputmode="numeric" name="border-left" part="border-left" />\n        <span part="border-left-unit" slot="postfix">px</span>\n    </form-field>\n</fieldset>';
-
-// components/task-fields/task-fields.component.ts
-var COMPONENT_STYLESHEET2 = new CSSStyleSheet();
-COMPONENT_STYLESHEET2.replaceSync(`${form_field_default}
-${task_fields_component_default}
-`);
-var COMPONENT_TAG_NAME2 = "task-fields";
-var TaskFieldsComponent = class extends HTMLElement {
-  componentParts = /* @__PURE__ */ new Map();
-  getPart(key) {
-    if (this.componentParts.get(key) == null) {
-      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
-      if (part != null) {
-        this.componentParts.set(key, part);
-      }
-    }
-    return this.componentParts.get(key);
-  }
-  findPart(key) {
-    return this.shadowRoot.querySelector(`[part="${key}"]`);
-  }
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = task_fields_component_default2;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET2);
-    const options = [];
-    for (const [key, value] of Object.entries(TaskColorDisplay)) {
-      const option = document.createElement("option");
-      option.value = value;
-      option.textContent = key.replace(/([A-Z])/g, " $1").trim();
-      options.push(option);
-    }
-    this.findPart("color-display").append(...options);
-  }
-  setValues(settings) {
-    this.setAttribute("record-id", settings.id);
-    this.findPart("background-color-field").setAttribute("optional-value", settings.useCustomBackgroundColor == true ? "true" : "false");
-    this.findPart("background-color").value = settings.customBackgroundColor;
-    this.findPart("font-color-field").setAttribute("optional-value", settings.useCustomFontColor == true ? "true" : "false");
-    this.findPart("font-color").value = settings.customFontColor;
-    this.findPart("font-size-field").setAttribute("optional-value", settings.useCustomFontSize == true ? "true" : "false");
-    this.findPart("font-size").value = settings.customFontSize.toString();
-    this.findPart("border-color-field").setAttribute("optional-value", settings.useCustomBorderColor == true ? "true" : "false");
-    this.findPart("border-color").value = settings.customBorderColor;
-    this.findPart("border-radius-field").setAttribute("optional-value", settings.useCustomBorderRadius == true ? "true" : "false");
-    this.findPart("border-radius").value = settings.borderRadiusValue.toString();
-    this.findPart("border-radius-unit").value = settings.borderRadiusUnit;
-    this.findPart("color-display").value = settings.colorDisplay;
-    this.findPart("center-checkbox").checked = settings.centerCheckbox;
-    this.findPart("center-remove-button").checked = settings.centerRemoveButton;
-    this.findPart("card-width-field").setAttribute("optional-value", settings.useCustomWidth == true ? "true" : "false");
-    this.findPart("card-width").value = settings.customWidth.toString();
-    this.findPart("border-top-field").setAttribute("optional-value", settings.useCustomBorderWidth_top == true ? "true" : "false");
-    this.findPart("border-top").value = settings.borderWidth_top.toString();
-    this.findPart("border-right-field").setAttribute("optional-value", settings.useCustomBorderWidth_right == true ? "true" : "false");
-    this.findPart("border-right").value = settings.borderWidth_right.toString();
-    this.findPart("border-bottom-field").setAttribute("optional-value", settings.useCustomBorderWidth_bottom == true ? "true" : "false");
-    this.findPart("border-bottom").value = settings.borderWidth_bottom.toString();
-    this.findPart("border-left-field").setAttribute("optional-value", settings.useCustomBorderWidth_left == true ? "true" : "false");
-    this.findPart("border-left").value = settings.borderWidth_left.toString();
-  }
-  getRecord() {
-    const settings = new TaskSettingsRecord();
-    settings.id = this.getAttribute("record-id");
-    settings.useCustomBackgroundColor = this.findPart("background-color-field").getAttribute("optional-value") == "true";
-    settings.customBackgroundColor = this.findPart("background-color").value;
-    settings.useCustomFontColor = this.findPart("font-color-field").getAttribute("optional-value") == "true";
-    settings.customFontColor = this.findPart("font-color").value;
-    settings.useCustomFontSize = this.findPart("font-size-field").getAttribute("optional-value") == "true";
-    settings.customFontSize = parseFloat(this.findPart("font-size").value);
-    settings.useCustomBorderColor = this.findPart("border-color-field").getAttribute("optional-value") == "true";
-    settings.customBorderColor = this.findPart("border-color").value;
-    settings.useCustomBorderRadius = this.findPart("border-radius-field").getAttribute("optional-value") == "true";
-    settings.borderRadiusValue = parseFloat(this.findPart("border-radius").value);
-    settings.borderRadiusUnit = this.findPart("border-radius-unit").value;
-    settings.colorDisplay = this.findPart("color-display").value;
-    settings.centerCheckbox = this.findPart("center-checkbox").checked;
-    settings.centerRemoveButton = this.findPart("center-remove-button").checked;
-    settings.useCustomWidth = this.findPart("card-width-field").getAttribute("optional-value") == "true";
-    settings.customWidth = parseFloat(this.findPart("card-width").value);
-    settings.useCustomBorderWidth_top = this.findPart("border-top-field").getAttribute("optional-value") == "true";
-    settings.borderWidth_top = parseFloat(this.findPart("border-top").value);
-    settings.useCustomBorderWidth_right = this.findPart("border-right-field").getAttribute("optional-value") == "true";
-    settings.borderWidth_right = parseFloat(this.findPart("border-right").value);
-    settings.useCustomBorderWidth_bottom = this.findPart("border-bottom-field").getAttribute("optional-value") == "true";
-    settings.borderWidth_bottom = parseFloat(this.findPart("border-bottom").value);
-    settings.useCustomBorderWidth_left = this.findPart("border-left-field").getAttribute("optional-value") == "true";
-    settings.borderWidth_left = parseFloat(this.findPart("border-left").value);
-    return settings;
-  }
-};
-if (customElements.get(COMPONENT_TAG_NAME2) == null) {
-  customElements.define(COMPONENT_TAG_NAME2, TaskFieldsComponent);
-}
-
-// components/taskboard-fields/taskboard-fields.component.css?raw
-var taskboard_fields_component_default = `:host
-{
-    display: grid;
-    gap: 1em;
-    padding: 1em;
-}
-input,select,textarea
-{
-    font: inherit;
-    min-width: 0;
-    width: auto;
-}
-
-details summary
-{
-    user-select: none;
-    display: inline-flex;
-    gap: .25em;
-    margin-bottom: 1em;
-}
-summary:before
-{
-    content: '\u25B6';
-    transform-origin: 45% 50%;
-    transition: transform 100ms ease-out;
-    font-size: .78em;
-    align-self: center;
-    margin-right: .25em;
-}
-details[open] summary:before
-{
-    transform: rotate(90deg);
-}
-
-form-field:not([part^="background-image-offset"]) input[inputmode="numeric"]
-{
-    width: 5ch;
-}
-
-form-field:not([part^="background-image-offset"]) .container
-{
-    display: flex;
-    flex-direction: column;
-    gap: .25em;
-}
-
-fieldset
-{
-    display: grid;
-    gap: 1em;
-    min-width: 0;
-    width: auto;
-}
-
-fieldset legend
-{
-    display: flex;
-    gap: .25em;
-    align-items: center;
-}
-
-form-field .label
-,form-field .field-label
-{
-    display: flex;
-    gap: .25em;
-    align-items: center;
-}
-form-field .label input
-,form-field .field-label input
-{
-    margin: 0;
-}
-form-field .label [part="text"]
-,form-field .field-label [part="text"]
-{
-    flex: 1;
-}
-
-fileimage-input::part(label)
-{
-    grid-column: span 2;
-    grid-row: 1;
-}
-
-fileimage-input::part(field)
-{
-    display: grid;
-    align-items: center;
-    justify-items: center;
-}
-
-fileimage-input::part(preview)
-{
-    max-height: 64px;
-    height: 100%;
-}
-
-fileimage-input::part(clear)
-{
-    grid-row: 2;
-    grid-column: 2;
-}
-
-fileimage-input::part(view-link)
-{
-    grid-row: 2;
-    grid-column: 1;
-}
-
-
-[part="properties"]
-{
-    display: flex;
-    align-items: center;
-    gap: 1em;
-    grid-column: span 2;
-}
-
-[part="name-field"] .container
-{
-    flex: 1;
-}
-
-[part="appearance-fieldset"] .container > input
-{
-    flex: 1;
-    min-height: 2ch;
-}
-
-[part="background-image-offset"]
-{
-    display: grid;
-    gap: .5em;
-}
-
-[part="offset-header"]
-{
-    grid-column: span 2;
-}
-
-[part="background-image-offset"] form-field .container
-{
-    display: flex;
-    gap: .5em;
-    align-items: center;
-}
-
-[part="background-image-offset"] input
-{
-    flex: 1;
-    width: 0;
-    min-width: 5ch;
-    /* max-width: 10ch; */
-}
-
-[part="lists"]
-{
-    grid-column: span 2;
-}
-
-[part="list-items"]
-{
-    gap: 1em;
-    display: grid;
-}
-
-[part="list-actions"]
-{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: .5em;
-    padding: .5em 0;
-}
-
-[part="tasks"]
-{
-    grid-column: span 2;
-}
-
-
-[part="delete-fieldset"]
-{
-    grid-template-rows: 1fr auto;
-}
-
-[part="duplicate-fieldset"]
-{
-    grid-column: 2;
-}
-
-[part="export-fieldset"]
-{
-    grid-column: span 2;
-    padding: 1em;
-    display: block;
-}
-
-[part="export-actions"]
-{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: .5em;
-    padding: .5em 0;
-}
-
-[part="export-fieldset"] form-field .container
-{
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    justify-content: flex-end;
-    gap: .25em;
-}
-
-[part="export-options"]
-{
-    display: inline-block;
-}
-
-[part="export-options"] > header
-{
-    margin-bottom: 1em;
-    border-bottom: solid 2px;
-}
-
-[part="export-fieldset"] button
-{
-    margin-left: auto;
-    display: block;
-}
-
-svg
-{
-    width: 18px;
-    height: 18px;
-}
-button svg
-{
-    width: 12px;
-    height: 12px;
-}
-
-[part="list-items"]::part(add-button)
-{
-    display: none;
-}
-
-[part="icon-definitions"]
-{
-    display: none;
-}`;
-
-// components/taskboard-fields/taskboard-fields.component.html?raw
-var taskboard_fields_component_default2 = '\n<input type="hidden" name="record-id" part="record-id" />\n<div part="properties">\n    <form-field label="Color" part="color-field">\n        <input type="color" part="color" name="color" value="#000000" />\n    </form-field>\n    <form-field label="Name" part="name-field">\n        <input type="text" part="name" name="name" value="New Board" />\n    </form-field>\n    <form-field label="Order" part="order-field">\n        <input type="text" part="order" name="order" inputmode="numeric" disabled />\n    </form-field>\n</div>\n<fieldset part="appearance-fieldset">\n    <legend>\n        <svg part="image-icon" >\n            <use href="#icon-definition_color"></use>\n        </svg>\n        <span part="appearance-label">Appearance</span>\n    </legend>\n    <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\n        <input type="color" name="background-color" part="background-color" value="#f9faf5" />\n    </form-field>\n    <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\n        <input type="color" name="font-color" part="font-color" value="#060703" />\n    </form-field>\n</fieldset>\n<fieldset part="image-fieldset">\n    <legend>\n        <svg part="image-icon" >\n            <use href="#icon-definition_image"></use>\n        </svg>\n        <span part="image-label">Background Image</span>\n    </legend>\n    <form-field part="background-image-field" label="Background Image" input-selector="fileimage-input">\n        <fileimage-input name="background-image" part="background-image" placeholder="Select an image...">\n            <svg part="image-icon" slot="placeholder-icon">\n                <use href="#icon-definition_image"></use>\n            </svg>\n        </fileimage-input>\n    </form-field>\n    <form-field part="background-image-display-field" label="Display">\n        <select part="background-image-display" name="background-image-display">\n            <option value="stretch">Stretch</option>\n            <option value="center">Center</option>\n            <option value="tile">Tile</option>\n        </select>\n    </form-field>\n    <div part="background-image-offset">\n        <div part="offset-header">\n            <span part="offset-label">Offset</span>\n        </div>\n        <form-field part="background-image-offset-x-field" label="X">\n            <input type="text" inputmode="numeric" part="background-image-offset-x" name="background-image-offset-x" />\n        </form-field>\n        <form-field part="background-image-offset-y-field" label="Y">\n            <input type="text" inputmode="numeric" part="background-image-offset-y" name="background-image-offset-y" />\n        </form-field>\n    </div>\n</fieldset>\n<details open part="lists">\n    <summary part="lists-summary">\n        <svg part="lists-icon" >\n            <use href="#icon-definition_task-list"></use>\n        </svg>\n        <span part="lists-legend-label">Lists<span>\n    </summary>\n    <div part="list-items"><slot><em part="lists-placeholder">No Lists</em></slot></div>\n    <div part="list-actions">\n        <button type="button" part="clear-lists-button" title="Clear All Lists">\n            <svg part="clear-lists-button-icon" >\n                <use href="#icon-definition_trash"></use>\n            </svg>\n            <span part="clear-board-lists-label">Clear</span>\n        </button>\n        <button type="button" part="add-list-button">\n            <svg part="add-list-button-icon" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span part="add-list-label">Add List</span>\n        </button>\n    </div>\n</details>\n<details part="tasks" open>\n    <summary part="tasks-summary">\n        <svg part="tasks-icon" >\n            <use href="#icon-definition_task"></use>\n        </svg>\n        <span part="tasks-label">Task Settings</span>\n    </summary>\n    <task-fields part="task-fields"></task-fields>\n</details>\n<fieldset part="delete-fieldset">\n    <legend part="delete-legend">Delete</legend>\n    <p>Delete this board?</p>\n    <button type="submit" part="remove-board-button">\n        <svg part="remove-board-icon" >\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span part="remove-board-label">Delete</span>\n    </button>\n</fieldset>\n<fieldset part="duplicate-fieldset">\n    <legend part="duplicate-legend">Duplicate</legend>\n    <p>Duplicate this board?</p>\n    <form-field label="New Board Name">\n        <input type="text" part="duplicate-board-new-name" />\n    </form-field>\n    <button type="button" part="duplicate-board-button">\n        <svg part="duplicate-board-icon" >\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span part="duplicate-board-label">Duplicate</span>\n    </button>\n</fieldset>\n<fieldset part="export-fieldset">\n    <legend part="export-legend">Export</legend>\n    <div part="export-options">\n        <header>Options</header>\n        <form-field part="export-images-field" label="Export Background Image?">\n            <svg part="export-images-icon" slot="prefix">\n                <use href="#icon-definition_image"></use>\n            </svg>\n            <input type="checkbox" part="export-background-image" checked="true">\n        </form-field>\n    </div>\n    <button part="export-button" type="button">\n        <svg part="export-button-icon" >\n            <use href="#icon-definition_export"></use>\n        </svg>\n        <span part="export-button-label">Export Board</span>\n    </button>\n</fieldset>';
-
-// data/records/task-board.record.ts
-var TaskBoardRecord = class extends DataRecord {
-  name = "New Board";
-  color = "#531CE8";
-  order = -1;
-  backgroundImageId = "";
-  backgroundDisplay = "stretch" /* Stretch */;
-  backgroundOffsetX = 0;
-  backgroundOffsetY = 0;
-  useCustomBackgroundColor = false;
-  backgroundColor = "#f9faf5";
-  useCustomFontColor = false;
-  fontColor = "#060703";
-  taskSettingsId = "";
-};
-
-// components/taskboard-fields/taskboard-fields.component.ts
-var COMPONENT_STYLESHEET3 = new CSSStyleSheet();
-COMPONENT_STYLESHEET3.replaceSync(taskboard_fields_component_default);
-var COMPONENT_TEMPLATE2 = `${taskboard_fields_component_default2}
-<div part="icon-definitions">
-    ${Icons.Gear}
-    ${Icons.Export}
-    ${Icons.PlusIcon}
-    ${Icons.Image}
-    ${Icons.Color}
-    ${Icons.Task}
-    ${Icons.TaskList}
-    ${Icons.TaskBoard}
-    ${Icons.Trash}
-</div>`;
-var COMPONENT_TAG_NAME3 = "taskboard-fields";
-var TaskBoardFieldsComponent = class extends HTMLElement {
-  componentParts = /* @__PURE__ */ new Map();
-  getPart(key) {
-    if (this.componentParts.get(key) == null) {
-      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
-      if (part != null) {
-        this.componentParts.set(key, part);
-      }
-    }
-    return this.componentParts.get(key);
-  }
-  findPart(key) {
-    return this.shadowRoot.querySelector(`[part="${key}"]`);
-  }
-  #draggingList = null;
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE2;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET3);
-    this.findPart("clear-lists-button").addEventListener("click", () => {
-      this.querySelectorAll("tasklist-fields").forEach((item) => item.toggleAttribute("removed", true));
-    });
-    const listItems = this.findPart("list-items");
-    this.addEventListener("dragover", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      if (this.#draggingList == null || this.#draggingList.tagName.toLowerCase() != "tasklist-fields") {
-        return;
-      }
-      const nextElement = this.getNextListItem(event.clientY).listElement;
-      if (this.#draggingList.parentElement == this && nextElement == this.#draggingList.nextElementSibling) {
-        return;
-      }
-      if (nextElement == null) {
-        this.append(this.#draggingList);
-      } else {
-        this.insertBefore(this.#draggingList, nextElement);
-      }
-    });
-  }
-  setValues(board, taskSettings, backgroundImage = null) {
-    this.setAttribute("record-id", board.id);
-    this.findPart("color").value = board.color;
-    this.findPart("name").value = board.name;
-    this.findPart("order").value = board.order.toString();
-    this.findPart("background-color-field").setAttribute("optional-value", board.useCustomBackgroundColor == true ? "true" : "false");
-    this.findPart("background-color").value = board.backgroundColor;
-    this.findPart("font-color-field").setAttribute("optional-value", board.useCustomFontColor == true ? "true" : "false");
-    this.findPart("font-color").value = board.fontColor;
-    this.findPart("background-image-display").value = board.backgroundDisplay;
-    this.findPart("background-image-offset-x").value = board.backgroundOffsetX.toString();
-    this.findPart("background-image-offset-y").value = board.backgroundOffsetY.toString();
-    this.findPart("background-image-offset-y").value = board.backgroundOffsetY.toString();
-    if (backgroundImage != null) {
-      this.findPart("background-image").value = backgroundImage.image;
-    } else {
-      this.findPart("background-image").value = null;
-    }
-    this.findPart("task-fields").setValues(taskSettings);
-  }
-  setLists(taskLists, taskLists_TaskSettings) {
-    this.innerHTML = "";
-    if (taskLists.length == 0) {
-      return;
-    }
-    const listElements = [];
-    for (let i = 0; i < taskLists.length; i++) {
-      const taskList = taskLists[i];
-      if (taskList.deletedTimestamp != void 0) {
-        continue;
-      }
-      const taskSettings = taskLists_TaskSettings.find((item) => item.id == taskList.taskSettingsId);
-      if (taskSettings == null) {
-        throw new Error("Unable to load list settings");
-      }
-      const taskListElement = this.createList(taskList, taskSettings);
-      listElements.push(taskListElement);
-    }
-    this.append(...listElements);
-  }
-  addList(taskList, taskSettings) {
-    const list = this.createList(taskList, taskSettings);
-    this.append(list);
-  }
-  insertList(afterTarget, taskList, taskSettings) {
-    const list = this.createList(taskList, taskSettings);
-    if (afterTarget.nextElementSibling == null) {
-      this.append(list);
-    } else {
-      this.insertBefore(list, afterTarget.nextElementSibling);
-    }
-  }
-  createList(taskList, taskSettings) {
-    const taskListElement = new TaskListFieldsComponent();
-    if (taskSettings == null) {
-      throw new Error("Unable to load list settings");
-    }
-    taskListElement.setValues(taskList, taskSettings);
-    taskListElement.addEventListener("duplicate", (event) => {
-      const [list, settings] = taskListElement.getRecords();
-      this.dispatchEvent(new CustomEvent("duplicate", { detail: { target: taskListElement, list, settings } }));
-    });
-    const handle = taskListElement.findPart("handle");
-    handle.addEventListener("mousedown", (_event) => {
-      taskListElement.draggable = true;
-    });
-    handle.addEventListener("mouseup", (_event) => {
-      taskListElement.removeAttribute("draggable");
-    });
-    taskListElement.addEventListener("dragstart", (_event) => {
-      this.#draggingList = taskListElement;
-      taskListElement.classList.add("dragging");
-      this.classList.add("drop-target");
-    });
-    taskListElement.addEventListener("dragend", (_event) => {
-      taskListElement.classList.remove("dragging");
-      this.#draggingList = null;
-      this.classList.remove("drop-target");
-    });
-    return taskListElement;
-  }
-  getRecords() {
-    const board = new TaskBoardRecord();
-    board.id = this.getAttribute("record-id");
-    board.color = this.findPart("color").value;
-    board.name = this.findPart("name").value;
-    board.useCustomBackgroundColor = this.findPart("background-color-field").getAttribute("optional-value") == "true";
-    board.backgroundColor = this.findPart("background-color").value;
-    board.useCustomFontColor = this.findPart("font-color-field").getAttribute("optional-value") == "true";
-    board.fontColor = this.findPart("font-color").value;
-    board.backgroundDisplay = this.findPart("background-image-display").value;
-    board.backgroundOffsetX = parseInt(this.findPart("background-image-offset-x").value);
-    board.backgroundOffsetY = parseInt(this.findPart("background-image-offset-y").value);
-    const boardTaskSettings = this.findPart("task-fields").getRecord();
-    boardTaskSettings.parentRecordType = "board";
-    board.taskSettingsId = this.findPart("task-fields").getAttribute("record-id");
-    const listFields = [...this.querySelectorAll("tasklist-fields")];
-    const lists = [];
-    const toRemove = [];
-    const taskSettings = [boardTaskSettings];
-    for (let i = 0; i < listFields.length; i++) {
-      const element = listFields[i];
-      if (element.hasAttribute("removed")) {
-        const recordId = element.getAttribute("record-id");
-        if (recordId == null) {
-          console.error("Unable to remove TaskList: record id attribute is unset.");
-          continue;
-        }
-        toRemove.push(recordId);
-        continue;
-      }
-      const [list, taskSettingsRecord] = element.getRecords();
-      list.boardId = board.id;
-      list.order = i;
-      lists.push(list);
-      taskSettings.push(taskSettingsRecord);
-    }
-    const records = [board, lists, taskSettings, toRemove];
-    return records;
-  }
-  getNextListItem(mouseY) {
-    const lists = [...this.querySelectorAll("tasklist-fields:not(.dragging)")];
-    return lists.reduce((closest, item) => {
-      const boundingRect = item.getBoundingClientRect();
-      const offset = mouseY - boundingRect.top - boundingRect.height / 2;
-      if (offset < 0 && offset > closest.offset) {
-        return { offset, listElement: item };
-      }
-      return closest;
-    }, { offset: Number.NEGATIVE_INFINITY });
-  }
-};
-if (customElements.get(COMPONENT_TAG_NAME3) == null) {
-  customElements.define(COMPONENT_TAG_NAME3, TaskBoardFieldsComponent);
-}
-
-// components/import-manager/import-manager.component.css?raw
-var import_manager_component_default = 'import-manager .value\n{\n    display: flex;\n    align-items: center;\n}\n\nimport-manager .old\n{\n    text-decoration: line-through;\n    opacity: .8;\n    padding-inline: .5em;\n    display: inline-block;\n    width: 100px;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    overflow: hidden;\n}\n\nimport-manager .value\n{\n    max-width: 500px;\n    overflow: hidden;\n    word-break: break-word;\n}\nimport-manager .value:has(.display)\n{\n    display: flex;\n    flex-direction: column;\n}\nimport-manager .value .view-link\n{\n    align-self: flex-end;\n}\n\nimport-manager .removed\n{\n    text-decoration: line-through;\n}\n\nimport-manager .value img.preview\n{\n    max-height: 200px;\n}\n\n[part="import-manager-fieldset"]\n{\n    overflow: hidden;\n    flex: 1;\n    display: flex;\n    flex-direction: column;\n}\n\n[part="import-preview"]\n{\n    overflow: auto;\n}\n@media (max-width: 665px) \n{\n    [part="import-preview"]\n    {\n        --indent: 5px;\n        --property-name-width: 75px;\n    }\n    [part="import-preview"] .property .name\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n    }\n    [part="import-preview"] .property .value\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n        word-break: break-all;\n    }\n}';
-
-// components/import-manager/import-manager.component.html?raw
-var import_manager_component_default2 = '<fieldset part="import-manager-fieldset">\n    <legend part="import-manager-legend">Board Data</legend>\n    <p part="import-description">The following Taskboard, Tasklists, and Tasks will be imported with their settings. Make final adjustments and select "Import" to complete the import.</p>\n    <record-tree part="import-preview" removed-class parent-name="Board"></record-tree>\n</fieldset>';
-
 // components/import-manager/import-manager.component.ts
 var ID_PROPERTIES = /* @__PURE__ */ new Set(["id", "listId", "taskSettingsId", "backgroundImageId", "boardId"]);
-var COMPONENT_STYLESHEET4 = new CSSStyleSheet();
-COMPONENT_STYLESHEET4.replaceSync(import_manager_component_default);
-var COMPONENT_TAG_NAME4 = "import-manager";
+var COMPONENT_STYLESHEET = new CSSStyleSheet();
+COMPONENT_STYLESHEET.replaceSync(import_manager_component_default);
+var COMPONENT_TAG_NAME = "import-manager";
 var ImportManagerComponent = class extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
   getPart(key) {
@@ -2709,7 +1804,7 @@ var ImportManagerComponent = class extends HTMLElement {
     super();
     this.innerHTML = import_manager_component_default2;
     let parent = this.getRootNode();
-    parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET4);
+    parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
     this.findPart("import-preview").addCustomPropertyValueGenerator((title) => {
       return ID_PROPERTIES.has(title);
     }, (_title, value) => {
@@ -2825,265 +1920,575 @@ var ImportManagerComponent = class extends HTMLElement {
     return data;
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME4) == null) {
-  customElements.define(COMPONENT_TAG_NAME4, ImportManagerComponent);
+if (customElements.get(COMPONENT_TAG_NAME) == null) {
+  customElements.define(COMPONENT_TAG_NAME, ImportManagerComponent);
+}
+
+// data/records/task-settings.record.ts
+var TaskColorDisplay = /* @__PURE__ */ ((TaskColorDisplay2) => {
+  TaskColorDisplay2["Hidden"] = "hidden";
+  TaskColorDisplay2["Element"] = "element";
+  TaskColorDisplay2["Borders"] = "border";
+  TaskColorDisplay2["TopBorder"] = "top-border";
+  TaskColorDisplay2["RightBorder"] = "right-border";
+  TaskColorDisplay2["BottomBorder"] = "bottom-border";
+  TaskColorDisplay2["LeftBorder"] = "left-border";
+  TaskColorDisplay2["Background"] = "background";
+  return TaskColorDisplay2;
+})(TaskColorDisplay || {});
+var TaskSettingsRecord = class extends DataRecord {
+  parentRecordType = "board";
+  centerCheckbox = true;
+  colorDisplay = "element" /* Element */;
+  useCustomBackgroundColor = false;
+  customBackgroundColor = "#f9faf5";
+  useCustomFontSize = false;
+  customFontSize = 12;
+  useCustomFontColor = false;
+  customFontColor = "#060703";
+  useCustomWidth = false;
+  customWidth = 300;
+  useCustomBorderWidth_top = false;
+  borderWidth_top = 1;
+  useCustomBorderWidth_right = false;
+  borderWidth_right = 1;
+  useCustomBorderWidth_bottom = false;
+  borderWidth_bottom = 1;
+  useCustomBorderWidth_left = false;
+  borderWidth_left = 1;
+  useCustomBorderRadius = false;
+  borderRadiusValue = 3;
+  borderRadiusUnit = "px";
+  useCustomBorderColor = false;
+  customBorderColor = "#0657A3";
+  centerRemoveButton = false;
+};
+
+// styles/form-field.css?raw
+var form_field_default = '[part="field-label"]\r\n{\r\n    white-space: nowrap;\r\n}\r\nform-field [part="label"]\r\n,form-field [part="field-label"]\r\n{\r\n    display: flex;\r\n    gap: .25em;\r\n    align-items: center;\r\n}\r\nform-field [part="label"] input\r\n,form-field [part="field-label"] input\r\n{\r\n    margin: 0;\r\n}\r\nform-field [part="label"] [part="text"]\r\n,form-field [part="field-label"] [part="text"]\r\n{\r\n    flex: 1;\r\n}\r\n\r\nform-field [part="container"]\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto 1fr;\r\n    gap: .25em;\r\n}\r\nform-field [part="container"]:has([slot="postfix"])\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto;\r\n    column-gap: 0;\r\n    row-gap: .25em;\r\n}\r\nform-field [part="container"]:has([slot="postfix"]) [part="field-label"]\r\n{\r\n    grid-column: span 2;\r\n}\r\n\r\n';
+
+// components/board-settings/task-fields/task-fields.component.css?raw
+var task_fields_component_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto minmax(160px, 1fr) auto;\r\n}\r\n\r\nfieldset\r\n{\r\n    display: grid;\r\n    gap: 1em;\r\n    min-width: 0;\r\n    width: auto;\r\n}\r\ninput,select,textarea\r\n{\r\n    font: inherit;\r\n    min-width: 0;\r\n    width: auto;\r\n}\r\n\r\ninput[type="color"]\r\n{\r\n    width: 100%;\r\n}\r\ninput[type="text"][inputmode="numeric"]\r\n{\r\n    width: 5ch;\r\n}\r\n\r\nform-field .container\r\n{\r\n}\r\nform-field .field-label\r\n{\r\n    display: flex;\r\n    gap: 5px;\r\n    margin-bottom: 7px;\r\n}\r\n\r\n[part="appearance-fields"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr;\r\n}\r\n\r\n[part="appearance-fields"] .container > input\r\n{\r\n    flex: 1;\r\n    min-height: 2ch;\r\n}\r\n\r\n[part="border-radius-field"] .option\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto 1fr;\r\n    gap: 5px;\r\n}\r\n\r\n[part="border-weights-fields"]\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto;\r\n    grid-template-rows: min-content min-content;\r\n}\r\n\r\n[part="font-size-field"] .container\r\n,[part="card-width-field"] .container\r\n,[part="border-weights-fields"] .container\r\n{\r\n    align-items: flex-start;\r\n    column-gap: .25em !important;\r\n}\r\n\r\n[part="font-size-field"] [slot="postfix"]\r\n,[part="card-width-field"] .container\r\n,[part="card-width-field"] [slot="postfix"]\r\n,[part="card-width-field"] input[type="text"]\r\n,[part="border-weights-fields"] [slot="postfix"]\r\n{\r\n    align-self: flex-end;\r\n}\r\n\r\n[part="center-checkbox-field"] input\r\n,[part="center-remove-button-field"] input\r\n{\r\n    justify-self: flex-start;\r\n    margin: 0;\r\n}';
+
+// components/board-settings/task-fields/task-fields.component.html?raw
+var task_fields_component_default2 = '<input type="hidden" name="record-id" part="record-id" />\r\n<fieldset part="appearance-fields">\r\n    <legend part="appearance-legend">Appearance</legend>\r\n\r\n    <form-field part="font-size-field" label="Font Size" optional optional-title="Override Font Size?">\r\n        <input type="text" inputmode="numeric" name="font-size" part="font-size" />\r\n        <span part="font-size-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\r\n        <input type="color" name="background-color" part="background-color" value="#f9faf5" />\r\n    </form-field>\r\n    <form-field part="border-radius-field" label="Border Radius" optional optional-title="Override Border Radius?">\r\n        <input type="text" inputmode="numeric" name="border-radius" part="border-radius" />\r\n        <select part="border-radius-unit" slot="postfix">\r\n            <option value="px">px</option>\r\n            <option value="%">%</option>\r\n        </select>\r\n    </form-field>\r\n    <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\r\n        <input type="color" name="font-color" part="font-color" value="#060703" />\r\n    </form-field>\r\n    <form-field part="color-display-field" label="Color Display">\r\n        <select name="color-display" part="color-display"></select>\r\n    </form-field>\r\n    <form-field part="border-color-field" label="Border Color" optional optional-title="Override Border Color?">\r\n        <input type="color" name="border-color" part="border-color" value="#060703" />\r\n    </form-field>\r\n</fieldset>  \r\n\r\n<fieldset part="layout-fields">\r\n    <legend part="layout-legend">Layout</legend>\r\n    <form-field part="center-checkbox-field" label="Center Checkbox">\r\n        <input type="checkbox" name="center-checkbox" part="center-checkbox" title="Center the checkbox?" />\r\n    </form-field>\r\n    <form-field part="center-remove-button-field" label="Center Remove Button">\r\n        <input type="checkbox" name="center-remove-button" part="center-remove-button" title="Center the remove button?" />\r\n    </form-field>\r\n    <form-field part="card-width-field" label="Card Width" optional option-title="Override Task Card Width?">\r\n        <input type="text" inputmode="numeric" name="card-width" part="card-width" value="" />\r\n        <span part="card-width-unit" slot="postfix">px</span>\r\n    </form-field>\r\n</fieldset>      \r\n\r\n<fieldset part="border-weights-fields">\r\n    <legend part="border-weights-legend">Border Weights</legend>\r\n    <form-field part="border-top-field" label="Top" optional optional-title="Use a custom top border size?">\r\n        <input type="text" inputmode="numeric" name="border-top" part="border-top" />\r\n        <span part="border-top-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="border-right-field" label="Right" optional optional-title="Use a custom right border size?">\r\n        <input type="text" inputmode="numeric" name="border-right" part="border-right" />\r\n        <span part="border-right-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="border-bottom-field" label="Bottom" optional optional-title="Use a custom bottom border size?">\r\n        <input type="text" inputmode="numeric" name="border-bottom" part="border-bottom" />\r\n        <span part="border-bottom-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field part="border-left-field" label="Left" optional optional-title="Use a custom left border size?">\r\n        <input type="text" inputmode="numeric" name="border-left" part="border-left" />\r\n        <span part="border-left-unit" slot="postfix">px</span>\r\n    </form-field>\r\n</fieldset>';
+
+// components/board-settings/task-fields/task-fields.component.ts
+var COMPONENT_STYLESHEET2 = new CSSStyleSheet();
+COMPONENT_STYLESHEET2.replaceSync(`${form_field_default}
+${task_fields_component_default}
+`);
+var COMPONENT_TAG_NAME2 = "task-fields";
+var TaskFieldsComponent = class extends HTMLElement {
+  componentParts = /* @__PURE__ */ new Map();
+  getPart(key) {
+    if (this.componentParts.get(key) == null) {
+      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
+      if (part != null) {
+        this.componentParts.set(key, part);
+      }
+    }
+    return this.componentParts.get(key);
+  }
+  findPart(key) {
+    return this.shadowRoot.querySelector(`[part="${key}"]`);
+  }
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = task_fields_component_default2;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET2);
+    const options = [];
+    for (const [key, value] of Object.entries(TaskColorDisplay)) {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = key.replace(/([A-Z])/g, " $1").trim();
+      options.push(option);
+    }
+    this.findPart("color-display").append(...options);
+  }
+  setValues(settings) {
+    this.setAttribute("record-id", settings.id);
+    this.findPart("background-color-field").setAttribute("optional-value", settings.useCustomBackgroundColor == true ? "true" : "false");
+    this.findPart("background-color").value = settings.customBackgroundColor;
+    this.findPart("font-color-field").setAttribute("optional-value", settings.useCustomFontColor == true ? "true" : "false");
+    this.findPart("font-color").value = settings.customFontColor;
+    this.findPart("font-size-field").setAttribute("optional-value", settings.useCustomFontSize == true ? "true" : "false");
+    this.findPart("font-size").value = settings.customFontSize.toString();
+    this.findPart("border-color-field").setAttribute("optional-value", settings.useCustomBorderColor == true ? "true" : "false");
+    this.findPart("border-color").value = settings.customBorderColor;
+    this.findPart("border-radius-field").setAttribute("optional-value", settings.useCustomBorderRadius == true ? "true" : "false");
+    this.findPart("border-radius").value = settings.borderRadiusValue.toString();
+    this.findPart("border-radius-unit").value = settings.borderRadiusUnit;
+    this.findPart("color-display").value = settings.colorDisplay;
+    this.findPart("center-checkbox").checked = settings.centerCheckbox;
+    this.findPart("center-remove-button").checked = settings.centerRemoveButton;
+    this.findPart("card-width-field").setAttribute("optional-value", settings.useCustomWidth == true ? "true" : "false");
+    this.findPart("card-width").value = settings.customWidth.toString();
+    this.findPart("border-top-field").setAttribute("optional-value", settings.useCustomBorderWidth_top == true ? "true" : "false");
+    this.findPart("border-top").value = settings.borderWidth_top.toString();
+    this.findPart("border-right-field").setAttribute("optional-value", settings.useCustomBorderWidth_right == true ? "true" : "false");
+    this.findPart("border-right").value = settings.borderWidth_right.toString();
+    this.findPart("border-bottom-field").setAttribute("optional-value", settings.useCustomBorderWidth_bottom == true ? "true" : "false");
+    this.findPart("border-bottom").value = settings.borderWidth_bottom.toString();
+    this.findPart("border-left-field").setAttribute("optional-value", settings.useCustomBorderWidth_left == true ? "true" : "false");
+    this.findPart("border-left").value = settings.borderWidth_left.toString();
+  }
+  getRecord() {
+    const settings = new TaskSettingsRecord();
+    settings.id = this.getAttribute("record-id");
+    settings.useCustomBackgroundColor = this.findPart("background-color-field").getAttribute("optional-value") == "true";
+    settings.customBackgroundColor = this.findPart("background-color").value;
+    settings.useCustomFontColor = this.findPart("font-color-field").getAttribute("optional-value") == "true";
+    settings.customFontColor = this.findPart("font-color").value;
+    settings.useCustomFontSize = this.findPart("font-size-field").getAttribute("optional-value") == "true";
+    settings.customFontSize = parseFloat(this.findPart("font-size").value);
+    settings.useCustomBorderColor = this.findPart("border-color-field").getAttribute("optional-value") == "true";
+    settings.customBorderColor = this.findPart("border-color").value;
+    settings.useCustomBorderRadius = this.findPart("border-radius-field").getAttribute("optional-value") == "true";
+    settings.borderRadiusValue = parseFloat(this.findPart("border-radius").value);
+    settings.borderRadiusUnit = this.findPart("border-radius-unit").value;
+    settings.colorDisplay = this.findPart("color-display").value;
+    settings.centerCheckbox = this.findPart("center-checkbox").checked;
+    settings.centerRemoveButton = this.findPart("center-remove-button").checked;
+    settings.useCustomWidth = this.findPart("card-width-field").getAttribute("optional-value") == "true";
+    settings.customWidth = parseFloat(this.findPart("card-width").value);
+    settings.useCustomBorderWidth_top = this.findPart("border-top-field").getAttribute("optional-value") == "true";
+    settings.borderWidth_top = parseFloat(this.findPart("border-top").value);
+    settings.useCustomBorderWidth_right = this.findPart("border-right-field").getAttribute("optional-value") == "true";
+    settings.borderWidth_right = parseFloat(this.findPart("border-right").value);
+    settings.useCustomBorderWidth_bottom = this.findPart("border-bottom-field").getAttribute("optional-value") == "true";
+    settings.borderWidth_bottom = parseFloat(this.findPart("border-bottom").value);
+    settings.useCustomBorderWidth_left = this.findPart("border-left-field").getAttribute("optional-value") == "true";
+    settings.borderWidth_left = parseFloat(this.findPart("border-left").value);
+    return settings;
+  }
+};
+if (customElements.get(COMPONENT_TAG_NAME2) == null) {
+  customElements.define(COMPONENT_TAG_NAME2, TaskFieldsComponent);
+}
+
+// data/records/task-list.record.ts
+var TaskListColorDisplay = /* @__PURE__ */ ((TaskListColorDisplay2) => {
+  TaskListColorDisplay2["Element"] = "element";
+  TaskListColorDisplay2["BorderColor"] = "border-color";
+  TaskListColorDisplay2["FontColor"] = "font-color";
+  return TaskListColorDisplay2;
+})(TaskListColorDisplay || {});
+var TaskListRecord = class extends DataRecord {
+  boardId = "";
+  taskSettingsId = "";
+  category = "";
+  order = -1;
+  color = "#1C67E8";
+  name = "New List";
+  description = "";
+  colorDisplay = "element" /* Element */;
+  useCustomBackgroundColor = false;
+  backgroundColor = "#f9faf5";
+  useCustomFontColor = false;
+  fontColor = "#060703";
+  useCustomWidth = false;
+  width = 500;
+  isCollapsed = false;
+};
+
+// components/board-settings/tasklist-fields/tasklist-fields.component.css?raw
+var tasklist_fields_component_default = `:host([removed])\r
+{\r
+    opacity: .6;\r
+    scale: .98 .9;\r
+    user-select: none;\r
+}\r
+\r
+input,select,textarea\r
+{\r
+    font: inherit;\r
+    min-width: 0;\r
+    width: auto;\r
+}\r
+\r
+[part="icon-definitions"]\r
+{\r
+    display: none;\r
+}\r
+\r
+[part="handle"]\r
+{\r
+    display: flex;\r
+    width: 15px;\r
+    align-self: stretch;\r
+    cursor: grab;\r
+    border-radius: 3px;\r
+    \r
+    background-image: radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%),\r
+    radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%);\r
+    background-size: 5px 5px;\r
+    background-position: 0 0, 2px 2px;\r
+}\r
+[part="handle"]:active\r
+{\r
+    cursor: grabbing;\r
+}\r
+\r
+[part="remove-icon"]\r
+,[part="duplicate-icon"]\r
+{\r
+    width: var(--icon-size, 12px);\r
+    height: var(--icon-size, 12px);\r
+}\r
+\r
+details summary\r
+{\r
+    user-select: none;\r
+    display: flex;\r
+    gap: .25em;\r
+}\r
+summary:before\r
+{\r
+    content: '\u25B6';\r
+    transform-origin: 45% 50%;\r
+    transition: transform 100ms ease-out;\r
+    font-size: .78em;\r
+    align-self: center;\r
+    margin-right: .25em;\r
+}\r
+details[open] summary:before\r
+{\r
+    transform: rotate(90deg);\r
+}\r
+\r
+details [part="detail-content"]\r
+{\r
+    display: grid;\r
+    gap: 1em;\r
+    padding: 1em;\r
+}\r
+\r
+fieldset\r
+{\r
+    display: grid;\r
+    gap: 1em;\r
+    min-width: 0;\r
+    width: auto;\r
+}\r
+\r
+form-field .container\r
+{\r
+    display: grid;\r
+    grid-template-rows: auto 1fr;\r
+    gap: 7px;\r
+}\r
+\r
+form-field input[type="color"]\r
+{\r
+    width: 100%;\r
+}\r
+\r
+[part="color"]\r
+{\r
+    width: 3ch;\r
+}\r
+\r
+[part="name"]\r
+{\r
+    flex: 1;\r
+}\r
+\r
+[part="list-settings"]\r
+{\r
+    grid-template-columns: 1fr minmax(min-content, 18ch);\r
+}\r
+\r
+[part="list-settings"] .column\r
+{\r
+    display: grid;\r
+    gap: .5em;\r
+}\r
+\r
+[part="list-settings"] .column input[type="color"]\r
+{\r
+    height: auto;\r
+}\r
+\r
+input[type="text"]\r
+{\r
+    min-width: 5ch;\r
+}\r
+\r
+[part="list-width-field"] .container\r
+{\r
+    column-gap: .25em !important;\r
+}\r
+\r
+[part="list-width-field"] [slot="postfix"]\r
+{\r
+    align-self: flex-end;\r
+}`;
+
+// components/board-settings/tasklist-fields/tasklist-fields.component.html?raw
+var tasklist_fields_component_default2 = '<details part="details">\r\n    <summary part="summary">\r\n        <div part="handle"></div>\r\n        <input part="color" type="color" />\r\n        <input part="name" type="text" />\r\n        <button part="duplicate-button" type="button">\r\n            <svg part="duplicate-icon">\r\n                <use href="#icon-definition_copy"></use>\r\n            </svg>\r\n        </button>\r\n        <button part="remove-button" type="button">\r\n            <svg part="remove-icon">\r\n                <use href="#icon-definition_cancel-cross"></use>\r\n            </svg>\r\n        </button>\r\n    </summary>\r\n    <div part="detail-content">\r\n        <fieldset part="list-settings">\r\n            <legend part="list-settings-legend">\r\n                <span part="list-setting-title">List</span>\r\n            </legend>\r\n            <div class="column">\r\n                <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\r\n                    <input type="color" name="background-color" part="background-color" value="#f9faf5" />\r\n                </form-field>\r\n                <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\r\n                    <input type="color" name="font-color" part="font-color" value="#060703" />\r\n                </form-field>\r\n            </div>\r\n            <div class="column">\r\n                <form-field label="Order" part="order-field">\r\n                    <input type="text" part="order" name="order" inputmode="numeric" disabled />\r\n                </form-field>\r\n                <form-field part="list-width-field" label="List Width" optional optional-title="Use a custom list width?">\r\n                    <input type="text" inputmode="numeric" name="list-width" part="list-width" value="" />\r\n                    <span part="list-width-unit" slot="postfix">px</span>\r\n                </form-field>\r\n                <form-field part="color-display-field" label="Color Display">\r\n                    <select name="color-display" part="color-display"></select>\r\n                </form-field>\r\n            </div>\r\n        </fieldset>\r\n        <fieldset part="task-settings">\r\n            <legend part="task-settings-legend">\r\n                <span part="task-setting-title">List Tasks</span>\r\n            </legend>\r\n            <task-fields part="task-fields"></task-fields>\r\n        </fieldset>\r\n    </div>\r\n</details>';
+
+// components/board-settings/tasklist-fields/tasklist-fields.component.ts
+var COMPONENT_STYLESHEET3 = new CSSStyleSheet();
+COMPONENT_STYLESHEET3.replaceSync(`${form_field_default}
+${tasklist_fields_component_default}
+`);
+var COMPONENT_TEMPLATE = `${tasklist_fields_component_default2}
+<div part="icon-definitions">
+    ${Icons.CancelCross}
+    ${Icons.Copy}
+</div>`;
+var COMPONENT_TAG_NAME3 = "tasklist-fields";
+var TaskListFieldsComponent = class extends HTMLElement {
+  componentParts = /* @__PURE__ */ new Map();
+  getPart(key) {
+    if (this.componentParts.get(key) == null) {
+      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
+      if (part != null) {
+        this.componentParts.set(key, part);
+      }
+    }
+    return this.componentParts.get(key);
+  }
+  findPart(key) {
+    return this.shadowRoot.querySelector(`[part="${key}"]`);
+  }
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET3);
+    const options = [];
+    for (const [key, value] of Object.entries(TaskListColorDisplay)) {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = key.replace(/([A-Z])/g, " $1").trim();
+      options.push(option);
+    }
+    this.findPart("color-display").append(...options);
+    this.findPart("remove-button").addEventListener("click", () => {
+      this.toggleAttribute("removed");
+    });
+    this.findPart("duplicate-button").addEventListener("click", () => {
+      this.dispatchEvent(new Event("duplicate"));
+    });
+    this.findPart("name").addEventListener("keyup", (event) => {
+      if (event.code == "Space") {
+        event.preventDefault();
+      }
+    });
+  }
+  setValues(taskList, taskSettings) {
+    this.setAttribute("record-id", taskList.id);
+    this.findPart("color").value = taskList.color;
+    this.findPart("name").value = taskList.name;
+    this.findPart("order").value = taskList.order.toString();
+    this.findPart("background-color-field").setAttribute("optional-value", taskList.useCustomBackgroundColor == true ? "true" : "false");
+    this.findPart("background-color").value = taskList.backgroundColor;
+    this.findPart("font-color-field").setAttribute("optional-value", taskList.useCustomFontColor == true ? "true" : "false");
+    this.findPart("font-color").value = taskList.fontColor;
+    this.findPart("list-width-field").setAttribute("optional-value", taskList.useCustomWidth == true ? "true" : "false");
+    this.findPart("list-width").value = taskList.width.toString();
+    this.findPart("color-display").value = taskList.colorDisplay;
+    this.findPart("task-fields").setValues(taskSettings);
+  }
+  getRecords() {
+    const taskList = new TaskListRecord();
+    taskList.id = this.getAttribute("record-id");
+    taskList.color = this.findPart("color").value;
+    taskList.name = this.findPart("name").value;
+    taskList.useCustomBackgroundColor = this.findPart("background-color-field").getAttribute("optional-value") == "true";
+    taskList.backgroundColor = this.findPart("background-color").value;
+    taskList.useCustomFontColor = this.findPart("font-color-field").getAttribute("optional-value") == "true";
+    taskList.fontColor = this.findPart("font-color").value;
+    taskList.useCustomWidth = this.findPart("list-width-field").getAttribute("optional-value") == "true";
+    taskList.width = parseFloat(this.findPart("list-width").value);
+    taskList.colorDisplay = this.findPart("color-display").value;
+    const taskSettings = this.findPart("task-fields").getRecord();
+    taskSettings.parentRecordType = "list";
+    taskList.taskSettingsId = this.findPart("task-fields").getAttribute("record-id");
+    const result = [taskList, taskSettings];
+    return result;
+  }
+};
+if (customElements.get(COMPONENT_TAG_NAME3) == null) {
+  customElements.define(COMPONENT_TAG_NAME3, TaskListFieldsComponent);
 }
 
 // components/app-menu/app-menu.css?raw
-var app_menu_default = `#menu
-{
-    padding: 0;
-    margin: 0;
-    background-color: field;
-    color: fieldtext;
-    border-right: solid 1px graytext;
-}
-
-#header
-{
-    display: flex;
-    gap: .5em;
-    padding: .5em;
-}
-
-#branding
-{
-    grid-area: brand;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.logo.mark
-{
-    width: var(--brand-icon-size);
-    height: var(--brand-icon-size);
-}
-
-#open-board-browser
-{
-    flex: 1;
-    display: grid;
-    grid-template-columns: max-content max-content;
-    justify-content: center;
-    gap: 5px;
-    text-align: center;
-}
-
-#boards
-{
-    margin: 0;
-    padding: 0;
-}
-
-.board-menu-item
-{
-    margin: 0;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    gap: .25em;
-    padding: .25em 1em;
-}
-.board-menu-item .name
-{
-    flex: 1;
-}
-.board-menu-item:hover
-{
-    background: highlight;
-    color: highlighttext;
-}
-.board-menu-item[aria-current="page"]
-{
-    background: highlight;
-    color: highlighttext;
-}
-
-@media (max-width: 665px) 
-{
-    #menu
-    {
-        max-width: 100vw;
-        display: grid;
-        border-right: none;
-        order: 2;
-    }
-
-    #header
-    {
-        grid-row: 2;
-        display: flex;
-        justify-content: space-between;
-        order: 3;
-        background-color: field;
-    }
-    
-    /* [part="menu"] .board-search
-    {
-        align-items: center;
-        justify-content: center;
-    } */
-    #boards
-    {
-        display: flex;
-        align-items: center;
-        order: 2;
-        background-color: field;
-        border-top: solid 1px graytext;
-    }
-    #boards::part(items)
-    {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: hidden;
-        width: 0; /* doesn't actually set width, just corrects weird overflow issue */
-        flex: 1;
-        gap: var(--menu-gap);
-        padding: var(--menu-padding);
-        box-shadow: inset -10px 0 10px -10px rgb(0 0 0 / .8);
-    }
-
-    .menu-item-handle
-    ,.board-menu-item [part="edit"]
-    {
-        display: none;
-    }
-    #boards a
-    {
-        padding: 12px 7px;
-    }
-
-    #new-board-button_list
-    {
-        display: flex;
-        align-self: stretch;
-        margin: 7px;
-    }
-
-    #new-board-button_list .label
-    {
-        display: none;
-    }
-}
-@media (max-width: 800px) 
-{
-    
-}
-
-/* only desktop */
-@media (min-width: 665px) 
-{
-    #menu
-    {
-        display: grid;
-        grid-template-rows: auto 1fr;
-        overflow: hidden;
-        max-width: 330px;
-    }
-
-
-    #boards
-    {
-        display: grid;
-        grid-template-rows: 1fr auto;
-        overflow: hidden;
-    }
-    #boards::part(items)
-    {
-        margin: 0;
-        padding: 0;
-        display: grid;
-        gap: .5em;
-        overflow-y: auto;
-        overflow-x: hidden;
-        grid-auto-rows: max-content;
-    }
-
-    .board-menu-item
-    {
-        overflow: hidden;
-    }
-
-    .board-menu-item [part="edit"]
-    {
-        opacity: 0;
-        transition: opacity 200ms ease;
-    }
-    .board-menu-item:hover [part="edit"]
-    {
-        opacity: 1;
-    }
-
-    .board-menu-item [part="edit"]:hover
-    {
-        opacity: 1;
-    }
-
-    .board-item-name
-    {
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    #new-board-button_list
-    {
-        margin: 10px;
-    }
-
-    .menu-item-handle
-    {
-        display: flex;
-        width: 10px;
-        align-self: stretch;
-        cursor: grab;
-        border-radius: 3px;
-        transform: translateY(-2px);
-        
-        background-image: radial-gradient(var(--grip-color, canvastext) 24%, transparent 24%),
-        radial-gradient(var(--grip-color, canvastext) 10%, transparent 10%);
-        background-size: 5px 5px;
-        background-position: 0 0, 2px 4px;
-    }
-    .menu-item-handle:active
-    {
-        cursor: grabbing;
-    }
-
-    #new-board-button_list
-    {
-        margin-top: 1em;
-        justify-self: center;
-    }
-}
-@media (min-width: 800px) 
-{
-
+var app_menu_default = `#menu\r
+{\r
+    padding: 0;\r
+    margin: 0;\r
+    background-color: field;\r
+    color: fieldtext;\r
+    border-right: solid 1px graytext;\r
+}\r
+\r
+#header\r
+{\r
+    display: flex;\r
+    gap: .5em;\r
+    padding: .5em;\r
+}\r
+\r
+#branding\r
+{\r
+    grid-area: brand;\r
+    display: flex;\r
+    align-items: center;\r
+    justify-content: center;\r
+}\r
+\r
+.logo.mark\r
+{\r
+    width: var(--brand-icon-size);\r
+    height: var(--brand-icon-size);\r
+}\r
+\r
+#open-board-browser\r
+{\r
+    flex: 1;\r
+    display: grid;\r
+    grid-template-columns: max-content max-content;\r
+    justify-content: center;\r
+    gap: 5px;\r
+    text-align: center;\r
+}\r
+\r
+#boards\r
+{\r
+    margin: 0;\r
+    padding: 0;\r
+}\r
+\r
+@media (max-width: 665px) \r
+{\r
+    #menu\r
+    {\r
+        max-width: 100vw;\r
+        display: grid;\r
+        border-right: none;\r
+        order: 2;\r
+    }\r
+\r
+    #header\r
+    {\r
+        grid-row: 2;\r
+        display: flex;\r
+        justify-content: space-between;\r
+        order: 3;\r
+        background-color: field;\r
+    }\r
+    \r
+    /* [part="menu"] .board-search\r
+    {\r
+        align-items: center;\r
+        justify-content: center;\r
+    } */\r
+    #boards\r
+    {\r
+        display: flex;\r
+        align-items: center;\r
+        order: 2;\r
+        background-color: field;\r
+        border-top: solid 1px graytext;\r
+    }\r
+    #boards::part(items)\r
+    {\r
+        display: flex;\r
+        flex-wrap: nowrap;\r
+        overflow-x: auto;\r
+        overflow-y: hidden;\r
+        width: 0; /* doesn't actually set width, just corrects weird overflow issue */\r
+        flex: 1;\r
+        gap: var(--menu-gap);\r
+        padding: var(--menu-padding);\r
+        box-shadow: inset -10px 0 10px -10px rgb(0 0 0 / .8);\r
+    }\r
+\r
+    #new-board-button\r
+    {\r
+        display: flex;\r
+        align-self: stretch;\r
+        margin: 7px;\r
+    }\r
+\r
+    #new-board-button .label\r
+    {\r
+        display: none;\r
+    }\r
+}\r
+@media (max-width: 800px) \r
+{\r
+    \r
+}\r
+\r
+/* only desktop */\r
+@media (min-width: 665px) \r
+{\r
+    #menu\r
+    {\r
+        display: grid;\r
+        grid-template-rows: auto 1fr;\r
+        overflow: hidden;\r
+        max-width: 330px;\r
+    }\r
+\r
+\r
+    #boards\r
+    {\r
+        display: grid;\r
+        grid-template-rows: 1fr auto;\r
+        overflow: hidden;\r
+    }\r
+    #boards::part(items)\r
+    {\r
+        margin: 0;\r
+        padding: 0;\r
+        display: grid;\r
+        gap: .5em;\r
+        overflow-y: auto;\r
+        overflow-x: hidden;\r
+        grid-auto-rows: max-content;\r
+    }\r
+\r
+    #new-board-button\r
+    {\r
+        margin: 10px;\r
+    }\r
+\r
+    #new-board-button_list\r
+    {\r
+        margin-top: 1em;\r
+        justify-self: center;\r
+    }\r
+}\r
+@media (min-width: 800px) \r
+{\r
+\r
 }`;
 
 // components/app-menu/app-menu.html?raw
-var app_menu_default2 = '<menu id="menu">\n    <header id="header">\n        <div id="branding" title="Manager Icon">\n            <svg class="icon logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button id="open-board-browser" type="button" data-route="#boards" title="Find Board">\n            <svg class="icon magnifying-glass">\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="label">Find Board</span>\n        </button>\n        <button id="open-settings" type="button" data-route="#config/settings" title="App Administration">\n            <svg class="icon gear">\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list id="boards" remove="false" edit="true" cancel-edit exportparts="items: board-items">\n        <slot></slot>\n        <button id="new-board-button_list" type="button" slot="add" title="New Board">\n            <svg class="icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label">New Board</span>\n        </button>\n        <template part="edit-button">\n            <svg class="icon expand" >\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n';
+var app_menu_default2 = '<menu id="menu">\r\n    <header id="header">\r\n        <div id="branding" title="Manager Icon">\r\n            <svg class="icon logo mark" alt="Manager Brand Mark">\r\n                <use href="#icon-definition_logo-mark"></use>\r\n            </svg>\r\n        </div>\r\n        <button id="open-board-browser" type="button" data-route="#boards" title="Find Board">\r\n            <svg class="icon magnifying-glass">\r\n                <use href="#icon-definition_magnifying-glass"></use>\r\n            </svg>\r\n            <span class="label">Find Board</span>\r\n        </button>\r\n        <button id="open-settings" type="button" data-route="#config/settings" title="App Administration">\r\n            <svg class="icon gear">\r\n                <use href="#icon-definition_gear"></use>\r\n            </svg>\r\n        </button>\r\n    </header>\r\n    <editable-list id="boards" remove="false" edit="true" cancel-edit exportparts="items: board-items">\r\n        <slot></slot>\r\n        <button id="new-board-button" type="button" slot="add" title="New Board">\r\n            <svg class="icon plus" >\r\n                <use href="#icon-definition_plus"></use>\r\n            </svg>\r\n            <span class="label">New Board</span>\r\n        </button>\r\n        <template part="edit-button">\r\n            <svg class="icon expand" >\r\n                <use href="#icon-definition_stylus"></use>\r\n            </svg>\r\n        </template>\r\n    </editable-list>\r\n</menu>\r\n';
 
 // components/app-menu/app-menu.ts
 var AppMenuAttributes = /* @__PURE__ */ ((AppMenuAttributes2) => {
   AppMenuAttributes2["pathId"] = "path-id";
   return AppMenuAttributes2;
 })(AppMenuAttributes || {});
-var COMPONENT_STYLESHEET5 = new CSSStyleSheet();
-COMPONENT_STYLESHEET5.replaceSync(`${shared_default}
+var COMPONENT_STYLESHEET4 = new CSSStyleSheet();
+COMPONENT_STYLESHEET4.replaceSync(`${shared_default}
     ${app_menu_default}`);
-var COMPONENT_TEMPLATE3 = `${app_menu_default2}
+var COMPONENT_TEMPLATE2 = `${app_menu_default2}
 ${defineIcons(
   "LogoMark" /* LogoMark */,
   "MagnifyingGlass" /* MagnifyingGlass */,
   "Gear" /* Gear */,
-  "PlusIcon" /* PlusIcon */,
-  "Stylus" /* Stylus */
+  "PlusIcon" /* PlusIcon */
 )}`;
-var COMPONENT_TAG_NAME5 = "app-menu";
+var COMPONENT_TAG_NAME4 = "app-menu";
 var AppMenuElement = class extends HTMLElement {
   static observedAttributes = [
     ...Object.values(AppMenuAttributes)
@@ -3101,16 +2506,31 @@ var AppMenuElement = class extends HTMLElement {
   findElement(id) {
     return this.shadowRoot.getElementById(id);
   }
-  onNavigate;
+  onEdit;
   onBoardMove;
+  onNew;
   #draggingBoard = null;
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE3;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET5);
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE2;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET4);
     this.#applyPartAttributes();
     this.#addDragHandlers();
+    this.findElement("boards").addEventListener("edit", (event) => {
+      if (this.onEdit == null) {
+        return;
+      }
+      const customEvent = event;
+      const board = customEvent.detail;
+      this.onEdit(board.dataset.route);
+    });
+    this.findElement("new-board-button").addEventListener("click", () => {
+      if (this.onNew == null) {
+        return;
+      }
+      this.onNew();
+    });
   }
   #applyPartAttributes() {
     const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
@@ -3123,23 +2543,21 @@ var AppMenuElement = class extends HTMLElement {
     }
   }
   updateBoards(boards) {
-    console.log(boards);
     const menuItems = [];
     for (let i = 0; i < boards.length; i++) {
       const boardRecord = boards[i];
       const menuItem = this.#createBoardMenuItem(boardRecord);
       menuItems.push(menuItem);
     }
-    const boardsList = this.findElement("boards");
-    [...boardsList.querySelectorAll("a")].map((item) => item.remove());
-    boardsList.append(...menuItems);
+    this.innerHTML = "";
+    this.append(...menuItems);
   }
   #createBoardMenuItem(board) {
     const element = document.createElement("a");
     element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span>
         <span part="board-item-name" class="board-item-name">${board.name}<span>`;
-    element.setAttribute("part", "board-menu-item");
-    element.classList.add("board-menu-item");
+    element.setAttribute("part", "board");
+    element.classList.add("board");
     element.dataset.route = `board/${board.id}`;
     const handle = element.querySelector('[part="menu-item-handle"]');
     handle.addEventListener("mousedown", (_event) => {
@@ -3161,9 +2579,8 @@ var AppMenuElement = class extends HTMLElement {
     return element;
   }
   #addDragHandlers() {
-    const boards = this.findElement("boards");
-    boards.addEventListener("dragover", this.boardsList_onDragover.bind(this));
-    boards.addEventListener("drop", this.boardsList_onDrop.bind(this));
+    this.addEventListener("dragover", this.boardsList_onDragover.bind(this));
+    this.addEventListener("drop", this.boardsList_onDrop.bind(this));
   }
   boardsList_onDragover(event) {
     event.preventDefault();
@@ -3171,27 +2588,27 @@ var AppMenuElement = class extends HTMLElement {
     this.#updateBoardItemOrder(event.clientY);
   }
   async boardsList_onDrop(_event) {
+    console.log(_event);
     if (this.onBoardMove != null) {
-      this.onBoardMove([...this.findElement("boards").querySelectorAll("a")]);
+      this.onBoardMove([...this.querySelectorAll("a")]);
     }
   }
   async #updateBoardItemOrder(draggingCursorY) {
     if (this.#draggingBoard == null) {
       return;
     }
-    const boards = this.findElement("boards");
     const nextElement = this.#getNextBoardItem(draggingCursorY).boardElement;
-    if (this.#draggingBoard.parentElement == boards && nextElement == this.#draggingBoard.nextElementSibling) {
+    if (this.#draggingBoard.parentElement == this && nextElement == this.#draggingBoard.nextElementSibling) {
       return;
     }
     if (nextElement == null) {
-      boards.append(this.#draggingBoard);
+      this.append(this.#draggingBoard);
     } else {
-      boards.insertBefore(this.#draggingBoard, nextElement);
+      this.insertBefore(this.#draggingBoard, nextElement);
     }
   }
   #getNextBoardItem(mouseY) {
-    const lists = [...this.findElement("boards").querySelectorAll("a:not(.dragging)")];
+    const lists = [...this.querySelectorAll("a:not(.dragging)")];
     return lists.reduce((closest, item) => {
       const boundingRect = item.getBoundingClientRect();
       const offset = mouseY - boundingRect.top - boundingRect.height / 2;
@@ -3200,6 +2617,106 @@ var AppMenuElement = class extends HTMLElement {
       }
       return closest;
     }, { offset: Number.NEGATIVE_INFINITY });
+  }
+  static create(properties) {
+    const element = document.createElement(COMPONENT_TAG_NAME4);
+    for (const [propertyName, value] of Object.entries(properties)) {
+      if (!propertyName.startsWith("on")) {
+        element.setAttribute(propertyName, value);
+      }
+    }
+  }
+  attributeChangedCallback(attributeName, _oldValue, newValue) {
+    if (attributeName == "path-id" /* pathId */) {
+    }
+  }
+};
+if (customElements.get(COMPONENT_TAG_NAME4) == null) {
+  customElements.define(COMPONENT_TAG_NAME4, AppMenuElement);
+}
+
+// components/welcome-panel/welcome-panel.css?raw
+var welcome_panel_default = ":host\r\n{\r\n    align-self: center;\r\n    justify-self: center;\r\n    padding: 1em;\r\n}\r\n\r\n#recent-boards\r\n{\r\n    display: grid;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n#recent-boards::part(items)\r\n{\r\n    display: grid;\r\n    \r\n}\r\n#recent-boards a\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 3px 7px;\r\n}\r\n#recent-boards a:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n#new-board-button\r\n{\r\n    text-align: center;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    margin: 10px;\r\n}\r\n\r\n#logo\r\n{\r\n    width: 100%;\r\n    height: 80px;\r\n}";
+
+// components/welcome-panel/welcome-panel.html?raw
+var welcome_panel_default2 = '<fieldset id="panel-fieldset">\r\n    <legend id="panel-legend">Welcome</legend>\r\n    <svg id="logo" part="logo" >\r\n        <use href="#icon-definition_logo"></use>\r\n    </svg>\r\n    <div id="description">\r\n        <p id="welcome-text">Welcome to your Taskboard Manager!</p>\r\n        <p id="create-text">Create a <a id="new-board-link">new board</a>, or select a recently-opened board below.</p>\r\n    </div>\r\n    <fieldset id="recent-fieldset">\r\n        <legend id="recent-legend">Recent Boards</legend>\r\n        <editable-list id="recent-boards" exportparts="edit:edit-button, handle: edit-handle">\r\n            <slot></slot>\r\n            <button type="button" slot="add" id="new-board-button" title="New Board">\r\n                <svg class="icon plus" >\r\n                    <use href="#icon-definition_plus"></use>\r\n                </svg>\r\n                <span class="label">New Board</span>\r\n            </button>\r\n        </editable-list>\r\n    </fieldset>\r\n</fieldset>';
+
+// components/welcome-panel/welcome-panel.ts
+var WelcomePanelAttributes = /* @__PURE__ */ ((WelcomePanelAttributes2) => {
+  WelcomePanelAttributes2["pathId"] = "path-id";
+  return WelcomePanelAttributes2;
+})(WelcomePanelAttributes || {});
+var COMPONENT_STYLESHEET5 = new CSSStyleSheet();
+COMPONENT_STYLESHEET5.replaceSync(`${shared_default}
+    ${welcome_panel_default}`);
+var COMPONENT_TEMPLATE3 = `${welcome_panel_default2}
+${defineIcons(
+  "LogoMark" /* LogoMark */,
+  "LogoType" /* LogoType */,
+  "Logo" /* Logo */,
+  "PlusIcon" /* PlusIcon */,
+  "CancelCross" /* CancelCross */
+)}`;
+var COMPONENT_TAG_NAME5 = "welcome-panel";
+var WelcomePanelElement = class extends HTMLElement {
+  static observedAttributes = [
+    ...Object.values(WelcomePanelAttributes)
+  ];
+  componentParts = /* @__PURE__ */ new Map();
+  getElement(id) {
+    if (this.componentParts.get(id) == null) {
+      const part = this.findElement(id);
+      if (part != null) {
+        this.componentParts.set(id, part);
+      }
+    }
+    return this.componentParts.get(id);
+  }
+  findElement(id) {
+    return this.shadowRoot.getElementById(id);
+  }
+  onRemoveBoard;
+  onNew;
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE3;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET5);
+    this.#applyPartAttributes();
+    this.findElement("new-board-button").addEventListener("click", () => {
+      if (this.onNew == null) {
+        return;
+      }
+      this.onNew();
+    });
+  }
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      classedElements[i].part.add(...classedElements[i].classList);
+    }
+  }
+  updateBoards(boards) {
+    const menuItems = [];
+    for (let i = 0; i < boards.length; i++) {
+      const boardRecord = boards[i];
+      const menuItem = this.#createBoardMenuItem(boardRecord);
+      menuItems.push(menuItem);
+    }
+    this.innerHTML = "";
+    this.append(...menuItems);
+  }
+  #createBoardMenuItem(board) {
+    const element = document.createElement("a");
+    element.innerHTML = `<span part="board-item-name" class="board-item-name">${board.description}<span>`;
+    element.setAttribute("part", "board");
+    element.classList.add("board");
+    element.dataset.route = `board/${board.id}`;
+    return element;
   }
   static create(properties) {
     const element = document.createElement(COMPONENT_TAG_NAME5);
@@ -3215,7 +2732,800 @@ var AppMenuElement = class extends HTMLElement {
   }
 };
 if (customElements.get(COMPONENT_TAG_NAME5) == null) {
-  customElements.define(COMPONENT_TAG_NAME5, AppMenuElement);
+  customElements.define(COMPONENT_TAG_NAME5, WelcomePanelElement);
+}
+
+// components/board-browser/board-browser.css?raw
+var board_browser_default = ":host { display: contents; }\r\n\r\n#header\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto 1fr auto;\r\n    gap: 7px;\r\n    align-items: center;\r\n    font-weight: bold;\r\n    padding-block: 5px;\r\n}\r\n#icon\r\n{\r\n    width: var(--dialog-header-icon-size);\r\n    height: var(--dialog-header-icon-size);\r\n}\r\n\r\ncollection-browser\r\n{\r\n    margin: 1em;\r\n    overflow: hidden;\r\n}\r\n\r\ncollection-browser::part(items)\r\n{\r\n    display: flex;\r\n    gap: .5em;\r\n    flex-wrap: wrap;\r\n    padding: 7px;\r\n    overflow: hidden auto;\r\n}\r\n\r\ncollection-browser::part(add-button)\r\n{\r\n    display: none;\r\n}\r\n\r\n#actions\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    gap: 1em;\r\n}\r\n\r\n#actions button\r\n{\r\n    width: 70px;\r\n    justify-content: center;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n    #filter::part(input)\r\n    {\r\n        width: 157px;\r\n    }\r\n}";
+
+// components/board-browser/board-browser.html?raw
+var board_browser_default2 = '<header id="header">\r\n    <svg id="icon" >\r\n        <use href="#icon-definition_task-board"></use>\r\n    </svg>\r\n    <span id="title">Boards</span>\r\n    <collection-filter id="filter"></collection-filter>\r\n</header>\r\n<collection-browser id="collection-browser"><slot></slot></collection-browser>\r\n<footer id="footer">\r\n    <form id="actions" method="dialog">\r\n        <button type="submit" id="cancel">Cancel</button>\r\n        <button type="submit" id="ok">Open</button>\r\n    </form>\r\n</footer>\r\n\r\n<!-- <header part="board-browser-header">\r\n    <svg part="board-browser-icon" >\r\n        <use href="#icon-definition_task-board"></use>\r\n    </svg>\r\n    <span part="board-browser-title">Boards</span>\r\n    <collection-filter part="board-browser-filter" id="board-browser-filter"></collection-filter>\r\n</header>\r\n<collection-browser part="board-browser" id="board-browser"></collection-browser>\r\n<footer part="board-browser-footer">\r\n    <form part="board-browser-actions" method="dialog">\r\n        <button type="submit" part="board-browser-cancel" id="board-browser-cancel">Cancel</button>\r\n        <button type="submit" part="board-browser-ok" id="board-browser-ok">Open</button>\r\n    </form>\r\n</footer> -->';
+
+// node_modules/.pnpm/@magnit-ce+captioned-thumbnail@0.0.3/node_modules/@magnit-ce/captioned-thumbnail/dist/captioned-thumbnail.js
+var captioned_thumbnail_default = '\n\n:host\n{\n    display: inline-flex;\n    width: 80px;\n    height: 80px;\n    color-scheme: light dark;\n}\n\n:host(:focus) figure\n{\n    border-color: rgb(205 205 205);\n}\n@media (prefers-color-scheme: dark) \n{\n    :host(:focus) figure\n    {\n        border-color: rgb(81 81 81);\n    }\n}\n\nfigure\n{\n    flex: 1;\n    display: grid;\n    grid-template-rows: 1fr auto;\n    margin: 0;\n    padding: 0;\n    border: solid 1px transparent;\n}\n:host(.selected) figure\n{\n    border-color: inherit;\n}\n\n[part="selected"]\n,::slotted([slot="selected"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: flex-start;\n    align-self: flex-start;\n    z-index: 2;\n\n    opacity: 0;\n    transition: opacity 200ms ease;\n}\n\n:host(:not([select],[selectable])) [part="selected"]\n,:host(:not([select],[selectable])) ::slotted([slot="selected"])\n{\n    display: none;\n    pointer-events: none;\n}\n\n[part="edit-button"]\n,::slotted([slot="edit-button"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: flex-end;\n    align-self: flex-start;\n    z-index: 2;\n\n    opacity: 0;\n    transition: opacity 200ms ease;\n}\n\n:host(:not([edit],[editable])) [part="edit-button"]\n,:host(:not([edit],[editable])) ::slotted([slot="edit-button"])\n{\n    display: none;\n    pointer-events: none;\n}\n\n[part="icon"]\n,::slotted([slot="icon"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: center;\n    align-self: center;\n\n    width: var(--icon-width, var(--icon-size));\n    margin: .25em;\n}\n::slotted(img[slot="icon"])\n{\n    display: block;\n    max-width: 100%;\n    min-width: 0;\n    max-height: 100%;\n    min-height: 0;\n}\n.text-icon\n{\n    font-size: 36px;\n    line-height: 1;\n    margin: 0;\n    padding: 0;\n    box-sizing: border-box;\n}\n\n[part="label"]\n,::slotted([slot="label"])\n{\n    text-align: center;\n    text-overflow: ellipsis;\n    overflow: hidden;\n}\n\n:host(:not([select],[selectable]):hover)  [part="edit-button"]\n,:host(:not([select],[selectable]):hover) ::slotted([slot="edit-button"])\n,:host(:focus)  [part="edit-button"]\n,:host(:focus) ::slotted([slot="edit-button"])\n,figure:has(:checked) [part="edit-button"]\n,figure:has(:checked) ::slotted([slot="edit-button"])\n,figure:has(:focus) [part="edit-button"]\n,figure:has(:focus) ::slotted([slot="edit-button"])\n,figure:has(:focus-within) [part="edit-button"]\n,figure:has(:focus-within) ::slotted([slot="edit-button"])\n{ \n    opacity: 1;\n}\n\n\n:host(:hover) [part="selected"]\n,figure:has(:checked) [part="selected"]\n,figure:focus [part="selected"] \n,figure:focus-within [part="selected"]\n{ \n    opacity: 1;\n}';
+var captioned_thumbnail_default2 = '<figure part="figure">\n    <slot name="selected"><input type="checkbox" part="selected" /></slot>\n    <slot name="edit-button"><button type="button" part="edit-button">&#9998;</button></slot>\n    <slot name="icon"><span part="icon" class="text-icon">\u{1F5CE}</span></slot>\n    <slot name="label"><figcaption part="label"><slot>Item</slot></figcaption></slot>\n</figure>';
+var COMPONENT_STYLESHEET6 = new CSSStyleSheet();
+COMPONENT_STYLESHEET6.replaceSync(captioned_thumbnail_default);
+var COMPONENT_TAG_NAME6 = "captioned-thumbnail";
+var CaptionedThumbnailElement = class _CaptionedThumbnailElement extends HTMLElement {
+  componentParts = /* @__PURE__ */ new Map();
+  getPart(key) {
+    if (this.componentParts.get(key) == null) {
+      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
+      if (part != null) {
+        this.componentParts.set(key, part);
+      }
+    }
+    return this.componentParts.get(key);
+  }
+  findPart(key) {
+    return this.shadowRoot.querySelector(`[part="${key}"]`);
+  }
+  static selectedClassName = "selected";
+  get isSelected() {
+    return this.classList.contains(_CaptionedThumbnailElement.selectedClassName);
+  }
+  set isSelected(value) {
+    if (this.getAttribute("select") ?? this.getAttribute("selectable") == null) {
+      return;
+    }
+    if (value == true) {
+      this.classList.add(_CaptionedThumbnailElement.selectedClassName);
+    } else {
+      this.classList.remove(_CaptionedThumbnailElement.selectedClassName);
+    }
+    const selected = this.findPart("selected");
+    if (selected != null) {
+      selected.checked = value;
+    }
+  }
+  editButton;
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = captioned_thumbnail_default2;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET6);
+    this.shadowRoot.querySelector("slot:not([name])").addEventListener("slotchange", (event) => {
+      let title = "";
+      for (let i = 0; i < this.childNodes.length; i++) {
+        const node = this.childNodes[i];
+        if (node.nodeType == Node.TEXT_NODE) {
+          const nodeText = node.textContent?.trim() ?? "";
+          if (nodeText != "") {
+            title += nodeText;
+          }
+        }
+      }
+      this.title = title;
+    });
+    this.addEventListener("keydown", (event) => {
+      if (this.shadowRoot.activeElement == this.findPart("figure") && event.code == "Space") {
+        this.isSelected = !this.isSelected;
+      }
+    });
+    this.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (this.getAttribute("select") ?? this.getAttribute("selectable") == null) {
+        return;
+      }
+      const selected = this.findPart("selected");
+      if (selected != null) {
+        const isSelected = this.classList.contains(_CaptionedThumbnailElement.selectedClassName);
+        const method = isSelected == selected.checked ? "click" : "input";
+        if (isSelected == true) {
+          this.classList.remove(_CaptionedThumbnailElement.selectedClassName);
+          selected.checked = false;
+        } else {
+          this.classList.add(_CaptionedThumbnailElement.selectedClassName);
+          selected.checked = true;
+        }
+        const mouseEvent = event;
+        this.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { shiftKey: mouseEvent.shiftKey, ctrlKey: mouseEvent.ctrlKey, method } }));
+      }
+    });
+    const editButtonSlot = this.shadowRoot.querySelector('slot[name="edit-button"]');
+    editButtonSlot.addEventListener("slotchange", () => {
+      const button = editButtonSlot.assignedElements()[0];
+      if (this.editButton == button) {
+        return;
+      }
+      button.addEventListener("click", (event) => {
+        this.dispatchEvent(new CustomEvent("edit", { bubbles: true }));
+        event.stopPropagation();
+        event.preventDefault();
+        return false;
+      });
+      this.editButton = button;
+    });
+    this.findPart("edit-button")?.addEventListener("click", (event) => {
+      this.dispatchEvent(new CustomEvent("edit", { bubbles: true }));
+      event.stopPropagation();
+      event.preventDefault();
+      return false;
+    });
+  }
+  static observedAttributes = ["label", "src", "select", "selectable"];
+  attributeChangedCallback(attributeName, _oldValue, newValue) {
+    if (attributeName == "label") {
+      const label = this.findPart("label") ?? this.querySelector(":not([slot])");
+      if (label != null) {
+        label.textContent = newValue;
+        this.title = newValue;
+      }
+    } else if (attributeName == "src") {
+      this.updateImage(newValue);
+    } else if (attributeName == "select" || attributeName == "selectable") {
+      this.findPart("figure").tabIndex = 0;
+    }
+  }
+  updateImage(source) {
+    let icon = this.findPart("icon") ?? this.querySelector('[slot="icon"]');
+    if (source == null) {
+      if (icon != null) {
+        icon.remove();
+      }
+      icon = document.createElement("span");
+      icon.setAttribute("part", "icon");
+      icon.classList.add("text-icon");
+      icon.textContent = "\u{1F5CE}";
+      this.shadowRoot.querySelector('slot[name="icon"]')?.appendChild(icon);
+      return;
+    }
+    if (icon != null && icon.tagName != "img") {
+      icon.remove();
+      icon = null;
+    }
+    if (icon == null) {
+      icon = document.createElement("img");
+      icon.setAttribute("alt", "Icon");
+      icon.setAttribute("title", "Icon");
+      icon.setAttribute("slot", "icon");
+      this.appendChild(icon);
+    }
+    icon.src = source;
+  }
+};
+if (customElements.get(COMPONENT_TAG_NAME6) == null) {
+  customElements.define(COMPONENT_TAG_NAME6, CaptionedThumbnailElement);
+}
+
+// components/board-browser/board-browser.ts
+var BoardBrowserAttributes = /* @__PURE__ */ ((BoardBrowserAttributes2) => {
+  BoardBrowserAttributes2["pathId"] = "path-id";
+  return BoardBrowserAttributes2;
+})(BoardBrowserAttributes || {});
+var COMPONENT_STYLESHEET7 = new CSSStyleSheet();
+COMPONENT_STYLESHEET7.replaceSync(`${shared_default}
+    ${board_browser_default}`);
+var COMPONENT_TEMPLATE4 = `${board_browser_default2}
+${defineIcons(
+  "TaskBoard" /* TaskBoard */,
+  "ConfirmCheck" /* ConfirmCheck */,
+  "CancelCross" /* CancelCross */
+)}`;
+var COMPONENT_TAG_NAME7 = "board-browser";
+var BoardBrowserElement = class extends HTMLElement {
+  static observedAttributes = [
+    ...Object.values(BoardBrowserAttributes)
+  ];
+  componentParts = /* @__PURE__ */ new Map();
+  getElement(id) {
+    if (this.componentParts.get(id) == null) {
+      const part = this.findElement(id);
+      if (part != null) {
+        this.componentParts.set(id, part);
+      }
+    }
+    return this.componentParts.get(id);
+  }
+  findElement(id) {
+    return this.shadowRoot.getElementById(id);
+  }
+  onChange;
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE4;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET7);
+    this.#applyPartAttributes();
+  }
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      classedElements[i].part.add(...classedElements[i].classList);
+    }
+  }
+  updateBoards(boards) {
+    const menuItems = [];
+    for (let i = 0; i < boards.length; i++) {
+      const boardRecord = boards[i];
+      const menuItem = this.#createBoardMenuItem(boardRecord);
+      menuItems.push(menuItem);
+    }
+    this.innerHTML = "";
+    this.append(...menuItems);
+  }
+  #createBoardMenuItem(boardRecord) {
+    const element = new CaptionedThumbnailElement();
+    element.innerHTML = `<svg part="item-icon" slot="icon">
+            <use href="#icon-definition_task-board"></use>
+        </svg>
+        ${boardRecord.name}`;
+    element.setAttribute("data-board-id", boardRecord.id);
+    element.toggleAttribute("select", true);
+    return element;
+  }
+  static create(properties) {
+    const element = document.createElement(COMPONENT_TAG_NAME7);
+    for (const [propertyName, value] of Object.entries(properties)) {
+      if (!propertyName.startsWith("on")) {
+        element.setAttribute(propertyName, value);
+      }
+    }
+  }
+  attributeChangedCallback(attributeName, _oldValue, newValue) {
+    if (attributeName == "path-id" /* pathId */) {
+    }
+  }
+};
+if (customElements.get(COMPONENT_TAG_NAME7) == null) {
+  customElements.define(COMPONENT_TAG_NAME7, BoardBrowserElement);
+}
+
+// components/board-settings/board-settings.css?raw
+var board_settings_default = `:host { display: contents; }\r
+#header\r
+{\r
+    display: grid;\r
+    grid-template-columns: auto 1fr auto;\r
+    gap: 7px;\r
+    align-items: center;\r
+    font-weight: bold;\r
+    padding-block: 5px;\r
+}\r
+#icon\r
+{\r
+    width: var(--dialog-header-icon-size);\r
+    height: var(--dialog-header-icon-size);\r
+}\r
+\r
+#form\r
+{\r
+    display: flex;\r
+    flex-direction: column;\r
+    overflow: hidden;\r
+}\r
+\r
+#fields\r
+{\r
+    overflow-y: auto;\r
+    flex: 1;\r
+\r
+    display: grid;\r
+    gap: 1em;\r
+    padding: 1em;\r
+}\r
+\r
+#footer\r
+{\r
+    display: grid;\r
+    grid-template-columns: auto 1fr auto auto;\r
+    gap: 7px;\r
+    padding-block: 5px;\r
+}\r
+#cancel\r
+{\r
+    grid-column: 3;\r
+}\r
+#save\r
+{\r
+    grid-column: 4;\r
+}\r
+\r
+@media (min-width: 800px) \r
+{\r
+    :host\r
+    {\r
+        width: 801px;\r
+    }\r
+}\r
+\r
+\r
+input,select,textarea\r
+{\r
+    font: inherit;\r
+    min-width: 0;\r
+    width: auto;\r
+}\r
+\r
+details summary\r
+{\r
+    user-select: none;\r
+    display: inline-flex;\r
+    gap: .25em;\r
+    margin-bottom: 1em;\r
+}\r
+summary:before\r
+{\r
+    content: '\u25B6';\r
+    transform-origin: 45% 50%;\r
+    transition: transform 100ms ease-out;\r
+    font-size: .78em;\r
+    align-self: center;\r
+    margin-right: .25em;\r
+}\r
+details[open] summary:before\r
+{\r
+    transform: rotate(90deg);\r
+}\r
+\r
+form-field:not([id^="background-image-offset"]) input[inputmode="numeric"]\r
+{\r
+    width: 5ch;\r
+}\r
+\r
+form-field:not([id^="background-image-offset"]) .container\r
+{\r
+    display: flex;\r
+    flex-direction: column;\r
+    gap: .25em;\r
+}\r
+\r
+fieldset\r
+{\r
+    display: grid;\r
+    gap: 1em;\r
+    min-width: 0;\r
+    width: auto;\r
+}\r
+\r
+fieldset legend\r
+{\r
+    display: flex;\r
+    gap: .25em;\r
+    align-items: center;\r
+}\r
+\r
+form-field .label\r
+,form-field .field-label\r
+{\r
+    display: flex;\r
+    gap: .25em;\r
+    align-items: center;\r
+}\r
+form-field .label input\r
+,form-field .field-label input\r
+{\r
+    margin: 0;\r
+}\r
+/* form-field .label [part="text"]\r
+,form-field .field-label [part="text"]\r
+{\r
+    flex: 1;\r
+} */\r
+\r
+fileimage-input::part(label)\r
+{\r
+    grid-column: span 2;\r
+    grid-row: 1;\r
+}\r
+\r
+fileimage-input::part(field)\r
+{\r
+    display: grid;\r
+    align-items: center;\r
+    justify-items: center;\r
+}\r
+\r
+fileimage-input::part(preview)\r
+{\r
+    max-height: 64px;\r
+    height: 100%;\r
+}\r
+\r
+fileimage-input::part(clear)\r
+{\r
+    grid-row: 2;\r
+    grid-column: 2;\r
+}\r
+\r
+fileimage-input::part(view-link)\r
+{\r
+    grid-row: 2;\r
+    grid-column: 1;\r
+}\r
+\r
+\r
+#properties\r
+{\r
+    display: flex;\r
+    align-items: center;\r
+    gap: 1em;\r
+    grid-column: span 2;\r
+}\r
+\r
+#name-field .container\r
+{\r
+    flex: 1;\r
+}\r
+\r
+#appearance-fieldset .container > input\r
+{\r
+    flex: 1;\r
+    min-height: 2ch;\r
+}\r
+\r
+#background-image-offset\r
+{\r
+    display: grid;\r
+    gap: .5em;\r
+}\r
+\r
+#offset-header\r
+{\r
+    grid-column: span 2;\r
+}\r
+\r
+#background-image-offset form-field .container\r
+{\r
+    display: flex;\r
+    gap: .5em;\r
+    align-items: center;\r
+}\r
+\r
+#background-image-offset input\r
+{\r
+    flex: 1;\r
+    width: 0;\r
+    min-width: 5ch;\r
+    /* max-width: 10ch; */\r
+}\r
+\r
+#lists\r
+{\r
+    grid-column: span 2;\r
+}\r
+\r
+#list-items\r
+{\r
+    gap: 1em;\r
+    display: grid;\r
+}\r
+\r
+#list-actions\r
+{\r
+    display: flex;\r
+    align-items: center;\r
+    justify-content: space-between;\r
+    gap: .5em;\r
+    padding: .5em 0;\r
+}\r
+\r
+#tasks\r
+{\r
+    grid-column: span 2;\r
+}\r
+\r
+\r
+#delete-fieldset\r
+{\r
+    grid-template-rows: 1fr auto;\r
+}\r
+\r
+#duplicate-fieldset\r
+{\r
+    grid-column: 2;\r
+}\r
+\r
+#export-fieldset\r
+{\r
+    grid-column: span 2;\r
+    padding: 1em;\r
+    display: block;\r
+}\r
+\r
+#export-actions\r
+{\r
+    display: flex;\r
+    align-items: center;\r
+    justify-content: flex-end;\r
+    gap: .5em;\r
+    padding: .5em 0;\r
+}\r
+\r
+#export-fieldset form-field .container\r
+{\r
+    display: flex;\r
+    flex-direction: row-reverse;\r
+    align-items: center;\r
+    justify-content: flex-end;\r
+    gap: .25em;\r
+}\r
+\r
+#export-options\r
+{\r
+    display: inline-block;\r
+}\r
+\r
+#export-options > header\r
+{\r
+    margin-bottom: 1em;\r
+    border-bottom: solid 2px;\r
+}\r
+\r
+#export-fieldset button\r
+{\r
+    margin-left: auto;\r
+    display: block;\r
+}\r
+\r
+.icon\r
+{\r
+    width: 18px;\r
+    height: 18px;\r
+}\r
+button .icon\r
+{\r
+    width: 12px;\r
+    height: 12px;\r
+}\r
+\r
+#list-items::part(add-button)\r
+{\r
+    display: none;\r
+}\r
+\r
+#icon-definitions\r
+{\r
+    display: none;\r
+}`;
+
+// components/board-settings/board-settings.html?raw
+var board_settings_default2 = '<form method="dialog" id="form">\r\n    <header id="header">\r\n        <svg id="icon" class="icon">\r\n            <use href="#icon-definition_task-board"></use>\r\n        </svg>\r\n        <span id="title">Board</span>\r\n    </header>\r\n    <div id="fields">\r\n        <input type="hidden" name="record-id" id="record-id" />\r\n        <div id="properties">\r\n            <form-field label="Color" id="color-field">\r\n                <input type="color" id="color" name="color" value="#000000" />\r\n            </form-field>\r\n            <form-field label="Name" id="name-field">\r\n                <input type="text" id="name" name="name" value="New Board" />\r\n            </form-field>\r\n            <form-field label="Order" id="order-field">\r\n                <input type="text" id="order" name="order" inputmode="numeric" disabled />\r\n            </form-field>\r\n        </div>\r\n        <fieldset id="appearance-fieldset">\r\n            <legend id="appearance-legend">\r\n                <svg id="color-icon" class="icon">\r\n                    <use href="#icon-definition_color"></use>\r\n                </svg>\r\n                <span id="appearance-label">Appearance</span>\r\n            </legend>\r\n            <form-field id="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\r\n                <input type="color" name="background-color" id="background-color" value="#f9faf5" />\r\n            </form-field>\r\n            <form-field id="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\r\n                <input type="color" name="font-color" id="font-color" value="#060703" />\r\n            </form-field>\r\n        </fieldset>\r\n        <fieldset id="image-fieldset">\r\n            <legend id="image-legend">\r\n                <svg id="image-icon" class="icon" >\r\n                    <use href="#icon-definition_image"></use>\r\n                </svg>\r\n                <span id="image-label">Background Image</span>\r\n            </legend>\r\n            <form-field id="background-image-field" label="Background Image" input-selector="fileimage-input">\r\n                <fileimage-input name="background-image" id="background-image" placeholder="Select an image...">\r\n                    <svg id="background-image-icon" class="icon" slot="placeholder-icon">\r\n                        <use href="#icon-definition_image"></use>\r\n                    </svg>\r\n                </fileimage-input>\r\n            </form-field>\r\n            <form-field id="background-image-display-field" label="Display">\r\n                <select id="background-image-display" name="background-image-display">\r\n                    <option value="stretch">Stretch</option>\r\n                    <option value="center">Center</option>\r\n                    <option value="tile">Tile</option>\r\n                </select>\r\n            </form-field>\r\n            <div id="background-image-offset">\r\n                <div id="offset-header">\r\n                    <span id="offset-label">Offset</span>\r\n                </div>\r\n                <form-field id="background-image-offset-x-field" label="X">\r\n                    <input type="text" inputmode="numeric" id="background-image-offset-x" name="background-image-offset-x" />\r\n                </form-field>\r\n                <form-field id="background-image-offset-y-field" label="Y">\r\n                    <input type="text" inputmode="numeric" id="background-image-offset-y" name="background-image-offset-y" />\r\n                </form-field>\r\n            </div>\r\n        </fieldset>\r\n        <details open id="lists">\r\n            <summary id="lists-summary">\r\n                <svg id="lists-icon" class="icon">\r\n                    <use href="#icon-definition_task-list"></use>\r\n                </svg>\r\n                <span id="lists-label">Lists<span>\r\n            </summary>\r\n            <div id="list-items"><slot><em id="lists-placeholder">No Lists</em></slot></div>\r\n            <div id="list-actions">\r\n                <button type="button" id="clear-lists-button" title="Clear All Lists">\r\n                    <svg id="clear-lists-button-icon" class="icon">\r\n                        <use href="#icon-definition_trash"></use>\r\n                    </svg>\r\n                    <span id="clear-board-lists-label">Clear</span>\r\n                </button>\r\n                <button type="button" id="add-list-button">\r\n                    <svg id="add-list-button-icon" class="icon">\r\n                        <use href="#icon-definition_plus"></use>\r\n                    </svg>\r\n                    <span id="add-list-label">Add List</span>\r\n                </button>\r\n            </div>\r\n        </details>\r\n        <details id="tasks" open>\r\n            <summary id="tasks-summary">\r\n                <svg id="tasks-icon" class="icon">\r\n                    <use href="#icon-definition_task"></use>\r\n                </svg>\r\n                <span id="tasks-label">Task Settings</span>\r\n            </summary>\r\n            <task-fields id="task-fields" class="task-fields"></task-fields>\r\n        </details>\r\n        <fieldset id="delete-fieldset">\r\n            <legend id="delete-legend">Delete</legend>\r\n            <p class="field-question">Delete this board?</p>\r\n            <button type="submit" id="remove-board-button">\r\n                <svg id="remove-board-icon" class="icon">\r\n                    <use href="#icon-definition_trash"></use>\r\n                </svg>\r\n                <span id="remove-board-label">Delete</span>\r\n            </button>\r\n        </fieldset>\r\n        <fieldset id="duplicate-fieldset">\r\n            <legend id="duplicate-legend">Duplicate</legend>\r\n            <p class="field-question">Duplicate this board?</p>\r\n            <form-field id="duplicate-board-name-field" label="New Board Name">\r\n                <input type="text" id="duplicate-board-name" />\r\n            </form-field>\r\n            <button type="button" id="duplicate-board-button">\r\n                <svg id="duplicate-board-icon" class="icon">\r\n                    <use href="#icon-definition_copy"></use>\r\n                </svg>\r\n                <span id="duplicate-board-label">Duplicate</span>\r\n            </button>\r\n        </fieldset>\r\n        <fieldset id="export-fieldset">\r\n            <legend id="export-legend">Export</legend>\r\n            <div id="export-options">\r\n                <header id="export-options-header" class="field-header">Options</header>\r\n                <form-field id="export-images-field" label="Export Background Image?">\r\n                    <svg id="export-images-icon" class="icon" slot="prefix">\r\n                        <use href="#icon-definition_image"></use>\r\n                    </svg>\r\n                    <input type="checkbox" id="export-background-image" checked="true">\r\n                </form-field>\r\n            </div>\r\n            <button id="export-button" type="button">\r\n                <svg id="export-button-icon" class="icon">\r\n                    <use href="#icon-definition_export"></use>\r\n                </svg>\r\n                <span id="export-button-label">Export Board</span>\r\n            </button>\r\n        </fieldset>\r\n    </div>\r\n    <footer id="footer">\r\n        <button type="submit" id="close" title="Close Board">\r\n        <svg id="close-board-icon" class="icon">\r\n            <use href="#icon-definition_close-cross"></use>\r\n        </svg>\r\n        </button>\r\n        <button type="submit" id="cancel" id="cancel" title="Cancel changes">Cancel</button>\r\n        <button type="submit" id="save" id="save" title="Save settings">Save</button>\r\n    </footer>\r\n</form>\r\n\r\n<!-- <form method="dialog" part="board-settings-form">\r\n    <header part="board-settings-header">\r\n        <svg part="board-settings-icon" >\r\n            <use href="#icon-definition_task-board"></use>\r\n        </svg>\r\n        <span part="board-settings-title">Board</span>\r\n    </header>\r\n    <taskboard-fields part="board-fields" id="board-fields"></taskboard-fields>\r\n    <footer part="board-settings-footer">\r\n        <button type="submit" part="close-board-button" id="close-board-button">\r\n        <svg part="close-board-icon" >\r\n            <use href="#icon-definition_trash"></use>\r\n        </svg>\r\n        </button>\r\n        <button type="submit" part="board-settings-cancel" id="board-settings-cancel">Cancel</button>\r\n        <button type="submit" part="board-settings-save" id="board-settings-save">Save</button>\r\n    </footer>\r\n</form> -->';
+
+// data/records/task-board.record.ts
+var TaskBoardRecord = class extends DataRecord {
+  name = "New Board";
+  color = "#531CE8";
+  order = -1;
+  backgroundImageId = "";
+  backgroundDisplay = "stretch" /* Stretch */;
+  backgroundOffsetX = 0;
+  backgroundOffsetY = 0;
+  useCustomBackgroundColor = false;
+  backgroundColor = "#f9faf5";
+  useCustomFontColor = false;
+  fontColor = "#060703";
+  taskSettingsId = "";
+};
+
+// components/board-settings/board-settings.ts
+var BoardSettingsAttributes = /* @__PURE__ */ ((BoardSettingsAttributes2) => {
+  BoardSettingsAttributes2["pathId"] = "path-id";
+  return BoardSettingsAttributes2;
+})(BoardSettingsAttributes || {});
+var COMPONENT_STYLESHEET8 = new CSSStyleSheet();
+COMPONENT_STYLESHEET8.replaceSync(`${shared_default}
+    ${board_settings_default}`);
+var COMPONENT_TEMPLATE5 = `${board_settings_default2}
+${defineIcons(
+  "Gear" /* Gear */,
+  "Export" /* Export */,
+  "PlusIcon" /* PlusIcon */,
+  "Image" /* Image */,
+  "Color" /* Color */,
+  "Task" /* Task */,
+  "TaskList" /* TaskList */,
+  "TaskBoard" /* TaskBoard */,
+  "CloseCross" /* CloseCross */
+)}`;
+var COMPONENT_TAG_NAME8 = "board-settings";
+var BoardSettingsElement = class extends HTMLElement {
+  static observedAttributes = [
+    ...Object.values(BoardSettingsAttributes)
+  ];
+  componentParts = /* @__PURE__ */ new Map();
+  getElement(id) {
+    if (this.componentParts.get(id) == null) {
+      const part = this.findElement(id);
+      if (part != null) {
+        this.componentParts.set(id, part);
+      }
+    }
+    return this.componentParts.get(id);
+  }
+  findElement(id) {
+    return this.shadowRoot.getElementById(id);
+  }
+  #draggingList = null;
+  onNavigate;
+  onBoardMove;
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE5;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET8);
+    this.#applyPartAttributes();
+    this.findElement("clear-lists-button").addEventListener("click", () => {
+      this.querySelectorAll("tasklist-fields").forEach((item) => item.toggleAttribute("removed", true));
+    });
+    this.addEventListener("dragover", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (this.#draggingList == null || this.#draggingList.tagName.toLowerCase() != "tasklist-fields") {
+        return;
+      }
+      const nextElement = this.getNextListItem(event.clientY).listElement;
+      if (this.#draggingList.parentElement == this && nextElement == this.#draggingList.nextElementSibling) {
+        return;
+      }
+      if (nextElement == null) {
+        this.append(this.#draggingList);
+      } else {
+        this.insertBefore(this.#draggingList, nextElement);
+      }
+    });
+  }
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      classedElements[i].part.add(...classedElements[i].classList);
+    }
+  }
+  setValues(board, taskSettings, backgroundImage = null) {
+    this.setAttribute("record-id", board.id);
+    this.findElement("color").value = board.color;
+    this.findElement("name").value = board.name;
+    this.findElement("order").value = board.order.toString();
+    this.findElement("background-color-field").setAttribute("optional-value", board.useCustomBackgroundColor == true ? "true" : "false");
+    this.findElement("background-color").value = board.backgroundColor;
+    this.findElement("font-color-field").setAttribute("optional-value", board.useCustomFontColor == true ? "true" : "false");
+    this.findElement("font-color").value = board.fontColor;
+    this.findElement("background-image-display").value = board.backgroundDisplay;
+    this.findElement("background-image-offset-x").value = board.backgroundOffsetX.toString();
+    this.findElement("background-image-offset-y").value = board.backgroundOffsetY.toString();
+    this.findElement("background-image-offset-y").value = board.backgroundOffsetY.toString();
+    if (backgroundImage != null) {
+      this.findElement("background-image").value = backgroundImage.image;
+    } else {
+      this.findElement("background-image").value = null;
+    }
+    this.findElement("task-fields").setValues(taskSettings);
+  }
+  setLists(taskLists, taskLists_TaskSettings) {
+    this.innerHTML = "";
+    if (taskLists.length == 0) {
+      return;
+    }
+    const listElements = [];
+    for (let i = 0; i < taskLists.length; i++) {
+      const taskList = taskLists[i];
+      if (taskList.deletedTimestamp != void 0) {
+        continue;
+      }
+      const taskSettings = taskLists_TaskSettings.find((item) => item.id == taskList.taskSettingsId);
+      if (taskSettings == null) {
+        throw new Error("Unable to load list settings");
+      }
+      const taskListElement = this.createList(taskList, taskSettings);
+      listElements.push(taskListElement);
+    }
+    this.append(...listElements);
+  }
+  addList(taskList, taskSettings) {
+    const list = this.createList(taskList, taskSettings);
+    this.append(list);
+  }
+  insertList(afterTarget, taskList, taskSettings) {
+    const list = this.createList(taskList, taskSettings);
+    if (afterTarget.nextElementSibling == null) {
+      this.append(list);
+    } else {
+      this.insertBefore(list, afterTarget.nextElementSibling);
+    }
+  }
+  createList(taskList, taskSettings) {
+    const taskListElement = new TaskListFieldsComponent();
+    if (taskSettings == null) {
+      throw new Error("Unable to load list settings");
+    }
+    taskListElement.setValues(taskList, taskSettings);
+    taskListElement.addEventListener("duplicate", (event) => {
+      const [list, settings] = taskListElement.getRecords();
+      this.dispatchEvent(new CustomEvent("duplicate", { detail: { target: taskListElement, list, settings } }));
+    });
+    const handle = taskListElement.findPart("handle");
+    handle.addEventListener("mousedown", (_event) => {
+      taskListElement.draggable = true;
+    });
+    handle.addEventListener("mouseup", (_event) => {
+      taskListElement.removeAttribute("draggable");
+    });
+    taskListElement.addEventListener("dragstart", (_event) => {
+      this.#draggingList = taskListElement;
+      taskListElement.classList.add("dragging");
+      this.classList.add("drop-target");
+    });
+    taskListElement.addEventListener("dragend", (_event) => {
+      taskListElement.classList.remove("dragging");
+      this.#draggingList = null;
+      this.classList.remove("drop-target");
+    });
+    return taskListElement;
+  }
+  getRecords() {
+    const board = new TaskBoardRecord();
+    board.id = this.getAttribute("record-id");
+    board.color = this.findElement("color").value;
+    board.name = this.findElement("name").value;
+    board.useCustomBackgroundColor = this.findElement("background-color-field").getAttribute("optional-value") == "true";
+    board.backgroundColor = this.findElement("background-color").value;
+    board.useCustomFontColor = this.findElement("font-color-field").getAttribute("optional-value") == "true";
+    board.fontColor = this.findElement("font-color").value;
+    board.backgroundDisplay = this.findElement("background-image-display").value;
+    board.backgroundOffsetX = parseInt(this.findElement("background-image-offset-x").value);
+    board.backgroundOffsetY = parseInt(this.findElement("background-image-offset-y").value);
+    const boardTaskSettings = this.findElement("task-fields").getRecord();
+    boardTaskSettings.parentRecordType = "board";
+    board.taskSettingsId = this.findElement("task-fields").getAttribute("record-id");
+    const listFields = [...this.querySelectorAll("tasklist-fields")];
+    const lists = [];
+    const toRemove = [];
+    const taskSettings = [boardTaskSettings];
+    for (let i = 0; i < listFields.length; i++) {
+      const element = listFields[i];
+      if (element.hasAttribute("removed")) {
+        const recordId = element.getAttribute("record-id");
+        if (recordId == null) {
+          console.error("Unable to remove TaskList: record id attribute is unset.");
+          continue;
+        }
+        toRemove.push(recordId);
+        continue;
+      }
+      const [list, taskSettingsRecord] = element.getRecords();
+      list.boardId = board.id;
+      list.order = i;
+      lists.push(list);
+      taskSettings.push(taskSettingsRecord);
+    }
+    const records = [board, lists, taskSettings, toRemove];
+    return records;
+  }
+  getNextListItem(mouseY) {
+    const lists = [...this.querySelectorAll("tasklist-fields:not(.dragging)")];
+    return lists.reduce((closest, item) => {
+      const boundingRect = item.getBoundingClientRect();
+      const offset = mouseY - boundingRect.top - boundingRect.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return { offset, listElement: item };
+      }
+      return closest;
+    }, { offset: Number.NEGATIVE_INFINITY });
+  }
+  static create(properties) {
+    const element = document.createElement(COMPONENT_TAG_NAME8);
+    for (const [propertyName, value] of Object.entries(properties)) {
+      if (!propertyName.startsWith("on")) {
+        element.setAttribute(propertyName, value);
+      }
+    }
+  }
+  attributeChangedCallback(attributeName, _oldValue, newValue) {
+    if (attributeName == "path-id" /* pathId */) {
+    }
+  }
+};
+if (customElements.get(COMPONENT_TAG_NAME8) == null) {
+  customElements.define(COMPONENT_TAG_NAME8, BoardSettingsElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+editable-list@0.0.10/node_modules/@magnit-ce/editable-list/dist/editable-list.mjs
@@ -3239,9 +3549,9 @@ var STYLE = `
     padding-inline-start: 40px;
     /* end default ul styles */
 }`;
-var COMPONENT_STYLESHEET6 = new CSSStyleSheet();
-COMPONENT_STYLESHEET6.replaceSync(STYLE);
-var COMPONENT_TAG_NAME6 = "editable-list";
+var COMPONENT_STYLESHEET9 = new CSSStyleSheet();
+COMPONENT_STYLESHEET9.replaceSync(STYLE);
+var COMPONENT_TAG_NAME9 = "editable-list";
 var EditableListElement = class extends HTMLElement {
   /** if `true`, allows child elements to be removed from the DOM when their remove button is pressed */
   canRemove = true;
@@ -3279,7 +3589,7 @@ var EditableListElement = class extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = HTML;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET6);
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET9);
     this.addEventListener("click", (event) => {
       let button = event.composedPath().find((item2) => item2 instanceof HTMLButtonElement);
       if (button == null) {
@@ -3319,7 +3629,7 @@ var EditableListElement = class extends HTMLElement {
    * @returns a configured instance of an `EditableListElement` element.
    */
   static create(props) {
-    const element = document.createElement(COMPONENT_TAG_NAME6);
+    const element = document.createElement(COMPONENT_TAG_NAME9);
     if (props == null) {
       return element;
     }
@@ -3422,8 +3732,8 @@ var EditableListElement = class extends HTMLElement {
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME6) == null) {
-  customElements.define(COMPONENT_TAG_NAME6, EditableListElement);
+if (customElements.get(COMPONENT_TAG_NAME9) == null) {
+  customElements.define(COMPONENT_TAG_NAME9, EditableListElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+path-router@0.2.8/node_modules/@magnit-ce/path-router/dist/path-router.js
@@ -3547,11 +3857,11 @@ var RouteType = (elementType = HTMLElement) => {
     }
   };
 };
-var COMPONENT_TAG_NAME7 = "route-dialog";
+var COMPONENT_TAG_NAME10 = "route-dialog";
 var RouteDialogElement = class extends RouteType(HTMLDialogElement) {
 };
-if (customElements.get(COMPONENT_TAG_NAME7) == null) {
-  customElements.define(COMPONENT_TAG_NAME7, RouteDialogElement, { extends: "dialog" });
+if (customElements.get(COMPONENT_TAG_NAME10) == null) {
+  customElements.define(COMPONENT_TAG_NAME10, RouteDialogElement, { extends: "dialog" });
 }
 var COMPONENT_TAG_NAME22 = "route-page";
 var RoutePageElement = class extends RouteType() {
@@ -3559,8 +3869,8 @@ var RoutePageElement = class extends RouteType() {
 if (customElements.get(COMPONENT_TAG_NAME22) == null) {
   customElements.define(COMPONENT_TAG_NAME22, RoutePageElement);
 }
-var COMPONENT_STYLESHEET7 = new CSSStyleSheet();
-COMPONENT_STYLESHEET7.replaceSync(path_router_default);
+var COMPONENT_STYLESHEET10 = new CSSStyleSheet();
+COMPONENT_STYLESHEET10.replaceSync(path_router_default);
 var DOMCONTENTLOADED_PROMISE = new Promise((resolve) => document.addEventListener("DOMContentLoaded", resolve));
 var ROUTEPROPERTY_DATA_ATTRIBUTE_KEYWORD = "property";
 var COMPONENT_TAG_NAME32 = "path-router";
@@ -3569,10 +3879,10 @@ var PathRouterElement = class extends HTMLElement {
     return Array.from(this.querySelectorAll(`:scope > ${COMPONENT_TAG_NAME22}, ${COMPONENT_TAG_NAME32} :not(${COMPONENT_TAG_NAME32}) ${COMPONENT_TAG_NAME22}`), (route) => route);
   }
   get routeDialogs() {
-    return Array.from(this.querySelectorAll(`:scope > [is="${COMPONENT_TAG_NAME7}"]`), (routeDialog) => routeDialog);
+    return Array.from(this.querySelectorAll(`:scope > [is="${COMPONENT_TAG_NAME10}"]`), (routeDialog) => routeDialog);
   }
   get routes() {
-    return Array.from(this.querySelectorAll(`:scope > ${COMPONENT_TAG_NAME22},${COMPONENT_TAG_NAME32} :not(${COMPONENT_TAG_NAME32}) ${COMPONENT_TAG_NAME22},:scope > [is="${COMPONENT_TAG_NAME7}"]`), (route) => route);
+    return Array.from(this.querySelectorAll(`:scope > ${COMPONENT_TAG_NAME22},${COMPONENT_TAG_NAME32} :not(${COMPONENT_TAG_NAME32}) ${COMPONENT_TAG_NAME22},:scope > [is="${COMPONENT_TAG_NAME10}"]`), (route) => route);
   }
   /** The `<page-route>` element currently being navigated to. */
   targetPageRoute;
@@ -3741,7 +4051,7 @@ var PathRouterElement = class extends HTMLElement {
         }
         for (let i = 0; i < matchingPageRoutes.length; i++) {
           const routeData = matchingPageRoutes[i];
-          if (routeData.route.closest(`[is="${COMPONENT_TAG_NAME7}"][open]`) != null) {
+          if (routeData.route.closest(`[is="${COMPONENT_TAG_NAME10}"][open]`) != null) {
             openPagePromise = this.#openRoutePage(routeData.route, dialogPath);
             this.#assignRouteProperties(routeData.route, routeData.properties);
           }
@@ -3868,14 +4178,14 @@ var PathRouterElement = class extends HTMLElement {
     const routePath = route.getAttribute("path") ?? "";
     const routePathArray = routePath.split("/");
     const pagePathArray = pagePath.split("/");
-    const pathType = route.closest(`[is="${COMPONENT_TAG_NAME7}"]`) == null ? "Page" : "Dialog";
+    const pathType = route.closest(`[is="${COMPONENT_TAG_NAME10}"]`) == null ? "Page" : "Dialog";
     if (pathType == "Page") {
       return this.routeTypeMatches(route, pagePathArray, routePathArray, `${COMPONENT_TAG_NAME22}`, previousMatches);
     } else if (dialogPath == null) {
       return [false, {}];
     }
     const dialogPathArray = dialogPath.split("/");
-    return this.routeTypeMatches(route, dialogPathArray, routePathArray, `${COMPONENT_TAG_NAME22},[is="${COMPONENT_TAG_NAME7}"]`, previousMatches);
+    return this.routeTypeMatches(route, dialogPathArray, routePathArray, `${COMPONENT_TAG_NAME22},[is="${COMPONENT_TAG_NAME10}"]`, previousMatches);
   }
   routeTypeMatches(route, queryPathArray, routePathArray, parentRouteSelector, previousMatches) {
     if (queryPathArray.length == 1 && queryPathArray[0].trim() == "") {
@@ -3988,8 +4298,8 @@ var PathRouterElement = class extends HTMLElement {
   }
   #injectStyles() {
     let parent = this.getRootNode();
-    if (parent.adoptedStyleSheets.indexOf(COMPONENT_STYLESHEET7) == -1) {
-      parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET7);
+    if (parent.adoptedStyleSheets.indexOf(COMPONENT_STYLESHEET10) == -1) {
+      parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET10);
     }
   }
   static observedAttributes = ["path"];
@@ -4008,8 +4318,8 @@ if (customElements.get(COMPONENT_TAG_NAME32) == null) {
 }
 
 // node_modules/.pnpm/@magnit-ce+task-board@0.0.3/node_modules/@magnit-ce/task-board/dist/task-board.js
-var COMPONENT_STYLESHEET8 = new CSSStyleSheet();
-COMPONENT_STYLESHEET8.replaceSync(`
+var COMPONENT_STYLESHEET11 = new CSSStyleSheet();
+COMPONENT_STYLESHEET11.replaceSync(`
 :host
 {
     overflow: hidden;
@@ -4031,25 +4341,25 @@ COMPONENT_STYLESHEET8.replaceSync(`
     min-width: var(--list-min-width);
 }
 `);
-var COMPONENT_TAG_NAME8 = "task-board";
+var COMPONENT_TAG_NAME11 = "task-board";
 var TaskBoardElement = class extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `<slot name="header"></slot><div part="lists"><slot></slot></div><slot name="footer"></slot>`;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET8);
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET11);
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME8) == null) {
-  customElements.define(COMPONENT_TAG_NAME8, TaskBoardElement);
+if (customElements.get(COMPONENT_TAG_NAME11) == null) {
+  customElements.define(COMPONENT_TAG_NAME11, TaskBoardElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+task-list@0.0.14/node_modules/@magnit-ce/task-list/dist/task-list.js
 var task_list_default = ':host\n{\n    --border-color: rgb(95, 95, 95);\n    display: inline-block;\n    border: solid 1px var(--border-color);\n    border-radius: 3px;\n    padding: .5em;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(71, 71, 71);\n    }\n}\n\n\n[part="header"]\n{\n    display: grid;\n    grid-template-columns: auto minmax(0, 1fr) auto;\n    align-items: center;\n    position: sticky;\n}\n\n[part="color-container"]\n{\n    display: contents;\n}\n\n[part="color"]\n{\n    padding: 0;\n    width: 12px;\n    min-height: 0;\n    height: auto;\n    border: solid 1px transparent;\n    align-self: stretch;\n}\n[part="color"]::-moz-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch-wrapper \n{\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="tasks"]\n{\n    list-style: none;\n    margin: 0;\n    padding: 0;\n    display: flex;\n    flex-direction: column;\n}\n\n[part="add-button"]\n{\n    margin-top: 1rem;\n    margin-inline: auto;\n    min-width: 100px;\n    align-self: center;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 5px;\n}\n\n:host([collapsed]) > [part="tasks"]\n{\n    overflow: hidden;\n    height: min-content;\n    height: 0;\n    opacity: 0;\n    padding: 0;\n    margin: 0;\n    border: none;\n    pointer-events: none;\n    user-select: none;\n}\n\n::slotted([data-drag-id])\n{\n    opacity: .7;\n    scale: .97;\n    transition: opacity 100ms ease, scale 100ms ease;\n}\n\n::slotted(task-list)\n{\n    margin-block: 7px;\n}';
 var task_list_default2 = '<slot name="header">\n    <header part="header">\n        <label part="color-container" title="Color">\n            <input type="color" part="color" value="#919191" />\n        </label>\n        <input type="text" part="name" placeholder="List Name" />\n        <button type="button" part="collapse-button" title="Collapse">\n            <span part="collapse-icon">\u25B2</span>\n        </button>\n    </header>\n</slot>\n<ul part="tasks">\n    <slot></slot>\n</ul>\n<slot name="add-button"><button type="button" part="add-button" title="Add">\n    <span part="add-icon">&plus;</span>\n    <span part="add-label">Add Task</span>\n</button></slot>\n<slot name="footer"></slot>';
-var COMPONENT_STYLESHEET9 = new CSSStyleSheet();
-COMPONENT_STYLESHEET9.replaceSync(task_list_default);
-var COMPONENT_TAG_NAME9 = "task-list";
+var COMPONENT_STYLESHEET12 = new CSSStyleSheet();
+COMPONENT_STYLESHEET12.replaceSync(task_list_default);
+var COMPONENT_TAG_NAME12 = "task-list";
 var TaskListElement = class extends HTMLElement {
   TASKCARD_TAG_NAME = "task-card";
   dragAndDropQueryParent;
@@ -4072,7 +4382,7 @@ var TaskListElement = class extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = task_list_default2;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET9);
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET12);
     this.dragAndDropQueryParent = this.parentElement == null ? this.getRootNode() : this.parentElement.getRootNode();
     this.findPart("name").addEventListener("change", (event) => {
       this.dispatchEvent(new CustomEvent("change", { bubbles: true, cancelable: true, detail: { target: event.target } }));
@@ -4096,7 +4406,7 @@ var TaskListElement = class extends HTMLElement {
         if (this.handledItems.has(children[i])) {
           continue;
         }
-        if (children[i].tagName.toLowerCase() == COMPONENT_TAG_NAME9.toLowerCase()) {
+        if (children[i].tagName.toLowerCase() == COMPONENT_TAG_NAME12.toLowerCase()) {
           this.dispatchEvent(new CustomEvent("nested", { bubbles: true, cancelable: true, detail: { target: children[i] } }));
           this.handledItems.add(children[i]);
         }
@@ -4225,16 +4535,16 @@ var TaskListElement = class extends HTMLElement {
     item_onDragEnd: this.#item_onDragEnd.bind(this)
   };
 };
-if (customElements.get(COMPONENT_TAG_NAME9) == null) {
-  customElements.define(COMPONENT_TAG_NAME9, TaskListElement);
+if (customElements.get(COMPONENT_TAG_NAME12) == null) {
+  customElements.define(COMPONENT_TAG_NAME12, TaskListElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+task-card@0.0.17/node_modules/@magnit-ce/task-card/dist/task-card.js
 var task_card_default = ':host\n{\n    --border-color: rgb(95, 95, 95);\n    border: solid 1px var(--border-color);\n    border-radius: 3px;\n    padding: 0;\n    margin: .25em;\n    display: inline-flex;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(71, 71, 71);\n    }\n}\n\n[part="color-container"]\n{\n    display: contents;\n}\n\n[part="color"]\n{\n    margin: 0;\n    padding: 0;\n    width: 7.5px;\n    min-height: 0;\n    height: auto;\n    border: none;\n}\n[part="color"]::-moz-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch-wrapper \n{\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="is-finished"]\n{\n    margin: 1em .5em;\n}\n\n[part="finished-indicator"]\n{\n    margin-block: var(--margin, .5em);\n    background: var(--background);\n    background-color: var(--background-color, transparent);\n    background-image: var(--background-image, none);\n    border: var(--border, none);\n    color: var(--color);\n}\n\n\n[part="is-finished"]:checked ~ slot [part="description"]\n,[part="is-finished"]:checked ~ ::slotted([slot="description"])\n{\n    text-decoration: line-through;\n}\n\n::slotted([slot="custom-check"])\n{\n    display: none;\n}\n[part="is-finished"]:checked ~ [part="finished-indicator"]\n{\n    background: var(--finished-background);\n    background-color: var(--finished-background-color, transparent);\n    background-image: var(--finished-background-image, none);\n    border: var(--finished-border, none);\n    color: var(--finished-color);\n}\n[part="is-finished"]:checked ~ [part="finished-indicator"] ::slotted([slot="custom-check"])\n{\n    display: var(--custom-check-display, block);\n}\n\n[part="description"]\n{\n    /* user-agent input defaults */\n    --input-border-color: rgb(118, 118, 118);\n\n    min-height: 1.2em;\n    min-width: 24px;\n    resize: both;\n    background-color: field;\n    color: fieldtext;\n    border: solid 1px var(--input-border-color, fieldtext);\n    padding: 3px 15px 3px 5px;\n    font-size: 12px;\n    font-family: sans-serif;\n    display: block;\n    border-radius: 2px;\n    overflow: auto;\n    overflow-wrap: normal;\n\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        /* user-agent input defaults */\n        --input-border-color: rgb(133, 133, 133);\n    }\n}\n\n[part="description"]\n,::slotted([slot="description"])\n{\n    margin: 1em .5em 1em 0;\n    flex: 1;\n}\n\n[part="remove-button"]\n{\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n}\n[part="remove-icon"]\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}\n\n\n:host(.stacked)\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n:host(.stacked) [part="color-container"]\n,:host(.stacked) [part="color"]\n{\n    grid-row: 2;\n    grid-column: 2;\n    width: 14px;\n    height: 14px;\n    margin-block-end: 7px;\n    margin-block-start: 0;\n    border-radius: 3px;\n    align-self: center;\n    justify-self: center;\n}\n\n:host(.stacked) [part="handle"]\n{\n    grid-row: span 2;\n    grid-column: 1;\n}\n\n:host(.stacked) [part="is-finished"]\n,:host(.stacked) [part="finished-indicator"]\n{\n    grid-row: 1;\n    grid-column: 2;\n    margin-block-start: 7px;\n    margin-block-end: 0;\n}\n\n:host(.stacked) [part="description"]\n,:host(.stacked) [part="remove-button"]\n{\n    grid-row: span 2;\n}';
 var task_card_default2 = '<slot name="handle">\n    <span part="handle"></span>\n</slot>\n<label part="color-container">\n    <input type="color" part="color" value="#919191" />\n</label>\n<input type="checkbox" part="is-finished" title="Finished?" id="finished-checkbox" />\n<label part="finished-indicator" for="finished-checkbox"><slot name="custom-check"></slot></label>\n<slot name="description"><div part="description" contenteditable="true"></div></slot>\n<button type="button" part="remove-button" title="Delete">\n    <slot name="remove-button-label">\n        <svg part="remove-icon" class="icon close-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">\n            <path\n            style="display:inline;fill:var(--icon-primary-color,InfoText);fill-opacity:1;stroke:var(--icon-secondary-color,InfoBackground);stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"\n            d="m 3.8656768,2.2287478 a 1.6392814,1.6392814 0 0 0 -1.15929,0.48032 1.6392814,1.6392814 0 0 0 0,2.31816 l 6.38181,6.3818002 -6.38181,6.38182 a 1.6392814,1.6392814 0 0 0 0,2.31814 1.6392814,1.6392814 0 0 0 2.31816,0 l 6.3818102,-6.3818 6.38181,6.3818 a 1.6392814,1.6392814 0 0 0 2.31816,0 1.6392814,1.6392814 0 0 0 0,-2.31814 l -6.38182,-6.38182 6.38182,-6.3818002 a 1.6392814,1.6392814 0 0 0 0,-2.31816 1.6392814,1.6392814 0 0 0 -1.15929,-0.48032 1.6392814,1.6392814 0 0 0 -1.15887,0.48032 l -6.38181,6.38181 -6.3818102,-6.38181 a 1.6392814,1.6392814 0 0 0 -1.15887,-0.48032 z" />\n        </svg>\n    </slot>\n</button>';
-var COMPONENT_STYLESHEET10 = new CSSStyleSheet();
-COMPONENT_STYLESHEET10.replaceSync(task_card_default);
-var COMPONENT_TAG_NAME10 = "task-card";
+var COMPONENT_STYLESHEET13 = new CSSStyleSheet();
+COMPONENT_STYLESHEET13.replaceSync(task_card_default);
+var COMPONENT_TAG_NAME13 = "task-card";
 var TaskCardElement = class extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
   /**
@@ -4267,7 +4577,7 @@ var TaskCardElement = class extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = task_card_default2;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET10);
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET13);
     this.findPart("color").addEventListener("change", (event) => {
       this.dispatchEvent(new CustomEvent("change", { bubbles: true, cancelable: true, detail: { target: event.target } }));
     });
@@ -4285,7 +4595,7 @@ var TaskCardElement = class extends HTMLElement {
     });
   }
   static create(props) {
-    const element = document.createElement(COMPONENT_TAG_NAME10);
+    const element = document.createElement(COMPONENT_TAG_NAME13);
     if (props == null) {
       return element;
     }
@@ -4310,16 +4620,16 @@ var TaskCardElement = class extends HTMLElement {
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME10) == null) {
-  customElements.define(COMPONENT_TAG_NAME10, TaskCardElement);
+if (customElements.get(COMPONENT_TAG_NAME13) == null) {
+  customElements.define(COMPONENT_TAG_NAME13, TaskCardElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+collection-browser@0.0.3/node_modules/@magnit-ce/collection-browser/dist/collection-browser.js
 var collection_browser_default = ':host\n{\n    --border-color: rgb(205 205 205);\n\n    display: grid;\n    border: solid 1px var(--border-color);\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(81 81 81);\n    }\n}\n\n[part="navigation"]\n{\n    border-right: solid 1px var(--border-color);\n}\n[part="categories"] > ::slotted(*)\n{\n    padding: var(--category-padding, 5px 15px);\n}\n\n[part="gallery"]\n{\n    margin: 0;\n    display: grid;\n    grid-template-rows: auto 1fr;\n    /* gap: 1em; */\n    user-select: none;\n    overflow: auto;\n}\n\n[part="header"]\n{\n    display: grid;\n    grid-template-columns: 1fr auto;\n    align-items: center;\n\n    border-bottom: solid 1px var(--border-color);\n}\n\n[part="items"]\n{\n    padding: 0;\n    margin: 0;\n    list-style: none;\n\n    display: grid;\n    grid-template-columns: repeat(auto-fill, var(--item-width, minmax(0, 100px)));\n    /* grid-column-gap: var(--column-gap, 1em);\n    grid-row-gap: var(--row-gap, 1em); */\n}\n\n\n::slotted(:not([slot]))\n{\n    border: solid 1px transparent;\n    margin: 3px 7px;\n}\n\n::slotted(:not([slot]):focus)\n{\n    border-color: rgb(205 205 205);\n}\n::slotted(:not([slot]):hover)\n{\n    background-color: var(--background-color-hover, rgb(221, 221, 221));\n}\n::slotted(:not([slot]).selected)\n{\n    background-color: var(--background-color-selected, highlight);\n    color: var(--color-selected, highlighttext);\n}\n@media (prefers-color-scheme: dark) \n{\n    ::slotted(:not([slot]):hover)\n    {\n        --background-color-hover: rgb(197, 197, 197);\n    }\n}\n\n[part="add-button"]\n{\n    align-self: center;\n    justify-self: flex-end;\n    margin: .5em 1em;\n}\n\n\n@media (max-width: 800px) \n{\n    \n}\n@media (min-width: 800px) \n{\n    :host\n    {\n        display: grid;\n        grid-template-columns: auto 1fr;\n    }\n}';
 var collection_browser_default2 = '<nav part="navigation">\n    <slot name="navigation-header">\n        <header part="navigation-header">\n            <slot name="navigation-header-content"></slot>\n        </header>\n    </slot>\n    <selectable-items part="categories"><slot name="category"></slot></selectable-items>\n</nav>\n<div part="gallery">\n    <slot name="header">\n        <header part="header">\n            <slot name="header-content">\n            </slot>\n            <slot name="add-button">\n                <button part="add-button">\n                    <slot name="add-button-content">\n                        <span part="add-button-icon">+</span>\n                        <span part="add-button-label">Add Item</span>\n                    </slot>\n                </button>\n            </slot>\n        </header>\n    </slot>\n    <div part="items">\n        <slot></slot>\n    </div>\n</div>';
 var selectable_items_default = ":host { user-select: none; }\n::slotted(*)\n{\n    user-select: none;\n    cursor: pointer;\n}\n::slotted(:hover)\n{\n    background-color: var(--background-color-hover, rgb(221, 221, 221));\n}\n::slotted(.selected)\n{\n    background-color: var(--background-color-selected, highlight);\n    color: var(--color-selected, highlighttext);\n}\n@media (prefers-color-scheme: dark) \n{\n    ::slotted(:hover)\n    {\n        --background-color-hover: rgb(197, 197, 197);\n    }\n}";
-var COMPONENT_STYLESHEET11 = new CSSStyleSheet();
-COMPONENT_STYLESHEET11.replaceSync(selectable_items_default);
+var COMPONENT_STYLESHEET14 = new CSSStyleSheet();
+COMPONENT_STYLESHEET14.replaceSync(selectable_items_default);
 document.addEventListener("keydown", (event) => {
   if (SelectableItemsElement.multipleModifierKeys.indexOf(event.code) > -1) {
     SelectableItemsElement._multipleModifierActive = true;
@@ -4331,7 +4641,7 @@ document.addEventListener("keyup", (event) => {
     SelectableItemsElement._multipleModifierActive = SelectableItemsElement.multipleModifierActive;
   }
 });
-var COMPONENT_TAG_NAME11 = "selectable-items";
+var COMPONENT_TAG_NAME14 = "selectable-items";
 var SelectableItemsElement = class _SelectableItemsElement extends HTMLElement {
   static observedAttributes = [];
   // internal
@@ -4347,7 +4657,7 @@ var SelectableItemsElement = class _SelectableItemsElement extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `<slot></slot>`;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET11);
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET14);
     this.addEventListener("click", (event) => {
       let item;
       const composedPath = event.composedPath();
@@ -4393,8 +4703,8 @@ var SelectableItemsElement = class _SelectableItemsElement extends HTMLElement {
     this.dispatchEvent(new Event("change"));
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME11) == null) {
-  customElements.define(COMPONENT_TAG_NAME11, SelectableItemsElement);
+if (customElements.get(COMPONENT_TAG_NAME14) == null) {
+  customElements.define(COMPONENT_TAG_NAME14, SelectableItemsElement);
 }
 var COMPONENT_STYLESHEET22 = new CSSStyleSheet();
 COMPONENT_STYLESHEET22.replaceSync(collection_browser_default);
@@ -4645,9 +4955,9 @@ var ItemFilters = class {
     return results;
   }
 };
-var COMPONENT_STYLESHEET12 = new CSSStyleSheet();
-COMPONENT_STYLESHEET12.replaceSync(collection_filter_default);
-var COMPONENT_TAG_NAME12 = "collection-filter";
+var COMPONENT_STYLESHEET15 = new CSSStyleSheet();
+COMPONENT_STYLESHEET15.replaceSync(collection_filter_default);
+var COMPONENT_TAG_NAME15 = "collection-filter";
 var CollectionFilterElement = class extends HTMLElement {
   // #boundEventHandlers: Map<string, (event?:Event) => void> = new Map([
   // ]);
@@ -4676,7 +4986,7 @@ var CollectionFilterElement = class extends HTMLElement {
     }
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = collection_filter_default2;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET12);
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET15);
     this.findPart("form").addEventListener("submit", (event) => {
       const mode = this.hasAttribute("regex") ? "regex" : null;
       const queryComparison = mode == "regex" ? this.regexQueryComparison : this.textQueryComparison;
@@ -4746,164 +5056,16 @@ var CollectionFilterElement = class extends HTMLElement {
   //     this.itemFilters.removeFilter(index);
   // }
 };
-if (customElements.get(COMPONENT_TAG_NAME12) == null) {
-  customElements.define(COMPONENT_TAG_NAME12, CollectionFilterElement);
-}
-
-// node_modules/.pnpm/@magnit-ce+captioned-thumbnail@0.0.3/node_modules/@magnit-ce/captioned-thumbnail/dist/captioned-thumbnail.js
-var captioned_thumbnail_default = '\n\n:host\n{\n    display: inline-flex;\n    width: 80px;\n    height: 80px;\n    color-scheme: light dark;\n}\n\n:host(:focus) figure\n{\n    border-color: rgb(205 205 205);\n}\n@media (prefers-color-scheme: dark) \n{\n    :host(:focus) figure\n    {\n        border-color: rgb(81 81 81);\n    }\n}\n\nfigure\n{\n    flex: 1;\n    display: grid;\n    grid-template-rows: 1fr auto;\n    margin: 0;\n    padding: 0;\n    border: solid 1px transparent;\n}\n:host(.selected) figure\n{\n    border-color: inherit;\n}\n\n[part="selected"]\n,::slotted([slot="selected"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: flex-start;\n    align-self: flex-start;\n    z-index: 2;\n\n    opacity: 0;\n    transition: opacity 200ms ease;\n}\n\n:host(:not([select],[selectable])) [part="selected"]\n,:host(:not([select],[selectable])) ::slotted([slot="selected"])\n{\n    display: none;\n    pointer-events: none;\n}\n\n[part="edit-button"]\n,::slotted([slot="edit-button"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: flex-end;\n    align-self: flex-start;\n    z-index: 2;\n\n    opacity: 0;\n    transition: opacity 200ms ease;\n}\n\n:host(:not([edit],[editable])) [part="edit-button"]\n,:host(:not([edit],[editable])) ::slotted([slot="edit-button"])\n{\n    display: none;\n    pointer-events: none;\n}\n\n[part="icon"]\n,::slotted([slot="icon"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: center;\n    align-self: center;\n\n    width: var(--icon-width, var(--icon-size));\n    margin: .25em;\n}\n::slotted(img[slot="icon"])\n{\n    display: block;\n    max-width: 100%;\n    min-width: 0;\n    max-height: 100%;\n    min-height: 0;\n}\n.text-icon\n{\n    font-size: 36px;\n    line-height: 1;\n    margin: 0;\n    padding: 0;\n    box-sizing: border-box;\n}\n\n[part="label"]\n,::slotted([slot="label"])\n{\n    text-align: center;\n    text-overflow: ellipsis;\n    overflow: hidden;\n}\n\n:host(:not([select],[selectable]):hover)  [part="edit-button"]\n,:host(:not([select],[selectable]):hover) ::slotted([slot="edit-button"])\n,:host(:focus)  [part="edit-button"]\n,:host(:focus) ::slotted([slot="edit-button"])\n,figure:has(:checked) [part="edit-button"]\n,figure:has(:checked) ::slotted([slot="edit-button"])\n,figure:has(:focus) [part="edit-button"]\n,figure:has(:focus) ::slotted([slot="edit-button"])\n,figure:has(:focus-within) [part="edit-button"]\n,figure:has(:focus-within) ::slotted([slot="edit-button"])\n{ \n    opacity: 1;\n}\n\n\n:host(:hover) [part="selected"]\n,figure:has(:checked) [part="selected"]\n,figure:focus [part="selected"] \n,figure:focus-within [part="selected"]\n{ \n    opacity: 1;\n}';
-var captioned_thumbnail_default2 = '<figure part="figure">\n    <slot name="selected"><input type="checkbox" part="selected" /></slot>\n    <slot name="edit-button"><button type="button" part="edit-button">&#9998;</button></slot>\n    <slot name="icon"><span part="icon" class="text-icon">\u{1F5CE}</span></slot>\n    <slot name="label"><figcaption part="label"><slot>Item</slot></figcaption></slot>\n</figure>';
-var COMPONENT_STYLESHEET13 = new CSSStyleSheet();
-COMPONENT_STYLESHEET13.replaceSync(captioned_thumbnail_default);
-var COMPONENT_TAG_NAME13 = "captioned-thumbnail";
-var CaptionedThumbnailElement = class _CaptionedThumbnailElement extends HTMLElement {
-  componentParts = /* @__PURE__ */ new Map();
-  getPart(key) {
-    if (this.componentParts.get(key) == null) {
-      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
-      if (part != null) {
-        this.componentParts.set(key, part);
-      }
-    }
-    return this.componentParts.get(key);
-  }
-  findPart(key) {
-    return this.shadowRoot.querySelector(`[part="${key}"]`);
-  }
-  static selectedClassName = "selected";
-  get isSelected() {
-    return this.classList.contains(_CaptionedThumbnailElement.selectedClassName);
-  }
-  set isSelected(value) {
-    if (this.getAttribute("select") ?? this.getAttribute("selectable") == null) {
-      return;
-    }
-    if (value == true) {
-      this.classList.add(_CaptionedThumbnailElement.selectedClassName);
-    } else {
-      this.classList.remove(_CaptionedThumbnailElement.selectedClassName);
-    }
-    const selected = this.findPart("selected");
-    if (selected != null) {
-      selected.checked = value;
-    }
-  }
-  editButton;
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = captioned_thumbnail_default2;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET13);
-    this.shadowRoot.querySelector("slot:not([name])").addEventListener("slotchange", (event) => {
-      let title = "";
-      for (let i = 0; i < this.childNodes.length; i++) {
-        const node = this.childNodes[i];
-        if (node.nodeType == Node.TEXT_NODE) {
-          const nodeText = node.textContent?.trim() ?? "";
-          if (nodeText != "") {
-            title += nodeText;
-          }
-        }
-      }
-      this.title = title;
-    });
-    this.addEventListener("keydown", (event) => {
-      if (this.shadowRoot.activeElement == this.findPart("figure") && event.code == "Space") {
-        this.isSelected = !this.isSelected;
-      }
-    });
-    this.addEventListener("click", (event) => {
-      event.stopPropagation();
-      if (this.getAttribute("select") ?? this.getAttribute("selectable") == null) {
-        return;
-      }
-      const selected = this.findPart("selected");
-      if (selected != null) {
-        const isSelected = this.classList.contains(_CaptionedThumbnailElement.selectedClassName);
-        const method = isSelected == selected.checked ? "click" : "input";
-        if (isSelected == true) {
-          this.classList.remove(_CaptionedThumbnailElement.selectedClassName);
-          selected.checked = false;
-        } else {
-          this.classList.add(_CaptionedThumbnailElement.selectedClassName);
-          selected.checked = true;
-        }
-        const mouseEvent = event;
-        this.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { shiftKey: mouseEvent.shiftKey, ctrlKey: mouseEvent.ctrlKey, method } }));
-      }
-    });
-    const editButtonSlot = this.shadowRoot.querySelector('slot[name="edit-button"]');
-    editButtonSlot.addEventListener("slotchange", () => {
-      const button = editButtonSlot.assignedElements()[0];
-      if (this.editButton == button) {
-        return;
-      }
-      button.addEventListener("click", (event) => {
-        this.dispatchEvent(new CustomEvent("edit", { bubbles: true }));
-        event.stopPropagation();
-        event.preventDefault();
-        return false;
-      });
-      this.editButton = button;
-    });
-    this.findPart("edit-button")?.addEventListener("click", (event) => {
-      this.dispatchEvent(new CustomEvent("edit", { bubbles: true }));
-      event.stopPropagation();
-      event.preventDefault();
-      return false;
-    });
-  }
-  static observedAttributes = ["label", "src", "select", "selectable"];
-  attributeChangedCallback(attributeName, _oldValue, newValue) {
-    if (attributeName == "label") {
-      const label = this.findPart("label") ?? this.querySelector(":not([slot])");
-      if (label != null) {
-        label.textContent = newValue;
-        this.title = newValue;
-      }
-    } else if (attributeName == "src") {
-      this.updateImage(newValue);
-    } else if (attributeName == "select" || attributeName == "selectable") {
-      this.findPart("figure").tabIndex = 0;
-    }
-  }
-  updateImage(source) {
-    let icon = this.findPart("icon") ?? this.querySelector('[slot="icon"]');
-    if (source == null) {
-      if (icon != null) {
-        icon.remove();
-      }
-      icon = document.createElement("span");
-      icon.setAttribute("part", "icon");
-      icon.classList.add("text-icon");
-      icon.textContent = "\u{1F5CE}";
-      this.shadowRoot.querySelector('slot[name="icon"]')?.appendChild(icon);
-      return;
-    }
-    if (icon != null && icon.tagName != "img") {
-      icon.remove();
-      icon = null;
-    }
-    if (icon == null) {
-      icon = document.createElement("img");
-      icon.setAttribute("alt", "Icon");
-      icon.setAttribute("title", "Icon");
-      icon.setAttribute("slot", "icon");
-      this.appendChild(icon);
-    }
-    icon.src = source;
-  }
-};
-if (customElements.get(COMPONENT_TAG_NAME13) == null) {
-  customElements.define(COMPONENT_TAG_NAME13, CaptionedThumbnailElement);
+if (customElements.get(COMPONENT_TAG_NAME15) == null) {
+  customElements.define(COMPONENT_TAG_NAME15, CollectionFilterElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+fileimage-input@0.0.2/node_modules/@magnit-ce/fileimage-input/dist/fileimage-input.js
 var fileimage_input_default = '\n:host \n{ \n    display: inline-grid;\n    grid-template-columns: 1fr auto;\n    gap: .25em;\n    min-height: 34px;\n\n    /* user-agent input defaults */\n    --border-color: rgb(118, 118, 118);\n\n    /* slotted elements can inherit this for easy color matching */\n    --placeholder-color: #757575;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n      --border-color: rgb(133, 133, 133);\n    }\n}\n\n/* block styles */\n:host(.block)\n{\n    grid-template-columns: 1fr 1fr;\n}\n:host(.block) [part="label"]\n{\n    grid-column: span 2;\n    grid-row: 1;\n}\n:host(.block) [part="field"]\n{\n    border: dashed 1px #666;\n    display: grid;\n    gap: .5em;\n    justify-items: center;\n}\n:host(.block) [part="preview"]\n{\n    height: 70px;\n}\n:host(.block) [part="placeholder-icon"]\n{\n    font-size: 3em;\n}\n:host(.block) [part="clear"]\n{\n    grid-column: 1;\n    grid-row: 2;\n}\n:host(.block) [part="view-link"]\n{\n    grid-column: 2;\n    grid-row: 2;\n    justify-self: flex-end;\n}\n/* end block styles */\n\ninput\n{\n    display: none;\n}\n\n[part="label"]\n{\n    flex: 1;\n    display: flex;\n    grid-row: span 2;\n    grid-column: 1;\n    overflow: hidden;\n}\n\n[part="field"]\n{\n    flex: 1;\n    white-space: nowrap;\n\n    box-sizing: border-box;\n    display: inline-flex;\n    align-items: center;\n    gap: .25em;\n    padding: .25em .5em;\n\n    background-color: field;\n    color: fieldtext;\n\n    font-size: 13.33px;\n    border-width: 1px;\n    border-style: solid;\n    border-color: var(--border-color);\n    border-radius: 2px;\n    overflow: hidden;\n    min-width: 0;\n\n}\n[part="field"]:focus-visible\n,[part="field"]:focus\n{\n    outline: solid 2px;\n    border-radius: 3px;\n}\n\n[part="status"]\n{\n    overflow: hidden;\n}\n\n[part="preview"][src=""]\n,[part="preview"]:not([src])\n{\n    display: none;\n}\n[part="preview"]\n{\n    height: 1em;\n}\n\n[part="view-link"][href="#"]\n{\n    display: none;\n}\n[part="view-link"]\n{\n    white-space: nowrap;\n    font-size: .75em;\n    grid-column: 2;\n    grid-row: 2;\n    align-self: center;\n}\n\n[part="thumbnail"]\n{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n[part="placeholder-label"]\n,[part="placeholder-icon"]\n,::slotted([slot="placeholder"])\n,::slotted([slot="placeholder-icon"])\n{\n    color: var(--placeholder-color);\n}\n:host([specified]) [part="placeholder-label"]\n,:host([specified].image) [part="placeholder-icon"]\n,:host([specified]) ::slotted([slot="placeholder"])\n,:host([specified].image) ::slotted([slot="placeholder-icon"])\n{\n    display: none;\n}\n\n[part="clear"]\n{\n    display: none;\n    white-space: nowrap;\n    font-size: .75em;\n    grid-column: 2;\n    grid-row: 1;\n    align-self: center;\n}\n:host([specified]) [part="clear"]\n{\n    display: block;\n}';
 var fileimage_input_default2 = '<label part="label" tabindex="0">\n    <input type="file" part="input" />\n    <span part="field">\n        <span part="thumbnail">\n            <slot name="placeholder-icon"><span part="placeholder-icon">\u{1F5CE}</span></slot>\n            <img alt="image preview" title="Image Preview" part="preview" />\n        </span>\n        <span part="status">\n            <span part="filename"></span>\n            <slot name="placeholder"><span part="placeholder-label"></span></slot>\n        </span>\n    </span>\n</label>\n<a href="" part="clear" tabindex="0"><slot name="clear">Clear Selection</slot></a>\n<a href="#" target="_blank" part="view-link" tabindex="0"><slot name="view-link">View Selection</slot></a>';
-var COMPONENT_STYLESHEET14 = new CSSStyleSheet();
-COMPONENT_STYLESHEET14.replaceSync(fileimage_input_default);
-var COMPONENT_TAG_NAME14 = "fileimage-input";
+var COMPONENT_STYLESHEET16 = new CSSStyleSheet();
+COMPONENT_STYLESHEET16.replaceSync(fileimage_input_default);
+var COMPONENT_TAG_NAME16 = "fileimage-input";
 var FileImageInputElement = class extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
   getPart(key) {
@@ -4928,7 +5090,7 @@ var FileImageInputElement = class extends HTMLElement {
     this.#internals.role = "file";
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = fileimage_input_default2;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET14);
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET16);
     this.findPart("label").tabIndex = 0;
     const placeholderLabel = this.findPart("placeholder-label");
     if (placeholderLabel != null) {
@@ -5119,13 +5281,13 @@ var FileImageInputElement = class extends HTMLElement {
     this.#internals.setFormValue(formValue);
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME14) == null) {
-  customElements.define(COMPONENT_TAG_NAME14, FileImageInputElement);
+if (customElements.get(COMPONENT_TAG_NAME16) == null) {
+  customElements.define(COMPONENT_TAG_NAME16, FileImageInputElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+form-field@0.0.6/node_modules/@magnit-ce/form-field/dist/form-field.js
-var COMPONENT_STYLESHEET15 = new CSSStyleSheet();
-COMPONENT_STYLESHEET15.replaceSync(`form-field { display: var(--form-field-display, contents) }`);
+var COMPONENT_STYLESHEET17 = new CSSStyleSheet();
+COMPONENT_STYLESHEET17.replaceSync(`form-field { display: var(--form-field-display, contents) }`);
 var singleTemplate = `<label class="container">
 <slot class="field-label" name="field-label"></slot>
 <slot class="prefix" name="prefix"></slot>
@@ -5141,7 +5303,7 @@ var groupTemplate = `<div class="container">
     <span class="label"></span>
 </label>
 </div>`;
-var COMPONENT_TAG_NAME15 = "form-field";
+var COMPONENT_TAG_NAME17 = "form-field";
 var FormFieldElement = class _FormFieldElement extends HTMLElement {
   static parser = new DOMParser();
   static singleTemplateDOM;
@@ -5362,12 +5524,12 @@ var FormFieldElement = class _FormFieldElement extends HTMLElement {
   }
   connectedCallback() {
     let parent = this.getRootNode();
-    parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET15);
+    parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET17);
     this.renderIntoTemplate();
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME15) == null) {
-  customElements.define(COMPONENT_TAG_NAME15, FormFieldElement);
+if (customElements.get(COMPONENT_TAG_NAME17) == null) {
+  customElements.define(COMPONENT_TAG_NAME17, FormFieldElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+action-history@0.0.3/node_modules/@magnit-ce/action-history/dist/action-history.js
@@ -5384,9 +5546,9 @@ var ATTRIBUTENAME_REVERSED = "data-reversed";
 var ATTRIBUTENAME_ACTIVE = "data-active";
 var ATTRIBUTENAME_ENTRY = "data-entry";
 var ATTRIBUTENAME_TIMESTAMP = "data-timestamp";
-var COMPONENT_STYLESHEET16 = new CSSStyleSheet();
-COMPONENT_STYLESHEET16.replaceSync(action_history_default);
-var COMPONENT_TAG_NAME16 = "action-history";
+var COMPONENT_STYLESHEET18 = new CSSStyleSheet();
+COMPONENT_STYLESHEET18.replaceSync(action_history_default);
+var COMPONENT_TAG_NAME18 = "action-history";
 var ActionHistoryElement = class extends HTMLElement {
   onBack = async (target, previous, toReverse, targetIndex, previousActiveEntryIndex) => {
   };
@@ -5409,7 +5571,7 @@ var ActionHistoryElement = class extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `<slot></slot>`;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET16);
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET18);
     this.#slot = this.shadowRoot.querySelector(`slot`);
     this.#slot.addEventListener("slotchange", (event) => {
       const children = this.#slot.assignedElements();
@@ -5629,14 +5791,14 @@ var ActionHistoryElement = class extends HTMLElement {
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME16) == null) {
-  customElements.define(COMPONENT_TAG_NAME16, ActionHistoryElement);
+if (customElements.get(COMPONENT_TAG_NAME18) == null) {
+  customElements.define(COMPONENT_TAG_NAME18, ActionHistoryElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+record-tree@0.0.4/node_modules/@magnit-ce/record-tree/dist/record-tree.js
 var record_tree_default = "record-tree\n{\n    display: block;\n    --spacing: 7px;\n    --indent: 20px;\n}\n\nrecord-tree .collection\n{\n    border-radius: 3px;\n    padding: var(--spacing);\n    border: solid 1px transparent;\n}\nrecord-tree .collection:hover\n{\n    border-color: graytext;\n}\n\nrecord-tree .collection > .collection\n{\n    margin-left: var(--indent);\n    margin-block: var(--spacing);\n}\n\nrecord-tree .collection > .property:first-of-type\n{\n    margin-top: var(--spacing);\n}\nrecord-tree .collection > .property\n{\n    margin-left: var(--indent);\n}\nrecord-tree .collection > .property:last-of-type\n{\n    margin-bottom: var(--spacing);\n}\n\nrecord-tree .removed\n{\n    scale: .99;\n    color: graytext;\n}\n\nrecord-tree summary\n{\n    user-select: none;\n    display: flex;\n    gap: var(--spacing);\n}\nrecord-tree summary:before\n{\n    content: '\u25B6';\n    transition: transform 100ms ease-out;\n    font-size: .78em;\n    align-self: center;\n    margin-right: var(--spacing);\n}\nrecord-tree details[open] > summary:before\n{\n    transform: rotate(90deg);\n}\nrecord-tree summary .name\n{\n    flex: 1;\n}\nrecord-tree :not(.properties) > summary .name\n{\n    font-weight: bold;\n    font-size: .8em;\n}\n\nrecord-tree ul\n{\n    margin-block: var(--spacing);\n    margin-left: var(--indent);\n    padding: 0;\n}\n\nrecord-tree .property\n{\n    user-select: none;\n    display: flex;\n    align-items: center;\n    border-radius: 3px;\n    border: solid 1px transparent;\n}\nrecord-tree .property:hover\n{\n    border-color: graytext;\n}\n\nrecord-tree .property .name\n{\n    font-weight: bold;\n    font-size: .8em;    \n    text-align: right;\n\n    padding-left: var(--spacing);\n    padding-block: var(--spacing);\n    width: var(--property-name-width);\n}\nrecord-tree .property .value\n{\n    padding-inline: var(--spacing);\n    padding-block: var(--spacing);\n    flex: 1;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n\nrecord-tree button\n{\n    display: inline-flex;\n    align-items: center;\n    margin-left: auto;\n    margin-right: var(--spacing);\n}\n\nrecord-tree button .icon\n{\n    --size: 14px;\n    width: var(--size);\n    height: var(--size);\n}";
-var COMPONENT_STYLESHEET17 = new CSSStyleSheet();
-COMPONENT_STYLESHEET17.replaceSync(record_tree_default);
+var COMPONENT_STYLESHEET19 = new CSSStyleSheet();
+COMPONENT_STYLESHEET19.replaceSync(record_tree_default);
 var DEFAULT_REMOVED_CLASS_NAME = "removed";
 var ICON_CANCEL_CROSS = `<svg class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
     <path style="color:#000000;fill:var(--icon-primary-color,InfoText);stroke:var(--icon-secondary-color,InfoBackground);stroke-linecap:square;stroke-miterlimit:6.3;stroke-dashoffset:29.2913;stroke-opacity:1;-inkscape-stroke:none"
@@ -5648,7 +5810,7 @@ var ICON_UNDO = `<svg class="icon undo-redo" viewBox="0 0 22.812714 22.814663" v
    style="color:#000000;fill:var(--icon-primary-color,InfoText);stroke:var(--icon-secondary-color,CanvasText);fill-opacity:1;stroke-width:0.999999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
    d="M 8.7359009 1.1063924 C 8.3768905 1.0950243 8.0017196 1.1736712 7.641394 1.3523722 L 1.6107544 6.1205566 L 1.5916341 6.1386434 L 1.53479 6.1939372 C 1.0620233 6.6537208 0.70744486 7.6004515 1.0769368 8.152474 L 5.3030355 14.40894 C 6.1798306 15.219356 7.5994445 15.083541 8.4749349 14.106116 C 9.2135837 13.277519 9.3398045 12.086041 8.7787923 11.23549 L 11.334192 11.410673 C 14.129266 11.815808 17.330477 13.067707 18.931144 18.826241 C 19.313756 19.953163 19.735424 21.309718 20.245793 22.173324 C 20.976132 22.497497 21.420713 20.679238 21.478792 18.791101 C 21.506716 14.251463 18.262689 8.6142076 13.845667 6.7716797 C 13.291103 6.5403477 11.805521 5.8978235 10.30118 5.3355916 L 9.7994019 5.1107992 C 10.609379 4.4184442 10.916638 3.2966427 10.55026 2.3703979 C 10.238366 1.5905459 9.5257236 1.1314023 8.7359009 1.1063924 z " />
 </svg>`;
-var COMPONENT_TAG_NAME17 = "record-tree";
+var COMPONENT_TAG_NAME19 = "record-tree";
 var RecordTreeElement = class extends HTMLElement {
   static observedAttributes = [];
   #data;
@@ -5663,7 +5825,7 @@ var RecordTreeElement = class extends HTMLElement {
   constructor() {
     super();
     let parent = this.getRootNode();
-    parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET17);
+    parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET19);
     this.addEventListener("click", this.#onClick.bind(this));
   }
   #onClick(event) {
@@ -6070,8 +6232,8 @@ var RecordTreeElement = class extends HTMLElement {
     return Object.entries(descriptors).filter((entry) => typeof entry[1].get === "function" && entry[0] !== "__proto__").map((entry) => entry[0]);
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME17) == null) {
-  customElements.define(COMPONENT_TAG_NAME17, RecordTreeElement);
+if (customElements.get(COMPONENT_TAG_NAME19) == null) {
+  customElements.define(COMPONENT_TAG_NAME19, RecordTreeElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+message-card@0.0.3/node_modules/@magnit-ce/message-card/dist/message-card.js
@@ -6155,7 +6317,7 @@ var MessageCardEvent = /* @__PURE__ */ ((MessageCardEvent2) => {
 var DEFAULT_DURATION_MILLISECONDS = 5e3;
 var componentTemplate = `<style>${message_card_default}</style>
 ${message_card_default2}`;
-var COMPONENT_TAG_NAME18 = "message-card";
+var COMPONENT_TAG_NAME20 = "message-card";
 var MessageCardElement = class _MessageCardElement extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
   getPart(key) {
@@ -6249,7 +6411,7 @@ var MessageCardElement = class _MessageCardElement extends HTMLElement {
     return card;
   }
   static create(props) {
-    const element = document.createElement(COMPONENT_TAG_NAME18);
+    const element = document.createElement(COMPONENT_TAG_NAME20);
     if (props == null) {
       return element;
     }
@@ -6345,8 +6507,8 @@ var MessageCardElement = class _MessageCardElement extends HTMLElement {
     this.tabIndex = 0;
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME18) == null) {
-  customElements.define(COMPONENT_TAG_NAME18, MessageCardElement);
+if (customElements.get(COMPONENT_TAG_NAME20) == null) {
+  customElements.define(COMPONENT_TAG_NAME20, MessageCardElement);
 }
 
 // data/records/custom-image.record.ts
@@ -7156,6 +7318,111 @@ var HistoryEntryData = class {
   }
 };
 
+// handlers/route.handlers.ts
+var historyIsUpdating = false;
+function addRouteHandlers() {
+  this.findElement("app-router").addRouteLinkClickHandlers(this.shadowRoot);
+  this.findElement("app-router").addEventListener("pathchange", router_onPathChange.bind(this));
+  window.addEventListener("popstate", async (event) => {
+    historyIsUpdating = true;
+    const { windowPath, windowHash } = parseWindowPath();
+    let route = windowPath + windowHash;
+    console.log(route);
+    await this.findElement("app-router").navigate(route);
+    historyIsUpdating = false;
+  });
+  this.findElement("board-route").applyEventListener("beforeopen", boardRoute_beforeOpen.bind(this));
+  this.findElement("board-settings-dialog").applyEventListener("beforeopen", boardSettingsRoute_beforeOpen.bind(this));
+}
+function router_onPathChange(event) {
+  if (historyIsUpdating == true) {
+    return;
+  }
+  const router = event.target;
+  const currentLocationSearchPathArray = window.location.search.substring(1).split("=");
+  const searchPathValue = currentLocationSearchPathArray[1] ?? "";
+  const currentLocation = new URL(`${window.location.origin}/${searchPathValue}`);
+  let updatedPath = router.getAttribute("path");
+  const origin = window.location.origin;
+  const updatedLocation = new URL(`${origin}/${updatedPath}`);
+  const { hasChanged, isReplacementChange } = router.compareLocations(currentLocation, updatedLocation);
+  if (hasChanged) {
+    const newHistoryState = `${updatedLocation.origin}/demo/app.html?path=${updatedLocation.pathname}${updatedLocation.hash}`;
+    if (isReplacementChange) {
+      window.history.replaceState(null, "", newHistoryState);
+    } else {
+      window.history.pushState(null, "", newHistoryState);
+    }
+  }
+  const currentPathArray = updatedPath.split("#");
+  const pageRoute = currentPathArray[0];
+  const hashRoute = currentPathArray[1];
+  const items = [...this.findElement("app-menu").querySelectorAll("a")];
+  for (let i = 0; i < items.length; i++) {
+    items[i].part.remove("selected");
+  }
+  if (pageRoute != null) {
+    const currentMenuItem = this.findElement("app-menu").querySelector(`[data-route="${pageRoute}"]`);
+    if (currentMenuItem != null) {
+      currentMenuItem.setAttribute("aria-current", "page");
+      currentMenuItem.part.add("selected");
+    }
+  }
+  if (hashRoute != null) {
+    const configMenuItem = this.findElement("config-navigation").querySelector(`[data-route="#${hashRoute}"`);
+    if (configMenuItem != null) {
+      configMenuItem.setAttribute("aria-current", "page");
+    }
+  }
+}
+function parseWindowPath() {
+  const pathArray = window.location.search.substring(1).split("=");
+  let windowPath = pathArray[1] ?? "";
+  if (windowPath.startsWith("/")) {
+    windowPath = windowPath.substring(1);
+  }
+  if (windowPath.startsWith("demo/app/")) {
+    windowPath = windowPath.substring(10);
+  } else if (windowPath.startsWith("demo/app.html")) {
+    windowPath = windowPath.substring(14);
+  }
+  windowPath = windowPath.trim();
+  let windowHash = window.location.hash;
+  if (windowHash.startsWith("#")) {
+    windowHash = windowHash.substring(1);
+  }
+  windowHash = windowHash.trim();
+  return { windowPath, windowHash };
+}
+function boardRoute_beforeOpen(event) {
+  const data = event.detail;
+  const boardId = data.properties.id;
+  if (boardId == null) {
+    MessageCardElement.notify(
+      `An error occurred attempting to open the board.`,
+      this.getElement("notifications"),
+      { type: MessageCardType.Error }
+    );
+    throw new Error("Unable to open board route with unknown id");
+  }
+  this[SHAREDACCESSKEY].renderBoard(boardId);
+  this[SHAREDACCESSKEY].updateRecentBoardEntry(boardId);
+}
+async function boardSettingsRoute_beforeOpen(event) {
+  const data = event.detail;
+  const router = this.findElement("app-router");
+  const properties = await router.getRouteProperties();
+  if (properties.id == null) {
+    MessageCardElement.notify(
+      `An error occurred attempting to open the board for editing.`,
+      this.getElement("notifications"),
+      { type: MessageCardType.Error }
+    );
+    throw new Error("Unable to determine the selected board's id");
+  }
+  this.openBoardSettings(properties.id);
+}
+
 // handlers/board.handlers.ts
 async function taskDescription_onKeyUp(event) {
   if (event.code != "Enter" || event.shiftKey == false && event.ctrlKey == false) {
@@ -7205,22 +7472,24 @@ var HISTORY_ERROR_MESSAGE = DATA_ERROR_MESSAGE.replace("[subject]", "History");
 var SETTINGS_ERROR_MESSAGE = DATA_ERROR_MESSAGE.replace("[subject]", "Settings");
 var ATTRIBUTE_PREPARED_FOR_DELETE = "to-delete";
 var SHAREDACCESSKEY = Symbol("SHAREDACCESSKEY");
-var COMPONENT_STYLESHEET18 = new CSSStyleSheet();
-COMPONENT_STYLESHEET18.replaceSync(`${shared_default}
+var COMPONENT_STYLESHEET20 = new CSSStyleSheet();
+COMPONENT_STYLESHEET20.replaceSync(`${shared_default}
+${board_item_global_default}
+${browser_item_global_default}
 ${app_settings_default}
-${board_browser_default}
-${board_settings_default}
 ${settings_default}
 ${taskboard_manager_default}`);
-var COMPONENT_TEMPLATE4 = `${taskboard_manager_default2}
+var COMPONENT_TEMPLATE6 = `${taskboard_manager_default2}
 ${defineIcons(
   "LogoMark" /* LogoMark */,
   "LogoType" /* LogoType */,
   "Logo" /* Logo */,
-  "PlusIcon" /* PlusIcon */
+  "PlusIcon" /* PlusIcon */,
+  "Stylus" /* Stylus */,
+  "TaskBoard" /* TaskBoard */
 )}`;
-var COMPONENT_TAG_NAME19 = "taskboard-manager";
-var TaskboardManagerElement2 = class extends HTMLElement {
+var COMPONENT_TAG_NAME21 = "taskboard-manager";
+var TaskboardManagerElement3 = class extends HTMLElement {
   static observedAttributes = [];
   componentParts = /* @__PURE__ */ new Map();
   getElement(id) {
@@ -7243,8 +7512,8 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE4;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET18);
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE6;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET20);
     const datastoreName = this.getAttribute("datastore-name");
     this.#data = new TaskManagerComponentData(datastoreName == null ? void 0 : { name: datastoreName });
     const autoLaunch = this.getAttribute("autolaunch") != "false";
@@ -7265,7 +7534,7 @@ var TaskboardManagerElement2 = class extends HTMLElement {
     const listChannel = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, "danger");
     const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, "danger");
     const [board, taskSettings, listData] = await boardChannel.create();
-    board.order = this.findElement("boards").querySelectorAll("a").length;
+    board.order = this.findElement("app-menu").querySelectorAll("a").length;
     boardChannel.save(board);
     const lists = [];
     const listSettings = [];
@@ -7317,14 +7586,14 @@ var TaskboardManagerElement2 = class extends HTMLElement {
       return;
     }
     const backgroundImage = board.backgroundImageId == "" ? null : await imagesChannel.get(board.backgroundImageId);
-    const boardFields = this.findElement("board-fields");
-    boardFields.setValues(board, boardTaskSettings, backgroundImage);
-    boardFields.setLists(taskLists, listTaskSettings);
+    const boardSettings = this.findElement("board-settings");
+    boardSettings.setValues(board, boardTaskSettings, backgroundImage);
+    boardSettings.setLists(taskLists, listTaskSettings);
   }
   async duplicateBoard(id) {
     const boardExportData = await this.#prepareExportData(id);
     const duplicateData = this.findElement("import-manager").prepareData(boardExportData);
-    const newNameInput = this.findElement("board-fields").findPart("duplicate-board-new-name");
+    const newNameInput = this.findElement("board-settings").findElement("duplicate-board-name");
     if (newNameInput?.value != null && newNameInput.value.trim() != "") {
       duplicateData.name = newNameInput.value;
     }
@@ -7389,7 +7658,7 @@ var TaskboardManagerElement2 = class extends HTMLElement {
       const taskChannel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, "danger");
       const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, "danger");
       const imageChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, "danger");
-      const order = this.findElement("boards").querySelectorAll("a").length;
+      const order = this.findElement("app-menu").querySelectorAll("a").length;
       const [board, lists, tasks, settings, images] = await this.#data.naturalizeForeignData(boardData, order);
       await Promise.allSettled([
         boardChannel.save(board),
@@ -7405,7 +7674,7 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   }
   async closeBoardSettings() {
     return new Promise((resolve) => {
-      this.findElement("board-settings").close();
+      this.findElement("board-settings-dialog").close();
       requestAnimationFrame(resolve);
     });
   }
@@ -7416,7 +7685,7 @@ var TaskboardManagerElement2 = class extends HTMLElement {
     }
     const channel = this.#getChannel(this.#data.lists, DATA_ERROR_MESSAGE.replace("[subject]", "Task List"));
     const [list, settings] = channel.create();
-    this.findElement("board-fields").addList(list, settings);
+    this.findElement("board-settings").addList(list, settings);
   }
   // async addTask(listId: string)
   // {
@@ -7548,6 +7817,9 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   #addHandlers() {
     const menu = this.getElement("app-menu");
     menu.onBoardMove = this.#updateBoardRecordsAfterMove.bind(this);
+    menu.onEdit = this.#board_edit_onClick.bind(this);
+    menu.onNew = this.#newBoard_onClick.bind(this);
+    addRouteHandlers.call(this);
   }
   // settings
   #getAppSetting(key) {
@@ -7571,14 +7843,11 @@ var TaskboardManagerElement2 = class extends HTMLElement {
     const collectionItems = [];
     for (let i = 0; i < boardRecords.length; i++) {
       const boardRecord = boardRecords[i];
-      const collectionItem = this.#createBoardCollectionItem(boardRecord);
-      collectionItems.push(collectionItem);
     }
     const menu = this.findElement("app-menu");
     menu.updateBoards(boardRecords);
     const boardBrowser = this.findElement("board-browser");
-    [...boardBrowser.querySelectorAll("captioned-thumbnail")].map((item) => item.remove());
-    boardBrowser.append(...collectionItems);
+    boardBrowser.updateBoards(boardRecords);
   }
   // #createBoardMenuItem(boardRecord: TaskBoardRecord)
   // {
@@ -7610,20 +7879,36 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   //     });
   //     return element;
   // }
-  #createBoardCollectionItem(boardRecord) {
-    const element = new CaptionedThumbnailElement();
-    element.innerHTML = `<svg part="board-browser-icon" slot="icon">
-            <use href="#icon-definition_task-board"></use>
-        </svg>
-        ${boardRecord.name}`;
-    element.setAttribute("data-board-id", boardRecord.id);
-    element.toggleAttribute("select", true);
-    return element;
-  }
+  // #createBoardCollectionItem(boardRecord: TaskBoardRecord)
+  // {
+  //     const element = new CaptionedThumbnailElement();
+  //     element.innerHTML = `<svg part="board-browser-icon" slot="icon">
+  //         <use href="#icon-definition_task-board"></use>
+  //     </svg>
+  //     ${boardRecord.name}`;
+  //     element.setAttribute('data-board-id', boardRecord.id);
+  //     element.toggleAttribute('select', true);
+  //     return element;
+  // }
   async #updateBoardRecordsAfterMove() {
     const toSave = await this.#getOrderedBoards();
     const channel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, "danger");
     await channel.saveItems(toSave);
+  }
+  #board_edit_onClick(boardRoute) {
+    if (boardRoute == null) {
+      MessageCardElement.notify(
+        `An error occurred attempting to open the board for editing.`,
+        this.getElement("notifications"),
+        { type: MessageCardType.Error }
+      );
+      throw new Error("Unable to collected path from board item's path attribute.");
+    }
+    this.findElement("app-router").navigate(`${boardRoute}#board-settings`);
+  }
+  async #newBoard_onClick() {
+    await this.addBoard();
+    this.#refreshBoards();
   }
   // async #updateBoardItemOrder(draggingCursorY: number)
   // {
@@ -7647,20 +7932,8 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   // }
   async #refreshRecentBoards() {
     const boards = await this.#getRecentBoards();
-    const recentBoards = this.getElement("recent-boards");
-    const staleEntries = [...recentBoards.querySelectorAll("a")];
-    for (let i = 0; i < staleEntries.length; i++) {
-      staleEntries[i].remove();
-    }
-    const entries = [];
-    for (let i = 0; i < boards.length; i++) {
-      const entry = boards[i];
-      const element = document.createElement("a");
-      element.setAttribute("data-route", `board/${entry.id}`);
-      element.textContent = entry.description;
-      entries.push(element);
-    }
-    recentBoards.append(...entries);
+    const welcomePanel = this.shadowRoot.querySelector("welcome-panel");
+    welcomePanel.updateBoards(boards);
   }
   // #getNextBoardItem(mouseY: number)
   // {
@@ -7679,7 +7952,7 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   async #getOrderedBoards() {
     const channel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, "danger");
     const orderedIds = [];
-    const boardItems = [...this.findElement("boards").querySelectorAll("a")];
+    const boardItems = [...this.findElement("app-menu").querySelectorAll("a.board")];
     for (let i = 0; i < boardItems.length; i++) {
       const boardItem = boardItems[i];
       const boardId = boardItem.dataset.route.split("/")[1];
@@ -7783,8 +8056,8 @@ var TaskboardManagerElement2 = class extends HTMLElement {
     const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, "danger");
     const imageChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, "danger");
     const boards = this.findElement("boards");
-    const boardFields = this.findElement("board-fields");
-    const [board, taskLists, taskSettings, removedListIds] = boardFields.getRecords();
+    const boardSettings = this.findElement("board-settings");
+    const [board, taskLists, taskSettings, removedListIds] = boardSettings.getRecords();
     const [existingBoard, existingTaskLists, existingTaskSettings] = await Promise.all([
       boardChannel.get(board.id),
       (await boardChannel.getTaskLists(board.id)).filter((item) => item.deletedTimestamp == void 0),
@@ -7809,11 +8082,11 @@ var TaskboardManagerElement2 = class extends HTMLElement {
       console.error(`An error occurred finding the board's menu item.`);
       return;
     }
-    board.order = [...this.findElement("boards").querySelectorAll("a")].indexOf(boardItem);
+    board.order = [...this.shadowRoot.querySelectorAll("a")].indexOf(boardItem);
     board.backgroundImageId = existingBoard.backgroundImageId;
     let existingImageActionProperties = { id: board.backgroundImageId, updates: /* @__PURE__ */ new Map() };
     const imageUpdates = [];
-    const imageValue = boardFields.findPart("background-image").value;
+    const imageValue = boardSettings.findElement("background-image").value;
     let backgroundImageRecord = null;
     if (imageValue != null) {
       if (board.backgroundImageId != "") {
@@ -7886,7 +8159,7 @@ var TaskboardManagerElement2 = class extends HTMLElement {
     this.#updateRecentBoardEntry(board.id, board.name);
   }
   async #prepareExportData(id) {
-    const exportBackgroundImage = this.findElement("board-fields").findPart("export-background-image").checked;
+    const exportBackgroundImage = this.findElement("board-settings").findElement("export-background-image").checked;
     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, "danger");
     const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, "danger");
     const imageChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, "danger");
@@ -8208,7 +8481,7 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   #duplicateList(target, list, settings) {
     const taskLists = this.#getChannel(this.#data.lists, DATA_ERROR_MESSAGE.replace("[subject]", "Task List"));
     const [duplicateList, duplicateSettings] = taskLists.create(list, settings);
-    this.findElement("board-fields").insertList(target, duplicateList, duplicateSettings);
+    this.findElement("board-settings").insertList(target, duplicateList, duplicateSettings);
   }
   #canAddList() {
     const route = this.getElement("app-router").getAttribute("path");
@@ -8971,11 +9244,11 @@ var TaskboardManagerElement2 = class extends HTMLElement {
     });
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME19) == null) {
-  customElements.define(COMPONENT_TAG_NAME19, TaskboardManagerElement2);
+if (customElements.get(COMPONENT_TAG_NAME21) == null) {
+  customElements.define(COMPONENT_TAG_NAME21, TaskboardManagerElement3);
 }
 export {
   AppSettingKey,
   SHAREDACCESSKEY,
-  TaskboardManagerElement2 as TaskboardManagerElement
+  TaskboardManagerElement3 as TaskboardManagerElement
 };

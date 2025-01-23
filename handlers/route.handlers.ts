@@ -8,8 +8,6 @@ let historyIsUpdating = false;
 export function addRouteHandlers(this: TaskboardManagerElement)
 {
     this.findElement<PathRouterElement>('app-router').addRouteLinkClickHandlers(this.shadowRoot!);
-    // this.findPart('boards').addEventListener('click', onMenuItemClick.bind(this));
-    // this.findPart<PathRouterElement>('app-router').addRouteLinkClickHandlers(this.findPart('boards'));
     this.findElement<PathRouterElement>('app-router').addEventListener('pathchange', router_onPathChange.bind(this));
     window.addEventListener('popstate', async (event) =>
     {
@@ -20,11 +18,9 @@ export function addRouteHandlers(this: TaskboardManagerElement)
         await this.findElement<PathRouterElement>('app-router').navigate(route);
         historyIsUpdating = false;
     });
-    // this.findPart<PathRouterElement>('config-router').addEventListener('pathchange', configRouter_onPathChange.bind(this));
 
     (this.findElement('board-route') as unknown as RoutePageElement).applyEventListener('beforeopen', boardRoute_beforeOpen.bind(this));
-    (this.findElement('board-settings') as unknown as RoutePageElement).applyEventListener('beforeopen', boardSettingsRoute_beforeOpen.bind(this));
-    // this.findPart<RoutePageElement>('config-dialog').applyEventListener('beforeopen', settingsRoute_beforeOpen.bind(this));
+    (this.findElement('board-settings-dialog') as unknown as RoutePageElement).applyEventListener('beforeopen', boardSettingsRoute_beforeOpen.bind(this));
 }
 
 
@@ -74,7 +70,7 @@ function router_onPathChange(this: TaskboardManagerElement, event: Event|CustomE
     // const item = event.composedPath().find(item => item instanceof HTMLElement ? item.part.contains('board-menu-item') : false) as HTMLElement;
     // if(item == null) { return; }
 
-    const items = [...this.findElement('boards').querySelectorAll('a')];
+    const items = [...this.findElement('app-menu').querySelectorAll('a')];
     for(let i = 0; i < items.length; i++)
     {
         items[i].part.remove('selected');
@@ -82,7 +78,7 @@ function router_onPathChange(this: TaskboardManagerElement, event: Event|CustomE
 
     if(pageRoute != null)
     {
-        const currentMenuItem = this.findElement('boards').querySelector(`[data-route="${pageRoute}"]`);
+        const currentMenuItem = this.findElement('app-menu').querySelector(`[data-route="${pageRoute}"]`);
         if(currentMenuItem != null)
         {
             currentMenuItem.setAttribute('aria-current', 'page');

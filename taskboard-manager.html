@@ -32,50 +32,15 @@
     </editable-list>
 </menu> -->
 <app-menu id="app-menu"></app-menu>
-<path-router part="app-router" id="app-router" path="">
+<path-router id="app-router" path="">
     <route-page part="welcome-page">
-        <div part="welcome">
-            <fieldset>
-                <legend>Welcome</legend>
-                <svg part="logo" >
-                    <use href="#icon-definition_logo"></use>
-                </svg>
-                <div class="description">
-                    <p>Welcome to your Taskboard Manager!</p>
-                    <p>Create a <a part="new-board-link">new board</a>, or select a recently-opened board below.</p>
-                </div>
-                <fieldset>
-                    <legend>Recent Boards</legend>
-                    <editable-list part="recent-boards" id="recent-boards" exportparts="edit:recent-item-edit-button, handle: recent-item-handle">
-                        <button type="button" slot="add" part="new-board-button_welcome" id="new-board-button_welcome" title="New Board">
-                            <svg class="icon plus" >
-                                <use href="#icon-definition_plus"></use>
-                            </svg>
-                            <span class="label">New Board</span>
-                        </button>
-                    </editable-list>
-                </fieldset>
-            </fieldset>
-        </div>
+        <welcome-panel id="welcome-panel"></welcome-panel>
     </route-page>
     <route-page path="board/:id" part="board-route" id="board-route">
         <task-board part="task-board" id="task-board" exportparts="lists:task-board-lists"></task-board>
     </route-page>
     <dialog part="board-browser-dialog" is="route-dialog" path="boards">
-        <header part="board-browser-header">
-            <svg part="board-browser-icon" >
-                <use href="#icon-definition_task-board"></use>
-            </svg>
-            <span part="board-browser-title">Boards</span>
-            <collection-filter part="board-browser-filter" id="board-browser-filter"></collection-filter>
-        </header>
-        <collection-browser part="board-browser" id="board-browser"></collection-browser>
-        <footer part="board-browser-footer">
-            <form part="board-browser-actions" method="dialog">
-                <button type="submit" part="board-browser-cancel" id="board-browser-cancel">Cancel</button>
-                <button type="submit" part="board-browser-ok" id="board-browser-ok">Open</button>
-            </form>
-        </footer>
+        <board-browser id="board-browser"></board-browser>
     </dialog>
     <dialog part="dialog config-dialog" is="route-dialog" path="config">
         <header part="config-header">
@@ -319,25 +284,8 @@
             </form>
         </footer>
     </dialog>
-    <dialog part="dialog board-settings" id="board-settings" is="route-dialog" path="board-settings">
-        <form method="dialog" part="board-settings-form">
-            <header part="board-settings-header">
-                <svg part="board-settings-icon" >
-                    <use href="#icon-definition_task-board"></use>
-                </svg>
-                <span part="board-settings-title">Board</span>
-            </header>
-            <taskboard-fields part="board-fields" id="board-fields"></taskboard-fields>
-            <footer part="board-settings-footer">
-                <button type="submit" part="close-board-button" id="close-board-button">
-                <svg part="close-board-icon" >
-                    <use href="#icon-definition_trash"></use>
-                </svg>
-                </button>
-                <button type="submit" part="board-settings-cancel" id="board-settings-cancel">Cancel</button>
-                <button type="submit" part="board-settings-save" id="board-settings-save">Save</button>
-            </footer>
-        </form>
+    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">
+        <board-settings id="board-settings"></board-settings>
     </dialog>
     <dialog part="dialog import-dialog" is="route-dialog" path="import">
         <header part="import-header">

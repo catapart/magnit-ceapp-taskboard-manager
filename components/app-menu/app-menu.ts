@@ -14,7 +14,9 @@ export enum AppMenuAttributes
 
 export type AppMenuProperties = { [key in AppMenuAttributes]: string } &
 {
-    onNavigate: (path: string) => void;
+    onEdit: (boardRoute: string) => void;
+    onBoardMove: (boards: HTMLElement[]) => void;
+    onNew: () => void;
 };
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -26,8 +28,7 @@ ${defineIcons(
     IconType.LogoMark,
     IconType.MagnifyingGlass,
     IconType.Gear,
-    IconType.PlusIcon,
-    IconType.Stylus
+    IconType.PlusIcon
 )}`;
 
 const COMPONENT_TAG_NAME = 'app-menu';
@@ -50,8 +51,9 @@ export class AppMenuElement extends HTMLElement
     }
     findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
 
-    onNavigate?: (path: string) => void;
+    onEdit?: (boardRoute: string) => void;
     onBoardMove?: (boards: HTMLElement[]) => void;
+    onNew?: () => void;
 
     #draggingBoard: HTMLElement|null = null;
 
@@ -63,6 +65,17 @@ export class AppMenuElement extends HTMLElement
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
         this.#applyPartAttributes();
         this.#addDragHandlers();
+        this.findElement('boards').addEventListener('edit', (event: Event|CustomEvent) => {
+            if(this.onEdit == null) { return; }
+            const customEvent = (event as CustomEvent);
+            const board: HTMLElement = customEvent.detail;
+            this.onEdit(board.dataset.route!);
+        });
+        this.findElement('new-board-button').addEventListener('click', () =>
+        {
+            if(this.onNew == null) { return; }
+            this.onNew();
+        });
     }
     #applyPartAttributes()
     {
@@ -80,10 +93,7 @@ export class AppMenuElement extends HTMLElement
 
     updateBoards(boards: TaskBoardRecord[])
     {
-        console.log(boards);
-
         const menuItems: HTMLAnchorElement[] = [];
-        // const collectionItems: CaptionedThumbnailElement[] = [];
         for(let i = 0; i < boards.length; i++)
         {
             const boardRecord = boards[i];
@@ -92,9 +102,9 @@ export class AppMenuElement extends HTMLElement
         }
 
         // menu items
-        const boardsList = this.findElement('boards');
-        [...boardsList.querySelectorAll('a')].map(item => item.remove());
-        boardsList.append(...menuItems);
+        this.innerHTML = "";
+        // [...this.querySelectorAll('a')].map(item => item.remove());
+        this.append(...menuItems);
     }
     
     #createBoardMenuItem(board: TaskBoardRecord)
@@ -102,8 +112,8 @@ export class AppMenuElement extends HTMLElement
         const element = document.createElement('a');
         element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span>
         <span part="board-item-name" class="board-item-name">${board.name}<span>`;
-        element.setAttribute('part', 'board-menu-item');
-        element.classList.add('board-menu-item');
+        element.setAttribute('part', 'board');
+        element.classList.add('board');
         element.dataset.route = `board/${board.id}`;
     
         const handle = element.querySelector('[part="menu-item-handle"]')!;
@@ -133,9 +143,8 @@ export class AppMenuElement extends HTMLElement
 
     #addDragHandlers()
     {
-        const boards = this.findElement('boards');
-        boards.addEventListener('dragover', this.boardsList_onDragover.bind(this));
-        boards.addEventListener('drop', this.boardsList_onDrop.bind(this));
+        this.addEventListener('dragover', this.boardsList_onDragover.bind(this));
+        this.addEventListener('drop', this.boardsList_onDrop.bind(this));
     }
 
     boardsList_onDragover(event: DragEvent)
@@ -146,9 +155,10 @@ export class AppMenuElement extends HTMLElement
     }
     async boardsList_onDrop(_event: Event)
     {
+        console.log(_event);
         if(this.onBoardMove != null)
         {
-            this.onBoardMove([...this.findElement('boards').querySelectorAll('a')]);
+            this.onBoardMove([...this.querySelectorAll('a')]);
         }
     }
     async #updateBoardItemOrder(draggingCursorY: number)
@@ -158,26 +168,25 @@ export class AppMenuElement extends HTMLElement
             return;
         }
 
-        const boards = this.findElement('boards');
         const nextElement = this.#getNextBoardItem(draggingCursorY).boardElement;
         
         // prevent unecessary re-renders; this can kill perf, if you don't guard here;
         // re-rendering by appending or inserting on every mouse-move is heavy;
-        if(this.#draggingBoard.parentElement == boards && nextElement == this.#draggingBoard.nextElementSibling){ return; }
+        if(this.#draggingBoard.parentElement == this && nextElement == this.#draggingBoard.nextElementSibling){ return; }
 
 
         if(nextElement == null)
         {
-            boards.append(this.#draggingBoard);
+            this.append(this.#draggingBoard);
         }
         else
         {
-            boards.insertBefore(this.#draggingBoard, nextElement);
+            this.insertBefore(this.#draggingBoard, nextElement);
         }
     }
     #getNextBoardItem(mouseY: number)
     {
-        const lists = [...this.findElement('boards').querySelectorAll('a:not(.dragging)')] as HTMLElement[];
+        const lists = [...this.querySelectorAll('a:not(.dragging)')] as HTMLElement[];
         return lists.reduce((closest: { offset: number, boardElement?:HTMLElement }, item: HTMLElement) =>
         {
             const boundingRect = item.getBoundingClientRect();
