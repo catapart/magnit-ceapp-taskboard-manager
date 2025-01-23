@@ -1,5 +1,5 @@
 // styles
-import menuStyle from './styles/menu.css?raw';
+import sharedStyles from './styles/shared.css?raw';
 import appSettingsStyle from './styles/app-settings.css?raw';
 import boardBrowserStyle from './styles/board-browser.css?raw';
 import boardSettingsStyle from './styles/board-settings.css?raw';
@@ -8,13 +8,15 @@ import componentStyle from './taskboard-manager.css?raw';
 // html
 import html from './taskboard-manager.html?raw';
 // icons
-import { Icons } from './assets/icons/icons.asset';
+import { defineIcons, Icons, IconType } from './assets/icons/icons.asset';
 
 // component definitions
 import './components/taskboard-fields/taskboard-fields.component';
 import './components/import-manager/import-manager.component';
 import './components/task-fields/task-fields.component';
 import './components/tasklist-fields/tasklist-fields.component';
+
+import './components/app-menu/app-menu';
 
 import '@magnit-ce/editable-list';
 import '@magnit-ce/path-router';
@@ -55,7 +57,7 @@ import { addNavigationhandlers } from './handlers/navigation.handlers';
 import { addBoardBrowserHandlers } from './handlers/board-browser.handlers';
 import { addRouteHandlers, parseWindowPath } from './handlers/route.handlers';
 import { addBoardHandlers, taskDescription_onKeyUp } from './handlers/board.handlers';
-import { addDragHandlers } from './handlers/drag.handlers';
+// import { addDragHandlers } from './handlers/drag.handlers';
 import { addBoardSettingsHandlers } from './handlers/board-settings.handlers';
 import { TaskListElement } from '@magnit-ce/task-list';
 import { TaskCardElement } from '@magnit-ce/task-card';
@@ -72,6 +74,7 @@ import { ImportManagerComponent } from './components/import-manager/import-manag
 import { HistoryEntryChannel } from './data/channels/history-entry.channel';
 import { addKeyHandlers } from './handlers/key.handlers';
 import { FileImageInputElement } from '@magnit-ce/fileimage-input';
+import { AppMenuElement } from './components/app-menu/app-menu';
 
 
 // export type TaskboardManagerProperties = 
@@ -136,8 +139,8 @@ type SharedContent =
 
     renderBoard: (id: string) => void,
     updateBoardSettings: () => void,
-    updateBoardRecordsAfterMove: () => void,
-    updateBoardItemOrder: (draggingCursorY: number) => void,
+    // updateBoardRecordsAfterMove: () => void,
+    // updateBoardItemOrder: (draggingCursorY: number) => void,
     updateRecentBoardEntry: (id: string, description?: string) => Promise<void>,
     removeBoardFromRecentBoards: (id: string) => Promise<void>,
 
@@ -160,17 +163,22 @@ type SharedContent =
 }
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
-COMPONENT_STYLESHEET.replaceSync(`${menuStyle}
+COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 ${appSettingsStyle}
 ${boardBrowserStyle}
 ${boardSettingsStyle}
 ${settingsStyle}
 ${componentStyle}`);
 
+// const COMPONENT_TEMPLATE = `${html}
+// ${defineIcons()}`;
 const COMPONENT_TEMPLATE = `${html}
-<div part="icon-definitions">
-    ${Array.from(Object.values(Icons)).reduce((accumulatedValues, value) => `${accumulatedValues}\n${value}`)}
-</div>`;
+${defineIcons(
+    IconType.LogoMark,
+    IconType.LogoType,
+    IconType.Logo,
+    IconType.PlusIcon,
+)}`;
 
 const COMPONENT_TAG_NAME = 'taskboard-manager';
 export class TaskboardManagerElement extends HTMLElement
@@ -195,7 +203,6 @@ export class TaskboardManagerElement extends HTMLElement
     initPromise?: Promise<void>;
 
     #data: TaskManagerComponentData;
-    #draggingBoard: HTMLElement|null = null;
     #customImageUrls: Map<string,string> = new Map();
 
     /** Exposes "shared" private functions/properties to external modules. */
@@ -494,48 +501,45 @@ export class TaskboardManagerElement extends HTMLElement
 
         this.#refreshRecentBoards();
         const boardsPromise = this.#refreshBoards();
-        this.#refreshActionHistory();
-        this.#refreshDeletedItems();
-
-        // let urlRequestedRoute = window.location.pathname + window.location.hash;
-        // if(urlRequestedRoute.startsWith('/demo/app.html')) { urlRequestedRoute = urlRequestedRoute.substring(14); }
+        // this.#refreshActionHistory();
+        // this.#refreshDeletedItems();
         
-        const { windowPath, windowHash } = parseWindowPath();
-        const filteredWindowHash = windowHash.replace('import', '');
-        await this.getElement<PathRouterElement>('app-router').navigate(`${windowPath}#${filteredWindowHash}`);
+        // const { windowPath, windowHash } = parseWindowPath();
+        // const filteredWindowHash = windowHash.replace('import', '');
+        // await this.getElement<PathRouterElement>('app-router').navigate(`${windowPath}#${filteredWindowHash}`);
         
-        if(filteredWindowHash != windowHash)
-        {
-            // if the last session ended with a dialog open that
-            // was not one allowed to be open on startup (like the 
-            // import dialog), we update the url, as well as the router's path
-            const newHistoryState =  `${window.origin}/demo/app.html?path=${windowPath}${(filteredWindowHash != "") ? `#${filteredWindowHash}` : ''}`;
-            window.history.replaceState(null, '', newHistoryState);
-        }
+        // if(filteredWindowHash != windowHash)
+        // {
+        //     // if the last session ended with a dialog open that
+        //     // was not one allowed to be open on startup (like the 
+        //     // import dialog), we update the url, as well as the router's path
+        //     const newHistoryState =  `${window.origin}/demo/app.html?path=${windowPath}${(filteredWindowHash != "") ? `#${filteredWindowHash}` : ''}`;
+        //     window.history.replaceState(null, '', newHistoryState);
+        // }
         
-        boardsPromise.then(() =>
-        {
-            let boardIdIndex = windowPath.indexOf('board/');
-            if(boardIdIndex > -1)
-            {
-                const currentMenuItem = this.findElement('boards').querySelector(`[data-route="${windowPath}"]`);
-                if(currentMenuItem != null)
-                {
-                    currentMenuItem.setAttribute('aria-current', 'page');
-                    currentMenuItem.part.add('selected');
-                }
-            }
-        });
+        // boardsPromise.then(() =>
+        // {
+        //     let boardIdIndex = windowPath.indexOf('board/');
+        //     if(boardIdIndex > -1)
+        //     {
+        //         const currentMenuItem = this.findElement('boards').querySelector(`[data-route="${windowPath}"]`);
+        //         if(currentMenuItem != null)
+        //         {
+        //             currentMenuItem.setAttribute('aria-current', 'page');
+        //             currentMenuItem.part.add('selected');
+        //         }
+        //     }
+        // });
         
-        if(windowHash.indexOf('config/') > -1)
-        {
-            const configMenuItem = this.findElement('config-navigation').querySelector(`[data-route="#${windowHash}"`);
-            if(configMenuItem != null)
-            {
-                configMenuItem.setAttribute('aria-current', 'page');
-                configMenuItem.part.add('selected');
-            }
-        }
+        // if(windowHash.indexOf('config/') > -1)
+        // {
+        //     const configMenuItem = this.findElement('config-navigation').querySelector(`[data-route="#${windowHash}"`);
+        //     if(configMenuItem != null)
+        //     {
+        //         configMenuItem.setAttribute('aria-current', 'page');
+        //         configMenuItem.part.add('selected');
+        //     }
+        // }
 
         this.#removeExpiredData();
         // check each day if any deleted records expired
@@ -585,11 +589,11 @@ export class TaskboardManagerElement extends HTMLElement
 
             renderBoard: this.#renderBoard.bind(this),
             updateBoardSettings: this.#updateBoardSettings.bind(this),
-            updateBoardItemOrder: this.#updateBoardItemOrder.bind(this),
+            // updateBoardItemOrder: this.#updateBoardItemOrder.bind(this),
 
             updateListRecord: this.#updateListRecord.bind(this),
             duplicateList: this.#duplicateList.bind(this),
-            updateBoardRecordsAfterMove: this.#updateBoardRecordsAfterMove.bind(this),
+            // updateBoardRecordsAfterMove: this.#updateBoardRecordsAfterMove.bind(this),
             updateRecentBoardEntry: this.#updateRecentBoardEntry.bind(this),
             removeBoardFromRecentBoards: this.#removeBoardFromRecentBoards.bind(this),
 
@@ -635,18 +639,20 @@ export class TaskboardManagerElement extends HTMLElement
     }
     #addHandlers()
     {
+        const menu = this.getElement<AppMenuElement>('app-menu');
+        menu.onBoardMove = this.#updateBoardRecordsAfterMove.bind(this);
         // this.addEventListener('click', (event) =>
         // {
         //     console.log(event.target);
         // })
-        addAdminHandlers.call(this);
-        addNavigationhandlers.call(this);
-        addDragHandlers.call(this);
-        addRouteHandlers.call(this);
-        addBoardHandlers.call(this);
-        addBoardSettingsHandlers.call(this);
-        addBoardBrowserHandlers.call(this);
-        addKeyHandlers.call(this);
+        // addAdminHandlers.call(this);
+        // addNavigationhandlers.call(this);
+        // // addDragHandlers.call(this);
+        // addRouteHandlers.call(this);
+        // addBoardHandlers.call(this);
+        // addBoardSettingsHandlers.call(this);
+        // addBoardBrowserHandlers.call(this);
+        // addKeyHandlers.call(this);
     }
 
     // settings
@@ -673,67 +679,71 @@ export class TaskboardManagerElement extends HTMLElement
     async #refreshBoards()
     {
         const channel = this.#getChannel<BoardChannel>(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-        const boardRecords = await channel.getAll();
+        const boardRecords = (await channel.getAll()).filter(item => item.deletedTimestamp == null);
 
-        const menuItems: HTMLAnchorElement[] = [];
+        // const menuItems: HTMLAnchorElement[] = [];
         const collectionItems: CaptionedThumbnailElement[] = [];
         for(let i = 0; i < boardRecords.length; i++)
         {
             const boardRecord = boardRecords[i];
 
-            if(boardRecord.deletedTimestamp != null)
-            {
-                continue;
-            }
+            // if(boardRecord.deletedTimestamp != null)
+            // {
+            //     continue;
+            // }
 
-            const menuItem = this.#createBoardMenuItem(boardRecord);
-            menuItems.push(menuItem);
+            // const menuItem = this.#createBoardMenuItem(boardRecord);
+            // menuItems.push(menuItem);
 
             const collectionItem = this.#createBoardCollectionItem(boardRecord);
             collectionItems.push(collectionItem);
         }
 
+        const menu = this.findElement<AppMenuElement>('app-menu');
+        menu.updateBoards(boardRecords);
+
         // menu items
-        const boardsList = this.findElement('boards');
-        [...boardsList.querySelectorAll('a')].map(item => item.remove());
-        boardsList.append(...menuItems);
+        // const boardsList = this.findElement('app-menu');
+        // [...boardsList.querySelectorAll('a')].map(item => item.remove());
+        // boardsList.append(...menuItems);
 
         // collection items
         const boardBrowser = this.findElement('board-browser');
         [...boardBrowser.querySelectorAll('captioned-thumbnail')].map(item => item.remove());
         boardBrowser.append(...collectionItems);
     }
-    #createBoardMenuItem(boardRecord: TaskBoardRecord)
-    {
-        const element = document.createElement('a');
-        element.innerHTML = `<span part="menu-item-handle"></span><span part="board-item-name">${boardRecord.name}<span>`;
-        element.setAttribute('part', 'board-menu-item');
-        element.dataset.route = `board/${boardRecord.id}`;
+    // #createBoardMenuItem(boardRecord: TaskBoardRecord)
+    // {
+    //     const element = document.createElement('a');
+    //     element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span><span part="board-item-name" class="board-item-name">${boardRecord.name}<span>`;
+    //     // element.setAttribute('part', 'board-menu-item');
+    //     element.classList.add('board-menu-item');
+    //     element.dataset.route = `board/${boardRecord.id}`;
     
-        const handle = element.querySelector('[part="menu-item-handle"]')!;
-        handle.addEventListener('mousedown', (_event) =>
-        {
-            element.draggable = true;
-        });
-        handle.addEventListener('mouseup', (_event) =>
-        {
-            element.removeAttribute('draggable');
-        });
-        element.addEventListener('dragstart', (_event: DragEvent) => 
-        {
-            this.#draggingBoard = element;
-            element.classList.add('dragging');
-            this.classList.add('drop-target');
-        });
-        element.addEventListener('dragend', (_event: DragEvent) => 
-        {
-            element.classList.remove('dragging');
-            this.#draggingBoard = null;
-            this.classList.remove('drop-target');
-        });
+    //     const handle = element.querySelector('[part="menu-item-handle"]')!;
+    //     handle.addEventListener('mousedown', (_event) =>
+    //     {
+    //         element.draggable = true;
+    //     });
+    //     handle.addEventListener('mouseup', (_event) =>
+    //     {
+    //         element.removeAttribute('draggable');
+    //     });
+    //     element.addEventListener('dragstart', (_event: DragEvent) => 
+    //     {
+    //         this.#draggingBoard = element;
+    //         element.classList.add('dragging');
+    //         this.classList.add('drop-target');
+    //     });
+    //     element.addEventListener('dragend', (_event: DragEvent) => 
+    //     {
+    //         element.classList.remove('dragging');
+    //         this.#draggingBoard = null;
+    //         this.classList.remove('drop-target');
+    //     });
 
-        return element;
-    }
+    //     return element;
+    // }
     #createBoardCollectionItem(boardRecord: TaskBoardRecord)
     {
         const element = new CaptionedThumbnailElement();
@@ -751,30 +761,30 @@ export class TaskboardManagerElement extends HTMLElement
         const channel = this.#getChannel<BoardChannel>(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
         await channel.saveItems(toSave);
     }
-    async #updateBoardItemOrder(draggingCursorY: number)
-    {
-        if(this.#draggingBoard == null)
-        {
-            return;
-        }
+    // async #updateBoardItemOrder(draggingCursorY: number)
+    // {
+    //     if(this.#draggingBoard == null)
+    //     {
+    //         return;
+    //     }
 
-        const boards = this.findElement('boards');
-        const nextElement = this.#getNextBoardItem(draggingCursorY).boardElement;
+    //     const boards = this.findElement('boards');
+    //     const nextElement = this.#getNextBoardItem(draggingCursorY).boardElement;
         
-        // prevent unecessary re-renders; this can kill perf, if you don't guard here;
-        // re-rendering by appending or inserting on every mouse-move is heavy;
-        if(this.#draggingBoard.parentElement == boards && nextElement == this.#draggingBoard.nextElementSibling){ return; }
+    //     // prevent unecessary re-renders; this can kill perf, if you don't guard here;
+    //     // re-rendering by appending or inserting on every mouse-move is heavy;
+    //     if(this.#draggingBoard.parentElement == boards && nextElement == this.#draggingBoard.nextElementSibling){ return; }
 
 
-        if(nextElement == null)
-        {
-            boards.append(this.#draggingBoard);
-        }
-        else
-        {
-            boards.insertBefore(this.#draggingBoard, nextElement);
-        }
-    }
+    //     if(nextElement == null)
+    //     {
+    //         boards.append(this.#draggingBoard);
+    //     }
+    //     else
+    //     {
+    //         boards.insertBefore(this.#draggingBoard, nextElement);
+    //     }
+    // }
 
     async #refreshRecentBoards()
     {
@@ -797,20 +807,20 @@ export class TaskboardManagerElement extends HTMLElement
         recentBoards.append(...entries);
     }
 
-    #getNextBoardItem(mouseY: number)
-    {
-        const lists = [...this.findElement('boards').querySelectorAll('a:not(.dragging)')] as HTMLElement[];
-        return lists.reduce((closest: { offset: number, boardElement?:HTMLElement }, item: HTMLElement) =>
-        {
-            const boundingRect = item.getBoundingClientRect();
-            const offset = mouseY - boundingRect.top - (boundingRect.height / 2);
-            if(offset < 0 && offset > closest.offset)
-            {
-                return { offset, boardElement: item };
-            }
-            return closest;
-        }, { offset: Number.NEGATIVE_INFINITY });
-    }
+    // #getNextBoardItem(mouseY: number)
+    // {
+    //     const lists = [...this.findElement('boards').querySelectorAll('a:not(.dragging)')] as HTMLElement[];
+    //     return lists.reduce((closest: { offset: number, boardElement?:HTMLElement }, item: HTMLElement) =>
+    //     {
+    //         const boundingRect = item.getBoundingClientRect();
+    //         const offset = mouseY - boundingRect.top - (boundingRect.height / 2);
+    //         if(offset < 0 && offset > closest.offset)
+    //         {
+    //             return { offset, boardElement: item };
+    //         }
+    //         return closest;
+    //     }, { offset: Number.NEGATIVE_INFINITY });
+    // }
     async #getOrderedBoards()
     {
         const channel = this.#getChannel<BoardChannel>(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
