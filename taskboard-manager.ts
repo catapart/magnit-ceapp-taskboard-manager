@@ -3,7 +3,6 @@ import sharedStyles from './styles/shared.css?raw';
 import global_boardItem from './styles/board-item.global.css?raw';
 import global_browserItem from './styles/browser-item.global.css?raw';
 
-import appSettingsStyle from './styles/app-settings.css?raw';
 import settingsStyle from './styles/settings.css?raw';
 import componentStyle from './taskboard-manager.css?raw';
 // html
@@ -58,11 +57,11 @@ import { CustomImageActionProperties } from './data/history/custom-image-action-
 import { DataChannel } from './data/channels/data.channel';
 import { addAdminHandlers } from './handlers/admin.handlers';
 // import { addNavigationhandlers } from './handlers/navigation.handlers';
-import { addBoardBrowserHandlers } from './handlers/board-browser.handlers';
+// import { addBoardBrowserHandlers } from './handlers/board-browser.handlers';
 import { addRouteHandlers, parseWindowPath } from './handlers/route.handlers';
 import { addBoardHandlers, taskDescription_onKeyUp } from './handlers/board.handlers';
 // import { addDragHandlers } from './handlers/drag.handlers';
-import { addBoardSettingsHandlers } from './handlers/board-settings.handlers';
+// import { addBoardSettingsHandlers } from './handlers/board-settings.handlers';
 import { TaskListElement } from '@magnit-ce/task-list';
 import { TaskCardElement } from '@magnit-ce/task-card';
 import { PathRouterElement} from '@magnit-ce/path-router';
@@ -172,7 +171,6 @@ const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 ${global_boardItem}
 ${global_browserItem}
-${appSettingsStyle}
 ${settingsStyle}
 ${componentStyle}`);
 

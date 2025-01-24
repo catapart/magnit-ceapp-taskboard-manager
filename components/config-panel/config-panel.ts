@@ -31,10 +31,10 @@ COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.LogoMark,
-    IconType.MagnifyingGlass,
     IconType.Gear,
-    IconType.PlusIcon
+    // IconType.Data,
+    IconType.Clock,
+    IconType.Info,
 )}`;
 
 const COMPONENT_TAG_NAME = 'config-panel';

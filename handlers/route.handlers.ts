@@ -2,6 +2,7 @@ import { PathRouterElement, RoutePageElement } from "@magnit-ce/path-router";
 import { SHAREDACCESSKEY, TaskboardManagerElement } from "../taskboard-manager";
 import { MessageCardElement, MessageCardType } from "@magnit-ce/message-card";
 import { EditableListElement } from "@magnit-ce/editable-list";
+import { ConfigPanelElement } from "../components/config-panel/config-panel";
 
 let historyIsUpdating = false;
 
@@ -87,11 +88,21 @@ function router_onPathChange(this: TaskboardManagerElement, event: Event|CustomE
     }
     if(hashRoute != null)
     {
-        const configMenuItem = this.findElement('config-navigation').querySelector(`[data-route="#${hashRoute}"`);
-        if(configMenuItem != null)
+        if(hashRoute.indexOf('config') == -1)
         {
-            configMenuItem.setAttribute('aria-current', 'page');
+            return;
         }
+
+        const configRoute = hashRoute.substring(7);
+        const configPanel = this.findElement('config-panel') as ConfigPanelElement;
+        const configMenuItems = [...configPanel.findElement('navigation').querySelectorAll(`a`)];
+        for(let i = 0; i < configMenuItems.length; i++)
+        {
+            configMenuItems[i].toggleAttribute('aria-current', false);
+        }
+        configPanel.findElement('navigation')
+        .querySelector(`[data-route="#${hashRoute}"]`)?.setAttribute('aria-current', 'page');
+        configPanel.findElement('router').setAttribute('path', configRoute);
     }
 
 

@@ -67,6 +67,8 @@ export class WelcomePanelElement extends HTMLElement
             if(this.onNew == null) { return; }
             this.onNew();
         });
+        
+        // this.findElement('recent-boards').addEventListener("remove", this.#recentBoard_onRemove.bind(this));
     }
     #applyPartAttributes()
     {
@@ -81,6 +83,13 @@ export class WelcomePanelElement extends HTMLElement
             classedElements[i].part.add(...classedElements[i].classList);
         }
     }
+    // #recentBoard_onRemove(this: TaskboardManagerElement, event: Event|CustomEvent)
+    // {
+    //     const data = (event as CustomEvent).detail;
+    //     const path = (data as HTMLElement).getAttribute('path')!;
+    //     const id = path.substring(path.lastIndexOf('/') + 1);
+    //     this[SHAREDACCESSKEY].removeBoardFromRecentBoards(id)
+    // }
     
     updateBoards(boards: RecentBoardData[])
     {

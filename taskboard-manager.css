@@ -3,6 +3,24 @@
     box-sizing: border-box;
 }
 
+/* helper parts */
+/* 
+    text
+    button
+    fieldset
+    legend
+    input
+    textinput
+    toggle
+    select
+    field
+    icon
+    detail
+    summary
+    listitem
+    header
+ */
+
 :host
 {    
     font: inherit;
@@ -16,7 +34,6 @@
     --tab-icon-size: var(--icon-size);
     --brand-icon-size: 24px;
     --button-icon-size: var(--icon-size);
-    --pill-icon-size: var(--icon-size);
     --dialog-margin: 10px;
     --dialog-header-icon-size: 16px;
 

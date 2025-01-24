@@ -10,7 +10,9 @@
         <board-browser id="board-browser"></board-browser>
     </dialog>
     <dialog part="dialog config-dialog" class="dialog" is="route-dialog" path="config">
-        <config-panel id="config-panel"></config-panel>
+        <config-panel id="config-panel">
+            <slot name="custom-settings" slot="custom-settings"></slot>
+        </config-panel>
     </dialog>
     <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">
         <board-settings id="board-settings"></board-settings>
@@ -26,7 +28,7 @@
         </svg>
         <span id="confirmation-dialog-title">Confirmation</span>
     </header>
-    <path-router id="confirmation-router" manual>
+    <path-router id="confirmation-router">
         <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>
         <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>
         <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>

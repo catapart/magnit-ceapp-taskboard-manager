@@ -64,6 +64,15 @@ export class SettingsPanelElement extends HTMLElement
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
         this.#applyPartAttributes();
+
+        
+        // const schemeOptions = [...this.findElement('scheme-options').querySelectorAll('button')] as HTMLElement[];
+        // for(let i = 0; i < schemeOptions.length; i++)
+        // {
+        //     schemeOptions[i].addEventListener('click', this.#colorSchemeButton_onClick.bind(this));
+        // }
+
+
         // this.#addDragHandlers();
         // this.findElement('boards').addEventListener('edit', (event: Event|CustomEvent) => {
         //     if(this.onEdit == null) { return; }
@@ -90,6 +99,28 @@ export class SettingsPanelElement extends HTMLElement
             classedElements[i].part.add(...classedElements[i].classList);
         }
     }
+
+    
+    // #colorSchemeButton_onClick(this: TaskboardManagerElement, event: Event)
+    // {
+    //     const scheme = (event.target as HTMLElement).dataset.value;
+    //     if(scheme == null)
+    //     {
+    //         MessageCardElement.notify(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`, 
+    //         this.getElement('notifications'), { type: MessageCardType.Error });
+    //         console.error(new Error('Scheme value was undefined.'));
+    //         return;
+    //     }
+    //     if(scheme != 'inherit' && scheme != 'browser' && scheme != 'light' && scheme != 'dark')
+    //     {
+    //         MessageCardElement.notify(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`, 
+    //         this.getElement('notifications'), { type: MessageCardType.Error });
+    //         console.error(new Error('Scheme value was not recognized as a valid scheme.'));
+    //         return;
+    //     }
+    //     this.setColorScheme(scheme);
+    //     this[SHAREDACCESSKEY].saveAppSetting(AppSettingKey.ColorScheme, scheme);
+    // }
 
     updateBoards(boards: TaskBoardRecord[])
     {

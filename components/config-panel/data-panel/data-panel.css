@@ -1,6 +1,18 @@
-:host { display: contents; }
+:host
+{
+    display: grid;
+    gap: 7px;
+}
 
-[part="deleted-items"] [data-restore="false"]
+
+#header
+{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+#deleted-items [data-restore="false"]
 {
     scale: .98 .9;
     opacity: .5;
@@ -11,4 +23,166 @@
 {
     text-decoration: line-through;
     color: #444;
+}
+
+#import-fieldset
+{
+    display: flex;
+    gap: 7px;
+}
+
+#import-field .container
+{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+#import-board-file
+{
+    flex: 1;
+}
+
+#import-content
+{
+    overflow: hidden;
+    padding: 1em;
+    display: flex;
+}
+
+#import-manager
+{
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+#import-actions
+{
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 7px;
+}
+
+#import-cancel
+{
+    grid-column: 2;
+}
+
+#import-ok
+{
+    grid-column: 3;
+}
+
+#config-data-caches
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 7px;
+}
+
+#data-cleanup-fieldset
+{
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+    gap: 7px;
+}
+
+#data-cleanup-range .container
+{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    align-self: flex-end;
+}
+#data-persist-days
+{
+    flex: 1;
+}
+
+#apply-data-persist-days-button
+{
+    justify-self: flex-end;
+}
+
+#data-pending-fieldset
+,#image-cache-fieldset
+{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 7px;
+}
+
+#deleted-items
+,#deleted-images
+{
+    display: grid;
+    background: field;
+    border-radius: 2px;
+    border: 1px solid graytext;
+    color: fieldtext;
+    height: 130px;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    align-self: flex-end;
+}
+#deleted-item
+{
+    display: flex;
+    align-items: center;
+    padding: 3px 7px;
+}
+#deleted-item-label
+{
+    flex: 1;
+    gap: 5px;
+}
+
+#deleted-items::part(add)
+,#deleted-images::part(add)
+{
+    display: none;
+}
+
+#clear-deleted-button
+,#clear-image-cache-button
+{
+    justify-self: flex-end;
+}
+
+#data-clear-fieldset
+{
+    display: grid;
+    gap: 7px;
+}
+
+#clear-data-button
+{
+    justify-self: flex-end;
+}
+@media (max-width: 665px) 
+{
+
+    #import-fieldset
+    {
+        flex-direction: column;
+    }
+    #import-field .container
+    {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    #import-button
+    {
+        align-self: flex-end;
+    }
+    #config-data-caches
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 7px;
+    }
 }

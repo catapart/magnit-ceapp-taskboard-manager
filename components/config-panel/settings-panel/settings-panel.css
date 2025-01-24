@@ -1,1 +1,22 @@
-:host { display: contents; }
+
+
+:host
+{
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    gap: 7px;
+    flex: 1;
+}
+#header
+{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#custom-settings-fieldset
+{
+    color: graytext;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -25,10 +25,11 @@ COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.LogoMark,
-    IconType.MagnifyingGlass,
-    IconType.Gear,
-    IconType.PlusIcon
+    IconType.File,
+    IconType.Import,
+    IconType.Trash,
+    IconType.Restore,
+    IconType.ConfirmCheck,
 )}`;
 
 const COMPONENT_TAG_NAME = 'data-panel';
@@ -63,7 +64,26 @@ export class DataPanelElement extends HTMLElement
         this.attachShadow({ mode: "open" });
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
-        // this.#applyPartAttributes();
+        this.#applyPartAttributes();
+
+        
+        // this.findElement<HTMLButtonElement>('import-button').addEventListener('click', importButton_onClick.bind(this));
+        // this.findElement<HTMLButtonElement>('import-ok').addEventListener('click', importDialog_import_onClick.bind(this));
+
+        // this.findElement('data-persist-days').addEventListener("change", daysToPersist_onChange.bind(this));
+        // this.findElement('apply-data-persist-days-button').addEventListener("click", applyDaysToPersist_onClick.bind(this));
+
+        // this.findElement<HTMLButtonElement>('clear-data-button').addEventListener('click', clearData_onClick.bind(this));
+
+        // this.findElement<EditableListElement>('deleted-items').addEventListener('remove', deletedItems_onRemove.bind(this));
+        // this.findElement<HTMLButtonElement>('clear-deleted-button').addEventListener('click', clearDeleted_onClick.bind(this));
+
+        // this.findElement<EditableListElement>('deleted-images').addEventListener('remove', deletedImages_onRemove.bind(this));
+        // this.findElement<HTMLButtonElement>('clear-image-cache-button').addEventListener('click', clearImageCache_onClick.bind(this));
+
+
+
+
         // this.#addDragHandlers();
         // this.findElement('boards').addEventListener('edit', (event: Event|CustomEvent) => {
         //     if(this.onEdit == null) { return; }
@@ -90,6 +110,90 @@ export class DataPanelElement extends HTMLElement
             classedElements[i].part.add(...classedElements[i].classList);
         }
     }
+
+    // async function importButton_onClick(this: TaskboardManagerElement, _event: Event)
+    // {
+    //     const importFileInput = this.findElement<HTMLInputElement>('import-board-file');
+    //     const boardDataFile = (importFileInput.files != null) ?importFileInput.files[0] : null;
+    //     if(boardDataFile == null)
+    //     { 
+    //         MessageCardElement.notify(`An error occurred attempting to import board data. Confirm that the selected import file is a valid board export.`, 
+    //         this.getElement('notifications'), { type: MessageCardType.Error });
+    //         throw new Error("Unable to import selected file.");
+    //     }
+
+    //     const boardDataText = await boardDataFile.text();
+    //     const boardData = JSON.parse(boardDataText);
+    //     this[SHAREDACCESSKEY].openImportManager(boardData);
+    // }
+    // async function importDialog_import_onClick(this: TaskboardManagerElement, event: Event)
+    // {
+    //     const boardData = this.findElement<ImportManagerComponent>('import-manager').getRecord();
+    //     await this.importBoard(boardData);
+
+    //     this[SHAREDACCESSKEY].refreshBoards();
+    // }
+    // function daysToPersist_onChange(this: TaskboardManagerElement, event: Event)
+    // {
+    //     const dataPersistsDaysValues = this[SHAREDACCESSKEY].DaysToPersistValues;
+    //     const input = event.target as HTMLInputElement;
+    //     this[SHAREDACCESSKEY].snapToStep(input, dataPersistsDaysValues);
+    //     this.findElement('data-persist-days-value').textContent = input.value;
+    // }
+    // function applyDaysToPersist_onClick(this: TaskboardManagerElement, _event: Event)
+    // {
+    //     return this[SHAREDACCESSKEY].saveAppSetting(AppSettingKey.DaysToPersistData, this.findElement<HTMLInputElement>('data-persist-days').value);
+    // }
+    // function clearData_onClick(this: TaskboardManagerElement, _event: Event)
+    // {
+    //     this.clearData();
+    // }
+    // function deletedItems_onRemove(this: TaskboardManagerElement, event: Event|CustomEvent)
+    // {        
+    //     const item = (event as CustomEvent).detail;
+    //     const recordType = item.dataset.recordType;
+    //     const recordId = item.dataset.recordId;
+    //     const timestamp = item.getAttribute('data-timestamp');
+
+    //     const targetType = (recordType == 'board')
+    //     ? HistoryEntryTargetType.Board
+    //     : (recordType == 'list')
+    //     ? HistoryEntryTargetType.List
+    //     : (recordType == 'task')
+    //     ? HistoryEntryTargetType.Task
+    //     : null;
+
+    //     this[SHAREDACCESSKEY].restoreDeletedItem(targetType, recordId, timestamp);
+
+    // }
+    // async function clearDeleted_onClick(this: TaskboardManagerElement, _event: Event)
+    // {
+    //     const items = [...this.findElement('deleted-items').querySelectorAll('[data-record-id]:not([data-restore="false"])')] as HTMLElement[];
+    //     console.log(items);
+    //     for(let i = 0; i < items.length; i++)
+    //     {
+    //         const item = items[i];
+    //         await this.deleteItem(item, false);
+    //     }
+    //     this[SHAREDACCESSKEY].refreshActionHistory();
+    //     this[SHAREDACCESSKEY].refreshDeletedItems();
+    // }
+    // function deletedImages_onRemove(this: TaskboardManagerElement, event: Event|CustomEvent)
+    // {
+    //     const item = (event as CustomEvent).detail;
+    //     return this.deleteImage(item);
+    // }
+    // async function clearImageCache_onClick(this: TaskboardManagerElement, _event: Event)
+    // {
+    //     const items = [...this.findElement('deleted-images').querySelectorAll('[data-record-id]')] as HTMLElement[];
+    //     for(let i = 0; i < items.length; i++)
+    //     {
+    //         const item = items[i];
+    //         await this.deleteImage(item, false);
+    //     }
+    //     this[SHAREDACCESSKEY].refreshActionHistory();
+    //     this[SHAREDACCESSKEY].refreshDeletedItems();
+    // }
 
     updateBoards(boards: TaskBoardRecord[])
     {

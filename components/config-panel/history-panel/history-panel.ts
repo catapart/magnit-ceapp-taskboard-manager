@@ -25,10 +25,9 @@ COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.LogoMark,
-    IconType.MagnifyingGlass,
-    IconType.Gear,
-    IconType.PlusIcon
+    IconType.ConfirmCheck,
+    IconType.UndoRedo,
+    IconType.Trash,
 )}`;
 
 const COMPONENT_TAG_NAME = 'history-panel';
@@ -64,6 +63,19 @@ export class HistoryPanelElement extends HTMLElement
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
         this.#applyPartAttributes();
+
+        // this.findElement<HTMLButtonElement>('history-control-undo').addEventListener('click', history_undo_onClick.bind(this));
+        // this.findElement<HTMLButtonElement>('history-control-redo').addEventListener('click', history_redo_onClick.bind(this));
+
+        // const actionHistory = this.getElement<ActionHistoryElement>('action-history');
+        // actionHistory.onBack = actionHistory_onBack.bind(this);
+        // actionHistory.onForward = actionHistory_onForward.bind(this);
+
+        // this.findElement('action-history-length').addEventListener("change", historyLength_onChange.bind(this));
+        // this.findElement('apply-history-length-button').addEventListener("click", applyHistoryLength_onClick.bind(this));
+
+        // this.findElement('clear-history-button').addEventListener("click", clearHistory_onClick.bind(this));
+
         // this.#addDragHandlers();
         // this.findElement('boards').addEventListener('edit', (event: Event|CustomEvent) => {
         //     if(this.onEdit == null) { return; }
@@ -90,6 +102,72 @@ export class HistoryPanelElement extends HTMLElement
             classedElements[i].part.add(...classedElements[i].classList);
         }
     }
+    
+    // function history_undo_onClick(this: TaskboardManagerElement, _event: Event)
+    // {
+    //     this.undo();
+    // }
+    // function history_redo_onClick(this: TaskboardManagerElement, _event: Event)
+    // {
+    //     this.redo();
+    // }
+    // async function actionHistory_onBack(this: TaskboardManagerElement, target: HTMLElement, previous: HTMLElement|undefined, all: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
+    // {
+    //     await this[SHAREDACCESSKEY].handleActionEntryReverse(target, previous, targetIndex, previousActiveEntryIndex);
+        
+    //     const isLastUpdate = all.indexOf(target) == all.length - 1;
+    //     if(isLastUpdate == true)
+    //     {
+    //         const recordType = target.querySelector('.target-type')?.textContent?.toLowerCase();
+    //         if(recordType == 'board')
+    //         {
+    //             this[SHAREDACCESSKEY].refreshBoards();
+    //         }
+    //         const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
+    //         if(currentBoardId != "")
+    //         {
+    //             this[SHAREDACCESSKEY].renderBoard(currentBoardId);
+    //         }
+
+    //         this[SHAREDACCESSKEY].refreshDeletedItems();
+    //     }
+    // }
+    // async function actionHistory_onForward(this: TaskboardManagerElement, target: HTMLElement, previous: HTMLElement|undefined, all: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
+    // {
+    //     await this[SHAREDACCESSKEY].handelActionEntryActivate(target, previous, targetIndex, previousActiveEntryIndex);
+
+    //     const isLastUpdate = all.indexOf(target) == all.length - 1;
+    //     if(isLastUpdate == true)
+    //     {
+    //         const recordType = target.querySelector('.target-type')?.textContent?.toLowerCase();
+    //         if(recordType == 'board')
+    //         {
+    //             this[SHAREDACCESSKEY].refreshBoards();
+    //         }
+    //         const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
+    //         if(currentBoardId != "")
+    //         {
+    //             this[SHAREDACCESSKEY].renderBoard(currentBoardId);
+    //         }
+
+    //         this[SHAREDACCESSKEY].refreshDeletedItems();
+    //     }
+    // }
+    // async function historyLength_onChange(this: TaskboardManagerElement, event: Event)
+    // {
+    //     const input = event.target as HTMLInputElement;
+    //     this[SHAREDACCESSKEY].snapToStep(input, this[SHAREDACCESSKEY].HistoryLengthSteps);
+    //     this.findElement('action-history-length-value').textContent = input.value;
+    //     this[SHAREDACCESSKEY].prepareHistoryEntries();
+    // }
+    // async function applyHistoryLength_onClick(this: TaskboardManagerElement, _event: Event)
+    // {
+    //     this[SHAREDACCESSKEY].applyHistoryLength();
+    // }
+    // function clearHistory_onClick(this: TaskboardManagerElement, _event: Event)
+    // {
+    //     this.clearHistory();
+    // }
 
     updateBoards(boards: TaskBoardRecord[])
     {
