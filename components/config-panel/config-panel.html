@@ -1,0 +1,54 @@
+<header part="config-header">
+    <svg part="config-dialog-icon" >
+        <use href="#icon-definition_gear"></use>
+    </svg>
+    <span part="config-title">Configuration</span>
+</header>
+<menu part="config-navigation" id="config-navigation">
+    <a data-route="#config/settings" part="config-nav-item">
+        <svg part="settings-route-icon">
+            <use href="#icon-definition_gear"></use>
+        </svg>
+        <span>Settings</span>
+    </a>
+    <a data-route="#config/data" part="config-nav-item">
+        <svg part="data-route-icon">
+            <use href="#icon-definition_clock"></use>
+        </svg>
+        <span>Data</span>
+    </a>
+    <a data-route="#config/history" part="config-nav-item">
+        <svg part="history-route-icon">
+            <use href="#icon-definition_clock"></use>
+        </svg>
+        <span>History</span>
+    </a>
+    <a data-route="#config/about" part="config-nav-item">
+        <svg part="about-route-icon">
+            <use href="#icon-definition_info"></use>
+        </svg>
+        <span>About</span>
+    </a>
+</menu>
+<div part="config-route-view" class="route-view">
+    <route-page path="settings" part="settings-page">
+        <settings-panel id="settings-panel">
+            <slot name="custom-settings" slot="custom-settings"></slot>
+        </settings-panel>
+    </route-page>
+    <route-page path="data" part="config-data-page">
+        <data-panel id="data-panel"></data-panel>
+    </route-page>
+    <route-page path="history" part="history-page">
+        <history-panel id="history-panel"></history-panel>
+    </route-page>
+    <route-page path="about" part="about-page">
+        <about-panel id="about-panel"></about-panel>
+    </route-page>
+</div>
+<footer part="config-footer">
+    <form part="config-actions" method="dialog">
+        <button type="submit" part="config-cancel">Cancel</button>
+        <button type="submit" part="config-ok">Ok</button>
+    </form>
+</footer>

@@ -1,0 +1,14 @@
+:host { display: contents; }
+
+[part="deleted-items"] [data-restore="false"]
+{
+    scale: .98 .9;
+    opacity: .5;
+    pointer-events: none;
+}
+
+[to-delete]
+{
+    text-decoration: line-through;
+    color: #444;
+}

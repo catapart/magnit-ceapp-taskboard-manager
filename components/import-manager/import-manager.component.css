@@ -1,3 +1,12 @@
+:host { display: contents; }
+
+#header
+{
+    display: flex;
+    gap: .5em;
+    padding: .5em;
+}
+
 import-manager .value
 {
     display: flex;
@@ -42,7 +51,7 @@ import-manager .value img.preview
     max-height: 200px;
 }
 
-[part="import-manager-fieldset"]
+#fieldset
 {
     overflow: hidden;
     flex: 1;
@@ -50,23 +59,23 @@ import-manager .value img.preview
     flex-direction: column;
 }
 
-[part="import-preview"]
+#preview
 {
     overflow: auto;
 }
 @media (max-width: 665px) 
 {
-    [part="import-preview"]
+    #preview
     {
         --indent: 5px;
         --property-name-width: 75px;
     }
-    [part="import-preview"] .property .name
+    #preview .property .name
     {
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    [part="import-preview"] .property .value
+    #preview .property .value
     {
         overflow: hidden;
         text-overflow: ellipsis;

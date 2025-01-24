@@ -20,6 +20,7 @@ import './components/app-menu/app-menu';
 import './components/welcome-panel/welcome-panel';
 import './components/board-browser/board-browser';
 import './components/board-settings/board-settings';
+import './components/config-panel/config-panel';
 
 import '@magnit-ce/editable-list';
 import '@magnit-ce/path-router';
@@ -633,19 +634,19 @@ export class TaskboardManagerElement extends HTMLElement
             return option;
         }
 
-        const historyLengthOptions = Array.from(HistoryLengthValues).map(value => createOption(value));
-        this.findElement('action-history-length-values').append(...historyLengthOptions);
+        // const historyLengthOptions = Array.from(HistoryLengthValues).map(value => createOption(value));
+        // this.findElement('action-history-length-values').append(...historyLengthOptions);
 
-        const historyLength = (await this.#getAppSetting(AppSettingKey.HistoryLength)) ?? DEFAULT_HISTORY_LENGTH;
-        this.findElement<HTMLInputElement>('action-history-length').value = historyLength;
-        this.findElement('action-history-length-value').textContent = historyLength;
+        // const historyLength = (await this.#getAppSetting(AppSettingKey.HistoryLength)) ?? DEFAULT_HISTORY_LENGTH;
+        // this.findElement<HTMLInputElement>('action-history-length').value = historyLength;
+        // this.findElement('action-history-length-value').textContent = historyLength;
 
-        const daysToPersistOptions = Array.from(DaysToPersistValues).map(value => createOption(value));
-        this.findElement('data-persist-days-values').append(...daysToPersistOptions);
+        // const daysToPersistOptions = Array.from(DaysToPersistValues).map(value => createOption(value));
+        // this.findElement('data-persist-days-values').append(...daysToPersistOptions);
 
-        const daysToPersistData = (await this.#getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
-        this.findElement<HTMLInputElement>('data-persist-days').value = daysToPersistData;        
-        this.findElement('data-persist-days-value').textContent = daysToPersistData;
+        // const daysToPersistData = (await this.#getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
+        // this.findElement<HTMLInputElement>('data-persist-days').value = daysToPersistData;        
+        // this.findElement('data-persist-days-value').textContent = daysToPersistData;
     }
     #addHandlers()
     {

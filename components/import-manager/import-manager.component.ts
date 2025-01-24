@@ -14,17 +14,17 @@ const COMPONENT_TAG_NAME = 'import-manager';
 export class ImportManagerComponent extends HTMLElement
 {
     componentParts: Map<string, HTMLElement> = new Map();
-    getPart<T extends HTMLElement = HTMLElement>(key: string)
+    getElement<T extends HTMLElement = HTMLElement>(id: string)
     {
-        if(this.componentParts.get(key) == null)
+        if(this.componentParts.get(id) == null)
         {
-            const part = this.shadowRoot!.querySelector(`[part="${key}"]`) as HTMLElement;
-            if(part != null) { this.componentParts.set(key, part); }
+            const part = this.findElement(id);
+            if(part != null) { this.componentParts.set(id, part); }
         }
 
-        return this.componentParts.get(key) as T;
+        return this.componentParts.get(id) as T;
     }
-    findPart<T extends HTMLElement = HTMLElement>(key: string) { return this.querySelector(`[part="${key}"]`) as T; }
+    findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.querySelector(`#${id}`) as T; }
 
     #generatedIdMap: Map<string, string> = new Map();
 
@@ -36,7 +36,7 @@ export class ImportManagerComponent extends HTMLElement
         let parent = this.getRootNode() as Document|ShadowRoot;
         parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
 
-        this.findPart<RecordTreeElement>('import-preview').addCustomPropertyValueGenerator((title: string) =>
+        this.findElement<RecordTreeElement>('preview').addCustomPropertyValueGenerator((title: string) =>
         {
             return ID_PROPERTIES.has(title);
         }, (_title: string, value: string) =>
@@ -64,7 +64,7 @@ export class ImportManagerComponent extends HTMLElement
 
             return valueSpan;
         });
-        this.findPart<RecordTreeElement>('import-preview').addCustomPropertyValueGenerator((title: string) =>
+        this.findElement<RecordTreeElement>('preview').addCustomPropertyValueGenerator((title: string) =>
         {
             return title.endsWith('_base64');
         }, (_title: string, value: string) =>
@@ -110,7 +110,7 @@ export class ImportManagerComponent extends HTMLElement
         this.#generatedIdMap.clear();
         const modifiedData = this.prepareData(boardData);
 
-        this.findPart<RecordTreeElement>('import-preview').setData(modifiedData);
+        this.findElement<RecordTreeElement>('preview').setData(modifiedData);
     }
     prepareData(boardData: BoardExport)
     {
@@ -199,7 +199,7 @@ export class ImportManagerComponent extends HTMLElement
     
     getRecord()
     {
-        const data = this.findPart<RecordTreeElement>('import-preview').getUpdatedData<BoardExport>();
+        const data = this.findElement<RecordTreeElement>('preview').getUpdatedData<BoardExport>();
         return data;
     }
 }

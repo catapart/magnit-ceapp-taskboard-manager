@@ -1,0 +1,46 @@
+
+<header id="header">App Settings</header>
+<fieldset id="color-scheme-fieldset">
+    <legend id="color-scheme-legend">Color Scheme</legend>
+    <div class="button-group" id="scheme-options">
+        <button data-value="inherit">Inherit</button>
+        <button data-value="browser">Browser</button>
+        <button data-value="light">Light</button>
+        <button data-value="dark">Dark</button>
+    </div>
+</fieldset>
+<fieldset id="custom-settings-fieldset">
+    <legend id="custom-settings-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>
+    <slot name="custom-settings">[ No Custom Settings ]</slot>
+</fieldset>
+<fieldset id="hotkeys-fieldset">
+    <legend id="hotkeyss-legend">Hot Keys</legend>
+    <dl id="hotkeys-list">
+        <dt class="hotkey-title"><key class="key">Ctrl</key> + <key class="key">Arrow Left</key></dt>
+        <dd class="hotkey-description">Move text cursor to previous word.</dd>
+        <dt class="hotkey-title"><key class="key">Ctrl</key> + <key class="key">Arrow Right</key></dt>
+        <dd class="hotkey-description">Move text cursor to next word.</dd>
+        <dt class="hotkey-title"><key class="key">Ctrl</key> + <key class="key">Arrow Up</key></dt>
+        <dd class="hotkey-description">Move text cursor to closest word in previous line.</dd>
+        <dt class="hotkey-title"><key class="key">Ctrl</key> + <key class="key">Arrow Down</key></dt>
+        <dd class="hotkey-description">Move text cursor to closest word in next line.</dd>
+
+        <dt class="hotkey-title"><key class="key">Ctrl</key> + <key class="key">Shift</key> + <key class="key">Arrow Left</key></dt>
+        <dd class="hotkey-description">Highlight from the current cursor position to the start of the previous word.</dd>
+        <dt class="hotkey-title"><key class="key">Ctrl</key> + <key class="key">Shift</key> + <key class="key">Arrow Right</key></dt>
+        <dd class="hotkey-description">Highlight from the current cursor position to the end of the next word.</dd>
+        <dt class="hotkey-title"><key class="key">Ctrl</key> + <key class="key">Shift</key> + <key class="key">Arrow Up</key></dt>
+        <dd class="hotkey-description">Highlight from the current cursor position to the closest position in the previous line.</dd>
+        <dt class="hotkey-title"><key class="key">Ctrl</key> + <key class="key">Shift</key> + <key class="key">Arrow Down</key></dt>
+        <dd class="hotkey-description">Highlight from the current cursor position to the closest position in the next line.</dd>
+
+        <dt class="hotkey-title"><key class="key">Ctrl</key> + <key class="key">Alt</key> + <key class="key">Arrow Left</key></dt>
+        <dd class="hotkey-description">Move to the task in the previous list.</dd>
+        <dt class="hotkey-title"><key class="key">Ctrl</key> + <key class="key">Alt</key> + <key class="key">Arrow Right</key></dt>
+        <dd class="hotkey-description">Move to the task in the previous list.</dd>
+        <dt class="hotkey-title"><key class="key">Ctrl</key> + <key class="key">Alt</key> + <key class="key">Arrow Up</key></dt>
+        <dd class="hotkey-description">Move to the task in the previous list.</dd>
+        <dt class="hotkey-title"><key class="key">Ctrl</key> + <key class="key">Alt</key> + <key class="key">Arrow Down</key></dt>
+        <dd class="hotkey-description">Move to the task in the previous list.</dd>
+    </dl>
+</fieldset>

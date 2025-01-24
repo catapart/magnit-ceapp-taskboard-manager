@@ -1,5 +1,22 @@
-<fieldset part="import-manager-fieldset">
-    <legend part="import-manager-legend">Board Data</legend>
-    <p part="import-description">The following Taskboard, Tasklists, and Tasks will be imported with their settings. Make final adjustments and select "Import" to complete the import.</p>
-    <record-tree part="import-preview" removed-class parent-name="Board"></record-tree>
-</fieldset>
+
+<header id="header">
+    <svg id="icon" >
+        <use href="#icon-definition_import"></use>
+    </svg>
+    <span id="title">Import</span>
+</header>
+<div id="content">
+    <fieldset id="fieldset">
+        <legend id="legend">Board Data</legend>
+        <p id="description">The following Taskboard, Tasklists, and Tasks will be imported with their settings. Make final adjustments and select "Import" to complete the import.</p>
+        <record-tree id="preview" removed-class parent-name="Board"></record-tree>
+    </fieldset>
+</div>
+<footer id="footer">
+    <form id="actions" method="dialog">
+        <button type="submit" id="cancel" id="import-cancel" title="Cancel import">Cancel</button>
+        <button type="submit" id="ok" id="import-ok" title="Confirm import">Import</button>
+    </form>
+</footer>
+</dialog>
+

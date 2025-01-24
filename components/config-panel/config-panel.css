@@ -1,0 +1,375 @@
+[part="config-header"]
+{
+    margin-bottom: 20px;
+}
+
+[part="config-header"] svg
+{
+    width: var(--dialog-header-icon-size);
+    height: var(--dialog-header-icon-size);
+}
+svg
+{
+    width: var(--tab-icon-size);
+    height: var(--tab-icon-size);
+}
+
+[part="config-navigation"]
+{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    background-color: field;
+    color: fieldtext;
+    border: solid 1px graytext;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    user-select: none;
+}
+
+[part="config-nav-item"]
+{
+    --tab-icon-size: 14px;
+    padding: 7px 12px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+@media (max-width: 665px) 
+{
+    [part="config-navigation"]
+    {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+
+    [part="config-nav-item"]
+    {
+        justify-content: center;
+    }
+}
+
+[part="config-nav-item"][aria-current="page"]
+,[part="config-nav-item"]:hover
+{
+    background-color: highlight;
+    color: highlighttext;
+}
+
+[part="settings-header"]
+,[part="data-header"]
+,[part="history-header"]
+,[part="about-header"]
+{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+[part="settings-page"]
+{
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    gap: 7px;
+}
+
+[part="custom-settings-fieldset"]
+{
+    color: graytext;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+[part="config-data-page"]
+{
+    display: grid;
+    gap: 7px;
+}
+
+[part="import-fieldset"]
+{
+    display: flex;
+    gap: 7px;
+}
+
+[part="import-field"] .container
+{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+[part="import-board-file"]
+{
+    flex: 1;
+}
+
+[part="import-content"]
+{
+    overflow: hidden;
+    padding: 1em;
+    display: flex;
+}
+
+[part="import-manager"]
+{
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+[part="import-actions"]
+{
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 7px;
+}
+
+[part="import-cancel"]
+{
+    grid-column: 2;
+}
+
+[part="import-ok"]
+{
+    grid-column: 3;
+}
+
+[part="config-data-caches"]
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 7px;
+}
+
+[part="data-cleanup-fieldset"]
+{
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+    gap: 7px;
+}
+
+[part="data-cleanup-range"] .container
+{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    align-self: flex-end;
+}
+[part="data-persist-days"]
+{
+    flex: 1;
+}
+
+[part="apply-data-persist-days-button"]
+{
+    justify-self: flex-end;
+}
+
+[part="data-pending-fieldset"]
+,[part="image-cache-fieldset"]
+{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 7px;
+}
+
+[part="deleted-items"]
+,[part="deleted-images"]
+{
+    display: grid;
+    background: field;
+    border-radius: 2px;
+    border: 1px solid graytext;
+    color: fieldtext;
+    height: 130px;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    align-self: flex-end;
+}
+[part="deleted-item"]
+{
+    display: flex;
+    align-items: center;
+    padding: 3px 7px;
+}
+[part="deleted-item-label"]
+{
+    flex: 1;
+    gap: 5px;
+}
+
+[part="deleted-items"]::part(add)
+,[part="deleted-images"]::part(add)
+{
+    display: none;
+}
+
+[part="clear-deleted-button"]
+,[part="clear-image-cache-button"]
+{
+    justify-self: flex-end;
+}
+
+[part="data-clear-fieldset"]
+{
+    display: grid;
+    gap: 7px;
+}
+
+[part="clear-data-button"]
+{
+    justify-self: flex-end;
+}
+@media (max-width: 665px) 
+{
+
+    [part="import-fieldset"]
+    {
+        flex-direction: column;
+    }
+    [part="import-field"] .container
+    {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    [part="import-button"]
+    {
+        align-self: flex-end;
+    }
+    [part="config-data-caches"]
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 7px;
+    }
+    [part="action-history-length"]
+    {
+        width: 50px;
+    }
+}
+
+[part="history-page"]
+{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 7px;
+}
+
+[part="history-length-fieldset"]
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+[part="history-length-field"] .container
+{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+}
+
+[part="action-history-length"]
+{
+    flex: 1;
+}
+
+[part="history-navigation"]
+{
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    grid-template-rows: auto 1fr;
+    gap: 7px;
+    overflow: hidden;
+}
+[part="clear-history-button"]
+{
+    grid-column: 4;
+    white-space: nowrap;
+}
+[part="action-history"]
+{
+    grid-column: span 4;
+    background: field;
+    border-radius: 2px;
+    border: 1px solid graytext;
+    color: fieldtext;
+    overflow: auto;
+    flex: 1;
+}
+[part="action-history-entry"]
+{
+    padding: 3px 7px;
+    border-radius: 2px;
+}
+[part="action-history-entry"]:hover
+{
+    background-color: rgb(0 0 0 / .3);
+}
+
+[part="about-page"]
+{
+    display: grid;
+    gap: 7px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr auto;
+}
+
+[part="about-app-fieldset"]
+{
+    grid-column: span 2;
+}
+[part="about-app-fieldset"] p
+{
+    text-align: center;
+}
+
+[part="version-fieldset"]
+{
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+[part="copyright-fieldset"]
+{
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+[part="config-actions"]
+{
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 10px;
+    padding-block-start: 10px;
+}
+
+[part="config-ok"]
+,[part="config-cancel"]
+{
+    width: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+[part="config-cancel"]
+{
+    grid-column: 2;
+}
+[part="config-ok"]
+{
+    grid-column: 3;
+}

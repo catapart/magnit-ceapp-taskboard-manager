@@ -23,12 +23,12 @@
     --task-width: auto;
 }
 
-[part="welcome-page"]
+#welcome-page
 {
     display: grid;
 }
 
-[part="loading"]
+#loading
 {
     align-self: center;
     justify-self: center;
@@ -46,7 +46,7 @@
     pointer-events: none;
     position: absolute;
 }
-:host([loading]) [part="loading"]
+:host([loading]) #loading
 {
     opacity: 1;
     pointer-events: initial;
@@ -58,12 +58,12 @@ app-menu
     display: contents;
 }
 
-[part="app-router"]
+#app-router
 {
     overflow: hidden;
 }
 
-[part="board-route"]
+#board-route
 {
     display: flex;
     overflow: hidden;
@@ -83,20 +83,7 @@ task-card[data-drag-id]
 }
 
 
-[part="deleted-items"] [data-restore="false"]
-{
-    scale: .98 .9;
-    opacity: .5;
-    pointer-events: none;
-}
-
-[to-delete]
-{
-    text-decoration: line-through;
-    color: #444;
-}
-
-[part="notifications"]
+#notifications
 {
     position: absolute;
     top: 0;
@@ -106,12 +93,12 @@ task-card[data-drag-id]
     display: grid;
     row-gap: 7px;
 }
-[part="notifications"]:empty
+#notifications:empty
 {
     pointer-events: none;
 }
 
-[part="message-content"]
+#message-content
 {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -131,11 +118,11 @@ message-card::part(message)
 } */
 
 
-[part="confirmation-router"]
+#confirmation-router
 {
     margin-block: 1em;
 }
-[part="confirmation-dialog-form"]
+#confirmation-dialog-form
 {
     display: flex;
     justify-content: flex-end;
@@ -170,7 +157,7 @@ message-card::part(message)
         display: none;
     }
     
-    [part="notifications"]
+    #notifications
     {
         width: 100vw;
     }
@@ -194,14 +181,14 @@ message-card::part(message)
         grid-template-areas: 'menu taskboard';
     }
 
-    [part="app-router"]
+    #app-router
     {
         grid-column: 2;
         grid-row: 1;
         flex: 1;
     }
 
-    [part="loading"]
+    #loading
     {
         grid-column: 2;
         grid-row: 1;
