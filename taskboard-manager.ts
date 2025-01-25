@@ -81,6 +81,7 @@ import { WelcomePanelElement } from './components/welcome-panel/welcome-panel';
 import { RecentBoardData } from './data/types/recent-board-data.type';
 import { BoardBrowserElement } from './components/board-browser/board-browser';
 import { BoardSettingsElement } from './components/board-settings/board-settings';
+import { ConfigPanelElement } from './components/config-panel/config-panel';
 
 // export type TaskboardManagerProperties = 
 // {
@@ -101,7 +102,6 @@ export enum AppSettingKey
     Language = 'language',
 }
 
-const DaysToPersistValues = new Set([0, 7, 30]);
 const HistoryLengthValues = new Set([0, 30, 50, 100, 150]);
 
 
@@ -144,8 +144,6 @@ type SharedContent =
 
     renderBoard: (id: string) => void,
     updateBoardSettings: () => void,
-    // updateBoardRecordsAfterMove: () => void,
-    // updateBoardItemOrder: (draggingCursorY: number) => void,
     updateRecentBoardEntry: (id: string, description?: string) => Promise<void>,
     removeBoardFromRecentBoards: (id: string) => Promise<void>,
 
@@ -158,13 +156,10 @@ type SharedContent =
     updateTaskRecordsAfterMove: (target: TaskCardElement, parent: TaskListElement) => void,
 
     openImportManager: (data: any) => void,
-    snapToStep: (target: HTMLInputElement, steps: number[]) => void,
 
     getConfirmation: (message: string, type: 'info'|'warn'|'danger') => Promise<boolean>,
     getIdFromRoute: () => string,
 
-    DaysToPersistValues: Array<number>,
-    HistoryLengthSteps: Array<number>,
 }
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -513,42 +508,32 @@ export class TaskboardManagerElement extends HTMLElement
         // this.#refreshActionHistory();
         // this.#refreshDeletedItems();
         
-        // const { windowPath, windowHash } = parseWindowPath();
-        // const filteredWindowHash = windowHash.replace('import', '');
-        // await this.getElement<PathRouterElement>('app-router').navigate(`${windowPath}#${filteredWindowHash}`);
+        const { windowPath, windowHash } = parseWindowPath();
+        const filteredWindowHash = windowHash.replace('import', '');
+        await this.getElement<PathRouterElement>('app-router').navigate(`${windowPath}#${filteredWindowHash}`);
         
-        // if(filteredWindowHash != windowHash)
-        // {
-        //     // if the last session ended with a dialog open that
-        //     // was not one allowed to be open on startup (like the 
-        //     // import dialog), we update the url, as well as the router's path
-        //     const newHistoryState =  `${window.origin}/demo/app.html?path=${windowPath}${(filteredWindowHash != "") ? `#${filteredWindowHash}` : ''}`;
-        //     window.history.replaceState(null, '', newHistoryState);
-        // }
+        if(filteredWindowHash != windowHash)
+        {
+            // if the last session ended with a dialog open that
+            // was not one allowed to be open on startup (like the 
+            // import dialog), we update the url, as well as the router's path
+            const newHistoryState =  `${window.origin}/demo/app.html?path=${windowPath}${(filteredWindowHash != "") ? `#${filteredWindowHash}` : ''}`;
+            window.history.replaceState(null, '', newHistoryState);
+        }
         
-        // boardsPromise.then(() =>
-        // {
-        //     let boardIdIndex = windowPath.indexOf('board/');
-        //     if(boardIdIndex > -1)
-        //     {
-        //         const currentMenuItem = this.findElement('boards').querySelector(`[data-route="${windowPath}"]`);
-        //         if(currentMenuItem != null)
-        //         {
-        //             currentMenuItem.setAttribute('aria-current', 'page');
-        //             currentMenuItem.part.add('selected');
-        //         }
-        //     }
-        // });
-        
-        // if(windowHash.indexOf('config/') > -1)
-        // {
-        //     const configMenuItem = this.findElement('config-navigation').querySelector(`[data-route="#${windowHash}"`);
-        //     if(configMenuItem != null)
-        //     {
-        //         configMenuItem.setAttribute('aria-current', 'page');
-        //         configMenuItem.part.add('selected');
-        //     }
-        // }
+        boardsPromise.then(() =>
+        {
+            let boardIdIndex = windowPath.indexOf('board/');
+            if(boardIdIndex > -1)
+            {
+                const currentMenuItem = this.findElement('app-menu').querySelector(`[data-route="${windowPath}"]`);
+                if(currentMenuItem != null)
+                {
+                    currentMenuItem.setAttribute('aria-current', 'page');
+                    currentMenuItem.part.add('selected');
+                }
+            }
+        });
 
         this.#removeExpiredData();
         // check each day if any deleted records expired
@@ -612,13 +597,10 @@ export class TaskboardManagerElement extends HTMLElement
             deleteTaskRecord: this.#deleteTaskRecord.bind(this),
 
             openImportManager: this.#openImportManager.bind(this),
-            snapToStep: this.#snapToStep.bind(this),
 
             getConfirmation: this.#getConfirmation.bind(this),
             getIdFromRoute: this.#getIdFromRoute.bind(this),
 
-            DaysToPersistValues: Array.from(DaysToPersistValues),
-            HistoryLengthSteps: Array.from(HistoryLengthValues),
         }
     }
     async #prepareDynamicContent()
@@ -653,6 +635,72 @@ export class TaskboardManagerElement extends HTMLElement
         menu.onEdit = this.#board_edit_onClick.bind(this);
         menu.onNew = this.#newBoard_onClick.bind(this);
 
+        const configPanel = this.getElement<ConfigPanelElement>('config-panel');
+        configPanel.addEventListener('error', (event: Event|CustomEvent) =>
+        {
+            const { message, type, consoleMessage } = (event as CustomEvent).detail;
+            MessageCardElement.notify(message, 
+            this.getElement('notifications'), { type: type ?? MessageCardType.Error });
+            console.error(new Error(consoleMessage));
+        });
+        configPanel.addEventListener('scheme', (event: Event|CustomEvent) =>
+        {
+            const { scheme } = (event as CustomEvent).detail;
+            this.setColorScheme(scheme);
+            this.#saveAppSetting(AppSettingKey.ColorScheme, scheme);
+        });
+        configPanel.addEventListener('import', (event: Event|CustomEvent) =>
+        {
+            const { boardData } = (event as CustomEvent).detail;
+            this.#openImportManager(boardData);
+        });
+        configPanel.addEventListener('daystopersist', (event: Event|CustomEvent) =>
+        {
+            const { daysToPersist } = (event as CustomEvent).detail;
+            this.#saveAppSetting(AppSettingKey.DaysToPersistData, daysToPersist);
+        });
+        configPanel.addEventListener('cleardata', (event: Event|CustomEvent) =>
+        {
+            this.clearData();
+        });
+        configPanel.addEventListener('restoreitem', (event: Event|CustomEvent) =>
+        {
+            const { targetType, recordId, timestamp } = (event as CustomEvent).detail;
+            this.#restoreDeletedItem(targetType, recordId, timestamp);
+        });
+        configPanel.addEventListener('cleardeleted', async (event: Event|CustomEvent) =>
+        {
+            const { items } = (event as CustomEvent).detail;
+            for(let i = 0; i < items.length; i++)
+            {
+                const item = items[i];
+                await this.deleteItem(item, false);
+            }
+            this.#refreshDeletedItems();
+            this.#refreshActionHistory();
+        });
+        configPanel.addEventListener('restoreitem', (event: Event|CustomEvent) =>
+        {
+            const { item } = (event as CustomEvent).detail;
+            return this.deleteImage(item);
+        });
+        configPanel.addEventListener('clearimages', async (event: Event|CustomEvent) =>
+        {
+            const { items } = (event as CustomEvent).detail;
+            for(let i = 0; i < items.length; i++)
+            {
+                const item = items[i];
+                await this.deleteImage(item, false);
+            }
+            this.#refreshActionHistory();
+            this.#refreshDeletedItems();
+        });
+
+
+    
+
+
+        // this.findElement<HTMLButtonElement>('import-ok').addEventListener('click', this.#importDialog_import_onClick.bind(this));
 
         // this.addEventListener('click', (event) =>
         // {
@@ -666,6 +714,13 @@ export class TaskboardManagerElement extends HTMLElement
         // addBoardSettingsHandlers.call(this);
         // addBoardBrowserHandlers.call(this);
         // addKeyHandlers.call(this);
+    }
+    async #importDialog_import_onClick(event: Event)
+    {
+        const boardData = this.findElement<ImportManagerComponent>('import-manager').getRecord();
+        await this.importBoard(boardData);
+
+        this[SHAREDACCESSKEY].refreshBoards();
     }
 
     // settings
@@ -2460,28 +2515,6 @@ export class TaskboardManagerElement extends HTMLElement
             throw new Error(`Data Access Error`);
         }
         return channel;
-    }
-
-    #snapToStep(target: HTMLInputElement, steps: number[])
-    {
-        const inputValue = parseFloat(target.value);
-        for(let i = 1; i < steps.length; i++)
-        {
-            const value = steps[i];
-            const lastValue = steps[i-1];
-            const distanceFromValue = Math.abs(value - inputValue);
-            const distanceFromLastValue = Math.abs(lastValue - inputValue);
-            const isCloserToNewValue = Math.min(distanceFromValue, distanceFromLastValue) == distanceFromValue;
-            if(isCloserToNewValue)
-            {
-                target.value = value.toString();
-            }
-            else
-            {
-                target.value = lastValue.toString();
-                break;
-            }
-        }
     }
     
     #getIdFromRoute()

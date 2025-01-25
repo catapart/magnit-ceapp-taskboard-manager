@@ -5,7 +5,6 @@ import sharedStyles from '../../../styles/shared.css?raw';
 import html from './settings-panel.html?raw';
 // icons
 import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
-import { TaskBoardRecord } from '../../../data/records/task-board.record';
 
 export enum SettingsPanelAttributes
 {
@@ -66,25 +65,11 @@ export class SettingsPanelElement extends HTMLElement
         this.#applyPartAttributes();
 
         
-        // const schemeOptions = [...this.findElement('scheme-options').querySelectorAll('button')] as HTMLElement[];
-        // for(let i = 0; i < schemeOptions.length; i++)
-        // {
-        //     schemeOptions[i].addEventListener('click', this.#colorSchemeButton_onClick.bind(this));
-        // }
-
-
-        // this.#addDragHandlers();
-        // this.findElement('boards').addEventListener('edit', (event: Event|CustomEvent) => {
-        //     if(this.onEdit == null) { return; }
-        //     const customEvent = (event as CustomEvent);
-        //     const board: HTMLElement = customEvent.detail;
-        //     this.onEdit(board.dataset.route!);
-        // });
-        // this.findElement('new-board-button').addEventListener('click', () =>
-        // {
-        //     if(this.onNew == null) { return; }
-        //     this.onNew();
-        // });
+        const schemeOptions = [...this.findElement('scheme-options').querySelectorAll('button')] as HTMLElement[];
+        for(let i = 0; i < schemeOptions.length; i++)
+        {
+            schemeOptions[i].addEventListener('click', this.#colorSchemeButton_onClick.bind(this));
+        }
     }
     #applyPartAttributes()
     {
@@ -101,133 +86,24 @@ export class SettingsPanelElement extends HTMLElement
     }
 
     
-    // #colorSchemeButton_onClick(this: TaskboardManagerElement, event: Event)
-    // {
-    //     const scheme = (event.target as HTMLElement).dataset.value;
-    //     if(scheme == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         console.error(new Error('Scheme value was undefined.'));
-    //         return;
-    //     }
-    //     if(scheme != 'inherit' && scheme != 'browser' && scheme != 'light' && scheme != 'dark')
-    //     {
-    //         MessageCardElement.notify(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         console.error(new Error('Scheme value was not recognized as a valid scheme.'));
-    //         return;
-    //     }
-    //     this.setColorScheme(scheme);
-    //     this[SHAREDACCESSKEY].saveAppSetting(AppSettingKey.ColorScheme, scheme);
-    // }
-
-    updateBoards(boards: TaskBoardRecord[])
+    #colorSchemeButton_onClick(event: Event)
     {
-        const menuItems: HTMLAnchorElement[] = [];
-        for(let i = 0; i < boards.length; i++)
+        const scheme = (event.target as HTMLElement).dataset.value;
+        if(scheme == null)
         {
-            const boardRecord = boards[i];
-            const menuItem = this.#createBoardMenuItem(boardRecord);
-            menuItems.push(menuItem);
-        }
-
-        // menu items
-        this.innerHTML = "";
-        // [...this.querySelectorAll('a')].map(item => item.remove());
-        this.append(...menuItems);
-    }
-    
-    #createBoardMenuItem(board: TaskBoardRecord)
-    {
-        const element = document.createElement('a');
-        element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span>
-        <span part="board-item-name" class="board-item-name">${board.name}<span>`;
-        element.setAttribute('part', 'board');
-        element.classList.add('board');
-        element.dataset.route = `board/${board.id}`;
-    
-        const handle = element.querySelector('[part="menu-item-handle"]')!;
-        handle.addEventListener('mousedown', (_event) =>
-        {
-            element.draggable = true;
-        });
-        handle.addEventListener('mouseup', (_event) =>
-        {
-            element.removeAttribute('draggable');
-        });
-        element.addEventListener('dragstart', (_event: DragEvent) => 
-        {
-            this.#draggingBoard = element;
-            element.classList.add('dragging');
-            this.classList.add('drop-target');
-        });
-        element.addEventListener('dragend', (_event: DragEvent) => 
-        {
-            element.classList.remove('dragging');
-            this.#draggingBoard = null;
-            this.classList.remove('drop-target');
-        });
-
-        return element;
-    }
-
-    #addDragHandlers()
-    {
-        this.addEventListener('dragover', this.boardsList_onDragover.bind(this));
-        this.addEventListener('drop', this.boardsList_onDrop.bind(this));
-    }
-
-    boardsList_onDragover(event: DragEvent)
-    {
-        event.preventDefault();
-        event.stopPropagation();
-        this.#updateBoardItemOrder(event.clientY);
-    }
-    async boardsList_onDrop(_event: Event)
-    {
-        console.log(_event);
-        if(this.onBoardMove != null)
-        {
-            this.onBoardMove([...this.querySelectorAll('a')]);
-        }
-    }
-    async #updateBoardItemOrder(draggingCursorY: number)
-    {
-        if(this.#draggingBoard == null)
-        {
+            const message = `An error occurred attempting to set the app's color scheme. Scheme was not changed.`;
+            const consoleMessage = 'Scheme value was undefined.';
+            this.dispatchEvent(new CustomEvent('error', { detail: { message, consoleMessage }, bubbles: true, composed: true }));
             return;
         }
-
-        const nextElement = this.#getNextBoardItem(draggingCursorY).boardElement;
-        
-        // prevent unecessary re-renders; this can kill perf, if you don't guard here;
-        // re-rendering by appending or inserting on every mouse-move is heavy;
-        if(this.#draggingBoard.parentElement == this && nextElement == this.#draggingBoard.nextElementSibling){ return; }
-
-
-        if(nextElement == null)
+        if(scheme != 'inherit' && scheme != 'browser' && scheme != 'light' && scheme != 'dark')
         {
-            this.append(this.#draggingBoard);
+            const message = `An error occurred attempting to set the app's color scheme. Scheme was not changed.`;
+            const consoleMessage = 'Scheme value was not recognized as a valid scheme.';
+            this.dispatchEvent(new CustomEvent('error', { detail: { message, consoleMessage }, bubbles: true, composed: true }));
+            return;
         }
-        else
-        {
-            this.insertBefore(this.#draggingBoard, nextElement);
-        }
-    }
-    #getNextBoardItem(mouseY: number)
-    {
-        const lists = [...this.querySelectorAll('a:not(.dragging)')] as HTMLElement[];
-        return lists.reduce((closest: { offset: number, boardElement?:HTMLElement }, item: HTMLElement) =>
-        {
-            const boundingRect = item.getBoundingClientRect();
-            const offset = mouseY - boundingRect.top - (boundingRect.height / 2);
-            if(offset < 0 && offset > closest.offset)
-            {
-                return { offset, boardElement: item };
-            }
-            return closest;
-        }, { offset: Number.NEGATIVE_INFINITY });
+        this.dispatchEvent(new CustomEvent('scheme', { detail: { scheme }, bubbles: true, composed: true }));
     }
 
 

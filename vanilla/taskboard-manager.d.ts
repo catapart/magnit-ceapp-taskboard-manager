@@ -307,11 +307,8 @@ type SharedContent = {
     deleteTaskRecord: (taskComponent: TaskCardElement) => void;
     updateTaskRecordsAfterMove: (target: TaskCardElement, parent: TaskListElement) => void;
     openImportManager: (data: any) => void;
-    snapToStep: (target: HTMLInputElement, steps: number[]) => void;
     getConfirmation: (message: string, type: 'info' | 'warn' | 'danger') => Promise<boolean>;
     getIdFromRoute: () => string;
-    DaysToPersistValues: Array<number>;
-    HistoryLengthSteps: Array<number>;
 };
 declare class TaskboardManagerElement extends HTMLElement {
     #private;
