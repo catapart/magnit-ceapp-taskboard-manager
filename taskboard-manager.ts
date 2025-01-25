@@ -102,11 +102,10 @@ export enum AppSettingKey
     Language = 'language',
 }
 
-const HistoryLengthValues = new Set([0, 30, 50, 100, 150]);
-
 
 const MILLISECONDSINDAY = 1000 * 60 * 60 * 24;
 
+const DEFAULT_APP_VERSION = "--.--.--";
 const DEFAULT_HISTORY_LENGTH = "30";
 const DEFAULT_PERSIST_DAYS = "7";
 
@@ -136,11 +135,11 @@ type SharedContent =
     refreshActionHistory: () => Promise<void>,
     refreshDeletedItems: () => Promise<void>,
     saveAppSetting: (key: string, value: string|number|boolean|Blob|null) => Promise<void>,
-    restoreDeletedItem: (targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number) => void,
-    handleActionEntryReverse: (targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number) => void,
-    handelActionEntryActivate: (targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number) => void,
-    prepareHistoryEntries: () => void,
-    applyHistoryLength: () => Promise<void>,
+    // restoreDeletedItem: (targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number) => void,
+    // handleActionEntryReverse: (targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number) => void,
+    // handelActionEntryActivate: (targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number) => void,
+    // prepareHistoryEntries: () => void,
+    // applyHistoryLength: () => Promise<void>,
 
     renderBoard: (id: string) => void,
     updateBoardSettings: () => void,
@@ -496,17 +495,21 @@ export class TaskboardManagerElement extends HTMLElement
     // management
     async #init()
     {
-        this.#setAppVersion();
         await this.#data.init();
         this.#registerSharedData();
         this.#loadColorScheme();
-        await this.#prepareDynamicContent();
+        
+        const appVersion = await this.#getAppVersion();
+        const historyLength = (await this.#getAppSetting(AppSettingKey.HistoryLength)) ?? DEFAULT_HISTORY_LENGTH;
+        const daysToPersistData = (await this.#getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
+        this.findElement<ConfigPanelElement>('config-panel').init(appVersion, historyLength, daysToPersistData);
+
         this.#addHandlers();
 
         this.#refreshRecentBoards();
         const boardsPromise = this.#refreshBoards();
-        // this.#refreshActionHistory();
-        // this.#refreshDeletedItems();
+        this.#refreshActionHistory();
+        this.#refreshDeletedItems();
         
         const { windowPath, windowHash } = parseWindowPath();
         const filteredWindowHash = windowHash.replace('import', '');
@@ -542,19 +545,28 @@ export class TaskboardManagerElement extends HTMLElement
             this.#removeExpiredData();
         }, MILLISECONDSINDAY);
     }
-    async #setAppVersion()
+    async #getAppManifest()
     {
         const manifestLink = document.head.querySelector('link[rel="manifest"]');
         const manifestRef = manifestLink?.getAttribute('href');
         if(manifestRef == null)
         {
-            console.warn(`A manifest file could not be found linked in the index document's head. The app's version information could not be determined.`);
             return;
         }
 
         const manifestData = await fetch(manifestRef);
         const manifest = await manifestData.json();
-        this.findElement('version-value').textContent = manifest.version;
+        return manifest;
+    }
+    async #getAppVersion()
+    {
+        const manifest = await this.#getAppManifest();
+        if(manifest == null)
+        {
+            console.warn(`A manifest file could not be found linked in the index document's head. The app's version information could not be determined.`);
+            return DEFAULT_APP_VERSION;
+        }
+        return manifest.version;
     }
     async #loadColorScheme()
     {
@@ -574,12 +586,12 @@ export class TaskboardManagerElement extends HTMLElement
 
             saveAppSetting: this.#saveAppSetting.bind(this),
 
-            restoreDeletedItem: this.#restoreDeletedItem.bind(this),
+            // restoreDeletedItem: this.#restoreDeletedItem.bind(this),
 
-            handleActionEntryReverse: this.#handleActionEntryReverse.bind(this),
-            handelActionEntryActivate: this.#handelActionEntryActivate.bind(this),
-            prepareHistoryEntries: this.#prepareHistoryEntries.bind(this),
-            applyHistoryLength: this.#applyHistoryLength.bind(this),
+            // handleActionEntryReverse: this.#handleActionEntryReverse.bind(this),
+            // handelActionEntryActivate: this.#handelActionEntryActivate.bind(this),
+            // prepareHistoryEntries: this.#prepareHistoryEntries.bind(this),
+            // applyHistoryLength: this.#applyHistoryLength.bind(this),
 
             renderBoard: this.#renderBoard.bind(this),
             updateBoardSettings: this.#updateBoardSettings.bind(this),
@@ -603,31 +615,7 @@ export class TaskboardManagerElement extends HTMLElement
 
         }
     }
-    async #prepareDynamicContent()
-    {
-        const createOption = (value: number) =>
-        {
-            const option = document.createElement('option');
-            const stringValue = value.toString();
-            option.value = stringValue;
-            option.textContent = stringValue;
-            return option;
-        }
-
-        // const historyLengthOptions = Array.from(HistoryLengthValues).map(value => createOption(value));
-        // this.findElement('action-history-length-values').append(...historyLengthOptions);
-
-        // const historyLength = (await this.#getAppSetting(AppSettingKey.HistoryLength)) ?? DEFAULT_HISTORY_LENGTH;
-        // this.findElement<HTMLInputElement>('action-history-length').value = historyLength;
-        // this.findElement('action-history-length-value').textContent = historyLength;
-
-        // const daysToPersistOptions = Array.from(DaysToPersistValues).map(value => createOption(value));
-        // this.findElement('data-persist-days-values').append(...daysToPersistOptions);
-
-        // const daysToPersistData = (await this.#getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
-        // this.findElement<HTMLInputElement>('data-persist-days').value = daysToPersistData;        
-        // this.findElement('data-persist-days-value').textContent = daysToPersistData;
-    }
+    
     #addHandlers()
     {
         const menu = this.getElement<AppMenuElement>('app-menu');
@@ -695,7 +683,85 @@ export class TaskboardManagerElement extends HTMLElement
             this.#refreshActionHistory();
             this.#refreshDeletedItems();
         });
+        configPanel.addEventListener('undo', (event: Event|CustomEvent) =>
+        {
+            this.undo();
+        });
+        configPanel.addEventListener('redo', (event: Event|CustomEvent) =>
+        {
+            this.redo();
+        });
+        configPanel.addEventListener('historyback', async (event: Event|CustomEvent) =>
+        {
+            const {
+                target,
+                previous,
+                targetIndex,
+                previousActiveEntryIndex,
+                refreshBoards,
+                refreshDeletedItems
+            } = (event as CustomEvent).detail;
 
+            await this.#handleActionEntryReverse(target, previous, targetIndex, previousActiveEntryIndex);
+
+            
+            if(refreshBoards == true)
+            {
+                this.#refreshBoards();
+            }
+            if(refreshDeletedItems == true)
+            {
+                this.#refreshDeletedItems();
+            }
+            
+            const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
+            if(currentBoardId != "")
+            {
+                this.#renderBoard(currentBoardId);
+            }
+        });
+        configPanel.addEventListener('historyforward', async (event: Event|CustomEvent) =>
+        {
+            const {
+                target,
+                previous,
+                targetIndex,
+                previousActiveEntryIndex,
+                refreshBoards,
+                refreshDeletedItems
+            } = (event as CustomEvent).detail;
+
+            await this.#handelActionEntryActivate(target, previous, targetIndex, previousActiveEntryIndex);
+
+            if(refreshBoards == true)
+            {
+                this.#refreshBoards();
+            }
+            if(refreshDeletedItems == true)
+            {
+                this.#refreshDeletedItems();
+            }
+            
+            const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
+            if(currentBoardId != "")
+            {
+                this.#renderBoard(currentBoardId);
+            }
+        });
+        configPanel.addEventListener('preparehistoryitems', async (event: Event|CustomEvent) =>
+        {
+            const { actionHistory, startIndex } = (event as CustomEvent).detail;
+            this.#prepareHistoryEntries(actionHistory, startIndex);
+        });
+        configPanel.addEventListener('historylength', async (event: Event|CustomEvent) =>
+        {
+            const { historyLength } = (event as CustomEvent).detail;
+            this.#applyHistoryLength(historyLength);
+        });
+        configPanel.addEventListener('clearhistory', async (_event: Event|CustomEvent) =>
+        {
+            this.clearHistory();
+        });
 
     
 
@@ -1795,7 +1861,8 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const channel = this.#getChannel(this.#data.historyEntries, HISTORY_ERROR_MESSAGE, 'danger');
 
-        [...this.getElement('action-history').querySelectorAll('[data-entry]')].map(item => item.remove());
+        const configPanel = this.getElement('config-panel');
+        [...configPanel.querySelectorAll('[slot="action-history"]')].map(item => item.remove());
 
         const records = await channel.getAll('timestamp');
         if(records.length == 0)
@@ -1831,7 +1898,7 @@ export class TaskboardManagerElement extends HTMLElement
         {
             entries = entries.map(item => { item.toggleAttribute(ATTRIBUTENAME_REVERSED, true); return item; });
         }
-        this.getElement('action-history').append(...entries);
+        configPanel.append(...entries);
     }
     #createActionHistoryEntryElement(entry: HistoryEntryRecord)
     {
@@ -1840,6 +1907,7 @@ export class TaskboardManagerElement extends HTMLElement
         element.setAttribute('timestamp', entry.timestamp.toString());
         element.setAttribute('data-entry-id', entry.id);
         element.setAttribute('part', "action-history-entry");
+        element.setAttribute('slot', "action-history");
         element.innerHTML = `<span class="action-type">${entry.action.toUpperCase()}</span>
         <span class="data">
             <span class="target-type">${entry.data.targetType[0].toUpperCase()}${entry.data.targetType.substring(1)}</span>
@@ -2108,24 +2176,20 @@ export class TaskboardManagerElement extends HTMLElement
         return entryElement;
     }
 
-    async #prepareHistoryEntries()
+    async #prepareHistoryEntries(historyElement: ActionHistoryElement, startIndex: number)
     {
         if(this.#data.historyEntries == null)
         {
-            // todo: add toast to inform user
-            console.warn(`An error occurred accessing Action History data. Unable to refresh action history.`);
+            MessageCardElement.notify(`An error occurred accessing Action History data. Unable to refresh action history.`, 
+            this.getElement('notifications'), { type: MessageCardType.Error });
+            console.error(new Error(`An error occurred accessing Action History data. Unable to refresh action history.`));
             return;
         }
         const entries = await this.#data.historyEntries.getAll('timestamp');
 
-        let startIndex = parseInt(this.findElement<HTMLInputElement>('action-history-length').value);
-        if(startIndex > 0) { startIndex--; } // fix zero index offset if non-zero number
-
-        // const elements: HTMLElement[] = [];
-        const history = this.findElement('action-history');
         for(let i = 0; i < entries.length; i++)
         {
-            const element = history.querySelector(`[data-entry-id="${entries[i].id}"]`) as HTMLElement;
+            const element = historyElement.querySelector(`[data-entry-id="${entries[i].id}"]`) as HTMLElement;
             if(i < startIndex)
             {
                 element.removeAttribute(ATTRIBUTE_PREPARED_FOR_DELETE);
@@ -2136,9 +2200,9 @@ export class TaskboardManagerElement extends HTMLElement
             }
         }        
     }
-    async #applyHistoryLength()
+    async #applyHistoryLength(actionHistoryLength: number)
     {
-        await this.#saveAppSetting(AppSettingKey.HistoryLength, this.findElement<HTMLInputElement>('action-history-length').value);
+        await this.#saveAppSetting(AppSettingKey.HistoryLength, actionHistoryLength);
 
         if(this.#data.historyEntries == null)
         {
@@ -2148,7 +2212,7 @@ export class TaskboardManagerElement extends HTMLElement
         }
         const entries = await this.#data.historyEntries.getAll('timestamp');
 
-        let startIndex = parseInt(this.findElement<HTMLInputElement>('action-history-length').value);
+        let startIndex = actionHistoryLength;
         if(startIndex > 0) { startIndex--; } // fix zero index offset if non-zero number
 
         const ids: string[] = [];
@@ -2256,22 +2320,22 @@ export class TaskboardManagerElement extends HTMLElement
             const element = this.#createDeletedItem(record, 'image', true, record.deletedTimestamp!);
             deletedImageElements.push(element);
         }
+        const configPanel = this.findElement('config-panel');
 
-        // deleted images        
-        const deletedImagesElement = this.findElement('deleted-images');
-        [...deletedImagesElement.querySelectorAll('div')].map(item => item.remove());
-        deletedImagesElement.append(...deletedImageElements);
+        // deleted images
+        [...configPanel.querySelectorAll('[slot="deleted-images"]')].map(item => item.remove());
+        configPanel.append(...deletedImageElements);
 
-        // deleted items        
-        const deletedItemsElement = this.findElement('deleted-items');
-        [...deletedItemsElement.querySelectorAll('div')].map(item => item.remove());
-        deletedItemsElement.append(...deletedItems);
+        // deleted items
+        [...configPanel.querySelectorAll('[slot="deleted-items"]')].map(item => item.remove());
+        configPanel.append(...deletedItems);
     }
     #createDeletedItem(data: unknown, recordType: 'board'|'list'|'task'|'image', canRestore: boolean, timestamp: number)
     {
         const item = document.createElement('div');
         item.setAttribute('data-record-type', recordType);
         item.setAttribute('part', 'deleted-item');
+        item.setAttribute('slot', (recordType == 'image' ? 'deleted-images' : 'deleted-items'));
         item.setAttribute('data-timestamp', timestamp.toString());
 
         const label = document.createElement('span');

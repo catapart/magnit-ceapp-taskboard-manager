@@ -5,22 +5,18 @@ import sharedStyles from '../../../styles/shared.css?raw';
 import html from './data-panel.html?raw';
 // icons
 import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
-import { TaskBoardRecord } from '../../../data/records/task-board.record';
 import { EditableListElement } from '@magnit-ce/editable-list';
 import { HistoryEntryTargetType } from '../../../data/history/history-entry-data';
+import { createOptionElement, snapToStep } from '../../../resources/utils';
 
-const DaysToPersistValues = new Set([0, 7, 30]);
+export const DaysToPersistValues = [0, 7, 30];
 
 export enum DataPanelAttributes
 {
-    pathId = 'path-id',
 }
 
 export type DataPanelProperties = { [key in DataPanelAttributes]: string } &
 {
-    onEdit: (boardRoute: string) => void;
-    onBoardMove: (boards: HTMLElement[]) => void;
-    onNew: () => void;
 };
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -55,12 +51,6 @@ export class DataPanelElement extends HTMLElement
         return this.componentParts.get(id) as T;
     }
     findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
-
-    onEdit?: (boardRoute: string) => void;
-    onBoardMove?: (boards: HTMLElement[]) => void;
-    onNew?: () => void;
-
-    #draggingBoard: HTMLElement|null = null;
 
     constructor()
     {
@@ -97,6 +87,15 @@ export class DataPanelElement extends HTMLElement
             classedElements[i].part.add(...classedElements[i].classList);
         }
     }
+    
+    prepareDaysToPersistOptions(daysToPersist: string)
+    {
+        const daysToPersistOptions = Array.from(DaysToPersistValues).map(value => createOptionElement(value));
+        this.findElement('data-persist-days-values').append(...daysToPersistOptions);
+
+        this.findElement<HTMLInputElement>('data-persist-days').value = daysToPersist;        
+        this.findElement('data-persist-days-value').textContent = daysToPersist;
+    }
 
     async #importButton_onClick(_event: Event)
     {
@@ -116,9 +115,9 @@ export class DataPanelElement extends HTMLElement
     }
     #daysToPersist_onChange(event: Event)
     {
-        const dataPersistsDaysValues = Array.from(DaysToPersistValues);
+        const dataPersistsDaysValues = DaysToPersistValues;
         const input = event.target as HTMLInputElement;
-        this.#snapToStep(input, dataPersistsDaysValues);
+        snapToStep(input, dataPersistsDaysValues);
         this.findElement('data-persist-days-value').textContent = input.value;
     }
     #applyDaysToPersist_onClick(_event: Event)
@@ -162,30 +161,6 @@ export class DataPanelElement extends HTMLElement
         this.dispatchEvent(new CustomEvent('clearimages', { detail: { items }, bubbles: true, composed: true }));
     }
 
-
-
-    #snapToStep(target: HTMLInputElement, steps: number[])
-    {
-        const inputValue = parseFloat(target.value);
-        for(let i = 1; i < steps.length; i++)
-        {
-            const value = steps[i];
-            const lastValue = steps[i-1];
-            const distanceFromValue = Math.abs(value - inputValue);
-            const distanceFromLastValue = Math.abs(lastValue - inputValue);
-            const isCloserToNewValue = Math.min(distanceFromValue, distanceFromLastValue) == distanceFromValue;
-            if(isCloserToNewValue)
-            {
-                target.value = value.toString();
-            }
-            else
-            {
-                target.value = lastValue.toString();
-                break;
-            }
-        }
-    }
-
     static create(properties: DataPanelProperties)
     {
         const element = document.createElement(COMPONENT_TAG_NAME) as DataPanelElement;
@@ -200,10 +175,6 @@ export class DataPanelElement extends HTMLElement
 
     attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) 
     {
-        if(attributeName == DataPanelAttributes.pathId)
-        {
-            // this.findPart('description').textContent = newValue;
-        }
     }
 }
 

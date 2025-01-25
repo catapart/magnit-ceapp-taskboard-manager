@@ -20,7 +20,9 @@
         </svg>
         <span id="clear-history-label">Clear History</span>
     </button>
-    <action-history id="action-history" reverse></action-history>
+    <action-history id="action-history" reverse>
+        <slot name="action-history"></slot>
+    </action-history>
 </fieldset>
 <fieldset id="history-length-fieldset">
     <legend id="history-length-legend">History Length</legend>

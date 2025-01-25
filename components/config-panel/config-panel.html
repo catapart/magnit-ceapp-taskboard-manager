@@ -37,10 +37,15 @@
         </settings-panel>
     </route-page>
     <route-page path="data" id="data-page" class="page">
-        <data-panel id="data-panel"></data-panel>
+        <data-panel id="data-panel">
+            <slot name="deleted-images" slot="deleted-images"></slot>
+            <slot name="deleted-items" slot="deleted-items"></slot>
+        </data-panel>
     </route-page>
     <route-page path="history" id="history-page" class="page">
-        <history-panel id="history-panel"></history-panel>
+        <history-panel id="history-panel">
+            <slot name="action-history" slot="action-history"></slot>
+        </history-panel>
     </route-page>
     <route-page path="about" id="about-page" class="page">
         <about-panel id="about-panel"></about-panel>

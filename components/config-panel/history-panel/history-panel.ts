@@ -5,18 +5,17 @@ import sharedStyles from '../../../styles/shared.css?raw';
 import html from './history-panel.html?raw';
 // icons
 import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
-import { TaskBoardRecord } from '../../../data/records/task-board.record';
+import { ActionHistoryElement } from '@magnit-ce/action-history';
+import { createOptionElement, snapToStep } from '../../../resources/utils';
+
+export const HistoryLengthValues = [0, 30, 50, 100, 150];
 
 export enum HistoryPanelAttributes
 {
-    pathId = 'path-id',
 }
 
 export type HistoryPanelProperties = { [key in HistoryPanelAttributes]: string } &
 {
-    onEdit: (boardRoute: string) => void;
-    onBoardMove: (boards: HTMLElement[]) => void;
-    onNew: () => void;
 };
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -50,12 +49,6 @@ export class HistoryPanelElement extends HTMLElement
     }
     findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
 
-    onEdit?: (boardRoute: string) => void;
-    onBoardMove?: (boards: HTMLElement[]) => void;
-    onNew?: () => void;
-
-    #draggingBoard: HTMLElement|null = null;
-
     constructor()
     {
         super();
@@ -64,30 +57,17 @@ export class HistoryPanelElement extends HTMLElement
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
         this.#applyPartAttributes();
 
-        // this.findElement<HTMLButtonElement>('history-control-undo').addEventListener('click', history_undo_onClick.bind(this));
-        // this.findElement<HTMLButtonElement>('history-control-redo').addEventListener('click', history_redo_onClick.bind(this));
+        this.findElement<HTMLButtonElement>('undo').addEventListener('click', this.#undo_onClick.bind(this));
+        this.findElement<HTMLButtonElement>('redo').addEventListener('click', this.#redo_onClick.bind(this));
 
-        // const actionHistory = this.getElement<ActionHistoryElement>('action-history');
-        // actionHistory.onBack = actionHistory_onBack.bind(this);
-        // actionHistory.onForward = actionHistory_onForward.bind(this);
+        const actionHistory = this.getElement<ActionHistoryElement>('action-history');
+        actionHistory.onBack = this.#actionHistory_onBack.bind(this);
+        actionHistory.onForward = this.#actionHistory_onForward.bind(this);
 
-        // this.findElement('action-history-length').addEventListener("change", historyLength_onChange.bind(this));
-        // this.findElement('apply-history-length-button').addEventListener("click", applyHistoryLength_onClick.bind(this));
+        this.findElement('action-history-length').addEventListener("change", this.#historyLength_onChange.bind(this));
+        this.findElement('apply-history-length-button').addEventListener("click", this.#applyHistoryLength_onClick.bind(this));
 
-        // this.findElement('clear-history-button').addEventListener("click", clearHistory_onClick.bind(this));
-
-        // this.#addDragHandlers();
-        // this.findElement('boards').addEventListener('edit', (event: Event|CustomEvent) => {
-        //     if(this.onEdit == null) { return; }
-        //     const customEvent = (event as CustomEvent);
-        //     const board: HTMLElement = customEvent.detail;
-        //     this.onEdit(board.dataset.route!);
-        // });
-        // this.findElement('new-board-button').addEventListener('click', () =>
-        // {
-        //     if(this.onNew == null) { return; }
-        //     this.onNew();
-        // });
+        this.findElement('clear-history-button').addEventListener("click", this.#clearHistory_onClick.bind(this));
     }
     #applyPartAttributes()
     {
@@ -102,179 +82,93 @@ export class HistoryPanelElement extends HTMLElement
             classedElements[i].part.add(...classedElements[i].classList);
         }
     }
-    
-    // function history_undo_onClick(this: TaskboardManagerElement, _event: Event)
-    // {
-    //     this.undo();
-    // }
-    // function history_redo_onClick(this: TaskboardManagerElement, _event: Event)
-    // {
-    //     this.redo();
-    // }
-    // async function actionHistory_onBack(this: TaskboardManagerElement, target: HTMLElement, previous: HTMLElement|undefined, all: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
-    // {
-    //     await this[SHAREDACCESSKEY].handleActionEntryReverse(target, previous, targetIndex, previousActiveEntryIndex);
-        
-    //     const isLastUpdate = all.indexOf(target) == all.length - 1;
-    //     if(isLastUpdate == true)
-    //     {
-    //         const recordType = target.querySelector('.target-type')?.textContent?.toLowerCase();
-    //         if(recordType == 'board')
-    //         {
-    //             this[SHAREDACCESSKEY].refreshBoards();
-    //         }
-    //         const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
-    //         if(currentBoardId != "")
-    //         {
-    //             this[SHAREDACCESSKEY].renderBoard(currentBoardId);
-    //         }
 
-    //         this[SHAREDACCESSKEY].refreshDeletedItems();
-    //     }
-    // }
-    // async function actionHistory_onForward(this: TaskboardManagerElement, target: HTMLElement, previous: HTMLElement|undefined, all: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
-    // {
-    //     await this[SHAREDACCESSKEY].handelActionEntryActivate(target, previous, targetIndex, previousActiveEntryIndex);
-
-    //     const isLastUpdate = all.indexOf(target) == all.length - 1;
-    //     if(isLastUpdate == true)
-    //     {
-    //         const recordType = target.querySelector('.target-type')?.textContent?.toLowerCase();
-    //         if(recordType == 'board')
-    //         {
-    //             this[SHAREDACCESSKEY].refreshBoards();
-    //         }
-    //         const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
-    //         if(currentBoardId != "")
-    //         {
-    //             this[SHAREDACCESSKEY].renderBoard(currentBoardId);
-    //         }
-
-    //         this[SHAREDACCESSKEY].refreshDeletedItems();
-    //     }
-    // }
-    // async function historyLength_onChange(this: TaskboardManagerElement, event: Event)
-    // {
-    //     const input = event.target as HTMLInputElement;
-    //     this[SHAREDACCESSKEY].snapToStep(input, this[SHAREDACCESSKEY].HistoryLengthSteps);
-    //     this.findElement('action-history-length-value').textContent = input.value;
-    //     this[SHAREDACCESSKEY].prepareHistoryEntries();
-    // }
-    // async function applyHistoryLength_onClick(this: TaskboardManagerElement, _event: Event)
-    // {
-    //     this[SHAREDACCESSKEY].applyHistoryLength();
-    // }
-    // function clearHistory_onClick(this: TaskboardManagerElement, _event: Event)
-    // {
-    //     this.clearHistory();
-    // }
-
-    updateBoards(boards: TaskBoardRecord[])
+    prepareHistoryLength(historyLength: string)
     {
-        const menuItems: HTMLAnchorElement[] = [];
-        for(let i = 0; i < boards.length; i++)
-        {
-            const boardRecord = boards[i];
-            const menuItem = this.#createBoardMenuItem(boardRecord);
-            menuItems.push(menuItem);
-        }
+        const historyLengthOptions = Array.from(HistoryLengthValues).map(value => createOptionElement(value));
+        this.findElement('action-history-length-values').append(...historyLengthOptions);
 
-        // menu items
-        this.innerHTML = "";
-        // [...this.querySelectorAll('a')].map(item => item.remove());
-        this.append(...menuItems);
+        this.findElement<HTMLInputElement>('action-history-length').value = historyLength;
+        this.findElement('action-history-length-value').textContent = historyLength;
     }
     
-    #createBoardMenuItem(board: TaskBoardRecord)
+    #undo_onClick(_event: Event)
     {
-        const element = document.createElement('a');
-        element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span>
-        <span part="board-item-name" class="board-item-name">${board.name}<span>`;
-        element.setAttribute('part', 'board');
-        element.classList.add('board');
-        element.dataset.route = `board/${board.id}`;
-    
-        const handle = element.querySelector('[part="menu-item-handle"]')!;
-        handle.addEventListener('mousedown', (_event) =>
-        {
-            element.draggable = true;
-        });
-        handle.addEventListener('mouseup', (_event) =>
-        {
-            element.removeAttribute('draggable');
-        });
-        element.addEventListener('dragstart', (_event: DragEvent) => 
-        {
-            this.#draggingBoard = element;
-            element.classList.add('dragging');
-            this.classList.add('drop-target');
-        });
-        element.addEventListener('dragend', (_event: DragEvent) => 
-        {
-            element.classList.remove('dragging');
-            this.#draggingBoard = null;
-            this.classList.remove('drop-target');
-        });
-
-        return element;
+        this.dispatchEvent(new CustomEvent('undo', { bubbles: true, composed: true }));
     }
-
-    #addDragHandlers()
+    #redo_onClick(_event: Event)
     {
-        this.addEventListener('dragover', this.boardsList_onDragover.bind(this));
-        this.addEventListener('drop', this.boardsList_onDrop.bind(this));
+        this.dispatchEvent(new CustomEvent('redo', { bubbles: true, composed: true }));
     }
-
-    boardsList_onDragover(event: DragEvent)
+    async #actionHistory_onBack(target: HTMLElement, previous: HTMLElement|undefined, all: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
     {
-        event.preventDefault();
-        event.stopPropagation();
-        this.#updateBoardItemOrder(event.clientY);
-    }
-    async boardsList_onDrop(_event: Event)
-    {
-        console.log(_event);
-        if(this.onBoardMove != null)
-        {
-            this.onBoardMove([...this.querySelectorAll('a')]);
-        }
-    }
-    async #updateBoardItemOrder(draggingCursorY: number)
-    {
-        if(this.#draggingBoard == null)
-        {
-            return;
-        }
+        let refreshBoards = false;
+        let refreshDeletedItems = false;
 
-        const nextElement = this.#getNextBoardItem(draggingCursorY).boardElement;
-        
-        // prevent unecessary re-renders; this can kill perf, if you don't guard here;
-        // re-rendering by appending or inserting on every mouse-move is heavy;
-        if(this.#draggingBoard.parentElement == this && nextElement == this.#draggingBoard.nextElementSibling){ return; }
-
-
-        if(nextElement == null)
+        const isLastUpdate = all.indexOf(target) == all.length - 1;
+        if(isLastUpdate == true)
         {
-            this.append(this.#draggingBoard);
-        }
-        else
-        {
-            this.insertBefore(this.#draggingBoard, nextElement);
-        }
-    }
-    #getNextBoardItem(mouseY: number)
-    {
-        const lists = [...this.querySelectorAll('a:not(.dragging)')] as HTMLElement[];
-        return lists.reduce((closest: { offset: number, boardElement?:HTMLElement }, item: HTMLElement) =>
-        {
-            const boundingRect = item.getBoundingClientRect();
-            const offset = mouseY - boundingRect.top - (boundingRect.height / 2);
-            if(offset < 0 && offset > closest.offset)
+            const recordType = target.querySelector('.target-type')?.textContent?.toLowerCase();
+            if(recordType == 'board')
             {
-                return { offset, boardElement: item };
+                refreshBoards = true;
             }
-            return closest;
-        }, { offset: Number.NEGATIVE_INFINITY });
+            refreshDeletedItems = true;
+        }
+        this.dispatchEvent(new CustomEvent('historyback', { detail: { 
+            target,
+            previous,
+            targetIndex,
+            previousActiveEntryIndex,
+            refreshBoards,
+            refreshDeletedItems
+        }, bubbles: true, composed: true }));
+    }
+    async #actionHistory_onForward(target: HTMLElement, previous: HTMLElement|undefined, all: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
+    {
+        let refreshBoards = false;
+        let refreshDeletedItems = false;
+
+        const isLastUpdate = all.indexOf(target) == all.length - 1;
+        if(isLastUpdate == true)
+        {
+            const recordType = target.querySelector('.target-type')?.textContent?.toLowerCase();
+            if(recordType == 'board')
+            {
+                refreshBoards = true;
+            }
+            refreshDeletedItems = true;
+        }
+        this.dispatchEvent(new CustomEvent('historyforward', { detail: { 
+            target,
+            previous,
+            targetIndex,
+            previousActiveEntryIndex,
+            refreshBoards,
+            refreshDeletedItems
+        }, bubbles: true, composed: true }));
+    }
+    async #historyLength_onChange(event: Event)
+    {
+        const input = event.target as HTMLInputElement;
+        snapToStep(input, HistoryLengthValues);
+
+        this.findElement('action-history-length-value').textContent = input.value;
+        
+        let startIndex = parseInt(this.findElement<HTMLInputElement>('action-history-length').value);
+        if(startIndex > 0) { startIndex--; } // fix zero index offset if non-zero number
+
+        const actionHistory = this.findElement('action-history');
+        this.dispatchEvent(new CustomEvent('preparehistoryitems', { detail: { actionHistory, startIndex }, bubbles: true, composed: true }));
+    }
+    async #applyHistoryLength_onClick(_event: Event)
+    {
+        const historyLength = this.findElement<HTMLInputElement>('action-history-length').value
+        this.dispatchEvent(new CustomEvent('historylength', { detail: { historyLength }, bubbles: true, composed: true }));
+    }
+    #clearHistory_onClick(_event: Event)
+    {
+        this.dispatchEvent(new CustomEvent('clearhistory', { bubbles: true, composed: true }));
     }
 
 
@@ -292,10 +186,6 @@ export class HistoryPanelElement extends HTMLElement
 
     attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) 
     {
-        if(attributeName == HistoryPanelAttributes.pathId)
-        {
-            // this.findPart('description').textContent = newValue;
-        }
     }
 }
 

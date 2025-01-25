@@ -8,14 +8,10 @@ import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
 
 export enum SettingsPanelAttributes
 {
-    pathId = 'path-id',
 }
 
 export type SettingsPanelProperties = { [key in SettingsPanelAttributes]: string } &
 {
-    onEdit: (boardRoute: string) => void;
-    onBoardMove: (boards: HTMLElement[]) => void;
-    onNew: () => void;
 };
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -50,11 +46,6 @@ export class SettingsPanelElement extends HTMLElement
     }
     findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
 
-    onEdit?: (boardRoute: string) => void;
-    onBoardMove?: (boards: HTMLElement[]) => void;
-    onNew?: () => void;
-
-    #draggingBoard: HTMLElement|null = null;
 
     constructor()
     {
@@ -121,10 +112,6 @@ export class SettingsPanelElement extends HTMLElement
 
     attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) 
     {
-        if(attributeName == SettingsPanelAttributes.pathId)
-        {
-            // this.findPart('description').textContent = newValue;
-        }
     }
 }
 
