@@ -28,7 +28,6 @@ ${defineIcons(
     IconType.File,
     IconType.Import,
     IconType.Trash,
-    IconType.Restore,
     IconType.ConfirmCheck,
 )}`;
 

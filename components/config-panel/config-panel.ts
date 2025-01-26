@@ -14,6 +14,7 @@ import './about-panel/about-panel';
 import { HistoryLengthValues, HistoryPanelElement } from './history-panel/history-panel';
 import { DataPanelElement, DaysToPersistValues } from './data-panel/data-panel';
 import { AboutPanelElement } from './about-panel/about-panel';
+import { ActionHistoryElement } from '@magnit-ce/action-history';
 
 export enum ConfigPanelAttributes
 {
@@ -83,6 +84,29 @@ export class ConfigPanelElement extends HTMLElement
         this.findElement<DataPanelElement>('data-panel').prepareDaysToPersistOptions(daysToPersist);
         this.findElement<HistoryPanelElement>('history-panel').prepareHistoryLength(historyLength);
     }
+
+    preventDefaultHistoryAction()
+    {
+        this.findElement<HistoryPanelElement>('history-panel')
+        .findElement<ActionHistoryElement>('action-history').toggleAttribute('prevent-removal', true);
+    }
+    allowDefaultHistoryAction()
+    {
+        requestAnimationFrame(() =>
+        {
+            this.findElement<HistoryPanelElement>('history-panel')
+            .findElement<ActionHistoryElement>('action-history').toggleAttribute('prevent-removal', false);
+        });
+    }
+    history_undo()
+    {
+        this.findElement<HistoryPanelElement>('history-panel').undo();
+    }
+    history_redo()
+    {
+        this.findElement<HistoryPanelElement>('history-panel').redo();
+    }
+
 
 
     static create(properties: ConfigPanelProperties)

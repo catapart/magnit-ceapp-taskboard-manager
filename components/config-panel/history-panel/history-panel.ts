@@ -91,13 +91,25 @@ export class HistoryPanelElement extends HTMLElement
         this.findElement<HTMLInputElement>('action-history-length').value = historyLength;
         this.findElement('action-history-length-value').textContent = historyLength;
     }
+
+    undo()
+    {
+        this.findElement<ActionHistoryElement>('action-history').back();
+    }
+    redo()
+    {
+
+        this.findElement<ActionHistoryElement>('action-history').forward();
+    }
     
     #undo_onClick(_event: Event)
     {
+        this.undo();
         this.dispatchEvent(new CustomEvent('undo', { bubbles: true, composed: true }));
     }
     #redo_onClick(_event: Event)
     {
+        this.redo();
         this.dispatchEvent(new CustomEvent('redo', { bubbles: true, composed: true }));
     }
     async #actionHistory_onBack(target: HTMLElement, previous: HTMLElement|undefined, all: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)

@@ -82,6 +82,7 @@ import { RecentBoardData } from './data/types/recent-board-data.type';
 import { BoardBrowserElement } from './components/board-browser/board-browser';
 import { BoardSettingsElement } from './components/board-settings/board-settings';
 import { ConfigPanelElement } from './components/config-panel/config-panel';
+import { HistoryPanelElement } from './components/config-panel/history-panel/history-panel';
 
 // export type TaskboardManagerProperties = 
 // {
@@ -178,6 +179,7 @@ ${defineIcons(
     IconType.PlusIcon,
     IconType.Stylus,
     IconType.TaskBoard,
+    IconType.Restore,
 )}`;
 
 const COMPONENT_TAG_NAME = 'taskboard-manager';
@@ -459,11 +461,11 @@ export class TaskboardManagerElement extends HTMLElement
 
     async undo()
     {
-        this.findElement<ActionHistoryElement>('action-history').back();
+        this.findElement<ConfigPanelElement>('config-panel').history_undo();
     }
     async redo()
     {
-        this.findElement<ActionHistoryElement>('action-history').forward();
+        this.findElement<ConfigPanelElement>('config-panel').history_redo();
     }
 
     async clearData()
@@ -683,14 +685,14 @@ export class TaskboardManagerElement extends HTMLElement
             this.#refreshActionHistory();
             this.#refreshDeletedItems();
         });
-        configPanel.addEventListener('undo', (event: Event|CustomEvent) =>
-        {
-            this.undo();
-        });
-        configPanel.addEventListener('redo', (event: Event|CustomEvent) =>
-        {
-            this.redo();
-        });
+        // configPanel.addEventListener('undo', (event: Event|CustomEvent) =>
+        // {
+        //     this.undo();
+        // });
+        // configPanel.addEventListener('redo', (event: Event|CustomEvent) =>
+        // {
+        //     this.redo();
+        // });
         configPanel.addEventListener('historyback', async (event: Event|CustomEvent) =>
         {
             const {
@@ -1861,8 +1863,10 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const channel = this.#getChannel(this.#data.historyEntries, HISTORY_ERROR_MESSAGE, 'danger');
 
-        const configPanel = this.getElement('config-panel');
+        const configPanel = this.getElement<ConfigPanelElement>('config-panel');
         [...configPanel.querySelectorAll('[slot="action-history"]')].map(item => item.remove());
+
+        configPanel.preventDefaultHistoryAction();
 
         const records = await channel.getAll('timestamp');
         if(records.length == 0)
@@ -1899,6 +1903,8 @@ export class TaskboardManagerElement extends HTMLElement
             entries = entries.map(item => { item.toggleAttribute(ATTRIBUTENAME_REVERSED, true); return item; });
         }
         configPanel.append(...entries);
+        
+        configPanel.allowDefaultHistoryAction();
     }
     #createActionHistoryEntryElement(entry: HistoryEntryRecord)
     {

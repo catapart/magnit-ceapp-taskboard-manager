@@ -3,6 +3,7 @@
     display: grid;
     grid-template-rows: auto 1fr auto;
     gap: 7px;
+    overflow: hidden;
 }
 
 #header
