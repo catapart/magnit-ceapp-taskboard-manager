@@ -7,6 +7,8 @@ import html from './board-browser.html?raw';
 import { defineIcons, IconType } from '../../assets/icons/icons.asset';
 import { TaskBoardRecord } from '../../data/records/task-board.record';
 import { CaptionedThumbnailElement } from '@magnit-ce/captioned-thumbnail';
+import { CollectionBrowserElement } from '@magnit-ce/collection-browser';
+import { CollectionFilterElement } from '@magnit-ce/collection-filter';
 
 export enum BoardBrowserAttributes
 {
@@ -61,8 +63,8 @@ export class BoardBrowserElement extends HTMLElement
 
         
         // this.findElement<HTMLButtonElement>('board-browser-ok').addEventListener('click', boardBrowserOkButton_onClick.bind(this));
-        // this.findElement<CollectionBrowserElement>('board-browser').addEventListener('change', boardBrowserSelection_onChange.bind(this));
-        // this.findElement<CollectionFilterElement>('board-browser-filter').addEventListener('change', boardBrowserFilter_onChange.bind(this));
+        this.findElement<CollectionBrowserElement>('collection-browser').addEventListener('change', this.boardBrowserSelection_onChange.bind(this));
+        this.findElement<CollectionFilterElement>('filter').addEventListener('change', this.boardBrowserFilter_onChange.bind(this));
     }
     #applyPartAttributes()
     {
@@ -105,54 +107,52 @@ export class BoardBrowserElement extends HTMLElement
     //     this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}`)
     // }
 
-    // function boardBrowserSelection_onChange(this: TaskboardManagerElement, event: Event|CustomEvent)
-    // {
-    //     if(event.target == this.findElement<CollectionBrowserElement>('board-browser'))
-    //     {
-    //         event.preventDefault();
-    //         return;
-    //     }
+    boardBrowserSelection_onChange(event: Event|CustomEvent)
+    {
+        const { detail } = event as CustomEvent;
 
-    //     // if we're still going, this is a change event that
-    //     // was fired by the captioned-thumbnail, and has bubbled
-    //     // up to the collection-browser
+        if(event.target instanceof CaptionedThumbnailElement
+        && (detail.method == "click" || detail.method == "input"))
+        {
+            event.preventDefault();
+        }
+        
 
+        if(event.target == this.findElement<CollectionBrowserElement>('collection-browser'))
+        {
+            event.preventDefault();
+            detail.previousSelection.forEach((item: CaptionedThumbnailElement) => item.isSelected = false);
+            detail.newSelection.isSelected = !detail.newSelection.isSelected;
+        }
 
-    //     // de-select other captioned thumbnail elements    
-    //     ([...this.findElement<CollectionBrowserElement>('board-browser')
-    //     .querySelectorAll('.selected')] as CaptionedThumbnailElement[])
-    //     .forEach(item => {
-    //         if(item == event.target) { return; }
-    //         item.isSelected = false;
-    //     })
-    // }
-    // function boardBrowserFilter_onChange(this: TaskboardManagerElement, event: Event|CustomEvent)
-    // {
-    //     const customEvent = event as CustomEvent;
+    }
+    boardBrowserFilter_onChange(event: Event|CustomEvent)
+    {
+        const customEvent = event as CustomEvent;
 
-    //     const allItems = [...this.findElement<CollectionBrowserElement>('board-browser').querySelectorAll('captioned-thumbnail')] as HTMLElement[];
+        const allItems = [...this.querySelectorAll('captioned-thumbnail')] as HTMLElement[];
 
-    //     const filters = customEvent.detail.filters;
-    //     if(filters.length == 0)
-    //     {
-    //         for(let i = 0; i < allItems.length; i++)
-    //         {
-    //             allItems[i].classList.remove('match');
-    //         }
-    //         return;
-    //     }
+        const filters = customEvent.detail.filters;
+        if(filters.length == 0)
+        {
+            for(let i = 0; i < allItems.length; i++)
+            {
+                allItems[i].classList.remove('match');
+            }
+            return;
+        }
 
-    //     const items = this.findElement<CollectionFilterElement>('board-browser-filter').filterElements(allItems).map((match: any) => match.item as HTMLElement);
-    //     for(let i = 0; i < allItems.length; i++)
-    //     {
-    //         allItems[i].classList.remove('match');
-    //         if(items.indexOf(allItems[i]) > -1)
-    //         {
-    //             allItems[i].classList.add('match');
-    //         }
-    //     }
-    //     // console.log(filters, items);
-    // }
+        const items = this.findElement<CollectionFilterElement>('filter').filterElements(allItems).map((match: any) => match.item as HTMLElement);
+        for(let i = 0; i < allItems.length; i++)
+        {
+            allItems[i].classList.remove('match');
+            if(items.indexOf(allItems[i]) > -1)
+            {
+                allItems[i].classList.add('match');
+            }
+        }
+        // console.log(filters, items);
+    }
     
     updateBoards(boards: TaskBoardRecord[])
     {

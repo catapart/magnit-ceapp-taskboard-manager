@@ -99,6 +99,11 @@ task-card[data-drag-id]
     border: dashed 1px graytext;
 }
 
+captioned-thumbnail::part(selected)
+{
+    display: none;
+}
+
 
 #notifications
 {
