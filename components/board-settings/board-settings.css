@@ -242,6 +242,12 @@ fileimage-input::part(view-link)
     grid-column: 2;
 }
 
+#duplicate-fieldset .button
+, #delete-fieldset .button
+{
+    justify-content: center;
+}
+
 #export-fieldset
 {
     grid-column: span 2;

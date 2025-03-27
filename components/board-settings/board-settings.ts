@@ -38,6 +38,8 @@ ${defineIcons(
     IconType.TaskList,
     IconType.TaskBoard,
     IconType.CloseCross,
+    IconType.Trash,
+    IconType.Copy,
 )}`;
 
 const COMPONENT_TAG_NAME = 'board-settings';

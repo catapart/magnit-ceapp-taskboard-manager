@@ -7,7 +7,32 @@
         <task-board part="task-board" id="task-board" exportparts="lists:task-board-lists"></task-board>
     </route-page>
     <dialog part="board-browser-dialog" class="dialog" is="route-dialog" path="boards">
-        <board-browser id="board-browser"></board-browser>
+        <board-browser
+            id="board-browser"
+            exportparts="header,
+                         icon,
+                         title:board-browser-title,
+                         add-button-icon:board-browser-add-button-icon,
+                         add-button-label:board-browser-add-button-label,
+                         filter-search:browser-filter-search,
+                         filter-form:browser-filter-form,
+                         filter-query:browser-filter-query,
+                         filter-input:browser-filter-input,
+                         filter-regex-button:browser-filter-regex-button,
+                         filter-search-button:browser-filter-search-button,
+                         filter-regex-icon:browser-filter-regex-icon,
+                         filter-search-icon:browser-filter-search-icon,
+                         collection-browser:board-collection-browser,
+                         gallery:board-browser-gallery,
+                         gallery-header:board-browser-gallery-header,
+                         items:board-browser-items,
+                         add-button:board-browser-add-button,
+                         footer:board-browser-footer,
+                         actions:board-browser-actions,
+                         cancel:board-browser-cancel,
+                         ok:board-browser-ok,
+                         button">
+        </board-browser>
     </dialog>
     <dialog part="dialog config-dialog" class="dialog" is="route-dialog" path="config">
         <config-panel id="config-panel">

@@ -3,9 +3,33 @@
         <use href="#icon-definition_task-board"></use>
     </svg>
     <span id="title">Boards</span>
-    <collection-filter id="filter"></collection-filter>
+    <collection-filter 
+        id="filter"
+        exportparts="search:filter-search,
+                     form:filter-form,
+                     query:filter-query,
+                     input:filter-input,
+                     button,
+                     regex-button:filter-regex-button,
+                     search-button:filter-search-button,
+                     icon,
+                     regex-icon:filter-regex-icon,
+                     search-icon:filter-search-icon">
+    </collection-filter>
 </header>
-<collection-browser id="collection-browser"><slot></slot></collection-browser>
+<collection-browser
+    id="collection-browser"
+    exportparts="gallery,
+                 gallery-header,
+                 header,
+                 items,
+                 add-button,
+                 button,
+                 icon,
+                 add-button-icon,
+                 add-button-label">
+    <slot></slot>
+</collection-browser>
 <footer id="footer">
     <form id="actions" method="dialog">
         <button type="submit" id="cancel">Cancel</button>
