@@ -9,10 +9,11 @@ import { TaskBoardRecord } from '../../data/records/task-board.record';
 import { CaptionedThumbnailElement } from '@magnit-ce/captioned-thumbnail';
 import { CollectionBrowserElement } from '@magnit-ce/collection-browser';
 import { CollectionFilterElement } from '@magnit-ce/collection-filter';
+import { MessageCardElement, MessageCardType } from '@magnit-ce/message-card';
+import { PathRouterElement } from '@magnit-ce/path-router';
 
 export enum BoardBrowserAttributes
 {
-    pathId = 'path-id',
 }
 
 export type BoardBrowserProperties = { [key in BoardBrowserAttributes]: string } &
@@ -62,7 +63,7 @@ export class BoardBrowserElement extends HTMLElement
         this.#applyPartAttributes();
 
         
-        // this.findElement<HTMLButtonElement>('board-browser-ok').addEventListener('click', boardBrowserOkButton_onClick.bind(this));
+        this.findElement<HTMLButtonElement>('ok').addEventListener('click', this.boardBrowserOkButton_onClick.bind(this));
         this.findElement<CollectionBrowserElement>('collection-browser').addEventListener('change', this.boardBrowserSelection_onChange.bind(this));
         this.findElement<CollectionFilterElement>('filter').addEventListener('change', this.boardBrowserFilter_onChange.bind(this));
     }
@@ -81,31 +82,23 @@ export class BoardBrowserElement extends HTMLElement
     }
 
     
-    // function boardBrowserOkButton_onClick(this: TaskboardManagerElement, event: Event)
-    // {
-    //     const selected = this.findElement<CollectionBrowserElement>('board-browser').selected;
-    //     if(selected == null)
-    //     {
-    //         // no warning; assume the user cancelled the dialog.
-    //         return;
-    //     }
-    //     const item = selected[0];
-    //     if(item == null)
-    //     {
-    //         // no warning; assume the user cancelled the dialog.
-    //         return;
-    //     }
-    //     const boardId = item.getAttribute('data-board-id');
-    //     if(boardId == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred attempting to open the board.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         console.error('Unable to open board: data-board-id attribute is unset on target element.');
-    //         return;
-    //     }
-    //     // console.log(selected, selected[0].getAttribute('data-board-id') ?? 'no id');
-    //     this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}`)
-    // }
+    boardBrowserOkButton_onClick(event: Event)
+    {
+        const selected = this.findElement<CollectionBrowserElement>('collection-browser').getSelected();
+        if(selected == null)
+        {
+            // no warning; assume the user cancelled the dialog.
+            return;
+        }
+        const item = selected[0];
+        if(item == null)
+        {
+            // no warning; assume the user cancelled the dialog.
+            return;
+        }
+        const boardId = item.getAttribute('data-board-id');
+        this.dispatchEvent(new CustomEvent('select', { detail: { boardId } }));
+    }
 
     boardBrowserSelection_onChange(event: Event|CustomEvent)
     {
@@ -121,8 +114,13 @@ export class BoardBrowserElement extends HTMLElement
         if(event.target == this.findElement<CollectionBrowserElement>('collection-browser'))
         {
             event.preventDefault();
-            detail.previousSelection.forEach((item: CaptionedThumbnailElement) => item.isSelected = false);
+            detail.previousSelection.forEach((item: CaptionedThumbnailElement) => 
+            {
+                item.isSelected = false;
+                item.part.remove('selected-board-gallery-item');
+            });
             detail.newSelection.isSelected = !detail.newSelection.isSelected;
+            detail.newSelection.part.add('selected-board-gallery-item')
         }
 
     }
@@ -177,6 +175,7 @@ export class BoardBrowserElement extends HTMLElement
         ${boardRecord.name}`;
         element.setAttribute('data-board-id', boardRecord.id);
         element.toggleAttribute('select', true);
+        element.part.add('board-gallery-item');
         return element;
     }
 
@@ -192,14 +191,7 @@ export class BoardBrowserElement extends HTMLElement
             }
         }
     }
-
-    attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) 
-    {
-        if(attributeName == BoardBrowserAttributes.pathId)
-        {
-            // this.findPart('description').textContent = newValue;
-        }
-    }
+    
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)

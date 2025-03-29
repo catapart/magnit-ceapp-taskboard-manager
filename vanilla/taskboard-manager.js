@@ -2,7 +2,7 @@
 var shared_default = '\ninput, button, textarea, select \n{\n    font: inherit; \n}\n\nbutton\n{\n    display: inline-flex;\n    align-items: center;\n    gap: .5em;\n}\n\nbutton svg\n{\n    width: var(--button-icon-size);\n    height: var(--button-icon-size);\n}\n\nimage-input [slot="placeholder"]\n{\n    display: grid;\n    justify-items: center;\n    gap: .25em;\n    padding: .5em;\n    max-width: 300px;\n    max-height: 300px;\n}\n\ndialog\n{\n    max-height: 80%;\n    max-width: calc(100% - (var(--dialog-margin)*2));\n    overflow: hidden;\n    flex-direction: column;\n    transition: transform 200ms ease, opacity 200ms ease;\n}\ndialog[open]\n{\n    display: flex;\n    opacity: 1;\n}\n@starting-style \n{\n    dialog[open]\n    {\n        opacity: 0;\n        transform: translateY(20px);\n    }\n}\n/* \ndialog > header\n,dialog > form > header\n{\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    gap: 7px;\n    align-items: center;\n    font-weight: bold;\n    padding-block: 5px;\n}\ndialog > header svg\n,dialog > form > header svg\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n} */\n\n/* dialog .route-view\n{\n    flex:1;\n    overflow: hidden;\n}\n\ndialog .route-view route-page\n{\n    overflow: auto;\n} */\n\n@media (max-width: 665px) \n{\n    dialog\n    {\n        bottom: 25px;\n    }\n}\n@media (max-width: 800px) \n{\n    \n}\n\n/* only desktop */\n@media (min-width: 665px) \n{\n    dialog\n    {\n        min-width: 500px;\n        max-width: 850px;\n        top: 50px;\n    }\n}\n@media (min-width: 800px) \n{\n}';
 
 // styles/board-item.global.css?raw
-var board_item_global_default = '\na.board\n{\n    margin: 0;\n    flex-shrink: 0;\n    display: flex;\n    align-items: center;\n    gap: .25em;\n    padding: .25em 1em;\n}\na.board .name\n{\n    flex: 1;\n}\na.board:hover\n{\n    background: highlight;\n    color: highlighttext;\n}\na.board[aria-current="page"]\n{\n    background: highlight;\n    color: highlighttext;\n}\n\n@media (max-width: 665px) \n{\n\n    a.board [part="edit"]\n    {\n        display: none;\n    }\n}\n@media (max-width: 800px) \n{\n    \n}\n\n/* only desktop */\n@media (min-width: 665px) \n{\n\n    a.board\n    {\n        overflow: hidden;\n    }\n\n    .menu-item-handle\n    ,a.board [part="edit"]\n    {\n        opacity: 0;\n        transition: opacity 200ms ease;\n    }\n    .menu-item-handle\n    ,a.board:hover [part="edit"]\n    {\n        opacity: 1;\n    }\n\n    a.board [part="edit"]:hover\n    {\n        opacity: 1;\n    }\n\n    a.board .board-item-name\n    {\n        flex: 1;\n        white-space: nowrap;\n        overflow: hidden;\n        text-overflow: ellipsis;\n    }\n\n    \n    .menu-item-handle\n    {\n        display: flex;\n        width: 10px;\n        align-self: stretch;\n        cursor: grab;\n        border-radius: 3px;\n        transform: translateY(-2px);\n        \n        background-image: radial-gradient(var(--grip-color, canvastext) 24%, transparent 24%),\n        radial-gradient(var(--grip-color, canvastext) 10%, transparent 10%);\n        background-size: 5px 5px;\n        background-position: 0 0, 2px 4px;\n    }\n    .menu-item-handle:active\n    {\n        cursor: grabbing;\n    }\n}\n@media (min-width: 800px) \n{\n\n}';
+var board_item_global_default = '\na.board\n{\n    margin: 0;\n    flex-shrink: 0;\n    display: flex;\n    align-items: center;\n    gap: .25em;\n    padding: .25em 1em;\n}\na.board .name\n{\n    flex: 1;\n}\na.board:hover\n{\n    background: highlight;\n    color: highlighttext;\n}\na.board[aria-current="page"]\n{\n    background: highlight;\n    color: highlighttext;\n}\n\n@media (max-width: 665px) \n{\n\n    a.board [part="edit"]\n    {\n        display: none;\n    }\n}\n@media (max-width: 800px) \n{\n    \n}\n\n/* only desktop */\n@media (min-width: 665px) \n{\n\n    a.board\n    {\n        overflow: hidden;\n    }\n\n    .menu-item-handle\n    ,a.board [part="edit"]\n    {\n        opacity: 0;\n        transition: opacity 200ms ease;\n    }\n    .menu-item-handle\n    ,a.board:hover [part="edit"]\n    {\n        opacity: 1;\n    }\n\n    a.board [part="edit"]:hover\n    {\n        opacity: 1;\n    }\n\n    a.board .board-item-name\n    {\n        flex: 1;\n        white-space: nowrap;\n        overflow: hidden;\n        text-overflow: ellipsis;\n    }\n\n    \n    .menu-item-handle\n    {\n        display: flex;\n        width: 10px;\n        align-self: stretch;\n        cursor: grab;\n        /* border-radius: 3px; */\n        transform: translateY(-1px);\n        \n        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);\n        background-size: 5px 6px;\n        background-position: 0 0, 2px 4px;\n    }\n    .menu-item-handle:active\n    {\n        cursor: grabbing;\n    }\n}\n@media (min-width: 800px) \n{\n\n}';
 
 // styles/browser-item.global.css?raw
 var browser_item_global_default = "captioned-thumbnail\n{\n    height: auto;\n}\n\ncaptioned-thumbnail::part(figure)\n{\n    padding: 3px;\n}\n\ncaptioned-thumbnail svg\n{\n    width: 36px;\n    height: 36px;\n}\n\ncaptioned-thumbnail.match\n{\n    border: solid 1px highlight;\n    order: 0;\n}\nboard-browser:has(captioned-thumbnail.match) captioned-thumbnail:not(.match)\n{\n    order: 1;\n}";
@@ -86,6 +86,11 @@ var taskboard_manager_default = `*
 app-menu
 {
     display: contents;
+}
+
+.board
+{
+    user-select: none;
 }
 
 #app-router
@@ -291,7 +296,7 @@ message-card::part(message)
 }`;
 
 // taskboard-manager.html?raw
-var taskboard_manager_default2 = '<app-menu id="app-menu"></app-menu>\n<path-router id="app-router" path="">\n    <route-page id="welcome-page">\n        <welcome-panel id="welcome-panel"></welcome-panel>\n    </route-page>\n    <route-page path="board/:id" id="board-route">\n        <task-board part="task-board" id="task-board" exportparts="lists:task-board-lists"></task-board>\n    </route-page>\n    <dialog part="board-browser-dialog" class="dialog" is="route-dialog" path="boards">\n        <board-browser\n            id="board-browser"\n            exportparts="header,\n                         icon,\n                         title:board-browser-title,\n                         add-button-icon:board-browser-add-button-icon,\n                         add-button-label:board-browser-add-button-label,\n                         filter-search:browser-filter-search,\n                         filter-form:browser-filter-form,\n                         filter-query:browser-filter-query,\n                         filter-input:browser-filter-input,\n                         filter-regex-button:browser-filter-regex-button,\n                         filter-search-button:browser-filter-search-button,\n                         filter-regex-icon:browser-filter-regex-icon,\n                         filter-search-icon:browser-filter-search-icon,\n                         collection-browser:board-collection-browser,\n                         gallery:board-browser-gallery,\n                         gallery-header:board-browser-gallery-header,\n                         items:board-browser-items,\n                         add-button:board-browser-add-button,\n                         footer:board-browser-footer,\n                         actions:board-browser-actions,\n                         cancel:board-browser-cancel,\n                         ok:board-browser-ok,\n                         button">\n        </board-browser>\n    </dialog>\n    <dialog part="dialog config-dialog" class="dialog" is="route-dialog" path="config">\n        <config-panel id="config-panel">\n            <slot name="custom-settings" slot="custom-settings"></slot>\n        </config-panel>\n    </dialog>\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\n        <board-settings id="board-settings"></board-settings>\n    </dialog>\n    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">\n        <import-manager id="import-manager"></import-manager>\n    </dialog>\n</path-router>\n<dialog id="confirmation-dialog" class="dialog">\n    <header id="confirmation-dialog-header">\n        <svg id="confirmation-dialog-icon" class="icon">\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span id="confirmation-dialog-title">Confirmation</span>\n    </header>\n    <path-router id="confirmation-router">\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\n    </path-router>\n    <footer id="confirmation-dialog-footer">\n        <form id="confirmation-dialog-form" method="dialog">\n            <button type="submit" id="confirmation-cancel-button">Cancel</button>\n            <button type="submit" id="confirmation-confirm-button">Confirm</button>\n        </form>\n    </footer>\n</dialog>\n<div id="notifications" id="notifications"></div>\n<div id="loading"></div>';
+var taskboard_manager_default2 = '<app-menu\nid="app-menu"\nexportparts="menu,\n            header,\n            menu-header,\n            branding,\n            icon,\n            logo,\n            mark,\n            button,\n            open-board-browser,\n            label,\n            magnifying-glass,\n            open-settings,\n            gear,\n            boards,\n            board-items,\n            board-edit-button,\n            new-board-button,\n            expand\n            "\n>\n</app-menu>\n<path-router id="app-router" path="">\n    <route-page id="welcome-page">\n        <welcome-panel\n            id="welcome-panel"\n            exportparts="fieldset,\n                         panel-fieldset,\n                         logo,\n                         welcome-logo,\n                         description,\n                         welcome-description,\n                         welcome-text,\n                         create-text,\n                         fieldset\n                         recent-fieldset,\n                         recent-legend,\n                         recent-boards,\n                         button,\n                         edit-button:recent-edit-button,\n                         handle:recent-edit-handle,\n                         new-board-button:recent-new-board-button,\n                         plus,\n                         label\n                         ">\n        </welcome-panel>\n    </route-page>\n    <route-page path="board/:id" id="board-route">\n        <task-board part="task-board" id="task-board" exportparts="lists:task-board-lists"></task-board>\n    </route-page>\n    <dialog part="board-browser-dialog" class="dialog" is="route-dialog" path="boards">\n        <board-browser\n            id="board-browser"\n            exportparts="header,\n                         board-browser-header,\n                         dialog-header,\n                         icon,\n                         title:board-browser-title,\n                         add-button-icon:board-browser-add-button-icon,\n                         add-button-label:board-browser-add-button-label,\n                         filter-search:browser-filter-search,\n                         filter-form:browser-filter-form,\n                         filter-query:browser-filter-query,\n                         filter-input:browser-filter-input,\n                         filter-regex-button:browser-filter-regex-button,\n                         filter-search-button:browser-filter-search-button,\n                         filter-regex-icon:browser-filter-regex-icon,\n                         filter-search-icon:browser-filter-search-icon,\n                         collection-browser:board-collection-browser,\n                         gallery:board-browser-gallery,\n                         gallery-header:board-browser-gallery-header,\n                         items:board-browser-items,\n                         add-button:board-browser-add-button,\n                         footer:board-browser-footer,\n                         actions:board-browser-actions,\n                         cancel:board-browser-cancel,\n                         ok:board-browser-ok,\n                         button,\n                         preferred-button">\n        </board-browser>\n    </dialog>\n    <dialog part="dialog config-dialog" class="dialog" is="route-dialog" path="config">\n        <config-panel id="config-panel">\n            <slot name="custom-settings" slot="custom-settings"></slot>\n        </config-panel>\n    </dialog>\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\n        <board-settings id="board-settings"></board-settings>\n    </dialog>\n    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">\n        <import-manager id="import-manager"></import-manager>\n    </dialog>\n</path-router>\n<dialog id="confirmation-dialog" class="dialog">\n    <header id="confirmation-dialog-header">\n        <svg id="confirmation-dialog-icon" class="icon">\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span id="confirmation-dialog-title">Confirmation</span>\n    </header>\n    <path-router id="confirmation-router">\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\n    </path-router>\n    <footer id="confirmation-dialog-footer">\n        <form id="confirmation-dialog-form" method="dialog">\n            <button type="submit" id="confirmation-cancel-button">Cancel</button>\n            <button type="submit" id="confirmation-confirm-button">Confirm</button>\n        </form>\n    </footer>\n</dialog>\n<div id="notifications" id="notifications"></div>\n<div id="loading"></div>';
 
 // assets/icons/cancel-cross.ts
 var CancelCross = `<svg id="icon-definition_cancel-cross" class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -2351,7 +2356,7 @@ var app_menu_default = `#menu
     border-right: solid 1px graytext;
 }
 
-#header
+#menu-header
 {
     display: flex;
     gap: .5em;
@@ -2496,7 +2501,7 @@ var app_menu_default = `#menu
 }`;
 
 // components/app-menu/app-menu.html?raw
-var app_menu_default2 = '<menu id="menu">\n    <header id="header">\n        <div id="branding" title="Manager Icon">\n            <svg class="icon logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button id="open-board-browser" type="button" data-route="#boards" title="Find Board">\n            <svg class="icon magnifying-glass">\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="label">Find Board</span>\n        </button>\n        <button id="open-settings" type="button" data-route="#config/settings" title="App Administration">\n            <svg class="icon gear">\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list id="boards" remove="false" edit="true" cancel-edit exportparts="items: board-items">\n        <slot></slot>\n        <button id="new-board-button" type="button" slot="add" title="New Board">\n            <svg class="icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label">New Board</span>\n        </button>\n        <template part="edit-button">\n            <svg class="icon expand" >\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n';
+var app_menu_default2 = '<menu id="menu">\n    <header id="menu-header" class="header">\n        <div id="branding" title="Manager Icon">\n            <svg class="icon logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button id="open-board-browser" class="button" type="button" data-route="#boards" title="Find Board">\n            <svg class="icon magnifying-glass">\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="label">Find Board</span>\n        </button>\n        <button id="open-settings" class="button" type="button" data-route="#config/settings" title="App Administration">\n            <svg class="icon gear">\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list id="boards" remove="false" edit="true" cancel-edit exportparts="edit: board-edit-button, items: board-items">\n        <slot></slot>\n        <button id="new-board-button" class="button" type="button" slot="add" title="New Board">\n            <svg class="icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label">New Board</span>\n        </button>\n        <template part="edit-button">\n            <svg class="icon expand" >\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n';
 
 // components/app-menu/app-menu.ts
 var AppMenuAttributes = /* @__PURE__ */ ((AppMenuAttributes2) => {
@@ -2664,7 +2669,7 @@ if (customElements.get(COMPONENT_TAG_NAME4) == null) {
 var welcome_panel_default = ":host\n{\n    align-self: center;\n    justify-self: center;\n    padding: 1em;\n}\n\n#recent-boards\n{\n    display: grid;\n    margin: 0;\n    padding: 0;\n}\n#recent-boards::part(items)\n{\n    display: grid;\n    \n}\n#recent-boards a\n{\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 3px 7px;\n}\n#recent-boards a:hover\n{\n    background-color: highlight;\n    color: highlighttext;\n}\n#new-board-button\n{\n    text-align: center;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin: 10px;\n}\n\n#logo\n{\n    width: 100%;\n    height: 80px;\n}";
 
 // components/welcome-panel/welcome-panel.html?raw
-var welcome_panel_default2 = '<fieldset id="panel-fieldset">\n    <legend id="panel-legend">Welcome</legend>\n    <svg id="logo" part="logo" >\n        <use href="#icon-definition_logo"></use>\n    </svg>\n    <div id="description">\n        <p id="welcome-text">Welcome to your Taskboard Manager!</p>\n        <p id="create-text">Create a <a id="new-board-link">new board</a>, or select a recently-opened board below.</p>\n    </div>\n    <fieldset id="recent-fieldset">\n        <legend id="recent-legend">Recent Boards</legend>\n        <editable-list id="recent-boards" exportparts="edit:edit-button, handle: edit-handle">\n            <slot></slot>\n            <button type="button" slot="add" id="new-board-button" title="New Board">\n                <svg class="icon plus" >\n                    <use href="#icon-definition_plus"></use>\n                </svg>\n                <span class="label">New Board</span>\n            </button>\n        </editable-list>\n    </fieldset>\n</fieldset>';
+var welcome_panel_default2 = '<fieldset id="panel-fieldset">\n    <legend id="panel-legend">Welcome</legend>\n    <svg id="welcome-logo" class="logo" >\n        <use href="#icon-definition_logo"></use>\n    </svg>\n    <div id="welcome-description" class="description">\n        <p id="welcome-text">Welcome to your Taskboard Manager!</p>\n        <p id="create-text">Create a <a id="new-board-link">new board</a>, or select a recently-opened board below.</p>\n    </div>\n    <fieldset id="recent-fieldset" class="fieldset">\n        <legend id="recent-legend">Recent Boards</legend>\n        <editable-list id="recent-boards" exportparts="edit:edit-button, handle: edit-handle, button">\n            <slot></slot>\n            <button type="button" slot="add" id="new-board-button" clas="button" title="New Board">\n                <svg class="icon plus" >\n                    <use href="#icon-definition_plus"></use>\n                </svg>\n                <span class="label">New Board</span>\n            </button>\n        </editable-list>\n    </fieldset>\n</fieldset>';
 
 // components/welcome-panel/welcome-panel.ts
 var WelcomePanelAttributes = /* @__PURE__ */ ((WelcomePanelAttributes2) => {
@@ -2768,10 +2773,10 @@ if (customElements.get(COMPONENT_TAG_NAME5) == null) {
 }
 
 // components/board-browser/board-browser.css?raw
-var board_browser_default = ":host { display: contents; }\n\n#header\n{\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    gap: 7px;\n    align-items: center;\n    font-weight: bold;\n    padding-block: 5px;\n}\n#icon\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n}\n\ncollection-browser\n{\n    margin: 1em;\n    overflow: hidden;\n}\n\ncollection-browser::part(items)\n{\n    display: flex;\n    gap: .5em;\n    flex-wrap: wrap;\n    padding: 7px;\n    overflow: hidden auto;\n}\n\ncollection-browser::part(add-button)\n{\n    display: none;\n}\n\n#actions\n{\n    display: flex;\n    align-items: center;\n    justify-content: flex-end;\n    gap: 1em;\n}\n\n#actions button\n{\n    width: 70px;\n    justify-content: center;\n}\n\n@media (max-width: 665px) \n{\n    #filter::part(input)\n    {\n        width: 157px;\n    }\n}";
+var board_browser_default = ":host { display: contents; }\n\n#header\n{\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    gap: 7px;\n    align-items: center;\n    font-weight: bold;\n    padding-block: 5px;\n}\n#icon\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n}\n\ncollection-browser\n{\n    margin: 1em;\n    overflow: hidden;\n}\n\ncollection-browser::part(navigation)\n,collection-browser::part(gallery-header)\n{\n    display: none;\n}\n\ncollection-browser::part(items)\n{\n    display: flex;\n    gap: .5em;\n    flex-wrap: wrap;\n    padding: 7px;\n    overflow: hidden auto;\n}\n\ncollection-browser::part(add-button)\n{\n    display: none !important;\n}\n\n#actions\n{\n    display: flex;\n    align-items: center;\n    justify-content: flex-end;\n    gap: 1em;\n}\n\n#actions button\n{\n    width: 70px;\n    justify-content: center;\n}\n\n@media (max-width: 665px) \n{\n    #filter::part(input)\n    {\n        width: 157px;\n    }\n}";
 
 // components/board-browser/board-browser.html?raw
-var board_browser_default2 = '<header id="header">\n    <svg id="icon" >\n        <use href="#icon-definition_task-board"></use>\n    </svg>\n    <span id="title">Boards</span>\n    <collection-filter \n        id="filter"\n        exportparts="search:filter-search,\n                     form:filter-form,\n                     query:filter-query,\n                     input:filter-input,\n                     button,\n                     regex-button:filter-regex-button,\n                     search-button:filter-search-button,\n                     icon,\n                     regex-icon:filter-regex-icon,\n                     search-icon:filter-search-icon">\n    </collection-filter>\n</header>\n<collection-browser\n    id="collection-browser"\n    exportparts="gallery,\n                 gallery-header,\n                 header,\n                 items,\n                 add-button,\n                 button,\n                 icon,\n                 add-button-icon,\n                 add-button-label">\n    <slot></slot>\n</collection-browser>\n<footer id="footer">\n    <form id="actions" method="dialog">\n        <button type="submit" id="cancel">Cancel</button>\n        <button type="submit" id="ok">Open</button>\n    </form>\n</footer>\n\n<!-- <header part="board-browser-header">\n    <svg part="board-browser-icon" >\n        <use href="#icon-definition_task-board"></use>\n    </svg>\n    <span part="board-browser-title">Boards</span>\n    <collection-filter part="board-browser-filter" id="board-browser-filter"></collection-filter>\n</header>\n<collection-browser part="board-browser" id="board-browser"></collection-browser>\n<footer part="board-browser-footer">\n    <form part="board-browser-actions" method="dialog">\n        <button type="submit" part="board-browser-cancel" id="board-browser-cancel">Cancel</button>\n        <button type="submit" part="board-browser-ok" id="board-browser-ok">Open</button>\n    </form>\n</footer> -->';
+var board_browser_default2 = '<header id="board-browser-header" class="header dialog-header">\n    <svg id="icon" >\n        <use href="#icon-definition_task-board"></use>\n    </svg>\n    <span id="title">Boards</span>\n    <collection-filter \n        id="filter"\n        exportparts="search:filter-search,\n                     form:filter-form,\n                     query:filter-query,\n                     input:filter-input,\n                     button,\n                     regex-button:filter-regex-button,\n                     search-button:filter-search-button,\n                     icon,\n                     regex-icon:filter-regex-icon,\n                     search-icon:filter-search-icon">\n    </collection-filter>\n</header>\n<collection-browser\n    id="collection-browser"\n    exportparts="gallery,\n                 gallery-header,\n                 header,\n                 items,\n                 add-button,\n                 button,\n                 icon,\n                 add-button-icon,\n                 add-button-label">\n    <slot></slot>\n</collection-browser>\n<footer id="footer">\n    <form id="actions" method="dialog">\n        <button type="submit" id="cancel" class="button">Cancel</button>\n        <button type="submit" id="ok" class="button preferred-button">Open</button>\n    </form>\n</footer>\n\n<!-- <header part="board-browser-header">\n    <svg part="board-browser-icon" >\n        <use href="#icon-definition_task-board"></use>\n    </svg>\n    <span part="board-browser-title">Boards</span>\n    <collection-filter part="board-browser-filter" id="board-browser-filter"></collection-filter>\n</header>\n<collection-browser part="board-browser" id="board-browser"></collection-browser>\n<footer part="board-browser-footer">\n    <form part="board-browser-actions" method="dialog">\n        <button type="submit" part="board-browser-cancel" id="board-browser-cancel">Cancel</button>\n        <button type="submit" part="board-browser-ok" id="board-browser-ok">Open</button>\n    </form>\n</footer> -->';
 
 // node_modules/.pnpm/@magnit-ce+captioned-thumbnail@0.0.5/node_modules/@magnit-ce/captioned-thumbnail/dist/captioned-thumbnail.js
 var captioned_thumbnail_default = '\n\n:host\n{\n    display: inline-flex;\n    width: 80px;\n    height: 80px;\n    color-scheme: light dark;\n}\n\n:host(:focus) figure\n{\n    border-color: rgb(205 205 205);\n}\n@media (prefers-color-scheme: dark) \n{\n    :host(:focus) figure\n    {\n        border-color: rgb(81 81 81);\n    }\n}\n\nfigure\n{\n    flex: 1;\n    display: grid;\n    grid-template-rows: 1fr auto;\n    margin: 0;\n    padding: 0;\n    border: solid 1px transparent;\n}\n:host(.selected) figure\n{\n    border-color: inherit;\n}\n\n#selected\n,::slotted([slot="selected"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: flex-start;\n    align-self: flex-start;\n    z-index: 2;\n\n    opacity: 0;\n    transition: opacity 200ms ease;\n}\n\n:host(:not([select],[selectable])) #selected\n,:host(:not([select],[selectable])) ::slotted([slot="selected"])\n{\n    display: none;\n    pointer-events: none;\n}\n\n#edit-button\n,::slotted([slot="edit-button"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: flex-end;\n    align-self: flex-start;\n    z-index: 2;\n\n    opacity: 0;\n    transition: opacity 200ms ease;\n}\n\n:host(:not([edit],[editable])) #edit-button\n,:host(:not([edit],[editable])) ::slotted([slot="edit-button"])\n{\n    display: none;\n    pointer-events: none;\n}\n\n.icon\n,::slotted([slot="icon"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: center;\n    align-self: center;\n\n    width: var(--icon-width, var(--icon-size));\n    margin: .25em;\n}\n#image-icon\n,::slotted(img[slot="icon"])\n{\n    display: block;\n    max-width: 100%;\n    min-width: 0;\n    max-height: 100%;\n    min-height: 0;\n}\n#text-icon\n{\n    font-size: 36px;\n    line-height: 1;\n    margin: 0;\n    padding: 0;\n    box-sizing: border-box;\n}\n\n:host(:not([src])) #image-icon\n,:host([src]) #text-icon\n{\n    display: none;\n}\n\n#caption\n,::slotted([slot="caption"])\n{\n    text-align: center;\n    text-overflow: ellipsis;\n    overflow: hidden;\n}\n\n:host(:not([select],[selectable]):hover)  #edit-button\n,:host(:not([select],[selectable]):hover) ::slotted([slot="edit-button"])\n,:host(:focus)  #edit-button\n,:host(:focus) ::slotted([slot="edit-button"])\n,figure:has(:checked) #edit-button\n,figure:has(:checked) ::slotted([slot="edit-button"])\n,figure:has(:focus) #edit-button\n,figure:has(:focus) ::slotted([slot="edit-button"])\n,figure:has(:focus-within) #edit-button\n,figure:has(:focus-within) ::slotted([slot="edit-button"])\n{ \n    opacity: 1;\n}\n\n\n:host(:hover) #selected\n,figure:has(:checked) #selected\n,figure:focus #selected\n,figure:focus-within #selected\n{ \n    opacity: 1;\n}';
@@ -2957,7 +2962,6 @@ if (customElements.get(COMPONENT_TAG_NAME6) == null) {
 
 // components/board-browser/board-browser.ts
 var BoardBrowserAttributes = /* @__PURE__ */ ((BoardBrowserAttributes2) => {
-  BoardBrowserAttributes2["pathId"] = "path-id";
   return BoardBrowserAttributes2;
 })(BoardBrowserAttributes || {});
 var COMPONENT_STYLESHEET7 = new CSSStyleSheet();
@@ -2994,6 +2998,7 @@ var BoardBrowserElement = class extends HTMLElement {
     this.shadowRoot.innerHTML = COMPONENT_TEMPLATE4;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET7);
     this.#applyPartAttributes();
+    this.findElement("ok").addEventListener("click", this.boardBrowserOkButton_onClick.bind(this));
     this.findElement("collection-browser").addEventListener("change", this.boardBrowserSelection_onChange.bind(this));
     this.findElement("filter").addEventListener("change", this.boardBrowserFilter_onChange.bind(this));
   }
@@ -3007,31 +3012,18 @@ var BoardBrowserElement = class extends HTMLElement {
       classedElements[i].part.add(...classedElements[i].classList);
     }
   }
-  // function boardBrowserOkButton_onClick(this: TaskboardManagerElement, event: Event)
-  // {
-  //     const selected = this.findElement<CollectionBrowserElement>('board-browser').selected;
-  //     if(selected == null)
-  //     {
-  //         // no warning; assume the user cancelled the dialog.
-  //         return;
-  //     }
-  //     const item = selected[0];
-  //     if(item == null)
-  //     {
-  //         // no warning; assume the user cancelled the dialog.
-  //         return;
-  //     }
-  //     const boardId = item.getAttribute('data-board-id');
-  //     if(boardId == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred attempting to open the board.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         console.error('Unable to open board: data-board-id attribute is unset on target element.');
-  //         return;
-  //     }
-  //     // console.log(selected, selected[0].getAttribute('data-board-id') ?? 'no id');
-  //     this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}`)
-  // }
+  boardBrowserOkButton_onClick(event) {
+    const selected = this.findElement("collection-browser").getSelected();
+    if (selected == null) {
+      return;
+    }
+    const item = selected[0];
+    if (item == null) {
+      return;
+    }
+    const boardId = item.getAttribute("data-board-id");
+    this.dispatchEvent(new CustomEvent("select", { detail: { boardId } }));
+  }
   boardBrowserSelection_onChange(event) {
     const { detail } = event;
     if (event.target instanceof CaptionedThumbnailElement && (detail.method == "click" || detail.method == "input")) {
@@ -3039,8 +3031,12 @@ var BoardBrowserElement = class extends HTMLElement {
     }
     if (event.target == this.findElement("collection-browser")) {
       event.preventDefault();
-      detail.previousSelection.forEach((item) => item.isSelected = false);
+      detail.previousSelection.forEach((item) => {
+        item.isSelected = false;
+        item.part.remove("selected-board-gallery-item");
+      });
       detail.newSelection.isSelected = !detail.newSelection.isSelected;
+      detail.newSelection.part.add("selected-board-gallery-item");
     }
   }
   boardBrowserFilter_onChange(event) {
@@ -3079,6 +3075,7 @@ var BoardBrowserElement = class extends HTMLElement {
         ${boardRecord.name}`;
     element.setAttribute("data-board-id", boardRecord.id);
     element.toggleAttribute("select", true);
+    element.part.add("board-gallery-item");
     return element;
   }
   static create(properties) {
@@ -3087,10 +3084,6 @@ var BoardBrowserElement = class extends HTMLElement {
       if (!propertyName.startsWith("on")) {
         element.setAttribute(propertyName, value);
       }
-    }
-  }
-  attributeChangedCallback(attributeName, _oldValue, newValue) {
-    if (attributeName == "path-id" /* pathId */) {
     }
   }
 };
@@ -8857,6 +8850,20 @@ var TaskboardManagerElement3 = class extends HTMLElement {
     });
     configPanel.addEventListener("clearhistory", async (_event) => {
       this.clearHistory();
+    });
+    const boardBrowser = this.getElement("board-browser");
+    boardBrowser.addEventListener("select", async (event) => {
+      const { boardId } = event.detail;
+      if (boardId == null) {
+        MessageCardElement.notify(
+          `An error occurred attempting to open the board.`,
+          this.getElement("notifications"),
+          { type: MessageCardType.Error }
+        );
+        console.error("Unable to open board: data-board-id attribute is unset on target element.");
+        return;
+      }
+      this.findElement("app-router").navigate(`board/${boardId}`);
     });
     addRouteHandlers.call(this);
   }

@@ -766,6 +766,21 @@ export class TaskboardManagerElement extends HTMLElement
         });
 
     
+        const boardBrowser = this.getElement<BoardBrowserElement>('board-browser');
+        boardBrowser.addEventListener('select', async (event: Event|CustomEvent) =>
+        {
+            const { boardId } = (event as CustomEvent).detail;
+            if(boardId == null)
+            {
+                MessageCardElement.notify(`An error occurred attempting to open the board.`, 
+                this.getElement('notifications'), { type: MessageCardType.Error });
+                console.error('Unable to open board: data-board-id attribute is unset on target element.');
+                return;
+            }
+            // console.log(selected, selected[0].getAttribute('data-board-id') ?? 'no id');
+            this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}`)
+        });
+    
 
 
         // this.findElement<HTMLButtonElement>('import-ok').addEventListener('click', this.#importDialog_import_onClick.bind(this));

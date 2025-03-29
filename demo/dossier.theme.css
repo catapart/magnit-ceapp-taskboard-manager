@@ -29,7 +29,7 @@
 @media (prefers-color-scheme: dark) {
     taskboard-manager[data-theme="dossier"] 
     {
-        --shade-0: #1f2334;
+        --shade-0: #1F1F22;
         --shade-1: #23262d;
         --shade-2: #2e313b;
         --shade-3: #3a3c44;
@@ -61,9 +61,15 @@
         box-shadow: var(--selected-shadow);
     }
 
-    taskboard-manager[data-theme="dossier"]::part(board-menu-item)
+    taskboard-manager[data-theme="dossier"]::part(board)
     {
+        color: var(--text);
         /* --selected-shadow: 1px 1px 3px -1px rgb(0 0 0 / .4); */
+    }
+
+    taskboard-manager[data-theme="dossier"]::part(task-board)
+    {
+        background-color: var(--shade-0);
     }
 }
 
@@ -110,31 +116,31 @@ taskboard-manager[data-theme="dossier"]
 
 /* buttons */
 /* all */
-taskboard-manager[data-theme="dossier"]::part(open-board-browser)
-,taskboard-manager[data-theme="dossier"]::part(open-settings)
-,taskboard-manager[data-theme="dossier"]::part(new-board-button_list)
-,taskboard-manager[data-theme="dossier"]::part(edit)
+taskboard-manager[data-theme="dossier"]::part(button)
 {
     background: transparent;
     border: solid 1px var(--highlight);
-}
-taskboard-manager[data-theme="dossier"]::part(open-board-browser):hover
-,taskboard-manager[data-theme="dossier"]::part(open-settings):hover
-,taskboard-manager[data-theme="dossier"]::part(new-board-button_list):hover
-,taskboard-manager[data-theme="dossier"]::part(edit):hover
-{
-    background: var(--highlight);
-}
-/* text label buttons */
-taskboard-manager[data-theme="dossier"]::part(open-board-browser)
-,taskboard-manager[data-theme="dossier"]::part(new-board-button_list)
-{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 30px;
     padding: 5px 10px;
 }
+taskboard-manager[data-theme="dossier"]::part(button):hover
+{
+    background: var(--highlight);
+}
+taskboard-manager[data-theme="dossier"]::part(preferred-button)
+{
+    background: var(--secondary);
+}
+taskboard-manager[data-theme="dossier"]::part(preferred-button):hover
+{
+    background: var(--secondary20);
+}
 /* icon label buttons */
-taskboard-manager[data-theme="dossier"]::part(open-settings)
-,taskboard-manager[data-theme="dossier"]::part(edit)
+taskboard-manager[data-theme="dossier"]::part(round-button)
+,taskboard-manager[data-theme="dossier"]::part(board-edit-button)
 {
     --size: 24px;
     border-radius: 50%;
@@ -152,7 +158,7 @@ taskboard-manager[data-theme="dossier"]::part(menu)
     border: none;
 }
 
-taskboard-manager[data-theme="dossier"]::part(header)
+taskboard-manager[data-theme="dossier"]::part(menu-header)
 {
     /* border-radius: 2px; */
     border-top-left-radius: 7px;
@@ -162,6 +168,57 @@ taskboard-manager[data-theme="dossier"]::part(header)
     margin: 7px;
     padding: 0;
     align-items: center;
+}
+
+taskboard-manager[data-theme="dossier"]::part(dialog-header)
+{
+    margin: 0;
+    border-radius: 0;
+    padding: 5px 10px;
+    gap: 5px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+}
+
+taskboard-manager[data-theme="dossier"]::part(board-browser-dialog)
+{
+    padding: 0;
+    margin: 0 20px;
+    border: solid 1px;
+    border-radius: 3px;
+    border: none;
+    background-color: var(--background);
+    box-shadow: 0 0 7px 1px rgb(0 0 0 / .7);
+}
+
+taskboard-manager[data-theme="dossier"]::part(board-browser-add-button)
+{
+    align-self: center;
+    border-radius: 5px;
+}
+
+taskboard-manager[data-theme="dossier"]::part(board-collection-browser)
+{
+    margin: 0;
+    border: none;
+}
+
+taskboard-manager[data-theme="dossier"]::part(board-gallery-item)
+{
+    border-radius: 5px;
+}
+
+taskboard-manager[data-theme="dossier"]::part(board-gallery-item):hover
+,taskboard-manager[data-theme="dossier"]::part(selected-board-gallery-item)
+{
+    background-color: var(--secondary);
+    border: solid 1px rgb(0 0 0 / .7);
+}
+
+taskboard-manager[data-theme="dossier"]::part(board-browser-actions)
+{
+    padding: 10px;
 }
 
 taskboard-manager[data-theme="dossier"]::part(branding)
@@ -184,33 +241,54 @@ taskboard-manager[data-theme="dossier"]::part(open-settings)
 taskboard-manager[data-theme="dossier"]::part(board-items)
 {
     gap: 3px;
+    margin: 0 7px;
 }
 
-taskboard-manager[data-theme="dossier"]::part(board-menu-item)
+taskboard-manager[data-theme="dossier"]::part(board)
 {
     --grip-color: var(--text);
-    border: none;
-    opacity: .6;
-    margin-inline: 10px;
-    padding-block: 5px;
-    border-radius: 30px;
-    font-size: 12px;
+    border: solid 1px transparent;
+    /* opacity: .6; */
+    /* margin-inline: 10px;
+    padding-block: 5px; */
+    /* border-radius: 30px; */
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 13px;
     font-weight: 700;
     gap: 5px;
+    /* --skew: 5deg;
+    transform: skewX(calc(var(--skew) * -1)); */
 }
-taskboard-manager[data-theme="dossier"]::part(board-menu-item):hover
+taskboard-manager[data-theme="dossier"]::part(board):hover
 {
     opacity: 1;
     background: none;
     color: var(--highlight-text);
+    border-color: var(--secondary)
 }
-taskboard-manager[data-theme="dossier"]::part(board-menu-item selected)
+taskboard-manager[data-theme="dossier"]::part(board selected)
 {
-    background: var(--secondary20)  !important;
+    --grip-color: var(--accent);
     color: var(--highlight-text);
     opacity: 1;
     box-shadow: var(--selected-shadow);
+    background-color: var(--secondary) !important; /* prevent hover from overriding */
 }
+
+taskboard-manager[data-theme="dossier"]::part(menu-item-handle):hover
+{
+    --grip-color: var(--accent);
+}
+
+taskboard-manager[data-theme="dossier"]::part(menu-item-handle)
+,taskboard-manager[data-theme="dossier"]::part(board-item-name)
+,taskboard-manager[data-theme="dossier"]::part(edit)
+{
+    /* transform: skewX(var(--skew)); */
+}
+
+
 taskboard-manager[data-theme="dossier"]::part(app-router)
 {
     background-color: var(--shade-2);
@@ -236,4 +314,9 @@ taskboard-manager[data-theme="dossier"]::part(task-description)
     {
         box-shadow: -1px 0 15px -5px rgb(0 0 0 / .25);
     }
+}
+
+@media (max-width: 665px)
+{
+    
 }

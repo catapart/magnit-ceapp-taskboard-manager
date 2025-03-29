@@ -7,7 +7,7 @@
     border-right: solid 1px graytext;
 }
 
-#header
+#menu-header
 {
     display: flex;
     gap: .5em;

@@ -1,17 +1,17 @@
 <fieldset id="panel-fieldset">
     <legend id="panel-legend">Welcome</legend>
-    <svg id="logo" part="logo" >
+    <svg id="welcome-logo" class="logo" >
         <use href="#icon-definition_logo"></use>
     </svg>
-    <div id="description">
+    <div id="welcome-description" class="description">
         <p id="welcome-text">Welcome to your Taskboard Manager!</p>
         <p id="create-text">Create a <a id="new-board-link">new board</a>, or select a recently-opened board below.</p>
     </div>
-    <fieldset id="recent-fieldset">
+    <fieldset id="recent-fieldset" class="fieldset">
         <legend id="recent-legend">Recent Boards</legend>
-        <editable-list id="recent-boards" exportparts="edit:edit-button, handle: edit-handle">
+        <editable-list id="recent-boards" exportparts="edit:edit-button, handle: edit-handle, button">
             <slot></slot>
-            <button type="button" slot="add" id="new-board-button" title="New Board">
+            <button type="button" slot="add" id="new-board-button" clas="button" title="New Board">
                 <svg class="icon plus" >
                     <use href="#icon-definition_plus"></use>
                 </svg>

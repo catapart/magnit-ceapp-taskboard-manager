@@ -75,6 +75,11 @@ app-menu
     display: contents;
 }
 
+.board
+{
+    user-select: none;
+}
+
 #app-router
 {
     overflow: hidden;

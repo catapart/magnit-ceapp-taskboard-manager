@@ -21,6 +21,12 @@ collection-browser
     overflow: hidden;
 }
 
+collection-browser::part(navigation)
+,collection-browser::part(gallery-header)
+{
+    display: none;
+}
+
 collection-browser::part(items)
 {
     display: flex;
@@ -32,7 +38,7 @@ collection-browser::part(items)
 
 collection-browser::part(add-button)
 {
-    display: none;
+    display: none !important;
 }
 
 #actions

@@ -77,12 +77,11 @@ a.board[aria-current="page"]
         width: 10px;
         align-self: stretch;
         cursor: grab;
-        border-radius: 3px;
-        transform: translateY(-2px);
+        /* border-radius: 3px; */
+        transform: translateY(-1px);
         
-        background-image: radial-gradient(var(--grip-color, canvastext) 24%, transparent 24%),
-        radial-gradient(var(--grip-color, canvastext) 10%, transparent 10%);
-        background-size: 5px 5px;
+        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);
+        background-size: 5px 6px;
         background-position: 0 0, 2px 4px;
     }
     .menu-item-handle:active

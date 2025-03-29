@@ -1,7 +1,50 @@
-<app-menu id="app-menu"></app-menu>
+<app-menu
+id="app-menu"
+exportparts="menu,
+            header,
+            menu-header,
+            branding,
+            icon,
+            logo,
+            mark,
+            button,
+            open-board-browser,
+            label,
+            magnifying-glass,
+            open-settings,
+            gear,
+            boards,
+            board-items,
+            board-edit-button,
+            new-board-button,
+            expand
+            "
+>
+</app-menu>
 <path-router id="app-router" path="">
     <route-page id="welcome-page">
-        <welcome-panel id="welcome-panel"></welcome-panel>
+        <welcome-panel
+            id="welcome-panel"
+            exportparts="fieldset,
+                         panel-fieldset,
+                         logo,
+                         welcome-logo,
+                         description,
+                         welcome-description,
+                         welcome-text,
+                         create-text,
+                         fieldset
+                         recent-fieldset,
+                         recent-legend,
+                         recent-boards,
+                         button,
+                         edit-button:recent-edit-button,
+                         handle:recent-edit-handle,
+                         new-board-button:recent-new-board-button,
+                         plus,
+                         label
+                         ">
+        </welcome-panel>
     </route-page>
     <route-page path="board/:id" id="board-route">
         <task-board part="task-board" id="task-board" exportparts="lists:task-board-lists"></task-board>
@@ -10,6 +53,8 @@
         <board-browser
             id="board-browser"
             exportparts="header,
+                         board-browser-header,
+                         dialog-header,
                          icon,
                          title:board-browser-title,
                          add-button-icon:board-browser-add-button-icon,
@@ -31,7 +76,8 @@
                          actions:board-browser-actions,
                          cancel:board-browser-cancel,
                          ok:board-browser-ok,
-                         button">
+                         button,
+                         preferred-button">
         </board-browser>
     </dialog>
     <dialog part="dialog config-dialog" class="dialog" is="route-dialog" path="config">

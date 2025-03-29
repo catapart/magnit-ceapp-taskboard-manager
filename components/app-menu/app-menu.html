@@ -1,25 +1,25 @@
 <menu id="menu">
-    <header id="header">
+    <header id="menu-header" class="header">
         <div id="branding" title="Manager Icon">
             <svg class="icon logo mark" alt="Manager Brand Mark">
                 <use href="#icon-definition_logo-mark"></use>
             </svg>
         </div>
-        <button id="open-board-browser" type="button" data-route="#boards" title="Find Board">
+        <button id="open-board-browser" class="button" type="button" data-route="#boards" title="Find Board">
             <svg class="icon magnifying-glass">
                 <use href="#icon-definition_magnifying-glass"></use>
             </svg>
             <span class="label">Find Board</span>
         </button>
-        <button id="open-settings" type="button" data-route="#config/settings" title="App Administration">
+        <button id="open-settings" class="button" type="button" data-route="#config/settings" title="App Administration">
             <svg class="icon gear">
                 <use href="#icon-definition_gear"></use>
             </svg>
         </button>
     </header>
-    <editable-list id="boards" remove="false" edit="true" cancel-edit exportparts="items: board-items">
+    <editable-list id="boards" remove="false" edit="true" cancel-edit exportparts="edit: board-edit-button, items: board-items">
         <slot></slot>
-        <button id="new-board-button" type="button" slot="add" title="New Board">
+        <button id="new-board-button" class="button" type="button" slot="add" title="New Board">
             <svg class="icon plus" >
                 <use href="#icon-definition_plus"></use>
             </svg>
