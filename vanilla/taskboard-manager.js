@@ -1,5 +1,5 @@
 // styles/shared.css?raw
-var shared_default = '\ninput, button, textarea, select \n{\n    font: inherit; \n}\n\nbutton\n{\n    display: inline-flex;\n    align-items: center;\n    gap: .5em;\n}\n\nbutton svg\n{\n    width: var(--button-icon-size);\n    height: var(--button-icon-size);\n}\n\nimage-input [slot="placeholder"]\n{\n    display: grid;\n    justify-items: center;\n    gap: .25em;\n    padding: .5em;\n    max-width: 300px;\n    max-height: 300px;\n}\n\ndialog\n{\n    max-height: 80%;\n    max-width: calc(100% - (var(--dialog-margin)*2));\n    overflow: hidden;\n    flex-direction: column;\n    transition: transform 200ms ease, opacity 200ms ease;\n}\ndialog[open]\n{\n    display: flex;\n    opacity: 1;\n}\n@starting-style \n{\n    dialog[open]\n    {\n        opacity: 0;\n        transform: translateY(20px);\n    }\n}\n/* \ndialog > header\n,dialog > form > header\n{\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    gap: 7px;\n    align-items: center;\n    font-weight: bold;\n    padding-block: 5px;\n}\ndialog > header svg\n,dialog > form > header svg\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n} */\n\n/* dialog .route-view\n{\n    flex:1;\n    overflow: hidden;\n}\n\ndialog .route-view route-page\n{\n    overflow: auto;\n} */\n\n@media (max-width: 665px) \n{\n    dialog\n    {\n        bottom: 25px;\n    }\n}\n@media (max-width: 800px) \n{\n    \n}\n\n/* only desktop */\n@media (min-width: 665px) \n{\n    dialog\n    {\n        min-width: 500px;\n        max-width: 850px;\n        top: 50px;\n    }\n}\n@media (min-width: 800px) \n{\n}';
+var shared_default = '\ninput, button, textarea, select \n{\n    font: inherit; \n}\n\nbutton\n{\n    /* display: inline-flex; */\n    align-items: center;\n    gap: .5em;\n}\n\nbutton svg\n{\n    width: var(--button-icon-size);\n    height: var(--button-icon-size);\n}\n\nimage-input [slot="placeholder"]\n{\n    display: grid;\n    justify-items: center;\n    gap: .25em;\n    padding: .5em;\n    max-width: 300px;\n    max-height: 300px;\n}\n\ndialog\n{\n    max-height: 80%;\n    max-width: calc(100% - (var(--dialog-margin)*2));\n    overflow: hidden;\n    flex-direction: column;\n    transition: transform 200ms ease, opacity 200ms ease;\n}\ndialog[open]\n{\n    display: flex;\n    opacity: 1;\n}\n@starting-style \n{\n    dialog[open]\n    {\n        opacity: 0;\n        transform: translateY(20px);\n    }\n}\n/* \ndialog > header\n,dialog > form > header\n{\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    gap: 7px;\n    align-items: center;\n    font-weight: bold;\n    padding-block: 5px;\n}\ndialog > header svg\n,dialog > form > header svg\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n} */\n\n/* dialog .route-view\n{\n    flex:1;\n    overflow: hidden;\n}\n\ndialog .route-view route-page\n{\n    overflow: auto;\n} */\n\n@media (max-width: 665px) \n{\n    dialog\n    {\n        bottom: 25px;\n    }\n}\n@media (max-width: 800px) \n{\n    \n}\n\n/* only desktop */\n@media (min-width: 665px) \n{\n    dialog\n    {\n        min-width: 500px;\n        max-width: 850px;\n        top: 50px;\n    }\n}\n@media (min-width: 800px) \n{\n}';
 
 // styles/board-item.global.css?raw
 var board_item_global_default = '\na.board\n{\n    margin: 0;\n    flex-shrink: 0;\n    display: flex;\n    align-items: center;\n    gap: .25em;\n    padding: .25em 1em;\n}\na.board .name\n{\n    flex: 1;\n}\na.board:hover\n{\n    background: highlight;\n    color: highlighttext;\n}\na.board[aria-current="page"]\n{\n    background: highlight;\n    color: highlighttext;\n}\n\n@media (max-width: 665px) \n{\n\n    a.board [part="edit"]\n    {\n        display: none;\n    }\n}\n@media (max-width: 800px) \n{\n    \n}\n\n/* only desktop */\n@media (min-width: 665px) \n{\n\n    a.board\n    {\n        overflow: hidden;\n    }\n\n    .menu-item-handle\n    ,a.board [part="edit"]\n    {\n        opacity: 0;\n        transition: opacity 200ms ease;\n    }\n    .menu-item-handle\n    ,a.board:hover [part="edit"]\n    {\n        opacity: 1;\n    }\n\n    a.board [part="edit"]:hover\n    {\n        opacity: 1;\n    }\n\n    a.board .board-item-name\n    {\n        flex: 1;\n        white-space: nowrap;\n        overflow: hidden;\n        text-overflow: ellipsis;\n    }\n\n    \n    .menu-item-handle\n    {\n        display: flex;\n        width: 10px;\n        align-self: stretch;\n        cursor: grab;\n        /* border-radius: 3px; */\n        transform: translateY(-1px);\n        \n        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);\n        background-size: 5px 6px;\n        background-position: 0 0, 2px 4px;\n    }\n    .menu-item-handle:active\n    {\n        cursor: grabbing;\n    }\n}\n@media (min-width: 800px) \n{\n\n}';
@@ -93,6 +93,17 @@ app-menu
     user-select: none;
 }
 
+.edit
+{
+    opacity: 0;
+}
+.board:hover .edit
+,.board[aria-current="page"] .edit
+,.board .edit:focus
+{
+    opacity: 1;
+}
+
 #app-router
 {
     overflow: hidden;
@@ -181,6 +192,11 @@ message-card::part(message)
         grid-template-columns: 1fr;
         /* grid-template-areas: 'menu'
         'taskboard'; */
+    }
+
+    .board .edit
+    {
+        display: none;
     }
 
     task-board::part(lists)
@@ -2501,7 +2517,7 @@ var app_menu_default = `#menu
 }`;
 
 // components/app-menu/app-menu.html?raw
-var app_menu_default2 = '<menu id="menu">\n    <header id="menu-header" class="header">\n        <div id="branding" title="Manager Icon">\n            <svg class="icon logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button id="open-board-browser" class="button" type="button" data-route="#boards" title="Find Board">\n            <svg class="icon magnifying-glass">\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="label">Find Board</span>\n        </button>\n        <button id="open-settings" class="button" type="button" data-route="#config/settings" title="App Administration">\n            <svg class="icon gear">\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list id="boards" remove="false" edit="true" cancel-edit exportparts="edit: board-edit-button, items: board-items">\n        <slot></slot>\n        <button id="new-board-button" class="button" type="button" slot="add" title="New Board">\n            <svg class="icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label">New Board</span>\n        </button>\n        <template part="edit-button">\n            <svg class="icon expand" >\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n';
+var app_menu_default2 = '<menu id="menu">\n    <header id="menu-header" class="header">\n        <div id="branding" title="Manager Icon">\n            <svg class="icon logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button id="open-board-browser" class="button" type="button" data-route="#boards" title="Find Board">\n            <svg class="icon magnifying-glass">\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="label">Find Board</span>\n        </button>\n        <button id="open-settings" class="button" type="button" data-route="#config/settings" title="App Administration">\n            <svg class="icon gear">\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list id="boards" remove="false" edit="true" cancel-edit edit-class="board-edit-button" exportparts="edit: board-edit-button, items: board-items">\n        <slot></slot>\n        <button id="new-board-button" class="button" type="button" slot="add" title="New Board">\n            <svg class="icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label">New Board</span>\n        </button>\n        <template part="edit-button">\n            <svg class="icon expand" >\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n';
 
 // components/app-menu/app-menu.ts
 var AppMenuAttributes = /* @__PURE__ */ ((AppMenuAttributes2) => {
@@ -2584,6 +2600,7 @@ var AppMenuElement = class extends HTMLElement {
   }
   #createBoardMenuItem(board) {
     const element = document.createElement("a");
+    element.tabIndex = 0;
     element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span>
         <span part="board-item-name" class="board-item-name">${board.name}<span>`;
     element.setAttribute("part", "board");
@@ -4287,13 +4304,13 @@ if (customElements.get(COMPONENT_TAG_NAME13) == null) {
   customElements.define(COMPONENT_TAG_NAME13, ConfigPanelElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+editable-list@0.0.10/node_modules/@magnit-ce/editable-list/dist/editable-list.mjs
+// node_modules/.pnpm/@magnit-ce+editable-list@0.0.11/node_modules/@magnit-ce/editable-list/dist/editable-list.mjs
 var IGNORED_TAGS = /* @__PURE__ */ new Set([
   "style",
   "template"
 ]);
-var HTML = `<div part="${"items"}"><slot part="${"items-slot"}"></slot></div>
-<slot name="add"><button part="${"add"}" type="button">&plus;</button></slot>`;
+var HTML = `<div id="${"items"}"><slot id="${"items-slot"}"></slot></div>
+<slot name="add"><button id="${"add"}" class="button" type="button">&plus;</button></slot>`;
 var STYLE = `
 * { box-sizing: border-box; }
 :host
@@ -4319,30 +4336,18 @@ var EditableListElement = class extends HTMLElement {
   #boundEventHandlers = /* @__PURE__ */ new Map([
     ["add", this.#addButton_onClick.bind(this)]
   ]);
-  /** Cached references to parts of this element, using the `part` attribute values as keys */
   componentParts = /* @__PURE__ */ new Map();
-  /**
-   * Get and cache an HTMLElement in this element's `shadowDOM` by it's `part` attribute value.
-   * @param key the `part` attribute value of the `shadowDOM`'s target child element.
-   * @returns the target child element
-   */
-  getPart(key) {
-    if (this.componentParts.get(key) == null) {
-      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
+  getElement(id) {
+    if (this.componentParts.get(id) == null) {
+      const part = this.findElement(id);
       if (part != null) {
-        this.componentParts.set(key, part);
+        this.componentParts.set(id, part);
       }
     }
-    return this.componentParts.get(key);
+    return this.componentParts.get(id);
   }
-  /**
-   * Get an HTMLElement in this element's `shadowDOM` by it's `part` attribute value.  
-   * Unlike `getPart`, this method does not cache the value to keep in runtime memory.
-   * @param key the `part` attribute value of the `shadowDOM`'s target child element.
-   * @returns the target child element
-   */
-  findPart(key) {
-    return this.shadowRoot.querySelector(`[part="${key}"]`);
+  findElement(id) {
+    return this.shadowRoot.getElementById(id);
   }
   constructor() {
     super();
@@ -4355,14 +4360,13 @@ var EditableListElement = class extends HTMLElement {
         return;
       }
       let item = button.parentElement;
-      const part = button.getAttribute("part");
-      if (part == "edit") {
+      if (button.classList.contains("edit")) {
         const result = this.dispatchEvent(new CustomEvent("edit", { detail: item, bubbles: true }));
         if (this.hasAttribute("cancel-edit")) {
           event.preventDefault();
           event.stopPropagation();
         }
-      } else if (part == "remove") {
+      } else if (button.classList.contains("remove")) {
         const result = this.dispatchEvent(new CustomEvent("remove", { detail: item, bubbles: true, cancelable: true }));
         if (result == true) {
           item.remove();
@@ -4373,14 +4377,25 @@ var EditableListElement = class extends HTMLElement {
         }
       }
     });
-    this.findPart(
+    this.findElement(
       "add"
       /* AddButton */
     )?.addEventListener("click", this.#boundEventHandlers.get("add"));
-    this.getPart(
+    this.getElement(
       "items-slot"
       /* ItemsSlot */
     ).addEventListener("slotchange", this.#updateItemButtons.bind(this));
+    this.#applyPartAttributes();
+  }
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      classedElements[i].part.add(...classedElements[i].classList);
+    }
   }
   /**
    * Create a new instance of an `EditableListElement` element using the provided properties to define the configuration.
@@ -4414,7 +4429,7 @@ var EditableListElement = class extends HTMLElement {
    * Iterate through slot children to add buttons and listeners where applicable.
    */
   #updateItemButtons() {
-    const children = this.getPart(
+    const children = this.getElement(
       "items-slot"
       /* ItemsSlot */
     ).assignedElements();
@@ -4427,12 +4442,20 @@ var EditableListElement = class extends HTMLElement {
         continue;
       }
       const item = children[i];
-      const existingEditButton = children[i].querySelector(`button[part="${"edit"}"]`);
+      const existingEditButton = children[i].querySelector(`button.${"edit"}`);
       if (this.canEdit) {
         if (existingEditButton == null) {
           const editButton = document.createElement("button");
           editButton.type = "button";
-          editButton.setAttribute("part", "edit");
+          const editClasses = this.getAttribute("edit-class")?.trim() ?? "";
+          editButton.classList.add(
+            "edit"
+            /* EditButton */
+          );
+          if (editClasses != "") {
+            editButton.classList.add(...editClasses.split(" "));
+          }
+          editButton.setAttribute("part", `${"edit"}${editClasses != "" ? ` ${editClasses}` : ""}`);
           const template = this.querySelector(`template[part="${"edit-button"}"]`);
           if (template != null) {
             editButton.append(template.content.cloneNode(true));
@@ -4444,12 +4467,20 @@ var EditableListElement = class extends HTMLElement {
       } else if (existingEditButton != null) {
         existingEditButton.remove();
       }
-      const existingRemoveButton = children[i].querySelector(`button[part="${"remove"}"]`);
+      const existingRemoveButton = children[i].querySelector(`button.${"remove"}`);
       if (this.canRemove) {
         if (existingRemoveButton == null) {
           const removeButton = document.createElement("button");
           removeButton.type = "button";
-          removeButton.setAttribute("part", "remove");
+          const removeClasses = this.getAttribute("remove-class")?.trim() ?? "";
+          removeButton.classList.add(
+            "remove"
+            /* RemoveButton */
+          );
+          if (removeClasses != "") {
+            removeButton.classList.add(...removeClasses.split(" "));
+          }
+          removeButton.setAttribute("part", `${"remove"}${removeClasses != "" ? ` ${removeClasses}` : ""}`);
           const template = this.querySelector(`template[part="${"remove-button"}"]`);
           if (template != null) {
             removeButton.append(template.content.cloneNode(true));

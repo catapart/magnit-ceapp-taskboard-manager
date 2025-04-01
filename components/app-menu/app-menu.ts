@@ -110,6 +110,7 @@ export class AppMenuElement extends HTMLElement
     #createBoardMenuItem(board: TaskBoardRecord)
     {
         const element = document.createElement('a');
+        element.tabIndex = 0;
         element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span>
         <span part="board-item-name" class="board-item-name">${board.name}<span>`;
         element.setAttribute('part', 'board');

@@ -169,6 +169,8 @@ ${global_browserItem}
 ${settingsStyle}
 ${componentStyle}`);
 
+
+
 // const COMPONENT_TEMPLATE = `${html}
 // ${defineIcons()}`;
 const COMPONENT_TEMPLATE = `${html}

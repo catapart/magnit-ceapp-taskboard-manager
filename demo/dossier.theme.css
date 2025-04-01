@@ -140,6 +140,10 @@ taskboard-manager[data-theme="dossier"]::part(preferred-button):hover
 }
 /* icon label buttons */
 taskboard-manager[data-theme="dossier"]::part(round-button)
+{
+    display: flex;
+}
+taskboard-manager[data-theme="dossier"]::part(round-button)
 ,taskboard-manager[data-theme="dossier"]::part(board-edit-button)
 {
     --size: 24px;
@@ -147,9 +151,18 @@ taskboard-manager[data-theme="dossier"]::part(round-button)
     padding: 5px;
     width: var(--size);
     height: var(--size);
-    display: flex;
     align-items: center;
     justify-content: center;
+}
+
+taskboard-manager[data-theme="dossier"]::part(board-edit-button)
+{
+    background: transparent;
+    border: solid 1px var(--highlight);
+}
+taskboard-manager[data-theme="dossier"]::part(board-edit-button):hover
+{
+    background: var(--highlight);
 }
 
 taskboard-manager[data-theme="dossier"]::part(menu)

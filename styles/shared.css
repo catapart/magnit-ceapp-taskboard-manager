@@ -6,7 +6,7 @@ input, button, textarea, select
 
 button
 {
-    display: inline-flex;
+    /* display: inline-flex; */
     align-items: center;
     gap: .5em;
 }
