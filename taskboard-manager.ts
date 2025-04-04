@@ -1358,7 +1358,7 @@ export class TaskboardManagerElement extends HTMLElement
             element.toggleAttribute('drag-drop', true);
             element.setAttribute('part', 'task-list');
             element.style.setProperty('--list-color', list.color);
-            element.setAttribute('exportparts', "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, tasks:list-tasks, add-button:list-add-button");
+            element.setAttribute('exportparts', "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, tasks:list-tasks, add-button:list-add-button, button, input, finished:task-finished");
             element.dragAndDropQueryParent = board;
 
             if(list.useCustomWidth == true)
@@ -1652,9 +1652,9 @@ export class TaskboardManagerElement extends HTMLElement
         }
 
         const listPreviousName = taskList.name;
-        const inputNameValue = taskListComponent.findPart<HTMLInputElement>('name').value;
+        const inputNameValue = taskListComponent.findElement<HTMLInputElement>('name').value;
         const listPreviousColor = taskList.color;
-        const inputColorValue = taskListComponent.findPart<HTMLInputElement>('color').value;
+        const inputColorValue = taskListComponent.findElement<HTMLInputElement>('color').value;
 
         taskList.name = inputNameValue;
         taskList.color = inputColorValue;
@@ -1798,8 +1798,8 @@ export class TaskboardManagerElement extends HTMLElement
         const previousValues = structuredClone(task);
 
         task.listId = listId;
-        task.color = taskComponent.findPart<HTMLInputElement>('color').value;
-        task.isFinished = taskComponent.findPart<HTMLInputElement>('is-finished').checked;
+        task.color = taskComponent.findElement<HTMLInputElement>('color').value;
+        task.isFinished = taskComponent.findElement<HTMLInputElement>('is-finished').checked;
         task.description = taskComponent.value ?? "";
         
         const tasks = [...parentList.querySelectorAll('task-card')] as TaskCardElement[];
@@ -1870,9 +1870,9 @@ export class TaskboardManagerElement extends HTMLElement
         card.setAttribute('description', task.description);
         card.setAttribute('draggable', "true");
         card.setAttribute('part', 'task-card');
-        card.setAttribute('exportparts', "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator");
+        card.setAttribute('exportparts', "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator, button, input, finished");
         card.style.setProperty('--task-color', task.color);
-        card.findPart('description').addEventListener('keyup', taskDescription_onKeyUp.bind(this));
+        card.findElement('description').addEventListener('keyup', taskDescription_onKeyUp.bind(this));
     }
 
     // history    

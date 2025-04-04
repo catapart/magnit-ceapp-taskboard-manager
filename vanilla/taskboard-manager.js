@@ -5107,7 +5107,7 @@ if (customElements.get(COMPONENT_TAG_NAME32) == null) {
   customElements.define(COMPONENT_TAG_NAME32, PathRouterElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+task-board@0.0.3/node_modules/@magnit-ce/task-board/dist/task-board.js
+// node_modules/.pnpm/@magnit-ce+task-board@0.0.4/node_modules/@magnit-ce/task-board/dist/task-board.js
 var COMPONENT_STYLESHEET16 = new CSSStyleSheet();
 COMPONENT_STYLESHEET16.replaceSync(`
 :host
@@ -5117,7 +5117,7 @@ COMPONENT_STYLESHEET16.replaceSync(`
     flex-direction: column;
     --list-min-width: 300px;
 }
-[part="lists"]
+#lists
 {
     display: grid;
     grid-auto-flow: column;
@@ -5136,7 +5136,7 @@ var TaskBoardElement = class extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = `<slot name="header"></slot><div part="lists"><slot></slot></div><slot name="footer"></slot>`;
+    this.shadowRoot.innerHTML = `<slot name="header"></slot><div id="lists" part="lists"><slot></slot></div><slot name="footer"></slot>`;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET16);
   }
 };
@@ -5144,9 +5144,9 @@ if (customElements.get(COMPONENT_TAG_NAME16) == null) {
   customElements.define(COMPONENT_TAG_NAME16, TaskBoardElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+task-list@0.0.14/node_modules/@magnit-ce/task-list/dist/task-list.js
-var task_list_default = ':host\n{\n    --border-color: rgb(95, 95, 95);\n    display: inline-block;\n    border: solid 1px var(--border-color);\n    border-radius: 3px;\n    padding: .5em;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(71, 71, 71);\n    }\n}\n\n\n[part="header"]\n{\n    display: grid;\n    grid-template-columns: auto minmax(0, 1fr) auto;\n    align-items: center;\n    position: sticky;\n}\n\n[part="color-container"]\n{\n    display: contents;\n}\n\n[part="color"]\n{\n    padding: 0;\n    width: 12px;\n    min-height: 0;\n    height: auto;\n    border: solid 1px transparent;\n    align-self: stretch;\n}\n[part="color"]::-moz-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch-wrapper \n{\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="tasks"]\n{\n    list-style: none;\n    margin: 0;\n    padding: 0;\n    display: flex;\n    flex-direction: column;\n}\n\n[part="add-button"]\n{\n    margin-top: 1rem;\n    margin-inline: auto;\n    min-width: 100px;\n    align-self: center;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 5px;\n}\n\n:host([collapsed]) > [part="tasks"]\n{\n    overflow: hidden;\n    height: min-content;\n    height: 0;\n    opacity: 0;\n    padding: 0;\n    margin: 0;\n    border: none;\n    pointer-events: none;\n    user-select: none;\n}\n\n::slotted([data-drag-id])\n{\n    opacity: .7;\n    scale: .97;\n    transition: opacity 100ms ease, scale 100ms ease;\n}\n\n::slotted(task-list)\n{\n    margin-block: 7px;\n}';
-var task_list_default2 = '<slot name="header">\n    <header part="header">\n        <label part="color-container" title="Color">\n            <input type="color" part="color" value="#919191" />\n        </label>\n        <input type="text" part="name" placeholder="List Name" />\n        <button type="button" part="collapse-button" title="Collapse">\n            <span part="collapse-icon">\u25B2</span>\n        </button>\n    </header>\n</slot>\n<ul part="tasks">\n    <slot></slot>\n</ul>\n<slot name="add-button"><button type="button" part="add-button" title="Add">\n    <span part="add-icon">&plus;</span>\n    <span part="add-label">Add Task</span>\n</button></slot>\n<slot name="footer"></slot>';
+// node_modules/.pnpm/@magnit-ce+task-list@0.0.15/node_modules/@magnit-ce/task-list/dist/task-list.js
+var task_list_default = ":host\n{\n    --border-color: rgb(95, 95, 95);\n    display: inline-block;\n    border: solid 1px var(--border-color);\n    border-radius: 3px;\n    padding: .5em;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(71, 71, 71);\n    }\n}\n\n\n#header\n{\n    display: grid;\n    grid-template-columns: auto minmax(0, 1fr) auto;\n    align-items: center;\n    position: sticky;\n}\n\n#color-container\n{\n    display: contents;\n}\n\n#color\n{\n    padding: 0;\n    width: 12px;\n    min-height: 0;\n    height: auto;\n    border: solid 1px transparent;\n    align-self: stretch;\n}\n#color::-moz-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n#color::-webkit-color-swatch-wrapper \n{\n    padding: 0;\n    margin: 0;\n}\n\n#color::-webkit-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n#tasks\n{\n    list-style: none;\n    margin: 0;\n    padding: 0;\n    display: flex;\n    flex-direction: column;\n}\n\n#add-button\n{\n    margin-top: 1rem;\n    margin-inline: auto;\n    min-width: 100px;\n    align-self: center;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 5px;\n}\n\n:host([collapsed]) > #tasks\n{\n    overflow: hidden;\n    height: min-content;\n    height: 0;\n    opacity: 0;\n    padding: 0;\n    margin: 0;\n    border: none;\n    pointer-events: none;\n    user-select: none;\n}\n\n::slotted([data-drag-id])\n{\n    opacity: .7;\n    scale: .97;\n    transition: opacity 100ms ease, scale 100ms ease;\n}\n\n::slotted(task-list)\n{\n    margin-block: 7px;\n}";
+var task_list_default2 = '<slot name="header">\n    <header id="header">\n        <label id="color-container" title="Color">\n            <input type="color" id="color" class="input" value="#919191" />\n        </label>\n        <input type="text" id="name" class="input" placeholder="List Name" />\n        <button type="button" id="collapse-button" class="button field-button" title="Collapse">\n            <span id="collapse-icon" class="icon">\u25B2</span>\n        </button>\n    </header>\n</slot>\n<ul id="tasks">\n    <slot></slot>\n</ul>\n<slot name="add-button">\n<button type="button" id="add-button" class="button" title="Add">\n    <span id="add-icon" class="icon">&plus;</span>\n    <span id="add-label">Add Task</span>\n</button>\n</slot>\n<slot name="footer"></slot>';
 var COMPONENT_STYLESHEET17 = new CSSStyleSheet();
 COMPONENT_STYLESHEET17.replaceSync(task_list_default);
 var COMPONENT_TAG_NAME17 = "task-list";
@@ -5155,17 +5155,17 @@ var TaskListElement = class extends HTMLElement {
   dragAndDropQueryParent;
   parentScopeSelector = "";
   componentParts = /* @__PURE__ */ new Map();
-  getPart(key) {
-    if (this.componentParts.get(key) == null) {
-      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
+  getElement(id) {
+    if (this.componentParts.get(id) == null) {
+      const part = this.findElement(id);
       if (part != null) {
-        this.componentParts.set(key, part);
+        this.componentParts.set(id, part);
       }
     }
-    return this.componentParts.get(key);
+    return this.componentParts.get(id);
   }
-  findPart(key) {
-    return this.shadowRoot.querySelector(`[part="${key}"]`);
+  findElement(id) {
+    return this.shadowRoot.getElementById(id);
   }
   handledItems = /* @__PURE__ */ new WeakSet();
   constructor() {
@@ -5174,16 +5174,16 @@ var TaskListElement = class extends HTMLElement {
     this.shadowRoot.innerHTML = task_list_default2;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET17);
     this.dragAndDropQueryParent = this.parentElement == null ? this.getRootNode() : this.parentElement.getRootNode();
-    this.findPart("name").addEventListener("change", (event) => {
+    this.findElement("name").addEventListener("change", (event) => {
       this.dispatchEvent(new CustomEvent("change", { bubbles: true, cancelable: true, detail: { target: event.target } }));
     });
-    this.findPart("color").addEventListener("change", (event) => {
+    this.findElement("color").addEventListener("change", (event) => {
       this.dispatchEvent(new CustomEvent("change", { bubbles: true, cancelable: true, detail: { target: event.target } }));
     });
-    this.findPart("collapse-button").addEventListener("click", () => {
+    this.findElement("collapse-button").addEventListener("click", () => {
       this.toggleHidden();
     });
-    this.findPart("add-button").addEventListener("click", () => {
+    this.findElement("add-button").addEventListener("click", () => {
       const order = this.querySelectorAll(`:scope > ${this.TASKCARD_TAG_NAME}`).length;
       this.dispatchEvent(new CustomEvent("add", { bubbles: true, cancelable: true, detail: { order } }));
     });
@@ -5208,6 +5208,17 @@ var TaskListElement = class extends HTMLElement {
         }
       }
     });
+    this.#applyPartAttributes();
+  }
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      classedElements[i].part.add(...classedElements[i].classList);
+    }
   }
   toggleHidden() {
     if (this.getAttribute("collapsed") == null) {
@@ -5217,23 +5228,23 @@ var TaskListElement = class extends HTMLElement {
     }
   }
   hide() {
-    this.findPart("collapse-icon").textContent = "\u25BC";
+    this.findElement("collapse-icon").textContent = "\u25BC";
     this.setAttribute("collapsed", "");
     this.dispatchEvent(new CustomEvent("collapse", { bubbles: true, cancelable: true }));
   }
   show() {
-    this.findPart("collapse-icon").textContent = "\u25B2";
+    this.findElement("collapse-icon").textContent = "\u25B2";
     this.removeAttribute("collapsed");
     this.dispatchEvent(new CustomEvent("collapse", { bubbles: true, cancelable: true }));
   }
   static observedAttributes = ["name", "description", "color", "collapsed", "drag-drop"];
   attributeChangedCallback(attributeName, oldValue, newValue) {
     if (attributeName == "name") {
-      this.findPart("name").value = newValue;
+      this.findElement("name").value = newValue;
     } else if (attributeName == "description") {
-      this.findPart("header").title = newValue;
+      this.findElement("header").title = newValue;
     } else if (attributeName == "color") {
-      this.findPart("color").value = newValue;
+      this.findElement("color").value = newValue;
     } else if (attributeName == "collapsed") {
       if (newValue === "true") {
         this.classList.add("collapsed");
@@ -5329,38 +5340,28 @@ if (customElements.get(COMPONENT_TAG_NAME17) == null) {
   customElements.define(COMPONENT_TAG_NAME17, TaskListElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+task-card@0.0.17/node_modules/@magnit-ce/task-card/dist/task-card.js
-var task_card_default = ':host\n{\n    --border-color: rgb(95, 95, 95);\n    border: solid 1px var(--border-color);\n    border-radius: 3px;\n    padding: 0;\n    margin: .25em;\n    display: inline-flex;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(71, 71, 71);\n    }\n}\n\n[part="color-container"]\n{\n    display: contents;\n}\n\n[part="color"]\n{\n    margin: 0;\n    padding: 0;\n    width: 7.5px;\n    min-height: 0;\n    height: auto;\n    border: none;\n}\n[part="color"]::-moz-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch-wrapper \n{\n    padding: 0;\n    margin: 0;\n}\n\n[part="color"]::-webkit-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n[part="is-finished"]\n{\n    margin: 1em .5em;\n}\n\n[part="finished-indicator"]\n{\n    margin-block: var(--margin, .5em);\n    background: var(--background);\n    background-color: var(--background-color, transparent);\n    background-image: var(--background-image, none);\n    border: var(--border, none);\n    color: var(--color);\n}\n\n\n[part="is-finished"]:checked ~ slot [part="description"]\n,[part="is-finished"]:checked ~ ::slotted([slot="description"])\n{\n    text-decoration: line-through;\n}\n\n::slotted([slot="custom-check"])\n{\n    display: none;\n}\n[part="is-finished"]:checked ~ [part="finished-indicator"]\n{\n    background: var(--finished-background);\n    background-color: var(--finished-background-color, transparent);\n    background-image: var(--finished-background-image, none);\n    border: var(--finished-border, none);\n    color: var(--finished-color);\n}\n[part="is-finished"]:checked ~ [part="finished-indicator"] ::slotted([slot="custom-check"])\n{\n    display: var(--custom-check-display, block);\n}\n\n[part="description"]\n{\n    /* user-agent input defaults */\n    --input-border-color: rgb(118, 118, 118);\n\n    min-height: 1.2em;\n    min-width: 24px;\n    resize: both;\n    background-color: field;\n    color: fieldtext;\n    border: solid 1px var(--input-border-color, fieldtext);\n    padding: 3px 15px 3px 5px;\n    font-size: 12px;\n    font-family: sans-serif;\n    display: block;\n    border-radius: 2px;\n    overflow: auto;\n    overflow-wrap: normal;\n\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        /* user-agent input defaults */\n        --input-border-color: rgb(133, 133, 133);\n    }\n}\n\n[part="description"]\n,::slotted([slot="description"])\n{\n    margin: 1em .5em 1em 0;\n    flex: 1;\n}\n\n[part="remove-button"]\n{\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n}\n[part="remove-icon"]\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}\n\n\n:host(.stacked)\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n:host(.stacked) [part="color-container"]\n,:host(.stacked) [part="color"]\n{\n    grid-row: 2;\n    grid-column: 2;\n    width: 14px;\n    height: 14px;\n    margin-block-end: 7px;\n    margin-block-start: 0;\n    border-radius: 3px;\n    align-self: center;\n    justify-self: center;\n}\n\n:host(.stacked) [part="handle"]\n{\n    grid-row: span 2;\n    grid-column: 1;\n}\n\n:host(.stacked) [part="is-finished"]\n,:host(.stacked) [part="finished-indicator"]\n{\n    grid-row: 1;\n    grid-column: 2;\n    margin-block-start: 7px;\n    margin-block-end: 0;\n}\n\n:host(.stacked) [part="description"]\n,:host(.stacked) [part="remove-button"]\n{\n    grid-row: span 2;\n}';
-var task_card_default2 = '<slot name="handle">\n    <span part="handle"></span>\n</slot>\n<label part="color-container">\n    <input type="color" part="color" value="#919191" />\n</label>\n<input type="checkbox" part="is-finished" title="Finished?" id="finished-checkbox" />\n<label part="finished-indicator" for="finished-checkbox"><slot name="custom-check"></slot></label>\n<slot name="description"><div part="description" contenteditable="true"></div></slot>\n<button type="button" part="remove-button" title="Delete">\n    <slot name="remove-button-label">\n        <svg part="remove-icon" class="icon close-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">\n            <path\n            style="display:inline;fill:var(--icon-primary-color,InfoText);fill-opacity:1;stroke:var(--icon-secondary-color,InfoBackground);stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"\n            d="m 3.8656768,2.2287478 a 1.6392814,1.6392814 0 0 0 -1.15929,0.48032 1.6392814,1.6392814 0 0 0 0,2.31816 l 6.38181,6.3818002 -6.38181,6.38182 a 1.6392814,1.6392814 0 0 0 0,2.31814 1.6392814,1.6392814 0 0 0 2.31816,0 l 6.3818102,-6.3818 6.38181,6.3818 a 1.6392814,1.6392814 0 0 0 2.31816,0 1.6392814,1.6392814 0 0 0 0,-2.31814 l -6.38182,-6.38182 6.38182,-6.3818002 a 1.6392814,1.6392814 0 0 0 0,-2.31816 1.6392814,1.6392814 0 0 0 -1.15929,-0.48032 1.6392814,1.6392814 0 0 0 -1.15887,0.48032 l -6.38181,6.38181 -6.3818102,-6.38181 a 1.6392814,1.6392814 0 0 0 -1.15887,-0.48032 z" />\n        </svg>\n    </slot>\n</button>';
+// node_modules/.pnpm/@magnit-ce+task-card@0.0.22/node_modules/@magnit-ce/task-card/dist/task-card.js
+var task_card_default = ':host\n{\n    --border-color: rgb(95, 95, 95);\n    border: solid 1px var(--border-color);\n    border-radius: 3px;\n    padding: 0;\n    margin: .25em;\n    display: inline-flex;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(71, 71, 71);\n    }\n}\n\n#color-container\n{\n    display: contents;\n}\n\n#color\n{\n    margin: 0;\n    padding: 0;\n    width: 7.5px;\n    min-height: 0;\n    height: auto;\n    border: none;\n}\n#color::-moz-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n#color::-webkit-color-swatch-wrapper \n{\n    padding: 0;\n    margin: 0;\n}\n\n#color::-webkit-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n#is-finished\n{\n    margin: 1em .5em;\n}\n\n:host(.custom-checkbox) #is-finished\n{\n    display: none;\n}\n\n#finished-indicator\n{\n    margin-block: var(--margin-block, var(--margin, .5em));\n    margin-inline: var(--margin-inline, var(--margin, .5em));\n    background: var(--background);\n    background-color: var(--background-color, field);\n    background-image: var(--background-image, none);\n    border: var(--border, solid 1px fieldtext);\n    color: var(--color);\n    min-width: 13px;\n    min-height: 13px;\n    border-radius: 3px;\n    padding: 1px 2px;\n    box-sizing: border-box;\n}\n:host(:not(.custom-checkbox)) #finished-indicator\n{\n    display: none;\n}\n\n\n#is-finished:checked ~ slot #description\n,#is-finished:checked ~ ::slotted([slot="description"])\n{\n    text-decoration: line-through;\n}\n\n::slotted([slot="custom-check"])\n{\n    visibility: hidden;\n}\n#is-finished:checked ~ #finished-indicator\n{\n    background: var(--finished-background);\n    background-color: var(--finished-background-color, transparent);\n    background-image: var(--finished-background-image, none);\n    border: var(--finished-border, solid 1px fieldtext);\n    color: var(--finished-color);\n}\n#is-finished:checked ~ #finished-indicator ::slotted([slot="custom-check"])\n{\n    visibility: var(--custom-check-visibility, visible);\n    display: var(--custom-check-display, block);\n}\n\n#description\n{\n    /* user-agent input defaults */\n    --input-border-color: rgb(118, 118, 118);\n\n    min-height: 1.2em;\n    min-width: 24px;\n    resize: both;\n    background-color: field;\n    color: fieldtext;\n    border: solid 1px var(--input-border-color, fieldtext);\n    padding: 3px 15px 3px 5px;\n    font-size: 12px;\n    font-family: sans-serif;\n    display: block;\n    border-radius: 2px;\n    overflow: auto;\n    overflow-wrap: normal;\n\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        /* user-agent input defaults */\n        --input-border-color: rgb(133, 133, 133);\n    }\n}\n\n#description\n,::slotted([slot="description"])\n{\n    margin: 1em .5em 1em 0;\n    flex: 1;\n}\n\n#remove-button\n{\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n}\n#remove-icon\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}\n\n\n:host(.stacked)\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n:host(.stacked) #color-container\n,:host(.stacked) #color\n{\n    grid-row: 2;\n    grid-column: 2;\n    width: 14px;\n    height: 14px;\n    margin-block-end: 7px;\n    margin-block-start: 0;\n    border-radius: 3px;\n    align-self: center;\n    justify-self: center;\n}\n\n:host(.stacked) #handle\n{\n    grid-row: span 2;\n    grid-column: 1;\n}\n\n:host(.stacked) #is-finished\n{\n    grid-row: 1;\n    grid-column: 2;\n    margin-block-start: 7px;\n    margin-block-end: 0;\n}\n\n:host(.stacked) #description\n,:host(.stacked) #remove-button\n{\n    grid-row: span 2;\n}';
+var task_card_default2 = '<slot name="handle">\n    <span id="handle"></span>\n</slot>\n<label id="color-container">\n    <input type="color" id="color" class="input" value="#919191" />\n</label>\n<input type="checkbox" id="is-finished" class="input checkbox" title="Finished?" />\n<label id="finished-indicator" for="is-finished">\n    <slot id="custom-check" name="custom-check"></slot>\n</label>\n<slot name="description"><div id="description" contenteditable="true"></div></slot>\n<button type="button" id="remove-button" class="button" title="Delete">\n    <slot name="remove-button-label">\n        <svg id="remove-icon" class="icon close-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">\n            <path\n            style="display:inline;fill:var(--icon-primary-color,InfoText);fill-opacity:1;stroke:var(--icon-secondary-color,InfoBackground);stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"\n            d="m 3.8656768,2.2287478 a 1.6392814,1.6392814 0 0 0 -1.15929,0.48032 1.6392814,1.6392814 0 0 0 0,2.31816 l 6.38181,6.3818002 -6.38181,6.38182 a 1.6392814,1.6392814 0 0 0 0,2.31814 1.6392814,1.6392814 0 0 0 2.31816,0 l 6.3818102,-6.3818 6.38181,6.3818 a 1.6392814,1.6392814 0 0 0 2.31816,0 1.6392814,1.6392814 0 0 0 0,-2.31814 l -6.38182,-6.38182 6.38182,-6.3818002 a 1.6392814,1.6392814 0 0 0 0,-2.31816 1.6392814,1.6392814 0 0 0 -1.15929,-0.48032 1.6392814,1.6392814 0 0 0 -1.15887,0.48032 l -6.38181,6.38181 -6.3818102,-6.38181 a 1.6392814,1.6392814 0 0 0 -1.15887,-0.48032 z" />\n        </svg>\n    </slot>\n</button>';
 var COMPONENT_STYLESHEET18 = new CSSStyleSheet();
 COMPONENT_STYLESHEET18.replaceSync(task_card_default);
 var COMPONENT_TAG_NAME18 = "task-card";
 var TaskCardElement = class extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
-  /**
-   * Query for a part in the element's shadow DOM and then caches it so that the next time this function is called, the cached element can be provided.
-   * @param key the part value of the child element to query for
-   * @returns the requested `HTMLElement` or `undefined`
-   */
-  getPart(key) {
-    if (this.componentParts.get(key) == null) {
-      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
+  getElement(id) {
+    if (this.componentParts.get(id) == null) {
+      const part = this.findElement(id);
       if (part != null) {
-        this.componentParts.set(key, part);
+        this.componentParts.set(id, part);
       }
     }
-    return this.componentParts.get(key);
+    return this.componentParts.get(id);
   }
-  /**
-   * Query for a part in the element's shadow DOM
-   * @param key the part value of the child element to query for
-   * @returns the requested `HTMLElement` or `undefined`
-   */
-  findPart(key) {
-    return this.shadowRoot.querySelector(`[part="${key}"]`);
+  findElement(id) {
+    return this.shadowRoot.getElementById(id);
   }
   get value() {
-    return this.findPart("description").textContent;
+    return this.findElement("description").textContent;
   }
   #previousValue = null;
   constructor() {
@@ -5368,21 +5369,53 @@ var TaskCardElement = class extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = task_card_default2;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET18);
-    this.findPart("color").addEventListener("change", (event) => {
-      this.dispatchEvent(new CustomEvent("change", { bubbles: true, cancelable: true, detail: { target: event.target } }));
+    this.findElement("custom-check").addEventListener("slotchange", (event) => {
+      const customCheck = event.target.assignedNodes()[0];
+      this.classList.toggle("custom-checkbox", customCheck != null);
     });
-    this.findPart("is-finished").addEventListener("change", (event) => {
-      this.dispatchEvent(new CustomEvent("change", { bubbles: true, cancelable: true, detail: { target: event.target } }));
+    this.findElement("color").addEventListener("change", (event) => {
+      this.dispatchEvent(new CustomEvent("change", { bubbles: true, cancelable: true, composed: true, detail: this.#getCardData("color") }));
     });
-    this.findPart("description").addEventListener("blur", (event) => {
+    this.findElement("is-finished").addEventListener("change", (event) => {
+      const isAllowed = this.dispatchEvent(new CustomEvent("change", { bubbles: true, cancelable: true, composed: true, detail: this.#getCardData("is-finished") }));
+      if (isAllowed == false) {
+        return;
+      }
+      const finished = event.target.checked;
+      this.classList.toggle("finished", finished);
+      this.part.toggle("finished", finished);
+      const indicator = this.findElement("finished-indicator");
+      indicator.classList.toggle("finished", finished);
+      indicator.part.toggle("finished", finished);
+    });
+    this.findElement("description").addEventListener("blur", (event) => {
       if (this.value != this.#previousValue) {
-        this.dispatchEvent(new CustomEvent("change", { bubbles: true, cancelable: true, detail: { target: event.target } }));
+        this.dispatchEvent(new CustomEvent("change", { bubbles: true, cancelable: true, composed: true, detail: this.#getCardData("description") }));
       }
       this.#previousValue = this.value;
     });
-    this.findPart("remove-button").addEventListener("click", () => {
-      this.dispatchEvent(new CustomEvent("remove", { bubbles: true, cancelable: true }));
+    this.findElement("remove-button").addEventListener("click", (event) => {
+      this.dispatchEvent(new CustomEvent("remove", { bubbles: true, cancelable: true, composed: true }));
     });
+    this.#applyPartAttributes();
+  }
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      classedElements[i].part.add(...classedElements[i].classList);
+    }
+  }
+  #getCardData(currentUpdate) {
+    return {
+      currentUpdate,
+      color: this.findElement("color").value,
+      isFinished: this.findElement("is-finished").checked,
+      description: this.findElement("description").textContent
+    };
   }
   static create(props) {
     const element = document.createElement(COMPONENT_TAG_NAME18);
@@ -5402,11 +5435,17 @@ var TaskCardElement = class extends HTMLElement {
   static observedAttributes = ["value", "description", "color", "is-finished"];
   attributeChangedCallback(attributeName, _oldValue, newValue) {
     if (attributeName == "value" || attributeName == "description") {
-      this.findPart("description").textContent = newValue;
+      this.findElement("description").textContent = newValue;
     } else if (attributeName == "is-finished") {
-      this.findPart("is-finished").checked = newValue == "true";
+      const finished = newValue == "true";
+      this.findElement("is-finished").checked = finished;
+      this.classList.toggle("finished", finished);
+      this.part.toggle("finished", finished);
+      const indicator = this.findElement("finished-indicator");
+      indicator.classList.toggle("finished", finished);
+      indicator.part.toggle("finished", finished);
     } else if (attributeName == "color") {
-      this.findPart("color").value = newValue;
+      this.findElement("color").value = newValue;
     }
   }
 };
@@ -9338,7 +9377,7 @@ var TaskboardManagerElement3 = class extends HTMLElement {
       element.toggleAttribute("drag-drop", true);
       element.setAttribute("part", "task-list");
       element.style.setProperty("--list-color", list.color);
-      element.setAttribute("exportparts", "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, tasks:list-tasks, add-button:list-add-button");
+      element.setAttribute("exportparts", "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, tasks:list-tasks, add-button:list-add-button, button, input, finished:task-finished");
       element.dragAndDropQueryParent = board;
       if (list.useCustomWidth == true) {
         element.style.setProperty("--list-width", `${list.width}px`);
@@ -9541,9 +9580,9 @@ var TaskboardManagerElement3 = class extends HTMLElement {
       throw new Error(`Unable to update tasklist. No tasklist found with target id (${id}).`);
     }
     const listPreviousName = taskList.name;
-    const inputNameValue = taskListComponent.findPart("name").value;
+    const inputNameValue = taskListComponent.findElement("name").value;
     const listPreviousColor = taskList.color;
-    const inputColorValue = taskListComponent.findPart("color").value;
+    const inputColorValue = taskListComponent.findElement("color").value;
     taskList.name = inputNameValue;
     taskList.color = inputColorValue;
     await lists.save(taskList);
@@ -9662,8 +9701,8 @@ var TaskboardManagerElement3 = class extends HTMLElement {
     const task = await this.#getTaskFromComponent(taskComponent);
     const previousValues = structuredClone(task);
     task.listId = listId;
-    task.color = taskComponent.findPart("color").value;
-    task.isFinished = taskComponent.findPart("is-finished").checked;
+    task.color = taskComponent.findElement("color").value;
+    task.isFinished = taskComponent.findElement("is-finished").checked;
     task.description = taskComponent.value ?? "";
     const tasks = [...parentList.querySelectorAll("task-card")];
     task.order = tasks.indexOf(taskComponent);
@@ -9721,9 +9760,9 @@ var TaskboardManagerElement3 = class extends HTMLElement {
     card.setAttribute("description", task.description);
     card.setAttribute("draggable", "true");
     card.setAttribute("part", "task-card");
-    card.setAttribute("exportparts", "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator");
+    card.setAttribute("exportparts", "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator, button, input, finished");
     card.style.setProperty("--task-color", task.color);
-    card.findPart("description").addEventListener("keyup", taskDescription_onKeyUp.bind(this));
+    card.findElement("description").addEventListener("keyup", taskDescription_onKeyUp.bind(this));
   }
   // history    
   async #refreshActionHistory() {

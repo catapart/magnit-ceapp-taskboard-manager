@@ -307,11 +307,96 @@ taskboard-manager[data-theme="dossier"]::part(app-router)
     background-color: var(--shade-2);
 }
 
+taskboard-manager[data-theme="dossier"]::part(list-header)
+{
+    margin: 7px;
+    padding: 0;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+taskboard-manager[data-theme="dossier"]::part(list-color-container)
+{
+    grid-row: 2;
+    grid-column: span 2;
+    display: flex;
+}
+
+taskboard-manager[data-theme="dossier"]::part(list-color)
+{
+    flex: 1;
+    height: 3px;
+    border-radius: 2px;
+}
+
+taskboard-manager[data-theme="dossier"]::part(list-name)
+{
+    background: transparent;
+    border: none;
+    color: var(--text-highlight);
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 7px;
+    text-transform: uppercase;
+}
+
+taskboard-manager[data-theme="dossier"]::part(list-collapse)
+{
+    border: none;
+    color: var(--text);
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 7px;
+    text-transform: uppercase;
+}
+taskboard-manager[data-theme="dossier"]::part(list-collapse):hover
+{
+    background: transparent;
+    color: var(--text-highlight);
+}
 
 taskboard-manager[data-theme="dossier"]::part(task-card)
 {
     background-color: var(--task-background-color, var(--shade-3));
     border: solid 1px transparent;
+}
+
+
+taskboard-manager[data-theme="dossier"]::part(task-checkbox)
+{
+    display: none;
+}
+
+taskboard-manager[data-theme="dossier"]::part(task-finished-indicator)
+{
+    --size: 20px;
+    width: var(--size);
+    height: var(--size);
+    background-color: rgb(0 0 0 / .3);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+taskboard-manager[data-theme="dossier"]::part(task-finished-indicator finished)::before
+{
+    margin-top: 3px;
+    /* green: 749d23*/
+    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="%23fbf9fe" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>');
+}
+
+taskboard-manager[data-theme="dossier"]::part(task-remove-button)
+{
+    border: none;
+    color: var(--text);
+    padding: 7px;
+}
+taskboard-manager[data-theme="dossier"]::part(task-remove-button):hover
+{
+    background: rgb(0 0 0 / .2);
 }
 
 taskboard-manager[data-theme="dossier"]::part(task-description)
