@@ -5,7 +5,7 @@
     <span id="config-title" class="title">Configuration</span>
 </header>
 <menu id="config-navigation" class="navigation">
-    <a data-route="#config/settings" id="settings-nav-item" class="nav-item">
+    <a data-route="#config/settings" id="settings-nav-item" class="nav-item first">
         <svg id="settings-route-icon" class="icon nav-item-icon">
             <use href="#icon-definition_gear"></use>
         </svg>
@@ -23,7 +23,7 @@
         </svg>
         <span class="nav-item-label">History</span>
     </a>
-    <a data-route="#config/about" id="about-nav-item"  class="nav-item">
+    <a data-route="#config/about" id="about-nav-item"  class="nav-item last">
         <svg id="about-route-icon" class="icon nav-item-icon">
             <use href="#icon-definition_info"></use>
         </svg>
@@ -31,23 +31,71 @@
     </a>
 </menu>
 <path-router id="config-router" class="router" path="settings">
-    <route-page path="settings" id="settings-page" class="page">
-        <settings-panel id="settings-panel" exportparts="key">
+    <route-page path="settings" id="settings-page" class="page config-page">
+        <settings-panel
+            id="settings-panel"
+            exportparts="settings-header,
+                         header,
+                         page-header,
+                         fieldset,
+                         config-fieldset,
+                         legend,
+                         config-legend,
+                         color-scheme-fieldset,
+                         color-scheme-legend,
+                         scheme-options,
+                         button-group,
+                         button,
+                         scheme,
+                         selected,
+                         first,
+                         last,
+                         inherit-button,
+                         browser-button,
+                         light-button,
+                         dark-button,
+                         custom-settings-fieldset,
+                         custom-settings-legend,
+                         shortcuts-fieldset,
+                         shortcuts-legend,
+                         shortcuts,
+                         shortcut,
+                         word,
+                         line,
+                         hightlight,
+                         task,
+                         list,
+                         key,
+                         shortcut-title,
+                         shortcut-description,
+                         previous-word,
+                         next-word,
+                         previous-line,
+                         next-line,
+                         highlight-previous-word,
+                         highlight-next-word,
+                         previous-line,
+                         next-line,
+                         previous-task,
+                         next-task,
+                         previous-list,
+                         next-list
+                         ">
             <slot name="custom-settings" slot="custom-settings"></slot>
         </settings-panel>
     </route-page>
-    <route-page path="data" id="data-page" class="page">
+    <route-page path="data" id="data-page" class="page config-page">
         <data-panel id="data-panel">
             <slot name="deleted-images" slot="deleted-images"></slot>
             <slot name="deleted-items" slot="deleted-items"></slot>
         </data-panel>
     </route-page>
-    <route-page path="history" id="history-page" class="page">
+    <route-page path="history" id="history-page" class="page config-page">
         <history-panel id="history-panel">
             <slot name="action-history" slot="action-history"></slot>
         </history-panel>
     </route-page>
-    <route-page path="about" id="about-page" class="page">
+    <route-page path="about" id="about-page" class="page config-page">
         <about-panel id="about-panel"></about-panel>
     </route-page>
 </path-router>

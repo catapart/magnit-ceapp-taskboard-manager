@@ -1,46 +1,68 @@
 
-<header id="header">App Settings</header>
-<fieldset id="color-scheme-fieldset">
-    <legend id="color-scheme-legend">Color Scheme</legend>
+<header id="settings-header" class="header page-header">App Settings</header>
+<fieldset id="color-scheme-fieldset" class="fieldset config-fieldset">
+    <legend id="color-scheme-legend" class="legend config-legend">Color Scheme</legend>
     <div class="button-group" id="scheme-options">
-        <button class="button scheme" id="inherit-button" data-value="inherit">Inherit</button>
+        <button class="button scheme first" id="inherit-button" data-value="inherit">Inherit</button>
         <button class="button scheme" id="browser-button" data-value="browser">Browser</button>
         <button class="button scheme" id="light-button" data-value="light">Light</button>
-        <button class="button scheme" id="dark-button" data-value="dark">Dark</button>
+        <button class="button scheme last" id="dark-button" data-value="dark">Dark</button>
     </div>
 </fieldset>
-<fieldset id="custom-settings-fieldset">
-    <legend id="custom-settings-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>
+<fieldset id="custom-settings-fieldset" class="fieldset config-fieldset">
+    <legend id="custom-settings-legend" class="legend config-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>
     <slot name="custom-settings">[ No Custom Settings ]</slot>
 </fieldset>
-<fieldset id="hotkeys-fieldset">
-    <legend id="hotkeyss-legend">Hot Keys</legend>
-    <dl id="hotkeys-list">
-        <dt class="hotkey-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Left</kbd></dt>
-        <dd class="hotkey-description">Move text cursor to previous word.</dd>
-        <dt class="hotkey-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Right</kbd></dt>
-        <dd class="hotkey-description">Move text cursor to next word.</dd>
-        <dt class="hotkey-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Up</kbd></dt>
-        <dd class="hotkey-description">Move text cursor to closest word in previous line.</dd>
-        <dt class="hotkey-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Down</kbd></dt>
-        <dd class="hotkey-description">Move text cursor to closest word in next line.</dd>
-
-        <dt class="hotkey-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Left</kbd></dt>
-        <dd class="hotkey-description">Highlight from the current cursor position to the start of the previous word.</dd>
-        <dt class="hotkey-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Right</kbd></dt>
-        <dd class="hotkey-description">Highlight from the current cursor position to the end of the next word.</dd>
-        <dt class="hotkey-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Up</kbd></dt>
-        <dd class="hotkey-description">Highlight from the current cursor position to the closest position in the previous line.</dd>
-        <dt class="hotkey-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Down</kbd></dt>
-        <dd class="hotkey-description">Highlight from the current cursor position to the closest position in the next line.</dd>
-
-        <dt class="hotkey-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Left</kbd></dt>
-        <dd class="hotkey-description">Move to the task in the previous list.</dd>
-        <dt class="hotkey-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Right</kbd></dt>
-        <dd class="hotkey-description">Move to the task in the previous list.</dd>
-        <dt class="hotkey-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Up</kbd></dt>
-        <dd class="hotkey-description">Move to the task in the previous list.</dd>
-        <dt class="hotkey-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Down</kbd></dt>
-        <dd class="hotkey-description">Move to the task in the previous list.</dd>
-    </dl>
+<fieldset id="shortcuts-fieldset" class="fieldset config-fieldset">
+    <legend id="shortcuts-legend" class="legend config-legend">Shortcuts</legend>
+    <div id="shortcuts">
+        <div id="previous-word" class="shortcut word">
+            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Left</kbd></div>
+            <div class="shortcut-description">Move text cursor to previous word.</div>
+        </div>
+        <div id="next-word" class="shortcut word">
+            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Right</kbd></div>
+            <div class="shortcut-description">Move text cursor to next word.</div>
+        </div>
+        <div id="previous-line" class="shortcut line">
+            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Up</kbd></div>
+            <div class="shortcut-description">Move text cursor to closest word in previous line.</div>
+        </div>
+        <div id="next-line" class="shortcut line">
+            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Down</kbd></div>
+            <div class="shortcut-description">Move text cursor to closest word in next line.</div>
+        </div>
+        <div id="highlight-previous-word" class="shortcut highlight word">
+            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Left</kbd></div>
+            <div class="shortcut-description">Highlight from the current cursor position to the start of the previous word.</div>
+        </div>
+        <div id="highlight-next-word" class="shortcut highlight word">
+            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Right</kbd></div>
+            <div class="shortcut-description">Highlight from the current cursor position to the end of the next word.</div>
+        </div>
+        <div id="previous-line" class="shortcut highlight line">
+            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Up</kbd></div>
+            <div class="shortcut-description">Highlight from the current cursor position to the closest position in the previous line.</div>
+        </div>
+        <div id="next-line" class="shortcut highlight line">
+            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Down</kbd></div>
+            <div class="shortcut-description">Highlight from the current cursor position to the closest position in the next line.</div>
+        </div>
+        <div id="previous-task" class="shortcut task">
+            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Left</kbd></div>
+            <div class="shortcut-description">Move to the task in the previous list</div>
+        </div>
+        <div id="next-task" class="shortcut task">
+            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Right</kbd></div>
+            <div class="shortcut-description">Move to the task in the next list.</div>
+        </div>
+        <div id="next-list" class="shortcut task list">
+            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Up</kbd></div>
+            <div class="shortcut-description">Move to the task in the previous list.</div>
+        </div>
+        <div id="previous-list" class="shortcut task list">
+            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Down</kbd></div>
+            <div class="shortcut-description">Move to the task in the previous list.</div>
+        </div>
+    </div>
 </fieldset>

@@ -99,10 +99,18 @@ function router_onPathChange(this: TaskboardManagerElement, event: Event|CustomE
         for(let i = 0; i < configMenuItems.length; i++)
         {
             configMenuItems[i].toggleAttribute('aria-current', false);
+            configMenuItems[i].classList.toggle('selected', false);
+            configMenuItems[i].part.toggle('selected', false);
         }
-        configPanel.findElement('config-navigation')
-        .querySelector(`[data-route="#${hashRoute}"]`)?.setAttribute('aria-current', 'page');
         configPanel.findElement('config-router').setAttribute('path', configRoute);
+
+        const menuItem = configPanel.findElement('config-navigation')
+        .querySelector(`[data-route="#${hashRoute}"]`);
+        if(menuItem == null) { return; }
+
+        menuItem.setAttribute('aria-current', 'page');
+        menuItem.part.toggle('selected', true);
+        menuItem.classList.toggle('selected', true);
     }
 
 

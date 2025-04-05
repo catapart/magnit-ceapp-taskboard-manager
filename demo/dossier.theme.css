@@ -197,7 +197,6 @@ taskboard-manager[data-theme="dossier"]::part(dialog-header)
 taskboard-manager[data-theme="dossier"]::part(dialog)
 {
     padding: 0;
-    margin: 0 20px;
     border: solid 1px;
     border-radius: 3px;
     border: none;
@@ -253,6 +252,140 @@ taskboard-manager[data-theme="dossier"]::part(board-gallery-item):hover
 {
     background-color: var(--secondary);
     border: solid 1px rgb(0 0 0 / .7);
+}
+
+taskboard-manager[data-theme="dossier"]::part(config-navigation)
+{
+    border: none;
+    border-bottom: solid 2px var(--secondary);
+    background: transparent;
+    margin: 7px 14px 0;
+}
+
+taskboard-manager[data-theme="dossier"]::part(nav-item):hover
+,taskboard-manager[data-theme="dossier"]::part(nav-item selected)
+{
+    background-color: var(--secondary);
+}
+
+taskboard-manager[data-theme="dossier"]::part(settings-header)
+{
+    margin: 14px 0;
+    padding: 7px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    margin: 7px;
+}
+
+taskboard-manager[data-theme="dossier"]::part(config-page)
+{
+    margin: 0 14px;
+}
+
+taskboard-manager[data-theme="dossier"]::part(config-fieldset)
+{
+    margin: 0 14px;
+    border: solid 1px var(--primary);
+}
+
+taskboard-manager[data-theme="dossier"]::part(config-legend)
+{
+    padding: 3px 5px;
+    background-color: var(--primary);
+    border-radius: 2px;
+    text-transform: uppercase;
+}
+
+taskboard-manager[data-theme="dossier"]::part(settings-panel)
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+}
+
+taskboard-manager[data-theme="dossier"]::part(settings-header)
+{
+    grid-column: span 2;
+}
+
+taskboard-manager[data-theme="dossier"]::part(button-group)
+{
+    display: flex;
+    align-items: center;
+}
+
+taskboard-manager[data-theme="dossier"]::part(button scheme)
+{
+    background: none;
+    border: solid 2px var(--primary);
+    border-radius: 0;
+    border-left: none;
+    flex: 1;
+}
+taskboard-manager[data-theme="dossier"]::part(scheme first)
+{
+    border-left: solid 2px var(--primary);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+taskboard-manager[data-theme="dossier"]::part(scheme last)
+{
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+taskboard-manager[data-theme="dossier"]::part(scheme selected)
+{
+    background-color: var(--primary);
+}
+
+taskboard-manager[data-theme="dossier"]::part(color-scheme-fieldset)
+{
+    margin-right: 0;
+    display: grid;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+taskboard-manager[data-theme="dossier"]::part(custom-settings-fieldset)
+{
+    margin-left: 0;
+}
+
+taskboard-manager[data-theme="dossier"]::part(shortcuts-fieldset)
+{
+    padding: 14px;
+    grid-column: span 2;
+}
+
+taskboard-manager[data-theme="dossier"]::part(shortcuts)
+{
+    display: grid;
+    border: solid 1px var(--primary);
+    border-top: none;
+}
+taskboard-manager[data-theme="dossier"]::part(shortcut)
+{
+    display: grid;
+    grid-template-columns: 225px 1fr;
+}
+
+taskboard-manager[data-theme="dossier"]::part(shortcut-title)
+{
+    background-color: var(--primary);
+    border-top: solid 1px rgb(63 51 47);
+    padding: 7px;
+    justify-content: flex-end;
+    align-content: center;
+    text-align: right;
+    white-space: nowrap;
+}
+
+taskboard-manager[data-theme="dossier"]::part(shortcut-description)
+{
+    border-top: solid 1px var(--primary);
+    border-left: solid 1px var(--primary);
+    align-content: center;
+    padding: 7px 14px;
 }
 
 taskboard-manager[data-theme="dossier"]::part(branding)

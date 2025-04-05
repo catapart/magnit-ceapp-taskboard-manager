@@ -55,11 +55,13 @@ export class SettingsPanelElement extends HTMLElement
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
         this.#applyPartAttributes();
 
+        // todo: assign save scheme option
         
         const schemeOptions = [...this.findElement('scheme-options').querySelectorAll('button')] as HTMLElement[];
         for(let i = 0; i < schemeOptions.length; i++)
         {
             schemeOptions[i].addEventListener('click', this.#colorSchemeButton_onClick.bind(this));
+            // console.log(schemeOptions[i]);
         }
     }
     #applyPartAttributes()
@@ -94,7 +96,21 @@ export class SettingsPanelElement extends HTMLElement
             this.dispatchEvent(new CustomEvent('error', { detail: { message, consoleMessage }, bubbles: true, composed: true }));
             return;
         }
-        this.dispatchEvent(new CustomEvent('scheme', { detail: { scheme }, bubbles: true, composed: true }));
+        const isAllowed = this.dispatchEvent(new CustomEvent('scheme', { detail: { scheme }, bubbles: true, composed: true }));
+        if(isAllowed == false) { return; }
+
+        const buttons = [...this.shadowRoot!.querySelectorAll('button.scheme')];
+        for(let i = 0; i < buttons.length; i++)
+        {
+            const button = buttons[i];
+            button.classList.remove('selected');
+            button.part.remove('selected');
+        }
+        
+        const button = event.composedPath().find(item => item instanceof HTMLButtonElement) as HTMLButtonElement;
+        if(button == null) { return; }
+        button.classList.add('selected');
+        button.part.add('selected');
     }
 
 

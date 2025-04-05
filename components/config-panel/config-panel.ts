@@ -83,6 +83,7 @@ export class ConfigPanelElement extends HTMLElement
         this.findElement<AboutPanelElement>('about-panel').setVersion(appVersion);
         this.findElement<DataPanelElement>('data-panel').prepareDaysToPersistOptions(daysToPersist);
         this.findElement<HistoryPanelElement>('history-panel').prepareHistoryLength(historyLength);
+
     }
 
     preventDefaultHistoryAction()
