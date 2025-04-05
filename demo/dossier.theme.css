@@ -194,7 +194,7 @@ taskboard-manager[data-theme="dossier"]::part(dialog-header)
     align-items: center;
 }
 
-taskboard-manager[data-theme="dossier"]::part(board-browser-dialog)
+taskboard-manager[data-theme="dossier"]::part(dialog)
 {
     padding: 0;
     margin: 0 20px;
@@ -204,6 +204,32 @@ taskboard-manager[data-theme="dossier"]::part(board-browser-dialog)
     background-color: var(--background);
     box-shadow: 0 0 7px 1px rgb(0 0 0 / .7);
 }
+
+taskboard-manager[data-theme="dossier"]::part(actions)
+{
+    padding: 10px;
+}
+
+taskboard-manager[data-theme="dossier"]::part(browser-filter-input)
+{
+    background-color: var(--shade-0);
+    border: solid 1px rgb(0 0 0 / .8);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+taskboard-manager[data-theme="dossier"]::part(browser-filter-field-button)
+{
+    background-color: rgb(0 0 0 / .15);
+    border: solid 1px rgb(0 0 0 / .3);
+    border-radius: 0;
+}
+taskboard-manager[data-theme="dossier"]::part(browser-filter-search-button)
+{
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-left: none;
+}
+
 
 taskboard-manager[data-theme="dossier"]::part(board-browser-add-button)
 {
@@ -227,11 +253,6 @@ taskboard-manager[data-theme="dossier"]::part(board-gallery-item):hover
 {
     background-color: var(--secondary);
     border: solid 1px rgb(0 0 0 / .7);
-}
-
-taskboard-manager[data-theme="dossier"]::part(board-browser-actions)
-{
-    padding: 10px;
 }
 
 taskboard-manager[data-theme="dossier"]::part(branding)

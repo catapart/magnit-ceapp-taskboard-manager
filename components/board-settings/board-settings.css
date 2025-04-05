@@ -1,5 +1,5 @@
 :host { display: contents; }
-#header
+#board-settings-header
 {
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -8,13 +8,13 @@
     font-weight: bold;
     padding-block: 5px;
 }
-#icon
+#board-settings-icon
 {
     width: var(--dialog-header-icon-size);
     height: var(--dialog-header-icon-size);
 }
 
-#form
+#board-settings-form
 {
     display: flex;
     flex-direction: column;
@@ -31,18 +31,18 @@
     padding: 1em;
 }
 
-#footer
+#board-settings-footer
 {
     display: grid;
     grid-template-columns: auto 1fr auto auto;
     gap: 7px;
     padding-block: 5px;
 }
-#cancel
+#board-settings-cancel
 {
     grid-column: 3;
 }
-#save
+#board-settings-save
 {
     grid-column: 4;
 }

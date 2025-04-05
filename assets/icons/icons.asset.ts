@@ -24,6 +24,7 @@ import { Trash } from "./trash";
 import { UndoRedo } from "./undo-redo";
 import { Restore } from "./restore";
 import { Copy } from './copy';
+import { Data } from './data';
 
 export enum IconType
 {
@@ -53,6 +54,7 @@ export enum IconType
     UndoRedo = "UndoRedo",
     Restore = "Restore",
     Copy = "Copy",
+    Data = "Data",
 }
 
 export const Icons: { [key in IconType]: string } = {
@@ -82,6 +84,7 @@ export const Icons: { [key in IconType]: string } = {
     [IconType.UndoRedo]: UndoRedo,
     [IconType.Restore]: Restore,
     [IconType.Copy]: Copy,
+    [IconType.Data]: Data,
 };
 
 export function defineIcons(...icons: IconType[])

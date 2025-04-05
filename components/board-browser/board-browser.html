@@ -1,8 +1,8 @@
 <header id="board-browser-header" class="header dialog-header">
-    <svg id="icon" >
+    <svg id="board-browser-icon" class="icon board-icon">
         <use href="#icon-definition_task-board"></use>
     </svg>
-    <span id="title">Boards</span>
+    <span id="board-browser-title" class="title">Boards</span>
     <collection-filter 
         id="filter"
         exportparts="search:filter-search,
@@ -10,6 +10,7 @@
                      query:filter-query,
                      input:filter-input,
                      button,
+                     field-button,
                      regex-button:filter-regex-button,
                      search-button:filter-search-button,
                      icon,
@@ -30,10 +31,10 @@
                  add-button-label">
     <slot></slot>
 </collection-browser>
-<footer id="footer">
-    <form id="actions" method="dialog">
-        <button type="submit" id="cancel" class="button">Cancel</button>
-        <button type="submit" id="ok" class="button preferred-button">Open</button>
+<footer id="board-browser-footer" class="footer dialog-footer">
+    <form id="board-browser-actions" class="actions form" method="dialog">
+        <button type="submit" id="board-browser-cancel" class="button action-button cancel">Cancel</button>
+        <button type="submit" id="board-browser-ok" class="button action-button ok preferred-button">Open</button>
     </form>
 </footer>
 

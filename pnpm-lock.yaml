@@ -18,8 +18,8 @@ importers:
         specifier: ^0.0.5
         version: 0.0.5
       '@magnit-ce/collection-filter':
-        specifier: ^0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
       '@magnit-ce/editable-list':
         specifier: ^0.0.11
         version: 0.0.11
@@ -303,8 +303,8 @@ packages:
   '@magnit-ce/collection-browser@0.0.5':
     resolution: {integrity: sha512-Ya223eVNQJ1rCIYcmqj9wd9Ukwwg370xJs2RbWTn9Cey6PYtSxSkgVzYHjx86owjBDBuLlsvO1zFiq1Qxswn7Q==}
 
-  '@magnit-ce/collection-filter@0.0.6':
-    resolution: {integrity: sha512-DoIeah3lmpWX2yJOd5C91W2gBV08WuGcTzkdVidogzdfPb5UNlGnc60xQCfjwAwsJlzaZC+y365WAxs+ya7f/g==}
+  '@magnit-ce/collection-filter@0.0.7':
+    resolution: {integrity: sha512-oNiwCS74IPOTnbvor7PBkLJXeVkJewM9bKr8ajwFvJeS9CC1wJtQd5TGExIF/ciKdsrR9/XuqkWZ9mXvSdsGcw==}
 
   '@magnit-ce/editable-list@0.0.11':
     resolution: {integrity: sha512-MMlsV+atevlflb3cE79L3WAFxS7H/j2BKZEHS93Z7I+qNNzW3DYEh9QFDmTBxLH+ebq/XZxu/jOvDHeQf0o/9A==}
@@ -1675,7 +1675,7 @@ snapshots:
     dependencies:
       '@magnit-ce/selectable-items': 0.1.4
 
-  '@magnit-ce/collection-filter@0.0.6': {}
+  '@magnit-ce/collection-filter@0.0.7': {}
 
   '@magnit-ce/editable-list@0.0.11': {}
 

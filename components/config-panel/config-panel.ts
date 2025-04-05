@@ -31,7 +31,7 @@ COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
     IconType.Gear,
-    // IconType.Data,
+    IconType.Data,
     IconType.Clock,
     IconType.Info,
 )}`;

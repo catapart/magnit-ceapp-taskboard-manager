@@ -1,9 +1,14 @@
-<form method="dialog" id="form">
-    <header id="header">
-        <svg id="icon" class="icon">
+<form method="dialog" id="board-settings-form" class="form">
+    <header id="board-settings-header" class="header dialog-header">
+        <svg id="board-settings-icon" class="icon">
             <use href="#icon-definition_task-board"></use>
         </svg>
-        <span id="title">Board</span>
+        <span id="board-settings-title" class="title">Board</span>
+        <button type="submit" id="close-board-button" class="button header-button" title="Close Board">
+            <svg id="close-board-icon" class="icon">
+                <use href="#icon-definition_close-cross"></use>
+            </svg>
+        </button>
     </header>
     <div id="fields">
         <input type="hidden" name="record-id" id="record-id" />
@@ -139,14 +144,9 @@
             </button>
         </fieldset>
     </div>
-    <footer id="footer">
-        <button type="submit" id="close" title="Close Board">
-        <svg id="close-board-icon" class="icon">
-            <use href="#icon-definition_close-cross"></use>
-        </svg>
-        </button>
-        <button type="submit" id="cancel" id="cancel" title="Cancel changes">Cancel</button>
-        <button type="submit" id="save" id="save" title="Save settings">Save</button>
+    <footer id="board-settings-footer" class="footer dialog-footer">
+        <button type="submit" id="board-settings-cancel" class="button action-button cancel" title="Cancel changes">Cancel</button>
+        <button type="submit" id="board-settings-save" class="button action-button ok preferred-button" title="Save settings">Save</button>
     </footer>
 </form>
 

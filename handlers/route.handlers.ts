@@ -95,14 +95,14 @@ function router_onPathChange(this: TaskboardManagerElement, event: Event|CustomE
 
         const configRoute = hashRoute.substring(7);
         const configPanel = this.findElement('config-panel') as ConfigPanelElement;
-        const configMenuItems = [...configPanel.findElement('navigation').querySelectorAll(`a`)];
+        const configMenuItems = [...configPanel.findElement('config-navigation').querySelectorAll(`a`)];
         for(let i = 0; i < configMenuItems.length; i++)
         {
             configMenuItems[i].toggleAttribute('aria-current', false);
         }
-        configPanel.findElement('navigation')
+        configPanel.findElement('config-navigation')
         .querySelector(`[data-route="#${hashRoute}"]`)?.setAttribute('aria-current', 'page');
-        configPanel.findElement('router').setAttribute('path', configRoute);
+        configPanel.findElement('config-router').setAttribute('path', configRoute);
     }
 
 

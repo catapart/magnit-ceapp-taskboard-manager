@@ -1,36 +1,36 @@
-<header id="header">
-    <svg id="icon" >
+<header id="config-header" class="header dialog-header">
+    <svg id="config-icon" class="icon">
         <use href="#icon-definition_gear"></use>
     </svg>
-    <span id="title">Configuration</span>
+    <span id="config-title" class="title">Configuration</span>
 </header>
-<menu id="navigation">
-    <a data-route="#config/settings" class="nav-item">
-        <svg id="settings-route-icon" class="icon">
+<menu id="config-navigation" class="navigation">
+    <a data-route="#config/settings" id="settings-nav-item" class="nav-item">
+        <svg id="settings-route-icon" class="icon nav-item-icon">
             <use href="#icon-definition_gear"></use>
         </svg>
-        <span>Settings</span>
+        <span class="nav-item-label">Settings</span>
     </a>
-    <a data-route="#config/data" class="nav-item">
-        <svg id="data-route-icon" class="icon">
+    <a data-route="#config/data" id="data-nav-item"  class="nav-item">
+        <svg id="data-route-icon" class="icon nav-item-icon">
             <use href="#icon-definition_data"></use>
         </svg>
-        <span>Data</span>
+        <span class="nav-item-label">Data</span>
     </a>
-    <a data-route="#config/history" class="nav-item">
-        <svg id="history-route-icon" class="icon">
+    <a data-route="#config/history" id="history-nav-item"  class="nav-item">
+        <svg id="history-route-icon" class="icon nav-item-icon">
             <use href="#icon-definition_clock"></use>
         </svg>
-        <span>History</span>
+        <span class="nav-item-label">History</span>
     </a>
-    <a data-route="#config/about" class="nav-item">
-        <svg id="about-route-icon" class="icon">
+    <a data-route="#config/about" id="about-nav-item"  class="nav-item">
+        <svg id="about-route-icon" class="icon nav-item-icon">
             <use href="#icon-definition_info"></use>
         </svg>
-        <span>About</span>
+        <span class="nav-item-label">About</span>
     </a>
 </menu>
-<path-router id="router" path="settings">
+<path-router id="config-router" class="router" path="settings">
     <route-page path="settings" id="settings-page" class="page">
         <settings-panel id="settings-panel" exportparts="key">
             <slot name="custom-settings" slot="custom-settings"></slot>
@@ -51,9 +51,9 @@
         <about-panel id="about-panel"></about-panel>
     </route-page>
 </path-router>
-<footer id="footer">
-    <form id="actions" method="dialog">
-        <button type="submit" id="cancel" class="button">Cancel</button>
-        <button type="submit" id="ok" class="button">Ok</button>
+<footer id="config-footer" class="footer dialog-footer">
+    <form id="config-actions" class="actions" method="dialog">
+        <button type="submit" id="config-cancel" class="button action-button cancel">Cancel</button>
+        <button type="submit" id="config-ok" class="button action-button ok preferred-button">Ok</button>
     </form>
 </footer>

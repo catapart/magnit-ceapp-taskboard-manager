@@ -63,7 +63,7 @@ export class BoardBrowserElement extends HTMLElement
         this.#applyPartAttributes();
 
         
-        this.findElement<HTMLButtonElement>('ok').addEventListener('click', this.boardBrowserOkButton_onClick.bind(this));
+        this.findElement<HTMLButtonElement>('board-browser-ok').addEventListener('click', this.boardBrowserOkButton_onClick.bind(this));
         this.findElement<CollectionBrowserElement>('collection-browser').addEventListener('change', this.boardBrowserSelection_onChange.bind(this));
         this.findElement<CollectionFilterElement>('filter').addEventListener('change', this.boardBrowserFilter_onChange.bind(this));
     }
@@ -169,7 +169,7 @@ export class BoardBrowserElement extends HTMLElement
     #createBoardMenuItem(boardRecord: TaskBoardRecord)
     {
         const element = new CaptionedThumbnailElement();
-        element.innerHTML = `<svg part="item-icon" slot="icon">
+        element.innerHTML = `<svg part="icon item-icon" slot="icon">
             <use href="#icon-definition_task-board"></use>
         </svg>
         ${boardRecord.name}`;

@@ -49,14 +49,15 @@ exportparts="menu,
     <route-page path="board/:id" id="board-route">
         <task-board part="task-board" id="task-board" exportparts="lists:task-board-lists"></task-board>
     </route-page>
-    <dialog part="board-browser-dialog" class="dialog" is="route-dialog" path="boards">
+    <dialog part="dialog board-browser-dialog" class="dialog" is="route-dialog" path="boards">
         <board-browser
             id="board-browser"
             exportparts="header,
                          board-browser-header,
                          dialog-header,
                          icon,
-                         title:board-browser-title,
+                         title,
+                         board-browser-title,
                          add-button-icon:board-browser-add-button-icon,
                          add-button-label:board-browser-add-button-label,
                          filter-search:browser-filter-search,
@@ -65,6 +66,7 @@ exportparts="menu,
                          filter-input:browser-filter-input,
                          filter-regex-button:browser-filter-regex-button,
                          filter-search-button:browser-filter-search-button,
+                         field-button:browser-filter-field-button,
                          filter-regex-icon:browser-filter-regex-icon,
                          filter-search-icon:browser-filter-search-icon,
                          collection-browser:board-collection-browser,
@@ -72,8 +74,10 @@ exportparts="menu,
                          gallery-header:board-browser-gallery-header,
                          items:board-browser-items,
                          add-button:board-browser-add-button,
-                         footer:board-browser-footer,
-                         actions:board-browser-actions,
+                         footer,
+                         board-browser-footer,
+                         actions,
+                         board-browser-actions,
                          cancel:board-browser-cancel,
                          ok:board-browser-ok,
                          button,
@@ -81,14 +85,54 @@ exportparts="menu,
         </board-browser>
     </dialog>
     <dialog part="dialog config-dialog" class="dialog" is="route-dialog" path="config">
-        <config-panel id="config-panel">
+        <config-panel id="config-panel" exportparts="config-header,
+                                                     header,
+                                                     dialog-header,
+                                                     config-icon,
+                                                     icon,
+                                                     config-title,
+                                                     title,
+                                                     config-navigation,
+                                                     navigation,
+                                                     nav-item,
+                                                     nav-item-icon,
+                                                     nav-item-label,
+                                                     settings-nav-item,
+                                                     data-nav-item,
+                                                     history-nav-item,
+                                                     about-nav-item,
+                                                     config-router,
+                                                     router,
+                                                     page,
+                                                     panel,
+                                                     settings-page,
+                                                     settings-panel,
+                                                     data-page,
+                                                     data-panel,
+                                                     history-page,
+                                                     history-panel,
+                                                     about-page,
+                                                     about-panel,
+                                                     config-footer,
+                                                     footer,
+                                                     dialog-footer,
+                                                     config-actions,
+                                                     actions,
+                                                     config-cancel,
+                                                     button,
+                                                     action-button,
+                                                     cancel,
+                                                     config-ok,
+                                                     ok,
+                                                     preferred-button
+                                                     ">
             <slot name="custom-settings" slot="custom-settings"></slot>
         </config-panel>
     </dialog>
-    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">
+    <dialog part="dialog board-settings-dialog" id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">
         <board-settings id="board-settings"></board-settings>
     </dialog>
-    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">
+    <dialog part="dialog import-dialog" id="import-dialog" class="dialog" is="route-dialog" path="import">
         <import-manager id="import-manager"></import-manager>
     </dialog>
 </path-router>
