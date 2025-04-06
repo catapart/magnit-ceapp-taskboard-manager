@@ -209,12 +209,21 @@ taskboard-manager[data-theme="dossier"]::part(actions)
     padding: 10px;
 }
 
-taskboard-manager[data-theme="dossier"]::part(browser-filter-input)
+taskboard-manager[data-theme="dossier"]::part(input)
+,taskboard-manager[data-theme="dossier"]::part(cache-list)
+,taskboard-manager[data-theme="dossier"]::part(action-history)
 {
     background-color: var(--shade-0);
     border: solid 1px rgb(0 0 0 / .8);
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
+    border-radius: 3px;
+}
+
+
+
+taskboard-manager[data-theme="dossier"]::part(browser-filter-input)
+{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 taskboard-manager[data-theme="dossier"]::part(browser-filter-field-button)
 {
@@ -268,7 +277,7 @@ taskboard-manager[data-theme="dossier"]::part(nav-item):hover
     background-color: var(--secondary);
 }
 
-taskboard-manager[data-theme="dossier"]::part(settings-header)
+taskboard-manager[data-theme="dossier"]::part(page-header)
 {
     margin: 14px 0;
     padding: 7px;
@@ -386,6 +395,43 @@ taskboard-manager[data-theme="dossier"]::part(shortcut-description)
     border-left: solid 1px var(--primary);
     align-content: center;
     padding: 7px 14px;
+}
+
+
+taskboard-manager[data-theme="dossier"]::part(data-panel)
+{
+    grid-template-rows: auto 1fr auto;
+}
+
+taskboard-manager[data-theme="dossier"]::part(import-fieldset)
+{
+    margin-right: 0;
+    grid-column: 1;
+}
+
+taskboard-manager[data-theme="dossier"]::part(import-field)
+{
+    margin-right: 0;
+    grid-column: 1;
+    display: grid;
+    grid-template-rows: auto auto auto;
+}
+
+taskboard-manager[data-theme="dossier"]::part(data-cleanup-fieldset)
+{
+    margin-right: 0;
+    grid-column: 1;
+}
+taskboard-manager[data-theme="dossier"]::part(data-pending-fieldset)
+{
+    grid-column: 2;
+    grid-row: 2 / 4;
+}
+taskboard-manager[data-theme="dossier"]::part(image-cache-fieldset)
+{
+    margin-left: 0;
+    grid-column: 3;
+    grid-row: 2 / 4;
 }
 
 taskboard-manager[data-theme="dossier"]::part(branding)

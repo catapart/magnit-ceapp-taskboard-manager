@@ -1,12 +1,14 @@
 :host
 {
     display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 7px;
 }
 
 
-#header
+#data-header
 {
+    grid-column: span 3;
     font-size: 14px;
     font-weight: bold;
 }
@@ -27,6 +29,7 @@
 
 #import-fieldset
 {
+    grid-column: span 3;
     display: flex;
     gap: 7px;
 }
@@ -44,14 +47,14 @@
     flex: 1;
 }
 
-#import-content
+/* #import-content
 {
     overflow: hidden;
     padding: 1em;
     display: flex;
-}
+} */
 
-#import-manager
+/* #import-manager
 {
     overflow: hidden;
     display: flex;
@@ -74,14 +77,14 @@
 #import-ok
 {
     grid-column: 3;
-}
+} */
 
-#config-data-caches
+/* #config-data-caches
 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 7px;
-}
+} */
 
 #data-cleanup-fieldset
 {
@@ -118,33 +121,24 @@
 #deleted-items
 ,#deleted-images
 {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     background: field;
     border-radius: 2px;
     border: 1px solid graytext;
     color: fieldtext;
     height: 130px;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     margin: 0;
     padding: 0;
     align-self: flex-end;
-}
-#deleted-item
-{
-    display: flex;
-    align-items: center;
-    padding: 3px 7px;
-}
-#deleted-item-label
-{
-    flex: 1;
-    gap: 5px;
 }
 
 #deleted-items::part(add)
 ,#deleted-images::part(add)
 {
-    display: none;
+    display: none !important;
 }
 
 #clear-deleted-button
@@ -157,6 +151,7 @@
 {
     display: grid;
     gap: 7px;
+    grid-column: span 3;
 }
 
 #clear-data-button

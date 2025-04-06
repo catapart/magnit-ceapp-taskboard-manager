@@ -1,10 +1,10 @@
 
-<header id="header">Data</header>
-<fieldset id="import-fieldset" class="fieldset">
-    <legend id="import-legend" class="legend">Import</legend>
-    <form-field id="import-field" class="field" label="Taskboard Data File" input-selector="fileimage-input">
-        <fileimage-input id="import-board-file" class="input">
-            <svg slot="icon" part="import-file-icon" class="icon">
+<header id="data-header" class="header page-header">Data</header>
+<fieldset id="import-fieldset" class="fieldset config-fieldset">
+    <legend id="import-legend" class="legend config-legend">Import</legend>
+    <form-field id="import-field" class="field config-field data-field" label="Taskboard Data File" input-selector="fileimage-input">
+        <fileimage-input id="import-board-file" exportparts="field:input">
+            <svg slot="icon" id="import-file-icon" class="icon">
                 <use href="#icon-definition_file"></use>
             </svg>
         </fileimage-input>
@@ -16,15 +16,15 @@
         <span id="import-button-label">Import Board</span>
     </button>
 </fieldset>
-<div id="config-data-caches">
-    <fieldset id="data-cleanup-fieldset" class="fieldset">
-        <legend id="data-cleanup-legend" class="legend">Data Cleanup</legend>
+<!-- <div id="config-data-caches"> -->
+    <fieldset id="data-cleanup-fieldset" class="fieldset config-fieldset">
+        <legend id="data-cleanup-legend" class="legend config-legend">Data Cleanup</legend>
         <div id="data-cleanup-description">
             <p class="text">Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>
             <p class="text">Set how many days deleted item should perisist using the slider below.</p>
         </div>
-        <form-field label="Days" id="data-cleanup-range" class="field">
-            <input type="range" id="data-persist-days" class="input" max="30" list="data-persist-days-values" />
+        <form-field label="Days" id="data-cleanup-range" class="field config-field data-field">
+            <input type="range" id="data-persist-days" class="input range" max="30" list="data-persist-days-values" />
             <datalist id="data-persist-days-values"></datalist>
             <span slot="postfix" id="data-persist-days-value"></span>
             <button slot="postfix" id="apply-data-persist-days-button" class="button">
@@ -35,12 +35,12 @@
             </button>
         </form-field>
     </fieldset>
-    <fieldset id="data-pending-fieldset" class="fieldset">
-        <legend id="data-pending-legend" class="legend">Pending Cleanup</legend>
+    <fieldset id="data-pending-fieldset" class="fieldset config-fieldset">
+        <legend id="data-pending-legend" class="legend config-legend">Pending Cleanup</legend>
         <div id="data-pending-description">
             <p class="text">The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>
         </div>
-        <editable-list id="deleted-items" exportparts="remove:restore-item-button">
+        <editable-list id="deleted-items" class="cache-list" remove-class="restore-button button" exportparts="remove:restore-item-button">
             <slot name="deleted-items"></slot>
             <template part="remove-button">
                 <svg id="restore-item-icon" class="icon" title="Restore">
@@ -55,13 +55,13 @@
             <span id="clear-deleted-label">Clear Pending Items</span>
         </button>
     </fieldset>
-    <fieldset id="image-cache-fieldset" class="fieldset">
-        <legend id="image-cache-legend" class="legend">Image Cache</legend>
+    <fieldset id="image-cache-fieldset" class="fieldset config-fieldset">
+        <legend id="image-cache-legend" class="legend config-legend">Image Cache</legend>
         <div id="image-cache-description">
             <p class="text">Caching some image files provides undo and redo support.</p>
             <p class="text">The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>
         </div>
-        <editable-list id="deleted-images" exportparts="remove:delete-cached-image-button">
+        <editable-list id="deleted-images" remove-class="button" class="cache-list" exportparts="button, remove:delete-cached-image-button">
             <slot name="deleted-images"></slot>
         </editable-list>
         <button id="clear-image-cache-button" class="button">
@@ -71,9 +71,9 @@
             <span id="clear-images-label">Clear Image Cache</span>
         </button>
     </fieldset>
-</div>
-<fieldset id="data-clear-fieldset" class="fieldset">
-    <legend id="data-clear-legend" class="legend">Clear Data</legend>
+<!-- </div> -->
+<fieldset id="data-clear-fieldset" class="fieldset config-fieldset">
+    <legend id="data-clear-legend" class="legend config-legend">Clear Data</legend>
     <div id="data-clear-description">
         <p class="text">Delete all data, including app settings and history.</p>
     </div>

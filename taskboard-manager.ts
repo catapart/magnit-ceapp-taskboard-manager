@@ -2358,11 +2358,13 @@ export class TaskboardManagerElement extends HTMLElement
         const item = document.createElement('div');
         item.setAttribute('data-record-type', recordType);
         item.setAttribute('part', 'deleted-item');
+        item.classList.add('deleted-item');
         item.setAttribute('slot', (recordType == 'image' ? 'deleted-images' : 'deleted-items'));
         item.setAttribute('data-timestamp', timestamp.toString());
 
         const label = document.createElement('span');
         label.setAttribute('part', 'deleted-item-label');
+        label.classList.add('deleted-item-label');
 
         let record: TaskBoardRecord|TaskListRecord|TaskRecord|CustomImageRecord;
         if(recordType == 'board')

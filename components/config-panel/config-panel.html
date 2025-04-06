@@ -85,13 +85,75 @@
         </settings-panel>
     </route-page>
     <route-page path="data" id="data-page" class="page config-page">
-        <data-panel id="data-panel">
+        <data-panel
+            id="data-panel"
+            exportparts="data-header,
+                         header,
+                         page-header,
+                         fieldset,
+                         config-fieldset,
+                         config-legend,
+                         legend,
+                         import-fieldset,
+                         import-legend,
+                         import-field,
+                         field,
+                         input,
+                         config-field,
+                         data-field,
+                         icon,
+                         import-file-icon,
+                         button,
+                         import-button,
+                         import-button-icon,
+                         import-button-label,
+                         config-data-caches,
+                         data-cleanup-fieldset,
+                         data-cleanup-legend,
+                         data-cleanup-description,
+                         text,
+                         data-cleanup-range,
+                         data-persist-days,
+                         data-persist-days-values,
+                         data-persist-days-value,
+                         apply-data-persist-days-button,
+                         apply-data-persist-days-icon,
+                         apply-data-persist-days-label,
+                         data-pending-fieldset,
+                         data-pending-legend,
+                         data-pending-description,
+                         deleted-items,
+                         restore-item-icon,
+                         clear-deleted-button,
+                         clear-deleted-icon,
+                         clear-deleted-label,
+                         image-cache-fieldset,
+                         image-cache-legend,
+                         image-cache-description,
+                         deleted-images,
+                         clear-image-cache-button,
+                         clear-images-icon,
+                         clear-images-label,
+                         data-clear-fieldset,
+                         data-clear-legend,
+                         data-clear-description,
+                         clear-data-button,
+                         clear-data-icon,
+                         clear-data-label,
+                         cache-list,
+                         range
+                        "
+            >
             <slot name="deleted-images" slot="deleted-images"></slot>
             <slot name="deleted-items" slot="deleted-items"></slot>
         </data-panel>
     </route-page>
     <route-page path="history" id="history-page" class="page config-page">
-        <history-panel id="history-panel">
+        <history-panel
+            id="history-panel"
+            exportparts="
+            action-history"
+            >
             <slot name="action-history" slot="action-history"></slot>
         </history-panel>
     </route-page>

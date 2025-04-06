@@ -166,6 +166,21 @@ message-card::part(message)
     justify-content: flex-end;
     gap: 10px;
 }
+
+.deleted-item
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 7px;
+    align-items: center;
+}
+
+.deleted-item-label
+{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
   
 @keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }
 @-webkit-keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }
