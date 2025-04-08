@@ -6,7 +6,7 @@
     overflow: hidden;
 }
 
-#header
+#history-header
 {
     font-size: 14px;
     font-weight: bold;
@@ -33,7 +33,7 @@
     flex: 1;
 }
 
-#navigation
+#history-navigation-fieldset
 {
     display: grid;
     grid-template-columns: auto auto 1fr auto;

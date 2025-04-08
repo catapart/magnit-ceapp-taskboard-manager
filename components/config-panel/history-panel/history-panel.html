@@ -1,7 +1,7 @@
 
-<header id="header">History</header>
-<fieldset id="navigation">
-    <legend id="navigation-legend">Navigation</legend>
+<header id="history-header" class="header page-header">History</header>
+<fieldset id="history-navigation-fieldset" class="fieldset config-fieldset">
+    <legend id="history-navigation-legend" class="legend config-legend">Navigation</legend>
     <button id="undo" class="button">
         <svg id="restore-item-icon" class="icon" title="Undo">
             <use href="#icon-definition_undo-redo"></use>
@@ -24,13 +24,13 @@
         <slot name="action-history"></slot>
     </action-history>
 </fieldset>
-<fieldset id="history-length-fieldset">
-    <legend id="history-length-legend">History Length</legend>
-    <form-field id="history-length-field">
-        <input type="range" id="action-history-length" max="150" list="action-history-length-values" />
+<fieldset id="history-length-fieldset" class="fieldset config-fieldset">
+    <legend id="history-length-legend" class="legend config-legend">History Length</legend>
+    <form-field id="history-length-field" class="field">
+        <input type="range" id="action-history-length" class="input" max="150" list="action-history-length-values" />
         <datalist id="action-history-length-values"></datalist>
-        <span slot="postfix" id="action-history-length-value"></span>
-        <button slot="postfix" id="apply-history-length-button">
+        <span slot="postfix" id="action-history-length-value" part="field-postfix"></span>
+        <button slot="postfix" id="apply-history-length-button" part="button field-postfix">
             <svg id="apply-history-length-icon" class="icon">
                 <use href="#icon-definition_confirm-check"></use>
             </svg>

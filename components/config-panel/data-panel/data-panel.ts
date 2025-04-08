@@ -80,10 +80,26 @@ export class DataPanelElement extends HTMLElement
         {
             identifiedElements[i].part.add(identifiedElements[i].id);
         }
-        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
+        const classedElements = [...this.shadowRoot!.querySelectorAll(':not(form-field,.postfix,.prefix,.container, .field-label)[class]')];
         for(let i = 0; i < classedElements.length; i++)
         {
-            classedElements[i].part.add(...classedElements[i].classList);
+            const classedElement = classedElements[i];
+            classedElement.part.add(...classedElements[i].classList);
+        }
+        const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
+        for(let i = 0; i < formFieldElements.length; i++)
+        {
+            const formFieldElement = formFieldElements[i];
+            const inputId = formFieldElement.id;
+            
+            const container = formFieldElement.querySelector('.container')!;
+            container.part.add('container', 'field-container', `${inputId}-container`);
+            const label = formFieldElement.querySelector('.field-label')!;
+            label.part.add('container', 'field-label', `${inputId}-label`);
+            const prefix = formFieldElement.querySelector('.prefix')!;
+            prefix.part.add('container', 'field-prefix', `${inputId}-prefix`);
+            const postfix = formFieldElement.querySelector('.postfix')!;
+            postfix.part.add('container', 'field-postfix', `${inputId}-postfix`);
         }
     }
     

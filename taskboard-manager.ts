@@ -1908,6 +1908,12 @@ export class TaskboardManagerElement extends HTMLElement
             {
                 entry.toggleAttribute(ATTRIBUTENAME_ACTIVE, true); 
                 activeEntry = entry;
+                activeEntry.part.add('active');
+                const descendants = [...activeEntry.querySelectorAll('span')] as HTMLElement[];
+                for(let i = 0; i < descendants.length; i++)
+                {
+                    descendants[i].part.add('active');
+                }
                 continue;
             }
             if(activeEntry != null)
@@ -1931,10 +1937,10 @@ export class TaskboardManagerElement extends HTMLElement
         element.setAttribute('data-entry-id', entry.id);
         element.setAttribute('part', "action-history-entry");
         element.setAttribute('slot', "action-history");
-        element.innerHTML = `<span class="action-type">${entry.action.toUpperCase()}</span>
-        <span class="data">
-            <span class="target-type">${entry.data.targetType[0].toUpperCase()}${entry.data.targetType.substring(1)}</span>
-            <span class="target-id">${entry.data.properties.id}</span>
+        element.innerHTML = `<span class="action-type" part="action-history-entry-type">${entry.action.toUpperCase()}</span>
+        <span class="data" part="action-history-entry-data">
+            <span class="target-type" part="action-history-target-type">${entry.data.targetType[0].toUpperCase()}${entry.data.targetType.substring(1)}</span>
+            <span class="target-id" part="action-history-target-id">${entry.data.properties.id}</span>
         </span>`;
         return element;
     }
@@ -2046,6 +2052,23 @@ export class TaskboardManagerElement extends HTMLElement
     }
     async #handelActionEntryActivate(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
     {
+        const previouslyActive = [...targetEntry.parentElement!.querySelectorAll('[part="active"]')] as HTMLElement[];
+        for(let i = 0; i < previouslyActive.length; i++)
+        {
+            previouslyActive[i].part.remove('active');
+            const descendants = [...previouslyActive[i].querySelectorAll('span')] as HTMLElement[];
+            for(let i = 0; i < descendants.length; i++)
+            {
+                descendants[i].part.add('active');
+            }
+        }
+        targetEntry.part.add('active');
+        const descendants = [...targetEntry.querySelectorAll('span')] as HTMLElement[];
+        for(let i = 0; i < descendants.length; i++)
+        {
+            descendants[i].part.add('active');
+        }
+
         const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
         const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
         const recordId = targetEntry.querySelector('.target-id')?.textContent;

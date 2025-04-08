@@ -97,6 +97,16 @@
                          import-fieldset,
                          import-legend,
                          import-field,
+                         field-container,
+                         field-label,
+                         field-prefix,
+                         field-postfix,
+                         import-board-file,
+                         import-field-container,
+                         import-field-label,
+                         import-field-prefix,
+                         import-field-postfix,
+                         import-board-file,
                          field,
                          input,
                          config-field,
@@ -151,9 +161,46 @@
     <route-page path="history" id="history-page" class="page config-page">
         <history-panel
             id="history-panel"
-            exportparts="
-            action-history"
-            >
+            exportparts="header,
+                         page-header,
+                         history-header,
+                         history-navigation-fieldset,
+                         fieldset,
+                         config-fieldset,
+                         legend,
+                         config-legend,
+                         history-navigation-legend,
+                         undo,
+                         button,
+                         restore-item-icon,
+                         icon,
+                         undo-label,
+                         redo,
+                         button,
+                         redo-label,
+                         clear-history-button,
+                         clear-history-icon,
+                         clear-history-label,
+                         action-history,
+                         action-history-entry,
+                         action-history-entry-type,
+                         action-history-entry-data,
+                         action-history-target-type,
+                         action-history-target-id,
+                         active,
+                         history-length-fieldset,
+                         history-length-legend,
+                         history-length-field,
+                         field,
+                         field-container,
+                         field-label,
+                         field-prefix,
+                         field-postfix,
+                         action-history-length,
+                         action-history-length-values,
+                         apply-history-length-button,
+                         apply-history-length-label
+                         " >
             <slot name="action-history" slot="action-history"></slot>
         </history-panel>
     </route-page>
