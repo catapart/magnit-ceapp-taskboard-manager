@@ -644,6 +644,7 @@ export class TaskboardManagerElement extends HTMLElement
         configPanel.addEventListener('import', (event: Event|CustomEvent) =>
         {
             const { boardData } = (event as CustomEvent).detail;
+            console.log(boardData);
             this.#openImportManager(boardData);
         });
         configPanel.addEventListener('daystopersist', (event: Event|CustomEvent) =>
@@ -1936,6 +1937,7 @@ export class TaskboardManagerElement extends HTMLElement
         element.setAttribute('timestamp', entry.timestamp.toString());
         element.setAttribute('data-entry-id', entry.id);
         element.setAttribute('part', "action-history-entry");
+        element.classList.add('action-history-entry');
         element.setAttribute('slot', "action-history");
         element.innerHTML = `<span class="action-type" part="action-history-entry-type">${entry.action.toUpperCase()}</span>
         <span class="data" part="action-history-entry-data">

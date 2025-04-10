@@ -4,11 +4,17 @@ import html from './import-manager.component.html?raw';
 import { BoardExport } from '../../data/foreign/exported-board';
 import { RecordSetter } from 'record-setter';
 import { RecordTreeElement } from '@magnit-ce/record-tree';
+import { defineIcons, IconType } from '../../assets/icons/icons.asset';
 
 const ID_PROPERTIES = new Set(['id', 'listId', 'taskSettingsId', 'backgroundImageId', 'boardId']);
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(style);
+
+const COMPONENT_TEMPLATE = `${html}
+${defineIcons(
+    IconType.Import,
+)}`;
 
 const COMPONENT_TAG_NAME = 'import-manager';
 export class ImportManagerComponent extends HTMLElement
@@ -24,7 +30,7 @@ export class ImportManagerComponent extends HTMLElement
 
         return this.componentParts.get(id) as T;
     }
-    findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.querySelector(`#${id}`) as T; }
+    findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.shadowRoot!.querySelector(`#${id}`) as T; }
 
     #generatedIdMap: Map<string, string> = new Map();
 
@@ -32,9 +38,9 @@ export class ImportManagerComponent extends HTMLElement
     constructor()
     {
         super();
-        this.innerHTML = html;
-        let parent = this.getRootNode() as Document|ShadowRoot;
-        parent.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
+        this.attachShadow({ mode: "open" });
+        this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
+        this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
 
         this.findElement<RecordTreeElement>('preview').addCustomPropertyValueGenerator((title: string) =>
         {
@@ -103,6 +109,21 @@ export class ImportManagerComponent extends HTMLElement
 
             return valueSpan;
         });
+
+        this.#applyPartAttributes();
+    }
+    #applyPartAttributes()
+    {
+        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
+        for(let i = 0; i < identifiedElements.length; i++)
+        {
+            identifiedElements[i].part.add(identifiedElements[i].id);
+        }
+        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
+        for(let i = 0; i < classedElements.length; i++)
+        {
+            classedElements[i].part.add(...classedElements[i].classList);
+        }
     }
 
     setData(boardData: BoardExport)
@@ -111,6 +132,7 @@ export class ImportManagerComponent extends HTMLElement
         const modifiedData = this.prepareData(boardData);
 
         this.findElement<RecordTreeElement>('preview').setData(modifiedData);
+        this.#applyPartAttributes();
     }
     prepareData(boardData: BoardExport)
     {

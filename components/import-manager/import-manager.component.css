@@ -1,19 +1,25 @@
 :host { display: contents; }
 
-#header
+#import-header
 {
     display: flex;
     gap: .5em;
     padding: .5em;
 }
 
-import-manager .value
+.icon
+{
+    width: var(--tab-icon-size);
+    height: var(--tab-icon-size);
+}
+
+.value
 {
     display: flex;
     align-items: center;
 }
 
-import-manager .old
+.old
 {
     text-decoration: line-through;
     opacity: .8;
@@ -25,33 +31,39 @@ import-manager .old
     overflow: hidden;
 }
 
-import-manager .value
+.value
 {
     max-width: 500px;
     overflow: hidden;
     word-break: break-word;
 }
-import-manager .value:has(.display)
+.value:has(.display)
 {
     display: flex;
     flex-direction: column;
 }
-import-manager .value .view-link
+.value .view-link
 {
     align-self: flex-end;
 }
 
-import-manager .removed
+.removed
 {
     text-decoration: line-through;
 }
 
-import-manager .value img.preview
+.value img.preview
 {
     max-height: 200px;
 }
 
-#fieldset
+#content
+{
+    overflow: hidden;
+    display: grid;
+}
+
+#import-board-data-fieldset
 {
     overflow: hidden;
     flex: 1;
@@ -63,6 +75,16 @@ import-manager .value img.preview
 {
     overflow: auto;
 }
+
+.actions
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    padding: 7px;
+}
+
 @media (max-width: 665px) 
 {
     #preview

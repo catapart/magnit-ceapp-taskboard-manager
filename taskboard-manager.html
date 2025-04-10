@@ -25,15 +25,16 @@ exportparts="menu,
     <route-page id="welcome-page">
         <welcome-panel
             id="welcome-panel"
-            exportparts="fieldset,
-                         panel-fieldset,
+            exportparts="panel-fieldset,
                          logo,
                          welcome-logo,
                          description,
                          welcome-description,
                          welcome-text,
                          create-text,
-                         fieldset
+                         text,
+                         fieldset,
+                         legend,
                          recent-fieldset,
                          recent-legend,
                          recent-boards,
@@ -60,6 +61,7 @@ exportparts="menu,
                          board-browser-title,
                          add-button-icon:board-browser-add-button-icon,
                          add-button-label:board-browser-add-button-label,
+                         input,
                          filter-search:browser-filter-search,
                          filter-form:browser-filter-form,
                          filter-query:browser-filter-query,
@@ -231,7 +233,6 @@ exportparts="menu,
                          range,
 
                          header,
-                         page-header,
                          history-header,
                          history-navigation-fieldset,
                          fieldset,
@@ -268,7 +269,26 @@ exportparts="menu,
                          action-history-length,
                          action-history-length-values,
                          apply-history-length-button,
-                         apply-history-length-label
+                         apply-history-length-label,
+
+                         about-header,
+                         about-app-fieldset,
+                         about-app-legend,
+                         emphasis,
+                         code,
+                         version-fieldset,
+                         version-legend,
+                         version-value,
+                         copyright-fieldset,
+                         copyright-legend,
+                         copyright-text,
+                         cc0-link,
+                         link,
+                         copyright-link,
+                         cc-icon,
+                         zero-icon,
+                         icon,
+                         raster
                         ">
             <slot name="custom-settings" slot="custom-settings"></slot>
         </config-panel>
@@ -277,7 +297,37 @@ exportparts="menu,
         <board-settings id="board-settings"></board-settings>
     </dialog>
     <dialog part="dialog import-dialog" id="import-dialog" class="dialog" is="route-dialog" path="import">
-        <import-manager id="import-manager"></import-manager>
+        <import-manager
+            id="import-manager"
+            exportparts="header,
+                         dialog-header,
+                         import-header,
+                         import-icon,
+                         icon,
+                         import-title,
+                         title,
+                         dialog-title,
+                         content: import-dialog-content,
+                         import-board-data-fieldset,
+                         fieldset,
+                         legend,
+                         import-board-data-legend,
+                         preview: import-preview,
+                         description,
+                         import-footer,
+                         footer,
+                         dialog-footer,
+                         import-actions,
+                         actions,
+                         import-cancel,
+                         cancel,
+                         button,
+                         dialog-button,
+                         ok,
+                         import-ok,
+                         preferred-button
+            "
+            ></import-manager>
     </dialog>
 </path-router>
 <dialog id="confirmation-dialog" class="dialog">

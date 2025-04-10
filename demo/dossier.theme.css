@@ -266,15 +266,20 @@ taskboard-manager[data-theme="dossier"]::part(board-gallery-item):hover
 taskboard-manager[data-theme="dossier"]::part(config-navigation)
 {
     border: none;
-    border-bottom: solid 2px var(--secondary);
+    border: solid 2px var(--primary);
     background: transparent;
-    margin: 7px 14px 0;
+    margin: 14px;
+}
+
+taskboard-manager[data-theme="dossier"]::part(nav-item)
+{
+    border-right: solid 2px var(--primary);
 }
 
 taskboard-manager[data-theme="dossier"]::part(nav-item):hover
 ,taskboard-manager[data-theme="dossier"]::part(nav-item selected)
 {
-    background-color: var(--secondary);
+    background-color: var(--primary);
 }
 
 taskboard-manager[data-theme="dossier"]::part(page-header)
@@ -288,16 +293,17 @@ taskboard-manager[data-theme="dossier"]::part(page-header)
 
 taskboard-manager[data-theme="dossier"]::part(config-page)
 {
-    margin: 0 14px;
+    border-top: dashed 2px var(--primary);
+    padding: 7px;
 }
 
-taskboard-manager[data-theme="dossier"]::part(config-fieldset)
+taskboard-manager[data-theme="dossier"]::part(fieldset)
 {
     margin: 0 14px;
     border: solid 1px var(--primary);
 }
 
-taskboard-manager[data-theme="dossier"]::part(config-legend)
+taskboard-manager[data-theme="dossier"]::part(legend)
 {
     padding: 3px 5px;
     background-color: var(--primary);
@@ -452,27 +458,26 @@ taskboard-manager[data-theme="dossier"]::part(image-cache-fieldset)
 taskboard-manager[data-theme="dossier"]::part(action-history)
 {
     padding: 14px;
+    gap: 14px;
 }
 
 taskboard-manager[data-theme="dossier"]::part(action-history-entry)
 {
-    padding: 7px;
+    padding: 0;
     display: grid;
     text-decoration: none;
     border: solid 1px transparent;
+    --hover-color: var(--primary);
 }
 taskboard-manager[data-theme="dossier"]::part(action-history-entry):hover
 {
-    border-color: var(--secondary);
-}
-taskboard-manager[data-theme="dossier"]::part(action-history-entry active)
-{
-    background-color: var(--secondary);
+    background: none;
+    --hover-color: var(--secondary);
 }
 
 taskboard-manager[data-theme="dossier"]::part(action-history-entry-type)
 {
-    background: var(--primary);
+    background: var(--hover-color);
     padding: 3px 7px;
     justify-self: flex-start;
 
@@ -482,9 +487,23 @@ taskboard-manager[data-theme="dossier"]::part(action-history-entry-data)
 {
     display: grid;
     grid-template-columns: 100px 1fr;
-    border: solid 1px var(--primary);
+    border: solid 1px var(--hover-color);
     padding: 3px 7px;
 
+}
+taskboard-manager[data-theme="dossier"]::part(action-history-entry-data):hover
+{
+}
+taskboard-manager[data-theme="dossier"]::part(action-history-entry-type active)
+,taskboard-manager[data-theme="dossier"]::part(action-history-entry-data active)
+{
+    border-color: var(--secondary);
+    background-color: var(--secondary);
+}
+
+taskboard-manager[data-theme="dossier"]::part(import-board-data-fieldset)
+{
+    margin: 14px;
 }
 
 taskboard-manager[data-theme="dossier"]::part(branding)

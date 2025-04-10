@@ -75,6 +75,18 @@ app-menu
     display: contents;
 }
 
+
+.action-history-entry
+{
+    padding: 3px 7px;
+    border-radius: 2px;
+}
+.action-history-entry:hover
+{
+    background-color: highlight;
+    color: highlighttext;
+}
+
 .board
 {
     user-select: none;
@@ -287,7 +299,7 @@ message-card::part(message)
     ,task-list[collapsed]::part(name)
     ,task-list[collapsed]::part(add-button)
     {
-        display: none;
+        display: none !important;
     }
 }
 @media (min-width: 800px) 

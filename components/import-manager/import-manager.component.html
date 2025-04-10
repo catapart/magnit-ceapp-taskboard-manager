@@ -1,22 +1,20 @@
-
-<header id="header">
-    <svg id="icon" >
+<header id="import-header" class="header dialog-header">
+    <svg id="import-icon" class="icon">
         <use href="#icon-definition_import"></use>
     </svg>
-    <span id="title">Import</span>
+    <span id="import-title" class="title dialog-title">Import</span>
 </header>
 <div id="content">
-    <fieldset id="fieldset">
-        <legend id="legend">Board Data</legend>
+    <fieldset id="import-board-data-fieldset" class="fieldset import-fieldset">
+        <legend id="import-board-data-legend" class="legend import-legend">Board Data</legend>
         <p id="description">The following Taskboard, Tasklists, and Tasks will be imported with their settings. Make final adjustments and select "Import" to complete the import.</p>
         <record-tree id="preview" removed-class parent-name="Board"></record-tree>
     </fieldset>
 </div>
-<footer id="footer">
-    <form id="actions" method="dialog">
-        <button type="submit" id="cancel" id="import-cancel" title="Cancel import">Cancel</button>
-        <button type="submit" id="ok" id="import-ok" title="Confirm import">Import</button>
+<footer id="import-footer" class="footer dialog-footer">
+    <form id="import-actions" class="actions" method="dialog">
+        <button type="submit" id="import-cancel" class="button dialog-button cancel" title="Cancel import">Cancel</button>
+        <button type="submit" id="import-ok" class="button dialog-button preferred-button ok" title="Confirm import">Import</button>
     </form>
 </footer>
-</dialog>
 

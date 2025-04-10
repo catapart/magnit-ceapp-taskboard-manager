@@ -82,7 +82,7 @@
 {
     display: grid;
     grid-template-columns: 1fr auto auto;
-    gap: 10px;
+    gap: 14px;
     padding-block-start: 10px;
 }
 

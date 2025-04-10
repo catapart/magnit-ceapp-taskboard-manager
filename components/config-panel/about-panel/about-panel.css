@@ -6,10 +6,11 @@
     grid-template-rows: auto 1fr auto;
 }
 
-#header
+#about-header
 {
     font-size: 14px;
     font-weight: bold;
+    grid-column: span 2;
 }
 
 #about-app-fieldset
