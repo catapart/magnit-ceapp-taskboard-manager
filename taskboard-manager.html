@@ -294,7 +294,143 @@ exportparts="menu,
         </config-panel>
     </dialog>
     <dialog part="dialog board-settings-dialog" id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">
-        <board-settings id="board-settings"></board-settings>
+        <board-settings
+            id="board-settings"
+            exportparts="header,
+                         dialog-header,
+                         fieldset,
+                         legend,
+                         form,
+                         icon,
+                         title,
+                         button,
+                         header-button,
+                         field,
+                         input,
+                         label,
+                         legend-label,
+                         board-settings-form,
+                         board-settings-header,
+                         board-settings-icon,
+                         board-settings-title,
+                         close-board-button,
+                         close-board-icon,
+                         fields: board-settings-fields,
+                         record-id,
+                         properties: board-settings-properties,
+                         color-field,
+                         color-input,
+                         name-field,
+                         name-input,
+                         order-field,
+                         order-input,
+                         appearance-fieldset,
+                         appearance-legend,
+                         color-icon,
+                         appearance-label,
+                         background-color-field,
+                         background-color: background-color-input,
+                         font-color-field,
+                         font-color: font-color-input,
+                         image-fieldset,
+                         image-legend,
+                         image-icon,
+                         image-label,
+                         background-image-field,
+                         background-image:background-image-input,
+                         background-image-icon,
+                         background-image-display-field,
+                         background-image-display: background-image-display-select,
+                         background-image-offset,
+                         offset-header,
+                         offset-label,
+                         background-image-offset-x-field,
+                         background-image-offset-x: background-image-offset-x-input,
+                         background-image-offset-y-field,
+                         background-image-offset-y: background-image-offset-y-input
+                         "
+            ></board-settings>
+
+                <!-- <div id="fields">
+                    <details open id="lists">
+                        <summary id="lists-summary">
+                            <svg id="lists-icon" class="icon">
+                                <use href="#icon-definition_task-list"></use>
+                            </svg>
+                            <span id="lists-label">Lists<span>
+                        </summary>
+                        <div id="list-items"><slot><em id="lists-placeholder">No Lists</em></slot></div>
+                        <div id="list-actions">
+                            <button type="button" id="clear-lists-button" title="Clear All Lists">
+                                <svg id="clear-lists-button-icon" class="icon">
+                                    <use href="#icon-definition_trash"></use>
+                                </svg>
+                                <span id="clear-board-lists-label">Clear</span>
+                            </button>
+                            <button type="button" id="add-list-button">
+                                <svg id="add-list-button-icon" class="icon">
+                                    <use href="#icon-definition_plus"></use>
+                                </svg>
+                                <span id="add-list-label">Add List</span>
+                            </button>
+                        </div>
+                    </details>
+                    <details id="tasks" open>
+                        <summary id="tasks-summary">
+                            <svg id="tasks-icon" class="icon">
+                                <use href="#icon-definition_task"></use>
+                            </svg>
+                            <span id="tasks-label">Task Settings</span>
+                        </summary>
+                        <task-fields id="task-fields" class="task-fields"></task-fields>
+                    </details>
+                    <fieldset id="delete-fieldset">
+                        <legend id="delete-legend">Delete</legend>
+                        <p class="field-question">Delete this board?</p>
+                        <button type="submit" id="remove-board-button" class="button">
+                            <svg id="remove-board-icon" class="icon">
+                                <use href="#icon-definition_trash"></use>
+                            </svg>
+                            <span id="remove-board-label">Delete</span>
+                        </button>
+                    </fieldset>
+                    <fieldset id="duplicate-fieldset">
+                        <legend id="duplicate-legend">Duplicate</legend>
+                        <p class="field-question">Duplicate this board?</p>
+                        <form-field id="duplicate-board-name-field" label="New Board Name">
+                            <input type="text" id="duplicate-board-name" />
+                        </form-field>
+                        <button type="button" id="duplicate-board-button" class="button">
+                            <svg id="duplicate-board-icon" class="icon">
+                                <use href="#icon-definition_copy"></use>
+                            </svg>
+                            <span id="duplicate-board-label">Duplicate</span>
+                        </button>
+                    </fieldset>
+                    <fieldset id="export-fieldset">
+                        <legend id="export-legend">Export</legend>
+                        <div id="export-options">
+                            <header id="export-options-header" class="field-header">Options</header>
+                            <form-field id="export-images-field" label="Export Background Image?">
+                                <svg id="export-images-icon" class="icon" slot="prefix">
+                                    <use href="#icon-definition_image"></use>
+                                </svg>
+                                <input type="checkbox" id="export-background-image" checked="true">
+                            </form-field>
+                        </div>
+                        <button id="export-button" type="button">
+                            <svg id="export-button-icon" class="icon">
+                                <use href="#icon-definition_export"></use>
+                            </svg>
+                            <span id="export-button-label">Export Board</span>
+                        </button>
+                    </fieldset>
+                </div>
+                <footer id="board-settings-footer" class="footer dialog-footer">
+                    <button type="submit" id="board-settings-cancel" class="button action-button cancel" title="Cancel changes">Cancel</button>
+                    <button type="submit" id="board-settings-save" class="button action-button ok preferred-button" title="Save settings">Save</button>
+                </footer>
+            </form> -->
     </dialog>
     <dialog part="dialog import-dialog" id="import-dialog" class="dialog" is="route-dialog" path="import">
         <import-manager

@@ -13,46 +13,46 @@
     <div id="fields">
         <input type="hidden" name="record-id" id="record-id" />
         <div id="properties">
-            <form-field label="Color" id="color-field">
-                <input type="color" id="color" name="color" value="#000000" />
+            <form-field label="Color" id="color-field" class="field">
+                <input type="color" id="color" class="input" name="color" value="#000000" />
             </form-field>
-            <form-field label="Name" id="name-field">
-                <input type="text" id="name" name="name" value="New Board" />
+            <form-field label="Name" id="name-field" class="field">
+                <input type="text" id="name" class="input" name="name" value="New Board" />
             </form-field>
-            <form-field label="Order" id="order-field">
-                <input type="text" id="order" name="order" inputmode="numeric" disabled />
+            <form-field label="Order" id="order-field" class="field">
+                <input type="text" id="order" class="input" name="order" inputmode="numeric" disabled />
             </form-field>
         </div>
-        <fieldset id="appearance-fieldset">
-            <legend id="appearance-legend">
+        <fieldset id="appearance-fieldset" class="fieldset board-settings-fieldset">
+            <legend id="appearance-legend" class="legend board-settings-legend">
                 <svg id="color-icon" class="icon">
                     <use href="#icon-definition_color"></use>
                 </svg>
-                <span id="appearance-label">Appearance</span>
+                <span id="appearance-label" class="label legend-label">Appearance</span>
             </legend>
-            <form-field id="background-color-field" label="Background Color" optional optional-title="Override Background Color?">
-                <input type="color" name="background-color" id="background-color" value="#f9faf5" />
+            <form-field id="background-color-field" class="field" label="Background Color" optional optional-title="Override Background Color?">
+                <input type="color" name="background-color" id="background-color" class="input" value="#f9faf5" />
             </form-field>
-            <form-field id="font-color-field" label="Font Color" optional optional-title="Override Font Color?">
-                <input type="color" name="font-color" id="font-color" value="#060703" />
+            <form-field id="font-color-field" label="Font Color" class="field" optional optional-title="Override Font Color?">
+                <input type="color" name="font-color" id="font-color" class="input" value="#060703" />
             </form-field>
         </fieldset>
-        <fieldset id="image-fieldset">
-            <legend id="image-legend">
+        <fieldset id="image-fieldset" class="fieldset board-settings-fieldset">
+            <legend id="image-legend" class="legend board-settings-legend">
                 <svg id="image-icon" class="icon" >
                     <use href="#icon-definition_image"></use>
                 </svg>
-                <span id="image-label">Background Image</span>
+                <span id="image-label" class="label legend-label">Background Image</span>
             </legend>
-            <form-field id="background-image-field" label="Background Image" input-selector="fileimage-input">
-                <fileimage-input name="background-image" id="background-image" placeholder="Select an image...">
+            <form-field id="background-image-field" class="field" label="Background Image" input-selector="fileimage-input">
+                <fileimage-input name="background-image" id="background-image" class="input" placeholder="Select an image...">
                     <svg id="background-image-icon" class="icon" slot="placeholder-icon">
                         <use href="#icon-definition_image"></use>
                     </svg>
                 </fileimage-input>
             </form-field>
-            <form-field id="background-image-display-field" label="Display">
-                <select id="background-image-display" name="background-image-display">
+            <form-field id="background-image-display-field" class="field" label="Display">
+                <select id="background-image-display" class="select" name="background-image-display">
                     <option value="stretch">Stretch</option>
                     <option value="center">Center</option>
                     <option value="tile">Tile</option>
@@ -62,11 +62,11 @@
                 <div id="offset-header">
                     <span id="offset-label">Offset</span>
                 </div>
-                <form-field id="background-image-offset-x-field" label="X">
-                    <input type="text" inputmode="numeric" id="background-image-offset-x" name="background-image-offset-x" />
+                <form-field id="background-image-offset-x-field" class="field" label="X">
+                    <input type="text" inputmode="numeric" id="background-image-offset-x" class="input" name="background-image-offset-x" />
                 </form-field>
-                <form-field id="background-image-offset-y-field" label="Y">
-                    <input type="text" inputmode="numeric" id="background-image-offset-y" name="background-image-offset-y" />
+                <form-field id="background-image-offset-y-field" class="field" label="Y">
+                    <input type="text" inputmode="numeric" id="background-image-offset-y" class="input" name="background-image-offset-y" />
                 </form-field>
             </div>
         </fieldset>
@@ -149,22 +149,3 @@
         <button type="submit" id="board-settings-save" class="button action-button ok preferred-button" title="Save settings">Save</button>
     </footer>
 </form>
-
-<!-- <form method="dialog" part="board-settings-form">
-    <header part="board-settings-header">
-        <svg part="board-settings-icon" >
-            <use href="#icon-definition_task-board"></use>
-        </svg>
-        <span part="board-settings-title">Board</span>
-    </header>
-    <taskboard-fields part="board-fields" id="board-fields"></taskboard-fields>
-    <footer part="board-settings-footer">
-        <button type="submit" part="close-board-button" id="close-board-button">
-        <svg part="close-board-icon" >
-            <use href="#icon-definition_trash"></use>
-        </svg>
-        </button>
-        <button type="submit" part="board-settings-cancel" id="board-settings-cancel">Cancel</button>
-        <button type="submit" part="board-settings-save" id="board-settings-save">Save</button>
-    </footer>
-</form> -->
