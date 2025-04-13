@@ -230,7 +230,7 @@ type ListActionProperties = BasicActionProperties & {
     taskSettings?: TaskSettingsActionProperties;
 };
 
-declare class TaskManagerComponentDataConfig {
+declare class TaskboardManagerElementDataConfig {
     name: string;
     version: number;
     schema: {
@@ -240,7 +240,7 @@ declare class TaskManagerComponentDataConfig {
         [tableName: string]: string;
     });
 }
-declare class TaskManagerComponentData {
+declare class TaskboardManagerElementData {
     #private;
     isInitialized: boolean;
     boards?: BoardChannel;
@@ -249,7 +249,7 @@ declare class TaskManagerComponentData {
     taskSettings?: TaskSettingsChannel;
     customImages?: CustomImageChannel;
     historyEntries?: HistoryEntryChannel;
-    constructor(config?: Partial<TaskManagerComponentDataConfig>);
+    constructor(config?: Partial<TaskboardManagerElementDataConfig>);
     init(): Promise<void>;
     getValue: <T extends string | number | boolean | Blob | null | undefined = undefined>(key: string) => Promise<T | null>;
     setValue: (key: string, value: string | number | boolean | Blob | null | undefined) => Promise<void>;
@@ -270,14 +270,6 @@ declare class TaskManagerComponentData {
     naturalizeForeignData(boardData: BoardExport, order: number): Promise<[TaskBoardRecord, TaskListRecord[], TaskRecord[], TaskSettingsRecord[], CustomImageRecord[]]>;
 }
 
-declare enum AppSettingKey {
-    ActiveEntryIndex = "activeEntryIndex",
-    HistoryLength = "historyLength",
-    DaysToPersistData = "daysToPersistData",
-    RecentBoards = "recentBoards",
-    ColorScheme = "color-scheme",
-    Language = "language"
-}
 /** Helper const for accessing component-specific methods and properties
 * used to make development possible across multiple modular files.
 * Not suited for interacting with the component  */
@@ -286,7 +278,7 @@ declare const SHAREDACCESSKEY: unique symbol;
 * used to make development possible across multiple modular files.
 * Not suited for interacting with the component  */
 type SharedContent = {
-    data: TaskManagerComponentData;
+    data: TaskboardManagerElementData;
     refreshBoards: () => Promise<void>;
     refreshActionHistory: () => Promise<void>;
     refreshDeletedItems: () => Promise<void>;
@@ -320,23 +312,6 @@ declare class TaskboardManagerElement extends HTMLElement {
     * Not necessary if the `autolaunch` attribute was not set to `false`.
     */
     init(): Promise<void>;
-    addBoard(): Promise<void>;
-    openBoard(id: string): Promise<void>;
-    closeBoard(): Promise<void>;
-    openBoardSettings(id: string): Promise<void>;
-    duplicateBoard(id: string): Promise<void>;
-    removeBoard(boardId: string, confirm?: boolean): Promise<void>;
-    exportBoard(id: string): Promise<void>;
-    importBoard(boardData: BoardExport, errorMessage?: string): Promise<void>;
-    closeBoardSettings(): Promise<unknown>;
-    addList(): void;
-    undo(): Promise<void>;
-    redo(): Promise<void>;
-    clearData(): Promise<void>;
-    clearHistory(): Promise<void>;
-    setColorScheme(scheme: 'inherit' | 'browser' | 'light' | 'dark'): void;
-    deleteItem(item: HTMLElement, refresh?: boolean): Promise<void>;
-    deleteImage(item: HTMLElement, refresh?: boolean): Promise<void>;
 }
 
-export { AppSettingKey, SHAREDACCESSKEY, TaskboardManagerElement };
+export { SHAREDACCESSKEY, TaskboardManagerElement };

@@ -27,7 +27,7 @@ const DEFAULT_SCHEMA =
     "customImages": "id, boardId, parentId",
     "actionHistoryEntries": "id, boardId",
 }
-export class TaskManagerComponentDataConfig
+export class TaskboardManagerElementDataConfig
 {
     name: string;
     version: number;
@@ -40,7 +40,7 @@ export class TaskManagerComponentDataConfig
     }
 }
 
-export class TaskManagerComponentData
+export class TaskboardManagerElementData
 {
     isInitialized: boolean = false; 
 
@@ -52,11 +52,11 @@ export class TaskManagerComponentData
     historyEntries?: HistoryEntryChannel;
 
     #data: RecordSetter;
-    #config: TaskManagerComponentDataConfig;
+    #config: TaskboardManagerElementDataConfig;
 
-    constructor(config?: Partial<TaskManagerComponentDataConfig>)
+    constructor(config?: Partial<TaskboardManagerElementDataConfig>)
     {
-        this.#config = Object.assign(new TaskManagerComponentDataConfig(), config);        
+        this.#config = Object.assign(new TaskboardManagerElementDataConfig(), config);        
         this.#data = new RecordSetter();
     }
 

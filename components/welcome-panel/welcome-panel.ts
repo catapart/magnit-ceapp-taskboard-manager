@@ -7,6 +7,7 @@ import html from './welcome-panel.html?raw';
 import { defineIcons, IconType } from '../../assets/icons/icons.asset';
 import { TaskBoardRecord } from '../../data/records/task-board.record';
 import { RecentBoardData } from '../../data/types/recent-board-data.type';
+import { AppSettingKey, DataService } from '../../data/data.service';
 
 export enum WelcomePanelAttributes
 {
@@ -90,6 +91,12 @@ export class WelcomePanelElement extends HTMLElement
     //     const id = path.substring(path.lastIndexOf('/') + 1);
     //     this[SHAREDACCESSKEY].removeBoardFromRecentBoards(id)
     // }
+
+    async refresh()
+    {
+        const recentBoards = await this.#getRecentBoards();
+        this.updateBoards(recentBoards);
+    }
     
     updateBoards(boards: RecentBoardData[])
     {
@@ -118,25 +125,52 @@ export class WelcomePanelElement extends HTMLElement
         return element;
     }
 
-
-    static create(properties: WelcomePanelProperties)
+    async #getRecentBoards()
     {
-        const element = document.createElement(COMPONENT_TAG_NAME) as WelcomePanelElement;
-        for(const [propertyName, value] of Object.entries(properties))
+        let boardsString = await DataService.getAppSetting<string>(AppSettingKey.RecentBoards);
+        if(boardsString == null)
         {
-            if(!propertyName.startsWith('on'))
-            {
-                element.setAttribute(propertyName, value as string);
-            }
+            boardsString = "[]";
         }
+        const boards = JSON.parse(boardsString) as Array<RecentBoardData>;
+        boards.sort((a, b) => b.timestamp - a.timestamp);
+        return boards;
     }
-
-    attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) 
+    async #addBoardToRecentBoards(id: string, description: string)
     {
-        if(attributeName == WelcomePanelAttributes.pathId)
+        const boards = await this.#getRecentBoards();
+        const existingEntry = boards.find(item => item.id == id);
+        if(existingEntry != null) { return; }
+
+        boards.unshift({id, description, timestamp: Date.now() });
+        if(boards.length > 10)
         {
-            // this.findPart('description').textContent = newValue;
+            boards.pop();
         }
+        const boardsString = JSON.stringify(boards);
+        DataService.saveAppSetting(AppSettingKey.RecentBoards, boardsString);
+    }
+    async #updateRecentBoardEntry(id: string, description?: string)
+    {
+        const boards = await this.#getRecentBoards();
+        const existingEntry = boards.find(item => item.id == id);
+        if(existingEntry == null) { return; }
+
+        existingEntry.description = description ?? existingEntry.description;
+        existingEntry.timestamp = Date.now();
+
+        const boardsString = JSON.stringify(boards);
+        DataService.saveAppSetting(AppSettingKey.RecentBoards, boardsString);
+        this.refresh();
+    }
+    async #removeBoardFromRecentBoards(id: string)
+    {
+        const boards = await this.#getRecentBoards();
+        const existingEntry = boards.find(item => item.id == id);
+        if(existingEntry == null) { return; }
+        boards.splice(boards.indexOf(existingEntry), 1);
+        const boardsString = JSON.stringify(boards);
+        DataService.saveAppSetting(AppSettingKey.RecentBoards, boardsString);
     }
 }
 
