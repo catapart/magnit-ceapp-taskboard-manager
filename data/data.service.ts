@@ -2,6 +2,7 @@ import { DialogService, ErrorMessageType } from "../dialog.service";
 import { BoardChannel } from "./channels/board.channel";
 import { DataChannel } from "./channels/data.channel";
 import { TaskboardManagerElementData } from "./data";
+import { TaskBoardRecord } from "./records/task-board.record";
 
 
 export enum AppSettingKey
@@ -66,10 +67,24 @@ export abstract class DataService
     //#endregion Settings
 
     //#region Boards
-    static async getBoardRecords()
+    static async getAllBoardRecords()
     {
         const boardChannel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageType.BOARD);
         return (await boardChannel.getAll()).filter(item => item.deletedTimestamp == null);
+    }
+    static async getBoardRecords(...ids: string[])
+    {
+        if(ids.length == 0) { return []; }
+
+        const boardChannel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageType.BOARD);
+        return (await boardChannel.getItems(ids)).filter(item => item.deletedTimestamp == null);
+    }
+    static async saveBoardRecords(...items: TaskBoardRecord[])
+    {
+        if(items.length == 0) { return; }
+
+        const boardChannel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageType.BOARD);
+        return boardChannel.saveItems(items);
     }
 
     //#endregion Boards

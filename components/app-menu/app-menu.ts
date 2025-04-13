@@ -6,6 +6,7 @@ import html from './app-menu.html?raw';
 // icons
 import { defineIcons, IconType } from '../../assets/icons/icons.asset';
 import { TaskBoardRecord } from '../../data/records/task-board.record';
+import { DataService } from '../../data/data.service';
 
 export enum AppMenuAttributes
 {
@@ -51,10 +52,6 @@ export class AppMenuElement extends HTMLElement
     }
     findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
 
-    onEdit?: (boardRoute: string) => void;
-    onBoardMove?: (boards: HTMLElement[]) => void;
-    onNew?: () => void;
-
     #draggingBoard: HTMLElement|null = null;
 
     constructor()
@@ -65,17 +62,6 @@ export class AppMenuElement extends HTMLElement
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
         this.#applyPartAttributes();
         this.#addDragHandlers();
-        this.findElement('boards').addEventListener('edit', (event: Event|CustomEvent) => {
-            if(this.onEdit == null) { return; }
-            const customEvent = (event as CustomEvent);
-            const board: HTMLElement = customEvent.detail;
-            this.onEdit(board.dataset.route!);
-        });
-        this.findElement('new-board-button').addEventListener('click', () =>
-        {
-            if(this.onNew == null) { return; }
-            this.onNew();
-        });
     }
     #applyPartAttributes()
     {
@@ -89,6 +75,12 @@ export class AppMenuElement extends HTMLElement
         {
             classedElements[i].part.add(...classedElements[i].classList);
         }
+    }
+
+    async refresh()
+    {
+        const boardRecords = await DataService.getAllBoardRecords();
+        this.updateBoards(boardRecords);
     }
 
     updateBoards(boards: TaskBoardRecord[])
@@ -156,11 +148,7 @@ export class AppMenuElement extends HTMLElement
     }
     async boardsList_onDrop(_event: Event)
     {
-        console.log(_event);
-        if(this.onBoardMove != null)
-        {
-            this.onBoardMove([...this.querySelectorAll('a')]);
-        }
+        this.#updateBoardRecordsAfterMove();
     }
     async #updateBoardItemOrder(draggingCursorY: number)
     {
@@ -199,27 +187,40 @@ export class AppMenuElement extends HTMLElement
             return closest;
         }, { offset: Number.NEGATIVE_INFINITY });
     }
+    
 
-
-    static create(properties: AppMenuProperties)
+    async #updateBoardRecordsAfterMove()
     {
-        const element = document.createElement(COMPONENT_TAG_NAME) as AppMenuElement;
-        for(const [propertyName, value] of Object.entries(properties))
-        {
-            if(!propertyName.startsWith('on'))
-            {
-                element.setAttribute(propertyName, value as string);
-            }
-        }
+        const toSave = await this.#getOrderedBoards();
+        await DataService.saveBoardRecords(...toSave);
     }
 
-    attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) 
+    async #getOrderedBoards()
     {
-        if(attributeName == AppMenuAttributes.pathId)
+        const orderedIds: string[] = [];
+        const boardItems = [...this.querySelectorAll('a.board')] as HTMLElement[];
+        for(let i = 0; i < boardItems.length; i++)
         {
-            // this.findPart('description').textContent = newValue;
+            const boardItem = boardItems[i];
+            const boardId = boardItem.dataset.route!.split('/')[1];
+            if(boardId == null) { throw new Error('Unset board id'); }
+            orderedIds.push(boardId);
         }
+
+        const boards = await DataService.getBoardRecords(...orderedIds);
+
+        const orderedBoards = [];
+        for(let i = 0; i < orderedIds.length; i++)
+        {
+            const board = boards[boards.findIndex(value => value.id == orderedIds[i])];
+            if(board == null) { throw new Error("Unknown board"); }
+            board.order = i;
+            orderedBoards.push(board);
+        }
+
+        return orderedBoards;
     }
+
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)

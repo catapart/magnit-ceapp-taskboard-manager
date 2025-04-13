@@ -2595,176 +2595,7 @@ var app_menu_default = `#menu
 }`;
 
 // components/app-menu/app-menu.html?raw
-var app_menu_default2 = '<menu id="menu">\n    <header id="menu-header" class="header">\n        <div id="branding" title="Manager Icon">\n            <svg class="icon logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button id="open-board-browser" class="button" type="button" data-route="#boards" title="Find Board">\n            <svg class="icon magnifying-glass">\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="label">Find Board</span>\n        </button>\n        <button id="open-settings" class="button" type="button" data-route="#config/settings" title="App Administration">\n            <svg class="icon gear">\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list id="boards" remove="false" edit="true" cancel-edit edit-class="board-edit-button" exportparts="edit: board-edit-button, items: board-items">\n        <slot></slot>\n        <button id="new-board-button" class="button" type="button" slot="add" title="New Board">\n            <svg class="icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label">New Board</span>\n        </button>\n        <template part="edit-button">\n            <svg class="icon expand" >\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n';
-
-// components/app-menu/app-menu.ts
-var AppMenuAttributes = /* @__PURE__ */ ((AppMenuAttributes2) => {
-  AppMenuAttributes2["pathId"] = "path-id";
-  return AppMenuAttributes2;
-})(AppMenuAttributes || {});
-var COMPONENT_STYLESHEET4 = new CSSStyleSheet();
-COMPONENT_STYLESHEET4.replaceSync(`${shared_default}
-    ${app_menu_default}`);
-var COMPONENT_TEMPLATE3 = `${app_menu_default2}
-${defineIcons(
-  "LogoMark" /* LogoMark */,
-  "MagnifyingGlass" /* MagnifyingGlass */,
-  "Gear" /* Gear */,
-  "PlusIcon" /* PlusIcon */
-)}`;
-var COMPONENT_TAG_NAME4 = "app-menu";
-var AppMenuElement = class extends HTMLElement {
-  static observedAttributes = [
-    ...Object.values(AppMenuAttributes)
-  ];
-  componentParts = /* @__PURE__ */ new Map();
-  getElement(id) {
-    if (this.componentParts.get(id) == null) {
-      const part = this.findElement(id);
-      if (part != null) {
-        this.componentParts.set(id, part);
-      }
-    }
-    return this.componentParts.get(id);
-  }
-  findElement(id) {
-    return this.shadowRoot.getElementById(id);
-  }
-  onEdit;
-  onBoardMove;
-  onNew;
-  #draggingBoard = null;
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE3;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET4);
-    this.#applyPartAttributes();
-    this.#addDragHandlers();
-    this.findElement("boards").addEventListener("edit", (event) => {
-      if (this.onEdit == null) {
-        return;
-      }
-      const customEvent = event;
-      const board = customEvent.detail;
-      this.onEdit(board.dataset.route);
-    });
-    this.findElement("new-board-button").addEventListener("click", () => {
-      if (this.onNew == null) {
-        return;
-      }
-      this.onNew();
-    });
-  }
-  #applyPartAttributes() {
-    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
-    for (let i = 0; i < identifiedElements.length; i++) {
-      identifiedElements[i].part.add(identifiedElements[i].id);
-    }
-    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
-    for (let i = 0; i < classedElements.length; i++) {
-      classedElements[i].part.add(...classedElements[i].classList);
-    }
-  }
-  updateBoards(boards) {
-    const menuItems = [];
-    for (let i = 0; i < boards.length; i++) {
-      const boardRecord = boards[i];
-      const menuItem = this.#createBoardMenuItem(boardRecord);
-      menuItems.push(menuItem);
-    }
-    this.innerHTML = "";
-    this.append(...menuItems);
-  }
-  #createBoardMenuItem(board) {
-    const element = document.createElement("a");
-    element.tabIndex = 0;
-    element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span>
-        <span part="board-item-name" class="board-item-name">${board.name}<span>`;
-    element.setAttribute("part", "board");
-    element.classList.add("board");
-    element.dataset.route = `board/${board.id}`;
-    const handle = element.querySelector('[part="menu-item-handle"]');
-    handle.addEventListener("mousedown", (_event) => {
-      element.draggable = true;
-    });
-    handle.addEventListener("mouseup", (_event) => {
-      element.removeAttribute("draggable");
-    });
-    element.addEventListener("dragstart", (_event) => {
-      this.#draggingBoard = element;
-      element.classList.add("dragging");
-      this.classList.add("drop-target");
-    });
-    element.addEventListener("dragend", (_event) => {
-      element.classList.remove("dragging");
-      this.#draggingBoard = null;
-      this.classList.remove("drop-target");
-    });
-    return element;
-  }
-  #addDragHandlers() {
-    this.addEventListener("dragover", this.boardsList_onDragover.bind(this));
-    this.addEventListener("drop", this.boardsList_onDrop.bind(this));
-  }
-  boardsList_onDragover(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.#updateBoardItemOrder(event.clientY);
-  }
-  async boardsList_onDrop(_event) {
-    console.log(_event);
-    if (this.onBoardMove != null) {
-      this.onBoardMove([...this.querySelectorAll("a")]);
-    }
-  }
-  async #updateBoardItemOrder(draggingCursorY) {
-    if (this.#draggingBoard == null) {
-      return;
-    }
-    const nextElement = this.#getNextBoardItem(draggingCursorY).boardElement;
-    if (this.#draggingBoard.parentElement == this && nextElement == this.#draggingBoard.nextElementSibling) {
-      return;
-    }
-    if (nextElement == null) {
-      this.append(this.#draggingBoard);
-    } else {
-      this.insertBefore(this.#draggingBoard, nextElement);
-    }
-  }
-  #getNextBoardItem(mouseY) {
-    const lists = [...this.querySelectorAll("a:not(.dragging)")];
-    return lists.reduce((closest, item) => {
-      const boundingRect = item.getBoundingClientRect();
-      const offset = mouseY - boundingRect.top - boundingRect.height / 2;
-      if (offset < 0 && offset > closest.offset) {
-        return { offset, boardElement: item };
-      }
-      return closest;
-    }, { offset: Number.NEGATIVE_INFINITY });
-  }
-  static create(properties) {
-    const element = document.createElement(COMPONENT_TAG_NAME4);
-    for (const [propertyName, value] of Object.entries(properties)) {
-      if (!propertyName.startsWith("on")) {
-        element.setAttribute(propertyName, value);
-      }
-    }
-  }
-  attributeChangedCallback(attributeName, _oldValue, newValue) {
-    if (attributeName == "path-id" /* pathId */) {
-    }
-  }
-};
-if (customElements.get(COMPONENT_TAG_NAME4) == null) {
-  customElements.define(COMPONENT_TAG_NAME4, AppMenuElement);
-}
-
-// components/welcome-panel/welcome-panel.css?raw
-var welcome_panel_default = ":host\n{\n    align-self: center;\n    justify-self: center;\n    padding: 1em;\n}\n\n#recent-boards\n{\n    display: grid;\n    margin: 0;\n    padding: 0;\n}\n#recent-boards::part(items)\n{\n    display: grid;\n    \n}\n#recent-boards a\n{\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 3px 7px;\n}\n#recent-boards a:hover\n{\n    background-color: highlight;\n    color: highlighttext;\n}\n#new-board-button\n{\n    text-align: center;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin: 10px;\n}\n\n#logo\n{\n    width: 100%;\n    height: 80px;\n}";
-
-// components/welcome-panel/welcome-panel.html?raw
-var welcome_panel_default2 = '<fieldset id="panel-fieldset" class="fieldset">\n    <legend id="panel-legend" class="legend">Welcome</legend>\n    <svg id="welcome-logo" class="logo" >\n        <use href="#icon-definition_logo"></use>\n    </svg>\n    <div id="welcome-description" class="description">\n        <p id="welcome-text" clas="text">Welcome to your Taskboard Manager!</p>\n        <p id="create-text" clas="text">Create a <a id="new-board-link" class="link">new board</a>, or select a recently-opened board below.</p>\n    </div>\n    <fieldset id="recent-fieldset" class="fieldset">\n        <legend id="recent-legend" class="legend">Recent Boards</legend>\n        <editable-list id="recent-boards" class="editable-list" exportparts="edit:edit-button, handle: edit-handle, button">\n            <slot></slot>\n            <button type="button" slot="add" id="new-board-button" clas="button" title="New Board">\n                <svg class="icon plus" >\n                    <use href="#icon-definition_plus"></use>\n                </svg>\n                <span class="label">New Board</span>\n            </button>\n        </editable-list>\n    </fieldset>\n</fieldset>';
+var app_menu_default2 = '<menu id="menu">\n    <header id="menu-header" class="header">\n        <div id="branding" title="Manager Icon">\n            <svg class="icon logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button id="open-board-browser" class="button" type="button" data-route="#boards" title="Find Board">\n            <svg class="icon magnifying-glass">\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="label">Find Board</span>\n        </button>\n        <button id="open-settings" class="button" type="button" data-route="#config/settings" title="App Administration">\n            <svg class="icon gear">\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list id="boards" remove="false" edit="true" edit-class="board-edit-button" exportparts="edit: board-edit-button, items: board-items">\n        <slot></slot>\n        <button id="new-board-button" class="button new-board-button" type="button" slot="add" title="New Board">\n            <svg class="icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label">New Board</span>\n        </button>\n        <template part="edit-button">\n            <svg class="icon expand" >\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n';
 
 // dialog.service.ts
 var DATA_ERROR_MESSAGE = `<p>An error occurred trying to access the [subject] data.</p>
@@ -3188,9 +3019,9 @@ var ATTRIBUTENAME_REVERSED = "data-reversed";
 var ATTRIBUTENAME_ACTIVE = "data-active";
 var ATTRIBUTENAME_ENTRY = "data-entry";
 var ATTRIBUTENAME_TIMESTAMP = "data-timestamp";
-var COMPONENT_STYLESHEET5 = new CSSStyleSheet();
-COMPONENT_STYLESHEET5.replaceSync(action_history_default);
-var COMPONENT_TAG_NAME5 = "action-history";
+var COMPONENT_STYLESHEET4 = new CSSStyleSheet();
+COMPONENT_STYLESHEET4.replaceSync(action_history_default);
+var COMPONENT_TAG_NAME4 = "action-history";
 var ActionHistoryElement = class extends HTMLElement {
   onBack = async (target, previous, toReverse, targetIndex, previousActiveEntryIndex) => {
   };
@@ -3214,7 +3045,7 @@ var ActionHistoryElement = class extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `<slot></slot>`;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET5);
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET4);
     this.#boundSlotChange = ((_event) => {
       const children = this.#slot.assignedElements();
       if (children.length == 1 && children[0] instanceof HTMLSlotElement) {
@@ -3470,8 +3301,8 @@ var ActionHistoryElement = class extends HTMLElement {
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME5) == null) {
-  customElements.define(COMPONENT_TAG_NAME5, ActionHistoryElement);
+if (customElements.get(COMPONENT_TAG_NAME4) == null) {
+  customElements.define(COMPONENT_TAG_NAME4, ActionHistoryElement);
 }
 
 // data/records/history-entry.record.ts
@@ -3922,9 +3753,23 @@ var DataService = class _DataService {
   }
   //#endregion Settings
   //#region Boards
-  static async getBoardRecords() {
+  static async getAllBoardRecords() {
     const boardChannel = _DataService.#getChannel(_DataService.data.boards, "BOARD" /* BOARD */);
     return (await boardChannel.getAll()).filter((item) => item.deletedTimestamp == null);
+  }
+  static async getBoardRecords(...ids) {
+    if (ids.length == 0) {
+      return [];
+    }
+    const boardChannel = _DataService.#getChannel(_DataService.data.boards, "BOARD" /* BOARD */);
+    return (await boardChannel.getItems(ids)).filter((item) => item.deletedTimestamp == null);
+  }
+  static async saveBoardRecords(...items) {
+    if (items.length == 0) {
+      return;
+    }
+    const boardChannel = _DataService.#getChannel(_DataService.data.boards, "BOARD" /* BOARD */);
+    return boardChannel.saveItems(items);
   }
   //#endregion Boards
   //#region Lists
@@ -3943,6 +3788,174 @@ var DataService = class _DataService {
   }
   //#endregion Internal
 };
+
+// components/app-menu/app-menu.ts
+var AppMenuAttributes = /* @__PURE__ */ ((AppMenuAttributes2) => {
+  AppMenuAttributes2["pathId"] = "path-id";
+  return AppMenuAttributes2;
+})(AppMenuAttributes || {});
+var COMPONENT_STYLESHEET5 = new CSSStyleSheet();
+COMPONENT_STYLESHEET5.replaceSync(`${shared_default}
+    ${app_menu_default}`);
+var COMPONENT_TEMPLATE3 = `${app_menu_default2}
+${defineIcons(
+  "LogoMark" /* LogoMark */,
+  "MagnifyingGlass" /* MagnifyingGlass */,
+  "Gear" /* Gear */,
+  "PlusIcon" /* PlusIcon */
+)}`;
+var COMPONENT_TAG_NAME5 = "app-menu";
+var AppMenuElement = class extends HTMLElement {
+  static observedAttributes = [
+    ...Object.values(AppMenuAttributes)
+  ];
+  componentParts = /* @__PURE__ */ new Map();
+  getElement(id) {
+    if (this.componentParts.get(id) == null) {
+      const part = this.findElement(id);
+      if (part != null) {
+        this.componentParts.set(id, part);
+      }
+    }
+    return this.componentParts.get(id);
+  }
+  findElement(id) {
+    return this.shadowRoot.getElementById(id);
+  }
+  #draggingBoard = null;
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE3;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET5);
+    this.#applyPartAttributes();
+    this.#addDragHandlers();
+  }
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      classedElements[i].part.add(...classedElements[i].classList);
+    }
+  }
+  async refresh() {
+    const boardRecords = await DataService.getAllBoardRecords();
+    this.updateBoards(boardRecords);
+  }
+  updateBoards(boards) {
+    const menuItems = [];
+    for (let i = 0; i < boards.length; i++) {
+      const boardRecord = boards[i];
+      const menuItem = this.#createBoardMenuItem(boardRecord);
+      menuItems.push(menuItem);
+    }
+    this.innerHTML = "";
+    this.append(...menuItems);
+  }
+  #createBoardMenuItem(board) {
+    const element = document.createElement("a");
+    element.tabIndex = 0;
+    element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span>
+        <span part="board-item-name" class="board-item-name">${board.name}<span>`;
+    element.setAttribute("part", "board");
+    element.classList.add("board");
+    element.dataset.route = `board/${board.id}`;
+    const handle = element.querySelector('[part="menu-item-handle"]');
+    handle.addEventListener("mousedown", (_event) => {
+      element.draggable = true;
+    });
+    handle.addEventListener("mouseup", (_event) => {
+      element.removeAttribute("draggable");
+    });
+    element.addEventListener("dragstart", (_event) => {
+      this.#draggingBoard = element;
+      element.classList.add("dragging");
+      this.classList.add("drop-target");
+    });
+    element.addEventListener("dragend", (_event) => {
+      element.classList.remove("dragging");
+      this.#draggingBoard = null;
+      this.classList.remove("drop-target");
+    });
+    return element;
+  }
+  #addDragHandlers() {
+    this.addEventListener("dragover", this.boardsList_onDragover.bind(this));
+    this.addEventListener("drop", this.boardsList_onDrop.bind(this));
+  }
+  boardsList_onDragover(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.#updateBoardItemOrder(event.clientY);
+  }
+  async boardsList_onDrop(_event) {
+    this.#updateBoardRecordsAfterMove();
+  }
+  async #updateBoardItemOrder(draggingCursorY) {
+    if (this.#draggingBoard == null) {
+      return;
+    }
+    const nextElement = this.#getNextBoardItem(draggingCursorY).boardElement;
+    if (this.#draggingBoard.parentElement == this && nextElement == this.#draggingBoard.nextElementSibling) {
+      return;
+    }
+    if (nextElement == null) {
+      this.append(this.#draggingBoard);
+    } else {
+      this.insertBefore(this.#draggingBoard, nextElement);
+    }
+  }
+  #getNextBoardItem(mouseY) {
+    const lists = [...this.querySelectorAll("a:not(.dragging)")];
+    return lists.reduce((closest, item) => {
+      const boundingRect = item.getBoundingClientRect();
+      const offset = mouseY - boundingRect.top - boundingRect.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return { offset, boardElement: item };
+      }
+      return closest;
+    }, { offset: Number.NEGATIVE_INFINITY });
+  }
+  async #updateBoardRecordsAfterMove() {
+    const toSave = await this.#getOrderedBoards();
+    await DataService.saveBoardRecords(...toSave);
+  }
+  async #getOrderedBoards() {
+    const orderedIds = [];
+    const boardItems = [...this.querySelectorAll("a.board")];
+    for (let i = 0; i < boardItems.length; i++) {
+      const boardItem = boardItems[i];
+      const boardId = boardItem.dataset.route.split("/")[1];
+      if (boardId == null) {
+        throw new Error("Unset board id");
+      }
+      orderedIds.push(boardId);
+    }
+    const boards = await DataService.getBoardRecords(...orderedIds);
+    const orderedBoards = [];
+    for (let i = 0; i < orderedIds.length; i++) {
+      const board = boards[boards.findIndex((value) => value.id == orderedIds[i])];
+      if (board == null) {
+        throw new Error("Unknown board");
+      }
+      board.order = i;
+      orderedBoards.push(board);
+    }
+    return orderedBoards;
+  }
+};
+if (customElements.get(COMPONENT_TAG_NAME5) == null) {
+  customElements.define(COMPONENT_TAG_NAME5, AppMenuElement);
+}
+
+// components/welcome-panel/welcome-panel.css?raw
+var welcome_panel_default = ":host\n{\n    align-self: center;\n    justify-self: center;\n    padding: 1em;\n}\n\n#recent-boards\n{\n    display: grid;\n    margin: 0;\n    padding: 0;\n}\n#recent-boards::part(items)\n{\n    display: grid;\n    \n}\n#recent-boards a\n{\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 3px 7px;\n}\n#recent-boards a:hover\n{\n    background-color: highlight;\n    color: highlighttext;\n}\n#new-board-button\n{\n    text-align: center;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin: 10px;\n}\n\n#logo\n{\n    width: 100%;\n    height: 80px;\n}";
+
+// components/welcome-panel/welcome-panel.html?raw
+var welcome_panel_default2 = '<fieldset id="panel-fieldset" class="fieldset">\n    <legend id="panel-legend" class="legend">Welcome</legend>\n    <svg id="welcome-logo" class="logo" >\n        <use href="#icon-definition_logo"></use>\n    </svg>\n    <div id="welcome-description" class="description">\n        <p id="welcome-text" clas="text">Welcome to your Taskboard Manager!</p>\n        <p id="create-text" clas="text">Create a <a id="new-board-link" class="link">new board</a>, or select a recently-opened board below.</p>\n    </div>\n    <fieldset id="recent-fieldset" class="fieldset">\n        <legend id="recent-legend" class="legend">Recent Boards</legend>\n        <editable-list id="recent-boards" class="editable-list" exportparts="edit:edit-button, handle: edit-handle, button">\n            <slot></slot>\n            <button type="button" slot="add" id="new-board-button" class="button new-board-button" title="New Board">\n                <svg class="icon plus" >\n                    <use href="#icon-definition_plus"></use>\n                </svg>\n                <span class="label">New Board</span>\n            </button>\n        </editable-list>\n    </fieldset>\n</fieldset>';
 
 // components/welcome-panel/welcome-panel.ts
 var WelcomePanelAttributes = /* @__PURE__ */ ((WelcomePanelAttributes2) => {
@@ -3978,70 +3991,24 @@ var WelcomePanelElement = class extends HTMLElement {
   findElement(id) {
     return this.shadowRoot.getElementById(id);
   }
-  onRemoveBoard;
-  onNew;
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = COMPONENT_TEMPLATE4;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET6);
     this.#applyPartAttributes();
-    this.findElement("new-board-button").addEventListener("click", () => {
-      if (this.onNew == null) {
-        return;
-      }
-      this.onNew();
-    });
+    this.findElement("recent-boards").addEventListener("remove", this.#recentBoard_onRemove.bind(this));
   }
-  #applyPartAttributes() {
-    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
-    for (let i = 0; i < identifiedElements.length; i++) {
-      identifiedElements[i].part.add(identifiedElements[i].id);
-    }
-    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
-    for (let i = 0; i < classedElements.length; i++) {
-      classedElements[i].part.add(...classedElements[i].classList);
-    }
-  }
-  // #recentBoard_onRemove(this: TaskboardManagerElement, event: Event|CustomEvent)
-  // {
-  //     const data = (event as CustomEvent).detail;
-  //     const path = (data as HTMLElement).getAttribute('path')!;
-  //     const id = path.substring(path.lastIndexOf('/') + 1);
-  //     this[SHAREDACCESSKEY].removeBoardFromRecentBoards(id)
-  // }
   async refresh() {
     const recentBoards = await this.#getRecentBoards();
     this.updateBoards(recentBoards);
   }
   updateBoards(boards) {
-    const menuItems = [];
-    for (let i = 0; i < boards.length; i++) {
-      const boardRecord = boards[i];
-      const menuItem = this.#createBoardMenuItem(boardRecord);
-      menuItems.push(menuItem);
-    }
+    const menuItems = boards.map((item) => this.#createBoardMenuItem(item));
     this.innerHTML = "";
     this.append(...menuItems);
   }
-  #createBoardMenuItem(board) {
-    const element = document.createElement("a");
-    element.innerHTML = `<span part="board-item-name" class="board-item-name">${board.description}<span>`;
-    element.setAttribute("part", "board");
-    element.classList.add("board");
-    element.dataset.route = `board/${board.id}`;
-    return element;
-  }
-  async #getRecentBoards() {
-    let boardsString = await DataService.getAppSetting("recentBoards" /* RecentBoards */);
-    if (boardsString == null) {
-      boardsString = "[]";
-    }
-    const boards = JSON.parse(boardsString);
-    boards.sort((a, b) => b.timestamp - a.timestamp);
-    return boards;
-  }
-  async #addBoardToRecentBoards(id, description) {
+  async addBoardToRecentBoards(id, description) {
     const boards = await this.#getRecentBoards();
     const existingEntry = boards.find((item) => item.id == id);
     if (existingEntry != null) {
@@ -4054,7 +4021,7 @@ var WelcomePanelElement = class extends HTMLElement {
     const boardsString = JSON.stringify(boards);
     DataService.saveAppSetting("recentBoards" /* RecentBoards */, boardsString);
   }
-  async #updateRecentBoardEntry(id, description) {
+  async updateRecentBoardEntry(id, description) {
     const boards = await this.#getRecentBoards();
     const existingEntry = boards.find((item) => item.id == id);
     if (existingEntry == null) {
@@ -4066,7 +4033,7 @@ var WelcomePanelElement = class extends HTMLElement {
     DataService.saveAppSetting("recentBoards" /* RecentBoards */, boardsString);
     this.refresh();
   }
-  async #removeBoardFromRecentBoards(id) {
+  async removeBoardFromRecentBoards(id) {
     const boards = await this.#getRecentBoards();
     const existingEntry = boards.find((item) => item.id == id);
     if (existingEntry == null) {
@@ -4075,6 +4042,39 @@ var WelcomePanelElement = class extends HTMLElement {
     boards.splice(boards.indexOf(existingEntry), 1);
     const boardsString = JSON.stringify(boards);
     DataService.saveAppSetting("recentBoards" /* RecentBoards */, boardsString);
+  }
+  async #getRecentBoards() {
+    let boardsString = await DataService.getAppSetting("recentBoards" /* RecentBoards */);
+    if (boardsString == null) {
+      boardsString = "[]";
+    }
+    const boards = JSON.parse(boardsString);
+    boards.sort((a, b) => b.timestamp - a.timestamp);
+    return boards;
+  }
+  #createBoardMenuItem(board) {
+    const element = document.createElement("a");
+    element.innerHTML = `<span part="board-item-name" class="board-item-name">${board.description}<span>`;
+    element.setAttribute("part", "board");
+    element.classList.add("board");
+    element.dataset.route = `board/${board.id}`;
+    return element;
+  }
+  #recentBoard_onRemove(event) {
+    const boardItem = event.detail;
+    const route = boardItem.dataset.route;
+    const id = route.substring(route.lastIndexOf("/") + 1);
+    this.removeBoardFromRecentBoards(id);
+  }
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      classedElements[i].part.add(...classedElements[i].classList);
+    }
   }
 };
 if (customElements.get(COMPONENT_TAG_NAME6) == null) {
@@ -8300,6 +8300,16 @@ var ProgressTimeout = class {
     this.isPaused = false;
   }
 };
+var MessageCardType = /* @__PURE__ */ ((MessageCardType2) => {
+  MessageCardType2["Info"] = "info";
+  MessageCardType2["Success"] = "success";
+  MessageCardType2["Warn"] = "warning";
+  MessageCardType2["Error"] = "error";
+  MessageCardType2["Aside"] = "aside";
+  MessageCardType2["Note"] = "note";
+  MessageCardType2["Report"] = "report";
+  return MessageCardType2;
+})(MessageCardType || {});
 var DEFAULT_DURATION_MILLISECONDS = 5e3;
 var componentTemplate = `<style>${message_card_default}</style>
 ${message_card_default2}`;
@@ -8785,11 +8795,41 @@ var TaskboardManagerElement = class extends HTMLElement {
     DialogService.init(this);
     const datastoreName = this.getAttribute("datastore-name");
     await DataService.init(datastoreName);
-    const boardRecords = await DataService.getBoardRecords();
+    const boardRecords = await DataService.getAllBoardRecords();
     this.findElement("app-menu").updateBoards(boardRecords);
     this.findElement("welcome-panel").refresh();
     this.findElement("board-browser").updateBoards(boardRecords);
+    this.addEventListener("click", (event) => {
+      console.log(event.target);
+      const composedPath = event.composedPath().filter((item) => item instanceof HTMLElement);
+      const editButton = composedPath.find((item) => item.classList.contains("board-edit-button"));
+      if (editButton != null) {
+        this.#board_edit_onClick(editButton.parentElement.dataset.route);
+        return;
+      }
+      const newBoardButton = composedPath.find((item) => item.classList.contains("new-board-button"));
+      if (newBoardButton != null) {
+        this.#newBoard_onClick();
+        return;
+      }
+    });
   }
+  //#region Handlers
+  #board_edit_onClick(boardRoute) {
+    if (boardRoute == null) {
+      MessageCardElement.notify(
+        `An error occurred attempting to open the board for editing.`,
+        this.getElement("notifications"),
+        { type: MessageCardType.Error }
+      );
+      throw new Error("Unable to collected path from board item's path attribute.");
+    }
+    this.findElement("app-router").navigate(`${boardRoute}#board-settings`);
+  }
+  async #newBoard_onClick() {
+    this.findElement("app-menu").refresh();
+  }
+  //#endregion Handler
   //#region Utilities
   //#endregion Utilities
   //#endregion Internal
@@ -8851,173 +8891,6 @@ var TaskboardManagerElement = class extends HTMLElement {
   //         getConfirmation: this.#getConfirmation.bind(this),
   //         getIdFromRoute: this.#getIdFromRoute.bind(this),
   //     }
-  // }
-  // #addHandlers()
-  // {
-  //     const menu = this.getElement<AppMenuElement>('app-menu');
-  //     menu.onBoardMove = this.#updateBoardRecordsAfterMove.bind(this);
-  //     menu.onEdit = this.#board_edit_onClick.bind(this);
-  //     menu.onNew = this.#newBoard_onClick.bind(this);
-  //     const configPanel = this.getElement<ConfigPanelElement>('config-panel');
-  //     configPanel.addEventListener('error', (event: Event|CustomEvent) =>
-  //     {
-  //         const { message, type, consoleMessage } = (event as CustomEvent).detail;
-  //         MessageCardElement.notify(message, 
-  //         this.getElement('notifications'), { type: type ?? MessageCardType.Error });
-  //         console.error(new Error(consoleMessage));
-  //     });
-  //     configPanel.addEventListener('scheme', (event: Event|CustomEvent) =>
-  //     {
-  //         const { scheme } = (event as CustomEvent).detail;
-  //         this.setColorScheme(scheme);
-  //         this.#saveAppSetting(AppSettingKey.ColorScheme, scheme);
-  //     });
-  //     configPanel.addEventListener('import', (event: Event|CustomEvent) =>
-  //     {
-  //         const { boardData } = (event as CustomEvent).detail;
-  //         console.log(boardData);
-  //         this.#openImportManager(boardData);
-  //     });
-  //     configPanel.addEventListener('daystopersist', (event: Event|CustomEvent) =>
-  //     {
-  //         const { daysToPersist } = (event as CustomEvent).detail;
-  //         this.#saveAppSetting(AppSettingKey.DaysToPersistData, daysToPersist);
-  //     });
-  //     configPanel.addEventListener('cleardata', (event: Event|CustomEvent) =>
-  //     {
-  //         this.clearData();
-  //     });
-  //     configPanel.addEventListener('restoreitem', (event: Event|CustomEvent) =>
-  //     {
-  //         const { targetType, recordId, timestamp } = (event as CustomEvent).detail;
-  //         this.#restoreDeletedItem(targetType, recordId, timestamp);
-  //     });
-  //     configPanel.addEventListener('cleardeleted', async (event: Event|CustomEvent) =>
-  //     {
-  //         const { items } = (event as CustomEvent).detail;
-  //         for(let i = 0; i < items.length; i++)
-  //         {
-  //             const item = items[i];
-  //             await this.deleteItem(item, false);
-  //         }
-  //         this.#refreshDeletedItems();
-  //         this.#refreshActionHistory();
-  //     });
-  //     configPanel.addEventListener('restoreitem', (event: Event|CustomEvent) =>
-  //     {
-  //         const { item } = (event as CustomEvent).detail;
-  //         return this.deleteImage(item);
-  //     });
-  //     configPanel.addEventListener('clearimages', async (event: Event|CustomEvent) =>
-  //     {
-  //         const { items } = (event as CustomEvent).detail;
-  //         for(let i = 0; i < items.length; i++)
-  //         {
-  //             const item = items[i];
-  //             await this.deleteImage(item, false);
-  //         }
-  //         this.#refreshActionHistory();
-  //         this.#refreshDeletedItems();
-  //     });
-  //     // configPanel.addEventListener('undo', (event: Event|CustomEvent) =>
-  //     // {
-  //     //     this.undo();
-  //     // });
-  //     // configPanel.addEventListener('redo', (event: Event|CustomEvent) =>
-  //     // {
-  //     //     this.redo();
-  //     // });
-  //     configPanel.addEventListener('historyback', async (event: Event|CustomEvent) =>
-  //     {
-  //         const {
-  //             target,
-  //             previous,
-  //             targetIndex,
-  //             previousActiveEntryIndex,
-  //             refreshBoards,
-  //             refreshDeletedItems
-  //         } = (event as CustomEvent).detail;
-  //         await this.#handleActionEntryReverse(target, previous, targetIndex, previousActiveEntryIndex);
-  //         if(refreshBoards == true)
-  //         {
-  //             this.#refreshBoards();
-  //         }
-  //         if(refreshDeletedItems == true)
-  //         {
-  //             this.#refreshDeletedItems();
-  //         }
-  //         const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
-  //         if(currentBoardId != "")
-  //         {
-  //             this.#renderBoard(currentBoardId);
-  //         }
-  //     });
-  //     configPanel.addEventListener('historyforward', async (event: Event|CustomEvent) =>
-  //     {
-  //         const {
-  //             target,
-  //             previous,
-  //             targetIndex,
-  //             previousActiveEntryIndex,
-  //             refreshBoards,
-  //             refreshDeletedItems
-  //         } = (event as CustomEvent).detail;
-  //         await this.#handelActionEntryActivate(target, previous, targetIndex, previousActiveEntryIndex);
-  //         if(refreshBoards == true)
-  //         {
-  //             this.#refreshBoards();
-  //         }
-  //         if(refreshDeletedItems == true)
-  //         {
-  //             this.#refreshDeletedItems();
-  //         }
-  //         const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
-  //         if(currentBoardId != "")
-  //         {
-  //             this.#renderBoard(currentBoardId);
-  //         }
-  //     });
-  //     configPanel.addEventListener('preparehistoryitems', async (event: Event|CustomEvent) =>
-  //     {
-  //         const { actionHistory, startIndex } = (event as CustomEvent).detail;
-  //         this.#prepareHistoryEntries(actionHistory, startIndex);
-  //     });
-  //     configPanel.addEventListener('historylength', async (event: Event|CustomEvent) =>
-  //     {
-  //         const { historyLength } = (event as CustomEvent).detail;
-  //         this.#applyHistoryLength(historyLength);
-  //     });
-  //     configPanel.addEventListener('clearhistory', async (_event: Event|CustomEvent) =>
-  //     {
-  //         this.clearHistory();
-  //     });
-  //     const boardBrowser = this.getElement<BoardBrowserElement>('board-browser');
-  //     boardBrowser.addEventListener('select', async (event: Event|CustomEvent) =>
-  //     {
-  //         const { boardId } = (event as CustomEvent).detail;
-  //         if(boardId == null)
-  //         {
-  //             MessageCardElement.notify(`An error occurred attempting to open the board.`, 
-  //             this.getElement('notifications'), { type: MessageCardType.Error });
-  //             console.error('Unable to open board: data-board-id attribute is unset on target element.');
-  //             return;
-  //         }
-  //         // console.log(selected, selected[0].getAttribute('data-board-id') ?? 'no id');
-  //         this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}`)
-  //     });
-  //     // this.findElement<HTMLButtonElement>('import-ok').addEventListener('click', this.#importDialog_import_onClick.bind(this));
-  //     // this.addEventListener('click', (event) =>
-  //     // {
-  //     //     console.log(event.target);
-  //     // })
-  //     // addAdminHandlers.call(this);
-  //     // addNavigationhandlers.call(this);
-  //     // // addDragHandlers.call(this);
-  //     addRouteHandlers.call(this);
-  //     // addBoardHandlers.call(this);
-  //     // addBoardSettingsHandlers.call(this);
-  //     // addBoardBrowserHandlers.call(this);
-  //     // addKeyHandlers.call(this);
   // }
   // async #importDialog_import_onClick(event: Event)
   // {
@@ -9098,27 +8971,6 @@ var TaskboardManagerElement = class extends HTMLElement {
   // //     element.toggleAttribute('select', true);
   // //     return element;
   // // }
-  // async #updateBoardRecordsAfterMove()
-  // {
-  //     const toSave = await this.#getOrderedBoards();
-  //     const channel = this.#getChannel<BoardChannel>(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //     await channel.saveItems(toSave);
-  // }
-  // #board_edit_onClick(boardRoute?: string)
-  // {
-  //     if(boardRoute == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred attempting to open the board for editing.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         throw new Error("Unable to collected path from board item's path attribute.");
-  //     }
-  //     this.findElement<PathRouterElement>('app-router').navigate(`${boardRoute}#board-settings`);
-  // }
-  // async #newBoard_onClick()
-  // {
-  //     await this.addBoard();
-  //     this.#refreshBoards();
-  // }
   // // async #updateBoardItemOrder(draggingCursorY: number)
   // // {
   // //     if(this.#draggingBoard == null)
@@ -9159,29 +9011,6 @@ var TaskboardManagerElement = class extends HTMLElement {
   // //         return closest;
   // //     }, { offset: Number.NEGATIVE_INFINITY });
   // // }
-  // async #getOrderedBoards()
-  // {
-  //     const channel = this.#getChannel<BoardChannel>(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //     const orderedIds: string[] = [];
-  //     const boardItems = [...this.findElement('app-menu').querySelectorAll('a.board')] as HTMLElement[];
-  //     for(let i = 0; i < boardItems.length; i++)
-  //     {
-  //         const boardItem = boardItems[i];
-  //         const boardId = boardItem.dataset.route!.split('/')[1];
-  //         if(boardId == null) { throw new Error('Unset board id'); }
-  //         orderedIds.push(boardId);
-  //     }
-  //     const boards = await channel.getItems(orderedIds);
-  //     const orderedBoards = [];
-  //     for(let i = 0; i < orderedIds.length; i++)
-  //     {
-  //         const board = boards[boards.findIndex(value => value.id == orderedIds[i])];
-  //         if(board == null) { throw new Error("Unknown board"); }
-  //         board.order = i;
-  //         orderedBoards.push(board);
-  //     }
-  //     return orderedBoards;
-  // }
   // async #renderBoard(id: string)
   // {
   //     const channel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');

@@ -209,7 +209,7 @@ export class TaskboardManagerElement extends HTMLElement
         }
     }
 
-    // api
+    //#region API
 
     /**
     * Initializes the app.  
@@ -219,30 +219,32 @@ export class TaskboardManagerElement extends HTMLElement
     {
         this.initPromise = this.#init();
     }
+    async addBoard()
+    {
+        // const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
+        // const listChannel = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, 'danger');
+        // const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
 
-    // async addBoard()
-    // {
-    //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-    //     const listChannel = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, 'danger');
-    //     const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
+        // const [ board, taskSettings, listData ] = await boardChannel.create();
+        // board.order = this.findElement('app-menu').querySelectorAll('a').length;   
+        // boardChannel.save(board);
 
-    //     const [ board, taskSettings, listData ] = await boardChannel.create();
-    //     board.order = this.findElement('app-menu').querySelectorAll('a').length;   
-    //     boardChannel.save(board);
+        // const lists: TaskListRecord[] = [];
+        // const listSettings: TaskSettingsRecord[] = [];
+        // for(let i = 0; i < listData.length; i++)
+        // {
+        //     const [ list, settings ] = listData[i];
+        //     lists.push(list);
+        //     listSettings.push(settings);
+        // }
+        // listChannel.saveItems(lists);
+        // taskSettingsChannel.saveItems([taskSettings, ...listSettings]);
 
-    //     const lists: TaskListRecord[] = [];
-    //     const listSettings: TaskSettingsRecord[] = [];
-    //     for(let i = 0; i < listData.length; i++)
-    //     {
-    //         const [ list, settings ] = listData[i];
-    //         lists.push(list);
-    //         listSettings.push(settings);
-    //     }
-    //     listChannel.saveItems(lists);
-    //     taskSettingsChannel.saveItems([taskSettings, ...listSettings]);
+        // await this.#addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Board, { id: board.id });
+    }
 
-    //     await this.#addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Board, { id: board.id });
-    // }
+    //#endregion API
+
     // async openBoard(id: string)
     // {
     //     await this.initPromise;
@@ -486,7 +488,7 @@ export class TaskboardManagerElement extends HTMLElement
         await DataService.init(datastoreName);
 
         // get boards
-        const boardRecords = await DataService.getBoardRecords();
+        const boardRecords = await DataService.getAllBoardRecords();
 
         // app menu
         this.findElement<AppMenuElement>('app-menu').updateBoards(boardRecords);
@@ -498,12 +500,29 @@ export class TaskboardManagerElement extends HTMLElement
 
         // board-browser
         this.findElement<BoardBrowserElement>('board-browser').updateBoards(boardRecords);
+    
+        //     const boardBrowser = this.getElement<BoardBrowserElement>('board-browser');
+        //     boardBrowser.addEventListener('select', async (event: Event|CustomEvent) =>
+        //     {
+        //         const { boardId } = (event as CustomEvent).detail;
+        //         if(boardId == null)
+        //         {
+        //             MessageCardElement.notify(`An error occurred attempting to open the board.`, 
+        //             this.getElement('notifications'), { type: MessageCardType.Error });
+        //             console.error('Unable to open board: data-board-id attribute is unset on target element.');
+        //             return;
+        //         }
+        //         // console.log(selected, selected[0].getAttribute('data-board-id') ?? 'no id');
+        //         this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}`)
+        //     });
 
         // config-dialog
+        // this.findElement<ConfigPanelElement>('config-panel').updateBoards(boardRecords);
 
         // board-settings
 
         // import-dialog
+    //     // this.findElement<HTMLButtonElement>('import-ok').addEventListener('click', this.#importDialog_import_onClick.bind(this));
 
         // confirmation-dialog
 
@@ -523,7 +542,36 @@ export class TaskboardManagerElement extends HTMLElement
         // const daysToPersistData = (await this.#getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
         // this.findElement<ConfigPanelElement>('config-panel').init(appVersion, historyLength, daysToPersistData);
 
-        // this.#addHandlers();
+
+        this.addEventListener('click', (event) =>
+        {
+            const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
+
+            const editButton = composedPath.find(item => item.classList.contains('board-edit-button'));
+            if(editButton != null)
+            {
+                this.#board_edit_onClick(editButton.parentElement!.dataset.route);
+                return;
+            }
+
+            const newBoardButton = composedPath.find(item => item.classList.contains('new-board-button'));
+            if(newBoardButton != null)
+            {
+                this.#newBoard_onClick();
+                return;
+            }
+
+            console.log(event.target);
+        })
+
+        //     // addAdminHandlers.call(this);
+        //     // addNavigationhandlers.call(this);
+        //     // // addDragHandlers.call(this);
+        //     addRouteHandlers.call(this);
+        //     // addBoardHandlers.call(this);
+        //     // addBoardSettingsHandlers.call(this);
+        //     // addBoardBrowserHandlers.call(this);
+        //     // addKeyHandlers.call(this);
 
         // this.#refreshRecentBoards();
         // const boardsPromise = this.#refreshBoards();
@@ -564,6 +612,26 @@ export class TaskboardManagerElement extends HTMLElement
         //     this.#removeExpiredData();
         // }, MILLISECONDSINDAY);
     }
+
+    //#region Handlers
+    #board_edit_onClick(boardRoute?: string)
+    {
+        if(boardRoute == null)
+        {
+            MessageCardElement.notify(`An error occurred attempting to open the board for editing.`, 
+            this.getElement('notifications'), { type: MessageCardType.Error });
+            throw new Error("Unable to collected path from board item's path attribute.");
+        }
+        
+        this.findElement<PathRouterElement>('app-router').navigate(`${boardRoute}#board-settings`);
+    }
+    async #newBoard_onClick()
+    {
+        await this.addBoard();
+        this.findElement<AppMenuElement>('app-menu').refresh();
+        // this.findElement<WelcomePanelElement>('welcome-panel').refresh();
+    }
+    //#endregion Handler
 
 
     //#region Utilities
@@ -642,187 +710,6 @@ export class TaskboardManagerElement extends HTMLElement
     //     }
     // }
     
-    // #addHandlers()
-    // {
-    //     const menu = this.getElement<AppMenuElement>('app-menu');
-    //     menu.onBoardMove = this.#updateBoardRecordsAfterMove.bind(this);
-    //     menu.onEdit = this.#board_edit_onClick.bind(this);
-    //     menu.onNew = this.#newBoard_onClick.bind(this);
-
-    //     const configPanel = this.getElement<ConfigPanelElement>('config-panel');
-    //     configPanel.addEventListener('error', (event: Event|CustomEvent) =>
-    //     {
-    //         const { message, type, consoleMessage } = (event as CustomEvent).detail;
-    //         MessageCardElement.notify(message, 
-    //         this.getElement('notifications'), { type: type ?? MessageCardType.Error });
-    //         console.error(new Error(consoleMessage));
-    //     });
-    //     configPanel.addEventListener('scheme', (event: Event|CustomEvent) =>
-    //     {
-    //         const { scheme } = (event as CustomEvent).detail;
-    //         this.setColorScheme(scheme);
-    //         this.#saveAppSetting(AppSettingKey.ColorScheme, scheme);
-    //     });
-    //     configPanel.addEventListener('import', (event: Event|CustomEvent) =>
-    //     {
-    //         const { boardData } = (event as CustomEvent).detail;
-    //         console.log(boardData);
-    //         this.#openImportManager(boardData);
-    //     });
-    //     configPanel.addEventListener('daystopersist', (event: Event|CustomEvent) =>
-    //     {
-    //         const { daysToPersist } = (event as CustomEvent).detail;
-    //         this.#saveAppSetting(AppSettingKey.DaysToPersistData, daysToPersist);
-    //     });
-    //     configPanel.addEventListener('cleardata', (event: Event|CustomEvent) =>
-    //     {
-    //         this.clearData();
-    //     });
-    //     configPanel.addEventListener('restoreitem', (event: Event|CustomEvent) =>
-    //     {
-    //         const { targetType, recordId, timestamp } = (event as CustomEvent).detail;
-    //         this.#restoreDeletedItem(targetType, recordId, timestamp);
-    //     });
-    //     configPanel.addEventListener('cleardeleted', async (event: Event|CustomEvent) =>
-    //     {
-    //         const { items } = (event as CustomEvent).detail;
-    //         for(let i = 0; i < items.length; i++)
-    //         {
-    //             const item = items[i];
-    //             await this.deleteItem(item, false);
-    //         }
-    //         this.#refreshDeletedItems();
-    //         this.#refreshActionHistory();
-    //     });
-    //     configPanel.addEventListener('restoreitem', (event: Event|CustomEvent) =>
-    //     {
-    //         const { item } = (event as CustomEvent).detail;
-    //         return this.deleteImage(item);
-    //     });
-    //     configPanel.addEventListener('clearimages', async (event: Event|CustomEvent) =>
-    //     {
-    //         const { items } = (event as CustomEvent).detail;
-    //         for(let i = 0; i < items.length; i++)
-    //         {
-    //             const item = items[i];
-    //             await this.deleteImage(item, false);
-    //         }
-    //         this.#refreshActionHistory();
-    //         this.#refreshDeletedItems();
-    //     });
-    //     // configPanel.addEventListener('undo', (event: Event|CustomEvent) =>
-    //     // {
-    //     //     this.undo();
-    //     // });
-    //     // configPanel.addEventListener('redo', (event: Event|CustomEvent) =>
-    //     // {
-    //     //     this.redo();
-    //     // });
-    //     configPanel.addEventListener('historyback', async (event: Event|CustomEvent) =>
-    //     {
-    //         const {
-    //             target,
-    //             previous,
-    //             targetIndex,
-    //             previousActiveEntryIndex,
-    //             refreshBoards,
-    //             refreshDeletedItems
-    //         } = (event as CustomEvent).detail;
-
-    //         await this.#handleActionEntryReverse(target, previous, targetIndex, previousActiveEntryIndex);
-
-            
-    //         if(refreshBoards == true)
-    //         {
-    //             this.#refreshBoards();
-    //         }
-    //         if(refreshDeletedItems == true)
-    //         {
-    //             this.#refreshDeletedItems();
-    //         }
-            
-    //         const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
-    //         if(currentBoardId != "")
-    //         {
-    //             this.#renderBoard(currentBoardId);
-    //         }
-    //     });
-    //     configPanel.addEventListener('historyforward', async (event: Event|CustomEvent) =>
-    //     {
-    //         const {
-    //             target,
-    //             previous,
-    //             targetIndex,
-    //             previousActiveEntryIndex,
-    //             refreshBoards,
-    //             refreshDeletedItems
-    //         } = (event as CustomEvent).detail;
-
-    //         await this.#handelActionEntryActivate(target, previous, targetIndex, previousActiveEntryIndex);
-
-    //         if(refreshBoards == true)
-    //         {
-    //             this.#refreshBoards();
-    //         }
-    //         if(refreshDeletedItems == true)
-    //         {
-    //             this.#refreshDeletedItems();
-    //         }
-            
-    //         const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
-    //         if(currentBoardId != "")
-    //         {
-    //             this.#renderBoard(currentBoardId);
-    //         }
-    //     });
-    //     configPanel.addEventListener('preparehistoryitems', async (event: Event|CustomEvent) =>
-    //     {
-    //         const { actionHistory, startIndex } = (event as CustomEvent).detail;
-    //         this.#prepareHistoryEntries(actionHistory, startIndex);
-    //     });
-    //     configPanel.addEventListener('historylength', async (event: Event|CustomEvent) =>
-    //     {
-    //         const { historyLength } = (event as CustomEvent).detail;
-    //         this.#applyHistoryLength(historyLength);
-    //     });
-    //     configPanel.addEventListener('clearhistory', async (_event: Event|CustomEvent) =>
-    //     {
-    //         this.clearHistory();
-    //     });
-
-    
-    //     const boardBrowser = this.getElement<BoardBrowserElement>('board-browser');
-    //     boardBrowser.addEventListener('select', async (event: Event|CustomEvent) =>
-    //     {
-    //         const { boardId } = (event as CustomEvent).detail;
-    //         if(boardId == null)
-    //         {
-    //             MessageCardElement.notify(`An error occurred attempting to open the board.`, 
-    //             this.getElement('notifications'), { type: MessageCardType.Error });
-    //             console.error('Unable to open board: data-board-id attribute is unset on target element.');
-    //             return;
-    //         }
-    //         // console.log(selected, selected[0].getAttribute('data-board-id') ?? 'no id');
-    //         this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}`)
-    //     });
-    
-
-
-    //     // this.findElement<HTMLButtonElement>('import-ok').addEventListener('click', this.#importDialog_import_onClick.bind(this));
-
-    //     // this.addEventListener('click', (event) =>
-    //     // {
-    //     //     console.log(event.target);
-    //     // })
-    //     // addAdminHandlers.call(this);
-    //     // addNavigationhandlers.call(this);
-    //     // // addDragHandlers.call(this);
-    //     addRouteHandlers.call(this);
-    //     // addBoardHandlers.call(this);
-    //     // addBoardSettingsHandlers.call(this);
-    //     // addBoardBrowserHandlers.call(this);
-    //     // addKeyHandlers.call(this);
-    // }
     // async #importDialog_import_onClick(event: Event)
     // {
     //     const boardData = this.findElement<ImportManagerComponent>('import-manager').getRecord();
@@ -915,28 +802,7 @@ export class TaskboardManagerElement extends HTMLElement
     // //     element.toggleAttribute('select', true);
     // //     return element;
     // // }
-    // async #updateBoardRecordsAfterMove()
-    // {
-    //     const toSave = await this.#getOrderedBoards();
-    //     const channel = this.#getChannel<BoardChannel>(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-    //     await channel.saveItems(toSave);
-    // }
-    // #board_edit_onClick(boardRoute?: string)
-    // {
-    //     if(boardRoute == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred attempting to open the board for editing.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error("Unable to collected path from board item's path attribute.");
-    //     }
-        
-    //     this.findElement<PathRouterElement>('app-router').navigate(`${boardRoute}#board-settings`);
-    // }
-    // async #newBoard_onClick()
-    // {
-    //     await this.addBoard();
-    //     this.#refreshBoards();
-    // }
+    
     // // async #updateBoardItemOrder(draggingCursorY: number)
     // // {
     // //     if(this.#draggingBoard == null)
@@ -983,33 +849,6 @@ export class TaskboardManagerElement extends HTMLElement
     // //         return closest;
     // //     }, { offset: Number.NEGATIVE_INFINITY });
     // // }
-    // async #getOrderedBoards()
-    // {
-    //     const channel = this.#getChannel<BoardChannel>(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-
-    //     const orderedIds: string[] = [];
-    //     const boardItems = [...this.findElement('app-menu').querySelectorAll('a.board')] as HTMLElement[];
-    //     for(let i = 0; i < boardItems.length; i++)
-    //     {
-    //         const boardItem = boardItems[i];
-    //         const boardId = boardItem.dataset.route!.split('/')[1];
-    //         if(boardId == null) { throw new Error('Unset board id'); }
-    //         orderedIds.push(boardId);
-    //     }
-
-    //     const boards = await channel.getItems(orderedIds);
-
-    //     const orderedBoards = [];
-    //     for(let i = 0; i < orderedIds.length; i++)
-    //     {
-    //         const board = boards[boards.findIndex(value => value.id == orderedIds[i])];
-    //         if(board == null) { throw new Error("Unknown board"); }
-    //         board.order = i;
-    //         orderedBoards.push(board);
-    //     }
-
-    //     return orderedBoards;
-    // }
 
     // async #renderBoard(id: string)
     // {
