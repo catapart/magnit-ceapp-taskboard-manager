@@ -8,6 +8,11 @@ import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
 import { EditableListElement } from '@magnit-ce/editable-list';
 import { HistoryEntryTargetType } from '../../../data/history/history-entry-data';
 import { createOptionElement, snapToStep } from '../../../resources/utils';
+import { DataService } from '../../../data/data.service';
+import { TaskBoardRecord } from '../../../data/records/task-board.record';
+import { TaskListRecord } from '../../../data/records/task-list.record';
+import { TaskRecord } from '../../../data/records/task.record';
+import { CustomImageRecord } from '../../../data/records/custom-image.record';
 
 export const DaysToPersistValues = [0, 7, 30];
 
@@ -176,21 +181,140 @@ export class DataPanelElement extends HTMLElement
         this.dispatchEvent(new CustomEvent('clearimages', { detail: { items }, bubbles: true, composed: true }));
     }
 
-    static create(properties: DataPanelProperties)
+    
+    async refresh()
     {
-        const element = document.createElement(COMPONENT_TAG_NAME) as DataPanelElement;
-        for(const [propertyName, value] of Object.entries(properties))
+        console.log('refresh');
+
+        const deletedItems = [];
+        const [ deletedBoards, deletedLists, deletedTasks, deletedImages ] = await DataService.getDeletedItems();
+
+        for(let i = 0; i < deletedBoards.length; i++)
         {
-            if(!propertyName.startsWith('on'))
-            {
-                element.setAttribute(propertyName, value as string);
-            }
+            const record = deletedBoards[i];
+            const element = this.#createDeletedItem(record, 'board', true, record.deletedTimestamp!);
+            deletedItems.push(element);
         }
+        for(let i = 0; i < deletedLists.length; i++)
+        {
+            const record = deletedLists[i];
+            const canRestore = deletedBoards.find(item => item.id == record.boardId && item.deletedTimestamp != null) == null;
+            const element = this.#createDeletedItem(record, 'list', canRestore, record.deletedTimestamp!);
+            deletedItems.push(element);
+        }
+        for(let i = 0; i < deletedTasks.length; i++)
+        {
+            const record = deletedTasks[i];
+            const canRestore = deletedBoards.find(item => item.id == record.boardId && item.deletedTimestamp != null) == null;
+            const element = this.#createDeletedItem(record, 'task', canRestore, record.deletedTimestamp!);
+            deletedItems.push(element);
+        }
+
+        const deletedImageElements: HTMLElement[] = [];
+        for(let i = 0; i < deletedImages.length; i++)
+        {
+            const record = deletedImages[i];
+            const element = this.#createDeletedItem(record, 'image', true, record.deletedTimestamp!);
+            deletedImageElements.push(element);
+        }
+
+        // deleted images
+        const deletedImagesElement = this.findElement<EditableListElement>('deleted-images');
+        deletedImagesElement.innerHTML = "";
+        deletedImagesElement.append(...deletedImageElements);
+
+        // deleted items
+        const deletedItemsElement = this.findElement<EditableListElement>('deleted-items');
+        deletedItemsElement.innerHTML = "";
+        deletedItemsElement.append(...deletedItems);
+    }
+    #createDeletedItem(data: unknown, recordType: 'board'|'list'|'task'|'image', canRestore: boolean, timestamp: number)
+    {
+        const item = document.createElement('div');
+        item.setAttribute('data-record-type', recordType);
+        item.setAttribute('part', 'deleted-item');
+        item.classList.add('deleted-item');
+        // item.setAttribute('slot', (recordType == 'image' ? 'deleted-images' : 'deleted-items'));
+        item.setAttribute('data-timestamp', timestamp.toString());
+
+        const label = document.createElement('span');
+        label.setAttribute('part', 'deleted-item-label');
+        label.classList.add('deleted-item-label');
+
+        let record: TaskBoardRecord|TaskListRecord|TaskRecord|CustomImageRecord;
+        if(recordType == 'board')
+        {
+            record = data as TaskBoardRecord;
+            label.textContent = record.name;
+        }
+        else if (recordType == 'list')
+        {
+            record = data as TaskListRecord;
+            label.textContent = record.name;
+        }
+        else if (recordType == 'task')
+        {
+            record = data as TaskRecord;
+            label.textContent = (record.description.trim() == "") ? "[Blank Task]" : record.description;
+        }
+        else if (recordType == 'image')
+        {
+            record = data as CustomImageRecord;
+            label.textContent = record.name;
+        }
+        else
+        {
+            throw new Error('Unknown deleted record type');
+        }
+
+        item.setAttribute('data-record-id', record.id);
+
+        item.append(label);
+
+        if(canRestore == false)
+        {
+            item.dataset.restore = 'false';
+        }
+
+        return item;
     }
 
-    attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) 
-    {
-    }
+    // async #restoreDeletedItem(targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number)
+    // {
+    //     if(targetType == null)
+    //     {
+    //         console.error("Unable to restore record with unknown type or id");
+    //         return;
+    //     }
+    //     const channel = (targetType == 'board')
+    //     ? this.#data.boards 
+    //     : (targetType == 'list')
+    //     ? this.#data.lists
+    //     : (targetType == 'task')
+    //     ? this.#data.tasks
+    //     : null;
+
+    //     if(channel == null)
+    //     {
+    //         console.error("Unable to restore record. Error accessing data.");
+    //         return;
+    //     }
+
+    //     await channel.restore(recordId);
+    //     const updates: Map<string, PropertyUpdate> = new Map([ ['deletedTimestamp', { from: timestamp, to: undefined }] ]);
+    //     const properties = {
+    //         id: recordId,
+    //         updates
+    //     };
+    //     await this.#addActionHistoryEntry(HistoryEntryType.Update, targetType, properties);
+        
+    //     if(targetType == HistoryEntryTargetType.Board)
+    //     {
+    //         this.openBoard(recordId);
+    //         this.#refreshBoards();
+    //     }
+    //     this.#refreshDeletedItems();
+    // }
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)

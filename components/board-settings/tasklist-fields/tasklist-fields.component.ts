@@ -1,7 +1,7 @@
 import { Icons } from '../../../assets/icons/icons.asset';
 import { TaskListColorDisplay, TaskListRecord } from '../../../data/records/task-list.record';
 import { TaskSettingsRecord } from '../../../data/records/task-settings.record';
-import formFieldStyle from '../../../styles/form-field.css?raw';
+import formFieldStyle from '../form-field.css?raw';
 import { TaskFieldsComponent } from '../task-fields/task-fields.component';
 import style from './tasklist-fields.component.css?raw';
 import html from './tasklist-fields.component.html?raw';

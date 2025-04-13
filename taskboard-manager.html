@@ -22,7 +22,7 @@ exportparts="menu,
 >
 </app-menu>
 <path-router id="app-router" path="">
-    <route-page id="welcome-page">
+    <route-page id="welcome-page" class="page" path="">
         <welcome-panel
             id="welcome-panel"
             exportparts="panel-fieldset,
@@ -47,10 +47,10 @@ exportparts="menu,
                          ">
         </welcome-panel>
     </route-page>
-    <route-page path="board/:id" id="board-route">
-        <task-board part="task-board" id="task-board" exportparts="lists:task-board-lists"></task-board>
+    <route-page id="board-page" class="page" path="board/:id" >
+        <task-board id="task-board" exportparts="lists:task-board-lists"></task-board>
     </route-page>
-    <dialog part="dialog board-browser-dialog" class="dialog" is="route-dialog" path="boards">
+    <dialog id="board-browser-dialog" class="dialog" is="route-dialog" path="boards">
         <board-browser
             id="board-browser"
             exportparts="header,
@@ -86,7 +86,7 @@ exportparts="menu,
                          preferred-button">
         </board-browser>
     </dialog>
-    <dialog part="dialog config-dialog" class="dialog" is="route-dialog" path="config">
+    <dialog id="config-dialog" class="dialog" is="route-dialog" path="config">
         <config-panel
             id="config-panel"
             exportparts="config-header,
@@ -293,7 +293,7 @@ exportparts="menu,
             <slot name="custom-settings" slot="custom-settings"></slot>
         </config-panel>
     </dialog>
-    <dialog part="dialog board-settings-dialog" id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">
+    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">
         <board-settings
             id="board-settings"
             exportparts="header,
@@ -406,7 +406,7 @@ exportparts="menu,
                          "
             ></board-settings>
     </dialog>
-    <dialog part="dialog import-dialog" id="import-dialog" class="dialog" is="route-dialog" path="import">
+    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">
         <import-manager
             id="import-manager"
             exportparts="header,
@@ -459,5 +459,5 @@ exportparts="menu,
         </form>
     </footer>
 </dialog>
-<div id="notifications" id="notifications"></div>
+<div id="notifications"></div>
 <div id="loading"></div>

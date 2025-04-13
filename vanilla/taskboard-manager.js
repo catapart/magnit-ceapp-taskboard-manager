@@ -1,10 +1,10 @@
 // styles/shared.css?raw
-var shared_default = '\ninput, button, textarea, select \n{\n    font: inherit; \n}\n\nbutton\n{\n    /* display: inline-flex; */\n    align-items: center;\n    gap: .5em;\n}\n\nbutton svg\n{\n    width: var(--button-icon-size);\n    height: var(--button-icon-size);\n}\n\nimage-input [slot="placeholder"]\n{\n    display: grid;\n    justify-items: center;\n    gap: .25em;\n    padding: .5em;\n    max-width: 300px;\n    max-height: 300px;\n}\n\ndialog\n{\n    max-height: 80%;\n    max-width: calc(100% - (var(--dialog-margin)*2));\n    overflow: hidden;\n    flex-direction: column;\n    transition: transform 200ms ease, opacity 200ms ease;\n}\ndialog[open]\n{\n    display: flex;\n    opacity: 1;\n}\n@starting-style \n{\n    dialog[open]\n    {\n        opacity: 0;\n        transform: translateY(20px);\n    }\n}\n/* \ndialog > header\n,dialog > form > header\n{\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    gap: 7px;\n    align-items: center;\n    font-weight: bold;\n    padding-block: 5px;\n}\ndialog > header svg\n,dialog > form > header svg\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n} */\n\n/* dialog .route-view\n{\n    flex:1;\n    overflow: hidden;\n}\n\ndialog .route-view route-page\n{\n    overflow: auto;\n} */\n\n@media (max-width: 665px) \n{\n    dialog\n    {\n        bottom: 25px;\n    }\n}\n@media (max-width: 800px) \n{\n    \n}\n\n/* only desktop */\n@media (min-width: 665px) \n{\n    dialog\n    {\n        min-width: 500px;\n        max-width: 850px;\n        top: 50px;\n    }\n}\n@media (min-width: 800px) \n{\n}';
+var shared_default = "\ninput, button, textarea, select \n{\n    font: inherit; \n}\n\nbutton svg\n{\n    width: var(--button-icon-size);\n    height: var(--button-icon-size);\n}\n";
 
-// styles/board-item.global.css?raw
+// components/app-menu/board-item.global.css?raw
 var board_item_global_default = '\na.board\n{\n    margin: 0;\n    flex-shrink: 0;\n    display: flex;\n    align-items: center;\n    gap: .25em;\n    padding: .25em 1em;\n}\na.board .name\n{\n    flex: 1;\n}\na.board:hover\n{\n    background: highlight;\n    color: highlighttext;\n}\na.board[aria-current="page"]\n{\n    background: highlight;\n    color: highlighttext;\n}\n\n@media (max-width: 665px) \n{\n\n    a.board [part="edit"]\n    {\n        display: none;\n    }\n}\n@media (max-width: 800px) \n{\n    \n}\n\n/* only desktop */\n@media (min-width: 665px) \n{\n\n    a.board\n    {\n        overflow: hidden;\n    }\n\n    .menu-item-handle\n    ,a.board [part="edit"]\n    {\n        opacity: 0;\n        transition: opacity 200ms ease;\n    }\n    .menu-item-handle\n    ,a.board:hover [part="edit"]\n    {\n        opacity: 1;\n    }\n\n    a.board [part="edit"]:hover\n    {\n        opacity: 1;\n    }\n\n    a.board .board-item-name\n    {\n        flex: 1;\n        white-space: nowrap;\n        overflow: hidden;\n        text-overflow: ellipsis;\n    }\n\n    \n    .menu-item-handle\n    {\n        display: flex;\n        width: 10px;\n        align-self: stretch;\n        cursor: grab;\n        /* border-radius: 3px; */\n        transform: translateY(-1px);\n        \n        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);\n        background-size: 5px 6px;\n        background-position: 0 0, 2px 4px;\n    }\n    .menu-item-handle:active\n    {\n        cursor: grabbing;\n    }\n}\n@media (min-width: 800px) \n{\n\n}';
 
-// styles/browser-item.global.css?raw
+// components/board-browser/browser-item.global.css?raw
 var browser_item_global_default = "captioned-thumbnail\n{\n    height: auto;\n}\n\ncaptioned-thumbnail::part(figure)\n{\n    padding: 3px;\n}\n\ncaptioned-thumbnail svg\n{\n    width: 36px;\n    height: 36px;\n}\n\ncaptioned-thumbnail.match\n{\n    border: solid 1px highlight;\n    order: 0;\n}\nboard-browser:has(captioned-thumbnail.match) captioned-thumbnail:not(.match)\n{\n    order: 1;\n}";
 
 // styles/settings.css?raw
@@ -33,6 +33,17 @@ var taskboard_manager_default = `*
     listitem
     header
  */
+
+input, button, textarea, select 
+{
+    font: inherit; 
+}
+
+button svg
+{
+    width: var(--button-icon-size);
+    height: var(--button-icon-size);
+}
 
 :host
 {    
@@ -336,10 +347,59 @@ message-card::part(message)
     border-color: #666;
     box-shadow: 1px 1px rgba(255, 255, 255, 0.6),
     0 2px 0 0 rgba(255, 255, 255, 0.1) inset;
+}
+
+
+dialog
+{
+    max-height: 80%;
+    max-width: calc(100% - (var(--dialog-margin)*2));
+    overflow: hidden;
+    flex-direction: column;
+    transition: transform 200ms ease, opacity 200ms ease;
+}
+dialog[open]
+{
+    display: flex;
+    opacity: 1;
+}
+@starting-style 
+{
+    dialog[open]
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+@media (max-width: 665px) 
+{
+    dialog
+    {
+        bottom: 25px;
+    }
+}
+@media (max-width: 800px) 
+{
+    
+}
+
+/* only desktop */
+@media (min-width: 665px) 
+{
+    dialog
+    {
+        min-width: 500px;
+        max-width: 850px;
+        top: 50px;
+    }
+}
+@media (min-width: 800px) 
+{
 }`;
 
 // taskboard-manager.html?raw
-var taskboard_manager_default2 = '<app-menu\nid="app-menu"\nexportparts="menu,\n            header,\n            menu-header,\n            branding,\n            icon,\n            logo,\n            mark,\n            button,\n            open-board-browser,\n            label,\n            magnifying-glass,\n            open-settings,\n            gear,\n            boards,\n            board-items,\n            board-edit-button,\n            new-board-button,\n            expand\n            "\n>\n</app-menu>\n<path-router id="app-router" path="">\n    <route-page id="welcome-page">\n        <welcome-panel\n            id="welcome-panel"\n            exportparts="panel-fieldset,\n                         logo,\n                         welcome-logo,\n                         description,\n                         welcome-description,\n                         welcome-text,\n                         create-text,\n                         text,\n                         fieldset,\n                         legend,\n                         recent-fieldset,\n                         recent-legend,\n                         recent-boards,\n                         button,\n                         edit-button:recent-edit-button,\n                         handle:recent-edit-handle,\n                         new-board-button:recent-new-board-button,\n                         plus,\n                         label\n                         ">\n        </welcome-panel>\n    </route-page>\n    <route-page path="board/:id" id="board-route">\n        <task-board part="task-board" id="task-board" exportparts="lists:task-board-lists"></task-board>\n    </route-page>\n    <dialog part="dialog board-browser-dialog" class="dialog" is="route-dialog" path="boards">\n        <board-browser\n            id="board-browser"\n            exportparts="header,\n                         board-browser-header,\n                         dialog-header,\n                         icon,\n                         title,\n                         board-browser-title,\n                         add-button-icon:board-browser-add-button-icon,\n                         add-button-label:board-browser-add-button-label,\n                         input,\n                         filter-search:browser-filter-search,\n                         filter-form:browser-filter-form,\n                         filter-query:browser-filter-query,\n                         filter-input:browser-filter-input,\n                         filter-regex-button:browser-filter-regex-button,\n                         filter-search-button:browser-filter-search-button,\n                         field-button:browser-filter-field-button,\n                         filter-regex-icon:browser-filter-regex-icon,\n                         filter-search-icon:browser-filter-search-icon,\n                         collection-browser:board-collection-browser,\n                         gallery:board-browser-gallery,\n                         gallery-header:board-browser-gallery-header,\n                         items:board-browser-items,\n                         add-button:board-browser-add-button,\n                         footer,\n                         board-browser-footer,\n                         actions,\n                         board-browser-actions,\n                         cancel:board-browser-cancel,\n                         ok:board-browser-ok,\n                         button,\n                         preferred-button">\n        </board-browser>\n    </dialog>\n    <dialog part="dialog config-dialog" class="dialog" is="route-dialog" path="config">\n        <config-panel\n            id="config-panel"\n            exportparts="config-header,\n                         header,\n                         dialog-header,\n                         config-icon,\n                         icon,\n                         config-title,\n                         title,\n                         config-navigation,\n                         navigation,\n                         nav-item,\n                         selected,\n                         first,\n                         last,\n                         nav-item-icon,\n                         nav-item-label,\n                         settings-nav-item,\n                         data-nav-item,\n                         history-nav-item,\n                         about-nav-item,\n                         config-router,\n                         router,\n                         page,\n                         config-page,\n                         panel,\n                         settings-page,\n                         settings-panel,\n                         data-page,\n                         data-panel,\n                         history-page,\n                         history-panel,\n                         about-page,\n                         about-panel,\n                         config-footer,\n                         footer,\n                         dialog-footer,\n                         config-actions,\n                         actions,\n                         config-cancel,\n                         button,\n                         action-button,\n                         cancel,\n                         config-ok,\n                         ok,\n                         preferred-button,\n\n                         settings-header,\n                         header,\n                         page-header,\n                         fieldset,\n                         config-fieldset,\n                         legend,\n                         config-legend,\n                         color-scheme-fieldset,\n                         color-scheme-legend,\n                         scheme-options,\n                         button-group,\n                         button,\n                         scheme,\n                         inherit-button,\n                         browser-button,\n                         light-button,\n                         dark-button,\n                         custom-settings-fieldset,\n                         custom-settings-legend,\n                         shortcuts-fieldset,\n                         shortcuts-legend,\n                         shortcuts,\n                         shortcut,\n                         word,\n                         line,\n                         hightlight,\n                         task,\n                         list,\n                         key,\n                         shortcut-title,\n                         shortcut-description,\n                         previous-word,\n                         next-word,\n                         previous-line,\n                         next-line,\n                         highlight-previous-word,\n                         highlight-next-word,\n                         previous-line,\n                         next-line,\n                         previous-task,\n                         next-task,\n                         previous-list,\n                         next-list,\n\n                         data-header,\n                         import-fieldset,\n                         import-legend,\n                         import-field,\n                         import-field-container,\n                         field-container,\n                         field-label,\n                         field-prefix,\n                         field-postfix,\n                         import-board-file,\n                         field,\n                         input,\n                         config-field,\n                         data-field,\n                         import-file-icon,\n                         import-button,\n                         import-button-icon,\n                         import-button-label,\n                         config-data-caches,\n                         data-cleanup-fieldset,\n                         data-cleanup-legend,\n                         data-cleanup-description,\n                         text,\n                         data-cleanup-range,\n                         data-persist-days,\n                         data-persist-days-values,\n                         data-persist-days-value,\n                         apply-data-persist-days-button,\n                         apply-data-persist-days-icon,\n                         apply-data-persist-days-label,\n                         data-pending-fieldset,\n                         data-pending-legend,\n                         data-pending-description,\n                         deleted-items,\n                         restore-item-icon,\n                         clear-deleted-button,\n                         clear-deleted-icon,\n                         clear-deleted-label,\n                         image-cache-fieldset,\n                         image-cache-legend,\n                         image-cache-description,\n                         deleted-images,\n                         clear-image-cache-button,\n                         clear-images-icon,\n                         clear-images-label,\n                         data-clear-fieldset,\n                         data-clear-legend,\n                         data-clear-description,\n                         clear-data-button,\n                         clear-data-icon,\n                         clear-data-label,\n                         cache-list,\n                         range,\n\n                         header,\n                         history-header,\n                         history-navigation-fieldset,\n                         fieldset,\n                         config-fieldset,\n                         legend,\n                         config-legend,\n                         history-navigation-legend,\n                         undo,\n                         button,\n                         restore-item-icon,\n                         icon,\n                         undo-label,\n                         redo,\n                         button,\n                         redo-label,\n                         clear-history-button,\n                         clear-history-icon,\n                         clear-history-label,\n                         action-history,\n                         action-history-entry,\n                         action-history-entry-type,\n                         action-history-entry-data,\n                         action-history-target-type,\n                         action-history-target-id,\n                         active,\n                         history-length-fieldset,\n                         history-length-legend,\n                         history-length-field,\n                         field,\n                         field-container,\n                         field-label,\n                         field-prefix,\n                         field-postfix,\n                         action-history-length,\n                         action-history-length-values,\n                         apply-history-length-button,\n                         apply-history-length-label,\n\n                         about-header,\n                         about-app-fieldset,\n                         about-app-legend,\n                         emphasis,\n                         code,\n                         version-fieldset,\n                         version-legend,\n                         version-value,\n                         copyright-fieldset,\n                         copyright-legend,\n                         copyright-text,\n                         cc0-link,\n                         link,\n                         copyright-link,\n                         cc-icon,\n                         zero-icon,\n                         icon,\n                         raster\n                        ">\n            <slot name="custom-settings" slot="custom-settings"></slot>\n        </config-panel>\n    </dialog>\n    <dialog part="dialog board-settings-dialog" id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\n        <board-settings\n            id="board-settings"\n            exportparts="header,\n                         dialog-header,\n                         fieldset,\n                         legend,\n                         form,\n                         icon,\n                         title,\n                         button,\n                         header-button,\n                         field,\n                         input,\n                         label,\n                         legend-label,\n                         footer,\n                         dialog-footer,\n                         button,\n                         action-button,\n                         ok,\n                         cancel,\n                         preferred-button,\n                         board-settings-form,\n                         board-settings-header,\n                         board-settings-icon,\n                         board-settings-title,\n                         close-board-button,\n                         close-board-icon,\n                         fields: board-settings-fields,\n                         record-id,\n                         properties: board-settings-properties,\n                         color-field,\n                         color-input,\n                         name-field,\n                         name-input,\n                         order-field,\n                         order-input,\n                         appearance-fieldset,\n                         appearance-legend,\n                         color-icon,\n                         appearance-label,\n                         background-color-field,\n                         background-color: background-color-input,\n                         font-color-field,\n                         font-color: font-color-input,\n                         image-fieldset,\n                         image-legend,\n                         image-icon,\n                         image-label,\n                         background-image-field,\n                         background-image:background-image-input,\n                         background-image-icon,\n                         background-image-display-field,\n                         background-image-display: background-image-display-select,\n                         background-image-offset,\n                         offset-header,\n                         offset-label,\n                         background-image-offset-x-field,\n                         background-image-offset-x: background-image-offset-x-input,\n                         background-image-offset-y-field,\n                         background-image-offset-y: background-image-offset-y-input,\n                         board-settings-details,\n                         settings-details,\n                         board-settings-summary,\n                         settings-summary,\n                         lists: board-settings-lists,\n                         lists-summary,\n                         lists-icon,\n                         lists-label,\n                         list-items,\n                         lists-placeholder,\n                         list-actions,\n                         clear-lists-button,\n                         clear-lists-button-icon,\n                         clear-lists-button-label,\n                         add-list-button,\n                         add-list-button-icon,\n                         add-list-button-label,\n                         tasks: board-settings-task-settings,\n                         tasks-summary: board-settings-task-settings-summary,\n                         tasks-icon: board-settings-task-settings-icon,\n                         tasks-label: board-settings-task-settings-label,\n                         board-task-settings,\n                         task-fields,\n                         delete-fieldset,\n                         delete-legend,\n                         field-question,\n                         remove-board-button,\n                         remove-board-label,\n                         duplicate-fieldset,\n                         duplicate-legend,\n                         duplicate-board-name-field,\n                         duplicate-board-name,\n                         duplicate-board-button,\n                         duplicate-board-icon,\n                         duplicate-board-label,\n                         export-fieldset,\n                         export-legend,\n                         export-options,\n                         export-options-header,\n                         export-images-field,\n                         export-images-icon,\n                         export-background-image,\n                         export-button,\n                         export-button-icon,\n                         export-button-label,\n                         board-settings-footer,\n                         board-settings-cancel,\n                         board-settings-save,\n                         "\n            ></board-settings>\n    </dialog>\n    <dialog part="dialog import-dialog" id="import-dialog" class="dialog" is="route-dialog" path="import">\n        <import-manager\n            id="import-manager"\n            exportparts="header,\n                         dialog-header,\n                         import-header,\n                         import-icon,\n                         icon,\n                         import-title,\n                         title,\n                         dialog-title,\n                         content: import-dialog-content,\n                         import-board-data-fieldset,\n                         fieldset,\n                         legend,\n                         import-board-data-legend,\n                         preview: import-preview,\n                         description,\n                         import-footer,\n                         footer,\n                         dialog-footer,\n                         import-actions,\n                         actions,\n                         import-cancel,\n                         cancel,\n                         button,\n                         dialog-button,\n                         ok,\n                         import-ok,\n                         preferred-button\n            "\n            ></import-manager>\n    </dialog>\n</path-router>\n<dialog id="confirmation-dialog" class="dialog">\n    <header id="confirmation-dialog-header" class="header dialog-header">\n        <svg id="confirmation-dialog-icon" class="icon">\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span id="confirmation-dialog-title" class="title">Confirmation</span>\n    </header>\n    <path-router id="confirmation-router" class="router">\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\n    </path-router>\n    <footer id="confirmation-dialog-footer" class="footer dialog-footer">\n        <form id="confirmation-dialog-form" method="dialog">\n            <button type="submit" id="confirmation-cancel-button" class="button action-button cancel">Cancel</button>\n            <button type="submit" id="confirmation-confirm-button" class="button action-button ok preferred-button">Confirm</button>\n        </form>\n    </footer>\n</dialog>\n<div id="notifications" id="notifications"></div>\n<div id="loading"></div>';
+var taskboard_manager_default2 = '<app-menu\nid="app-menu"\nexportparts="menu,\n            header,\n            menu-header,\n            branding,\n            icon,\n            logo,\n            mark,\n            button,\n            open-board-browser,\n            label,\n            magnifying-glass,\n            open-settings,\n            gear,\n            boards,\n            board-items,\n            board-edit-button,\n            new-board-button,\n            expand\n            "\n>\n</app-menu>\n<path-router id="app-router" path="">\n    <route-page id="welcome-page" class="page" path="">\n        <welcome-panel\n            id="welcome-panel"\n            exportparts="panel-fieldset,\n                         logo,\n                         welcome-logo,\n                         description,\n                         welcome-description,\n                         welcome-text,\n                         create-text,\n                         text,\n                         fieldset,\n                         legend,\n                         recent-fieldset,\n                         recent-legend,\n                         recent-boards,\n                         button,\n                         edit-button:recent-edit-button,\n                         handle:recent-edit-handle,\n                         new-board-button:recent-new-board-button,\n                         plus,\n                         label\n                         ">\n        </welcome-panel>\n    </route-page>\n    <route-page id="board-page" class="page" path="board/:id" >\n        <task-board id="task-board" exportparts="lists:task-board-lists"></task-board>\n    </route-page>\n    <dialog id="board-browser-dialog" class="dialog" is="route-dialog" path="boards">\n        <board-browser\n            id="board-browser"\n            exportparts="header,\n                         board-browser-header,\n                         dialog-header,\n                         icon,\n                         title,\n                         board-browser-title,\n                         add-button-icon:board-browser-add-button-icon,\n                         add-button-label:board-browser-add-button-label,\n                         input,\n                         filter-search:browser-filter-search,\n                         filter-form:browser-filter-form,\n                         filter-query:browser-filter-query,\n                         filter-input:browser-filter-input,\n                         filter-regex-button:browser-filter-regex-button,\n                         filter-search-button:browser-filter-search-button,\n                         field-button:browser-filter-field-button,\n                         filter-regex-icon:browser-filter-regex-icon,\n                         filter-search-icon:browser-filter-search-icon,\n                         collection-browser:board-collection-browser,\n                         gallery:board-browser-gallery,\n                         gallery-header:board-browser-gallery-header,\n                         items:board-browser-items,\n                         add-button:board-browser-add-button,\n                         footer,\n                         board-browser-footer,\n                         actions,\n                         board-browser-actions,\n                         cancel:board-browser-cancel,\n                         ok:board-browser-ok,\n                         button,\n                         preferred-button">\n        </board-browser>\n    </dialog>\n    <dialog id="config-dialog" class="dialog" is="route-dialog" path="config">\n        <config-panel\n            id="config-panel"\n            exportparts="config-header,\n                         header,\n                         dialog-header,\n                         config-icon,\n                         icon,\n                         config-title,\n                         title,\n                         config-navigation,\n                         navigation,\n                         nav-item,\n                         selected,\n                         first,\n                         last,\n                         nav-item-icon,\n                         nav-item-label,\n                         settings-nav-item,\n                         data-nav-item,\n                         history-nav-item,\n                         about-nav-item,\n                         config-router,\n                         router,\n                         page,\n                         config-page,\n                         panel,\n                         settings-page,\n                         settings-panel,\n                         data-page,\n                         data-panel,\n                         history-page,\n                         history-panel,\n                         about-page,\n                         about-panel,\n                         config-footer,\n                         footer,\n                         dialog-footer,\n                         config-actions,\n                         actions,\n                         config-cancel,\n                         button,\n                         action-button,\n                         cancel,\n                         config-ok,\n                         ok,\n                         preferred-button,\n\n                         settings-header,\n                         header,\n                         page-header,\n                         fieldset,\n                         config-fieldset,\n                         legend,\n                         config-legend,\n                         color-scheme-fieldset,\n                         color-scheme-legend,\n                         scheme-options,\n                         button-group,\n                         button,\n                         scheme,\n                         inherit-button,\n                         browser-button,\n                         light-button,\n                         dark-button,\n                         custom-settings-fieldset,\n                         custom-settings-legend,\n                         shortcuts-fieldset,\n                         shortcuts-legend,\n                         shortcuts,\n                         shortcut,\n                         word,\n                         line,\n                         hightlight,\n                         task,\n                         list,\n                         key,\n                         shortcut-title,\n                         shortcut-description,\n                         previous-word,\n                         next-word,\n                         previous-line,\n                         next-line,\n                         highlight-previous-word,\n                         highlight-next-word,\n                         previous-line,\n                         next-line,\n                         previous-task,\n                         next-task,\n                         previous-list,\n                         next-list,\n\n                         data-header,\n                         import-fieldset,\n                         import-legend,\n                         import-field,\n                         import-field-container,\n                         field-container,\n                         field-label,\n                         field-prefix,\n                         field-postfix,\n                         import-board-file,\n                         field,\n                         input,\n                         config-field,\n                         data-field,\n                         import-file-icon,\n                         import-button,\n                         import-button-icon,\n                         import-button-label,\n                         config-data-caches,\n                         data-cleanup-fieldset,\n                         data-cleanup-legend,\n                         data-cleanup-description,\n                         text,\n                         data-cleanup-range,\n                         data-persist-days,\n                         data-persist-days-values,\n                         data-persist-days-value,\n                         apply-data-persist-days-button,\n                         apply-data-persist-days-icon,\n                         apply-data-persist-days-label,\n                         data-pending-fieldset,\n                         data-pending-legend,\n                         data-pending-description,\n                         deleted-items,\n                         restore-item-icon,\n                         clear-deleted-button,\n                         clear-deleted-icon,\n                         clear-deleted-label,\n                         image-cache-fieldset,\n                         image-cache-legend,\n                         image-cache-description,\n                         deleted-images,\n                         clear-image-cache-button,\n                         clear-images-icon,\n                         clear-images-label,\n                         data-clear-fieldset,\n                         data-clear-legend,\n                         data-clear-description,\n                         clear-data-button,\n                         clear-data-icon,\n                         clear-data-label,\n                         cache-list,\n                         range,\n\n                         header,\n                         history-header,\n                         history-navigation-fieldset,\n                         fieldset,\n                         config-fieldset,\n                         legend,\n                         config-legend,\n                         history-navigation-legend,\n                         undo,\n                         button,\n                         restore-item-icon,\n                         icon,\n                         undo-label,\n                         redo,\n                         button,\n                         redo-label,\n                         clear-history-button,\n                         clear-history-icon,\n                         clear-history-label,\n                         action-history,\n                         action-history-entry,\n                         action-history-entry-type,\n                         action-history-entry-data,\n                         action-history-target-type,\n                         action-history-target-id,\n                         active,\n                         history-length-fieldset,\n                         history-length-legend,\n                         history-length-field,\n                         field,\n                         field-container,\n                         field-label,\n                         field-prefix,\n                         field-postfix,\n                         action-history-length,\n                         action-history-length-values,\n                         apply-history-length-button,\n                         apply-history-length-label,\n\n                         about-header,\n                         about-app-fieldset,\n                         about-app-legend,\n                         emphasis,\n                         code,\n                         version-fieldset,\n                         version-legend,\n                         version-value,\n                         copyright-fieldset,\n                         copyright-legend,\n                         copyright-text,\n                         cc0-link,\n                         link,\n                         copyright-link,\n                         cc-icon,\n                         zero-icon,\n                         icon,\n                         raster\n                        ">\n            <slot name="custom-settings" slot="custom-settings"></slot>\n        </config-panel>\n    </dialog>\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\n        <board-settings\n            id="board-settings"\n            exportparts="header,\n                         dialog-header,\n                         fieldset,\n                         legend,\n                         form,\n                         icon,\n                         title,\n                         button,\n                         header-button,\n                         field,\n                         input,\n                         label,\n                         legend-label,\n                         footer,\n                         dialog-footer,\n                         button,\n                         action-button,\n                         ok,\n                         cancel,\n                         preferred-button,\n                         board-settings-form,\n                         board-settings-header,\n                         board-settings-icon,\n                         board-settings-title,\n                         close-board-button,\n                         close-board-icon,\n                         fields: board-settings-fields,\n                         record-id,\n                         properties: board-settings-properties,\n                         color-field,\n                         color-input,\n                         name-field,\n                         name-input,\n                         order-field,\n                         order-input,\n                         appearance-fieldset,\n                         appearance-legend,\n                         color-icon,\n                         appearance-label,\n                         background-color-field,\n                         background-color: background-color-input,\n                         font-color-field,\n                         font-color: font-color-input,\n                         image-fieldset,\n                         image-legend,\n                         image-icon,\n                         image-label,\n                         background-image-field,\n                         background-image:background-image-input,\n                         background-image-icon,\n                         background-image-display-field,\n                         background-image-display: background-image-display-select,\n                         background-image-offset,\n                         offset-header,\n                         offset-label,\n                         background-image-offset-x-field,\n                         background-image-offset-x: background-image-offset-x-input,\n                         background-image-offset-y-field,\n                         background-image-offset-y: background-image-offset-y-input,\n                         board-settings-details,\n                         settings-details,\n                         board-settings-summary,\n                         settings-summary,\n                         lists: board-settings-lists,\n                         lists-summary,\n                         lists-icon,\n                         lists-label,\n                         list-items,\n                         lists-placeholder,\n                         list-actions,\n                         clear-lists-button,\n                         clear-lists-button-icon,\n                         clear-lists-button-label,\n                         add-list-button,\n                         add-list-button-icon,\n                         add-list-button-label,\n                         tasks: board-settings-task-settings,\n                         tasks-summary: board-settings-task-settings-summary,\n                         tasks-icon: board-settings-task-settings-icon,\n                         tasks-label: board-settings-task-settings-label,\n                         board-task-settings,\n                         task-fields,\n                         delete-fieldset,\n                         delete-legend,\n                         field-question,\n                         remove-board-button,\n                         remove-board-label,\n                         duplicate-fieldset,\n                         duplicate-legend,\n                         duplicate-board-name-field,\n                         duplicate-board-name,\n                         duplicate-board-button,\n                         duplicate-board-icon,\n                         duplicate-board-label,\n                         export-fieldset,\n                         export-legend,\n                         export-options,\n                         export-options-header,\n                         export-images-field,\n                         export-images-icon,\n                         export-background-image,\n                         export-button,\n                         export-button-icon,\n                         export-button-label,\n                         board-settings-footer,\n                         board-settings-cancel,\n                         board-settings-save,\n                         "\n            ></board-settings>\n    </dialog>\n    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">\n        <import-manager\n            id="import-manager"\n            exportparts="header,\n                         dialog-header,\n                         import-header,\n                         import-icon,\n                         icon,\n                         import-title,\n                         title,\n                         dialog-title,\n                         content: import-dialog-content,\n                         import-board-data-fieldset,\n                         fieldset,\n                         legend,\n                         import-board-data-legend,\n                         preview: import-preview,\n                         description,\n                         import-footer,\n                         footer,\n                         dialog-footer,\n                         import-actions,\n                         actions,\n                         import-cancel,\n                         cancel,\n                         button,\n                         dialog-button,\n                         ok,\n                         import-ok,\n                         preferred-button\n            "\n            ></import-manager>\n    </dialog>\n</path-router>\n<dialog id="confirmation-dialog" class="dialog">\n    <header id="confirmation-dialog-header" class="header dialog-header">\n        <svg id="confirmation-dialog-icon" class="icon">\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span id="confirmation-dialog-title" class="title">Confirmation</span>\n    </header>\n    <path-router id="confirmation-router" class="router">\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\n    </path-router>\n    <footer id="confirmation-dialog-footer" class="footer dialog-footer">\n        <form id="confirmation-dialog-form" method="dialog">\n            <button type="submit" id="confirmation-cancel-button" class="button action-button cancel">Cancel</button>\n            <button type="submit" id="confirmation-confirm-button" class="button action-button ok preferred-button">Confirm</button>\n        </form>\n    </footer>\n</dialog>\n<div id="notifications"></div>\n<div id="loading"></div>';
 
 // assets/icons/cancel-cross.ts
 var CancelCross = `<svg id="icon-definition_cancel-cross" class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -2088,7 +2148,7 @@ var TaskSettingsRecord = class extends DataRecord {
   centerRemoveButton = false;
 };
 
-// styles/form-field.css?raw
+// components/board-settings/form-field.css?raw
 var form_field_default = '[part="field-label"]\n{\n    white-space: nowrap;\n}\nform-field [part="label"]\n,form-field [part="field-label"]\n{\n    display: flex;\n    gap: .25em;\n    align-items: center;\n}\nform-field [part="label"] input\n,form-field [part="field-label"] input\n{\n    margin: 0;\n}\nform-field [part="label"] [part="text"]\n,form-field [part="field-label"] [part="text"]\n{\n    flex: 1;\n}\n\nform-field [part="container"]\n{\n    display: grid;\n    grid-template-rows: auto 1fr;\n    gap: .25em;\n}\nform-field [part="container"]:has([slot="postfix"])\n{\n    display: grid;\n    grid-template-columns: 1fr auto;\n    column-gap: 0;\n    row-gap: .25em;\n}\nform-field [part="container"]:has([slot="postfix"]) [part="field-label"]\n{\n    grid-column: span 2;\n}\n\n';
 
 // components/board-settings/task-fields/task-fields.component.css?raw
@@ -2441,7 +2501,7 @@ if (customElements.get(COMPONENT_TAG_NAME3) == null) {
 }
 
 // components/app-menu/app-menu.css?raw
-var app_menu_default = `#menu
+var app_menu_default = `#app-menu
 {
     padding: 0;
     margin: 0;
@@ -2450,14 +2510,14 @@ var app_menu_default = `#menu
     border-right: solid 1px graytext;
 }
 
-#menu-header
+#app-menu-header
 {
     display: flex;
     gap: .5em;
     padding: .5em;
 }
 
-#branding
+#app-menu-branding
 {
     grid-area: brand;
     display: flex;
@@ -2471,7 +2531,7 @@ var app_menu_default = `#menu
     height: var(--brand-icon-size);
 }
 
-#open-board-browser
+#find-board-button
 {
     flex: 1;
     display: grid;
@@ -2489,7 +2549,7 @@ var app_menu_default = `#menu
 
 @media (max-width: 665px) 
 {
-    #menu
+    #app-menu
     {
         max-width: 100vw;
         display: grid;
@@ -2497,7 +2557,7 @@ var app_menu_default = `#menu
         order: 2;
     }
 
-    #header
+    #app-menu-header
     {
         grid-row: 2;
         display: flex;
@@ -2552,7 +2612,7 @@ var app_menu_default = `#menu
 /* only desktop */
 @media (min-width: 665px) 
 {
-    #menu
+    #app-menu
     {
         display: grid;
         grid-template-rows: auto 1fr;
@@ -2581,10 +2641,6 @@ var app_menu_default = `#menu
     #new-board-button
     {
         margin: 10px;
-    }
-
-    #new-board-button_list
-    {
         margin-top: 1em;
         justify-self: center;
     }
@@ -2595,7 +2651,852 @@ var app_menu_default = `#menu
 }`;
 
 // components/app-menu/app-menu.html?raw
-var app_menu_default2 = '<menu id="menu">\n    <header id="menu-header" class="header">\n        <div id="branding" title="Manager Icon">\n            <svg class="icon logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button id="open-board-browser" class="button" type="button" data-route="#boards" title="Find Board">\n            <svg class="icon magnifying-glass">\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="label">Find Board</span>\n        </button>\n        <button id="open-settings" class="button" type="button" data-route="#config/settings" title="App Administration">\n            <svg class="icon gear">\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list id="boards" remove="false" edit="true" edit-class="board-edit-button" exportparts="edit: board-edit-button, items: board-items">\n        <slot></slot>\n        <button id="new-board-button" class="button new-board-button" type="button" slot="add" title="New Board">\n            <svg class="icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label">New Board</span>\n        </button>\n        <template part="edit-button">\n            <svg class="icon expand" >\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n';
+var app_menu_default2 = '<menu id="app-menu" class="menu">\n    <header id="app-menu-header" class="header">\n        <div id="app-menu-branding" class="branding" title="Manager Icon">\n            <svg class="icon logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button id="find-board-button" class="button" type="button" data-route="#boards" title="Find Board">\n            <svg class="icon button-icon magnifying-glass">\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="button-label">Find Board</span>\n        </button>\n        <button id="open-settings-button" class="button" type="button" data-route="#config/settings" title="App Administration">\n            <svg class="icon button-icon gear">\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list id="boards" remove="false" edit="true" edit-class="board-edit-button" exportparts="items: board-items">\n        <slot></slot>\n        <button id="new-board-button" class="button new-board-button" type="button" slot="add" title="New Board">\n            <svg class="icon button-icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label button-label">New Board</span>\n        </button>\n        <template part="edit-button button">\n            <svg class="icon button-icon expand">\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n';
+
+// components/config-panel/history-panel/history-panel.css?raw
+var history_panel_default = ":host\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n    overflow: hidden;\n}\n\n#history-header\n{\n    font-size: 14px;\n    font-weight: bold;\n}\n\n#history-length-fieldset\n{\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    flex: 1;\n}\n\n#history-length-field .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    flex: 1;\n}\n\n#action-history-length\n{\n    flex: 1;\n}\n\n#history-navigation-fieldset\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n    gap: 7px;\n    overflow: hidden;\n}\n#clear-history-button\n{\n    grid-column: 4;\n    white-space: nowrap;\n}\n#action-history\n{\n    grid-column: span 4;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    overflow: auto;\n    flex: 1;\n}\n@media (max-width: 665px) \n{\n    #action-history-length\n    {\n        width: 50px;\n    }\n}";
+
+// components/config-panel/history-panel/history-panel.html?raw
+var history_panel_default2 = '\n<header id="history-header" class="header page-header">History</header>\n<fieldset id="history-navigation-fieldset" class="fieldset config-fieldset">\n    <legend id="history-navigation-legend" class="legend config-legend">Navigation</legend>\n    <button id="undo" class="button">\n        <svg id="restore-item-icon" class="icon" title="Undo">\n            <use href="#icon-definition_undo-redo"></use>\n        </svg>\n        <span part="undo-label">Undo</span>\n    </button>\n    <button id="redo" class="button">\n        <svg id="restore-item-icon" class="icon" title="Redo" style="transform: scaleX(-1);">\n            <use href="#icon-definition_undo-redo"></use>\n        </svg>\n        <span id="redo-label">Redo</span>\n    </button>\n    <button id="clear-history-button" class="button">\n        <svg id="clear-history-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-history-label">Clear History</span>\n    </button>\n    <action-history id="action-history" reverse>\n        <slot name="action-history"></slot>\n    </action-history>\n</fieldset>\n<fieldset id="history-length-fieldset" class="fieldset config-fieldset">\n    <legend id="history-length-legend" class="legend config-legend">History Length</legend>\n    <form-field id="history-length-field" class="field">\n        <input type="range" id="action-history-length" class="input" max="150" list="action-history-length-values" />\n        <datalist id="action-history-length-values"></datalist>\n        <span slot="postfix" id="action-history-length-value" part="field-postfix"></span>\n        <button slot="postfix" id="apply-history-length-button" part="button field-postfix">\n            <svg id="apply-history-length-icon" class="icon">\n                <use href="#icon-definition_confirm-check"></use>\n            </svg>\n            <span id="apply-history-length-label">Apply</span>\n        </button>\n    </form-field>\n</fieldset>';
+
+// node_modules/.pnpm/@magnit-ce+action-history@0.0.7/node_modules/@magnit-ce/action-history/dist/action-history.js
+var action_history_default = ":host\n{\n    display: flex; /* needed for reverse ordering */\n    flex-direction: column;\n    overflow: auto;\n}\n:host([empty])::before\n{\n    content: attr(placeholder);\n    color: graytext;\n    font-style: italic;\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n::slotted([data-entry])\n{\n    cursor: pointer;\n    flex-shrink: 0; /* prevents squishing due to the flex display */\n}\n\n::slotted([data-active][data-entry])\n{\n    text-decoration: underline;\n}\n\n::slotted([data-entry][data-reversed])\n{\n    scale: .98;\n    opacity: .5;\n}";
+var HistoryEntryType = /* @__PURE__ */ ((HistoryEntryType2) => {
+  HistoryEntryType2["Create"] = "create";
+  HistoryEntryType2["Read"] = "read";
+  HistoryEntryType2["Update"] = "update";
+  HistoryEntryType2["Delete"] = "delete";
+  HistoryEntryType2["Custom"] = "custom";
+  return HistoryEntryType2;
+})(HistoryEntryType || {});
+var ATTRIBUTENAME_REVERSED = "data-reversed";
+var ATTRIBUTENAME_ACTIVE = "data-active";
+var ATTRIBUTENAME_ENTRY = "data-entry";
+var ATTRIBUTENAME_TIMESTAMP = "data-timestamp";
+var COMPONENT_STYLESHEET4 = new CSSStyleSheet();
+COMPONENT_STYLESHEET4.replaceSync(action_history_default);
+var COMPONENT_TAG_NAME4 = "action-history";
+var ActionHistoryElement = class extends HTMLElement {
+  onBack = async (target, previous, toReverse, targetIndex, previousActiveEntryIndex) => {
+  };
+  onForward = async (target, previous, toActivate, targetIndex, previousActiveEntryIndex) => {
+  };
+  get entryAttributeName() {
+    return this.getAttribute("entry-attribute") ?? ATTRIBUTENAME_ENTRY;
+  }
+  get activeAttributeName() {
+    return this.getAttribute("active-attribute") ?? ATTRIBUTENAME_ACTIVE;
+  }
+  get reversedAttributeName() {
+    return this.getAttribute("reversed-attribute") ?? ATTRIBUTENAME_REVERSED;
+  }
+  get timestampAttributeName() {
+    return this.getAttribute("timestamp-attribute") ?? ATTRIBUTENAME_TIMESTAMP;
+  }
+  #slot;
+  #boundSlotChange;
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = `<slot></slot>`;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET4);
+    this.#boundSlotChange = ((_event) => {
+      const children = this.#slot.assignedElements();
+      if (children.length == 1 && children[0] instanceof HTMLSlotElement) {
+        let descendantSlot = children[0];
+        let descendantSlotChildren = descendantSlot.assignedElements();
+        while (descendantSlot instanceof HTMLSlotElement && descendantSlotChildren[0] instanceof HTMLSlotElement) {
+          descendantSlot = descendantSlotChildren[0];
+          if (descendantSlot instanceof HTMLSlotElement) {
+            descendantSlotChildren = descendantSlot.assignedElements();
+          }
+        }
+        this.#registerSlot(descendantSlot);
+        return;
+      }
+      this.#updateEntries(children);
+    }).bind(this);
+    this.#registerSlot(this.shadowRoot.querySelector(`slot`));
+    this.addEventListener("click", (event) => {
+      const target = event.target.closest(`[${this.entryAttributeName}]`);
+      if (target == null) {
+        return;
+      }
+      this.activateEntry(target);
+    });
+  }
+  #registerSlot(slot) {
+    if (this.#slot != null) {
+      this.#slot.removeEventListener("slotchange", this.#boundSlotChange);
+    }
+    this.#slot = slot;
+    this.#slot.addEventListener("slotchange", this.#boundSlotChange);
+    const children = this.#slot.assignedElements();
+    this.toggleAttribute("empty", children.length == 0);
+    this.#updateEntries(children);
+  }
+  #updateEntries(children) {
+    let activeEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
+    if (activeEntry != null && activeEntry.getAttribute(this.timestampAttributeName) != null) {
+      activeEntry.removeAttribute(this.activeAttributeName);
+      activeEntry = void 0;
+    }
+    const canRemoveReversedEntries = this.getAttribute("prevent-removal") == void 0;
+    let lastChild = null;
+    for (let i = 0; i < children.length; i++) {
+      if (children[i].getAttribute(this.entryAttributeName) == null) {
+        continue;
+      }
+      lastChild = children[i];
+      if (children[i].hasAttribute(this.timestampAttributeName)) {
+        continue;
+      }
+      if (canRemoveReversedEntries == true) {
+        const toReverse = children.filter((item) => item.getAttribute(this.reversedAttributeName) != null);
+        for (let i2 = 0; i2 < toReverse.length; i2++) {
+          toReverse[i2].remove();
+        }
+      }
+      children[i].setAttribute(this.timestampAttributeName, Date.now().toString());
+      this.updateOrder(children);
+      this.dispatchEvent(new CustomEvent("add", { detail: { target: children[i] }, bubbles: true, composed: true }));
+    }
+    if (activeEntry == null && lastChild != null && lastChild.getAttribute(this.reversedAttributeName) == null) {
+      lastChild.toggleAttribute(this.activeAttributeName, true);
+    }
+    this.toggleAttribute("empty", children.length == 0);
+  }
+  updateOrder(children) {
+    children = children ?? this.#slot.assignedElements();
+    if (this.hasAttribute("reverse")) {
+      for (let i = 0; i < children.length; i++) {
+        const order = children.length - i;
+        const element = children[i];
+        element.tabIndex = order;
+        element.style.order = order.toString();
+      }
+    } else {
+      for (let i = 0; i < children.length; i++) {
+        const element = children[i];
+        element.removeAttribute("tabindex");
+        element.style.removeProperty("order");
+      }
+    }
+  }
+  /**
+   * Activate the previous entry, if it exists.
+   * @returns `void`
+   */
+  back() {
+    const children = this.#slot.assignedElements();
+    const activeEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
+    if (activeEntry == null) {
+      return;
+    }
+    const activeIndex = children.indexOf(activeEntry);
+    const backIndex = activeIndex - 1;
+    if (backIndex == -1) {
+      new Promise(async (resolve) => {
+        await this.onBack(activeEntry, activeEntry, [activeEntry], backIndex, activeIndex);
+        activeEntry.toggleAttribute(this.reversedAttributeName, true);
+        activeEntry.removeAttribute(this.activeAttributeName);
+        resolve();
+      });
+      return;
+    }
+    if (backIndex >= 0 && backIndex < children.length) {
+      const entry = children[backIndex];
+      entry.click();
+    }
+  }
+  /**
+   * Activate the next entry, if it exists.
+   * @returns `void`
+   */
+  forward() {
+    const children = this.#slot.assignedElements();
+    let activeEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
+    const forwardIndex = activeEntry == null ? children.length > 0 ? 0 : -1 : children.indexOf(activeEntry) + 1;
+    if (forwardIndex == -1) {
+      return;
+    }
+    if (forwardIndex < children.length) {
+      const entry = children[forwardIndex];
+      entry.click();
+    }
+  }
+  /**
+   * 
+   * @returns `void`
+   */
+  async activateEntry(target) {
+    if (target.hasAttribute(this.activeAttributeName)) {
+      this.dispatchEvent(new CustomEvent("refresh", { detail: { target }, bubbles: true, composed: true }));
+      return;
+    }
+    const activationProperties = await this.#activateEntry(target);
+    this.dispatchEvent(new CustomEvent("activate", { detail: activationProperties, bubbles: true, composed: true }));
+  }
+  async #activateEntry(target) {
+    const children = this.#slot.assignedElements();
+    const previousActiveEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
+    if (previousActiveEntry != null) {
+      previousActiveEntry.removeAttribute(this.activeAttributeName);
+    }
+    const targetIndex = children.indexOf(target);
+    const previousActiveEntryIndex = previousActiveEntry == null ? -1 : children.indexOf(previousActiveEntry);
+    const toReverse = [];
+    const toActivate = [];
+    if (previousActiveEntryIndex > targetIndex) {
+      for (let i = previousActiveEntryIndex; i > targetIndex; i--) {
+        toReverse.push(children[i]);
+      }
+    } else if (previousActiveEntryIndex < targetIndex) {
+      for (let i = previousActiveEntryIndex + 1; i <= targetIndex; i++) {
+        toActivate.push(children[i]);
+      }
+    } else {
+      throw new Error("Unable to determine action");
+    }
+    const activationProperties = { target, previousActiveEntry, toReverse, toActivate, targetIndex, previousActiveEntryIndex };
+    if (toReverse.length > 0) {
+      for (let i = 0; i < toReverse.length; i++) {
+        toReverse[i].toggleAttribute(this.reversedAttributeName, true);
+      }
+      const reverseTarget = toReverse[toReverse.length - 1];
+      ;
+      await this.onBack(reverseTarget, previousActiveEntry, toReverse, children.indexOf(reverseTarget), previousActiveEntryIndex);
+    } else if (toActivate.length > 0) {
+      for (let i = 0; i < toActivate.length; i++) {
+        toActivate[i].removeAttribute(this.reversedAttributeName);
+      }
+      const activateTarget = toActivate[toActivate.length - 1];
+      await this.onForward(activateTarget, previousActiveEntry, toActivate, children.indexOf(activateTarget), previousActiveEntryIndex);
+    }
+    target.toggleAttribute(this.activeAttributeName, true);
+    return activationProperties;
+  }
+  /**
+   * Using the target for reference, sets the active entry as the 
+   * entry directly preceeding the target entry. Calls `onBack`
+   * handlers, in order, for every entry that is active, and later 
+   * than the activated entry (including the target entry), or 
+   * `onForward` handlers, in order, for  every entry that is inactive
+   *  and earlier than the activated entry.
+   * @returns `void`
+   * @description Useful for "Undo" functionality where the action to
+   * reverse is well-known, but finding the action to activate might
+   * require a lookup/query.
+   */
+  async reverseEntry(target) {
+    if (target.hasAttribute(this.reversedAttributeName)) {
+      return;
+    }
+    const children = this.#slot.assignedElements();
+    const previousActiveEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
+    if (previousActiveEntry != null) {
+      previousActiveEntry.removeAttribute(this.activeAttributeName);
+    }
+    const targetIndex = children.indexOf(target);
+    const previousActiveEntryIndex = previousActiveEntry == null ? -1 : children.indexOf(previousActiveEntry);
+    const toReverse = [target];
+    const toActivate = [];
+    if (targetIndex == previousActiveEntryIndex) {
+      await this.onBack(target, target, [target], targetIndex, previousActiveEntryIndex);
+      target.toggleAttribute(this.reversedAttributeName, true);
+      target.removeAttribute(this.activeAttributeName);
+      const itemIndex2 = children.findIndex((item) => item.dataset.timestamp == target.dataset.timestamp);
+      const preceedingItemIndex2 = itemIndex2 - 1;
+      const preceedingItem2 = preceedingItemIndex2 < 0 || preceedingItemIndex2 > children.length - 1 ? void 0 : children[preceedingItemIndex2];
+      if (preceedingItem2 != null) {
+        preceedingItem2.toggleAttribute(this.activeAttributeName, true);
+      }
+      this.dispatchEvent(new CustomEvent("reverse", { detail: { target, previousActiveEntry, toReverse, toActivate, targetIndex, previousActiveEntryIndex }, bubbles: true, composed: true }));
+      return;
+    }
+    if (previousActiveEntryIndex > targetIndex) {
+      for (let i = previousActiveEntryIndex; i > targetIndex; i--) {
+        toReverse.push(children[i]);
+      }
+    } else if (previousActiveEntryIndex < targetIndex) {
+      for (let i = previousActiveEntryIndex + 1; i <= targetIndex; i++) {
+        toActivate.push(children[i]);
+      }
+    } else {
+      throw new Error("Unable to determine action");
+    }
+    const activationProperties = { target, previousActiveEntry, toReverse, toActivate, targetIndex, previousActiveEntryIndex };
+    if (toReverse.length > 0) {
+      for (let i = 0; i < toReverse.length; i++) {
+        toReverse[i].toggleAttribute(this.reversedAttributeName, true);
+      }
+      const reverseTarget = toReverse[toReverse.length - 1];
+      await this.onBack(reverseTarget, previousActiveEntry, toReverse, children.indexOf(reverseTarget), previousActiveEntryIndex);
+    } else if (toActivate.length > 0) {
+      for (let i = 0; i < toActivate.length; i++) {
+        toActivate[i].removeAttribute(this.reversedAttributeName);
+      }
+      const activateTarget = toActivate[toActivate.length - 1];
+      await this.onForward(activateTarget, previousActiveEntry, toActivate, children.indexOf(activateTarget), previousActiveEntryIndex);
+    }
+    const itemIndex = children.findIndex((item) => item.dataset.timestamp == target.dataset.timestamp);
+    const preceedingItemIndex = itemIndex - 1;
+    const preceedingItem = preceedingItemIndex < 0 || preceedingItemIndex > children.length - 1 ? void 0 : children[preceedingItemIndex];
+    if (preceedingItem != null) {
+      preceedingItem.toggleAttribute(this.activeAttributeName, true);
+    }
+    target.removeAttribute(this.activeAttributeName);
+    this.dispatchEvent(new CustomEvent("reverse", { detail: activationProperties, bubbles: true, composed: true }));
+  }
+  static observedAttributes = ["reverse"];
+  attributeChangedCallback(attributeName, _oldValue, newValue) {
+    if (attributeName == "reverse") {
+      this.updateOrder();
+    }
+  }
+};
+if (customElements.get(COMPONENT_TAG_NAME4) == null) {
+  customElements.define(COMPONENT_TAG_NAME4, ActionHistoryElement);
+}
+
+// resources/utils.ts
+function snapToStep(target, steps) {
+  const inputValue = parseFloat(target.value);
+  for (let i = 1; i < steps.length; i++) {
+    const value = steps[i];
+    const lastValue = steps[i - 1];
+    const distanceFromValue = Math.abs(value - inputValue);
+    const distanceFromLastValue = Math.abs(lastValue - inputValue);
+    const isCloserToNewValue = Math.min(distanceFromValue, distanceFromLastValue) == distanceFromValue;
+    if (isCloserToNewValue) {
+      target.value = value.toString();
+    } else {
+      target.value = lastValue.toString();
+      break;
+    }
+  }
+}
+function createOptionElement(value) {
+  const option = document.createElement("option");
+  const stringValue = value.toString();
+  option.value = stringValue;
+  option.textContent = stringValue;
+  return option;
+}
+
+// components/config-panel/history-panel/history-panel.ts
+var HistoryLengthValues = [0, 30, 50, 100, 150];
+var HistoryPanelAttributes = /* @__PURE__ */ ((HistoryPanelAttributes2) => {
+  return HistoryPanelAttributes2;
+})(HistoryPanelAttributes || {});
+var DEFAULT_HISTORY_LENGTH = "30";
+var DEFAULT_PERSIST_DAYS = "7";
+var COMPONENT_STYLESHEET5 = new CSSStyleSheet();
+COMPONENT_STYLESHEET5.replaceSync(`${shared_default}
+    ${history_panel_default}`);
+var COMPONENT_TEMPLATE3 = `${history_panel_default2}
+${defineIcons(
+  "ConfirmCheck" /* ConfirmCheck */,
+  "UndoRedo" /* UndoRedo */,
+  "Trash" /* Trash */
+)}`;
+var COMPONENT_TAG_NAME5 = "history-panel";
+var HistoryPanelElement = class extends HTMLElement {
+  static observedAttributes = [
+    ...Object.values(HistoryPanelAttributes)
+  ];
+  componentParts = /* @__PURE__ */ new Map();
+  getElement(id) {
+    if (this.componentParts.get(id) == null) {
+      const part = this.findElement(id);
+      if (part != null) {
+        this.componentParts.set(id, part);
+      }
+    }
+    return this.componentParts.get(id);
+  }
+  findElement(id) {
+    return this.shadowRoot.getElementById(id);
+  }
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE3;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET5);
+    this.#applyPartAttributes();
+    this.findElement("undo").addEventListener("click", this.#undo_onClick.bind(this));
+    this.findElement("redo").addEventListener("click", this.#redo_onClick.bind(this));
+    const actionHistory = this.getElement("action-history");
+    actionHistory.onBack = this.#actionHistory_onBack.bind(this);
+    actionHistory.onForward = this.#actionHistory_onForward.bind(this);
+    this.findElement("action-history-length").addEventListener("change", this.#historyLength_onChange.bind(this));
+    this.findElement("apply-history-length-button").addEventListener("click", this.#applyHistoryLength_onClick.bind(this));
+    this.findElement("clear-history-button").addEventListener("click", this.#clearHistory_onClick.bind(this));
+  }
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll(":not(form-field,.postfix,.prefix,.container, .field-label)[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      const classedElement = classedElements[i];
+      classedElement.part.add(...classedElements[i].classList);
+    }
+    const formFieldElements = [...this.shadowRoot.querySelectorAll("form-field")];
+    for (let i = 0; i < formFieldElements.length; i++) {
+      const formFieldElement = formFieldElements[i];
+      const inputId = formFieldElement.id;
+      const container = formFieldElement.querySelector(".container");
+      container.part.add("container", "field-container", `${inputId}-container`);
+      const label = formFieldElement.querySelector(".field-label");
+      label.part.add("container", "field-label", `${inputId}-label`);
+      const prefix = formFieldElement.querySelector(".prefix");
+      prefix.part.add("container", "field-prefix", `${inputId}-prefix`);
+      const postfix = formFieldElement.querySelector(".postfix");
+      postfix.part.add("container", "field-postfix", `${inputId}-postfix`);
+    }
+  }
+  prepareHistoryLength(historyLength) {
+    const historyLengthOptions = Array.from(HistoryLengthValues).map((value) => createOptionElement(value));
+    this.findElement("action-history-length-values").append(...historyLengthOptions);
+    this.findElement("action-history-length").value = historyLength;
+    this.findElement("action-history-length-value").textContent = historyLength;
+  }
+  undo() {
+    this.findElement("action-history").back();
+  }
+  redo() {
+    this.findElement("action-history").forward();
+  }
+  #undo_onClick(_event) {
+    this.undo();
+    this.dispatchEvent(new CustomEvent("undo", { bubbles: true, composed: true }));
+  }
+  #redo_onClick(_event) {
+    this.redo();
+    this.dispatchEvent(new CustomEvent("redo", { bubbles: true, composed: true }));
+  }
+  async #actionHistory_onBack(target, previous, all, targetIndex, previousActiveEntryIndex) {
+    let refreshBoards = false;
+    let refreshDeletedItems = false;
+    const isLastUpdate = all.indexOf(target) == all.length - 1;
+    if (isLastUpdate == true) {
+      const recordType = target.querySelector(".target-type")?.textContent?.toLowerCase();
+      if (recordType == "board") {
+        refreshBoards = true;
+      }
+      refreshDeletedItems = true;
+    }
+    this.dispatchEvent(new CustomEvent("historyback", { detail: {
+      target,
+      previous,
+      targetIndex,
+      previousActiveEntryIndex,
+      refreshBoards,
+      refreshDeletedItems
+    }, bubbles: true, composed: true }));
+  }
+  async #actionHistory_onForward(target, previous, all, targetIndex, previousActiveEntryIndex) {
+    let refreshBoards = false;
+    let refreshDeletedItems = false;
+    const isLastUpdate = all.indexOf(target) == all.length - 1;
+    if (isLastUpdate == true) {
+      const recordType = target.querySelector(".target-type")?.textContent?.toLowerCase();
+      if (recordType == "board") {
+        refreshBoards = true;
+      }
+      refreshDeletedItems = true;
+    }
+    this.dispatchEvent(new CustomEvent("historyforward", { detail: {
+      target,
+      previous,
+      targetIndex,
+      previousActiveEntryIndex,
+      refreshBoards,
+      refreshDeletedItems
+    }, bubbles: true, composed: true }));
+  }
+  async #historyLength_onChange(event) {
+    const input = event.target;
+    snapToStep(input, HistoryLengthValues);
+    this.findElement("action-history-length-value").textContent = input.value;
+    let startIndex = parseInt(this.findElement("action-history-length").value);
+    if (startIndex > 0) {
+      startIndex--;
+    }
+    const actionHistory = this.findElement("action-history");
+    this.dispatchEvent(new CustomEvent("preparehistoryitems", { detail: { actionHistory, startIndex }, bubbles: true, composed: true }));
+  }
+  async #applyHistoryLength_onClick(_event) {
+    const historyLength = this.findElement("action-history-length").value;
+    this.dispatchEvent(new CustomEvent("historylength", { detail: { historyLength }, bubbles: true, composed: true }));
+  }
+  #clearHistory_onClick(_event) {
+    this.dispatchEvent(new CustomEvent("clearhistory", { bubbles: true, composed: true }));
+  }
+  async refresh() {
+    const actionHistory = this.getElement("action-history");
+    actionHistory.innerHTML = "";
+    actionHistory.toggleAttribute("prevent-removal", true);
+    const records = await DataService.getHistoryEntries();
+    if (records.length == 0) {
+      return;
+    }
+    let activeEntryIndex = await DataService.getAppSetting("activeEntryIndex" /* ActiveEntryIndex */);
+    if (activeEntryIndex != null && activeEntryIndex > records.length) {
+      activeEntryIndex = records.length - 1;
+    }
+    let entries = [];
+    let activeEntry = null;
+    for (let i = 0; i < records.length; i++) {
+      const record = records[i];
+      const entry = this.#createActionHistoryEntryElement(record);
+      entries.push(entry);
+      if (i == activeEntryIndex) {
+        entry.toggleAttribute(ATTRIBUTENAME_ACTIVE, true);
+        activeEntry = entry;
+        activeEntry.part.add("active");
+        const descendants = [...activeEntry.querySelectorAll("span")];
+        for (let i2 = 0; i2 < descendants.length; i2++) {
+          descendants[i2].part.add("active");
+        }
+        continue;
+      }
+      if (activeEntry != null) {
+        entry.toggleAttribute(ATTRIBUTENAME_REVERSED, true);
+      }
+    }
+    if (activeEntry == null) {
+      entries = entries.map((item) => {
+        item.toggleAttribute(ATTRIBUTENAME_REVERSED, true);
+        return item;
+      });
+    }
+    actionHistory.append(...entries);
+    requestAnimationFrame(() => {
+      actionHistory.toggleAttribute("prevent-removal", false);
+    });
+  }
+  #createActionHistoryEntryElement(entry) {
+    const element = document.createElement("div");
+    element.toggleAttribute("data-entry", true);
+    element.setAttribute("timestamp", entry.timestamp.toString());
+    element.setAttribute("data-entry-id", entry.id);
+    element.setAttribute("part", "action-history-entry");
+    element.classList.add("action-history-entry");
+    element.innerHTML = `<span class="action-type" part="action-history-entry-type">${entry.action.toUpperCase()}</span>
+        <span class="data" part="action-history-entry-data">
+            <span class="target-type" part="action-history-target-type">${entry.data.targetType[0].toUpperCase()}${entry.data.targetType.substring(1)}</span>
+            <span class="target-id" part="action-history-target-id">${entry.data.properties.id}</span>
+        </span>`;
+    return element;
+  }
+  // async #handleActionEntryReverse(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
+  // {
+  //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
+  //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
+  //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
+  //     const entryId = targetEntry.getAttribute('data-entry-id');
+  //     if(actionType == null || recordType == null || recordId == null || entryId == null)
+  //     { 
+  //         console.error(new Error('Required property was not found.')); return;
+  //     }
+  //     const channel = (recordType == 'board')
+  //     ? this.#data.boards 
+  //     : (recordType == 'list')
+  //     ? this.#data.lists
+  //     : (recordType == 'task')
+  //     ? this.#data.tasks
+  //     : (recordType == 'image')
+  //     ? this.#data.customImages
+  //     : null;
+  //     if(channel == null) 
+  //     {
+  //         throw new Error(`Unknown record type: ${recordType}`);
+  //     }
+  //     if(actionType == 'create')
+  //     {
+  //         await channel.delete(recordId);
+  //     }
+  //     else if (actionType == 'update')
+  //     {
+  //         const currentEntry = await this.#data.historyEntries?.get(entryId);
+  //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
+  //         const target = await channel.get(recordId);
+  //         if(target == null) { throw new Error('Unable to find target record.'); }
+  //         await this.#reverseUpdate(channel, currentEntry, target)
+  //     }
+  //     else if (actionType == 'delete')
+  //     {
+  //         await channel.restore(recordId);
+  //     }
+  //     else
+  //     {
+  //         console.error(`Unknown action type: ${actionType}`);
+  //     }
+  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
+  // }
+  // async #reverseUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
+  // {
+  //     if(currentEntry.data.properties.updates != null)
+  //     {
+  //         let isRestorationUpdate = false;
+  //         for(const [key, value] of currentEntry.data.properties.updates)
+  //         {
+  //             if(key == 'deletedTimestamp')
+  //             {
+  //                 isRestorationUpdate = true;
+  //                 continue;
+  //             }
+  //             (target as unknown as any)[key] = value.from;
+  //         }
+  //         await channel.save(target as unknown as any);
+  //         if(isRestorationUpdate == true)
+  //         {
+  //             await channel.delete(currentEntry.data.properties.id);
+  //         }
+  //     }
+  //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
+  //     {
+  //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
+  //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
+  //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
+  //         {
+  //             (settingsTarget as unknown as any)[key] = value.from;
+  //         }
+  //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
+  //     }
+  //     if(currentEntry.data.properties.backgroundImages != null)
+  //     {
+  //         const updatedImages: CustomImageRecord[] = [];
+  //         const deletedImageIds: string[] = [];
+  //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
+  //         {
+  //             const data = currentEntry.data.properties.backgroundImages[i];
+  //             const imageTarget = await this.#data.customImages?.get(data.id);
+  //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
+  //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
+  //             {
+  //                 // if boardId going from "" to id, this is an insert; treat it like undoing an image insert
+  //                 if(key == 'boardId' && value.from == "")
+  //                 {
+  //                     deletedImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
+  //                     continue;
+  //                 }
+  //                 (imageTarget as unknown as any)[key] = value.from;
+  //             }
+  //             updatedImages.push(imageTarget);
+  //         }
+  //         await this.#data.customImages?.saveItems(updatedImages);
+  //         await this.#data.customImages?.deleteItems(deletedImageIds);
+  //     }
+  // }
+  // async #handelActionEntryActivate(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
+  // {
+  //     const previouslyActive = [...targetEntry.parentElement!.querySelectorAll('[part="active"]')] as HTMLElement[];
+  //     for(let i = 0; i < previouslyActive.length; i++)
+  //     {
+  //         previouslyActive[i].part.remove('active');
+  //         const descendants = [...previouslyActive[i].querySelectorAll('span')] as HTMLElement[];
+  //         for(let i = 0; i < descendants.length; i++)
+  //         {
+  //             descendants[i].part.add('active');
+  //         }
+  //     }
+  //     targetEntry.part.add('active');
+  //     const descendants = [...targetEntry.querySelectorAll('span')] as HTMLElement[];
+  //     for(let i = 0; i < descendants.length; i++)
+  //     {
+  //         descendants[i].part.add('active');
+  //     }
+  //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
+  //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
+  //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
+  //     const entryId = targetEntry.getAttribute('data-entry-id');
+  //     if(actionType == null || recordType == null || recordId == null || entryId == null) { console.error(new Error('Required property was not found.')); return; }
+  //     const channel = (recordType == 'board')
+  //     ? this.#data.boards 
+  //     : (recordType == 'list')
+  //     ? this.#data.lists
+  //     : (recordType == 'task')
+  //     ? this.#data.tasks
+  //     : (recordType == 'image')
+  //     ? this.#data.customImages
+  //     : null;
+  //     if(channel == null) 
+  //     {
+  //         throw new Error(`Unknown record type: ${recordType}`);
+  //     }
+  //     if(actionType == 'create')
+  //     {
+  //         await channel.restore(recordId);
+  //     }
+  //     else if (actionType == 'update')
+  //     {
+  //         const currentEntry = await this.#data.historyEntries?.get(entryId);
+  //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
+  //         const target = await channel.get(recordId);
+  //         if(target == null) { throw new Error('Unable to find target record.'); }
+  //         await this.#activateUpdate(channel, currentEntry, target);
+  //     }
+  //     else if (actionType == 'delete')
+  //     {
+  //         await channel.delete(recordId);
+  //     }
+  //     else
+  //     {
+  //         console.error(`Unknown action type: ${actionType}`);
+  //     }
+  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
+  // }
+  // async #activateUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
+  // {
+  //     if(currentEntry.data.properties.updates != null)
+  //     {
+  //         let isRestorationUpdate = false;
+  //         for(const [key, value] of currentEntry.data.properties.updates)
+  //         {
+  //             if(key == 'deletedTimestamp')
+  //             {
+  //                 isRestorationUpdate = true;
+  //                 continue;
+  //             }
+  //             (target as unknown as any)[key] = value.to;
+  //         }
+  //         await channel.save(target as unknown as any);
+  //         if(isRestorationUpdate == true)
+  //         {
+  //             await channel.restore(currentEntry.data.properties.id);
+  //         }
+  //     }
+  //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
+  //     {
+  //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
+  //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
+  //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
+  //         {
+  //             (settingsTarget as unknown as any)[key] = value.to;
+  //         }
+  //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
+  //     }
+  //     if(currentEntry.data.properties.backgroundImages != null)
+  //     {
+  //         // doesn't clear from image cache when undo after remove
+  //         const updatedImages: CustomImageRecord[] = [];
+  //         const restoredImageIds: string[] = [];
+  //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
+  //         {
+  //             const data = currentEntry.data.properties.backgroundImages[i];
+  //             const imageTarget = await this.#data.customImages?.get(data.id);
+  //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
+  //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
+  //             {
+  //                 // if boardId going from "" to id, this is an insert; treat it like redoing an image insert
+  //                 if(key == 'boardId' && value.from == "")
+  //                 {
+  //                     restoredImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
+  //                     continue;
+  //                 }
+  //                 (imageTarget as unknown as any)[key] = value.to;
+  //             }
+  //             updatedImages.push(imageTarget);
+  //         }
+  //         await this.#data.customImages?.saveItems(updatedImages);
+  //         await this.#data.customImages?.restoreItems(restoredImageIds);
+  //     }
+  // }
+  // async #addActionHistoryEntry<T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
+  // {
+  //     const historyLength = parseFloat(await this.#getAppSetting(AppSettingKey.HistoryLength) ?? DEFAULT_HISTORY_LENGTH);
+  //     if(historyLength == 0) { return; }
+  //     const channel = await this.#getChannel(this.#data.historyEntries, HISTORY_ERROR_MESSAGE, 'danger');
+  //     const history = this.findElement('action-history');
+  //     const historyEntries = [...history.children] as HTMLElement[];
+  //     const elementsToRemove = historyEntries.filter(item => item.hasAttribute(ATTRIBUTENAME_REVERSED));
+  //     const removeIds: string[] = [];
+  //     if(elementsToRemove.length > 0)
+  //     {
+  //         for(let i = 0; i < elementsToRemove.length; i++)
+  //         {
+  //             const entryId = elementsToRemove[i].getAttribute('data-entry-id');
+  //             if(entryId != null)
+  //             {
+  //                 removeIds.push(entryId)
+  //             }
+  //             elementsToRemove[i].remove();
+  //         }
+  //     }
+  //     const data = new HistoryEntryData(type, properties);
+  //     const entry = channel.create(data, action);
+  //     await channel.save(entry);
+  //     const entries = await channel.getAll('timestamp');
+  //     const removeCount = entries.length - historyLength;
+  //     if(removeCount > 0)
+  //     {
+  //         for(let i = 0; i < removeCount; i++)
+  //         {
+  //             removeIds.push(entries[i].id);
+  //             history.querySelector(`[data-entry-id="${entries[i].id}"]`)?.remove();
+  //         }
+  //     }
+  //     if(removeIds.length > 0)
+  //     {
+  //         await channel.deleteIfExists(removeIds);
+  //     }
+  //     const entryElement = this.#createActionHistoryEntryElement(entry);   
+  //     history.append(entryElement);
+  //     const activeIndex = [...history.children].indexOf(entryElement);
+  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (activeIndex > -1) ? activeIndex : null);
+  //     return entryElement;
+  // }
+  // async #prepareHistoryEntries(historyElement: ActionHistoryElement, startIndex: number)
+  // {
+  //     if(this.#data.historyEntries == null)
+  //     {
+  //         MessageCardElement.notify(`An error occurred accessing Action History data. Unable to refresh action history.`, 
+  //         this.getElement('notifications'), { type: MessageCardType.Error });
+  //         console.error(new Error(`An error occurred accessing Action History data. Unable to refresh action history.`));
+  //         return;
+  //     }
+  //     const entries = await this.#data.historyEntries.getAll('timestamp');
+  //     for(let i = 0; i < entries.length; i++)
+  //     {
+  //         const element = historyElement.querySelector(`[data-entry-id="${entries[i].id}"]`) as HTMLElement;
+  //         if(i < startIndex)
+  //         {
+  //             element.removeAttribute(ATTRIBUTE_PREPARED_FOR_DELETE);
+  //         }
+  //         else
+  //         {
+  //             element.toggleAttribute(ATTRIBUTE_PREPARED_FOR_DELETE, true);
+  //         }
+  //     }        
+  // }
+  // async #applyHistoryLength(actionHistoryLength: number)
+  // {
+  //     await this.#saveAppSetting(AppSettingKey.HistoryLength, actionHistoryLength);
+  //     if(this.#data.historyEntries == null)
+  //     {
+  //         // todo: add toast to inform user
+  //         console.warn(`An error occurred accessing Action History data. Unable to refresh action history.`);
+  //         return;
+  //     }
+  //     const entries = await this.#data.historyEntries.getAll('timestamp');
+  //     let startIndex = actionHistoryLength;
+  //     if(startIndex > 0) { startIndex--; } // fix zero index offset if non-zero number
+  //     const ids: string[] = [];
+  //     for(let i = startIndex; i < entries.length; i++)
+  //     {
+  //         ids.push(entries[i].id);
+  //     }
+  //     await this.#data.historyEntries.deleteItems(ids);
+  //     this.#refreshActionHistory();
+  // }
+};
+if (customElements.get(COMPONENT_TAG_NAME5) == null) {
+  customElements.define(COMPONENT_TAG_NAME5, HistoryPanelElement);
+}
 
 // dialog.service.ts
 var DATA_ERROR_MESSAGE = `<p>An error occurred trying to access the [subject] data.</p>
@@ -3004,306 +3905,6 @@ var CustomImageChannel = class extends DataChannel {
     return record;
   }
 };
-
-// node_modules/.pnpm/@magnit-ce+action-history@0.0.7/node_modules/@magnit-ce/action-history/dist/action-history.js
-var action_history_default = ":host\n{\n    display: flex; /* needed for reverse ordering */\n    flex-direction: column;\n    overflow: auto;\n}\n:host([empty])::before\n{\n    content: attr(placeholder);\n    color: graytext;\n    font-style: italic;\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n::slotted([data-entry])\n{\n    cursor: pointer;\n    flex-shrink: 0; /* prevents squishing due to the flex display */\n}\n\n::slotted([data-active][data-entry])\n{\n    text-decoration: underline;\n}\n\n::slotted([data-entry][data-reversed])\n{\n    scale: .98;\n    opacity: .5;\n}";
-var HistoryEntryType = /* @__PURE__ */ ((HistoryEntryType2) => {
-  HistoryEntryType2["Create"] = "create";
-  HistoryEntryType2["Read"] = "read";
-  HistoryEntryType2["Update"] = "update";
-  HistoryEntryType2["Delete"] = "delete";
-  HistoryEntryType2["Custom"] = "custom";
-  return HistoryEntryType2;
-})(HistoryEntryType || {});
-var ATTRIBUTENAME_REVERSED = "data-reversed";
-var ATTRIBUTENAME_ACTIVE = "data-active";
-var ATTRIBUTENAME_ENTRY = "data-entry";
-var ATTRIBUTENAME_TIMESTAMP = "data-timestamp";
-var COMPONENT_STYLESHEET4 = new CSSStyleSheet();
-COMPONENT_STYLESHEET4.replaceSync(action_history_default);
-var COMPONENT_TAG_NAME4 = "action-history";
-var ActionHistoryElement = class extends HTMLElement {
-  onBack = async (target, previous, toReverse, targetIndex, previousActiveEntryIndex) => {
-  };
-  onForward = async (target, previous, toActivate, targetIndex, previousActiveEntryIndex) => {
-  };
-  get entryAttributeName() {
-    return this.getAttribute("entry-attribute") ?? ATTRIBUTENAME_ENTRY;
-  }
-  get activeAttributeName() {
-    return this.getAttribute("active-attribute") ?? ATTRIBUTENAME_ACTIVE;
-  }
-  get reversedAttributeName() {
-    return this.getAttribute("reversed-attribute") ?? ATTRIBUTENAME_REVERSED;
-  }
-  get timestampAttributeName() {
-    return this.getAttribute("timestamp-attribute") ?? ATTRIBUTENAME_TIMESTAMP;
-  }
-  #slot;
-  #boundSlotChange;
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = `<slot></slot>`;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET4);
-    this.#boundSlotChange = ((_event) => {
-      const children = this.#slot.assignedElements();
-      if (children.length == 1 && children[0] instanceof HTMLSlotElement) {
-        let descendantSlot = children[0];
-        let descendantSlotChildren = descendantSlot.assignedElements();
-        while (descendantSlot instanceof HTMLSlotElement && descendantSlotChildren[0] instanceof HTMLSlotElement) {
-          descendantSlot = descendantSlotChildren[0];
-          if (descendantSlot instanceof HTMLSlotElement) {
-            descendantSlotChildren = descendantSlot.assignedElements();
-          }
-        }
-        this.#registerSlot(descendantSlot);
-        return;
-      }
-      this.#updateEntries(children);
-    }).bind(this);
-    this.#registerSlot(this.shadowRoot.querySelector(`slot`));
-    this.addEventListener("click", (event) => {
-      const target = event.target.closest(`[${this.entryAttributeName}]`);
-      if (target == null) {
-        return;
-      }
-      this.activateEntry(target);
-    });
-  }
-  #registerSlot(slot) {
-    if (this.#slot != null) {
-      this.#slot.removeEventListener("slotchange", this.#boundSlotChange);
-    }
-    this.#slot = slot;
-    this.#slot.addEventListener("slotchange", this.#boundSlotChange);
-    const children = this.#slot.assignedElements();
-    this.toggleAttribute("empty", children.length == 0);
-    this.#updateEntries(children);
-  }
-  #updateEntries(children) {
-    let activeEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
-    if (activeEntry != null && activeEntry.getAttribute(this.timestampAttributeName) != null) {
-      activeEntry.removeAttribute(this.activeAttributeName);
-      activeEntry = void 0;
-    }
-    const canRemoveReversedEntries = this.getAttribute("prevent-removal") == void 0;
-    let lastChild = null;
-    for (let i = 0; i < children.length; i++) {
-      if (children[i].getAttribute(this.entryAttributeName) == null) {
-        continue;
-      }
-      lastChild = children[i];
-      if (children[i].hasAttribute(this.timestampAttributeName)) {
-        continue;
-      }
-      if (canRemoveReversedEntries == true) {
-        const toReverse = children.filter((item) => item.getAttribute(this.reversedAttributeName) != null);
-        for (let i2 = 0; i2 < toReverse.length; i2++) {
-          toReverse[i2].remove();
-        }
-      }
-      children[i].setAttribute(this.timestampAttributeName, Date.now().toString());
-      this.updateOrder(children);
-      this.dispatchEvent(new CustomEvent("add", { detail: { target: children[i] }, bubbles: true, composed: true }));
-    }
-    if (activeEntry == null && lastChild != null && lastChild.getAttribute(this.reversedAttributeName) == null) {
-      lastChild.toggleAttribute(this.activeAttributeName, true);
-    }
-    this.toggleAttribute("empty", children.length == 0);
-  }
-  updateOrder(children) {
-    children = children ?? this.#slot.assignedElements();
-    if (this.hasAttribute("reverse")) {
-      for (let i = 0; i < children.length; i++) {
-        const order = children.length - i;
-        const element = children[i];
-        element.tabIndex = order;
-        element.style.order = order.toString();
-      }
-    } else {
-      for (let i = 0; i < children.length; i++) {
-        const element = children[i];
-        element.removeAttribute("tabindex");
-        element.style.removeProperty("order");
-      }
-    }
-  }
-  /**
-   * Activate the previous entry, if it exists.
-   * @returns `void`
-   */
-  back() {
-    const children = this.#slot.assignedElements();
-    const activeEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
-    if (activeEntry == null) {
-      return;
-    }
-    const activeIndex = children.indexOf(activeEntry);
-    const backIndex = activeIndex - 1;
-    if (backIndex == -1) {
-      new Promise(async (resolve) => {
-        await this.onBack(activeEntry, activeEntry, [activeEntry], backIndex, activeIndex);
-        activeEntry.toggleAttribute(this.reversedAttributeName, true);
-        activeEntry.removeAttribute(this.activeAttributeName);
-        resolve();
-      });
-      return;
-    }
-    if (backIndex >= 0 && backIndex < children.length) {
-      const entry = children[backIndex];
-      entry.click();
-    }
-  }
-  /**
-   * Activate the next entry, if it exists.
-   * @returns `void`
-   */
-  forward() {
-    const children = this.#slot.assignedElements();
-    let activeEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
-    const forwardIndex = activeEntry == null ? children.length > 0 ? 0 : -1 : children.indexOf(activeEntry) + 1;
-    if (forwardIndex == -1) {
-      return;
-    }
-    if (forwardIndex < children.length) {
-      const entry = children[forwardIndex];
-      entry.click();
-    }
-  }
-  /**
-   * 
-   * @returns `void`
-   */
-  async activateEntry(target) {
-    if (target.hasAttribute(this.activeAttributeName)) {
-      this.dispatchEvent(new CustomEvent("refresh", { detail: { target }, bubbles: true, composed: true }));
-      return;
-    }
-    const activationProperties = await this.#activateEntry(target);
-    this.dispatchEvent(new CustomEvent("activate", { detail: activationProperties, bubbles: true, composed: true }));
-  }
-  async #activateEntry(target) {
-    const children = this.#slot.assignedElements();
-    const previousActiveEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
-    if (previousActiveEntry != null) {
-      previousActiveEntry.removeAttribute(this.activeAttributeName);
-    }
-    const targetIndex = children.indexOf(target);
-    const previousActiveEntryIndex = previousActiveEntry == null ? -1 : children.indexOf(previousActiveEntry);
-    const toReverse = [];
-    const toActivate = [];
-    if (previousActiveEntryIndex > targetIndex) {
-      for (let i = previousActiveEntryIndex; i > targetIndex; i--) {
-        toReverse.push(children[i]);
-      }
-    } else if (previousActiveEntryIndex < targetIndex) {
-      for (let i = previousActiveEntryIndex + 1; i <= targetIndex; i++) {
-        toActivate.push(children[i]);
-      }
-    } else {
-      throw new Error("Unable to determine action");
-    }
-    const activationProperties = { target, previousActiveEntry, toReverse, toActivate, targetIndex, previousActiveEntryIndex };
-    if (toReverse.length > 0) {
-      for (let i = 0; i < toReverse.length; i++) {
-        toReverse[i].toggleAttribute(this.reversedAttributeName, true);
-      }
-      const reverseTarget = toReverse[toReverse.length - 1];
-      ;
-      await this.onBack(reverseTarget, previousActiveEntry, toReverse, children.indexOf(reverseTarget), previousActiveEntryIndex);
-    } else if (toActivate.length > 0) {
-      for (let i = 0; i < toActivate.length; i++) {
-        toActivate[i].removeAttribute(this.reversedAttributeName);
-      }
-      const activateTarget = toActivate[toActivate.length - 1];
-      await this.onForward(activateTarget, previousActiveEntry, toActivate, children.indexOf(activateTarget), previousActiveEntryIndex);
-    }
-    target.toggleAttribute(this.activeAttributeName, true);
-    return activationProperties;
-  }
-  /**
-   * Using the target for reference, sets the active entry as the 
-   * entry directly preceeding the target entry. Calls `onBack`
-   * handlers, in order, for every entry that is active, and later 
-   * than the activated entry (including the target entry), or 
-   * `onForward` handlers, in order, for  every entry that is inactive
-   *  and earlier than the activated entry.
-   * @returns `void`
-   * @description Useful for "Undo" functionality where the action to
-   * reverse is well-known, but finding the action to activate might
-   * require a lookup/query.
-   */
-  async reverseEntry(target) {
-    if (target.hasAttribute(this.reversedAttributeName)) {
-      return;
-    }
-    const children = this.#slot.assignedElements();
-    const previousActiveEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
-    if (previousActiveEntry != null) {
-      previousActiveEntry.removeAttribute(this.activeAttributeName);
-    }
-    const targetIndex = children.indexOf(target);
-    const previousActiveEntryIndex = previousActiveEntry == null ? -1 : children.indexOf(previousActiveEntry);
-    const toReverse = [target];
-    const toActivate = [];
-    if (targetIndex == previousActiveEntryIndex) {
-      await this.onBack(target, target, [target], targetIndex, previousActiveEntryIndex);
-      target.toggleAttribute(this.reversedAttributeName, true);
-      target.removeAttribute(this.activeAttributeName);
-      const itemIndex2 = children.findIndex((item) => item.dataset.timestamp == target.dataset.timestamp);
-      const preceedingItemIndex2 = itemIndex2 - 1;
-      const preceedingItem2 = preceedingItemIndex2 < 0 || preceedingItemIndex2 > children.length - 1 ? void 0 : children[preceedingItemIndex2];
-      if (preceedingItem2 != null) {
-        preceedingItem2.toggleAttribute(this.activeAttributeName, true);
-      }
-      this.dispatchEvent(new CustomEvent("reverse", { detail: { target, previousActiveEntry, toReverse, toActivate, targetIndex, previousActiveEntryIndex }, bubbles: true, composed: true }));
-      return;
-    }
-    if (previousActiveEntryIndex > targetIndex) {
-      for (let i = previousActiveEntryIndex; i > targetIndex; i--) {
-        toReverse.push(children[i]);
-      }
-    } else if (previousActiveEntryIndex < targetIndex) {
-      for (let i = previousActiveEntryIndex + 1; i <= targetIndex; i++) {
-        toActivate.push(children[i]);
-      }
-    } else {
-      throw new Error("Unable to determine action");
-    }
-    const activationProperties = { target, previousActiveEntry, toReverse, toActivate, targetIndex, previousActiveEntryIndex };
-    if (toReverse.length > 0) {
-      for (let i = 0; i < toReverse.length; i++) {
-        toReverse[i].toggleAttribute(this.reversedAttributeName, true);
-      }
-      const reverseTarget = toReverse[toReverse.length - 1];
-      await this.onBack(reverseTarget, previousActiveEntry, toReverse, children.indexOf(reverseTarget), previousActiveEntryIndex);
-    } else if (toActivate.length > 0) {
-      for (let i = 0; i < toActivate.length; i++) {
-        toActivate[i].removeAttribute(this.reversedAttributeName);
-      }
-      const activateTarget = toActivate[toActivate.length - 1];
-      await this.onForward(activateTarget, previousActiveEntry, toActivate, children.indexOf(activateTarget), previousActiveEntryIndex);
-    }
-    const itemIndex = children.findIndex((item) => item.dataset.timestamp == target.dataset.timestamp);
-    const preceedingItemIndex = itemIndex - 1;
-    const preceedingItem = preceedingItemIndex < 0 || preceedingItemIndex > children.length - 1 ? void 0 : children[preceedingItemIndex];
-    if (preceedingItem != null) {
-      preceedingItem.toggleAttribute(this.activeAttributeName, true);
-    }
-    target.removeAttribute(this.activeAttributeName);
-    this.dispatchEvent(new CustomEvent("reverse", { detail: activationProperties, bubbles: true, composed: true }));
-  }
-  static observedAttributes = ["reverse"];
-  attributeChangedCallback(attributeName, _oldValue, newValue) {
-    if (attributeName == "reverse") {
-      this.updateOrder();
-    }
-  }
-};
-if (customElements.get(COMPONENT_TAG_NAME4) == null) {
-  customElements.define(COMPONENT_TAG_NAME4, ActionHistoryElement);
-}
 
 // data/records/history-entry.record.ts
 var HistoryEntryRecord = class extends DataRecord {
@@ -3715,8 +4316,66 @@ var TaskboardManagerElementData = class {
     return data;
   }
 };
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+}
+function extendableType() {
+  return class {
+  };
+}
+
+// data/foreign/exported-image.ts
+var ImageExport = class extends extendableType() {
+  constructor(image) {
+    super();
+    Object.assign(this, image);
+  }
+  async loadImage() {
+    if (this.image != null) {
+      this.image_base64 = await toBase64(this.image);
+      if (this.image instanceof File) {
+        if (this.image.name.endsWith("jpg") || this.image.name.endsWith("jpeg")) {
+          this.image_base64 = this.image_base64.replace("application/octet-stream", "image/jpg");
+        } else if (this.image.name.endsWith("png")) {
+          this.image_base64 = this.image_base64.replace("application/octet-stream", "image/png");
+        } else if (this.image.name.endsWith("webp")) {
+          this.image_base64 = this.image_base64.replace("application/octet-stream", "image/webp");
+        } else if (this.image.name.endsWith("gif")) {
+          this.image_base64 = this.image_base64.replace("application/octet-stream", "image/gif");
+        }
+      }
+    }
+  }
+};
+
+// data/foreign/exported-board.ts
+var BoardExport = class extends extendableType() {
+  constructor(board, taskSettings, backgroundImage, lists) {
+    super();
+    Object.assign(this, board);
+    this.taskSettings = taskSettings;
+    this.lists = lists;
+    this.backgroundImage = backgroundImage != null ? new ImageExport(backgroundImage) : void 0;
+  }
+};
+
+// data/foreign/exported-list.ts
+var ListExport = class extends extendableType() {
+  constructor(list, taskSettings, tasks) {
+    super();
+    Object.assign(this, list);
+    this.taskSettings = taskSettings;
+    this.tasks = tasks;
+  }
+};
 
 // data/data.service.ts
+var MILLISECONDSINDAY = 1e3 * 60 * 60 * 24;
 var DataService = class _DataService {
   static #data;
   static #hasStartedInitialization = false;
@@ -3761,8 +4420,38 @@ var DataService = class _DataService {
     if (ids.length == 0) {
       return [];
     }
+    const channel = _DataService.#getChannel(_DataService.data.boards, "BOARD" /* BOARD */);
+    return (await channel.getItems(ids)).filter((item) => item.deletedTimestamp == null);
+  }
+  static async getBoardRecord(id) {
+    const channel = _DataService.#getChannel(_DataService.data.boards, "BOARD" /* BOARD */);
+    return channel.get(id);
+  }
+  static async getBoardLists(id) {
+    const channel = _DataService.#getChannel(_DataService.data.boards, "BOARD" /* BOARD */);
+    return channel.getTaskLists(id);
+  }
+  static async getBoardTasks(id) {
+    const channel = _DataService.#getChannel(_DataService.data.boards, "BOARD" /* BOARD */);
+    return channel.getTasks(id);
+  }
+  static async createBoard(order) {
     const boardChannel = _DataService.#getChannel(_DataService.data.boards, "BOARD" /* BOARD */);
-    return (await boardChannel.getItems(ids)).filter((item) => item.deletedTimestamp == null);
+    const listChannel = this.#getChannel(this.#data.lists, "LIST" /* LIST */);
+    const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, "BOARD" /* BOARD */);
+    const [board, taskSettings, listData] = await boardChannel.create();
+    board.order = order;
+    boardChannel.save(board);
+    const lists = [];
+    const listSettings = [];
+    for (let i = 0; i < listData.length; i++) {
+      const [list, settings] = listData[i];
+      lists.push(list);
+      listSettings.push(settings);
+    }
+    listChannel.saveItems(lists);
+    taskSettingsChannel.saveItems([taskSettings, ...listSettings]);
+    return board;
   }
   static async saveBoardRecords(...items) {
     if (items.length == 0) {
@@ -3775,9 +4464,99 @@ var DataService = class _DataService {
   //#region Lists
   //#endregion Lists
   //#region Tasks
+  static async getTaskSettingsRecords(...ids) {
+    if (ids.length == 0) {
+      return [];
+    }
+    const channel = _DataService.#getChannel(_DataService.data.taskSettings, "BOARD" /* BOARD */);
+    return (await channel.getItems(ids)).filter((item) => item.deletedTimestamp == null);
+  }
+  static async getTaskSettingsRecord(id) {
+    const channel = _DataService.#getChannel(_DataService.data.taskSettings, "BOARD" /* BOARD */);
+    return channel.get(id);
+  }
   //#endregion Tasks
+  //#region Images
+  static async getImageRecord(id) {
+    const channel = _DataService.#getChannel(_DataService.data.customImages, "IMAGE" /* IMAGE */);
+    return channel.get(id);
+  }
+  //#endregion
   //#region History
+  static getHistoryEntries() {
+    const channel = this.#getChannel(this.#data.historyEntries, "HISTORY" /* HISTORY */);
+    return channel.getAll("timestamp");
+  }
   //#endregion History
+  //#region Cache
+  static async getDeletedItems() {
+    const boardChannel = this.#getChannel(this.#data.boards, "BOARD" /* BOARD */);
+    const listChannel = this.#getChannel(this.#data.lists, "LIST" /* LIST */);
+    const taskChannel = this.#getChannel(this.#data.tasks, "TASK" /* TASK */);
+    const imageChannel = this.#getChannel(this.#data.customImages, "IMAGE" /* IMAGE */);
+    const boards = await boardChannel.getAll();
+    const lists = await listChannel.getAll();
+    const tasks = await taskChannel.getAll();
+    const images = await imageChannel.getAll();
+    const deletedBoards = boards.filter((item) => item.deletedTimestamp != null);
+    const deletedLists = lists.filter((item) => item.deletedTimestamp != null);
+    const deletedTasks = tasks.filter((item) => item.deletedTimestamp != null);
+    const deletedImages = images.filter((item) => item.deletedTimestamp != null);
+    return [deletedBoards, deletedLists, deletedTasks, deletedImages];
+  }
+  //#endregion Cache
+  //#region Import/Export
+  static async exportBoard(target, id) {
+    const boardExportData = await this.#prepareExportData(target, id);
+    this.#downloadExportData(target, boardExportData);
+  }
+  static async importBoard(boardData, order, errorMessage) {
+    try {
+      const boardChannel = this.#getChannel(this.#data.boards, "BOARD" /* BOARD */);
+      const listChannel = this.#getChannel(this.#data.lists, "LIST" /* LIST */);
+      const taskChannel = this.#getChannel(this.#data.tasks, "TASK" /* TASK */);
+      const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, "BOARD" /* BOARD */);
+      const imageChannel = this.#getChannel(this.#data.customImages, "IMAGE" /* IMAGE */);
+      const [board, lists, tasks, settings, images] = await this.#data.naturalizeForeignData(boardData, order);
+      await Promise.allSettled([
+        boardChannel.save(board),
+        listChannel.saveItems(lists),
+        taskChannel.saveItems(tasks),
+        taskSettingsChannel.saveItems(settings),
+        imageChannel.saveItems(images)
+      ]);
+    } catch (exception) {
+      console.error(exception);
+      DialogService.showMessageDialog(errorMessage || "An error occurred importing the board data. Please confirm the import file contains valid board data.");
+    }
+  }
+  //#endregion Import/Export
+  //#region Utilities
+  static async removeExpiredData() {
+    const boardChannel = _DataService.#getChannel(_DataService.#data.boards, "BOARD" /* BOARD */);
+    const listChannel = _DataService.#getChannel(_DataService.#data.lists, "LIST" /* LIST */);
+    const taskChannel = _DataService.#getChannel(_DataService.#data.tasks, "TASK" /* TASK */);
+    const taskSettingsChannel = _DataService.#getChannel(_DataService.#data.taskSettings, "BOARD" /* BOARD */);
+    const imageChannel = _DataService.#getChannel(_DataService.#data.customImages, "IMAGE" /* IMAGE */);
+    const daysToPersistData = await _DataService.getAppSetting("daysToPersistData" /* DaysToPersistData */) ?? DEFAULT_PERSIST_DAYS;
+    const comparisonTime = Date.now() - parseInt(daysToPersistData) * MILLISECONDSINDAY;
+    const boards = await boardChannel.getAll();
+    const lists = await listChannel.getAll();
+    const tasks = await taskChannel.getAll();
+    const taskSettings = await taskSettingsChannel.getAll();
+    const customImages = await imageChannel.getAll();
+    const boardIds = this.#getExpiredRecordIds(boards, comparisonTime);
+    await boardChannel.deleteItems(boardIds);
+    const listIds = this.#getExpiredRecordIds(lists, comparisonTime);
+    await listChannel.deleteItems(listIds);
+    const taskIds = this.#getExpiredRecordIds(tasks, comparisonTime);
+    await taskChannel.deleteItems(taskIds);
+    const settingsIds = this.#getExpiredRecordIds(taskSettings, comparisonTime);
+    await taskSettingsChannel.deleteItems(settingsIds);
+    const imageIds = this.#getExpiredRecordIds(customImages, comparisonTime);
+    await imageChannel.deleteItems(imageIds);
+  }
+  //#endregion Utilities
   //#region Internal
   static #getChannel(channel, errorType = "UNKNOWN" /* UNKNOWN */) {
     if (_DataService.data.isInitialized == false || channel == null) {
@@ -3786,39 +4565,102 @@ var DataService = class _DataService {
     }
     return channel;
   }
+  static async #prepareExportData(target, id) {
+    const exportBackgroundImage = target.findElement("board-settings").findElement("export-background-image").checked;
+    const boardChannel = this.#getChannel(this.#data.boards, "BOARD" /* BOARD */);
+    const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, "BOARD" /* BOARD */);
+    const imageChannel = this.#getChannel(this.#data.customImages, "IMAGE" /* IMAGE */);
+    const board = await boardChannel.get(id);
+    if (board == null) {
+      throw new Error(`Error loading board from id: ${id}`);
+    }
+    const tasks = await boardChannel.getTasks(id);
+    const lists = await boardChannel.getTaskLists(id);
+    const listExports = [];
+    const taskSettingsIds = [board.taskSettingsId];
+    for (let i = 0; i < lists.length; i++) {
+      const list = lists[i];
+      if (list.deletedTimestamp != void 0) {
+        continue;
+      }
+      const listTasks = tasks.filter((item) => item.listId == list.id && item.deletedTimestamp == void 0);
+      const listExport = new ListExport(list, void 0, listTasks);
+      taskSettingsIds.push(list.taskSettingsId);
+      listExports.push(listExport);
+    }
+    const backgroundImage = exportBackgroundImage == true && board.backgroundImageId != null && board.backgroundImageId != "" ? await imageChannel.get(board.backgroundImageId) ?? void 0 : void 0;
+    const boardExportData = new BoardExport(board, void 0, backgroundImage);
+    if (boardExportData.backgroundImage != null) {
+      await boardExportData.backgroundImage.loadImage();
+    } else if (exportBackgroundImage == false) {
+      delete boardExportData.backgroundImageId;
+    }
+    const taskSettings = await taskSettingsChannel.getItems(taskSettingsIds);
+    for (let i = 0; i < taskSettings.length; i++) {
+      const item = taskSettings[i];
+      if (board.taskSettingsId == item.id) {
+        boardExportData.taskSettings = item;
+        continue;
+      }
+      const target2 = listExports.find((listItem) => listItem.taskSettingsId == item.id);
+      if (target2 == null) {
+        throw new Error(`Error assigning task settings to target list`);
+      }
+      target2.taskSettings = item;
+    }
+    boardExportData.lists = listExports;
+    return boardExportData;
+  }
+  static #downloadExportData(target, boardExportData) {
+    const currentDate = /* @__PURE__ */ new Date();
+    const currentDateString = `${currentDate.getDate()}-${currentDate.getMonth()}-${currentDate.getFullYear()}`;
+    const filename = `taskboard_export_${currentDateString}.json`;
+    const element = document.createElement("a");
+    element.setAttribute(
+      "href",
+      "data:application/json;charset=utf-8, " + encodeURIComponent(JSON.stringify(boardExportData, null, 2))
+    );
+    element.setAttribute("download", filename);
+    target.appendChild(element);
+    element.click();
+    target.removeChild(element);
+  }
+  static #getExpiredRecordIds(allRecords, comparisonTime) {
+    const toDelete = [];
+    for (let i = 0; i < allRecords.length; i++) {
+      const record = allRecords[i];
+      if (record.deletedTimestamp != null && record.deletedTimestamp < comparisonTime) {
+        toDelete.push(record.id);
+      }
+    }
+    return toDelete;
+  }
   //#endregion Internal
 };
 
 // components/app-menu/app-menu.ts
-var AppMenuAttributes = /* @__PURE__ */ ((AppMenuAttributes2) => {
-  AppMenuAttributes2["pathId"] = "path-id";
-  return AppMenuAttributes2;
-})(AppMenuAttributes || {});
-var COMPONENT_STYLESHEET5 = new CSSStyleSheet();
-COMPONENT_STYLESHEET5.replaceSync(`${shared_default}
+var COMPONENT_STYLESHEET6 = new CSSStyleSheet();
+COMPONENT_STYLESHEET6.replaceSync(`${shared_default}
     ${app_menu_default}`);
-var COMPONENT_TEMPLATE3 = `${app_menu_default2}
+var COMPONENT_TEMPLATE4 = `${app_menu_default2}
 ${defineIcons(
   "LogoMark" /* LogoMark */,
   "MagnifyingGlass" /* MagnifyingGlass */,
   "Gear" /* Gear */,
   "PlusIcon" /* PlusIcon */
 )}`;
-var COMPONENT_TAG_NAME5 = "app-menu";
+var COMPONENT_TAG_NAME6 = "app-menu";
 var AppMenuElement = class extends HTMLElement {
-  static observedAttributes = [
-    ...Object.values(AppMenuAttributes)
-  ];
-  componentParts = /* @__PURE__ */ new Map();
-  getElement(id) {
-    if (this.componentParts.get(id) == null) {
-      const part = this.findElement(id);
-      if (part != null) {
-        this.componentParts.set(id, part);
-      }
-    }
-    return this.componentParts.get(id);
-  }
+  // componentParts: Map<string, HTMLElement> = new Map();
+  // getElement<T extends HTMLElement = HTMLElement>(id: string)
+  // {
+  //     if(this.componentParts.get(id) == null)
+  //     {
+  //         const part = this.findElement(id);
+  //         if(part != null) { this.componentParts.set(id, part); }
+  //     }
+  //     return this.componentParts.get(id) as T;
+  // }
   findElement(id) {
     return this.shadowRoot.getElementById(id);
   }
@@ -3826,8 +4668,8 @@ var AppMenuElement = class extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE3;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET5);
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE4;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET6);
     this.#applyPartAttributes();
     this.#addDragHandlers();
   }
@@ -3947,8 +4789,8 @@ var AppMenuElement = class extends HTMLElement {
     return orderedBoards;
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME5) == null) {
-  customElements.define(COMPONENT_TAG_NAME5, AppMenuElement);
+if (customElements.get(COMPONENT_TAG_NAME6) == null) {
+  customElements.define(COMPONENT_TAG_NAME6, AppMenuElement);
 }
 
 // components/welcome-panel/welcome-panel.css?raw
@@ -3962,10 +4804,10 @@ var WelcomePanelAttributes = /* @__PURE__ */ ((WelcomePanelAttributes2) => {
   WelcomePanelAttributes2["pathId"] = "path-id";
   return WelcomePanelAttributes2;
 })(WelcomePanelAttributes || {});
-var COMPONENT_STYLESHEET6 = new CSSStyleSheet();
-COMPONENT_STYLESHEET6.replaceSync(`${shared_default}
+var COMPONENT_STYLESHEET7 = new CSSStyleSheet();
+COMPONENT_STYLESHEET7.replaceSync(`${shared_default}
     ${welcome_panel_default}`);
-var COMPONENT_TEMPLATE4 = `${welcome_panel_default2}
+var COMPONENT_TEMPLATE5 = `${welcome_panel_default2}
 ${defineIcons(
   "LogoMark" /* LogoMark */,
   "LogoType" /* LogoType */,
@@ -3973,7 +4815,7 @@ ${defineIcons(
   "PlusIcon" /* PlusIcon */,
   "CancelCross" /* CancelCross */
 )}`;
-var COMPONENT_TAG_NAME6 = "welcome-panel";
+var COMPONENT_TAG_NAME7 = "welcome-panel";
 var WelcomePanelElement = class extends HTMLElement {
   static observedAttributes = [
     ...Object.values(WelcomePanelAttributes)
@@ -3994,8 +4836,8 @@ var WelcomePanelElement = class extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE4;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET6);
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE5;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET7);
     this.#applyPartAttributes();
     this.findElement("recent-boards").addEventListener("remove", this.#recentBoard_onRemove.bind(this));
   }
@@ -4077,8 +4919,8 @@ var WelcomePanelElement = class extends HTMLElement {
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME6) == null) {
-  customElements.define(COMPONENT_TAG_NAME6, WelcomePanelElement);
+if (customElements.get(COMPONENT_TAG_NAME7) == null) {
+  customElements.define(COMPONENT_TAG_NAME7, WelcomePanelElement);
 }
 
 // components/board-browser/board-browser.css?raw
@@ -4091,9 +4933,9 @@ var board_browser_default2 = '<header id="board-browser-header" class="header di
 var captioned_thumbnail_default = '\n\n:host\n{\n    display: inline-flex;\n    width: 80px;\n    height: 80px;\n    color-scheme: light dark;\n}\n\n:host(:focus) figure\n{\n    border-color: rgb(205 205 205);\n}\n@media (prefers-color-scheme: dark) \n{\n    :host(:focus) figure\n    {\n        border-color: rgb(81 81 81);\n    }\n}\n\nfigure\n{\n    flex: 1;\n    display: grid;\n    grid-template-rows: 1fr auto;\n    margin: 0;\n    padding: 0;\n    border: solid 1px transparent;\n}\n:host(.selected) figure\n{\n    border-color: inherit;\n}\n\n#selected\n,::slotted([slot="selected"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: flex-start;\n    align-self: flex-start;\n    z-index: 2;\n\n    opacity: 0;\n    transition: opacity 200ms ease;\n}\n\n:host(:not([select],[selectable])) #selected\n,:host(:not([select],[selectable])) ::slotted([slot="selected"])\n{\n    display: none;\n    pointer-events: none;\n}\n\n#edit-button\n,::slotted([slot="edit-button"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: flex-end;\n    align-self: flex-start;\n    z-index: 2;\n\n    opacity: 0;\n    transition: opacity 200ms ease;\n}\n\n:host(:not([edit],[editable])) #edit-button\n,:host(:not([edit],[editable])) ::slotted([slot="edit-button"])\n{\n    display: none;\n    pointer-events: none;\n}\n\n.icon\n,::slotted([slot="icon"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: center;\n    align-self: center;\n\n    width: var(--icon-width, var(--icon-size));\n    margin: .25em;\n}\n#image-icon\n,::slotted(img[slot="icon"])\n{\n    display: block;\n    max-width: 100%;\n    min-width: 0;\n    max-height: 100%;\n    min-height: 0;\n}\n#text-icon\n{\n    font-size: 36px;\n    line-height: 1;\n    margin: 0;\n    padding: 0;\n    box-sizing: border-box;\n}\n\n:host(:not([src])) #image-icon\n,:host([src]) #text-icon\n{\n    display: none;\n}\n\n#caption\n,::slotted([slot="caption"])\n{\n    text-align: center;\n    text-overflow: ellipsis;\n    overflow: hidden;\n}\n\n:host(:not([select],[selectable]):hover)  #edit-button\n,:host(:not([select],[selectable]):hover) ::slotted([slot="edit-button"])\n,:host(:focus)  #edit-button\n,:host(:focus) ::slotted([slot="edit-button"])\n,figure:has(:checked) #edit-button\n,figure:has(:checked) ::slotted([slot="edit-button"])\n,figure:has(:focus) #edit-button\n,figure:has(:focus) ::slotted([slot="edit-button"])\n,figure:has(:focus-within) #edit-button\n,figure:has(:focus-within) ::slotted([slot="edit-button"])\n{ \n    opacity: 1;\n}\n\n\n:host(:hover) #selected\n,figure:has(:checked) #selected\n,figure:focus #selected\n,figure:focus-within #selected\n{ \n    opacity: 1;\n}';
 var captioned_thumbnail_default2 = '<figure id="figure">\n    <slot name="selected"><input type="checkbox" id="selected" /></slot>\n    <slot name="edit-button"><button type="button" id="edit-button">&#9998;</button></slot>\n    <slot name="icon">\n        <span id="text-icon" class="icon">\u{1F5CE}</span>\n        <img id="image-icon" class="icon" />\n    </slot>\n    <slot name="caption"><figcaption id="caption"><slot>Item</slot></figcaption></slot>\n</figure>';
 var KEYCODE_SELECTION_MAP = ["Space", "Enter"];
-var COMPONENT_STYLESHEET7 = new CSSStyleSheet();
-COMPONENT_STYLESHEET7.replaceSync(captioned_thumbnail_default);
-var COMPONENT_TAG_NAME7 = "captioned-thumbnail";
+var COMPONENT_STYLESHEET8 = new CSSStyleSheet();
+COMPONENT_STYLESHEET8.replaceSync(captioned_thumbnail_default);
+var COMPONENT_TAG_NAME8 = "captioned-thumbnail";
 var CaptionedThumbnailElement = class _CaptionedThumbnailElement extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
   getElement(id) {
@@ -4123,7 +4965,7 @@ var CaptionedThumbnailElement = class _CaptionedThumbnailElement extends HTMLEle
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = captioned_thumbnail_default2;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET7);
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET8);
     this.#applyPartAttributes();
     this.#updateTitle();
     this.addEventListener("click", this.#onClick.bind(this));
@@ -4265,24 +5107,24 @@ var CaptionedThumbnailElement = class _CaptionedThumbnailElement extends HTMLEle
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME7) == null) {
-  customElements.define(COMPONENT_TAG_NAME7, CaptionedThumbnailElement);
+if (customElements.get(COMPONENT_TAG_NAME8) == null) {
+  customElements.define(COMPONENT_TAG_NAME8, CaptionedThumbnailElement);
 }
 
 // components/board-browser/board-browser.ts
 var BoardBrowserAttributes = /* @__PURE__ */ ((BoardBrowserAttributes2) => {
   return BoardBrowserAttributes2;
 })(BoardBrowserAttributes || {});
-var COMPONENT_STYLESHEET8 = new CSSStyleSheet();
-COMPONENT_STYLESHEET8.replaceSync(`${shared_default}
+var COMPONENT_STYLESHEET9 = new CSSStyleSheet();
+COMPONENT_STYLESHEET9.replaceSync(`${shared_default}
     ${board_browser_default}`);
-var COMPONENT_TEMPLATE5 = `${board_browser_default2}
+var COMPONENT_TEMPLATE6 = `${board_browser_default2}
 ${defineIcons(
   "TaskBoard" /* TaskBoard */,
   "ConfirmCheck" /* ConfirmCheck */,
   "CancelCross" /* CancelCross */
 )}`;
-var COMPONENT_TAG_NAME8 = "board-browser";
+var COMPONENT_TAG_NAME9 = "board-browser";
 var BoardBrowserElement = class extends HTMLElement {
   static observedAttributes = [
     ...Object.values(BoardBrowserAttributes)
@@ -4304,8 +5146,8 @@ var BoardBrowserElement = class extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE5;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET8);
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE6;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET9);
     this.#applyPartAttributes();
     this.findElement("board-browser-ok").addEventListener("click", this.boardBrowserOkButton_onClick.bind(this));
     this.findElement("collection-browser").addEventListener("change", this.boardBrowserSelection_onChange.bind(this));
@@ -4387,21 +5229,14 @@ var BoardBrowserElement = class extends HTMLElement {
     element.part.add("board-gallery-item");
     return element;
   }
-  static create(properties) {
-    const element = document.createElement(COMPONENT_TAG_NAME8);
-    for (const [propertyName, value] of Object.entries(properties)) {
-      if (!propertyName.startsWith("on")) {
-        element.setAttribute(propertyName, value);
-      }
-    }
-  }
 };
-if (customElements.get(COMPONENT_TAG_NAME8) == null) {
-  customElements.define(COMPONENT_TAG_NAME8, BoardBrowserElement);
+if (customElements.get(COMPONENT_TAG_NAME9) == null) {
+  customElements.define(COMPONENT_TAG_NAME9, BoardBrowserElement);
 }
 
 // components/board-settings/board-settings.css?raw
 var board_settings_default = `:host { display: contents; }
+
 #board-settings-header
 {
     display: grid;
@@ -4712,7 +5547,61 @@ button .icon
 #icon-definitions
 {
     display: none;
-}`;
+}
+
+
+
+image-input [slot="placeholder"]
+{
+    display: grid;
+    justify-items: center;
+    gap: .25em;
+    padding: .5em;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+[part="field-label"]
+{
+    white-space: nowrap;
+}
+form-field [part="label"]
+,form-field [part="field-label"]
+{
+    display: flex;
+    gap: .25em;
+    align-items: center;
+}
+form-field [part="label"] input
+,form-field [part="field-label"] input
+{
+    margin: 0;
+}
+form-field [part="label"] [part="text"]
+,form-field [part="field-label"] [part="text"]
+{
+    flex: 1;
+}
+
+form-field [part="container"]
+{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: .25em;
+}
+form-field [part="container"]:has([slot="postfix"])
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 0;
+    row-gap: .25em;
+}
+form-field [part="container"]:has([slot="postfix"]) [part="field-label"]
+{
+    grid-column: span 2;
+}
+
+`;
 
 // components/board-settings/board-settings.html?raw
 var board_settings_default2 = '<form method="dialog" id="board-settings-form" class="form">\n    <header id="board-settings-header" class="header dialog-header">\n        <svg id="board-settings-icon" class="icon">\n            <use href="#icon-definition_task-board"></use>\n        </svg>\n        <span id="board-settings-title" class="title">Board</span>\n        <button type="submit" id="close-board-button" class="button header-button" title="Close Board">\n            <svg id="close-board-icon" class="icon">\n                <use href="#icon-definition_close-cross"></use>\n            </svg>\n        </button>\n    </header>\n    <div id="fields">\n        <input type="hidden" name="record-id" id="record-id" />\n        <div id="properties">\n            <form-field label="Color" id="color-field" class="field">\n                <input type="color" id="color" class="input" name="color" value="#000000" />\n            </form-field>\n            <form-field label="Name" id="name-field" class="field">\n                <input type="text" id="name" class="input" name="name" value="New Board" />\n            </form-field>\n            <form-field label="Order" id="order-field" class="field">\n                <input type="text" id="order" class="input" name="order" inputmode="numeric" disabled />\n            </form-field>\n        </div>\n        <fieldset id="appearance-fieldset" class="fieldset board-settings-fieldset">\n            <legend id="appearance-legend" class="legend board-settings-legend">\n                <svg id="color-icon" class="icon">\n                    <use href="#icon-definition_color"></use>\n                </svg>\n                <span id="appearance-label" class="label legend-label">Appearance</span>\n            </legend>\n            <form-field id="background-color-field" class="field" label="Background Color" optional optional-title="Override Background Color?">\n                <input type="color" name="background-color" id="background-color" class="input" value="#f9faf5" />\n            </form-field>\n            <form-field id="font-color-field" label="Font Color" class="field" optional optional-title="Override Font Color?">\n                <input type="color" name="font-color" id="font-color" class="input" value="#060703" />\n            </form-field>\n        </fieldset>\n        <fieldset id="image-fieldset" class="fieldset board-settings-fieldset">\n            <legend id="image-legend" class="legend board-settings-legend">\n                <svg id="image-icon" class="icon" >\n                    <use href="#icon-definition_image"></use>\n                </svg>\n                <span id="image-label" class="label legend-label">Background Image</span>\n            </legend>\n            <form-field id="background-image-field" class="field" label="Background Image" input-selector="fileimage-input">\n                <fileimage-input name="background-image" id="background-image" class="input" placeholder="Select an image...">\n                    <svg id="background-image-icon" class="icon" slot="placeholder-icon">\n                        <use href="#icon-definition_image"></use>\n                    </svg>\n                </fileimage-input>\n            </form-field>\n            <form-field id="background-image-display-field" class="field" label="Display">\n                <select id="background-image-display" class="select" name="background-image-display">\n                    <option value="stretch">Stretch</option>\n                    <option value="center">Center</option>\n                    <option value="tile">Tile</option>\n                </select>\n            </form-field>\n            <div id="background-image-offset">\n                <div id="offset-header">\n                    <span id="offset-label">Offset</span>\n                </div>\n                <form-field id="background-image-offset-x-field" class="field" label="X">\n                    <input type="text" inputmode="numeric" id="background-image-offset-x" class="input" name="background-image-offset-x" />\n                </form-field>\n                <form-field id="background-image-offset-y-field" class="field" label="Y">\n                    <input type="text" inputmode="numeric" id="background-image-offset-y" class="input" name="background-image-offset-y" />\n                </form-field>\n            </div>\n        </fieldset>\n        <details open id="lists" class="settings-details board-settings-details">\n            <summary id="lists-summary" class="settings-summary board-settings-summary">\n                <svg id="lists-icon" class="icon">\n                    <use href="#icon-definition_task-list"></use>\n                </svg>\n                <span id="lists-label">Lists<span>\n            </summary>\n            <div id="list-items"><slot><em id="lists-placeholder">No Lists</em></slot></div>\n            <div id="list-actions">\n                <button type="button" id="clear-lists-button" class="button" title="Clear All Lists">\n                    <svg id="clear-lists-button-icon" class="icon">\n                        <use href="#icon-definition_trash"></use>\n                    </svg>\n                    <span id="clear-lists-button-label">Clear</span>\n                </button>\n                <button type="button" id="add-list-button" class="button">\n                    <svg id="add-list-button-icon" class="icon">\n                        <use href="#icon-definition_plus"></use>\n                    </svg>\n                    <span id="add-list-button-label">Add List</span>\n                </button>\n            </div>\n        </details>\n        <details id="tasks" open class="settings-details board-settings-details">\n            <summary id="tasks-summary" class="settings-summary board-settings-summary">\n                <svg id="tasks-icon" class="icon">\n                    <use href="#icon-definition_task"></use>\n                </svg>\n                <span id="tasks-label">Task Settings</span>\n            </summary>\n            <task-fields\n                id="board-task-settings"\n                class="task-fields"\n                exportparts=""\n            ></task-fields>\n        </details>\n        <fieldset id="delete-fieldset" class="fieldset board-settings-fieldset">\n            <legend id="delete-legend" class="legend board-settings-legend">Delete</legend>\n            <p class="field-question">Delete this board?</p>\n            <button type="submit" id="remove-board-button" class="button">\n                <svg id="remove-board-icon" class="icon">\n                    <use href="#icon-definition_trash"></use>\n                </svg>\n                <span id="remove-board-label">Delete</span>\n            </button>\n        </fieldset>\n        <fieldset id="duplicate-fieldset" class="fieldset board-settings-fieldset">\n            <legend id="duplicate-legend" class="legend board-settings-legend">Duplicate</legend>\n            <p class="field-question">Duplicate this board?</p>\n            <form-field id="duplicate-board-name-field" class="field" label="New Board Name">\n                <input type="text" id="duplicate-board-name" class="input" />\n            </form-field>\n            <button type="button" id="duplicate-board-button" class="button">\n                <svg id="duplicate-board-icon" class="icon">\n                    <use href="#icon-definition_copy"></use>\n                </svg>\n                <span id="duplicate-board-label">Duplicate</span>\n            </button>\n        </fieldset>\n        <fieldset id="export-fieldset" class="fieldset board-settings-fieldset">\n            <legend id="export-legend" class="legend board-settings-legend">Export</legend>\n            <div id="export-options">\n                <header id="export-options-header" class="field-header">Options</header>\n                <form-field id="export-images-field" class="field" label="Export Background Image?">\n                    <svg id="export-images-icon" class="icon" slot="prefix">\n                        <use href="#icon-definition_image"></use>\n                    </svg>\n                    <input type="checkbox" id="export-background-image" class="input" checked="true">\n                </form-field>\n            </div>\n            <button id="export-button" class="button" type="button">\n                <svg id="export-button-icon" class="icon">\n                    <use href="#icon-definition_export"></use>\n                </svg>\n                <span id="export-button-label">Export Board</span>\n            </button>\n        </fieldset>\n    </div>\n    <footer id="board-settings-footer" class="footer dialog-footer">\n        <button type="submit" id="board-settings-cancel" class="button action-button cancel" title="Cancel changes">Cancel</button>\n        <button type="submit" id="board-settings-save" class="button action-button ok preferred-button" title="Save settings">Save</button>\n    </footer>\n</form>';
@@ -4722,10 +5611,10 @@ var BoardSettingsAttributes = /* @__PURE__ */ ((BoardSettingsAttributes2) => {
   BoardSettingsAttributes2["pathId"] = "path-id";
   return BoardSettingsAttributes2;
 })(BoardSettingsAttributes || {});
-var COMPONENT_STYLESHEET9 = new CSSStyleSheet();
-COMPONENT_STYLESHEET9.replaceSync(`${shared_default}
+var COMPONENT_STYLESHEET10 = new CSSStyleSheet();
+COMPONENT_STYLESHEET10.replaceSync(`${shared_default}
     ${board_settings_default}`);
-var COMPONENT_TEMPLATE6 = `${board_settings_default2}
+var COMPONENT_TEMPLATE7 = `${board_settings_default2}
 ${defineIcons(
   "Gear" /* Gear */,
   "Export" /* Export */,
@@ -4739,7 +5628,7 @@ ${defineIcons(
   "Trash" /* Trash */,
   "Copy" /* Copy */
 )}`;
-var COMPONENT_TAG_NAME9 = "board-settings";
+var COMPONENT_TAG_NAME10 = "board-settings";
 var BoardSettingsElement = class extends HTMLElement {
   static observedAttributes = [
     ...Object.values(BoardSettingsAttributes)
@@ -4763,8 +5652,8 @@ var BoardSettingsElement = class extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE6;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET9);
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE7;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET10);
     this.#applyPartAttributes();
     this.findElement("clear-lists-button").addEventListener("click", () => {
       this.querySelectorAll("tasklist-fields").forEach((item) => item.toggleAttribute("removed", true));
@@ -4991,7 +5880,7 @@ var BoardSettingsElement = class extends HTMLElement {
     }, { offset: Number.NEGATIVE_INFINITY });
   }
   static create(properties) {
-    const element = document.createElement(COMPONENT_TAG_NAME9);
+    const element = document.createElement(COMPONENT_TAG_NAME10);
     for (const [propertyName, value] of Object.entries(properties)) {
       if (!propertyName.startsWith("on")) {
         element.setAttribute(propertyName, value);
@@ -5003,8 +5892,8 @@ var BoardSettingsElement = class extends HTMLElement {
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME9) == null) {
-  customElements.define(COMPONENT_TAG_NAME9, BoardSettingsElement);
+if (customElements.get(COMPONENT_TAG_NAME10) == null) {
+  customElements.define(COMPONENT_TAG_NAME10, BoardSettingsElement);
 }
 
 // components/config-panel/config-panel.css?raw
@@ -5023,17 +5912,17 @@ var settings_panel_default2 = '\n<header id="settings-header" class="header page
 var SettingsPanelAttributes = /* @__PURE__ */ ((SettingsPanelAttributes2) => {
   return SettingsPanelAttributes2;
 })(SettingsPanelAttributes || {});
-var COMPONENT_STYLESHEET10 = new CSSStyleSheet();
-COMPONENT_STYLESHEET10.replaceSync(`${shared_default}
+var COMPONENT_STYLESHEET11 = new CSSStyleSheet();
+COMPONENT_STYLESHEET11.replaceSync(`${shared_default}
     ${settings_panel_default}`);
-var COMPONENT_TEMPLATE7 = `${settings_panel_default2}
+var COMPONENT_TEMPLATE8 = `${settings_panel_default2}
 ${defineIcons(
   "LogoMark" /* LogoMark */,
   "MagnifyingGlass" /* MagnifyingGlass */,
   "Gear" /* Gear */,
   "PlusIcon" /* PlusIcon */
 )}`;
-var COMPONENT_TAG_NAME10 = "settings-panel";
+var COMPONENT_TAG_NAME11 = "settings-panel";
 var SettingsPanelElement = class extends HTMLElement {
   static observedAttributes = [
     ...Object.values(SettingsPanelAttributes)
@@ -5054,8 +5943,8 @@ var SettingsPanelElement = class extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE7;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET10);
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE8;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET11);
     this.#applyPartAttributes();
     const schemeOptions = [...this.findElement("scheme-options").querySelectorAll("button")];
     for (let i = 0; i < schemeOptions.length; i++) {
@@ -5104,7 +5993,7 @@ var SettingsPanelElement = class extends HTMLElement {
     button.part.add("selected");
   }
   static create(properties) {
-    const element = document.createElement(COMPONENT_TAG_NAME10);
+    const element = document.createElement(COMPONENT_TAG_NAME11);
     for (const [propertyName, value] of Object.entries(properties)) {
       if (!propertyName.startsWith("on")) {
         element.setAttribute(propertyName, value);
@@ -5114,57 +6003,32 @@ var SettingsPanelElement = class extends HTMLElement {
   attributeChangedCallback(attributeName, _oldValue, newValue) {
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME10) == null) {
-  customElements.define(COMPONENT_TAG_NAME10, SettingsPanelElement);
+if (customElements.get(COMPONENT_TAG_NAME11) == null) {
+  customElements.define(COMPONENT_TAG_NAME11, SettingsPanelElement);
 }
 
 // components/config-panel/data-panel/data-panel.css?raw
 var data_panel_default = ':host\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 7px;\n}\n\n\n#data-header\n{\n    grid-column: span 3;\n    font-size: 14px;\n    font-weight: bold;\n}\n\n\n#deleted-items [data-restore="false"]\n{\n    scale: .98 .9;\n    opacity: .5;\n    pointer-events: none;\n}\n\n[to-delete]\n{\n    text-decoration: line-through;\n    color: #444;\n}\n\n#import-fieldset\n{\n    grid-column: span 3;\n    display: flex;\n    gap: 7px;\n}\n\n#import-field .container\n{\n    flex: 1;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n}\n\n#import-board-file\n{\n    flex: 1;\n}\n\n/* #import-content\n{\n    overflow: hidden;\n    padding: 1em;\n    display: flex;\n} */\n\n/* #import-manager\n{\n    overflow: hidden;\n    display: flex;\n    flex-direction: column;\n    flex: 1;\n}\n\n#import-actions\n{\n    display: grid;\n    grid-template-columns: 1fr auto auto;\n    gap: 7px;\n}\n\n#import-cancel\n{\n    grid-column: 2;\n}\n\n#import-ok\n{\n    grid-column: 3;\n} */\n\n/* #config-data-caches\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 7px;\n} */\n\n#data-cleanup-fieldset\n{\n    display: grid;\n    grid-template-rows: max-content 1fr max-content;\n    gap: 7px;\n}\n\n#data-cleanup-range .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    align-self: flex-end;\n}\n#data-persist-days\n{\n    flex: 1;\n}\n\n#apply-data-persist-days-button\n{\n    justify-self: flex-end;\n}\n\n#data-pending-fieldset\n,#image-cache-fieldset\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n}\n\n#deleted-items\n,#deleted-images\n{\n    display: flex;\n    flex-direction: column;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    height: 130px;\n    overflow-x: hidden;\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    align-self: flex-end;\n}\n\n#deleted-items::part(add)\n,#deleted-images::part(add)\n{\n    display: none !important;\n}\n\n#clear-deleted-button\n,#clear-image-cache-button\n{\n    justify-self: flex-end;\n}\n\n#data-clear-fieldset\n{\n    display: grid;\n    gap: 7px;\n    grid-column: span 3;\n}\n\n#clear-data-button\n{\n    justify-self: flex-end;\n}\n@media (max-width: 665px) \n{\n\n    #import-fieldset\n    {\n        flex-direction: column;\n    }\n    #import-field .container\n    {\n        flex-direction: column;\n        align-items: stretch;\n    }\n    #import-button\n    {\n        align-self: flex-end;\n    }\n    #config-data-caches\n    {\n        display: grid;\n        grid-template-columns: 1fr;\n        gap: 7px;\n    }\n}';
 
 // components/config-panel/data-panel/data-panel.html?raw
-var data_panel_default2 = '\n<header id="data-header" class="header page-header">Data</header>\n<fieldset id="import-fieldset" class="fieldset config-fieldset">\n    <legend id="import-legend" class="legend config-legend">Import</legend>\n    <form-field id="import-field" class="field config-field data-field" label="Taskboard Data File" input-selector="fileimage-input">\n        <fileimage-input id="import-board-file" exportparts="field:input">\n            <svg slot="icon" id="import-file-icon" class="icon">\n                <use href="#icon-definition_file"></use>\n            </svg>\n        </fileimage-input>\n    </form-field>\n    <button id="import-button" class="button">\n        <svg id="import-button-icon" class="icon">\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span id="import-button-label">Import Board</span>\n    </button>\n</fieldset>\n<!-- <div id="config-data-caches"> -->\n    <fieldset id="data-cleanup-fieldset" class="fieldset config-fieldset">\n        <legend id="data-cleanup-legend" class="legend config-legend">Data Cleanup</legend>\n        <div id="data-cleanup-description">\n            <p class="text">Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>\n            <p class="text">Set how many days deleted item should perisist using the slider below.</p>\n        </div>\n        <form-field label="Days" id="data-cleanup-range" class="field config-field data-field">\n            <input type="range" id="data-persist-days" class="input range" max="30" list="data-persist-days-values" />\n            <datalist id="data-persist-days-values"></datalist>\n            <span slot="postfix" id="data-persist-days-value"></span>\n            <button slot="postfix" id="apply-data-persist-days-button" class="button">\n                <svg id="apply-data-persist-days-icon" class="icon">\n                    <use href="#icon-definition_confirm-check"></use>\n                </svg>\n                <span id="apply-data-persist-days-label">Apply</span>\n            </button>\n        </form-field>\n    </fieldset>\n    <fieldset id="data-pending-fieldset" class="fieldset config-fieldset">\n        <legend id="data-pending-legend" class="legend config-legend">Pending Cleanup</legend>\n        <div id="data-pending-description">\n            <p class="text">The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>\n        </div>\n        <editable-list id="deleted-items" class="cache-list" remove-class="restore-button button" exportparts="remove:restore-item-button">\n            <slot name="deleted-items"></slot>\n            <template part="remove-button">\n                <svg id="restore-item-icon" class="icon" title="Restore">\n                    <use href="#icon-definition_restore"></use>\n                </svg>\n            </template>\n        </editable-list>\n        <button id="clear-deleted-button" class="button">\n            <svg id="clear-deleted-icon" class="icon" title="Clear">\n                <use href="#icon-definition_trash"></use>\n            </svg>\n            <span id="clear-deleted-label">Clear Pending Items</span>\n        </button>\n    </fieldset>\n    <fieldset id="image-cache-fieldset" class="fieldset config-fieldset">\n        <legend id="image-cache-legend" class="legend config-legend">Image Cache</legend>\n        <div id="image-cache-description">\n            <p class="text">Caching some image files provides undo and redo support.</p>\n            <p class="text">The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>\n        </div>\n        <editable-list id="deleted-images" remove-class="button" class="cache-list" exportparts="button, remove:delete-cached-image-button">\n            <slot name="deleted-images"></slot>\n        </editable-list>\n        <button id="clear-image-cache-button" class="button">\n            <svg id="clear-images-icon" title="Clear">\n                <use href="#icon-definition_trash"></use>\n            </svg>\n            <span id="clear-images-label">Clear Image Cache</span>\n        </button>\n    </fieldset>\n<!-- </div> -->\n<fieldset id="data-clear-fieldset" class="fieldset config-fieldset">\n    <legend id="data-clear-legend" class="legend config-legend">Clear Data</legend>\n    <div id="data-clear-description">\n        <p class="text">Delete all data, including app settings and history.</p>\n    </div>\n    <button id="clear-data-button" class="button">\n        <svg id="clear-data-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-data-label">Clear All Data</span>\n    </button>\n</fieldset>';
-
-// resources/utils.ts
-function snapToStep(target, steps) {
-  const inputValue = parseFloat(target.value);
-  for (let i = 1; i < steps.length; i++) {
-    const value = steps[i];
-    const lastValue = steps[i - 1];
-    const distanceFromValue = Math.abs(value - inputValue);
-    const distanceFromLastValue = Math.abs(lastValue - inputValue);
-    const isCloserToNewValue = Math.min(distanceFromValue, distanceFromLastValue) == distanceFromValue;
-    if (isCloserToNewValue) {
-      target.value = value.toString();
-    } else {
-      target.value = lastValue.toString();
-      break;
-    }
-  }
-}
-function createOptionElement(value) {
-  const option = document.createElement("option");
-  const stringValue = value.toString();
-  option.value = stringValue;
-  option.textContent = stringValue;
-  return option;
-}
+var data_panel_default2 = '\n<header id="data-header" class="header page-header">Data</header>\n<fieldset id="import-fieldset" class="fieldset config-fieldset">\n    <legend id="import-legend" class="legend config-legend">Import</legend>\n    <form-field id="import-field" class="field config-field data-field" label="Taskboard Data File" input-selector="fileimage-input">\n        <fileimage-input id="import-board-file" exportparts="field:input">\n            <svg slot="icon" id="import-file-icon" class="icon">\n                <use href="#icon-definition_file"></use>\n            </svg>\n        </fileimage-input>\n    </form-field>\n    <button id="import-button" class="button">\n        <svg id="import-button-icon" class="icon">\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span id="import-button-label">Import Board</span>\n    </button>\n</fieldset>\n<fieldset id="data-cleanup-fieldset" class="fieldset config-fieldset">\n    <legend id="data-cleanup-legend" class="legend config-legend">Data Cleanup</legend>\n    <div id="data-cleanup-description">\n        <p class="text">Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>\n        <p class="text">Set how many days deleted item should perisist using the slider below.</p>\n    </div>\n    <form-field label="Days" id="data-cleanup-range" class="field config-field data-field">\n        <input type="range" id="data-persist-days" class="input range" max="30" list="data-persist-days-values" />\n        <datalist id="data-persist-days-values"></datalist>\n        <span slot="postfix" id="data-persist-days-value"></span>\n        <button slot="postfix" id="apply-data-persist-days-button" class="button">\n            <svg id="apply-data-persist-days-icon" class="icon">\n                <use href="#icon-definition_confirm-check"></use>\n            </svg>\n            <span id="apply-data-persist-days-label">Apply</span>\n        </button>\n    </form-field>\n</fieldset>\n<fieldset id="data-pending-fieldset" class="fieldset config-fieldset">\n    <legend id="data-pending-legend" class="legend config-legend">Pending Cleanup</legend>\n    <div id="data-pending-description">\n        <p class="text">The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>\n    </div>\n    <editable-list id="deleted-items" class="cache-list" remove-class="restore-button button" exportparts="remove:restore-item-button">\n        <!-- <slot name="deleted-items"></slot> -->\n        <template part="remove-button">\n            <svg id="restore-item-icon" class="icon" title="Restore">\n                <use href="#icon-definition_restore"></use>\n            </svg>\n        </template>\n    </editable-list>\n    <button id="clear-deleted-button" class="button">\n        <svg id="clear-deleted-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-deleted-label">Clear Pending Items</span>\n    </button>\n</fieldset>\n<fieldset id="image-cache-fieldset" class="fieldset config-fieldset">\n    <legend id="image-cache-legend" class="legend config-legend">Image Cache</legend>\n    <div id="image-cache-description">\n        <p class="text">Caching some image files provides undo and redo support.</p>\n        <p class="text">The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>\n    </div>\n    <editable-list id="deleted-images" remove-class="button" class="cache-list" exportparts="button, remove:delete-cached-image-button">\n        <!-- <slot name="deleted-images"></slot> -->\n    </editable-list>\n    <button id="clear-image-cache-button" class="button">\n        <svg id="clear-images-icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-images-label">Clear Image Cache</span>\n    </button>\n</fieldset>\n<fieldset id="data-clear-fieldset" class="fieldset config-fieldset">\n    <legend id="data-clear-legend" class="legend config-legend">Clear Data</legend>\n    <div id="data-clear-description">\n        <p class="text">Delete all data, including app settings and history.</p>\n    </div>\n    <button id="clear-data-button" class="button">\n        <svg id="clear-data-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-data-label">Clear All Data</span>\n    </button>\n</fieldset>';
 
 // components/config-panel/data-panel/data-panel.ts
 var DaysToPersistValues = [0, 7, 30];
 var DataPanelAttributes = /* @__PURE__ */ ((DataPanelAttributes2) => {
   return DataPanelAttributes2;
 })(DataPanelAttributes || {});
-var COMPONENT_STYLESHEET11 = new CSSStyleSheet();
-COMPONENT_STYLESHEET11.replaceSync(`${shared_default}
+var COMPONENT_STYLESHEET12 = new CSSStyleSheet();
+COMPONENT_STYLESHEET12.replaceSync(`${shared_default}
     ${data_panel_default}`);
-var COMPONENT_TEMPLATE8 = `${data_panel_default2}
+var COMPONENT_TEMPLATE9 = `${data_panel_default2}
 ${defineIcons(
   "File" /* File */,
   "Import" /* Import */,
   "Trash" /* Trash */,
   "ConfirmCheck" /* ConfirmCheck */
 )}`;
-var COMPONENT_TAG_NAME11 = "data-panel";
+var COMPONENT_TAG_NAME12 = "data-panel";
 var DataPanelElement = class extends HTMLElement {
   static observedAttributes = [
     ...Object.values(DataPanelAttributes)
@@ -5185,8 +6049,8 @@ var DataPanelElement = class extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE8;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET11);
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE9;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET12);
     this.#applyPartAttributes();
     this.findElement("import-button").addEventListener("click", this.#importButton_onClick.bind(this));
     this.findElement("data-persist-days").addEventListener("change", this.#daysToPersist_onChange.bind(this));
@@ -5272,189 +6136,108 @@ var DataPanelElement = class extends HTMLElement {
     const items = [...this.findElement("deleted-images").querySelectorAll("[data-record-id]")];
     this.dispatchEvent(new CustomEvent("clearimages", { detail: { items }, bubbles: true, composed: true }));
   }
-  static create(properties) {
-    const element = document.createElement(COMPONENT_TAG_NAME11);
-    for (const [propertyName, value] of Object.entries(properties)) {
-      if (!propertyName.startsWith("on")) {
-        element.setAttribute(propertyName, value);
-      }
+  async refresh() {
+    console.log("refresh");
+    const deletedItems = [];
+    const [deletedBoards, deletedLists, deletedTasks, deletedImages] = await DataService.getDeletedItems();
+    for (let i = 0; i < deletedBoards.length; i++) {
+      const record = deletedBoards[i];
+      const element = this.#createDeletedItem(record, "board", true, record.deletedTimestamp);
+      deletedItems.push(element);
     }
-  }
-  attributeChangedCallback(attributeName, _oldValue, newValue) {
-  }
-};
-if (customElements.get(COMPONENT_TAG_NAME11) == null) {
-  customElements.define(COMPONENT_TAG_NAME11, DataPanelElement);
-}
-
-// components/config-panel/history-panel/history-panel.css?raw
-var history_panel_default = ":host\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n    overflow: hidden;\n}\n\n#history-header\n{\n    font-size: 14px;\n    font-weight: bold;\n}\n\n#history-length-fieldset\n{\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    flex: 1;\n}\n\n#history-length-field .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    flex: 1;\n}\n\n#action-history-length\n{\n    flex: 1;\n}\n\n#history-navigation-fieldset\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n    gap: 7px;\n    overflow: hidden;\n}\n#clear-history-button\n{\n    grid-column: 4;\n    white-space: nowrap;\n}\n#action-history\n{\n    grid-column: span 4;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    overflow: auto;\n    flex: 1;\n}\n@media (max-width: 665px) \n{\n    #action-history-length\n    {\n        width: 50px;\n    }\n}";
-
-// components/config-panel/history-panel/history-panel.html?raw
-var history_panel_default2 = '\n<header id="history-header" class="header page-header">History</header>\n<fieldset id="history-navigation-fieldset" class="fieldset config-fieldset">\n    <legend id="history-navigation-legend" class="legend config-legend">Navigation</legend>\n    <button id="undo" class="button">\n        <svg id="restore-item-icon" class="icon" title="Undo">\n            <use href="#icon-definition_undo-redo"></use>\n        </svg>\n        <span part="undo-label">Undo</span>\n    </button>\n    <button id="redo" class="button">\n        <svg id="restore-item-icon" class="icon" title="Redo" style="transform: scaleX(-1);">\n            <use href="#icon-definition_undo-redo"></use>\n        </svg>\n        <span id="redo-label">Redo</span>\n    </button>\n    <button id="clear-history-button" class="button">\n        <svg id="clear-history-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-history-label">Clear History</span>\n    </button>\n    <action-history id="action-history" reverse>\n        <slot name="action-history"></slot>\n    </action-history>\n</fieldset>\n<fieldset id="history-length-fieldset" class="fieldset config-fieldset">\n    <legend id="history-length-legend" class="legend config-legend">History Length</legend>\n    <form-field id="history-length-field" class="field">\n        <input type="range" id="action-history-length" class="input" max="150" list="action-history-length-values" />\n        <datalist id="action-history-length-values"></datalist>\n        <span slot="postfix" id="action-history-length-value" part="field-postfix"></span>\n        <button slot="postfix" id="apply-history-length-button" part="button field-postfix">\n            <svg id="apply-history-length-icon" class="icon">\n                <use href="#icon-definition_confirm-check"></use>\n            </svg>\n            <span id="apply-history-length-label">Apply</span>\n        </button>\n    </form-field>\n</fieldset>';
-
-// components/config-panel/history-panel/history-panel.ts
-var HistoryLengthValues = [0, 30, 50, 100, 150];
-var HistoryPanelAttributes = /* @__PURE__ */ ((HistoryPanelAttributes2) => {
-  return HistoryPanelAttributes2;
-})(HistoryPanelAttributes || {});
-var COMPONENT_STYLESHEET12 = new CSSStyleSheet();
-COMPONENT_STYLESHEET12.replaceSync(`${shared_default}
-    ${history_panel_default}`);
-var COMPONENT_TEMPLATE9 = `${history_panel_default2}
-${defineIcons(
-  "ConfirmCheck" /* ConfirmCheck */,
-  "UndoRedo" /* UndoRedo */,
-  "Trash" /* Trash */
-)}`;
-var COMPONENT_TAG_NAME12 = "history-panel";
-var HistoryPanelElement = class extends HTMLElement {
-  static observedAttributes = [
-    ...Object.values(HistoryPanelAttributes)
-  ];
-  componentParts = /* @__PURE__ */ new Map();
-  getElement(id) {
-    if (this.componentParts.get(id) == null) {
-      const part = this.findElement(id);
-      if (part != null) {
-        this.componentParts.set(id, part);
-      }
+    for (let i = 0; i < deletedLists.length; i++) {
+      const record = deletedLists[i];
+      const canRestore = deletedBoards.find((item) => item.id == record.boardId && item.deletedTimestamp != null) == null;
+      const element = this.#createDeletedItem(record, "list", canRestore, record.deletedTimestamp);
+      deletedItems.push(element);
     }
-    return this.componentParts.get(id);
-  }
-  findElement(id) {
-    return this.shadowRoot.getElementById(id);
-  }
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE9;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET12);
-    this.#applyPartAttributes();
-    this.findElement("undo").addEventListener("click", this.#undo_onClick.bind(this));
-    this.findElement("redo").addEventListener("click", this.#redo_onClick.bind(this));
-    const actionHistory = this.getElement("action-history");
-    actionHistory.onBack = this.#actionHistory_onBack.bind(this);
-    actionHistory.onForward = this.#actionHistory_onForward.bind(this);
-    this.findElement("action-history-length").addEventListener("change", this.#historyLength_onChange.bind(this));
-    this.findElement("apply-history-length-button").addEventListener("click", this.#applyHistoryLength_onClick.bind(this));
-    this.findElement("clear-history-button").addEventListener("click", this.#clearHistory_onClick.bind(this));
-  }
-  #applyPartAttributes() {
-    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
-    for (let i = 0; i < identifiedElements.length; i++) {
-      identifiedElements[i].part.add(identifiedElements[i].id);
+    for (let i = 0; i < deletedTasks.length; i++) {
+      const record = deletedTasks[i];
+      const canRestore = deletedBoards.find((item) => item.id == record.boardId && item.deletedTimestamp != null) == null;
+      const element = this.#createDeletedItem(record, "task", canRestore, record.deletedTimestamp);
+      deletedItems.push(element);
     }
-    const classedElements = [...this.shadowRoot.querySelectorAll(":not(form-field,.postfix,.prefix,.container, .field-label)[class]")];
-    for (let i = 0; i < classedElements.length; i++) {
-      const classedElement = classedElements[i];
-      classedElement.part.add(...classedElements[i].classList);
+    const deletedImageElements = [];
+    for (let i = 0; i < deletedImages.length; i++) {
+      const record = deletedImages[i];
+      const element = this.#createDeletedItem(record, "image", true, record.deletedTimestamp);
+      deletedImageElements.push(element);
     }
-    const formFieldElements = [...this.shadowRoot.querySelectorAll("form-field")];
-    for (let i = 0; i < formFieldElements.length; i++) {
-      const formFieldElement = formFieldElements[i];
-      const inputId = formFieldElement.id;
-      const container = formFieldElement.querySelector(".container");
-      container.part.add("container", "field-container", `${inputId}-container`);
-      const label = formFieldElement.querySelector(".field-label");
-      label.part.add("container", "field-label", `${inputId}-label`);
-      const prefix = formFieldElement.querySelector(".prefix");
-      prefix.part.add("container", "field-prefix", `${inputId}-prefix`);
-      const postfix = formFieldElement.querySelector(".postfix");
-      postfix.part.add("container", "field-postfix", `${inputId}-postfix`);
+    const deletedImagesElement = this.findElement("deleted-images");
+    deletedImagesElement.innerHTML = "";
+    deletedImagesElement.append(...deletedImageElements);
+    const deletedItemsElement = this.findElement("deleted-items");
+    deletedItemsElement.innerHTML = "";
+    deletedItemsElement.append(...deletedItems);
+  }
+  #createDeletedItem(data, recordType, canRestore, timestamp) {
+    const item = document.createElement("div");
+    item.setAttribute("data-record-type", recordType);
+    item.setAttribute("part", "deleted-item");
+    item.classList.add("deleted-item");
+    item.setAttribute("data-timestamp", timestamp.toString());
+    const label = document.createElement("span");
+    label.setAttribute("part", "deleted-item-label");
+    label.classList.add("deleted-item-label");
+    let record;
+    if (recordType == "board") {
+      record = data;
+      label.textContent = record.name;
+    } else if (recordType == "list") {
+      record = data;
+      label.textContent = record.name;
+    } else if (recordType == "task") {
+      record = data;
+      label.textContent = record.description.trim() == "" ? "[Blank Task]" : record.description;
+    } else if (recordType == "image") {
+      record = data;
+      label.textContent = record.name;
+    } else {
+      throw new Error("Unknown deleted record type");
     }
-  }
-  prepareHistoryLength(historyLength) {
-    const historyLengthOptions = Array.from(HistoryLengthValues).map((value) => createOptionElement(value));
-    this.findElement("action-history-length-values").append(...historyLengthOptions);
-    this.findElement("action-history-length").value = historyLength;
-    this.findElement("action-history-length-value").textContent = historyLength;
-  }
-  undo() {
-    this.findElement("action-history").back();
-  }
-  redo() {
-    this.findElement("action-history").forward();
-  }
-  #undo_onClick(_event) {
-    this.undo();
-    this.dispatchEvent(new CustomEvent("undo", { bubbles: true, composed: true }));
-  }
-  #redo_onClick(_event) {
-    this.redo();
-    this.dispatchEvent(new CustomEvent("redo", { bubbles: true, composed: true }));
-  }
-  async #actionHistory_onBack(target, previous, all, targetIndex, previousActiveEntryIndex) {
-    let refreshBoards = false;
-    let refreshDeletedItems = false;
-    const isLastUpdate = all.indexOf(target) == all.length - 1;
-    if (isLastUpdate == true) {
-      const recordType = target.querySelector(".target-type")?.textContent?.toLowerCase();
-      if (recordType == "board") {
-        refreshBoards = true;
-      }
-      refreshDeletedItems = true;
+    item.setAttribute("data-record-id", record.id);
+    item.append(label);
+    if (canRestore == false) {
+      item.dataset.restore = "false";
     }
-    this.dispatchEvent(new CustomEvent("historyback", { detail: {
-      target,
-      previous,
-      targetIndex,
-      previousActiveEntryIndex,
-      refreshBoards,
-      refreshDeletedItems
-    }, bubbles: true, composed: true }));
+    return item;
   }
-  async #actionHistory_onForward(target, previous, all, targetIndex, previousActiveEntryIndex) {
-    let refreshBoards = false;
-    let refreshDeletedItems = false;
-    const isLastUpdate = all.indexOf(target) == all.length - 1;
-    if (isLastUpdate == true) {
-      const recordType = target.querySelector(".target-type")?.textContent?.toLowerCase();
-      if (recordType == "board") {
-        refreshBoards = true;
-      }
-      refreshDeletedItems = true;
-    }
-    this.dispatchEvent(new CustomEvent("historyforward", { detail: {
-      target,
-      previous,
-      targetIndex,
-      previousActiveEntryIndex,
-      refreshBoards,
-      refreshDeletedItems
-    }, bubbles: true, composed: true }));
-  }
-  async #historyLength_onChange(event) {
-    const input = event.target;
-    snapToStep(input, HistoryLengthValues);
-    this.findElement("action-history-length-value").textContent = input.value;
-    let startIndex = parseInt(this.findElement("action-history-length").value);
-    if (startIndex > 0) {
-      startIndex--;
-    }
-    const actionHistory = this.findElement("action-history");
-    this.dispatchEvent(new CustomEvent("preparehistoryitems", { detail: { actionHistory, startIndex }, bubbles: true, composed: true }));
-  }
-  async #applyHistoryLength_onClick(_event) {
-    const historyLength = this.findElement("action-history-length").value;
-    this.dispatchEvent(new CustomEvent("historylength", { detail: { historyLength }, bubbles: true, composed: true }));
-  }
-  #clearHistory_onClick(_event) {
-    this.dispatchEvent(new CustomEvent("clearhistory", { bubbles: true, composed: true }));
-  }
-  static create(properties) {
-    const element = document.createElement(COMPONENT_TAG_NAME12);
-    for (const [propertyName, value] of Object.entries(properties)) {
-      if (!propertyName.startsWith("on")) {
-        element.setAttribute(propertyName, value);
-      }
-    }
-  }
-  attributeChangedCallback(attributeName, _oldValue, newValue) {
-  }
+  // async #restoreDeletedItem(targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number)
+  // {
+  //     if(targetType == null)
+  //     {
+  //         console.error("Unable to restore record with unknown type or id");
+  //         return;
+  //     }
+  //     const channel = (targetType == 'board')
+  //     ? this.#data.boards 
+  //     : (targetType == 'list')
+  //     ? this.#data.lists
+  //     : (targetType == 'task')
+  //     ? this.#data.tasks
+  //     : null;
+  //     if(channel == null)
+  //     {
+  //         console.error("Unable to restore record. Error accessing data.");
+  //         return;
+  //     }
+  //     await channel.restore(recordId);
+  //     const updates: Map<string, PropertyUpdate> = new Map([ ['deletedTimestamp', { from: timestamp, to: undefined }] ]);
+  //     const properties = {
+  //         id: recordId,
+  //         updates
+  //     };
+  //     await this.#addActionHistoryEntry(HistoryEntryType.Update, targetType, properties);
+  //     if(targetType == HistoryEntryTargetType.Board)
+  //     {
+  //         this.openBoard(recordId);
+  //         this.#refreshBoards();
+  //     }
+  //     this.#refreshDeletedItems();
+  // }
 };
 if (customElements.get(COMPONENT_TAG_NAME12) == null) {
-  customElements.define(COMPONENT_TAG_NAME12, HistoryPanelElement);
+  customElements.define(COMPONENT_TAG_NAME12, DataPanelElement);
 }
 
 // components/config-panel/about-panel/about-panel.css?raw
@@ -5579,34 +6362,26 @@ var ConfigPanelElement = class extends HTMLElement {
       classedElements[i].part.add(...classedElements[i].classList);
     }
   }
-  init(appVersion, historyLength, daysToPersist) {
+  async init(appVersion) {
+    const historyLength = await DataService.getAppSetting("historyLength" /* HistoryLength */) ?? DEFAULT_HISTORY_LENGTH;
+    const daysToPersistData = await DataService.getAppSetting("daysToPersistData" /* DaysToPersistData */) ?? DEFAULT_PERSIST_DAYS;
     this.findElement("about-panel").setVersion(appVersion);
-    this.findElement("data-panel").prepareDaysToPersistOptions(daysToPersist);
+    this.findElement("data-panel").prepareDaysToPersistOptions(daysToPersistData);
     this.findElement("history-panel").prepareHistoryLength(historyLength);
+    this.refreshHistory();
+    this.refreshCache();
   }
-  preventDefaultHistoryAction() {
-    this.findElement("history-panel").findElement("action-history").toggleAttribute("prevent-removal", true);
+  refreshHistory() {
+    this.findElement("history-panel").refresh();
   }
-  allowDefaultHistoryAction() {
-    requestAnimationFrame(() => {
-      this.findElement("history-panel").findElement("action-history").toggleAttribute("prevent-removal", false);
-    });
+  refreshCache() {
+    this.findElement("data-panel").refresh();
   }
   history_undo() {
     this.findElement("history-panel").undo();
   }
   history_redo() {
     this.findElement("history-panel").redo();
-  }
-  static create(properties) {
-    const element = document.createElement(COMPONENT_TAG_NAME14);
-    for (const [propertyName, value] of Object.entries(properties)) {
-      if (!propertyName.startsWith("on")) {
-        element.setAttribute(propertyName, value);
-      }
-    }
-  }
-  attributeChangedCallback(attributeName, _oldValue, newValue) {
   }
 };
 if (customElements.get(COMPONENT_TAG_NAME14) == null) {
@@ -8507,8 +9282,31 @@ if (customElements.get(COMPONENT_TAG_NAME27) == null) {
   customElements.define(COMPONENT_TAG_NAME27, MessageCardElement);
 }
 
+// handlers/board.handlers.ts
+async function taskDescription_onKeyUp(event) {
+  if (event.code != "Enter" || event.shiftKey == false && event.ctrlKey == false) {
+    return;
+  }
+  const list = event.target.getRootNode().host.parentElement;
+  const listId = list?.dataset.tasklistId;
+  if (list == null || listId == null) {
+    MessageCardElement.notify(
+      `An error occurred creating a new task.`,
+      this.getElement("notifications"),
+      { type: MessageCardType.Error }
+    );
+    console.error(new Error("List data not found."));
+    return;
+  }
+  const card = new TaskCardElement();
+  list.append(card);
+  this[SHAREDACCESSKEY].registerTaskCard(card, listId, list.children.length);
+  list.append(card);
+  card.findPart("description").focus();
+}
+
 // taskboard-manager.ts
-var MILLISECONDSINDAY = 1e3 * 60 * 60 * 24;
+var DEFAULT_APP_VERSION = "--.--.--";
 var SHAREDACCESSKEY = Symbol("SHAREDACCESSKEY");
 var COMPONENT_STYLESHEET26 = new CSSStyleSheet();
 COMPONENT_STYLESHEET26.replaceSync(`${shared_default}
@@ -8527,7 +9325,7 @@ ${defineIcons(
   "Restore" /* Restore */
 )}`;
 var COMPONENT_TAG_NAME28 = "taskboard-manager";
-var TaskboardManagerElement = class extends HTMLElement {
+var TaskboardManagerElement2 = class extends HTMLElement {
   static observedAttributes = [];
   componentParts = /* @__PURE__ */ new Map();
   getElement(id) {
@@ -8545,7 +9343,7 @@ var TaskboardManagerElement = class extends HTMLElement {
   initPromise;
   #customImageUrls = /* @__PURE__ */ new Map();
   /** Exposes "shared" private functions/properties to external modules. */
-  [SHAREDACCESSKEY];
+  // [SHAREDACCESSKEY]!: SharedContent;
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -8556,7 +9354,7 @@ var TaskboardManagerElement = class extends HTMLElement {
       this.initPromise = this.#init();
     }
   }
-  // api
+  //#region API
   /**
   * Initializes the app.  
   * Not necessary if the `autolaunch` attribute was not set to `false`.
@@ -8564,26 +9362,60 @@ var TaskboardManagerElement = class extends HTMLElement {
   async init() {
     this.initPromise = this.#init();
   }
-  // async addBoard()
-  // {
-  //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //     const listChannel = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, 'danger');
-  //     const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
-  //     const [ board, taskSettings, listData ] = await boardChannel.create();
-  //     board.order = this.findElement('app-menu').querySelectorAll('a').length;   
-  //     boardChannel.save(board);
-  //     const lists: TaskListRecord[] = [];
-  //     const listSettings: TaskSettingsRecord[] = [];
-  //     for(let i = 0; i < listData.length; i++)
-  //     {
-  //         const [ list, settings ] = listData[i];
-  //         lists.push(list);
-  //         listSettings.push(settings);
-  //     }
-  //     listChannel.saveItems(lists);
-  //     taskSettingsChannel.saveItems([taskSettings, ...listSettings]);
-  //     await this.#addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Board, { id: board.id });
-  // }
+  setColorScheme(scheme) {
+    const value = scheme == "browser" ? "light dark" : scheme;
+    this.style.setProperty("color-scheme", value);
+  }
+  async refreshBoards() {
+    const boardRecords = await DataService.getAllBoardRecords();
+    this.findElement("app-menu").updateBoards(boardRecords);
+    this.findElement("board-browser").updateBoards(boardRecords);
+  }
+  async addBoard() {
+    const order = this.findElement("app-menu").querySelectorAll("a").length;
+    const board = await DataService.createBoard(order);
+    this.findElement("app-menu").refresh();
+    this.findElement("welcome-panel").refresh();
+  }
+  async openBoardSettings(id) {
+    await this.initPromise;
+    const board = await DataService.getBoardRecord(id);
+    if (board == null) {
+      MessageCardElement.notify(
+        `No board found with the target id (${id}).`,
+        this.getElement("notifications"),
+        { type: MessageCardType.Error }
+      );
+      console.warn(`No board found with the target id (${id}).`);
+      return;
+    }
+    const taskLists = await DataService.getBoardLists(id);
+    const taskSettingIds = taskLists.map((item) => item.taskSettingsId);
+    const taskSettings = await DataService.getTaskSettingsRecords(board.taskSettingsId, ...taskSettingIds);
+    const boardTaskSettings = taskSettings.find((item) => item.id == board.taskSettingsId);
+    const listTaskSettings = taskSettings.filter((item) => taskSettingIds.indexOf(item.id) > -1);
+    if (boardTaskSettings == null) {
+      MessageCardElement.notify(
+        `An error occurred accessing task settings data.`,
+        this.getElement("notifications"),
+        { type: MessageCardType.Error }
+      );
+      console.warn(`An error occurred accessing task settings data.`);
+      return;
+    }
+    const backgroundImage = board.backgroundImageId == "" ? null : await DataService.getImageRecord(board.backgroundImageId);
+    const boardSettings = this.findElement("board-settings");
+    boardSettings.setValues(board, boardTaskSettings, backgroundImage);
+    boardSettings.setLists(taskLists, listTaskSettings);
+  }
+  async exportBoard(id) {
+    return DataService.exportBoard(this, id);
+  }
+  async importBoard(boardData, errorMessage) {
+    const order = this.findElement("app-menu").querySelectorAll("a").length;
+    return DataService.importBoard(boardData, order, errorMessage);
+  }
+  //#endregion API
   // async openBoard(id: string)
   // {
   //     await this.initPromise;
@@ -8594,40 +9426,6 @@ var TaskboardManagerElement = class extends HTMLElement {
   // {
   //     await this.findElement<PathRouterElement>('app-router').navigate('/' + window.location.hash);
   //     this.getElement('task-board').innerHTML = "";        
-  // }
-  // async openBoardSettings(id: string)
-  // {
-  //     await this.initPromise;
-  //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //     const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
-  //     const imagesChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
-  //     const board = await boardChannel.get(id);
-  //     if(board == null)
-  //     {
-  //         MessageCardElement.notify(`No board found with the target id (${id}).`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         console.warn(`No board found with the target id (${id}).`);
-  //         return;
-  //     }
-  //     const taskLists = await boardChannel.getTaskLists(id);
-  //     const taskSettingIds = taskLists.map(item =>item.taskSettingsId);
-  //     const taskSettings = await taskSettingsChannel.getItems([board.taskSettingsId, ...taskSettingIds]);
-  //     const boardTaskSettings = taskSettings.find(item => item.id == board.taskSettingsId);
-  //     const listTaskSettings = taskSettings.filter(item => taskSettingIds.indexOf(item.id) > -1);
-  //     if(boardTaskSettings == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred accessing task settings data.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         console.warn(`An error occurred accessing task settings data.`);
-  //         return;
-  //     }
-  //     const backgroundImage = (board.backgroundImageId == "") ? null : await imagesChannel.get(board.backgroundImageId);
-  //     const boardSettings =this.findElement<BoardSettingsElement>('board-settings');
-  //     boardSettings.setValues(board, boardTaskSettings, backgroundImage);
-  //     boardSettings.setLists(taskLists, listTaskSettings);
-  //     // const boardFields = this.findElement<TaskBoardFieldsComponent>('board-fields');
-  //     // boardFields.setValues(board, boardTaskSettings, backgroundImage);
-  //     // boardFields.setLists(taskLists, listTaskSettings);
   // }
   // async duplicateBoard(id: string)
   // {
@@ -8692,37 +9490,6 @@ var TaskboardManagerElement = class extends HTMLElement {
   //     });
   //     notification.show();
   // }
-  // async exportBoard(id: string)
-  // {
-  //     const boardExportData = await this.#prepareExportData(id);
-  //     this.#downloadExportData(boardExportData);
-  // }
-  // async importBoard(boardData: BoardExport, errorMessage?: string)
-  // {
-  //     try
-  //     {
-  //         const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //         const listChannel = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, 'danger');
-  //         const taskChannel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-  //         const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
-  //         const imageChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
-  //         const order = this.findElement('app-menu').querySelectorAll('a').length;
-  //         const [ board, lists, tasks, settings, images ] = await this.#data.naturalizeForeignData(boardData, order);
-  //         // console.log(board, lists, tasks, settings, images);
-  //         await Promise.allSettled([
-  //             boardChannel.save(board),
-  //             listChannel.saveItems(lists),
-  //             taskChannel.saveItems(tasks),
-  //             taskSettingsChannel.saveItems(settings),
-  //             imageChannel.saveItems(images)
-  //         ]);
-  //     }
-  //     catch(exception)
-  //     {
-  //         console.error(exception);
-  //         this.#showMessageDialog(errorMessage || 'An error occurred importing the board data. Please confirm the import file contains valid board data.');
-  //     }
-  // }
   // async closeBoardSettings()
   // {
   //     return new Promise((resolve) =>
@@ -8785,36 +9552,415 @@ var TaskboardManagerElement = class extends HTMLElement {
   // //     await channel.deleteItems(ids);
   // //     this.#refreshActionHistory();
   // // }
-  // setColorScheme(scheme: 'inherit'|'browser'|'light'|'dark')
-  // {
-  //     const value = (scheme == 'browser') ? 'light dark' : scheme;
-  //     this.style.setProperty('color-scheme', value);
-  // }
   //#region Internal
   async #init() {
-    DialogService.init(this);
     const datastoreName = this.getAttribute("datastore-name");
     await DataService.init(datastoreName);
-    const boardRecords = await DataService.getAllBoardRecords();
-    this.findElement("app-menu").updateBoards(boardRecords);
+    DialogService.init(this);
+    this.#loadColorScheme();
+    const boardsPromise = this.refreshBoards();
     this.findElement("welcome-panel").refresh();
-    this.findElement("board-browser").updateBoards(boardRecords);
-    this.addEventListener("click", (event) => {
-      console.log(event.target);
-      const composedPath = event.composedPath().filter((item) => item instanceof HTMLElement);
-      const editButton = composedPath.find((item) => item.classList.contains("board-edit-button"));
-      if (editButton != null) {
-        this.#board_edit_onClick(editButton.parentElement.dataset.route);
+    this.findElement("board-browser").addEventListener("select", async (event) => {
+      const { boardId } = event.detail;
+      if (boardId == null) {
+        MessageCardElement.notify(
+          `An error occurred attempting to open the board.`,
+          this.getElement("notifications"),
+          { type: MessageCardType.Error }
+        );
+        console.error("Unable to open board: data-board-id attribute is unset on target element.");
         return;
       }
-      const newBoardButton = composedPath.find((item) => item.classList.contains("new-board-button"));
-      if (newBoardButton != null) {
-        this.#newBoard_onClick();
-        return;
-      }
+      this.findElement("app-router").navigate(`board/${boardId}`);
     });
+    const appVersion = await this.#getAppVersion();
+    this.findElement("config-panel").init(appVersion);
+    this.#addRouteHandlers();
+    this.addEventListener("click", this.#onClick.bind(this));
+    await this.#handleInitialNavigation(boardsPromise);
+    DataService.removeExpiredData();
+    setInterval(() => {
+      DataService.removeExpiredData();
+    }, MILLISECONDSINDAY);
+    this.#applyPartAttributes();
   }
+  async #loadColorScheme() {
+    const colorScheme = await DataService.getAppSetting("color-scheme" /* ColorScheme */);
+    if (colorScheme == null) {
+      return;
+    }
+    this.setColorScheme(colorScheme);
+  }
+  #historyIsUpdating = false;
+  #addRouteHandlers() {
+    const appRouter = this.findElement("app-router");
+    appRouter.addRouteLinkClickHandlers(this.shadowRoot);
+    this.findElement("app-router").addEventListener("pathchange", this.#router_onPathChange.bind(this));
+    window.addEventListener("popstate", async (event) => {
+      this.#historyIsUpdating = true;
+      const { windowPath, windowHash } = this.#parseWindowPath();
+      let route = windowPath + windowHash;
+      await appRouter.navigate(route);
+      this.#historyIsUpdating = false;
+    });
+    this.findElement("board-page").applyEventListener("beforeopen", this.#boardRoute_beforeOpen.bind(this));
+    this.findElement("board-settings-dialog").applyEventListener("beforeopen", this.#boardSettingsRoute_beforeOpen.bind(this));
+  }
+  async #handleInitialNavigation(boardsPromise) {
+    const { windowPath, windowHash } = this.#parseWindowPath();
+    const filteredWindowHash = windowHash.replace("import", "");
+    await this.getElement("app-router").navigate(`${windowPath}#${filteredWindowHash}`);
+    if (filteredWindowHash != windowHash) {
+      const newHistoryState = `${window.origin}/demo/app.html?path=${windowPath}${filteredWindowHash != "" ? `#${filteredWindowHash}` : ""}`;
+      window.history.replaceState(null, "", newHistoryState);
+    }
+    await boardsPromise;
+    let boardIdIndex = windowPath.indexOf("board/");
+    if (boardIdIndex > -1) {
+      const currentMenuItem = this.findElement("app-menu").querySelector(`[data-route="${windowPath}"]`);
+      if (currentMenuItem != null) {
+        currentMenuItem.setAttribute("aria-current", "page");
+        currentMenuItem.part.add("selected");
+      }
+    }
+  }
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      classedElements[i].part.add(...classedElements[i].classList);
+    }
+  }
+  //#region Management
+  #initTaskCard(card, task) {
+    card.dataset.taskId = task.id;
+    card.setAttribute("color", task.color);
+    card.setAttribute("is-finished", task.isFinished.toString());
+    card.setAttribute("description", task.description);
+    card.setAttribute("draggable", "true");
+    card.setAttribute("part", "task-card");
+    card.setAttribute("exportparts", "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator, button, input, finished");
+    card.style.setProperty("--task-color", task.color);
+    card.findElement("description").addEventListener("keyup", taskDescription_onKeyUp.bind(this));
+  }
+  //#endregion Management
+  //#region Rendering
+  async #renderBoard(id) {
+    const board = await DataService.getBoardRecord(id);
+    if (board == null) {
+      this.findElement("app-router").navigate("/");
+      MessageCardElement.notify(
+        `No board found with the target id (${id}). Navigated back to Welcome page.`,
+        this.getElement("notifications"),
+        { type: MessageCardType.Warn }
+      );
+      console.warn(`No board found with the target id (${id}). Navigated back to Welcome page.`);
+      return;
+    }
+    const taskBoard = this.findElement("task-board");
+    taskBoard.innerHTML = "";
+    taskBoard.setAttribute("data-board-id", board.id);
+    this.#renderBoardBackground(board);
+    if (board.useCustomFontColor == true) {
+      taskBoard.style.setProperty("--board-font-color", board.fontColor);
+    } else {
+      taskBoard.style.removeProperty("--board-font-color");
+    }
+    const settings = await DataService.getTaskSettingsRecord(board.taskSettingsId);
+    if (settings != null) {
+      this.#applyTaskSettings(taskBoard, settings);
+    }
+    const tasks = await DataService.getBoardTasks(id);
+    await this.#renderBoardLists(taskBoard, tasks);
+    const welcomePanel = this.findElement("welcome-panel");
+    await welcomePanel.addBoardToRecentBoards(id, board.name);
+    welcomePanel.refresh();
+  }
+  async #renderBoardBackground(board) {
+    const taskBoard = this.findElement("task-board");
+    if (board.backgroundImageId != null && board.backgroundImageId.trim() != "") {
+      let backgroundImageUrl = this.#customImageUrls.get(board.backgroundImageId);
+      if (backgroundImageUrl == null) {
+        const backgroundImage = await DataService.getImageRecord(board.backgroundImageId);
+        if (backgroundImage == null) {
+          MessageCardElement.notify(
+            `No image found with the target id (${board.backgroundImageId}).`,
+            this.getElement("notifications"),
+            { type: MessageCardType.Warn }
+          );
+          throw new Error(`Unable to find background image from id: ${board.backgroundImageId}`);
+        }
+        if (backgroundImage.image == null) {
+          throw new Error(`Cannot load custom image with null image property.`);
+        }
+        this.#customImageUrls.set(board.backgroundImageId, URL.createObjectURL(backgroundImage.image));
+        backgroundImageUrl = this.#customImageUrls.get(board.backgroundImageId);
+      }
+      taskBoard.style.setProperty("--board-background-source", `url(${backgroundImageUrl})`);
+    } else {
+      taskBoard.style.removeProperty("--board-background-source");
+    }
+    if (board.backgroundDisplay == "center") {
+      taskBoard.style.removeProperty("--background-image-display");
+      taskBoard.style.setProperty("--background-image-repeat", "no-repeat");
+      taskBoard.style.setProperty("--background-image-position", `calc(50% + ${board.backgroundOffsetX}px) calc(50% + ${board.backgroundOffsetY}px)`);
+    } else if (board.backgroundDisplay == "stretch") {
+      taskBoard.style.setProperty("--background-image-repeat", "no-repeat");
+      taskBoard.style.setProperty("--background-image-display", "cover");
+      taskBoard.style.setProperty("--background-image-position", "0px 0px");
+    } else if (board.backgroundDisplay == "tile") {
+      taskBoard.style.removeProperty("--background-image-display");
+      taskBoard.style.removeProperty("--background-image-repeat");
+      taskBoard.style.removeProperty("--background-image-position");
+    }
+    taskBoard.style.setProperty("--background-image-offset", `${board.backgroundOffsetX}px ${board.backgroundOffsetY}px`);
+    if (board.useCustomBackgroundColor == true) {
+      taskBoard.style.setProperty("--board-background-color", board.backgroundColor);
+    } else {
+      taskBoard.style.removeProperty("--board-background-color");
+    }
+  }
+  async #renderBoardLists(board, tasks) {
+    const boardId = board.dataset.boardId;
+    if (boardId == null) {
+      MessageCardElement.notify(
+        `An error occurred loading the board. Navigated back to Welcome page.`,
+        this.getElement("notifications"),
+        { type: MessageCardType.Error }
+      );
+      console.error(new Error("Unable to add task when parent boards's data-board-id attribute is undefined."));
+      return;
+    }
+    const lists = await DataService.getBoardLists(boardId);
+    const taskSettings = await DataService.getTaskSettingsRecords(...lists.map((item) => item.taskSettingsId));
+    const listElements = [];
+    for (let i = 0; i < lists.length; i++) {
+      const list = lists[i];
+      if (list.deletedTimestamp != void 0) {
+        continue;
+      }
+      const settings = taskSettings.find((item) => item.id == list.taskSettingsId);
+      if (settings == null) {
+        MessageCardElement.notify(
+          `An error occurred loading a list's settings. Some settings may not be displayed properly.`,
+          this.getElement("notifications"),
+          { type: MessageCardType.Warn }
+        );
+        console.warn(new Error(`Unable to find settings from list's taskSettingsId.`));
+      }
+      const element = new TaskListElement();
+      element.setAttribute("name", list.name);
+      element.setAttribute("color", list.color);
+      element.setAttribute("data-tasklist-id", list.id);
+      element.toggleAttribute("drag-drop", true);
+      element.setAttribute("part", "task-list");
+      element.style.setProperty("--list-color", list.color);
+      element.setAttribute("exportparts", "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, tasks:list-tasks, add-button:list-add-button, button, input, finished:task-finished");
+      element.dragAndDropQueryParent = board;
+      if (list.useCustomWidth == true) {
+        element.style.setProperty("--list-width", `${list.width}px`);
+        element.style.setProperty("flex-grow", "0");
+      } else {
+        element.style.removeProperty("--list-width");
+        element.style.removeProperty("flex-grow");
+      }
+      const listTitle = list.description == null || list.description.trim() == "" ? list.name : list.description;
+      element.setAttribute("title", listTitle);
+      if (list.useCustomBackgroundColor == true) {
+        element.style.setProperty("--list-background-color", list.backgroundColor);
+      } else {
+        element.style.removeProperty("--list-background-color");
+      }
+      if (list.useCustomFontColor == true) {
+        element.style.setProperty("--list-font-color", list.fontColor);
+      } else {
+        element.style.removeProperty("--list-font-color");
+      }
+      if (list.colorDisplay == "border-color" /* BorderColor */) {
+        element.classList.add("hide-color");
+        element.style.setProperty("--list-border-color", list.color);
+      } else if (list.colorDisplay == "font-color" /* FontColor */) {
+        element.classList.add("hide-color");
+        element.style.setProperty("--list-font-color", list.color);
+      } else {
+        element.classList.remove("hide-color");
+        element.style.removeProperty("--list-border-color");
+        if (list.useCustomFontColor == false) {
+          element.style.removeProperty("--list-font-color");
+        }
+      }
+      this.#applyTaskSettings(element, settings);
+      this.#loadListTasks(element, tasks);
+      listElements.push(element);
+    }
+    board.append(...listElements);
+  }
+  #loadListTasks(taskList, tasks) {
+    const listId = taskList.dataset.tasklistId;
+    for (let i = 0; i < tasks.length; i++) {
+      const taskElements = [];
+      if (tasks[i].listId == listId) {
+        const task = tasks[i];
+        if (task.deletedTimestamp != void 0) {
+          continue;
+        }
+        const taskElement = new TaskCardElement();
+        this.#initTaskCard(taskElement, task);
+        taskElements.push(taskElement);
+      }
+      taskList.append(...taskElements);
+    }
+  }
+  #applyTaskSettings(target, settings) {
+    if (settings == null) {
+      return;
+    }
+    if (settings.useCustomBackgroundColor == true) {
+      target.style.setProperty("--task-background-color", settings.customBackgroundColor);
+    } else {
+      target.style.removeProperty("--task-background-color");
+    }
+    if (settings.useCustomFontColor == true) {
+      target.style.setProperty("--task-font-color", settings.customFontColor);
+    } else {
+      target.style.removeProperty("--task-font-color");
+    }
+    if (settings.useCustomFontSize == true) {
+      target.style.setProperty("--task-font-size", `${settings.customFontSize}px`);
+    } else {
+      target.style.removeProperty("--task-font-size");
+    }
+    if (settings.useCustomBorderColor == true) {
+      target.style.setProperty("--task-border-color", settings.customBorderColor);
+    } else {
+      target.style.removeProperty("--task-border-color");
+    }
+    if (settings.useCustomBorderRadius == true) {
+      target.style.setProperty("--task-border-radius", `${settings.borderRadiusValue}${settings.borderRadiusUnit}`);
+    } else {
+      target.style.removeProperty("--task-border-radius");
+    }
+    if (settings.colorDisplay == "hidden" /* Hidden */) {
+      target.classList.remove("task-color-border");
+      target.classList.remove("color-border-top");
+      target.classList.remove("color-border-right");
+      target.classList.remove("color-border-bottom");
+      target.classList.remove("color-border-left");
+      target.classList.remove("task-color-background");
+      target.classList.add("hide-task-color");
+    } else if (settings.colorDisplay == "border" /* Borders */) {
+      target.classList.remove("hide-task-color");
+      target.classList.remove("task-color-background");
+      target.classList.remove("color-border-top");
+      target.classList.remove("color-border-right");
+      target.classList.remove("color-border-bottom");
+      target.classList.remove("color-border-left");
+      target.classList.add("task-color-border");
+    } else if (settings.colorDisplay == "top-border" /* TopBorder */) {
+      target.classList.remove("hide-task-color");
+      target.classList.remove("task-color-background");
+      target.classList.remove("color-border-right");
+      target.classList.remove("color-border-bottom");
+      target.classList.remove("color-border-left");
+      target.classList.add("task-color-border", "color-border-top");
+    } else if (settings.colorDisplay == "right-border" /* RightBorder */) {
+      target.classList.remove("hide-task-color");
+      target.classList.remove("task-color-background");
+      target.classList.remove("color-border-top");
+      target.classList.remove("color-border-bottom");
+      target.classList.remove("color-border-left");
+      target.classList.add("task-color-border", "color-border-right");
+    } else if (settings.colorDisplay == "bottom-border" /* BottomBorder */) {
+      target.classList.remove("hide-task-color");
+      target.classList.remove("task-color-background");
+      target.classList.remove("color-border-top");
+      target.classList.remove("color-border-right");
+      target.classList.remove("color-border-left");
+      target.classList.add("task-color-border", "color-border-bottom");
+    } else if (settings.colorDisplay == "left-border" /* LeftBorder */) {
+      target.classList.remove("hide-task-color");
+      target.classList.remove("task-color-background");
+      target.classList.remove("color-border-top");
+      target.classList.remove("color-border-right");
+      target.classList.remove("color-border-bottom");
+      target.classList.add("task-color-border", "color-border-left");
+    } else if (settings.colorDisplay == "background" /* Background */) {
+      target.classList.remove("hide-task-color");
+      target.classList.remove("task-color-border");
+      target.classList.remove("color-border-top");
+      target.classList.remove("color-border-right");
+      target.classList.remove("color-border-bottom");
+      target.classList.remove("color-border-left");
+      target.classList.add("task-color-background");
+    } else {
+      target.classList.remove("hide-task-color");
+      target.classList.remove("task-color-border");
+      target.classList.remove("color-border-top");
+      target.classList.remove("color-border-right");
+      target.classList.remove("color-border-bottom");
+      target.classList.remove("color-border-left");
+      target.classList.remove("task-color-background");
+    }
+    if (settings.centerCheckbox == true) {
+      target.classList.add("center-checkbox");
+    } else {
+      target.classList.remove("center-checkbox");
+    }
+    if (settings.centerRemoveButton == true) {
+      target.classList.add("center-remove");
+    } else {
+      target.classList.remove("center-remove");
+    }
+    if (settings.useCustomWidth == true) {
+      target.style.setProperty("--task-width", `${settings.customWidth}px`);
+    } else {
+      target.style.removeProperty("--task-width");
+    }
+    if (settings.useCustomBorderWidth_top == true) {
+      target.style.setProperty("--task-border-top", `${settings.useCustomBorderWidth_top}px`);
+    } else {
+      target.style.removeProperty("--task-border-top");
+    }
+    if (settings.useCustomBorderWidth_right == true) {
+      target.style.setProperty("--task-border-right", `${settings.borderWidth_right}px`);
+    } else {
+      target.style.removeProperty("--task-border-right");
+    }
+    if (settings.useCustomBorderWidth_bottom == true) {
+      target.style.setProperty("--task-border-bottom", `${settings.borderWidth_bottom}px`);
+    } else {
+      target.style.removeProperty("--task-border-bottom");
+    }
+    if (settings.useCustomBorderWidth_left == true) {
+      target.style.setProperty("--task-border-left", `${settings.borderWidth_left}px`);
+    } else {
+      target.style.removeProperty("--task-border-left");
+    }
+  }
+  //#endregion Rendering
   //#region Handlers
+  #onClick(event) {
+    const composedPath = event.composedPath().filter((item) => item instanceof HTMLElement);
+    const editButton = composedPath.find((item) => item.classList.contains("board-edit-button"));
+    if (editButton != null) {
+      this.#board_edit_onClick(editButton.parentElement.dataset.route);
+      return;
+    }
+    const newBoardButton = composedPath.find((item) => item.classList.contains("new-board-button"));
+    if (newBoardButton != null) {
+      this.#newBoard_onClick();
+      return;
+    }
+    const importOkButton = composedPath.find((item) => item.id == "import-ok");
+    if (importOkButton != null) {
+      this.#importDialog_import_onClick();
+      return;
+    }
+    console.log(event.target);
+  }
   #board_edit_onClick(boardRoute) {
     if (boardRoute == null) {
       MessageCardElement.notify(
@@ -8827,279 +9973,137 @@ var TaskboardManagerElement = class extends HTMLElement {
     this.findElement("app-router").navigate(`${boardRoute}#board-settings`);
   }
   async #newBoard_onClick() {
-    this.findElement("app-menu").refresh();
+    this.addBoard();
+  }
+  #router_onPathChange(event) {
+    if (this.#historyIsUpdating == true) {
+      return;
+    }
+    const router = event.target;
+    const currentLocationSearchPathArray = window.location.search.substring(1).split("=");
+    const searchPathValue = currentLocationSearchPathArray[1] ?? "";
+    const currentLocation = new URL(`${window.location.origin}/${searchPathValue}`);
+    let updatedPath = router.getAttribute("path");
+    const origin = window.location.origin;
+    const updatedLocation = new URL(`${origin}/${updatedPath}`);
+    const { hasChanged, isReplacementChange } = router.compareLocations(currentLocation, updatedLocation);
+    if (hasChanged) {
+      const newHistoryState = `${updatedLocation.origin}/demo/app.html?path=${updatedLocation.pathname}${updatedLocation.hash}`;
+      if (isReplacementChange) {
+        window.history.replaceState(null, "", newHistoryState);
+      } else {
+        window.history.pushState(null, "", newHistoryState);
+      }
+    }
+    const currentPathArray = updatedPath.split("#");
+    const pageRoute = currentPathArray[0];
+    const hashRoute = currentPathArray[1];
+    const items = [...this.findElement("app-menu").querySelectorAll("a")];
+    for (let i = 0; i < items.length; i++) {
+      items[i].part.remove("selected");
+    }
+    if (pageRoute != null) {
+      const currentMenuItem = this.findElement("app-menu").querySelector(`[data-route="${pageRoute}"]`);
+      if (currentMenuItem != null) {
+        currentMenuItem.setAttribute("aria-current", "page");
+        currentMenuItem.part.add("selected");
+      }
+    }
+    if (hashRoute != null) {
+      if (hashRoute.indexOf("config") == -1) {
+        return;
+      }
+      const configRoute = hashRoute.substring(7);
+      const configPanel = this.findElement("config-panel");
+      const configMenuItems = [...configPanel.findElement("config-navigation").querySelectorAll(`a`)];
+      for (let i = 0; i < configMenuItems.length; i++) {
+        configMenuItems[i].toggleAttribute("aria-current", false);
+        configMenuItems[i].classList.toggle("selected", false);
+        configMenuItems[i].part.toggle("selected", false);
+      }
+      configPanel.findElement("config-router").setAttribute("path", configRoute);
+      const menuItem = configPanel.findElement("config-navigation").querySelector(`[data-route="#${hashRoute}"]`);
+      if (menuItem == null) {
+        return;
+      }
+      menuItem.setAttribute("aria-current", "page");
+      menuItem.part.toggle("selected", true);
+      menuItem.classList.toggle("selected", true);
+    }
+  }
+  #boardRoute_beforeOpen(event) {
+    const data = event.detail;
+    const boardId = data.properties.id;
+    if (boardId == null) {
+      MessageCardElement.notify(
+        `An error occurred attempting to open the board.`,
+        this.getElement("notifications"),
+        { type: MessageCardType.Error }
+      );
+      throw new Error("Unable to open board route with unknown id");
+    }
+    this.#renderBoard(boardId);
+    this.findElement("welcome-panel").updateRecentBoardEntry(boardId);
+  }
+  async #boardSettingsRoute_beforeOpen(_event) {
+    const router = this.findElement("app-router");
+    const properties = await router.getRouteProperties();
+    if (properties.id == null) {
+      MessageCardElement.notify(
+        `An error occurred attempting to open the board for editing.`,
+        this.getElement("notifications"),
+        { type: MessageCardType.Error }
+      );
+      throw new Error("Unable to determine the selected board's id");
+    }
+    this.openBoardSettings(properties.id);
+  }
+  async #importDialog_import_onClick() {
+    const boardData = this.findElement("import-manager").getRecord();
+    await this.importBoard(boardData);
+    this.refreshBoards();
   }
   //#endregion Handler
   //#region Utilities
+  async #getAppManifest() {
+    const manifestLink = document.head.querySelector('link[rel="manifest"]');
+    const manifestRef = manifestLink?.getAttribute("href");
+    if (manifestRef == null) {
+      return;
+    }
+    const manifestData = await fetch(manifestRef);
+    const manifest = await manifestData.json();
+    return manifest;
+  }
+  async #getAppVersion() {
+    const manifest = await this.#getAppManifest();
+    if (manifest == null) {
+      console.warn(`A manifest file could not be found linked in the index document's head. The app's version information could not be determined.`);
+      return DEFAULT_APP_VERSION;
+    }
+    return manifest.version;
+  }
+  #parseWindowPath() {
+    const pathArray = window.location.search.substring(1).split("=");
+    let windowPath = pathArray[1] ?? "";
+    if (windowPath.startsWith("/")) {
+      windowPath = windowPath.substring(1);
+    }
+    if (windowPath.startsWith("demo/app/")) {
+      windowPath = windowPath.substring(10);
+    } else if (windowPath.startsWith("demo/app.html")) {
+      windowPath = windowPath.substring(14);
+    }
+    windowPath = windowPath.trim();
+    let windowHash = window.location.hash;
+    if (windowHash.startsWith("#")) {
+      windowHash = windowHash.substring(1);
+    }
+    windowHash = windowHash.trim();
+    return { windowPath, windowHash };
+  }
   //#endregion Utilities
   //#endregion Internal
-  // async #getAppManifest()
-  // {
-  //     const manifestLink = document.head.querySelector('link[rel="manifest"]');
-  //     const manifestRef = manifestLink?.getAttribute('href');
-  //     if(manifestRef == null)
-  //     {
-  //         return;
-  //     }
-  //     const manifestData = await fetch(manifestRef);
-  //     const manifest = await manifestData.json();
-  //     return manifest;
-  // }
-  // async #getAppVersion()
-  // {
-  //     const manifest = await this.#getAppManifest();
-  //     if(manifest == null)
-  //     {
-  //         console.warn(`A manifest file could not be found linked in the index document's head. The app's version information could not be determined.`);
-  //         return DEFAULT_APP_VERSION;
-  //     }
-  //     return manifest.version;
-  // }
-  // async #loadColorScheme()
-  // {
-  //     const colorScheme = await this.#getAppSetting(AppSettingKey.ColorScheme);
-  //     if(colorScheme == null) { return; }
-  //     this.setColorScheme(colorScheme as 'inherit'|'browser'|'light'|'dark');
-  // }
-  // #registerSharedData()
-  // {
-  //     this[SHAREDACCESSKEY] = 
-  //     {
-  //         data: this.#data,
-  //         refreshBoards: this.#refreshBoards.bind(this),
-  //         refreshActionHistory: this.#refreshActionHistory.bind(this),
-  //         refreshDeletedItems: this.#refreshDeletedItems.bind(this),
-  //         saveAppSetting: this.#saveAppSetting.bind(this),
-  //         // restoreDeletedItem: this.#restoreDeletedItem.bind(this),
-  //         // handleActionEntryReverse: this.#handleActionEntryReverse.bind(this),
-  //         // handelActionEntryActivate: this.#handelActionEntryActivate.bind(this),
-  //         // prepareHistoryEntries: this.#prepareHistoryEntries.bind(this),
-  //         // applyHistoryLength: this.#applyHistoryLength.bind(this),
-  //         renderBoard: this.#renderBoard.bind(this),
-  //         updateBoardSettings: this.#updateBoardSettings.bind(this),
-  //         // updateBoardItemOrder: this.#updateBoardItemOrder.bind(this),
-  //         updateListRecord: this.#updateListRecord.bind(this),
-  //         duplicateList: this.#duplicateList.bind(this),
-  //         // updateBoardRecordsAfterMove: this.#updateBoardRecordsAfterMove.bind(this),
-  //         updateRecentBoardEntry: this.#updateRecentBoardEntry.bind(this),
-  //         removeBoardFromRecentBoards: this.#removeBoardFromRecentBoards.bind(this),
-  //         registerTaskCard: this.#registerTaskCard.bind(this),
-  //         updateTaskRecord: this.#updateTaskRecord.bind(this),
-  //         updateTaskRecordsAfterMove: this.#updateTaskRecordsAfterMove.bind(this),
-  //         deleteTaskRecord: this.#deleteTaskRecord.bind(this),
-  //         openImportManager: this.#openImportManager.bind(this),
-  //         getConfirmation: this.#getConfirmation.bind(this),
-  //         getIdFromRoute: this.#getIdFromRoute.bind(this),
-  //     }
-  // }
-  // async #importDialog_import_onClick(event: Event)
-  // {
-  //     const boardData = this.findElement<ImportManagerComponent>('import-manager').getRecord();
-  //     await this.importBoard(boardData);
-  //     this[SHAREDACCESSKEY].refreshBoards();
-  // }
-  // // boards
-  // async #refreshBoards()
-  // {
-  //     const channel = this.#getChannel<BoardChannel>(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //     const boardRecords = (await channel.getAll()).filter(item => item.deletedTimestamp == null);
-  //     // const menuItems: HTMLAnchorElement[] = [];
-  //     const collectionItems: CaptionedThumbnailElement[] = [];
-  //     for(let i = 0; i < boardRecords.length; i++)
-  //     {
-  //         const boardRecord = boardRecords[i];
-  //         // if(boardRecord.deletedTimestamp != null)
-  //         // {
-  //         //     continue;
-  //         // }
-  //         // const menuItem = this.#createBoardMenuItem(boardRecord);
-  //         // menuItems.push(menuItem);
-  //         // const collectionItem = this.#createBoardCollectionItem(boardRecord);
-  //         // collectionItems.push(collectionItem);
-  //     }
-  //     const menu = this.findElement<AppMenuElement>('app-menu');
-  //     menu.updateBoards(boardRecords);
-  //     const boardBrowser = this.findElement<BoardBrowserElement>('board-browser');
-  //     boardBrowser.updateBoards(boardRecords);
-  //     // menu items
-  //     // const boardsList = this.findElement('app-menu');
-  //     // [...boardsList.querySelectorAll('a')].map(item => item.remove());
-  //     // boardsList.append(...menuItems);
-  //     // collection items
-  //     // const boardBrowser = this.findElement('board-browser');
-  //     // [...boardBrowser.querySelectorAll('captioned-thumbnail')].map(item => item.remove());
-  //     // boardBrowser.append(...collectionItems);
-  // }
-  // // #createBoardMenuItem(boardRecord: TaskBoardRecord)
-  // // {
-  // //     const element = document.createElement('a');
-  // //     element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span><span part="board-item-name" class="board-item-name">${boardRecord.name}<span>`;
-  // //     // element.setAttribute('part', 'board-menu-item');
-  // //     element.classList.add('board-menu-item');
-  // //     element.dataset.route = `board/${boardRecord.id}`;
-  // //     const handle = element.querySelector('[part="menu-item-handle"]')!;
-  // //     handle.addEventListener('mousedown', (_event) =>
-  // //     {
-  // //         element.draggable = true;
-  // //     });
-  // //     handle.addEventListener('mouseup', (_event) =>
-  // //     {
-  // //         element.removeAttribute('draggable');
-  // //     });
-  // //     element.addEventListener('dragstart', (_event: DragEvent) => 
-  // //     {
-  // //         this.#draggingBoard = element;
-  // //         element.classList.add('dragging');
-  // //         this.classList.add('drop-target');
-  // //     });
-  // //     element.addEventListener('dragend', (_event: DragEvent) => 
-  // //     {
-  // //         element.classList.remove('dragging');
-  // //         this.#draggingBoard = null;
-  // //         this.classList.remove('drop-target');
-  // //     });
-  // //     return element;
-  // // }
-  // // #createBoardCollectionItem(boardRecord: TaskBoardRecord)
-  // // {
-  // //     const element = new CaptionedThumbnailElement();
-  // //     element.innerHTML = `<svg part="board-browser-icon" slot="icon">
-  // //         <use href="#icon-definition_task-board"></use>
-  // //     </svg>
-  // //     ${boardRecord.name}`;
-  // //     element.setAttribute('data-board-id', boardRecord.id);
-  // //     element.toggleAttribute('select', true);
-  // //     return element;
-  // // }
-  // // async #updateBoardItemOrder(draggingCursorY: number)
-  // // {
-  // //     if(this.#draggingBoard == null)
-  // //     {
-  // //         return;
-  // //     }
-  // //     const boards = this.findElement('boards');
-  // //     const nextElement = this.#getNextBoardItem(draggingCursorY).boardElement;
-  // //     // prevent unecessary re-renders; this can kill perf, if you don't guard here;
-  // //     // re-rendering by appending or inserting on every mouse-move is heavy;
-  // //     if(this.#draggingBoard.parentElement == boards && nextElement == this.#draggingBoard.nextElementSibling){ return; }
-  // //     if(nextElement == null)
-  // //     {
-  // //         boards.append(this.#draggingBoard);
-  // //     }
-  // //     else
-  // //     {
-  // //         boards.insertBefore(this.#draggingBoard, nextElement);
-  // //     }
-  // // }
-  // async #refreshRecentBoards()
-  // {
-  //     const boards = await this.#getRecentBoards();
-  //     const welcomePanel = this.shadowRoot!.querySelector<WelcomePanelElement>('welcome-panel')!;
-  //     welcomePanel.updateBoards(boards);
-  // }
-  // // #getNextBoardItem(mouseY: number)
-  // // {
-  // //     const lists = [...this.findElement('boards').querySelectorAll('a:not(.dragging)')] as HTMLElement[];
-  // //     return lists.reduce((closest: { offset: number, boardElement?:HTMLElement }, item: HTMLElement) =>
-  // //     {
-  // //         const boundingRect = item.getBoundingClientRect();
-  // //         const offset = mouseY - boundingRect.top - (boundingRect.height / 2);
-  // //         if(offset < 0 && offset > closest.offset)
-  // //         {
-  // //             return { offset, boardElement: item };
-  // //         }
-  // //         return closest;
-  // //     }, { offset: Number.NEGATIVE_INFINITY });
-  // // }
-  // async #renderBoard(id: string)
-  // {
-  //     const channel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //     const settingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
-  //     const board = await channel.get(id);
-  //     if(board == null)
-  //     {
-  //         this.findElement<PathRouterElement>('app-router').navigate('/');
-  //         MessageCardElement.notify(`No board found with the target id (${id}). Navigated back to Welcome page.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Warn });
-  //         console.warn(`No board found with the target id (${id}). Navigated back to Welcome page.`);
-  //         return;
-  //     }
-  //     const taskBoard = this.findElement<TaskBoardElement>('task-board');
-  //     taskBoard.innerHTML = '';
-  //     taskBoard.setAttribute('data-board-id', board.id);
-  //     this.#renderBoardBackground(board);
-  //     if(board.useCustomFontColor == true)
-  //     {
-  //         taskBoard.style.setProperty('--board-font-color', board.fontColor);
-  //     }
-  //     else
-  //     {
-  //         taskBoard.style.removeProperty('--board-font-color');
-  //     }
-  //     const settings = await settingsChannel.get(board.taskSettingsId);
-  //     if(settings != null)
-  //     {
-  //         this.#applyTaskSettings(taskBoard, settings);
-  //     }
-  //     const tasks = await channel.getTasks(id);
-  //     await this.#loadLists(taskBoard, tasks);
-  //     await this.#addBoardToRecentBoards(id, board.name);
-  //     this.#refreshRecentBoards();
-  // }
-  // async #renderBoardBackground(board: TaskBoardRecord)
-  // {
-  //     const channel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
-  //     const taskBoard = this.findElement('task-board');
-  //     if(board.backgroundImageId != null && board.backgroundImageId.trim() != "")
-  //     {
-  //         let backgroundImageUrl = this.#customImageUrls.get(board.backgroundImageId);
-  //         if(backgroundImageUrl == null)
-  //         {
-  //             const backgroundImage = await channel.get(board.backgroundImageId);
-  //             if(backgroundImage == null)
-  //             {
-  //                 MessageCardElement.notify(`No image found with the target id (${board.backgroundImageId}).`, 
-  //                 this.getElement('notifications'), { type: MessageCardType.Warn });
-  //                 throw new Error(`Unable to find background image from id: ${board.backgroundImageId}`);
-  //             }
-  //             if(backgroundImage.image == null) { throw new Error(`Cannot load custom image with null image property.`); }
-  //             this.#customImageUrls.set(board.backgroundImageId, URL.createObjectURL(backgroundImage.image));
-  //             backgroundImageUrl = this.#customImageUrls.get(board.backgroundImageId)
-  //         }
-  //         taskBoard.style.setProperty('--board-background-source', `url(${backgroundImageUrl})`);
-  //     }
-  //     else
-  //     {
-  //         taskBoard.style.removeProperty('--board-background-source');
-  //     }
-  //     if(board.backgroundDisplay == 'center')
-  //     {
-  //         taskBoard.style.removeProperty('--background-image-display');
-  //         taskBoard.style.setProperty('--background-image-repeat', 'no-repeat');
-  //         taskBoard.style.setProperty('--background-image-position', `calc(50% + ${board.backgroundOffsetX}px) calc(50% + ${board.backgroundOffsetY}px)`);
-  //     }
-  //     else if(board.backgroundDisplay == 'stretch')
-  //     {
-  //         taskBoard.style.setProperty('--background-image-repeat', 'no-repeat');
-  //         taskBoard.style.setProperty('--background-image-display', 'cover');
-  //         taskBoard.style.setProperty('--background-image-position', '0px 0px');
-  //     }
-  //     else if(board.backgroundDisplay == 'tile')
-  //     {
-  //         taskBoard.style.removeProperty('--background-image-display');
-  //         taskBoard.style.removeProperty('--background-image-repeat');
-  //         taskBoard.style.removeProperty('--background-image-position');
-  //     }
-  //     taskBoard.style.setProperty('--background-image-offset', `${board.backgroundOffsetX}px ${board.backgroundOffsetY}px`);
-  //     if(board.useCustomBackgroundColor == true)
-  //     {
-  //         taskBoard.style.setProperty('--board-background-color', board.backgroundColor);
-  //     }
-  //     else
-  //     {
-  //         taskBoard.style.removeProperty('--board-background-color');
-  //     }
-  // }
   // async #updateBoardSettings()
   // {
   //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
@@ -9218,355 +10222,114 @@ var TaskboardManagerElement = class extends HTMLElement {
   //     // update recent entries
   //     this.#updateRecentBoardEntry(board.id, board.name);
   // }
-  // async #prepareExportData(id: string)
+  // #registerSharedData()
   // {
-  //     const exportBackgroundImage = this.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('export-background-image').checked;
-  //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //     const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
-  //     const imageChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
-  //     const board = await boardChannel.get(id);
-  //     if(board == null) { throw new Error(`Error loading board from id: ${id}`); }
-  //     const tasks = await boardChannel.getTasks(id);
-  //     const lists = await boardChannel.getTaskLists(id);
-  //     const listExports: ListExport[] = [];
-  //     const taskSettingsIds: string[] = [board.taskSettingsId];
-  //     for(let i = 0; i < lists.length; i++)
+  //     this[SHAREDACCESSKEY] = 
   //     {
-  //         const list = lists[i];
-  //         if(list.deletedTimestamp != undefined) { continue; }
-  //         const listTasks = tasks.filter(item => item.listId == list.id && item.deletedTimestamp == undefined);
-  //         const listExport = new ListExport(list, undefined, listTasks);
-  //         taskSettingsIds.push(list.taskSettingsId);
-  //         listExports.push(listExport);
+  //         data: this.#data,
+  //         refreshBoards: this.#refreshBoards.bind(this),
+  //         refreshActionHistory: this.#refreshActionHistory.bind(this),
+  //         refreshDeletedItems: this.#refreshDeletedItems.bind(this),
+  //         saveAppSetting: this.#saveAppSetting.bind(this),
+  //         // restoreDeletedItem: this.#restoreDeletedItem.bind(this),
+  //         // handleActionEntryReverse: this.#handleActionEntryReverse.bind(this),
+  //         // handelActionEntryActivate: this.#handelActionEntryActivate.bind(this),
+  //         // prepareHistoryEntries: this.#prepareHistoryEntries.bind(this),
+  //         // applyHistoryLength: this.#applyHistoryLength.bind(this),
+  //         renderBoard: this.#renderBoard.bind(this),
+  //         updateBoardSettings: this.#updateBoardSettings.bind(this),
+  //         // updateBoardItemOrder: this.#updateBoardItemOrder.bind(this),
+  //         updateListRecord: this.#updateListRecord.bind(this),
+  //         duplicateList: this.#duplicateList.bind(this),
+  //         // updateBoardRecordsAfterMove: this.#updateBoardRecordsAfterMove.bind(this),
+  //         updateRecentBoardEntry: this.#updateRecentBoardEntry.bind(this),
+  //         removeBoardFromRecentBoards: this.#removeBoardFromRecentBoards.bind(this),
+  //         registerTaskCard: this.#registerTaskCard.bind(this),
+  //         updateTaskRecord: this.#updateTaskRecord.bind(this),
+  //         updateTaskRecordsAfterMove: this.#updateTaskRecordsAfterMove.bind(this),
+  //         deleteTaskRecord: this.#deleteTaskRecord.bind(this),
+  //         openImportManager: this.#openImportManager.bind(this),
+  //         getConfirmation: this.#getConfirmation.bind(this),
+  //         getIdFromRoute: this.#getIdFromRoute.bind(this),
   //     }
-  //     const backgroundImage = (exportBackgroundImage == true && board.backgroundImageId != null && board.backgroundImageId != '') ? (await imageChannel.get(board.backgroundImageId)) ?? undefined : undefined;
-  //     const boardExportData = new BoardExport(board, undefined, backgroundImage);
-  //     if(boardExportData.backgroundImage != null)
-  //     {
-  //         await (boardExportData.backgroundImage as ImageExport).loadImage();
-  //     }
-  //     else if(exportBackgroundImage == false)
-  //     {
-  //         delete boardExportData.backgroundImageId;
-  //     }
-  //     const taskSettings = await taskSettingsChannel.getItems(taskSettingsIds);
-  //     for(let i = 0; i < taskSettings.length; i++)
-  //     {
-  //         const item = taskSettings[i];
-  //         if(board.taskSettingsId == item.id)
-  //         {
-  //             boardExportData.taskSettings = item;
-  //             continue;
-  //         }
-  //         const target = listExports.find(listItem => listItem.taskSettingsId == item.id);
-  //         if(target == null)
-  //         {
-  //             throw new Error(`Error assigning task settings to target list`);
-  //         }
-  //         target.taskSettings = item;
-  //     }
-  //     boardExportData.lists = listExports;
-  //     return boardExportData;
   // }
-  // #downloadExportData(boardExportData: BoardExport)
-  // {
-  //     const currentDate = new Date();
-  //     const currentDateString = `${currentDate.getDate()}-${currentDate.getMonth()}-${currentDate.getFullYear()}`;
-  //     const filename = `taskboard_export_${currentDateString}.json`;
-  //     const element = document.createElement('a');
-  //     element.setAttribute('href', 
-  //     'data:application/json;charset=utf-8, '
-  //     + encodeURIComponent(JSON.stringify(boardExportData, null, 2)));
-  //     element.setAttribute('download', filename);
-  //     this.appendChild(element);
-  //     element.click();
-  //     this.removeChild(element);
-  // }
+  // // boards
+  // // #createBoardMenuItem(boardRecord: TaskBoardRecord)
+  // // {
+  // //     const element = document.createElement('a');
+  // //     element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span><span part="board-item-name" class="board-item-name">${boardRecord.name}<span>`;
+  // //     // element.setAttribute('part', 'board-menu-item');
+  // //     element.classList.add('board-menu-item');
+  // //     element.dataset.route = `board/${boardRecord.id}`;
+  // //     const handle = element.querySelector('[part="menu-item-handle"]')!;
+  // //     handle.addEventListener('mousedown', (_event) =>
+  // //     {
+  // //         element.draggable = true;
+  // //     });
+  // //     handle.addEventListener('mouseup', (_event) =>
+  // //     {
+  // //         element.removeAttribute('draggable');
+  // //     });
+  // //     element.addEventListener('dragstart', (_event: DragEvent) => 
+  // //     {
+  // //         this.#draggingBoard = element;
+  // //         element.classList.add('dragging');
+  // //         this.classList.add('drop-target');
+  // //     });
+  // //     element.addEventListener('dragend', (_event: DragEvent) => 
+  // //     {
+  // //         element.classList.remove('dragging');
+  // //         this.#draggingBoard = null;
+  // //         this.classList.remove('drop-target');
+  // //     });
+  // //     return element;
+  // // }
+  // // #createBoardCollectionItem(boardRecord: TaskBoardRecord)
+  // // {
+  // //     const element = new CaptionedThumbnailElement();
+  // //     element.innerHTML = `<svg part="board-browser-icon" slot="icon">
+  // //         <use href="#icon-definition_task-board"></use>
+  // //     </svg>
+  // //     ${boardRecord.name}`;
+  // //     element.setAttribute('data-board-id', boardRecord.id);
+  // //     element.toggleAttribute('select', true);
+  // //     return element;
+  // // }
+  // // async #updateBoardItemOrder(draggingCursorY: number)
+  // // {
+  // //     if(this.#draggingBoard == null)
+  // //     {
+  // //         return;
+  // //     }
+  // //     const boards = this.findElement('boards');
+  // //     const nextElement = this.#getNextBoardItem(draggingCursorY).boardElement;
+  // //     // prevent unecessary re-renders; this can kill perf, if you don't guard here;
+  // //     // re-rendering by appending or inserting on every mouse-move is heavy;
+  // //     if(this.#draggingBoard.parentElement == boards && nextElement == this.#draggingBoard.nextElementSibling){ return; }
+  // //     if(nextElement == null)
+  // //     {
+  // //         boards.append(this.#draggingBoard);
+  // //     }
+  // //     else
+  // //     {
+  // //         boards.insertBefore(this.#draggingBoard, nextElement);
+  // //     }
+  // // }
+  // // #getNextBoardItem(mouseY: number)
+  // // {
+  // //     const lists = [...this.findElement('boards').querySelectorAll('a:not(.dragging)')] as HTMLElement[];
+  // //     return lists.reduce((closest: { offset: number, boardElement?:HTMLElement }, item: HTMLElement) =>
+  // //     {
+  // //         const boundingRect = item.getBoundingClientRect();
+  // //         const offset = mouseY - boundingRect.top - (boundingRect.height / 2);
+  // //         if(offset < 0 && offset > closest.offset)
+  // //         {
+  // //             return { offset, boardElement: item };
+  // //         }
+  // //         return closest;
+  // //     }, { offset: Number.NEGATIVE_INFINITY });
+  // // }
   // // lists
-  // async #loadLists(board: TaskBoardElement, tasks: TaskRecord[])
-  // {
-  //     const boardId = board.dataset.boardId;
-  //     if(boardId == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred loading the board. Navigated back to Welcome page.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         console.error(new Error('Unable to add task when parent boards\'s data-board-id attribute is undefined.'));
-  //         return;
-  //     }
-  //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //     const settingsChannel = this.#getChannel(this.#data.taskSettings, LIST_ERROR_MESSAGE, 'danger');
-  //     const lists = await boardChannel.getTaskLists(boardId);
-  //     const taskSettings = await settingsChannel.getItems(lists.map(item => item.taskSettingsId));
-  //     const listElements = [];
-  //     for(let i = 0; i < lists.length; i++)
-  //     {
-  //         const list = lists[i];
-  //         if(list.deletedTimestamp != undefined) { continue; }
-  //         const settings = taskSettings.find(item => item.id == list.taskSettingsId);
-  //         if(settings == null)
-  //         {
-  //             MessageCardElement.notify(`An error occurred loading a list's settings. Some settings may not be displayed properly.`, 
-  //             this.getElement('notifications'), { type: MessageCardType.Warn });
-  //             console.warn(new Error(`Unable to find settings from list's taskSettingsId.`));
-  //         }
-  //         const element = new TaskListElement();
-  //         element.setAttribute('name', list.name);
-  //         element.setAttribute('color', list.color);
-  //         element.setAttribute('data-tasklist-id', list.id);
-  //         element.toggleAttribute('drag-drop', true);
-  //         element.setAttribute('part', 'task-list');
-  //         element.style.setProperty('--list-color', list.color);
-  //         element.setAttribute('exportparts', "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, tasks:list-tasks, add-button:list-add-button, button, input, finished:task-finished");
-  //         element.dragAndDropQueryParent = board;
-  //         if(list.useCustomWidth == true)
-  //         {
-  //             element.style.setProperty('--list-width', `${list.width}px`);
-  //             element.style.setProperty('flex-grow', '0');
-  //         }
-  //         else
-  //         {
-  //             element.style.removeProperty('--list-width');
-  //             element.style.removeProperty('flex-grow');
-  //         }
-  //         const listTitle = (list.description == null || list.description.trim() == "") ? list.name : list.description;
-  //         element.setAttribute('title', listTitle);
-  //         if(list.useCustomBackgroundColor == true)
-  //         {
-  //             element.style.setProperty('--list-background-color', list.backgroundColor);
-  //         }
-  //         else
-  //         {
-  //             element.style.removeProperty('--list-background-color');
-  //         }
-  //         if(list.useCustomFontColor == true)
-  //         {
-  //             element.style.setProperty('--list-font-color', list.fontColor);
-  //         }
-  //         else
-  //         {
-  //             element.style.removeProperty('--list-font-color');
-  //         }
-  //         if(list.colorDisplay == TaskListColorDisplay.BorderColor)
-  //         {
-  //             element.classList.add('hide-color');
-  //             element.style.setProperty('--list-border-color', list.color);
-  //         }
-  //         else if(list.colorDisplay == TaskListColorDisplay.FontColor)
-  //         {
-  //             element.classList.add('hide-color');
-  //             element.style.setProperty('--list-font-color', list.color);
-  //         }
-  //         else
-  //         {
-  //             element.classList.remove('hide-color');
-  //             element.style.removeProperty('--list-border-color');
-  //             if(list.useCustomFontColor == false)
-  //             {
-  //                 element.style.removeProperty('--list-font-color');
-  //             }
-  //         }
-  //         this.#applyTaskSettings(element, settings);
-  //         this.#loadListTasks(element, tasks);
-  //         listElements.push(element);
-  //     }
-  //     board.append(...listElements);
-  // }
-  // #applyTaskSettings(target: HTMLElement, settings?: TaskSettingsRecord)
-  // {
-  //     if(settings == null)
-  //     {
-  //         return;
-  //     }
-  //     if(settings.useCustomBackgroundColor == true)
-  //     {
-  //         target.style.setProperty('--task-background-color', settings.customBackgroundColor);
-  //     }
-  //     else
-  //     {
-  //         target.style.removeProperty('--task-background-color');
-  //     }
-  //     if(settings.useCustomFontColor == true)
-  //     {
-  //         target.style.setProperty('--task-font-color', settings.customFontColor);
-  //     }
-  //     else
-  //     {
-  //         target.style.removeProperty('--task-font-color');
-  //     }
-  //     if(settings.useCustomFontSize == true)
-  //     {
-  //         target.style.setProperty('--task-font-size', `${settings.customFontSize}px`);
-  //     }
-  //     else
-  //     {
-  //         target.style.removeProperty('--task-font-size');
-  //     }
-  //     if(settings.useCustomBorderColor == true)
-  //     {
-  //         target.style.setProperty('--task-border-color', settings.customBorderColor);
-  //     }
-  //     else
-  //     {
-  //         target.style.removeProperty('--task-border-color');
-  //     }
-  //     if(settings.useCustomBorderRadius == true)
-  //     {
-  //         target.style.setProperty('--task-border-radius', `${settings.borderRadiusValue}${settings.borderRadiusUnit}`);
-  //     }
-  //     else
-  //     {
-  //         target.style.removeProperty('--task-border-radius');
-  //     }
-  //     if(settings.colorDisplay == TaskColorDisplay.Hidden)
-  //     {
-  //         target.classList.remove('task-color-border');
-  //         target.classList.remove('color-border-top');
-  //         target.classList.remove('color-border-right');
-  //         target.classList.remove('color-border-bottom');
-  //         target.classList.remove('color-border-left');
-  //         target.classList.remove('task-color-background');
-  //         target.classList.add('hide-task-color');
-  //     }
-  //     else if(settings.colorDisplay == TaskColorDisplay.Borders)
-  //     {
-  //         target.classList.remove('hide-task-color');
-  //         target.classList.remove('task-color-background');
-  //         target.classList.remove('color-border-top');
-  //         target.classList.remove('color-border-right');
-  //         target.classList.remove('color-border-bottom');
-  //         target.classList.remove('color-border-left');
-  //         target.classList.add('task-color-border');
-  //     }
-  //     else if(settings.colorDisplay == TaskColorDisplay.TopBorder)
-  //     {
-  //         target.classList.remove('hide-task-color');
-  //         target.classList.remove('task-color-background');
-  //         target.classList.remove('color-border-right');
-  //         target.classList.remove('color-border-bottom');
-  //         target.classList.remove('color-border-left');
-  //         target.classList.add('task-color-border', 'color-border-top');
-  //     }
-  //     else if(settings.colorDisplay == TaskColorDisplay.RightBorder)
-  //     {
-  //         target.classList.remove('hide-task-color');
-  //         target.classList.remove('task-color-background');
-  //         target.classList.remove('color-border-top');
-  //         target.classList.remove('color-border-bottom');
-  //         target.classList.remove('color-border-left');
-  //         target.classList.add('task-color-border', 'color-border-right');
-  //     }
-  //     else if(settings.colorDisplay == TaskColorDisplay.BottomBorder)
-  //     {
-  //         target.classList.remove('hide-task-color');
-  //         target.classList.remove('task-color-background');
-  //         target.classList.remove('color-border-top');
-  //         target.classList.remove('color-border-right');
-  //         target.classList.remove('color-border-left');
-  //         target.classList.add('task-color-border', 'color-border-bottom');
-  //     }
-  //     else if(settings.colorDisplay == TaskColorDisplay.LeftBorder)
-  //     {
-  //         target.classList.remove('hide-task-color');
-  //         target.classList.remove('task-color-background');
-  //         target.classList.remove('color-border-top');
-  //         target.classList.remove('color-border-right');
-  //         target.classList.remove('color-border-bottom');
-  //         target.classList.add('task-color-border', 'color-border-left');
-  //     }
-  //     else if(settings.colorDisplay == TaskColorDisplay.Background)
-  //     {
-  //         target.classList.remove('hide-task-color');
-  //         target.classList.remove('task-color-border');
-  //         target.classList.remove('color-border-top');
-  //         target.classList.remove('color-border-right');
-  //         target.classList.remove('color-border-bottom');
-  //         target.classList.remove('color-border-left');
-  //         target.classList.add('task-color-background');
-  //     }
-  //     else
-  //     {
-  //         target.classList.remove('hide-task-color');
-  //         target.classList.remove('task-color-border');
-  //         target.classList.remove('color-border-top');
-  //         target.classList.remove('color-border-right');
-  //         target.classList.remove('color-border-bottom');
-  //         target.classList.remove('color-border-left');
-  //         target.classList.remove('task-color-background');
-  //     }
-  //     if(settings.centerCheckbox == true)
-  //     {
-  //         target.classList.add('center-checkbox');
-  //     }
-  //     else
-  //     {
-  //         target.classList.remove('center-checkbox');
-  //     }
-  //     if(settings.centerRemoveButton == true)
-  //     {
-  //         target.classList.add('center-remove');
-  //     }
-  //     else
-  //     {
-  //         target.classList.remove('center-remove');
-  //     }
-  //     if(settings.useCustomWidth == true)
-  //     {
-  //         target.style.setProperty('--task-width', `${settings.customWidth}px`);
-  //     }
-  //     else
-  //     {
-  //         target.style.removeProperty('--task-width');
-  //     }
-  //     if(settings.useCustomBorderWidth_top == true)
-  //     {
-  //         target.style.setProperty('--task-border-top', `${settings.useCustomBorderWidth_top}px`);
-  //     }
-  //     else
-  //     {
-  //         target.style.removeProperty('--task-border-top');
-  //     }
-  //     if(settings.useCustomBorderWidth_right == true)
-  //     {
-  //         target.style.setProperty('--task-border-right', `${settings.borderWidth_right}px`);
-  //     }
-  //     else
-  //     {
-  //         target.style.removeProperty('--task-border-right');
-  //     }
-  //     if(settings.useCustomBorderWidth_bottom == true)
-  //     {
-  //         target.style.setProperty('--task-border-bottom', `${settings.borderWidth_bottom}px`);
-  //     }
-  //     else
-  //     {
-  //         target.style.removeProperty('--task-border-bottom');
-  //     }
-  //     if(settings.useCustomBorderWidth_left == true)
-  //     {
-  //         target.style.setProperty('--task-border-left', `${settings.borderWidth_left}px`);
-  //     }
-  //     else
-  //     {
-  //         target.style.removeProperty('--task-border-left');
-  //     }
-  // }
-  // #loadListTasks(taskList: TaskListElement, tasks: TaskRecord[])
-  // {
-  //     const listId = taskList.dataset.tasklistId;
-  //     for(let i = 0; i < tasks.length; i++)
-  //     {
-  //         const taskElements: TaskCardElement[] = [];
-  //         if(tasks[i].listId == listId)
-  //         {
-  //             const task = tasks[i];
-  //             if(task.deletedTimestamp != undefined) { continue; }
-  //             const taskElement = new TaskCardElement();
-  //             this.#initTaskCard(taskElement, task);
-  //             taskElements.push(taskElement);
-  //         }
-  //         taskList.append(...taskElements);
-  //     }
-  // }
   // async #updateListRecord(taskListComponent: TaskListElement)
   // {
   //     const lists = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, 'danger');
@@ -9766,549 +10529,6 @@ var TaskboardManagerElement = class extends HTMLElement {
   //     const toSave = await this.#getOrderedTasks(parent);
   //     await this.#data.tasks.saveItems(toSave); 
   // }
-  // #initTaskCard(card: TaskCardElement, task: TaskRecord)
-  // {
-  //     card.dataset.taskId = task.id;
-  //     card.setAttribute('color', task.color)
-  //     card.setAttribute('is-finished', task.isFinished.toString());
-  //     card.setAttribute('description', task.description);
-  //     card.setAttribute('draggable', "true");
-  //     card.setAttribute('part', 'task-card');
-  //     card.setAttribute('exportparts', "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator, button, input, finished");
-  //     card.style.setProperty('--task-color', task.color);
-  //     card.findElement('description').addEventListener('keyup', taskDescription_onKeyUp.bind(this));
-  // }
-  // // history    
-  // async #refreshActionHistory()
-  // {
-  //     const channel = this.#getChannel(this.#data.historyEntries, HISTORY_ERROR_MESSAGE, 'danger');
-  //     const configPanel = this.getElement<ConfigPanelElement>('config-panel');
-  //     [...configPanel.querySelectorAll('[slot="action-history"]')].map(item => item.remove());
-  //     configPanel.preventDefaultHistoryAction();
-  //     const records = await channel.getAll('timestamp');
-  //     if(records.length == 0)
-  //     {
-  //         return;
-  //     }
-  //     let activeEntryIndex = await this.#getAppSetting<number>(AppSettingKey.ActiveEntryIndex);
-  //     if(activeEntryIndex != null && activeEntryIndex > records.length)
-  //     {
-  //         activeEntryIndex = records.length - 1;
-  //     }
-  //     let entries: HTMLElement[] = [];
-  //     let activeEntry: HTMLElement | null = null;
-  //     for(let i = 0; i < records.length; i++)
-  //     {
-  //         const record = records[i];
-  //         const entry = this.#createActionHistoryEntryElement(record);
-  //         entries.push(entry);
-  //         if(i == activeEntryIndex)
-  //         {
-  //             entry.toggleAttribute(ATTRIBUTENAME_ACTIVE, true); 
-  //             activeEntry = entry;
-  //             activeEntry.part.add('active');
-  //             const descendants = [...activeEntry.querySelectorAll('span')] as HTMLElement[];
-  //             for(let i = 0; i < descendants.length; i++)
-  //             {
-  //                 descendants[i].part.add('active');
-  //             }
-  //             continue;
-  //         }
-  //         if(activeEntry != null)
-  //         {
-  //             entry.toggleAttribute(ATTRIBUTENAME_REVERSED, true);
-  //         }
-  //     }
-  //     if(activeEntry == null)
-  //     {
-  //         entries = entries.map(item => { item.toggleAttribute(ATTRIBUTENAME_REVERSED, true); return item; });
-  //     }
-  //     configPanel.append(...entries);
-  //     configPanel.allowDefaultHistoryAction();
-  // }
-  // #createActionHistoryEntryElement(entry: HistoryEntryRecord)
-  // {
-  //     const element = document.createElement('div');
-  //     element.toggleAttribute('data-entry', true);
-  //     element.setAttribute('timestamp', entry.timestamp.toString());
-  //     element.setAttribute('data-entry-id', entry.id);
-  //     element.setAttribute('part', "action-history-entry");
-  //     element.classList.add('action-history-entry');
-  //     element.setAttribute('slot', "action-history");
-  //     element.innerHTML = `<span class="action-type" part="action-history-entry-type">${entry.action.toUpperCase()}</span>
-  //     <span class="data" part="action-history-entry-data">
-  //         <span class="target-type" part="action-history-target-type">${entry.data.targetType[0].toUpperCase()}${entry.data.targetType.substring(1)}</span>
-  //         <span class="target-id" part="action-history-target-id">${entry.data.properties.id}</span>
-  //     </span>`;
-  //     return element;
-  // }
-  // async #handleActionEntryReverse(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
-  // {
-  //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
-  //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
-  //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
-  //     const entryId = targetEntry.getAttribute('data-entry-id');
-  //     if(actionType == null || recordType == null || recordId == null || entryId == null)
-  //     { 
-  //         console.error(new Error('Required property was not found.')); return;
-  //     }
-  //     const channel = (recordType == 'board')
-  //     ? this.#data.boards 
-  //     : (recordType == 'list')
-  //     ? this.#data.lists
-  //     : (recordType == 'task')
-  //     ? this.#data.tasks
-  //     : (recordType == 'image')
-  //     ? this.#data.customImages
-  //     : null;
-  //     if(channel == null) 
-  //     {
-  //         throw new Error(`Unknown record type: ${recordType}`);
-  //     }
-  //     if(actionType == 'create')
-  //     {
-  //         await channel.delete(recordId);
-  //     }
-  //     else if (actionType == 'update')
-  //     {
-  //         const currentEntry = await this.#data.historyEntries?.get(entryId);
-  //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
-  //         const target = await channel.get(recordId);
-  //         if(target == null) { throw new Error('Unable to find target record.'); }
-  //         await this.#reverseUpdate(channel, currentEntry, target)
-  //     }
-  //     else if (actionType == 'delete')
-  //     {
-  //         await channel.restore(recordId);
-  //     }
-  //     else
-  //     {
-  //         console.error(`Unknown action type: ${actionType}`);
-  //     }
-  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
-  // }
-  // async #reverseUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
-  // {
-  //     if(currentEntry.data.properties.updates != null)
-  //     {
-  //         let isRestorationUpdate = false;
-  //         for(const [key, value] of currentEntry.data.properties.updates)
-  //         {
-  //             if(key == 'deletedTimestamp')
-  //             {
-  //                 isRestorationUpdate = true;
-  //                 continue;
-  //             }
-  //             (target as unknown as any)[key] = value.from;
-  //         }
-  //         await channel.save(target as unknown as any);
-  //         if(isRestorationUpdate == true)
-  //         {
-  //             await channel.delete(currentEntry.data.properties.id);
-  //         }
-  //     }
-  //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
-  //     {
-  //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
-  //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
-  //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
-  //         {
-  //             (settingsTarget as unknown as any)[key] = value.from;
-  //         }
-  //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
-  //     }
-  //     if(currentEntry.data.properties.backgroundImages != null)
-  //     {
-  //         const updatedImages: CustomImageRecord[] = [];
-  //         const deletedImageIds: string[] = [];
-  //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
-  //         {
-  //             const data = currentEntry.data.properties.backgroundImages[i];
-  //             const imageTarget = await this.#data.customImages?.get(data.id);
-  //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
-  //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
-  //             {
-  //                 // if boardId going from "" to id, this is an insert; treat it like undoing an image insert
-  //                 if(key == 'boardId' && value.from == "")
-  //                 {
-  //                     deletedImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
-  //                     continue;
-  //                 }
-  //                 (imageTarget as unknown as any)[key] = value.from;
-  //             }
-  //             updatedImages.push(imageTarget);
-  //         }
-  //         await this.#data.customImages?.saveItems(updatedImages);
-  //         await this.#data.customImages?.deleteItems(deletedImageIds);
-  //     }
-  // }
-  // async #handelActionEntryActivate(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
-  // {
-  //     const previouslyActive = [...targetEntry.parentElement!.querySelectorAll('[part="active"]')] as HTMLElement[];
-  //     for(let i = 0; i < previouslyActive.length; i++)
-  //     {
-  //         previouslyActive[i].part.remove('active');
-  //         const descendants = [...previouslyActive[i].querySelectorAll('span')] as HTMLElement[];
-  //         for(let i = 0; i < descendants.length; i++)
-  //         {
-  //             descendants[i].part.add('active');
-  //         }
-  //     }
-  //     targetEntry.part.add('active');
-  //     const descendants = [...targetEntry.querySelectorAll('span')] as HTMLElement[];
-  //     for(let i = 0; i < descendants.length; i++)
-  //     {
-  //         descendants[i].part.add('active');
-  //     }
-  //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
-  //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
-  //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
-  //     const entryId = targetEntry.getAttribute('data-entry-id');
-  //     if(actionType == null || recordType == null || recordId == null || entryId == null) { console.error(new Error('Required property was not found.')); return; }
-  //     const channel = (recordType == 'board')
-  //     ? this.#data.boards 
-  //     : (recordType == 'list')
-  //     ? this.#data.lists
-  //     : (recordType == 'task')
-  //     ? this.#data.tasks
-  //     : (recordType == 'image')
-  //     ? this.#data.customImages
-  //     : null;
-  //     if(channel == null) 
-  //     {
-  //         throw new Error(`Unknown record type: ${recordType}`);
-  //     }
-  //     if(actionType == 'create')
-  //     {
-  //         await channel.restore(recordId);
-  //     }
-  //     else if (actionType == 'update')
-  //     {
-  //         const currentEntry = await this.#data.historyEntries?.get(entryId);
-  //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
-  //         const target = await channel.get(recordId);
-  //         if(target == null) { throw new Error('Unable to find target record.'); }
-  //         await this.#activateUpdate(channel, currentEntry, target);
-  //     }
-  //     else if (actionType == 'delete')
-  //     {
-  //         await channel.delete(recordId);
-  //     }
-  //     else
-  //     {
-  //         console.error(`Unknown action type: ${actionType}`);
-  //     }
-  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
-  // }
-  // async #activateUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
-  // {
-  //     if(currentEntry.data.properties.updates != null)
-  //     {
-  //         let isRestorationUpdate = false;
-  //         for(const [key, value] of currentEntry.data.properties.updates)
-  //         {
-  //             if(key == 'deletedTimestamp')
-  //             {
-  //                 isRestorationUpdate = true;
-  //                 continue;
-  //             }
-  //             (target as unknown as any)[key] = value.to;
-  //         }
-  //         await channel.save(target as unknown as any);
-  //         if(isRestorationUpdate == true)
-  //         {
-  //             await channel.restore(currentEntry.data.properties.id);
-  //         }
-  //     }
-  //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
-  //     {
-  //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
-  //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
-  //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
-  //         {
-  //             (settingsTarget as unknown as any)[key] = value.to;
-  //         }
-  //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
-  //     }
-  //     if(currentEntry.data.properties.backgroundImages != null)
-  //     {
-  //         // doesn't clear from image cache when undo after remove
-  //         const updatedImages: CustomImageRecord[] = [];
-  //         const restoredImageIds: string[] = [];
-  //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
-  //         {
-  //             const data = currentEntry.data.properties.backgroundImages[i];
-  //             const imageTarget = await this.#data.customImages?.get(data.id);
-  //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
-  //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
-  //             {
-  //                 // if boardId going from "" to id, this is an insert; treat it like redoing an image insert
-  //                 if(key == 'boardId' && value.from == "")
-  //                 {
-  //                     restoredImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
-  //                     continue;
-  //                 }
-  //                 (imageTarget as unknown as any)[key] = value.to;
-  //             }
-  //             updatedImages.push(imageTarget);
-  //         }
-  //         await this.#data.customImages?.saveItems(updatedImages);
-  //         await this.#data.customImages?.restoreItems(restoredImageIds);
-  //     }
-  // }
-  // async #addActionHistoryEntry<T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
-  // {
-  //     const historyLength = parseFloat(await this.#getAppSetting(AppSettingKey.HistoryLength) ?? DEFAULT_HISTORY_LENGTH);
-  //     if(historyLength == 0) { return; }
-  //     const channel = await this.#getChannel(this.#data.historyEntries, HISTORY_ERROR_MESSAGE, 'danger');
-  //     const history = this.findElement('action-history');
-  //     const historyEntries = [...history.children] as HTMLElement[];
-  //     const elementsToRemove = historyEntries.filter(item => item.hasAttribute(ATTRIBUTENAME_REVERSED));
-  //     const removeIds: string[] = [];
-  //     if(elementsToRemove.length > 0)
-  //     {
-  //         for(let i = 0; i < elementsToRemove.length; i++)
-  //         {
-  //             const entryId = elementsToRemove[i].getAttribute('data-entry-id');
-  //             if(entryId != null)
-  //             {
-  //                 removeIds.push(entryId)
-  //             }
-  //             elementsToRemove[i].remove();
-  //         }
-  //     }
-  //     const data = new HistoryEntryData(type, properties);
-  //     const entry = channel.create(data, action);
-  //     await channel.save(entry);
-  //     const entries = await channel.getAll('timestamp');
-  //     const removeCount = entries.length - historyLength;
-  //     if(removeCount > 0)
-  //     {
-  //         for(let i = 0; i < removeCount; i++)
-  //         {
-  //             removeIds.push(entries[i].id);
-  //             history.querySelector(`[data-entry-id="${entries[i].id}"]`)?.remove();
-  //         }
-  //     }
-  //     if(removeIds.length > 0)
-  //     {
-  //         await channel.deleteIfExists(removeIds);
-  //     }
-  //     const entryElement = this.#createActionHistoryEntryElement(entry);   
-  //     history.append(entryElement);
-  //     const activeIndex = [...history.children].indexOf(entryElement);
-  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (activeIndex > -1) ? activeIndex : null);
-  //     return entryElement;
-  // }
-  // async #prepareHistoryEntries(historyElement: ActionHistoryElement, startIndex: number)
-  // {
-  //     if(this.#data.historyEntries == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred accessing Action History data. Unable to refresh action history.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         console.error(new Error(`An error occurred accessing Action History data. Unable to refresh action history.`));
-  //         return;
-  //     }
-  //     const entries = await this.#data.historyEntries.getAll('timestamp');
-  //     for(let i = 0; i < entries.length; i++)
-  //     {
-  //         const element = historyElement.querySelector(`[data-entry-id="${entries[i].id}"]`) as HTMLElement;
-  //         if(i < startIndex)
-  //         {
-  //             element.removeAttribute(ATTRIBUTE_PREPARED_FOR_DELETE);
-  //         }
-  //         else
-  //         {
-  //             element.toggleAttribute(ATTRIBUTE_PREPARED_FOR_DELETE, true);
-  //         }
-  //     }        
-  // }
-  // async #applyHistoryLength(actionHistoryLength: number)
-  // {
-  //     await this.#saveAppSetting(AppSettingKey.HistoryLength, actionHistoryLength);
-  //     if(this.#data.historyEntries == null)
-  //     {
-  //         // todo: add toast to inform user
-  //         console.warn(`An error occurred accessing Action History data. Unable to refresh action history.`);
-  //         return;
-  //     }
-  //     const entries = await this.#data.historyEntries.getAll('timestamp');
-  //     let startIndex = actionHistoryLength;
-  //     if(startIndex > 0) { startIndex--; } // fix zero index offset if non-zero number
-  //     const ids: string[] = [];
-  //     for(let i = startIndex; i < entries.length; i++)
-  //     {
-  //         ids.push(entries[i].id);
-  //     }
-  //     await this.#data.historyEntries.deleteItems(ids);
-  //     this.#refreshActionHistory();
-  // }
-  // // cache    
-  // async #refreshDeletedItems()
-  // {
-  //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //     const listChannel = this.#getChannel(this.#data.lists, BOARD_ERROR_MESSAGE, 'danger');
-  //     const taskChannel = this.#getChannel(this.#data.tasks, BOARD_ERROR_MESSAGE, 'danger');
-  //     const imageChannel = this.#getChannel(this.#data.customImages, BOARD_ERROR_MESSAGE, 'danger');
-  //     const deletedItems = [];
-  //     const boards = await boardChannel.getAll();
-  //     const lists = await listChannel.getAll();
-  //     const tasks = await taskChannel.getAll();
-  //     const images = await imageChannel.getAll();
-  //     const deletedBoards = boards.filter(item => item.deletedTimestamp != null);
-  //     const deletedLists = lists.filter(item => item.deletedTimestamp != null);
-  //     const deletedTasks = tasks.filter(item => item.deletedTimestamp != null);
-  //     const deletedImages = images.filter(item => item.deletedTimestamp != null);
-  //     for(let i = 0; i < deletedBoards.length; i++)
-  //     {
-  //         const record = deletedBoards[i];
-  //         const element = this.#createDeletedItem(record, 'board', true, record.deletedTimestamp!);
-  //         deletedItems.push(element);
-  //     }
-  //     for(let i = 0; i < deletedLists.length; i++)
-  //     {
-  //         const record = deletedLists[i];
-  //         const canRestore = deletedBoards.find(item => item.id == record.boardId && item.deletedTimestamp != null) == null;
-  //         const element = this.#createDeletedItem(record, 'list', canRestore, record.deletedTimestamp!);
-  //         deletedItems.push(element);
-  //     }
-  //     for(let i = 0; i < deletedTasks.length; i++)
-  //     {
-  //         const record = deletedTasks[i];
-  //         const canRestore = deletedBoards.find(item => item.id == record.boardId && item.deletedTimestamp != null) == null;
-  //         const element = this.#createDeletedItem(record, 'task', canRestore, record.deletedTimestamp!);
-  //         deletedItems.push(element);
-  //     }
-  //     const deletedImageElements: HTMLElement[] = [];
-  //     for(let i = 0; i < deletedImages.length; i++)
-  //     {
-  //         const record = deletedImages[i];
-  //         const element = this.#createDeletedItem(record, 'image', true, record.deletedTimestamp!);
-  //         deletedImageElements.push(element);
-  //     }
-  //     const configPanel = this.findElement('config-panel');
-  //     // deleted images
-  //     [...configPanel.querySelectorAll('[slot="deleted-images"]')].map(item => item.remove());
-  //     configPanel.append(...deletedImageElements);
-  //     // deleted items
-  //     [...configPanel.querySelectorAll('[slot="deleted-items"]')].map(item => item.remove());
-  //     configPanel.append(...deletedItems);
-  // }
-  // #createDeletedItem(data: unknown, recordType: 'board'|'list'|'task'|'image', canRestore: boolean, timestamp: number)
-  // {
-  //     const item = document.createElement('div');
-  //     item.setAttribute('data-record-type', recordType);
-  //     item.setAttribute('part', 'deleted-item');
-  //     item.classList.add('deleted-item');
-  //     item.setAttribute('slot', (recordType == 'image' ? 'deleted-images' : 'deleted-items'));
-  //     item.setAttribute('data-timestamp', timestamp.toString());
-  //     const label = document.createElement('span');
-  //     label.setAttribute('part', 'deleted-item-label');
-  //     label.classList.add('deleted-item-label');
-  //     let record: TaskBoardRecord|TaskListRecord|TaskRecord|CustomImageRecord;
-  //     if(recordType == 'board')
-  //     {
-  //         record = data as TaskBoardRecord;
-  //         label.textContent = record.name;
-  //     }
-  //     else if (recordType == 'list')
-  //     {
-  //         record = data as TaskListRecord;
-  //         label.textContent = record.name;
-  //     }
-  //     else if (recordType == 'task')
-  //     {
-  //         record = data as TaskRecord;
-  //         label.textContent = (record.description.trim() == "") ? "[Blank Task]" : record.description;
-  //     }
-  //     else if (recordType == 'image')
-  //     {
-  //         record = data as CustomImageRecord;
-  //         label.textContent = record.name;
-  //     }
-  //     else
-  //     {
-  //         throw new Error('Unknown deleted record type');
-  //     }
-  //     item.setAttribute('data-record-id', record.id);
-  //     item.append(label);
-  //     if(canRestore == false)
-  //     {
-  //         item.dataset.restore = 'false';
-  //     }
-  //     return item;
-  // }
-  // async #restoreDeletedItem(targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number)
-  // {
-  //     if(targetType == null)
-  //     {
-  //         console.error("Unable to restore record with unknown type or id");
-  //         return;
-  //     }
-  //     const channel = (targetType == 'board')
-  //     ? this.#data.boards 
-  //     : (targetType == 'list')
-  //     ? this.#data.lists
-  //     : (targetType == 'task')
-  //     ? this.#data.tasks
-  //     : null;
-  //     if(channel == null)
-  //     {
-  //         console.error("Unable to restore record. Error accessing data.");
-  //         return;
-  //     }
-  //     await channel.restore(recordId);
-  //     const updates: Map<string, PropertyUpdate> = new Map([ ['deletedTimestamp', { from: timestamp, to: undefined }] ]);
-  //     const properties = {
-  //         id: recordId,
-  //         updates
-  //     };
-  //     await this.#addActionHistoryEntry(HistoryEntryType.Update, targetType, properties);
-  //     if(targetType == HistoryEntryTargetType.Board)
-  //     {
-  //         this.openBoard(recordId);
-  //         this.#refreshBoards();
-  //     }
-  //     this.#refreshDeletedItems();
-  // }
-  // async #removeExpiredData()
-  // {
-  //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //     const listChannel = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, 'danger');
-  //     const taskChannel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-  //     const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
-  //     const imageChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
-  //     const daysToPersistData = (await this.#getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
-  //     const comparisonTime = Date.now() - (parseInt(daysToPersistData) * MILLISECONDSINDAY);
-  //     const boards = await boardChannel.getAll() as (DataRecord & { deletedTimestamp: number })[];
-  //     const lists = await listChannel.getAll() as (DataRecord & { deletedTimestamp: number })[];
-  //     const tasks = await taskChannel.getAll() as (DataRecord & { deletedTimestamp: number })[];
-  //     const taskSettings = await taskSettingsChannel.getAll() as (DataRecord & { deletedTimestamp: number })[];
-  //     const customImages = await imageChannel.getAll() as (DataRecord & { deletedTimestamp: number })[];
-  //     const boardIds = this.#getExpiredRecordIds(boards, comparisonTime);
-  //     await boardChannel.deleteItems(boardIds);
-  //     const listIds = this.#getExpiredRecordIds(lists, comparisonTime);
-  //     await listChannel.deleteItems(listIds);
-  //     const taskIds = this.#getExpiredRecordIds(tasks, comparisonTime);
-  //     await taskChannel.deleteItems(taskIds);
-  //     const settingsIds = this.#getExpiredRecordIds(taskSettings, comparisonTime);
-  //     await taskSettingsChannel.deleteItems(settingsIds);
-  //     const imageIds = this.#getExpiredRecordIds(customImages, comparisonTime);
-  //     await imageChannel.deleteItems(imageIds);
-  // }
-  // #getExpiredRecordIds(allRecords: (DataRecord & { deletedTimestamp: number })[], comparisonTime: number)
-  // {
-  //     const toDelete: string[] = [];
-  //     for(let i = 0; i < allRecords.length; i++)
-  //     {
-  //         const record = allRecords[i];
-  //         if(record.deletedTimestamp != null && record.deletedTimestamp < comparisonTime)
-  //         {
-  //             toDelete.push(record.id);
-  //         }
-  //     }
-  //     return toDelete;
-  // }
   // async #openImportManager(data: any)
   // {
   //     const boardData = new BoardExport(data, data.taskSettings, data.backgroundImage, data.lists);
@@ -10457,9 +10677,9 @@ var TaskboardManagerElement = class extends HTMLElement {
   // }
 };
 if (customElements.get(COMPONENT_TAG_NAME28) == null) {
-  customElements.define(COMPONENT_TAG_NAME28, TaskboardManagerElement);
+  customElements.define(COMPONENT_TAG_NAME28, TaskboardManagerElement2);
 }
 export {
   SHAREDACCESSKEY,
-  TaskboardManagerElement
+  TaskboardManagerElement2 as TaskboardManagerElement
 };

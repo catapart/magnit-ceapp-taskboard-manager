@@ -8,18 +8,6 @@ import { defineIcons, IconType } from '../../assets/icons/icons.asset';
 import { TaskBoardRecord } from '../../data/records/task-board.record';
 import { DataService } from '../../data/data.service';
 
-export enum AppMenuAttributes
-{
-    pathId = 'path-id',
-}
-
-export type AppMenuProperties = { [key in AppMenuAttributes]: string } &
-{
-    onEdit: (boardRoute: string) => void;
-    onBoardMove: (boards: HTMLElement[]) => void;
-    onNew: () => void;
-};
-
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
     ${style}`);
@@ -35,21 +23,17 @@ ${defineIcons(
 const COMPONENT_TAG_NAME = 'app-menu';
 export class AppMenuElement extends HTMLElement
 {
-    static observedAttributes = [
-        ...Object.values(AppMenuAttributes),
-    ];
+    // componentParts: Map<string, HTMLElement> = new Map();
+    // getElement<T extends HTMLElement = HTMLElement>(id: string)
+    // {
+    //     if(this.componentParts.get(id) == null)
+    //     {
+    //         const part = this.findElement(id);
+    //         if(part != null) { this.componentParts.set(id, part); }
+    //     }
 
-    componentParts: Map<string, HTMLElement> = new Map();
-    getElement<T extends HTMLElement = HTMLElement>(id: string)
-    {
-        if(this.componentParts.get(id) == null)
-        {
-            const part = this.findElement(id);
-            if(part != null) { this.componentParts.set(id, part); }
-        }
-
-        return this.componentParts.get(id) as T;
-    }
+    //     return this.componentParts.get(id) as T;
+    // }
     findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
 
     #draggingBoard: HTMLElement|null = null;

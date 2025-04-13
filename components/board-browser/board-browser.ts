@@ -178,19 +178,6 @@ export class BoardBrowserElement extends HTMLElement
         element.part.add('board-gallery-item');
         return element;
     }
-
-
-    static create(properties: BoardBrowserProperties)
-    {
-        const element = document.createElement(COMPONENT_TAG_NAME) as BoardBrowserElement;
-        for(const [propertyName, value] of Object.entries(properties))
-        {
-            if(!propertyName.startsWith('on'))
-            {
-                element.setAttribute(propertyName, value as string);
-            }
-        }
-    }
     
 }
 

@@ -21,6 +21,17 @@
     header
  */
 
+input, button, textarea, select 
+{
+    font: inherit; 
+}
+
+button svg
+{
+    width: var(--button-icon-size);
+    height: var(--button-icon-size);
+}
+
 :host
 {    
     font: inherit;
@@ -323,4 +334,53 @@ message-card::part(message)
     border-color: #666;
     box-shadow: 1px 1px rgba(255, 255, 255, 0.6),
     0 2px 0 0 rgba(255, 255, 255, 0.1) inset;
+}
+
+
+dialog
+{
+    max-height: 80%;
+    max-width: calc(100% - (var(--dialog-margin)*2));
+    overflow: hidden;
+    flex-direction: column;
+    transition: transform 200ms ease, opacity 200ms ease;
+}
+dialog[open]
+{
+    display: flex;
+    opacity: 1;
+}
+@starting-style 
+{
+    dialog[open]
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+@media (max-width: 665px) 
+{
+    dialog
+    {
+        bottom: 25px;
+    }
+}
+@media (max-width: 800px) 
+{
+    
+}
+
+/* only desktop */
+@media (min-width: 665px) 
+{
+    dialog
+    {
+        min-width: 500px;
+        max-width: 850px;
+        top: 50px;
+    }
+}
+@media (min-width: 800px) 
+{
 }

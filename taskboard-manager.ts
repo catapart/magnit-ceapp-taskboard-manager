@@ -1,7 +1,7 @@
 // styles
 import sharedStyles from './styles/shared.css?raw';
-import global_boardItem from './styles/board-item.global.css?raw';
-import global_browserItem from './styles/browser-item.global.css?raw';
+import boardItemStyles from './components/app-menu/board-item.global.css?raw';
+import browserItemStyles from './components/board-browser/browser-item.global.css?raw';
 
 import settingsStyle from './styles/settings.css?raw';
 import componentStyle from './taskboard-manager.css?raw';
@@ -58,13 +58,13 @@ import { DataChannel } from './data/channels/data.channel';
 import { addAdminHandlers } from './handlers/admin.handlers';
 // import { addNavigationhandlers } from './handlers/navigation.handlers';
 // import { addBoardBrowserHandlers } from './handlers/board-browser.handlers';
-import { addRouteHandlers, parseWindowPath } from './handlers/route.handlers';
+// import { parseWindowPath } from './handlers/route.handlers';
 import { addBoardHandlers, taskDescription_onKeyUp } from './handlers/board.handlers';
 // import { addDragHandlers } from './handlers/drag.handlers';
 // import { addBoardSettingsHandlers } from './handlers/board-settings.handlers';
 import { TaskListElement } from '@magnit-ce/task-list';
 import { TaskCardElement } from '@magnit-ce/task-card';
-import { PathRouterElement} from '@magnit-ce/path-router';
+import { PathRouterElement, RoutePageElement} from '@magnit-ce/path-router';
 import { CaptionedThumbnailElement } from '@magnit-ce/captioned-thumbnail';
 import { EditableListElement } from '@magnit-ce/editable-list';
 import { MessageCardElement, MessageCardEvent, MessageCardType } from '@magnit-ce/message-card';
@@ -83,7 +83,7 @@ import { BoardBrowserElement } from './components/board-browser/board-browser';
 import { BoardSettingsElement } from './components/board-settings/board-settings';
 import { ConfigPanelElement } from './components/config-panel/config-panel';
 import { HistoryPanelElement } from './components/config-panel/history-panel/history-panel';
-import { DataService } from './data/data.service';
+import { AppSettingKey, DataService, MILLISECONDSINDAY } from './data/data.service';
 import { DialogService, ErrorMessageType } from './dialog.service';
 
 // export type TaskboardManagerProperties = 
@@ -97,11 +97,8 @@ import { DialogService, ErrorMessageType } from './dialog.service';
 
 
 
-const MILLISECONDSINDAY = 1000 * 60 * 60 * 24;
 
 const DEFAULT_APP_VERSION = "--.--.--";
-const DEFAULT_HISTORY_LENGTH = "30";
-const DEFAULT_PERSIST_DAYS = "7";
 
 
 const ATTRIBUTE_PREPARED_FOR_DELETE = "to-delete";
@@ -113,43 +110,43 @@ export const SHAREDACCESSKEY = Symbol('SHAREDACCESSKEY');
 /** Helper type for accessing component-specific methods and properties
 * used to make development possible across multiple modular files.  
 * Not suited for interacting with the component  */
-type SharedContent =
-{ 
-    data: TaskboardManagerElementData,
-    refreshBoards: () => Promise<void>,
-    refreshActionHistory: () => Promise<void>,
-    refreshDeletedItems: () => Promise<void>,
-    saveAppSetting: (key: string, value: string|number|boolean|Blob|null) => Promise<void>,
-    // restoreDeletedItem: (targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number) => void,
-    // handleActionEntryReverse: (targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number) => void,
-    // handelActionEntryActivate: (targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number) => void,
-    // prepareHistoryEntries: () => void,
-    // applyHistoryLength: () => Promise<void>,
+// type SharedContent =
+// { 
+//     data: TaskboardManagerElementData,
+//     refreshBoards: () => Promise<void>,
+//     refreshActionHistory: () => Promise<void>,
+//     refreshDeletedItems: () => Promise<void>,
+//     saveAppSetting: (key: string, value: string|number|boolean|Blob|null) => Promise<void>,
+//     // restoreDeletedItem: (targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number) => void,
+//     // handleActionEntryReverse: (targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number) => void,
+//     // handelActionEntryActivate: (targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number) => void,
+//     // prepareHistoryEntries: () => void,
+//     // applyHistoryLength: () => Promise<void>,
 
-    renderBoard: (id: string) => void,
-    updateBoardSettings: () => void,
-    updateRecentBoardEntry: (id: string, description?: string) => Promise<void>,
-    removeBoardFromRecentBoards: (id: string) => Promise<void>,
+//     renderBoard: (id: string) => void,
+//     updateBoardSettings: () => void,
+//     updateRecentBoardEntry: (id: string, description?: string) => Promise<void>,
+//     removeBoardFromRecentBoards: (id: string) => Promise<void>,
 
-    updateListRecord: (taskListComponent: TaskListElement) => void,
-    duplicateList: (target: HTMLElement, list: TaskListRecord, settings: TaskSettingsRecord) => void,
+//     updateListRecord: (taskListComponent: TaskListElement) => void,
+//     duplicateList: (target: HTMLElement, list: TaskListRecord, settings: TaskSettingsRecord) => void,
 
-    registerTaskCard: (card: TaskCardElement, listId: string, order: number) => void,
-    updateTaskRecord: (taskComponent: TaskCardElement, parentList: TaskListElement) => void,
-    deleteTaskRecord: (taskComponent: TaskCardElement) => void,
-    updateTaskRecordsAfterMove: (target: TaskCardElement, parent: TaskListElement) => void,
+//     registerTaskCard: (card: TaskCardElement, listId: string, order: number) => void,
+//     updateTaskRecord: (taskComponent: TaskCardElement, parentList: TaskListElement) => void,
+//     deleteTaskRecord: (taskComponent: TaskCardElement) => void,
+//     updateTaskRecordsAfterMove: (target: TaskCardElement, parent: TaskListElement) => void,
 
-    openImportManager: (data: any) => void,
+//     openImportManager: (data: any) => void,
 
-    getConfirmation: (message: string, type: 'info'|'warn'|'danger') => Promise<boolean>,
-    getIdFromRoute: () => string,
+//     getConfirmation: (message: string, type: 'info'|'warn'|'danger') => Promise<boolean>,
+//     getIdFromRoute: () => string,
 
-}
+// }
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
-${global_boardItem}
-${global_browserItem}
+${boardItemStyles}
+${browserItemStyles}
 ${settingsStyle}
 ${componentStyle}`);
 
@@ -176,7 +173,7 @@ export class TaskboardManagerElement extends HTMLElement
     ];
 
     componentParts: Map<string, HTMLElement> = new Map();
-    getElement<T extends HTMLElement = HTMLElement>(id: string)
+    getElement<T extends HTMLElement|RoutePageElement = HTMLElement>(id: string)
     {
         if(this.componentParts.get(id) == null)
         {
@@ -186,14 +183,14 @@ export class TaskboardManagerElement extends HTMLElement
 
         return this.componentParts.get(id) as T;
     }
-    findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
+    findElement<T extends HTMLElement|RoutePageElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
 
     initPromise?: Promise<void>;
 
     #customImageUrls: Map<string,string> = new Map();
 
     /** Exposes "shared" private functions/properties to external modules. */
-    [SHAREDACCESSKEY]!: SharedContent;
+    // [SHAREDACCESSKEY]!: SharedContent;
 
     constructor()
     {
@@ -219,28 +216,71 @@ export class TaskboardManagerElement extends HTMLElement
     {
         this.initPromise = this.#init();
     }
+    setColorScheme(scheme: 'inherit'|'browser'|'light'|'dark')
+    {
+        const value = (scheme == 'browser') ? 'light dark' : scheme;
+        this.style.setProperty('color-scheme', value);
+    }
+    async refreshBoards()
+    {
+        const boardRecords = await DataService.getAllBoardRecords();
+        
+        this.findElement<AppMenuElement>('app-menu').updateBoards(boardRecords);
+        this.findElement<BoardBrowserElement>('board-browser').updateBoards(boardRecords);
+    }
+
     async addBoard()
     {
-        // const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-        // const listChannel = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, 'danger');
-        // const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
+        const order = this.findElement('app-menu').querySelectorAll('a').length;
+        const board = await DataService.createBoard(order);
 
-        // const [ board, taskSettings, listData ] = await boardChannel.create();
-        // board.order = this.findElement('app-menu').querySelectorAll('a').length;   
-        // boardChannel.save(board);
+        // await this.findElement<ConfigPanelElement>('config-panel')
+        // .addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Board, { id: board.id });
 
-        // const lists: TaskListRecord[] = [];
-        // const listSettings: TaskSettingsRecord[] = [];
-        // for(let i = 0; i < listData.length; i++)
-        // {
-        //     const [ list, settings ] = listData[i];
-        //     lists.push(list);
-        //     listSettings.push(settings);
-        // }
-        // listChannel.saveItems(lists);
-        // taskSettingsChannel.saveItems([taskSettings, ...listSettings]);
+        this.findElement<AppMenuElement>('app-menu').refresh();
+        this.findElement<WelcomePanelElement>('welcome-panel').refresh();
+    }
+    async openBoardSettings(id: string)
+    {
+        await this.initPromise;
 
-        // await this.#addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Board, { id: board.id });
+        const board = await DataService.getBoardRecord(id);
+        if(board == null)
+        {
+            MessageCardElement.notify(`No board found with the target id (${id}).`, 
+            this.getElement('notifications'), { type: MessageCardType.Error });
+            console.warn(`No board found with the target id (${id}).`);
+            return;
+        }
+        
+        const taskLists = await DataService.getBoardLists(id);
+        const taskSettingIds = taskLists.map(item => item.taskSettingsId);
+        const taskSettings = await DataService.getTaskSettingsRecords(board.taskSettingsId, ...taskSettingIds);
+        const boardTaskSettings = taskSettings.find(item => item.id == board.taskSettingsId);
+        const listTaskSettings = taskSettings.filter(item => taskSettingIds.indexOf(item.id) > -1);
+        
+        if(boardTaskSettings == null)
+        {
+            MessageCardElement.notify(`An error occurred accessing task settings data.`, 
+            this.getElement('notifications'), { type: MessageCardType.Error });
+            console.warn(`An error occurred accessing task settings data.`);
+            return;
+        }
+
+        const backgroundImage = (board.backgroundImageId == "") ? null : await DataService.getImageRecord(board.backgroundImageId);
+
+        const boardSettings =this.findElement<BoardSettingsElement>('board-settings');
+        boardSettings.setValues(board, boardTaskSettings, backgroundImage);
+        boardSettings.setLists(taskLists, listTaskSettings);
+    }
+    async exportBoard(id: string)
+    {
+        return DataService.exportBoard(this, id);
+    }
+    async importBoard(boardData: BoardExport, errorMessage?: string)
+    {
+        const order = this.findElement('app-menu').querySelectorAll('a').length;
+        return DataService.importBoard(boardData, order, errorMessage);
     }
 
     //#endregion API
@@ -255,46 +295,6 @@ export class TaskboardManagerElement extends HTMLElement
     // {
     //     await this.findElement<PathRouterElement>('app-router').navigate('/' + window.location.hash);
     //     this.getElement('task-board').innerHTML = "";        
-    // }
-    // async openBoardSettings(id: string)
-    // {
-    //     await this.initPromise;
-
-    //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-    //     const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
-    //     const imagesChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
-
-    //     const board = await boardChannel.get(id);
-    //     if(board == null)
-    //     {
-    //         MessageCardElement.notify(`No board found with the target id (${id}).`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         console.warn(`No board found with the target id (${id}).`);
-    //         return;
-    //     }
-        
-    //     const taskLists = await boardChannel.getTaskLists(id);
-    //     const taskSettingIds = taskLists.map(item =>item.taskSettingsId);
-    //     const taskSettings = await taskSettingsChannel.getItems([board.taskSettingsId, ...taskSettingIds]);
-    //     const boardTaskSettings = taskSettings.find(item => item.id == board.taskSettingsId);
-    //     const listTaskSettings = taskSettings.filter(item => taskSettingIds.indexOf(item.id) > -1);
-        
-    //     if(boardTaskSettings == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred accessing task settings data.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         console.warn(`An error occurred accessing task settings data.`);
-    //         return;
-    //     }
-
-    //     const backgroundImage = (board.backgroundImageId == "") ? null : await imagesChannel.get(board.backgroundImageId);
-
-    //     const boardSettings =this.findElement<BoardSettingsElement>('board-settings');
-    //     boardSettings.setValues(board, boardTaskSettings, backgroundImage);
-    //     boardSettings.setLists(taskLists, listTaskSettings);
-    //     // const boardFields = this.findElement<TaskBoardFieldsComponent>('board-fields');
-    //     // boardFields.setValues(board, boardTaskSettings, backgroundImage);
-    //     // boardFields.setLists(taskLists, listTaskSettings);
     // }
     // async duplicateBoard(id: string)
     // {
@@ -367,40 +367,6 @@ export class TaskboardManagerElement extends HTMLElement
     //     });
     //     notification.show();
     // }
-    // async exportBoard(id: string)
-    // {
-    //     const boardExportData = await this.#prepareExportData(id);
-    //     this.#downloadExportData(boardExportData);
-    // }
-    // async importBoard(boardData: BoardExport, errorMessage?: string)
-    // {
-    //     try
-    //     {
-    //         const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-    //         const listChannel = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, 'danger');
-    //         const taskChannel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-    //         const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
-    //         const imageChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
-
-    //         const order = this.findElement('app-menu').querySelectorAll('a').length;
-    //         const [ board, lists, tasks, settings, images ] = await this.#data.naturalizeForeignData(boardData, order);
-
-    //         // console.log(board, lists, tasks, settings, images);
-
-    //         await Promise.allSettled([
-    //             boardChannel.save(board),
-    //             listChannel.saveItems(lists),
-    //             taskChannel.saveItems(tasks),
-    //             taskSettingsChannel.saveItems(settings),
-    //             imageChannel.saveItems(images)
-    //         ]);
-    //     }
-    //     catch(exception)
-    //     {
-    //         console.error(exception);
-    //         this.#showMessageDialog(errorMessage || 'An error occurred importing the board data. Please confirm the import file contains valid board data.');
-    //     }
-    // }
 
     // async closeBoardSettings()
     // {
@@ -472,26 +438,22 @@ export class TaskboardManagerElement extends HTMLElement
     // // }
 
     
-    // setColorScheme(scheme: 'inherit'|'browser'|'light'|'dark')
-    // {
-    //     const value = (scheme == 'browser') ? 'light dark' : scheme;
-    //     this.style.setProperty('color-scheme', value);
-    // }
 
 
     //#region Internal
     async #init()
     {
-        DialogService.init(this);
-
         const datastoreName = this.getAttribute('datastore-name');
         await DataService.init(datastoreName);
 
-        // get boards
-        const boardRecords = await DataService.getAllBoardRecords();
+        DialogService.init(this);
+
+        this.#loadColorScheme();
+
+        // refresh boards
+        const boardsPromise = this.refreshBoards();
 
         // app menu
-        this.findElement<AppMenuElement>('app-menu').updateBoards(boardRecords);
 
         // welcome page
         this.findElement<WelcomePanelElement>('welcome-panel').refresh();
@@ -499,30 +461,27 @@ export class TaskboardManagerElement extends HTMLElement
         // task board
 
         // board-browser
-        this.findElement<BoardBrowserElement>('board-browser').updateBoards(boardRecords);
-    
-        //     const boardBrowser = this.getElement<BoardBrowserElement>('board-browser');
-        //     boardBrowser.addEventListener('select', async (event: Event|CustomEvent) =>
-        //     {
-        //         const { boardId } = (event as CustomEvent).detail;
-        //         if(boardId == null)
-        //         {
-        //             MessageCardElement.notify(`An error occurred attempting to open the board.`, 
-        //             this.getElement('notifications'), { type: MessageCardType.Error });
-        //             console.error('Unable to open board: data-board-id attribute is unset on target element.');
-        //             return;
-        //         }
-        //         // console.log(selected, selected[0].getAttribute('data-board-id') ?? 'no id');
-        //         this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}`)
-        //     });
+        this.findElement<BoardBrowserElement>('board-browser').addEventListener('select', async (event: Event|CustomEvent) =>
+        {
+            const { boardId } = (event as CustomEvent).detail;
+            if(boardId == null)
+            {
+                MessageCardElement.notify(`An error occurred attempting to open the board.`, 
+                this.getElement('notifications'), { type: MessageCardType.Error });
+                console.error('Unable to open board: data-board-id attribute is unset on target element.');
+                return;
+            }
+            this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}`)
+        });
 
-        // config-dialog
-        // this.findElement<ConfigPanelElement>('config-panel').updateBoards(boardRecords);
+        // config-panel
+        const appVersion = await this.#getAppVersion();
+        this.findElement<ConfigPanelElement>('config-panel').init(appVersion);
 
         // board-settings
 
         // import-dialog
-    //     // this.findElement<HTMLButtonElement>('import-ok').addEventListener('click', this.#importDialog_import_onClick.bind(this));
+        
 
         // confirmation-dialog
 
@@ -530,90 +489,546 @@ export class TaskboardManagerElement extends HTMLElement
 
         // loading
 
-
-
-
-
-        // this.#registerSharedData();
-        // this.#loadColorScheme();
+        // addAdminHandlers.call(this);
+        // addNavigationhandlers.call(this);
+        // // addDragHandlers.call(this);
+        // addBoardHandlers.call(this);
+        // addBoardSettingsHandlers.call(this);
+        // addBoardBrowserHandlers.call(this);
+        // addKeyHandlers.call(this);
         
-        // const appVersion = await this.#getAppVersion();
-        // const historyLength = (await this.#getAppSetting(AppSettingKey.HistoryLength)) ?? DEFAULT_HISTORY_LENGTH;
-        // const daysToPersistData = (await this.#getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
-        // this.findElement<ConfigPanelElement>('config-panel').init(appVersion, historyLength, daysToPersistData);
 
+        this.#addRouteHandlers();
+        this.addEventListener('click', this.#onClick.bind(this))
 
-        this.addEventListener('click', (event) =>
+        await this.#handleInitialNavigation(boardsPromise);
+
+        DataService.removeExpiredData();
+        // check each day if any deleted records expired
+        setInterval(() =>
         {
-            const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
+            DataService.removeExpiredData();
+        }, MILLISECONDSINDAY);
 
-            const editButton = composedPath.find(item => item.classList.contains('board-edit-button'));
-            if(editButton != null)
+
+        this.#applyPartAttributes();
+    }
+    async #loadColorScheme()
+    {
+        const colorScheme = await DataService.getAppSetting(AppSettingKey.ColorScheme);
+        if(colorScheme == null) { return; }
+        this.setColorScheme(colorScheme as 'inherit'|'browser'|'light'|'dark');
+    }
+    #historyIsUpdating = false;
+    #addRouteHandlers()
+    {
+        const appRouter = this.findElement<PathRouterElement>('app-router');
+        appRouter.addRouteLinkClickHandlers(this.shadowRoot!);
+        this.findElement<PathRouterElement>('app-router').addEventListener('pathchange', this.#router_onPathChange.bind(this));
+        window.addEventListener('popstate', async (event) =>
+        {
+            this.#historyIsUpdating = true;
+            const { windowPath, windowHash } = this.#parseWindowPath();
+            let route = windowPath + windowHash;
+            await appRouter.navigate(route);
+            this.#historyIsUpdating = false;
+        });
+
+        this.findElement<RoutePageElement>('board-page').applyEventListener('beforeopen', this.#boardRoute_beforeOpen.bind(this));
+        this.findElement<RoutePageElement>('board-settings-dialog').applyEventListener('beforeopen', this.#boardSettingsRoute_beforeOpen.bind(this));
+    }
+    async #handleInitialNavigation(boardsPromise: Promise<void>)
+    {
+        const { windowPath, windowHash } = this.#parseWindowPath();
+        const filteredWindowHash = windowHash.replace('import', '');
+        await this.getElement<PathRouterElement>('app-router').navigate(`${windowPath}#${filteredWindowHash}`);
+        
+        if(filteredWindowHash != windowHash)
+        {
+            // if the last session ended with a dialog open that
+            // was not one allowed to be open on startup (like the 
+            // import dialog), we update the url, as well as the router's path
+            const newHistoryState =  `${window.origin}/demo/app.html?path=${windowPath}${(filteredWindowHash != "") ? `#${filteredWindowHash}` : ''}`;
+            window.history.replaceState(null, '', newHistoryState);
+        }
+        
+        await boardsPromise;
+        
+        let boardIdIndex = windowPath.indexOf('board/');
+        if(boardIdIndex > -1)
+        {
+            const currentMenuItem = this.findElement('app-menu').querySelector(`[data-route="${windowPath}"]`);
+            if(currentMenuItem != null)
             {
-                this.#board_edit_onClick(editButton.parentElement!.dataset.route);
-                return;
+                currentMenuItem.setAttribute('aria-current', 'page');
+                currentMenuItem.part.add('selected');
             }
-
-            const newBoardButton = composedPath.find(item => item.classList.contains('new-board-button'));
-            if(newBoardButton != null)
-            {
-                this.#newBoard_onClick();
-                return;
-            }
-
-            console.log(event.target);
-        })
-
-        //     // addAdminHandlers.call(this);
-        //     // addNavigationhandlers.call(this);
-        //     // // addDragHandlers.call(this);
-        //     addRouteHandlers.call(this);
-        //     // addBoardHandlers.call(this);
-        //     // addBoardSettingsHandlers.call(this);
-        //     // addBoardBrowserHandlers.call(this);
-        //     // addKeyHandlers.call(this);
-
-        // this.#refreshRecentBoards();
-        // const boardsPromise = this.#refreshBoards();
-        // this.#refreshActionHistory();
-        // this.#refreshDeletedItems();
-        
-        // const { windowPath, windowHash } = parseWindowPath();
-        // const filteredWindowHash = windowHash.replace('import', '');
-        // await this.getElement<PathRouterElement>('app-router').navigate(`${windowPath}#${filteredWindowHash}`);
-        
-        // if(filteredWindowHash != windowHash)
-        // {
-        //     // if the last session ended with a dialog open that
-        //     // was not one allowed to be open on startup (like the 
-        //     // import dialog), we update the url, as well as the router's path
-        //     const newHistoryState =  `${window.origin}/demo/app.html?path=${windowPath}${(filteredWindowHash != "") ? `#${filteredWindowHash}` : ''}`;
-        //     window.history.replaceState(null, '', newHistoryState);
-        // }
-        
-        // boardsPromise.then(() =>
-        // {
-        //     let boardIdIndex = windowPath.indexOf('board/');
-        //     if(boardIdIndex > -1)
-        //     {
-        //         const currentMenuItem = this.findElement('app-menu').querySelector(`[data-route="${windowPath}"]`);
-        //         if(currentMenuItem != null)
-        //         {
-        //             currentMenuItem.setAttribute('aria-current', 'page');
-        //             currentMenuItem.part.add('selected');
-        //         }
-        //     }
-        // });
-
-        // this.#removeExpiredData();
-        // // check each day if any deleted records expired
-        // setInterval(() =>
-        // {
-        //     this.#removeExpiredData();
-        // }, MILLISECONDSINDAY);
+        }
+    }
+    #applyPartAttributes()
+    {
+        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
+        for(let i = 0; i < identifiedElements.length; i++)
+        {
+            identifiedElements[i].part.add(identifiedElements[i].id);
+        }
+        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
+        for(let i = 0; i < classedElements.length; i++)
+        {
+            classedElements[i].part.add(...classedElements[i].classList);
+        }
     }
 
+    //#region Management
+    #initTaskCard(card: TaskCardElement, task: TaskRecord)
+    {
+        card.dataset.taskId = task.id;
+        card.setAttribute('color', task.color)
+        card.setAttribute('is-finished', task.isFinished.toString());
+        card.setAttribute('description', task.description);
+        card.setAttribute('draggable', "true");
+        card.setAttribute('part', 'task-card');
+        card.setAttribute('exportparts', "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator, button, input, finished");
+        card.style.setProperty('--task-color', task.color);
+        card.findElement('description').addEventListener('keyup', taskDescription_onKeyUp.bind(this));
+    }
+    //#endregion Management
+
+    //#region Rendering
+    async #renderBoard(id: string)
+    {
+        const board = await DataService.getBoardRecord(id);
+        if(board == null)
+        {
+            this.findElement<PathRouterElement>('app-router').navigate('/');
+            MessageCardElement.notify(`No board found with the target id (${id}). Navigated back to Welcome page.`, 
+            this.getElement('notifications'), { type: MessageCardType.Warn });
+            console.warn(`No board found with the target id (${id}). Navigated back to Welcome page.`);
+            return;
+        }
+        const taskBoard = this.findElement<TaskBoardElement>('task-board');
+        taskBoard.innerHTML = '';
+        taskBoard.setAttribute('data-board-id', board.id);
+
+        this.#renderBoardBackground(board);
+        if(board.useCustomFontColor == true)
+        {
+            taskBoard.style.setProperty('--board-font-color', board.fontColor);
+        }
+        else
+        {
+            taskBoard.style.removeProperty('--board-font-color');
+        }
+
+        const settings = await DataService.getTaskSettingsRecord(board.taskSettingsId);
+        if(settings != null)
+        {
+            this.#applyTaskSettings(taskBoard, settings);
+        }
+
+        const tasks = await DataService.getBoardTasks(id);
+        await this.#renderBoardLists(taskBoard, tasks);
+        
+        const welcomePanel = this.findElement<WelcomePanelElement>('welcome-panel');
+        await welcomePanel.addBoardToRecentBoards(id, board.name);
+        welcomePanel.refresh();
+    }
+    async #renderBoardBackground(board: TaskBoardRecord)
+    {
+        // const channel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
+
+        const taskBoard = this.findElement('task-board');
+        if(board.backgroundImageId != null && board.backgroundImageId.trim() != "")
+        {
+            let backgroundImageUrl = this.#customImageUrls.get(board.backgroundImageId);
+            if(backgroundImageUrl == null)
+            {
+                const backgroundImage = await DataService.getImageRecord(board.backgroundImageId);
+                if(backgroundImage == null)
+                {
+                    MessageCardElement.notify(`No image found with the target id (${board.backgroundImageId}).`, 
+                    this.getElement('notifications'), { type: MessageCardType.Warn });
+                    throw new Error(`Unable to find background image from id: ${board.backgroundImageId}`);
+                }
+                if(backgroundImage.image == null) { throw new Error(`Cannot load custom image with null image property.`); }
+
+                this.#customImageUrls.set(board.backgroundImageId, URL.createObjectURL(backgroundImage.image));
+                backgroundImageUrl = this.#customImageUrls.get(board.backgroundImageId)
+            }
+    
+            taskBoard.style.setProperty('--board-background-source', `url(${backgroundImageUrl})`);
+        }
+        else
+        {
+            taskBoard.style.removeProperty('--board-background-source');
+        }
+
+        
+        if(board.backgroundDisplay == 'center')
+        {
+            taskBoard.style.removeProperty('--background-image-display');
+            taskBoard.style.setProperty('--background-image-repeat', 'no-repeat');
+            taskBoard.style.setProperty('--background-image-position', `calc(50% + ${board.backgroundOffsetX}px) calc(50% + ${board.backgroundOffsetY}px)`);
+        }
+        else if(board.backgroundDisplay == 'stretch')
+        {
+            taskBoard.style.setProperty('--background-image-repeat', 'no-repeat');
+            taskBoard.style.setProperty('--background-image-display', 'cover');
+            taskBoard.style.setProperty('--background-image-position', '0px 0px');
+        }
+        else if(board.backgroundDisplay == 'tile')
+        {
+            taskBoard.style.removeProperty('--background-image-display');
+            taskBoard.style.removeProperty('--background-image-repeat');
+            taskBoard.style.removeProperty('--background-image-position');
+        }
+        taskBoard.style.setProperty('--background-image-offset', `${board.backgroundOffsetX}px ${board.backgroundOffsetY}px`);
+
+        if(board.useCustomBackgroundColor == true)
+        {
+            taskBoard.style.setProperty('--board-background-color', board.backgroundColor);
+        }
+        else
+        {
+            taskBoard.style.removeProperty('--board-background-color');
+        }
+
+    }
+    async #renderBoardLists(board: TaskBoardElement, tasks: TaskRecord[])
+    {
+        const boardId = board.dataset.boardId;
+        if(boardId == null)
+        {
+            MessageCardElement.notify(`An error occurred loading the board. Navigated back to Welcome page.`, 
+            this.getElement('notifications'), { type: MessageCardType.Error });
+            console.error(new Error('Unable to add task when parent boards\'s data-board-id attribute is undefined.'));
+            return;
+        }
+
+        const lists = await DataService.getBoardLists(boardId);
+        const taskSettings = await DataService.getTaskSettingsRecords(...lists.map(item => item.taskSettingsId));
+        const listElements = [];
+        for(let i = 0; i < lists.length; i++)
+        {
+            const list = lists[i];
+            if(list.deletedTimestamp != undefined) { continue; }
+            const settings = taskSettings.find(item => item.id == list.taskSettingsId);
+            if(settings == null)
+            {
+                MessageCardElement.notify(`An error occurred loading a list's settings. Some settings may not be displayed properly.`, 
+                this.getElement('notifications'), { type: MessageCardType.Warn });
+                console.warn(new Error(`Unable to find settings from list's taskSettingsId.`));
+            }
+            const element = new TaskListElement();
+            element.setAttribute('name', list.name);
+            element.setAttribute('color', list.color);
+            element.setAttribute('data-tasklist-id', list.id);
+            element.toggleAttribute('drag-drop', true);
+            element.setAttribute('part', 'task-list');
+            element.style.setProperty('--list-color', list.color);
+            element.setAttribute('exportparts', "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, tasks:list-tasks, add-button:list-add-button, button, input, finished:task-finished");
+            element.dragAndDropQueryParent = board;
+
+            if(list.useCustomWidth == true)
+            {
+                element.style.setProperty('--list-width', `${list.width}px`);
+                element.style.setProperty('flex-grow', '0');
+            }
+            else
+            {
+                element.style.removeProperty('--list-width');
+                element.style.removeProperty('flex-grow');
+            }
+
+            const listTitle = (list.description == null || list.description.trim() == "") ? list.name : list.description;
+            element.setAttribute('title', listTitle);
+
+            if(list.useCustomBackgroundColor == true)
+            {
+                element.style.setProperty('--list-background-color', list.backgroundColor);
+            }
+            else
+            {
+                element.style.removeProperty('--list-background-color');
+            }
+            if(list.useCustomFontColor == true)
+            {
+                element.style.setProperty('--list-font-color', list.fontColor);
+            }
+            else
+            {
+                element.style.removeProperty('--list-font-color');
+            }
+
+            if(list.colorDisplay == TaskListColorDisplay.BorderColor)
+            {
+                element.classList.add('hide-color');
+                element.style.setProperty('--list-border-color', list.color);
+            }
+            else if(list.colorDisplay == TaskListColorDisplay.FontColor)
+            {
+                element.classList.add('hide-color');
+                element.style.setProperty('--list-font-color', list.color);
+            }
+            else
+            {
+                element.classList.remove('hide-color');
+                element.style.removeProperty('--list-border-color');
+                if(list.useCustomFontColor == false)
+                {
+                    element.style.removeProperty('--list-font-color');
+                }
+            }
+
+            this.#applyTaskSettings(element, settings);
+
+            this.#loadListTasks(element, tasks);
+            listElements.push(element);
+        }
+
+        board.append(...listElements);
+    }
+    #loadListTasks(taskList: TaskListElement, tasks: TaskRecord[])
+    {
+        const listId = taskList.dataset.tasklistId;
+        for(let i = 0; i < tasks.length; i++)
+        {
+            const taskElements: TaskCardElement[] = [];
+            if(tasks[i].listId == listId)
+            {
+                const task = tasks[i];
+                if(task.deletedTimestamp != undefined) { continue; }
+                const taskElement = new TaskCardElement();
+                this.#initTaskCard(taskElement, task);
+                taskElements.push(taskElement);
+            }
+            taskList.append(...taskElements);
+        }
+    }
+    #applyTaskSettings(target: HTMLElement, settings?: TaskSettingsRecord)
+    {
+        if(settings == null)
+        {
+            return;
+        }
+        if(settings.useCustomBackgroundColor == true)
+        {
+            target.style.setProperty('--task-background-color', settings.customBackgroundColor);
+        }
+        else
+        {
+            target.style.removeProperty('--task-background-color');
+        }
+
+        if(settings.useCustomFontColor == true)
+        {
+            target.style.setProperty('--task-font-color', settings.customFontColor);
+        }
+        else
+        {
+            target.style.removeProperty('--task-font-color');
+        }
+
+        if(settings.useCustomFontSize == true)
+        {
+            target.style.setProperty('--task-font-size', `${settings.customFontSize}px`);
+        }
+        else
+        {
+            target.style.removeProperty('--task-font-size');
+        }
+
+        if(settings.useCustomBorderColor == true)
+        {
+            target.style.setProperty('--task-border-color', settings.customBorderColor);
+        }
+        else
+        {
+            target.style.removeProperty('--task-border-color');
+        }
+
+        if(settings.useCustomBorderRadius == true)
+        {
+            target.style.setProperty('--task-border-radius', `${settings.borderRadiusValue}${settings.borderRadiusUnit}`);
+        }
+        else
+        {
+            target.style.removeProperty('--task-border-radius');
+        }
+
+        if(settings.colorDisplay == TaskColorDisplay.Hidden)
+        {
+            target.classList.remove('task-color-border');
+            target.classList.remove('color-border-top');
+            target.classList.remove('color-border-right');
+            target.classList.remove('color-border-bottom');
+            target.classList.remove('color-border-left');
+            target.classList.remove('task-color-background');
+
+            target.classList.add('hide-task-color');
+        }
+        else if(settings.colorDisplay == TaskColorDisplay.Borders)
+        {
+            target.classList.remove('hide-task-color');
+            target.classList.remove('task-color-background');
+            target.classList.remove('color-border-top');
+            target.classList.remove('color-border-right');
+            target.classList.remove('color-border-bottom');
+            target.classList.remove('color-border-left');
+
+            target.classList.add('task-color-border');
+        }
+        else if(settings.colorDisplay == TaskColorDisplay.TopBorder)
+        {
+            target.classList.remove('hide-task-color');
+            target.classList.remove('task-color-background');
+            target.classList.remove('color-border-right');
+            target.classList.remove('color-border-bottom');
+            target.classList.remove('color-border-left');
+
+            target.classList.add('task-color-border', 'color-border-top');
+        }
+        else if(settings.colorDisplay == TaskColorDisplay.RightBorder)
+        {
+            target.classList.remove('hide-task-color');
+            target.classList.remove('task-color-background');
+            target.classList.remove('color-border-top');
+            target.classList.remove('color-border-bottom');
+            target.classList.remove('color-border-left');
+
+            target.classList.add('task-color-border', 'color-border-right');
+        }
+        else if(settings.colorDisplay == TaskColorDisplay.BottomBorder)
+        {
+            target.classList.remove('hide-task-color');
+            target.classList.remove('task-color-background');
+            target.classList.remove('color-border-top');
+            target.classList.remove('color-border-right');
+            target.classList.remove('color-border-left');
+
+            target.classList.add('task-color-border', 'color-border-bottom');
+        }
+        else if(settings.colorDisplay == TaskColorDisplay.LeftBorder)
+        {
+            target.classList.remove('hide-task-color');
+            target.classList.remove('task-color-background');
+            target.classList.remove('color-border-top');
+            target.classList.remove('color-border-right');
+            target.classList.remove('color-border-bottom');
+
+            target.classList.add('task-color-border', 'color-border-left');
+        }
+        else if(settings.colorDisplay == TaskColorDisplay.Background)
+        {
+            target.classList.remove('hide-task-color');
+            target.classList.remove('task-color-border');
+            target.classList.remove('color-border-top');
+            target.classList.remove('color-border-right');
+            target.classList.remove('color-border-bottom');
+            target.classList.remove('color-border-left');
+
+            target.classList.add('task-color-background');
+        }
+        else
+        {
+            target.classList.remove('hide-task-color');
+            target.classList.remove('task-color-border');
+            target.classList.remove('color-border-top');
+            target.classList.remove('color-border-right');
+            target.classList.remove('color-border-bottom');
+            target.classList.remove('color-border-left');
+            target.classList.remove('task-color-background');
+        }
+
+        if(settings.centerCheckbox == true)
+        {
+            target.classList.add('center-checkbox');
+        }
+        else
+        {
+            target.classList.remove('center-checkbox');
+        }
+        if(settings.centerRemoveButton == true)
+        {
+            target.classList.add('center-remove');
+        }
+        else
+        {
+            target.classList.remove('center-remove');
+        }
+        
+        if(settings.useCustomWidth == true)
+        {
+            target.style.setProperty('--task-width', `${settings.customWidth}px`);
+        }
+        else
+        {
+            target.style.removeProperty('--task-width');
+        }
+        
+        if(settings.useCustomBorderWidth_top == true)
+        {
+            target.style.setProperty('--task-border-top', `${settings.useCustomBorderWidth_top}px`);
+        }
+        else
+        {
+            target.style.removeProperty('--task-border-top');
+        }
+        if(settings.useCustomBorderWidth_right == true)
+        {
+            target.style.setProperty('--task-border-right', `${settings.borderWidth_right}px`);
+        }
+        else
+        {
+            target.style.removeProperty('--task-border-right');
+        }
+        if(settings.useCustomBorderWidth_bottom == true)
+        {
+            target.style.setProperty('--task-border-bottom', `${settings.borderWidth_bottom}px`);
+        }
+        else
+        {
+            target.style.removeProperty('--task-border-bottom');
+        }
+        if(settings.useCustomBorderWidth_left == true)
+        {
+            target.style.setProperty('--task-border-left', `${settings.borderWidth_left}px`);
+        }
+        else
+        {
+            target.style.removeProperty('--task-border-left');
+        }
+    }
+    //#endregion Rendering
+
     //#region Handlers
+    #onClick(event: Event)
+    {
+        const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
+
+        const editButton = composedPath.find(item => item.classList.contains('board-edit-button'));
+        if(editButton != null)
+        {
+            this.#board_edit_onClick(editButton.parentElement!.dataset.route);
+            return;
+        }
+
+        const newBoardButton = composedPath.find(item => item.classList.contains('new-board-button'));
+        if(newBoardButton != null)
+        {
+            this.#newBoard_onClick();
+            return;
+        }
+
+        const importOkButton = composedPath.find(item => item.id == 'import-ok');
+        if(importOkButton != null)
+        {
+            this.#importDialog_import_onClick();
+            return;
+        }
+
+        console.log(event.target);
+    }
     #board_edit_onClick(boardRoute?: string)
     {
         if(boardRoute == null)
@@ -627,328 +1042,215 @@ export class TaskboardManagerElement extends HTMLElement
     }
     async #newBoard_onClick()
     {
-        await this.addBoard();
-        this.findElement<AppMenuElement>('app-menu').refresh();
-        // this.findElement<WelcomePanelElement>('welcome-panel').refresh();
+        this.addBoard();
     }
+
+    #router_onPathChange(event: Event|CustomEvent)
+    {
+        // if we're moving back or forward,
+        // we don't want to record that in history
+        // and the browser will update the url
+        if(this.#historyIsUpdating == true) { return; }
+    
+        const router = event.target as PathRouterElement;
+        
+        // const currentLocation = window.location;
+    
+        // custom currentLocation; won't need this for root-page app
+        // (index.html is auto-routed to on most servers, so the default path functionality will work)
+        const currentLocationSearchPathArray = window.location.search.substring(1).split('=');
+        const searchPathValue = currentLocationSearchPathArray[1] ?? "";
+        const currentLocation = new URL(`${window.location.origin}/${searchPathValue}`)
+        
+    
+        let updatedPath = router.getAttribute('path');
+        const origin = window.location.origin;
+        const updatedLocation = new URL(`${origin}/${updatedPath}`);
+        // console.log(window.location);
+    
+        const { hasChanged, isReplacementChange } = router.compareLocations(currentLocation as unknown as URL, updatedLocation);
+        if(hasChanged)
+        {
+            const newHistoryState =  `${updatedLocation.origin}/demo/app.html?path=${updatedLocation.pathname}${updatedLocation.hash}`;
+            if(isReplacementChange)
+            {
+                window.history.replaceState(null, '', newHistoryState);
+            }
+            else
+            {
+                window.history.pushState(null, '', newHistoryState);
+            }
+        }
+    
+        // current route selected status
+        const currentPathArray = updatedPath!.split('#');
+        const pageRoute = currentPathArray[0];
+        const hashRoute = currentPathArray[1];
+    
+        // const item = event.composedPath().find(item => item instanceof HTMLElement ? item.part.contains('board-menu-item') : false) as HTMLElement;
+        // if(item == null) { return; }
+    
+        const items = [...this.findElement('app-menu').querySelectorAll('a')];
+        for(let i = 0; i < items.length; i++)
+        {
+            items[i].part.remove('selected');
+        }
+    
+        if(pageRoute != null)
+        {
+            const currentMenuItem = this.findElement('app-menu').querySelector(`[data-route="${pageRoute}"]`);
+            if(currentMenuItem != null)
+            {
+                currentMenuItem.setAttribute('aria-current', 'page');
+                currentMenuItem.part.add('selected');
+            }
+        }
+        if(hashRoute != null)
+        {
+            if(hashRoute.indexOf('config') == -1)
+            {
+                return;
+            }
+    
+            const configRoute = hashRoute.substring(7);
+            const configPanel = this.findElement('config-panel') as ConfigPanelElement;
+            const configMenuItems = [...configPanel.findElement('config-navigation').querySelectorAll(`a`)];
+            for(let i = 0; i < configMenuItems.length; i++)
+            {
+                configMenuItems[i].toggleAttribute('aria-current', false);
+                configMenuItems[i].classList.toggle('selected', false);
+                configMenuItems[i].part.toggle('selected', false);
+            }
+            configPanel.findElement('config-router').setAttribute('path', configRoute);
+    
+            const menuItem = configPanel.findElement('config-navigation')
+            .querySelector(`[data-route="#${hashRoute}"]`);
+            if(menuItem == null) { return; }
+    
+            menuItem.setAttribute('aria-current', 'page');
+            menuItem.part.toggle('selected', true);
+            menuItem.classList.toggle('selected', true);
+        }
+    
+    
+    
+    
+        // if(!this.hasAttribute('update-url')) { return; }
+        // const data = (event as CustomEvent).detail;
+        // // console.log(data);
+    
+        // const { windowPath, windowHash } = parseWindowPath();
+    
+        // let [routePath, routeHash] = this.findPart<PathRouterElement>('app-router').destructurePath(data.path);
+        // if(routePath.startsWith('/')) { routePath = routePath.substring(1); }
+        // routePath = routePath.trim();
+        // if(routeHash.startsWith('#')) { routeHash = routeHash.substring(1); }
+        // routeHash = routeHash.trim();
+    
+        // if(windowPath == routePath && windowHash == routeHash)
+        // {
+        //     // don't update the url if we've
+        //     // gone back to the same page
+        //     return;
+        // }
+        
+        // const newLocation = `${window.location.origin}/${routePath}${(routeHash != '') ? `#${routeHash}` : ''}${window.location.search}`;
+        // if(windowHash != '' && routeHash != '')
+        // {
+        //     // replace the url if only the hash changes
+        //     // otherwise back will cycle through every
+        //     // popup instead of just closing the dialog
+        //     window.history.replaceState(null, '', newLocation);
+        //     return;
+        // }
+    
+        // // console.log(newLocation);
+        // window.history.pushState(null, '', newLocation);
+    }
+    #boardRoute_beforeOpen(event: Event|CustomEvent)
+    {
+        const data = (event as CustomEvent).detail;
+        const boardId = data.properties.id;
+        if(boardId == null)
+        {
+            MessageCardElement.notify(`An error occurred attempting to open the board.`, 
+            this.getElement('notifications'), { type: MessageCardType.Error });
+            throw new Error('Unable to open board route with unknown id');
+        }
+        this.#renderBoard(boardId);
+        this.findElement<WelcomePanelElement>('welcome-panel').updateRecentBoardEntry(boardId);
+    }
+    async #boardSettingsRoute_beforeOpen(_event: Event|CustomEvent)
+    {
+        const router = this.findElement<PathRouterElement>('app-router');
+        const properties = await router.getRouteProperties();
+        if(properties.id == null)
+        {
+            MessageCardElement.notify(`An error occurred attempting to open the board for editing.`, 
+            this.getElement('notifications'), { type: MessageCardType.Error });
+            throw new Error('Unable to determine the selected board\'s id');
+        }
+
+        this.openBoardSettings(properties.id as string);
+    }
+    async #importDialog_import_onClick()
+    {
+        const boardData = this.findElement<ImportManagerComponent>('import-manager').getRecord();
+        await this.importBoard(boardData);
+
+        this.refreshBoards();
+    }
+
     //#endregion Handler
 
 
     //#region Utilities
+    async #getAppManifest()
+    {
+        const manifestLink = document.head.querySelector('link[rel="manifest"]');
+        const manifestRef = manifestLink?.getAttribute('href');
+        if(manifestRef == null)
+        {
+            return;
+        }
+
+        const manifestData = await fetch(manifestRef);
+        const manifest = await manifestData.json();
+        return manifest;
+    }
+    async #getAppVersion()
+    {
+        const manifest = await this.#getAppManifest();
+        if(manifest == null)
+        {
+            console.warn(`A manifest file could not be found linked in the index document's head. The app's version information could not be determined.`);
+            return DEFAULT_APP_VERSION;
+        }
+        return manifest.version;
+    }
+    #parseWindowPath()
+    {
+        const pathArray = window.location.search.substring(1).split('=');
+        let windowPath = pathArray[1] ?? "";
+        if(windowPath.startsWith('/')) { windowPath = windowPath.substring(1); }
+        if(windowPath.startsWith('demo/app/')) { windowPath = windowPath.substring(10); }
+        else if(windowPath.startsWith('demo/app.html')) { windowPath = windowPath.substring(14); }
+        windowPath = windowPath.trim();
+
+        let windowHash = window.location.hash;
+        if(windowHash.startsWith('#')) { windowHash = windowHash.substring(1); }
+        windowHash = windowHash.trim();
+
+        
+
+        return { windowPath, windowHash }
+    }
+
     //#endregion Utilities
 
     //#endregion Internal
 
-    // async #getAppManifest()
-    // {
-    //     const manifestLink = document.head.querySelector('link[rel="manifest"]');
-    //     const manifestRef = manifestLink?.getAttribute('href');
-    //     if(manifestRef == null)
-    //     {
-    //         return;
-    //     }
 
-    //     const manifestData = await fetch(manifestRef);
-    //     const manifest = await manifestData.json();
-    //     return manifest;
-    // }
-    // async #getAppVersion()
-    // {
-    //     const manifest = await this.#getAppManifest();
-    //     if(manifest == null)
-    //     {
-    //         console.warn(`A manifest file could not be found linked in the index document's head. The app's version information could not be determined.`);
-    //         return DEFAULT_APP_VERSION;
-    //     }
-    //     return manifest.version;
-    // }
-    // async #loadColorScheme()
-    // {
-    //     const colorScheme = await this.#getAppSetting(AppSettingKey.ColorScheme);
-    //     if(colorScheme == null) { return; }
-    //     this.setColorScheme(colorScheme as 'inherit'|'browser'|'light'|'dark');
-    // }
-    // #registerSharedData()
-    // {
-    //     this[SHAREDACCESSKEY] = 
-    //     {
-    //         data: this.#data,
-
-    //         refreshBoards: this.#refreshBoards.bind(this),
-    //         refreshActionHistory: this.#refreshActionHistory.bind(this),
-    //         refreshDeletedItems: this.#refreshDeletedItems.bind(this),
-
-    //         saveAppSetting: this.#saveAppSetting.bind(this),
-
-    //         // restoreDeletedItem: this.#restoreDeletedItem.bind(this),
-
-    //         // handleActionEntryReverse: this.#handleActionEntryReverse.bind(this),
-    //         // handelActionEntryActivate: this.#handelActionEntryActivate.bind(this),
-    //         // prepareHistoryEntries: this.#prepareHistoryEntries.bind(this),
-    //         // applyHistoryLength: this.#applyHistoryLength.bind(this),
-
-    //         renderBoard: this.#renderBoard.bind(this),
-    //         updateBoardSettings: this.#updateBoardSettings.bind(this),
-    //         // updateBoardItemOrder: this.#updateBoardItemOrder.bind(this),
-
-    //         updateListRecord: this.#updateListRecord.bind(this),
-    //         duplicateList: this.#duplicateList.bind(this),
-    //         // updateBoardRecordsAfterMove: this.#updateBoardRecordsAfterMove.bind(this),
-    //         updateRecentBoardEntry: this.#updateRecentBoardEntry.bind(this),
-    //         removeBoardFromRecentBoards: this.#removeBoardFromRecentBoards.bind(this),
-
-    //         registerTaskCard: this.#registerTaskCard.bind(this),
-    //         updateTaskRecord: this.#updateTaskRecord.bind(this),
-    //         updateTaskRecordsAfterMove: this.#updateTaskRecordsAfterMove.bind(this),
-    //         deleteTaskRecord: this.#deleteTaskRecord.bind(this),
-
-    //         openImportManager: this.#openImportManager.bind(this),
-
-    //         getConfirmation: this.#getConfirmation.bind(this),
-    //         getIdFromRoute: this.#getIdFromRoute.bind(this),
-
-    //     }
-    // }
-    
-    // async #importDialog_import_onClick(event: Event)
-    // {
-    //     const boardData = this.findElement<ImportManagerComponent>('import-manager').getRecord();
-    //     await this.importBoard(boardData);
-
-    //     this[SHAREDACCESSKEY].refreshBoards();
-    // }
-
-
-    // // boards
-    // async #refreshBoards()
-    // {
-    //     const channel = this.#getChannel<BoardChannel>(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-    //     const boardRecords = (await channel.getAll()).filter(item => item.deletedTimestamp == null);
-
-    //     // const menuItems: HTMLAnchorElement[] = [];
-    //     const collectionItems: CaptionedThumbnailElement[] = [];
-    //     for(let i = 0; i < boardRecords.length; i++)
-    //     {
-    //         const boardRecord = boardRecords[i];
-
-    //         // if(boardRecord.deletedTimestamp != null)
-    //         // {
-    //         //     continue;
-    //         // }
-
-    //         // const menuItem = this.#createBoardMenuItem(boardRecord);
-    //         // menuItems.push(menuItem);
-
-    //         // const collectionItem = this.#createBoardCollectionItem(boardRecord);
-    //         // collectionItems.push(collectionItem);
-    //     }
-
-    //     const menu = this.findElement<AppMenuElement>('app-menu');
-    //     menu.updateBoards(boardRecords);
-
-    //     const boardBrowser = this.findElement<BoardBrowserElement>('board-browser');
-    //     boardBrowser.updateBoards(boardRecords);
-
-    //     // menu items
-    //     // const boardsList = this.findElement('app-menu');
-    //     // [...boardsList.querySelectorAll('a')].map(item => item.remove());
-    //     // boardsList.append(...menuItems);
-
-    //     // collection items
-    //     // const boardBrowser = this.findElement('board-browser');
-    //     // [...boardBrowser.querySelectorAll('captioned-thumbnail')].map(item => item.remove());
-    //     // boardBrowser.append(...collectionItems);
-    // }
-    // // #createBoardMenuItem(boardRecord: TaskBoardRecord)
-    // // {
-    // //     const element = document.createElement('a');
-    // //     element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span><span part="board-item-name" class="board-item-name">${boardRecord.name}<span>`;
-    // //     // element.setAttribute('part', 'board-menu-item');
-    // //     element.classList.add('board-menu-item');
-    // //     element.dataset.route = `board/${boardRecord.id}`;
-    
-    // //     const handle = element.querySelector('[part="menu-item-handle"]')!;
-    // //     handle.addEventListener('mousedown', (_event) =>
-    // //     {
-    // //         element.draggable = true;
-    // //     });
-    // //     handle.addEventListener('mouseup', (_event) =>
-    // //     {
-    // //         element.removeAttribute('draggable');
-    // //     });
-    // //     element.addEventListener('dragstart', (_event: DragEvent) => 
-    // //     {
-    // //         this.#draggingBoard = element;
-    // //         element.classList.add('dragging');
-    // //         this.classList.add('drop-target');
-    // //     });
-    // //     element.addEventListener('dragend', (_event: DragEvent) => 
-    // //     {
-    // //         element.classList.remove('dragging');
-    // //         this.#draggingBoard = null;
-    // //         this.classList.remove('drop-target');
-    // //     });
-
-    // //     return element;
-    // // }
-    // // #createBoardCollectionItem(boardRecord: TaskBoardRecord)
-    // // {
-    // //     const element = new CaptionedThumbnailElement();
-    // //     element.innerHTML = `<svg part="board-browser-icon" slot="icon">
-    // //         <use href="#icon-definition_task-board"></use>
-    // //     </svg>
-    // //     ${boardRecord.name}`;
-    // //     element.setAttribute('data-board-id', boardRecord.id);
-    // //     element.toggleAttribute('select', true);
-    // //     return element;
-    // // }
-    
-    // // async #updateBoardItemOrder(draggingCursorY: number)
-    // // {
-    // //     if(this.#draggingBoard == null)
-    // //     {
-    // //         return;
-    // //     }
-
-    // //     const boards = this.findElement('boards');
-    // //     const nextElement = this.#getNextBoardItem(draggingCursorY).boardElement;
-        
-    // //     // prevent unecessary re-renders; this can kill perf, if you don't guard here;
-    // //     // re-rendering by appending or inserting on every mouse-move is heavy;
-    // //     if(this.#draggingBoard.parentElement == boards && nextElement == this.#draggingBoard.nextElementSibling){ return; }
-
-
-    // //     if(nextElement == null)
-    // //     {
-    // //         boards.append(this.#draggingBoard);
-    // //     }
-    // //     else
-    // //     {
-    // //         boards.insertBefore(this.#draggingBoard, nextElement);
-    // //     }
-    // // }
-
-    // async #refreshRecentBoards()
-    // {
-    //     const boards = await this.#getRecentBoards();
-    //     const welcomePanel = this.shadowRoot!.querySelector<WelcomePanelElement>('welcome-panel')!;
-    //     welcomePanel.updateBoards(boards);
-    // }
-
-    // // #getNextBoardItem(mouseY: number)
-    // // {
-    // //     const lists = [...this.findElement('boards').querySelectorAll('a:not(.dragging)')] as HTMLElement[];
-    // //     return lists.reduce((closest: { offset: number, boardElement?:HTMLElement }, item: HTMLElement) =>
-    // //     {
-    // //         const boundingRect = item.getBoundingClientRect();
-    // //         const offset = mouseY - boundingRect.top - (boundingRect.height / 2);
-    // //         if(offset < 0 && offset > closest.offset)
-    // //         {
-    // //             return { offset, boardElement: item };
-    // //         }
-    // //         return closest;
-    // //     }, { offset: Number.NEGATIVE_INFINITY });
-    // // }
-
-    // async #renderBoard(id: string)
-    // {
-    //     const channel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-    //     const settingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
-    //     const board = await channel.get(id);
-    //     if(board == null)
-    //     {
-    //         this.findElement<PathRouterElement>('app-router').navigate('/');
-    //         MessageCardElement.notify(`No board found with the target id (${id}). Navigated back to Welcome page.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Warn });
-    //         console.warn(`No board found with the target id (${id}). Navigated back to Welcome page.`);
-    //         return;
-    //     }
-    //     const taskBoard = this.findElement<TaskBoardElement>('task-board');
-    //     taskBoard.innerHTML = '';
-    //     taskBoard.setAttribute('data-board-id', board.id);
-
-    //     this.#renderBoardBackground(board);
-    //     if(board.useCustomFontColor == true)
-    //     {
-    //         taskBoard.style.setProperty('--board-font-color', board.fontColor);
-    //     }
-    //     else
-    //     {
-    //         taskBoard.style.removeProperty('--board-font-color');
-    //     }
-
-    //     const settings = await settingsChannel.get(board.taskSettingsId);
-    //     if(settings != null)
-    //     {
-    //         this.#applyTaskSettings(taskBoard, settings);
-    //     }
-
-    //     const tasks = await channel.getTasks(id);
-    //     await this.#loadLists(taskBoard, tasks);
-    //     await this.#addBoardToRecentBoards(id, board.name);
-    //     this.#refreshRecentBoards();
-    // }
-    // async #renderBoardBackground(board: TaskBoardRecord)
-    // {
-    //     const channel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
-
-    //     const taskBoard = this.findElement('task-board');
-    //     if(board.backgroundImageId != null && board.backgroundImageId.trim() != "")
-    //     {
-    //         let backgroundImageUrl = this.#customImageUrls.get(board.backgroundImageId);
-    //         if(backgroundImageUrl == null)
-    //         {
-    //             const backgroundImage = await channel.get(board.backgroundImageId);
-    //             if(backgroundImage == null)
-    //             {
-    //                 MessageCardElement.notify(`No image found with the target id (${board.backgroundImageId}).`, 
-    //                 this.getElement('notifications'), { type: MessageCardType.Warn });
-    //                 throw new Error(`Unable to find background image from id: ${board.backgroundImageId}`);
-    //             }
-    //             if(backgroundImage.image == null) { throw new Error(`Cannot load custom image with null image property.`); }
-
-    //             this.#customImageUrls.set(board.backgroundImageId, URL.createObjectURL(backgroundImage.image));
-    //             backgroundImageUrl = this.#customImageUrls.get(board.backgroundImageId)
-    //         }
-    
-    //         taskBoard.style.setProperty('--board-background-source', `url(${backgroundImageUrl})`);
-    //     }
-    //     else
-    //     {
-    //         taskBoard.style.removeProperty('--board-background-source');
-    //     }
-
-        
-    //     if(board.backgroundDisplay == 'center')
-    //     {
-    //         taskBoard.style.removeProperty('--background-image-display');
-    //         taskBoard.style.setProperty('--background-image-repeat', 'no-repeat');
-    //         taskBoard.style.setProperty('--background-image-position', `calc(50% + ${board.backgroundOffsetX}px) calc(50% + ${board.backgroundOffsetY}px)`);
-    //     }
-    //     else if(board.backgroundDisplay == 'stretch')
-    //     {
-    //         taskBoard.style.setProperty('--background-image-repeat', 'no-repeat');
-    //         taskBoard.style.setProperty('--background-image-display', 'cover');
-    //         taskBoard.style.setProperty('--background-image-position', '0px 0px');
-    //     }
-    //     else if(board.backgroundDisplay == 'tile')
-    //     {
-    //         taskBoard.style.removeProperty('--background-image-display');
-    //         taskBoard.style.removeProperty('--background-image-repeat');
-    //         taskBoard.style.removeProperty('--background-image-position');
-    //     }
-    //     taskBoard.style.setProperty('--background-image-offset', `${board.backgroundOffsetX}px ${board.backgroundOffsetY}px`);
-
-    //     if(board.useCustomBackgroundColor == true)
-    //     {
-    //         taskBoard.style.setProperty('--board-background-color', board.backgroundColor);
-    //     }
-    //     else
-    //     {
-    //         taskBoard.style.removeProperty('--board-background-color');
-    //     }
-
-    // }
     // async #updateBoardSettings()
     // {
     //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
@@ -1086,394 +1388,139 @@ export class TaskboardManagerElement extends HTMLElement
     //     // update recent entries
     //     this.#updateRecentBoardEntry(board.id, board.name);
     // }
+    // #registerSharedData()
+    // {
+    //     this[SHAREDACCESSKEY] = 
+    //     {
+    //         data: this.#data,
+
+    //         refreshBoards: this.#refreshBoards.bind(this),
+    //         refreshActionHistory: this.#refreshActionHistory.bind(this),
+    //         refreshDeletedItems: this.#refreshDeletedItems.bind(this),
+
+    //         saveAppSetting: this.#saveAppSetting.bind(this),
+
+    //         // restoreDeletedItem: this.#restoreDeletedItem.bind(this),
+
+    //         // handleActionEntryReverse: this.#handleActionEntryReverse.bind(this),
+    //         // handelActionEntryActivate: this.#handelActionEntryActivate.bind(this),
+    //         // prepareHistoryEntries: this.#prepareHistoryEntries.bind(this),
+    //         // applyHistoryLength: this.#applyHistoryLength.bind(this),
+
+    //         renderBoard: this.#renderBoard.bind(this),
+    //         updateBoardSettings: this.#updateBoardSettings.bind(this),
+    //         // updateBoardItemOrder: this.#updateBoardItemOrder.bind(this),
+
+    //         updateListRecord: this.#updateListRecord.bind(this),
+    //         duplicateList: this.#duplicateList.bind(this),
+    //         // updateBoardRecordsAfterMove: this.#updateBoardRecordsAfterMove.bind(this),
+    //         updateRecentBoardEntry: this.#updateRecentBoardEntry.bind(this),
+    //         removeBoardFromRecentBoards: this.#removeBoardFromRecentBoards.bind(this),
+
+    //         registerTaskCard: this.#registerTaskCard.bind(this),
+    //         updateTaskRecord: this.#updateTaskRecord.bind(this),
+    //         updateTaskRecordsAfterMove: this.#updateTaskRecordsAfterMove.bind(this),
+    //         deleteTaskRecord: this.#deleteTaskRecord.bind(this),
+
+    //         openImportManager: this.#openImportManager.bind(this),
+
+    //         getConfirmation: this.#getConfirmation.bind(this),
+    //         getIdFromRoute: this.#getIdFromRoute.bind(this),
+
+    //     }
+    // }
     
-    // async #prepareExportData(id: string)
-    // {
-    //     const exportBackgroundImage = this.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('export-background-image').checked;
+
+
+    // // boards
+    // // #createBoardMenuItem(boardRecord: TaskBoardRecord)
+    // // {
+    // //     const element = document.createElement('a');
+    // //     element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span><span part="board-item-name" class="board-item-name">${boardRecord.name}<span>`;
+    // //     // element.setAttribute('part', 'board-menu-item');
+    // //     element.classList.add('board-menu-item');
+    // //     element.dataset.route = `board/${boardRecord.id}`;
+    
+    // //     const handle = element.querySelector('[part="menu-item-handle"]')!;
+    // //     handle.addEventListener('mousedown', (_event) =>
+    // //     {
+    // //         element.draggable = true;
+    // //     });
+    // //     handle.addEventListener('mouseup', (_event) =>
+    // //     {
+    // //         element.removeAttribute('draggable');
+    // //     });
+    // //     element.addEventListener('dragstart', (_event: DragEvent) => 
+    // //     {
+    // //         this.#draggingBoard = element;
+    // //         element.classList.add('dragging');
+    // //         this.classList.add('drop-target');
+    // //     });
+    // //     element.addEventListener('dragend', (_event: DragEvent) => 
+    // //     {
+    // //         element.classList.remove('dragging');
+    // //         this.#draggingBoard = null;
+    // //         this.classList.remove('drop-target');
+    // //     });
+
+    // //     return element;
+    // // }
+    // // #createBoardCollectionItem(boardRecord: TaskBoardRecord)
+    // // {
+    // //     const element = new CaptionedThumbnailElement();
+    // //     element.innerHTML = `<svg part="board-browser-icon" slot="icon">
+    // //         <use href="#icon-definition_task-board"></use>
+    // //     </svg>
+    // //     ${boardRecord.name}`;
+    // //     element.setAttribute('data-board-id', boardRecord.id);
+    // //     element.toggleAttribute('select', true);
+    // //     return element;
+    // // }
+    
+    // // async #updateBoardItemOrder(draggingCursorY: number)
+    // // {
+    // //     if(this.#draggingBoard == null)
+    // //     {
+    // //         return;
+    // //     }
+
+    // //     const boards = this.findElement('boards');
+    // //     const nextElement = this.#getNextBoardItem(draggingCursorY).boardElement;
         
-    //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-    //     const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
-    //     const imageChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
-
-    //     const board = await boardChannel.get(id);
-    //     if(board == null) { throw new Error(`Error loading board from id: ${id}`); }
+    // //     // prevent unecessary re-renders; this can kill perf, if you don't guard here;
+    // //     // re-rendering by appending or inserting on every mouse-move is heavy;
+    // //     if(this.#draggingBoard.parentElement == boards && nextElement == this.#draggingBoard.nextElementSibling){ return; }
 
 
-    //     const tasks = await boardChannel.getTasks(id);
+    // //     if(nextElement == null)
+    // //     {
+    // //         boards.append(this.#draggingBoard);
+    // //     }
+    // //     else
+    // //     {
+    // //         boards.insertBefore(this.#draggingBoard, nextElement);
+    // //     }
+    // // }
 
-    //     const lists = await boardChannel.getTaskLists(id);
-    //     const listExports: ListExport[] = [];
-    //     const taskSettingsIds: string[] = [board.taskSettingsId];
-    //     for(let i = 0; i < lists.length; i++)
-    //     {
-    //         const list = lists[i];
-    //         if(list.deletedTimestamp != undefined) { continue; }
-    //         const listTasks = tasks.filter(item => item.listId == list.id && item.deletedTimestamp == undefined);
-    //         const listExport = new ListExport(list, undefined, listTasks);
-    //         taskSettingsIds.push(list.taskSettingsId);
-    //         listExports.push(listExport);
-    //     }
 
-    //     const backgroundImage = (exportBackgroundImage == true && board.backgroundImageId != null && board.backgroundImageId != '') ? (await imageChannel.get(board.backgroundImageId)) ?? undefined : undefined;
+    // // #getNextBoardItem(mouseY: number)
+    // // {
+    // //     const lists = [...this.findElement('boards').querySelectorAll('a:not(.dragging)')] as HTMLElement[];
+    // //     return lists.reduce((closest: { offset: number, boardElement?:HTMLElement }, item: HTMLElement) =>
+    // //     {
+    // //         const boundingRect = item.getBoundingClientRect();
+    // //         const offset = mouseY - boundingRect.top - (boundingRect.height / 2);
+    // //         if(offset < 0 && offset > closest.offset)
+    // //         {
+    // //             return { offset, boardElement: item };
+    // //         }
+    // //         return closest;
+    // //     }, { offset: Number.NEGATIVE_INFINITY });
+    // // }
 
-    //     const boardExportData = new BoardExport(board, undefined, backgroundImage);
-    //     if(boardExportData.backgroundImage != null)
-    //     {
-    //         await (boardExportData.backgroundImage as ImageExport).loadImage();
-    //     }
-    //     else if(exportBackgroundImage == false)
-    //     {
-    //         delete boardExportData.backgroundImageId;
-    //     }
-
-    //     const taskSettings = await taskSettingsChannel.getItems(taskSettingsIds);
-    //     for(let i = 0; i < taskSettings.length; i++)
-    //     {
-    //         const item = taskSettings[i];
-    //         if(board.taskSettingsId == item.id)
-    //         {
-    //             boardExportData.taskSettings = item;
-    //             continue;
-    //         }
-
-    //         const target = listExports.find(listItem => listItem.taskSettingsId == item.id);
-    //         if(target == null)
-    //         {
-    //             throw new Error(`Error assigning task settings to target list`);
-    //         }
-    //         target.taskSettings = item;
-    //     }
-    //     boardExportData.lists = listExports;
-
-    //     return boardExportData;
-    // }
-    // #downloadExportData(boardExportData: BoardExport)
-    // {
-    //     const currentDate = new Date();
-    //     const currentDateString = `${currentDate.getDate()}-${currentDate.getMonth()}-${currentDate.getFullYear()}`;
-        
-    //     const filename = `taskboard_export_${currentDateString}.json`;
-        
-    //     const element = document.createElement('a');
-    //     element.setAttribute('href', 
-    //     'data:application/json;charset=utf-8, '
-    //     + encodeURIComponent(JSON.stringify(boardExportData, null, 2)));
-    //     element.setAttribute('download', filename);
-        
-    //     this.appendChild(element);
-    //     element.click();
-    //     this.removeChild(element);
-    // }
+    
 
     // // lists
-    // async #loadLists(board: TaskBoardElement, tasks: TaskRecord[])
-    // {
-    //     const boardId = board.dataset.boardId;
-    //     if(boardId == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred loading the board. Navigated back to Welcome page.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         console.error(new Error('Unable to add task when parent boards\'s data-board-id attribute is undefined.'));
-    //         return;
-    //     }
-
-    //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-    //     const settingsChannel = this.#getChannel(this.#data.taskSettings, LIST_ERROR_MESSAGE, 'danger');
-
-    //     const lists = await boardChannel.getTaskLists(boardId);
-    //     const taskSettings = await settingsChannel.getItems(lists.map(item => item.taskSettingsId));
-    //     const listElements = [];
-    //     for(let i = 0; i < lists.length; i++)
-    //     {
-    //         const list = lists[i];
-    //         if(list.deletedTimestamp != undefined) { continue; }
-    //         const settings = taskSettings.find(item => item.id == list.taskSettingsId);
-    //         if(settings == null)
-    //         {
-    //             MessageCardElement.notify(`An error occurred loading a list's settings. Some settings may not be displayed properly.`, 
-    //             this.getElement('notifications'), { type: MessageCardType.Warn });
-    //             console.warn(new Error(`Unable to find settings from list's taskSettingsId.`));
-    //         }
-    //         const element = new TaskListElement();
-    //         element.setAttribute('name', list.name);
-    //         element.setAttribute('color', list.color);
-    //         element.setAttribute('data-tasklist-id', list.id);
-    //         element.toggleAttribute('drag-drop', true);
-    //         element.setAttribute('part', 'task-list');
-    //         element.style.setProperty('--list-color', list.color);
-    //         element.setAttribute('exportparts', "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, tasks:list-tasks, add-button:list-add-button, button, input, finished:task-finished");
-    //         element.dragAndDropQueryParent = board;
-
-    //         if(list.useCustomWidth == true)
-    //         {
-    //             element.style.setProperty('--list-width', `${list.width}px`);
-    //             element.style.setProperty('flex-grow', '0');
-    //         }
-    //         else
-    //         {
-    //             element.style.removeProperty('--list-width');
-    //             element.style.removeProperty('flex-grow');
-    //         }
-
-    //         const listTitle = (list.description == null || list.description.trim() == "") ? list.name : list.description;
-    //         element.setAttribute('title', listTitle);
-
-    //         if(list.useCustomBackgroundColor == true)
-    //         {
-    //             element.style.setProperty('--list-background-color', list.backgroundColor);
-    //         }
-    //         else
-    //         {
-    //             element.style.removeProperty('--list-background-color');
-    //         }
-    //         if(list.useCustomFontColor == true)
-    //         {
-    //             element.style.setProperty('--list-font-color', list.fontColor);
-    //         }
-    //         else
-    //         {
-    //             element.style.removeProperty('--list-font-color');
-    //         }
-
-    //         if(list.colorDisplay == TaskListColorDisplay.BorderColor)
-    //         {
-    //             element.classList.add('hide-color');
-    //             element.style.setProperty('--list-border-color', list.color);
-    //         }
-    //         else if(list.colorDisplay == TaskListColorDisplay.FontColor)
-    //         {
-    //             element.classList.add('hide-color');
-    //             element.style.setProperty('--list-font-color', list.color);
-    //         }
-    //         else
-    //         {
-    //             element.classList.remove('hide-color');
-    //             element.style.removeProperty('--list-border-color');
-    //             if(list.useCustomFontColor == false)
-    //             {
-    //                 element.style.removeProperty('--list-font-color');
-    //             }
-    //         }
-
-    //         this.#applyTaskSettings(element, settings);
-
-    //         this.#loadListTasks(element, tasks);
-    //         listElements.push(element);
-    //     }
-
-    //     board.append(...listElements);
-    // }
-    // #applyTaskSettings(target: HTMLElement, settings?: TaskSettingsRecord)
-    // {
-    //     if(settings == null)
-    //     {
-    //         return;
-    //     }
-    //     if(settings.useCustomBackgroundColor == true)
-    //     {
-    //         target.style.setProperty('--task-background-color', settings.customBackgroundColor);
-    //     }
-    //     else
-    //     {
-    //         target.style.removeProperty('--task-background-color');
-    //     }
-
-    //     if(settings.useCustomFontColor == true)
-    //     {
-    //         target.style.setProperty('--task-font-color', settings.customFontColor);
-    //     }
-    //     else
-    //     {
-    //         target.style.removeProperty('--task-font-color');
-    //     }
-
-    //     if(settings.useCustomFontSize == true)
-    //     {
-    //         target.style.setProperty('--task-font-size', `${settings.customFontSize}px`);
-    //     }
-    //     else
-    //     {
-    //         target.style.removeProperty('--task-font-size');
-    //     }
-
-    //     if(settings.useCustomBorderColor == true)
-    //     {
-    //         target.style.setProperty('--task-border-color', settings.customBorderColor);
-    //     }
-    //     else
-    //     {
-    //         target.style.removeProperty('--task-border-color');
-    //     }
-
-    //     if(settings.useCustomBorderRadius == true)
-    //     {
-    //         target.style.setProperty('--task-border-radius', `${settings.borderRadiusValue}${settings.borderRadiusUnit}`);
-    //     }
-    //     else
-    //     {
-    //         target.style.removeProperty('--task-border-radius');
-    //     }
-
-    //     if(settings.colorDisplay == TaskColorDisplay.Hidden)
-    //     {
-    //         target.classList.remove('task-color-border');
-    //         target.classList.remove('color-border-top');
-    //         target.classList.remove('color-border-right');
-    //         target.classList.remove('color-border-bottom');
-    //         target.classList.remove('color-border-left');
-    //         target.classList.remove('task-color-background');
-
-    //         target.classList.add('hide-task-color');
-    //     }
-    //     else if(settings.colorDisplay == TaskColorDisplay.Borders)
-    //     {
-    //         target.classList.remove('hide-task-color');
-    //         target.classList.remove('task-color-background');
-    //         target.classList.remove('color-border-top');
-    //         target.classList.remove('color-border-right');
-    //         target.classList.remove('color-border-bottom');
-    //         target.classList.remove('color-border-left');
-
-    //         target.classList.add('task-color-border');
-    //     }
-    //     else if(settings.colorDisplay == TaskColorDisplay.TopBorder)
-    //     {
-    //         target.classList.remove('hide-task-color');
-    //         target.classList.remove('task-color-background');
-    //         target.classList.remove('color-border-right');
-    //         target.classList.remove('color-border-bottom');
-    //         target.classList.remove('color-border-left');
-
-    //         target.classList.add('task-color-border', 'color-border-top');
-    //     }
-    //     else if(settings.colorDisplay == TaskColorDisplay.RightBorder)
-    //     {
-    //         target.classList.remove('hide-task-color');
-    //         target.classList.remove('task-color-background');
-    //         target.classList.remove('color-border-top');
-    //         target.classList.remove('color-border-bottom');
-    //         target.classList.remove('color-border-left');
-
-    //         target.classList.add('task-color-border', 'color-border-right');
-    //     }
-    //     else if(settings.colorDisplay == TaskColorDisplay.BottomBorder)
-    //     {
-    //         target.classList.remove('hide-task-color');
-    //         target.classList.remove('task-color-background');
-    //         target.classList.remove('color-border-top');
-    //         target.classList.remove('color-border-right');
-    //         target.classList.remove('color-border-left');
-
-    //         target.classList.add('task-color-border', 'color-border-bottom');
-    //     }
-    //     else if(settings.colorDisplay == TaskColorDisplay.LeftBorder)
-    //     {
-    //         target.classList.remove('hide-task-color');
-    //         target.classList.remove('task-color-background');
-    //         target.classList.remove('color-border-top');
-    //         target.classList.remove('color-border-right');
-    //         target.classList.remove('color-border-bottom');
-
-    //         target.classList.add('task-color-border', 'color-border-left');
-    //     }
-    //     else if(settings.colorDisplay == TaskColorDisplay.Background)
-    //     {
-    //         target.classList.remove('hide-task-color');
-    //         target.classList.remove('task-color-border');
-    //         target.classList.remove('color-border-top');
-    //         target.classList.remove('color-border-right');
-    //         target.classList.remove('color-border-bottom');
-    //         target.classList.remove('color-border-left');
-
-    //         target.classList.add('task-color-background');
-    //     }
-    //     else
-    //     {
-    //         target.classList.remove('hide-task-color');
-    //         target.classList.remove('task-color-border');
-    //         target.classList.remove('color-border-top');
-    //         target.classList.remove('color-border-right');
-    //         target.classList.remove('color-border-bottom');
-    //         target.classList.remove('color-border-left');
-    //         target.classList.remove('task-color-background');
-    //     }
-
-    //     if(settings.centerCheckbox == true)
-    //     {
-    //         target.classList.add('center-checkbox');
-    //     }
-    //     else
-    //     {
-    //         target.classList.remove('center-checkbox');
-    //     }
-    //     if(settings.centerRemoveButton == true)
-    //     {
-    //         target.classList.add('center-remove');
-    //     }
-    //     else
-    //     {
-    //         target.classList.remove('center-remove');
-    //     }
-        
-    //     if(settings.useCustomWidth == true)
-    //     {
-    //         target.style.setProperty('--task-width', `${settings.customWidth}px`);
-    //     }
-    //     else
-    //     {
-    //         target.style.removeProperty('--task-width');
-    //     }
-        
-    //     if(settings.useCustomBorderWidth_top == true)
-    //     {
-    //         target.style.setProperty('--task-border-top', `${settings.useCustomBorderWidth_top}px`);
-    //     }
-    //     else
-    //     {
-    //         target.style.removeProperty('--task-border-top');
-    //     }
-    //     if(settings.useCustomBorderWidth_right == true)
-    //     {
-    //         target.style.setProperty('--task-border-right', `${settings.borderWidth_right}px`);
-    //     }
-    //     else
-    //     {
-    //         target.style.removeProperty('--task-border-right');
-    //     }
-    //     if(settings.useCustomBorderWidth_bottom == true)
-    //     {
-    //         target.style.setProperty('--task-border-bottom', `${settings.borderWidth_bottom}px`);
-    //     }
-    //     else
-    //     {
-    //         target.style.removeProperty('--task-border-bottom');
-    //     }
-    //     if(settings.useCustomBorderWidth_left == true)
-    //     {
-    //         target.style.setProperty('--task-border-left', `${settings.borderWidth_left}px`);
-    //     }
-    //     else
-    //     {
-    //         target.style.removeProperty('--task-border-left');
-    //     }
-    // }
-    // #loadListTasks(taskList: TaskListElement, tasks: TaskRecord[])
-    // {
-    //     const listId = taskList.dataset.tasklistId;
-    //     for(let i = 0; i < tasks.length; i++)
-    //     {
-    //         const taskElements: TaskCardElement[] = [];
-    //         if(tasks[i].listId == listId)
-    //         {
-    //             const task = tasks[i];
-    //             if(task.deletedTimestamp != undefined) { continue; }
-    //             const taskElement = new TaskCardElement();
-    //             this.#initTaskCard(taskElement, task);
-    //             taskElements.push(taskElement);
-    //         }
-    //         taskList.append(...taskElements);
-    //     }
-    // }
 
     // async #updateListRecord(taskListComponent: TaskListElement)
     // {
@@ -1705,603 +1752,10 @@ export class TaskboardManagerElement extends HTMLElement
     //     const toSave = await this.#getOrderedTasks(parent);
     //     await this.#data.tasks.saveItems(toSave); 
     // }
-    // #initTaskCard(card: TaskCardElement, task: TaskRecord)
-    // {
-    //     card.dataset.taskId = task.id;
-    //     card.setAttribute('color', task.color)
-    //     card.setAttribute('is-finished', task.isFinished.toString());
-    //     card.setAttribute('description', task.description);
-    //     card.setAttribute('draggable', "true");
-    //     card.setAttribute('part', 'task-card');
-    //     card.setAttribute('exportparts', "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator, button, input, finished");
-    //     card.style.setProperty('--task-color', task.color);
-    //     card.findElement('description').addEventListener('keyup', taskDescription_onKeyUp.bind(this));
-    // }
-
-    // // history    
-    // async #refreshActionHistory()
-    // {
-    //     const channel = this.#getChannel(this.#data.historyEntries, HISTORY_ERROR_MESSAGE, 'danger');
-
-    //     const configPanel = this.getElement<ConfigPanelElement>('config-panel');
-    //     [...configPanel.querySelectorAll('[slot="action-history"]')].map(item => item.remove());
-
-    //     configPanel.preventDefaultHistoryAction();
-
-    //     const records = await channel.getAll('timestamp');
-    //     if(records.length == 0)
-    //     {
-    //         return;
-    //     }
-
-    //     let activeEntryIndex = await this.#getAppSetting<number>(AppSettingKey.ActiveEntryIndex);
-    //     if(activeEntryIndex != null && activeEntryIndex > records.length)
-    //     {
-    //         activeEntryIndex = records.length - 1;
-    //     }
-
-    //     let entries: HTMLElement[] = [];
-    //     let activeEntry: HTMLElement | null = null;
-    //     for(let i = 0; i < records.length; i++)
-    //     {
-    //         const record = records[i];
-    //         const entry = this.#createActionHistoryEntryElement(record);
-    //         entries.push(entry);
-    //         if(i == activeEntryIndex)
-    //         {
-    //             entry.toggleAttribute(ATTRIBUTENAME_ACTIVE, true); 
-    //             activeEntry = entry;
-    //             activeEntry.part.add('active');
-    //             const descendants = [...activeEntry.querySelectorAll('span')] as HTMLElement[];
-    //             for(let i = 0; i < descendants.length; i++)
-    //             {
-    //                 descendants[i].part.add('active');
-    //             }
-    //             continue;
-    //         }
-    //         if(activeEntry != null)
-    //         {
-    //             entry.toggleAttribute(ATTRIBUTENAME_REVERSED, true);
-    //         }
-    //     }
-    //     if(activeEntry == null)
-    //     {
-    //         entries = entries.map(item => { item.toggleAttribute(ATTRIBUTENAME_REVERSED, true); return item; });
-    //     }
-    //     configPanel.append(...entries);
-        
-    //     configPanel.allowDefaultHistoryAction();
-    // }
-    // #createActionHistoryEntryElement(entry: HistoryEntryRecord)
-    // {
-    //     const element = document.createElement('div');
-    //     element.toggleAttribute('data-entry', true);
-    //     element.setAttribute('timestamp', entry.timestamp.toString());
-    //     element.setAttribute('data-entry-id', entry.id);
-    //     element.setAttribute('part', "action-history-entry");
-    //     element.classList.add('action-history-entry');
-    //     element.setAttribute('slot', "action-history");
-    //     element.innerHTML = `<span class="action-type" part="action-history-entry-type">${entry.action.toUpperCase()}</span>
-    //     <span class="data" part="action-history-entry-data">
-    //         <span class="target-type" part="action-history-target-type">${entry.data.targetType[0].toUpperCase()}${entry.data.targetType.substring(1)}</span>
-    //         <span class="target-id" part="action-history-target-id">${entry.data.properties.id}</span>
-    //     </span>`;
-    //     return element;
-    // }
-    // async #handleActionEntryReverse(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
-    // {
-    //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
-    //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
-    //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
-    //     const entryId = targetEntry.getAttribute('data-entry-id');
-    //     if(actionType == null || recordType == null || recordId == null || entryId == null)
-    //     { 
-    //         console.error(new Error('Required property was not found.')); return;
-    //     }
-
-    //     const channel = (recordType == 'board')
-    //     ? this.#data.boards 
-    //     : (recordType == 'list')
-    //     ? this.#data.lists
-    //     : (recordType == 'task')
-    //     ? this.#data.tasks
-    //     : (recordType == 'image')
-    //     ? this.#data.customImages
-    //     : null;
-        
-    //     if(channel == null) 
-    //     {
-    //         throw new Error(`Unknown record type: ${recordType}`);
-    //     }
-
-    //     if(actionType == 'create')
-    //     {
-    //         await channel.delete(recordId);
-    //     }
-    //     else if (actionType == 'update')
-    //     {
-    //         const currentEntry = await this.#data.historyEntries?.get(entryId);
-    //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
-    //         const target = await channel.get(recordId);
-    //         if(target == null) { throw new Error('Unable to find target record.'); }
-    //         await this.#reverseUpdate(channel, currentEntry, target)
-    //     }
-    //     else if (actionType == 'delete')
-    //     {
-    //         await channel.restore(recordId);
-    //     }
-    //     else
-    //     {
-    //         console.error(`Unknown action type: ${actionType}`);
-    //     }
-        
-    //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
-    // }
-    // async #reverseUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
-    // {
-    //     if(currentEntry.data.properties.updates != null)
-    //     {
-    //         let isRestorationUpdate = false;
-    //         for(const [key, value] of currentEntry.data.properties.updates)
-    //         {
-    //             if(key == 'deletedTimestamp')
-    //             {
-    //                 isRestorationUpdate = true;
-    //                 continue;
-    //             }
-    //             (target as unknown as any)[key] = value.from;
-    //         }
-    //         await channel.save(target as unknown as any);
-    //         if(isRestorationUpdate == true)
-    //         {
-    //             await channel.delete(currentEntry.data.properties.id);
-    //         }
-    //     }
-
-    //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
-    //     {
-    //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
-    //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
-    //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
-    //         {
-    //             (settingsTarget as unknown as any)[key] = value.from;
-    //         }
-    //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
-    //     }
-
-    //     if(currentEntry.data.properties.backgroundImages != null)
-    //     {
-    //         const updatedImages: CustomImageRecord[] = [];
-    //         const deletedImageIds: string[] = [];
-    //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
-    //         {
-    //             const data = currentEntry.data.properties.backgroundImages[i];
-    //             const imageTarget = await this.#data.customImages?.get(data.id);
-    //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
-    //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
-    //             {
-    //                 // if boardId going from "" to id, this is an insert; treat it like undoing an image insert
-    //                 if(key == 'boardId' && value.from == "")
-    //                 {
-    //                     deletedImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
-    //                     continue;
-    //                 }
-    //                 (imageTarget as unknown as any)[key] = value.from;
-    //             }
-    //             updatedImages.push(imageTarget);
-    //         }
-    //         await this.#data.customImages?.saveItems(updatedImages);
-    //         await this.#data.customImages?.deleteItems(deletedImageIds);
-    //     }
-    // }
-    // async #handelActionEntryActivate(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
-    // {
-    //     const previouslyActive = [...targetEntry.parentElement!.querySelectorAll('[part="active"]')] as HTMLElement[];
-    //     for(let i = 0; i < previouslyActive.length; i++)
-    //     {
-    //         previouslyActive[i].part.remove('active');
-    //         const descendants = [...previouslyActive[i].querySelectorAll('span')] as HTMLElement[];
-    //         for(let i = 0; i < descendants.length; i++)
-    //         {
-    //             descendants[i].part.add('active');
-    //         }
-    //     }
-    //     targetEntry.part.add('active');
-    //     const descendants = [...targetEntry.querySelectorAll('span')] as HTMLElement[];
-    //     for(let i = 0; i < descendants.length; i++)
-    //     {
-    //         descendants[i].part.add('active');
-    //     }
-
-    //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
-    //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
-    //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
-    //     const entryId = targetEntry.getAttribute('data-entry-id');
-    //     if(actionType == null || recordType == null || recordId == null || entryId == null) { console.error(new Error('Required property was not found.')); return; }
-
-    //     const channel = (recordType == 'board')
-    //     ? this.#data.boards 
-    //     : (recordType == 'list')
-    //     ? this.#data.lists
-    //     : (recordType == 'task')
-    //     ? this.#data.tasks
-    //     : (recordType == 'image')
-    //     ? this.#data.customImages
-    //     : null;
-        
-    //     if(channel == null) 
-    //     {
-    //         throw new Error(`Unknown record type: ${recordType}`);
-    //     }
-
-    //     if(actionType == 'create')
-    //     {
-    //         await channel.restore(recordId);
-    //     }
-    //     else if (actionType == 'update')
-    //     {
-    //         const currentEntry = await this.#data.historyEntries?.get(entryId);
-    //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
-    //         const target = await channel.get(recordId);
-    //         if(target == null) { throw new Error('Unable to find target record.'); }
-    //         await this.#activateUpdate(channel, currentEntry, target);
-    //     }
-    //     else if (actionType == 'delete')
-    //     {
-    //         await channel.delete(recordId);
-    //     }
-    //     else
-    //     {
-    //         console.error(`Unknown action type: ${actionType}`);
-    //     }
-
-    //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
-    // }
-    // async #activateUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
-    // {
-    //     if(currentEntry.data.properties.updates != null)
-    //     {
-    //         let isRestorationUpdate = false;
-    //         for(const [key, value] of currentEntry.data.properties.updates)
-    //         {
-    //             if(key == 'deletedTimestamp')
-    //             {
-    //                 isRestorationUpdate = true;
-    //                 continue;
-    //             }
-    //             (target as unknown as any)[key] = value.to;
-    //         }
-    //         await channel.save(target as unknown as any);
-    //         if(isRestorationUpdate == true)
-    //         {
-    //             await channel.restore(currentEntry.data.properties.id);
-    //         }
-    //     }
-
-    //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
-    //     {
-    //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
-    //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
-    //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
-    //         {
-    //             (settingsTarget as unknown as any)[key] = value.to;
-    //         }
-    //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
-    //     }
-
-    //     if(currentEntry.data.properties.backgroundImages != null)
-    //     {
-    //         // doesn't clear from image cache when undo after remove
-    //         const updatedImages: CustomImageRecord[] = [];
-    //         const restoredImageIds: string[] = [];
-    //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
-    //         {
-    //             const data = currentEntry.data.properties.backgroundImages[i];
-    //             const imageTarget = await this.#data.customImages?.get(data.id);
-    //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
-    //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
-    //             {
-    //                 // if boardId going from "" to id, this is an insert; treat it like redoing an image insert
-    //                 if(key == 'boardId' && value.from == "")
-    //                 {
-    //                     restoredImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
-    //                     continue;
-    //                 }
-    //                 (imageTarget as unknown as any)[key] = value.to;
-    //             }
-    //             updatedImages.push(imageTarget);
-    //         }
-    //         await this.#data.customImages?.saveItems(updatedImages);
-    //         await this.#data.customImages?.restoreItems(restoredImageIds);
-    //     }
-    // }
-
-    // async #addActionHistoryEntry<T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
-    // {
-    //     const historyLength = parseFloat(await this.#getAppSetting(AppSettingKey.HistoryLength) ?? DEFAULT_HISTORY_LENGTH);
-    //     if(historyLength == 0) { return; }
-
-    //     const channel = await this.#getChannel(this.#data.historyEntries, HISTORY_ERROR_MESSAGE, 'danger');
-    //     const history = this.findElement('action-history');
-    //     const historyEntries = [...history.children] as HTMLElement[];
-    //     const elementsToRemove = historyEntries.filter(item => item.hasAttribute(ATTRIBUTENAME_REVERSED));
-    //     const removeIds: string[] = [];
-    //     if(elementsToRemove.length > 0)
-    //     {
-    //         for(let i = 0; i < elementsToRemove.length; i++)
-    //         {
-    //             const entryId = elementsToRemove[i].getAttribute('data-entry-id');
-    //             if(entryId != null)
-    //             {
-    //                 removeIds.push(entryId)
-    //             }
-    //             elementsToRemove[i].remove();
-    //         }
-    //     }
-
-    //     const data = new HistoryEntryData(type, properties);
-    //     const entry = channel.create(data, action);
-    //     await channel.save(entry);
-
-    //     const entries = await channel.getAll('timestamp');
-    //     const removeCount = entries.length - historyLength;
-    //     if(removeCount > 0)
-    //     {
-    //         for(let i = 0; i < removeCount; i++)
-    //         {
-    //             removeIds.push(entries[i].id);
-    //             history.querySelector(`[data-entry-id="${entries[i].id}"]`)?.remove();
-    //         }
-    //     }
-    //     if(removeIds.length > 0)
-    //     {
-    //         await channel.deleteIfExists(removeIds);
-    //     }
-
-    //     const entryElement = this.#createActionHistoryEntryElement(entry);   
-    //     history.append(entryElement);
-    //     const activeIndex = [...history.children].indexOf(entryElement);
-    //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (activeIndex > -1) ? activeIndex : null);
-
-    //     return entryElement;
-    // }
-
-    // async #prepareHistoryEntries(historyElement: ActionHistoryElement, startIndex: number)
-    // {
-    //     if(this.#data.historyEntries == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred accessing Action History data. Unable to refresh action history.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         console.error(new Error(`An error occurred accessing Action History data. Unable to refresh action history.`));
-    //         return;
-    //     }
-    //     const entries = await this.#data.historyEntries.getAll('timestamp');
-
-    //     for(let i = 0; i < entries.length; i++)
-    //     {
-    //         const element = historyElement.querySelector(`[data-entry-id="${entries[i].id}"]`) as HTMLElement;
-    //         if(i < startIndex)
-    //         {
-    //             element.removeAttribute(ATTRIBUTE_PREPARED_FOR_DELETE);
-    //         }
-    //         else
-    //         {
-    //             element.toggleAttribute(ATTRIBUTE_PREPARED_FOR_DELETE, true);
-    //         }
-    //     }        
-    // }
-    // async #applyHistoryLength(actionHistoryLength: number)
-    // {
-    //     await this.#saveAppSetting(AppSettingKey.HistoryLength, actionHistoryLength);
-
-    //     if(this.#data.historyEntries == null)
-    //     {
-    //         // todo: add toast to inform user
-    //         console.warn(`An error occurred accessing Action History data. Unable to refresh action history.`);
-    //         return;
-    //     }
-    //     const entries = await this.#data.historyEntries.getAll('timestamp');
-
-    //     let startIndex = actionHistoryLength;
-    //     if(startIndex > 0) { startIndex--; } // fix zero index offset if non-zero number
-
-    //     const ids: string[] = [];
-    //     for(let i = startIndex; i < entries.length; i++)
-    //     {
-    //         ids.push(entries[i].id);
-    //     }
-    //     await this.#data.historyEntries.deleteItems(ids);
-    //     this.#refreshActionHistory();
-    // }
 
 
-    // // cache    
-    // async #refreshDeletedItems()
-    // {
-    //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-    //     const listChannel = this.#getChannel(this.#data.lists, BOARD_ERROR_MESSAGE, 'danger');
-    //     const taskChannel = this.#getChannel(this.#data.tasks, BOARD_ERROR_MESSAGE, 'danger');
-    //     const imageChannel = this.#getChannel(this.#data.customImages, BOARD_ERROR_MESSAGE, 'danger');
 
-    //     const deletedItems = [];
-
-    //     const boards = await boardChannel.getAll();
-    //     const lists = await listChannel.getAll();
-    //     const tasks = await taskChannel.getAll();
-    //     const images = await imageChannel.getAll();
-
-    //     const deletedBoards = boards.filter(item => item.deletedTimestamp != null);
-    //     const deletedLists = lists.filter(item => item.deletedTimestamp != null);
-    //     const deletedTasks = tasks.filter(item => item.deletedTimestamp != null);
-    //     const deletedImages = images.filter(item => item.deletedTimestamp != null);
-
-    //     for(let i = 0; i < deletedBoards.length; i++)
-    //     {
-    //         const record = deletedBoards[i];
-    //         const element = this.#createDeletedItem(record, 'board', true, record.deletedTimestamp!);
-    //         deletedItems.push(element);
-    //     }
-    //     for(let i = 0; i < deletedLists.length; i++)
-    //     {
-    //         const record = deletedLists[i];
-    //         const canRestore = deletedBoards.find(item => item.id == record.boardId && item.deletedTimestamp != null) == null;
-    //         const element = this.#createDeletedItem(record, 'list', canRestore, record.deletedTimestamp!);
-    //         deletedItems.push(element);
-    //     }
-    //     for(let i = 0; i < deletedTasks.length; i++)
-    //     {
-    //         const record = deletedTasks[i];
-    //         const canRestore = deletedBoards.find(item => item.id == record.boardId && item.deletedTimestamp != null) == null;
-    //         const element = this.#createDeletedItem(record, 'task', canRestore, record.deletedTimestamp!);
-    //         deletedItems.push(element);
-    //     }
-
-    //     const deletedImageElements: HTMLElement[] = [];
-    //     for(let i = 0; i < deletedImages.length; i++)
-    //     {
-    //         const record = deletedImages[i];
-    //         const element = this.#createDeletedItem(record, 'image', true, record.deletedTimestamp!);
-    //         deletedImageElements.push(element);
-    //     }
-    //     const configPanel = this.findElement('config-panel');
-
-    //     // deleted images
-    //     [...configPanel.querySelectorAll('[slot="deleted-images"]')].map(item => item.remove());
-    //     configPanel.append(...deletedImageElements);
-
-    //     // deleted items
-    //     [...configPanel.querySelectorAll('[slot="deleted-items"]')].map(item => item.remove());
-    //     configPanel.append(...deletedItems);
-    // }
-    // #createDeletedItem(data: unknown, recordType: 'board'|'list'|'task'|'image', canRestore: boolean, timestamp: number)
-    // {
-    //     const item = document.createElement('div');
-    //     item.setAttribute('data-record-type', recordType);
-    //     item.setAttribute('part', 'deleted-item');
-    //     item.classList.add('deleted-item');
-    //     item.setAttribute('slot', (recordType == 'image' ? 'deleted-images' : 'deleted-items'));
-    //     item.setAttribute('data-timestamp', timestamp.toString());
-
-    //     const label = document.createElement('span');
-    //     label.setAttribute('part', 'deleted-item-label');
-    //     label.classList.add('deleted-item-label');
-
-    //     let record: TaskBoardRecord|TaskListRecord|TaskRecord|CustomImageRecord;
-    //     if(recordType == 'board')
-    //     {
-    //         record = data as TaskBoardRecord;
-    //         label.textContent = record.name;
-    //     }
-    //     else if (recordType == 'list')
-    //     {
-    //         record = data as TaskListRecord;
-    //         label.textContent = record.name;
-    //     }
-    //     else if (recordType == 'task')
-    //     {
-    //         record = data as TaskRecord;
-    //         label.textContent = (record.description.trim() == "") ? "[Blank Task]" : record.description;
-    //     }
-    //     else if (recordType == 'image')
-    //     {
-    //         record = data as CustomImageRecord;
-    //         label.textContent = record.name;
-    //     }
-    //     else
-    //     {
-    //         throw new Error('Unknown deleted record type');
-    //     }
-
-    //     item.setAttribute('data-record-id', record.id);
-
-    //     item.append(label);
-
-    //     if(canRestore == false)
-    //     {
-    //         item.dataset.restore = 'false';
-    //     }
-
-    //     return item;
-    // }
-
-    // async #restoreDeletedItem(targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number)
-    // {
-    //     if(targetType == null)
-    //     {
-    //         console.error("Unable to restore record with unknown type or id");
-    //         return;
-    //     }
-    //     const channel = (targetType == 'board')
-    //     ? this.#data.boards 
-    //     : (targetType == 'list')
-    //     ? this.#data.lists
-    //     : (targetType == 'task')
-    //     ? this.#data.tasks
-    //     : null;
-
-    //     if(channel == null)
-    //     {
-    //         console.error("Unable to restore record. Error accessing data.");
-    //         return;
-    //     }
-
-    //     await channel.restore(recordId);
-    //     const updates: Map<string, PropertyUpdate> = new Map([ ['deletedTimestamp', { from: timestamp, to: undefined }] ]);
-    //     const properties = {
-    //         id: recordId,
-    //         updates
-    //     };
-    //     await this.#addActionHistoryEntry(HistoryEntryType.Update, targetType, properties);
-        
-    //     if(targetType == HistoryEntryTargetType.Board)
-    //     {
-    //         this.openBoard(recordId);
-    //         this.#refreshBoards();
-    //     }
-    //     this.#refreshDeletedItems();
-    // }
     
-    // async #removeExpiredData()
-    // {
-    //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-    //     const listChannel = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, 'danger');
-    //     const taskChannel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-    //     const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
-    //     const imageChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
-
-    //     const daysToPersistData = (await this.#getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
-    //     const comparisonTime = Date.now() - (parseInt(daysToPersistData) * MILLISECONDSINDAY);
-        
-    //     const boards = await boardChannel.getAll() as (DataRecord & { deletedTimestamp: number })[];
-    //     const lists = await listChannel.getAll() as (DataRecord & { deletedTimestamp: number })[];
-    //     const tasks = await taskChannel.getAll() as (DataRecord & { deletedTimestamp: number })[];
-    //     const taskSettings = await taskSettingsChannel.getAll() as (DataRecord & { deletedTimestamp: number })[];
-    //     const customImages = await imageChannel.getAll() as (DataRecord & { deletedTimestamp: number })[];
-    //     const boardIds = this.#getExpiredRecordIds(boards, comparisonTime);
-    //     await boardChannel.deleteItems(boardIds);
-    //     const listIds = this.#getExpiredRecordIds(lists, comparisonTime);
-    //     await listChannel.deleteItems(listIds);
-    //     const taskIds = this.#getExpiredRecordIds(tasks, comparisonTime);
-    //     await taskChannel.deleteItems(taskIds);
-    //     const settingsIds = this.#getExpiredRecordIds(taskSettings, comparisonTime);
-    //     await taskSettingsChannel.deleteItems(settingsIds);
-    //     const imageIds = this.#getExpiredRecordIds(customImages, comparisonTime);
-    //     await imageChannel.deleteItems(imageIds);
-        
-    // }
-    // #getExpiredRecordIds(allRecords: (DataRecord & { deletedTimestamp: number })[], comparisonTime: number)
-    // {
-    //     const toDelete: string[] = [];
-    //     for(let i = 0; i < allRecords.length; i++)
-    //     {
-    //         const record = allRecords[i];
-    //         if(record.deletedTimestamp != null && record.deletedTimestamp < comparisonTime)
-    //         {
-    //             toDelete.push(record.id);
-    //         }
-    //     }
-    //     return toDelete;
-    // }
 
 
     // async #openImportManager(data: any)

@@ -11,10 +11,11 @@ import './settings-panel/settings-panel';
 import './data-panel/data-panel';
 import './history-panel/history-panel';
 import './about-panel/about-panel';
-import { HistoryLengthValues, HistoryPanelElement } from './history-panel/history-panel';
+import { DEFAULT_HISTORY_LENGTH, DEFAULT_PERSIST_DAYS, HistoryLengthValues, HistoryPanelElement } from './history-panel/history-panel';
 import { DataPanelElement, DaysToPersistValues } from './data-panel/data-panel';
 import { AboutPanelElement } from './about-panel/about-panel';
 import { ActionHistoryElement } from '@magnit-ce/action-history';
+import { AppSettingKey, DataService } from '../../data/data.service';
 
 export enum ConfigPanelAttributes
 {
@@ -221,26 +222,26 @@ export class ConfigPanelElement extends HTMLElement
         }
     }
 
-    init(appVersion: string, historyLength: string, daysToPersist: string)
+    async init(appVersion: string)
     {
+        const historyLength = (await DataService.getAppSetting(AppSettingKey.HistoryLength)) ?? DEFAULT_HISTORY_LENGTH;
+        const daysToPersistData = (await DataService.getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
+
         this.findElement<AboutPanelElement>('about-panel').setVersion(appVersion);
-        this.findElement<DataPanelElement>('data-panel').prepareDaysToPersistOptions(daysToPersist);
+        this.findElement<DataPanelElement>('data-panel').prepareDaysToPersistOptions(daysToPersistData);
         this.findElement<HistoryPanelElement>('history-panel').prepareHistoryLength(historyLength);
 
+        this.refreshHistory();
+        this.refreshCache();
     }
 
-    preventDefaultHistoryAction()
+    refreshHistory()
     {
-        this.findElement<HistoryPanelElement>('history-panel')
-        .findElement<ActionHistoryElement>('action-history').toggleAttribute('prevent-removal', true);
+        this.findElement<HistoryPanelElement>('history-panel').refresh();
     }
-    allowDefaultHistoryAction()
+    refreshCache()
     {
-        requestAnimationFrame(() =>
-        {
-            this.findElement<HistoryPanelElement>('history-panel')
-            .findElement<ActionHistoryElement>('action-history').toggleAttribute('prevent-removal', false);
-        });
+        this.findElement<HistoryPanelElement>('data-panel').refresh();
     }
     history_undo()
     {
@@ -253,22 +254,6 @@ export class ConfigPanelElement extends HTMLElement
 
 
 
-    static create(properties: ConfigPanelProperties)
-    {
-        const element = document.createElement(COMPONENT_TAG_NAME) as ConfigPanelElement;
-        for(const [propertyName, value] of Object.entries(properties))
-        {
-            if(!propertyName.startsWith('on'))
-            {
-                element.setAttribute(propertyName, value as string);
-            }
-        }
-    }
-
-    attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) 
-    {
-
-    }
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)

@@ -1,5 +1,5 @@
 import { TaskBorderRadiusUnit, TaskColorDisplay, TaskSettingsRecord } from '../../../data/records/task-settings.record';
-import formFieldStyle from '../../../styles/form-field.css?raw';
+import formFieldStyle from '../form-field.css?raw';
 import style from './task-fields.component.css?raw';
 import html from './task-fields.component.html?raw';
 
