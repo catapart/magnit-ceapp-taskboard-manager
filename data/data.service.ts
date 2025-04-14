@@ -1,7 +1,7 @@
 import { DataRecord } from "record-setter";
 import { BoardSettingsElement } from "../components/board-settings/board-settings";
 import { DEFAULT_PERSIST_DAYS } from "../components/config-panel/history-panel/history-panel";
-import { DialogService, ErrorMessageType } from "../dialog.service";
+import { FeedbackService, ErrorMessageType } from "../feedback.service";
 import { TaskboardManagerElement } from "../taskboard-manager";
 import { BoardChannel } from "./channels/board.channel";
 import { CustomImageChannel } from "./channels/custom-image.channel";
@@ -64,7 +64,7 @@ export abstract class DataService
     {
         if(DataService.#data.isInitialized == false)
         {
-            DialogService.showErrorMessageDialog(ErrorMessageType.SETTINGS);
+            FeedbackService.showErrorMessageDialog(ErrorMessageType.SETTINGS);
             throw new Error(`Data Access Error`);
         }
         return DataService.#data.getValue<T>(key);
@@ -73,7 +73,7 @@ export abstract class DataService
     {
         if(DataService.#data.isInitialized == false)
         {
-            DialogService.showErrorMessageDialog(ErrorMessageType.SETTINGS);
+            FeedbackService.showErrorMessageDialog(ErrorMessageType.SETTINGS);
             throw new Error(`Data Access Error`);
         }
         await DataService.#data.setValue(key, value);
@@ -227,7 +227,7 @@ export abstract class DataService
         catch(exception)
         {
             console.error(exception);
-            DialogService.showMessageDialog(errorMessage || 'An error occurred importing the board data. Please confirm the import file contains valid board data.');
+            FeedbackService.showMessageDialog(errorMessage || 'An error occurred importing the board data. Please confirm the import file contains valid board data.');
         }
     }
 
@@ -269,7 +269,7 @@ export abstract class DataService
     {
         if(DataService.data.isInitialized == false || channel == null)
         {
-            DialogService.showErrorMessageDialog(errorType);
+            FeedbackService.showErrorMessageDialog(errorType);
             throw new Error(`Data Access Error`);
         }
         return channel;

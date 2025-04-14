@@ -3498,6 +3498,273 @@ if (customElements.get(COMPONENT_TAG_NAME5) == null) {
   customElements.define(COMPONENT_TAG_NAME5, HistoryPanelElement);
 }
 
+// node_modules/.pnpm/@magnit-ce+message-card@0.0.3/node_modules/@magnit-ce/message-card/dist/message-card.js
+var message_card_default = '\n:host([type="info"])    { --primary-color:#0184db; }\n:host([type="success"]) { --primary-color:#20a453; }\n:host([type="warning"]) { --primary-color:#f0cb52; }\n:host([type="error"])   { --primary-color:#db283b; }\n:host([type="aside"])   { --primary-color:#1f3cd0; }\n:host([type="note"])    { --primary-color:#db8630; }\n:host([type="report"])  { --primary-color:#4d5168; }\n\n@media (prefers-color-scheme: dark) \n{\n    :host([type="info"])    { --primary-color:#3baee9; }\n    :host([type="success"]) { --primary-color:#4fc872; }\n    :host([type="warning"]) { --primary-color:#f0cb52; }\n    :host([type="error"])   { --primary-color:#e95a5c; }\n    :host([type="aside"])   { --primary-color:#3760ff; }\n    :host([type="note"])    { --primary-color:#e9ac60; }\n    :host([type="report"])  { --primary-color:#707177; }\n}\n\n:host\n{\n    --primary-color: graytext;\n    --font-color: fieldtext;\n    background-color: var(--background-color, field);\n    color: var(--font-color);\n    border: solid 1px var(--primary-color);\n    border-radius: 3px;\n    padding: .5em;\n    display: none;\n    font-family: sans-serif;\n    font-size: 12px;\n    position: relative;\n\n    grid-template-columns: auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n:host([open])\n{\n    display: grid;\n}\n\n[part="message-icon"]\n,::slotted([slot="message-icon"])\n{\n    align-self: center;\n    grid-row: span 2;\n    margin-right: 1em;\n}\n\n[part="heading"]\n,::slotted([slot="heading"])\n{\n    color: var(--primary-color);\n    font-weight: bold;\n    font-size: 13px;\n    align-self: center;\n    display: inline-block;\n}\n\n[part="message"]\n{\n    grid-row: 2;\n    grid-column: 2;\n    margin-top: .3em;\n}\n\nsvg path { fill: var(--primary-color); }\n\n:host([prevent-close]) [part="close-button"]\n{\n    display: none;\n}\n[part="close-button"]\n{\n    align-self: center;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n    background: none;\n    padding: 2px 5px;\n    margin: 0;\n    border: solid 1px transparent;\n    border-radius: 3px;\n}\n[part="close-button"]:hover\n{\n    background-color: rgb(0 0 0 / .05);\n    border-color: rgb(0 0 0 / .1);\n}\n@media (prefers-color-scheme: dark) \n{\n    [part="close-button"]:hover\n    {\n        background-color: rgb(0 0 0 / .4);\n        border-color: rgb(0 0 0 / .7);\n    }\n}\n[part="close-icon"]\n,::slotted([slot="close-icon"])\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}\n\n[part="duration"]\n{\n    width: 100%;\n    position: absolute;\n    bottom: 0;\n    appearance: none;\n    height: 2px;\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n    border: none;\n    transition: all 50ms ease;\n    accent-color: var(--primary-color);\n}\n\n[part="duration"]::-webkit-progress-value\n{\n    background-color: var(--primary-color, canvastext);\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n}\n\n[part="duration"]::-webkit-progress-bar\n{\n    background: none;\n}\n[part="duration"]::-moz-progress-bar\n{\n    background-color: var(--primary-color, canvastext);\n}\n\n:host(:not([duration])) [part="duration"]\n{\n    display: none;\n}\n\n/* progress {\n}\nprogress::-webkit-progress-bar {\n}\nprogress::-webkit-progress-value {\n}\nprogress::-moz-progress-bar {\n} */';
+var message_card_default2 = '<slot name="message-icon">\n    <svg part="message-icon" class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">\n        <path d="M16.142 2l5.858 5.858v8.284l-5.858 5.858h-8.284l-5.858-5.858v-8.284l5.858-5.858h8.284zm.829-2h-9.942l-7.029 7.029v9.941l7.029 7.03h9.941l7.03-7.029v-9.942l-7.029-7.029zm-5.971 6h2v8h-2v-8zm1 12.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"></path>\n    </svg>\n</slot>\n<header part="header">\n    <slot name="heading"><span part="heading">Message</span></slot>\n</header>\n<div part="message">\n    <slot></slot>\n</div>\n<button part="close-button">\n    <slot name="close-icon">\n        <svg part="close-icon" class="icon" width="14" height="14" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">\n            <path\n            style="color:#000000;fill:var(--primary-color,InfoText);stroke:var(--outline-color,transparent);stroke-linecap:square;stroke-miterlimit:6.3;stroke-dashoffset:29.2913;stroke-opacity:1;-inkscape-stroke:none"\n            d="m 1237.4389,207.63366 -1.8991,1.8987 a 0.65841136,0.65841136 90.003442 0 0 0,0.93116 l 0.4831,0.48317 a 14628.329,14628.329 44.999244 0 0 0.9312,0.93118 l 3.7936,3.79311 a 0.65840885,0.65840885 89.998393 0 1 0,0.93116 l -3.7936,3.7936 a 8783.6896,8783.6896 135.00442 0 1 -0.9313,0.93111 l -0.4829,0.48283 a 0.65811,0.65811 89.993977 0 0 10e-5,0.93094 l 1.8987,1.89741 a 0.65867085,0.65867085 179.98891 0 0 0.9314,-1.8e-4 l 0.4826,-0.48267 a 45427.77,45427.77 134.99941 0 1 0.9312,-0.93119 l 3.7931,-3.79308 a 0.65848899,0.65848899 179.99848 0 1 0.9312,-2e-5 l 3.7936,3.79312 a 10110.91,10110.91 44.992994 0 0 0.9313,0.93108 l 0.483,0.48285 a 0.65856615,0.65856615 179.99438 0 0 0.9313,-9e-5 l 1.897,-1.89705 a 0.65833101,0.65833101 89.994378 0 0 -10e-5,-0.93111 l -0.483,-0.48285 a 5293.5057,5293.5057 44.99639 0 1 -0.9313,-0.93113 l -3.793,-3.79354 a 0.65849247,0.65849247 90.001607 0 1 0,-0.93122 l 3.793,-3.79305 a 149190.44,149190.44 134.99995 0 1 0.9312,-0.93119 l 0.4832,-0.48321 a 0.65863247,0.65863247 90.008202 0 0 10e-5,-0.93132 l -1.8972,-1.89834 a 0.65838576,0.65838576 0.01346964 0 0 -0.9312,-2.2e-4 l -0.483,0.48285 a 7148.543,7148.543 135.00546 0 0 -0.9313,0.9311 l -3.7936,3.79359 a 0.65841791,0.65841791 0.00151591 0 1 -0.9312,-3e-5 l -3.7931,-3.79353 a 52707.551,52707.551 45.002134 0 0 -0.9312,-0.93122 l -0.4826,-0.48267 a 0.65849044,0.65849044 0.00323988 0 0 -0.9312,-5e-5 z"\n            transform="translate(-1232.6358,-204.72848)" />\n        </svg>\n    </slot>\n</button>\n<progress part="duration" min="0" max="100" step="1" value="100"></progress>';
+var ProgressTimeout = class {
+  duration;
+  startTime = performance.now();
+  elapsedTime = 0;
+  onUpdate;
+  onComplete;
+  isPaused = false;
+  #previousTimestamp = 0;
+  #animationFrameHandle;
+  #animationFrameHandler = this.update.bind(this);
+  constructor(duration, onUpdate, onComplete) {
+    this.duration = duration;
+    this.onUpdate = onUpdate;
+    this.onComplete = onComplete;
+  }
+  start() {
+    this.clear();
+    this.startTime = performance.now();
+    this.#previousTimestamp = this.startTime;
+    this.elapsedTime = 0;
+    this.#animationFrameHandle = requestAnimationFrame(this.#animationFrameHandler);
+  }
+  pause() {
+    this.isPaused = true;
+    if (this.#animationFrameHandle != null) {
+      cancelAnimationFrame(this.#animationFrameHandle);
+    }
+  }
+  resume() {
+    this.isPaused = false;
+    this.#previousTimestamp = performance.now();
+    this.#animationFrameHandle = requestAnimationFrame(this.#animationFrameHandler);
+  }
+  update(timestamp) {
+    const delta = timestamp - this.#previousTimestamp;
+    this.elapsedTime += delta;
+    this.#previousTimestamp = timestamp;
+    const timeLeft = this.duration - this.elapsedTime;
+    if (this.onUpdate != null) {
+      this.onUpdate(timestamp, timeLeft);
+    }
+    if (timeLeft > 0) {
+      this.#animationFrameHandle = requestAnimationFrame(this.#animationFrameHandler);
+    } else {
+      if (this.onComplete != null) {
+        this.onComplete();
+      }
+      this.clear();
+    }
+  }
+  clear() {
+    if (this.#animationFrameHandle != null) {
+      cancelAnimationFrame(this.#animationFrameHandle);
+    }
+    this.isPaused = false;
+  }
+};
+var MessageCardType = /* @__PURE__ */ ((MessageCardType2) => {
+  MessageCardType2["Info"] = "info";
+  MessageCardType2["Success"] = "success";
+  MessageCardType2["Warn"] = "warning";
+  MessageCardType2["Error"] = "error";
+  MessageCardType2["Aside"] = "aside";
+  MessageCardType2["Note"] = "note";
+  MessageCardType2["Report"] = "report";
+  return MessageCardType2;
+})(MessageCardType || {});
+var DEFAULT_DURATION_MILLISECONDS = 5e3;
+var componentTemplate = `<style>${message_card_default}</style>
+${message_card_default2}`;
+var COMPONENT_TAG_NAME6 = "message-card";
+var MessageCardElement = class _MessageCardElement extends HTMLElement {
+  componentParts = /* @__PURE__ */ new Map();
+  getPart(key) {
+    if (this.componentParts.get(key) == null) {
+      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
+      if (part != null) {
+        this.componentParts.set(key, part);
+      }
+    }
+    return this.componentParts.get(key);
+  }
+  findPart(key) {
+    return this.shadowRoot.querySelector(`[part="${key}"]`);
+  }
+  get value() {
+    return this.findPart("message").textContent;
+  }
+  get duration() {
+    const durationAttribute = this.getAttribute("duration");
+    return durationAttribute != null ? parseInt(durationAttribute) : DEFAULT_DURATION_MILLISECONDS;
+  }
+  #timeout;
+  #animationFrameHandle;
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = componentTemplate;
+    this.findPart("close-button").addEventListener("click", () => {
+      const result = this.dispatchEvent(new CustomEvent("cancel", { cancelable: true, bubbles: true }));
+      if (result == false) {
+        return;
+      }
+      this.endTimeout();
+      this.#timeout = void 0;
+      this.close();
+      if (this.hasAttribute("open") == false && this.hasAttribute("managed") == true) {
+        const result2 = this.dispatchEvent(new CustomEvent("remove", { cancelable: true, bubbles: true }));
+        if (result2 == false) {
+          return;
+        }
+        this.remove();
+      }
+    });
+    this.addEventListener("mouseenter", () => {
+      this.pauseTimeout();
+    });
+    this.addEventListener("mouseleave", () => {
+      this.resumeTimeout();
+    });
+    this.addEventListener("focus", () => {
+      this.pauseTimeout();
+    });
+    this.addEventListener("blur", () => {
+      this.resumeTimeout();
+    });
+  }
+  /**
+   * Adds a new message-card element to the page, shows it, and then hides and removes it when its duration has elapsed.  
+   Useful for injecting short-lived messages, rather than defining each message as a predetermined html element.
+   * @param content If `content` is a `message-card` element, it will be used as the target card. If `content` is an `HTMLElement`, it will be injected as the message's content. If `content` is a `string`, the message slot will be filled with the string data.
+   * @param parent the container element to append the `message-card` element into.
+   * @param cardProperties configuration properties for the `message-card` element.
+   */
+  static notify(content, parent, cardProperties) {
+    const card = _MessageCardElement.prepare(content, parent, cardProperties);
+    card.show();
+    return card;
+  }
+  /**
+   * Adds a new message-card element to the page, and adds listeners to hide and remove it when its duration has elapsed, without showing it.  
+   Useful for injecting short-lived messages, rather than defining each message as a predetermined html element.
+   Differs from `notify` because when it gets shown is left to the implementer. Allows implementer to get a reference to the card to pass to a function which can call the cancel event.
+   * @param content If `content` is a `message-card` element, it will be used as the target card. If `content` is an `HTMLElement`, it will be injected as the message's content. If `content` is a `string`, the message slot will be filled with the string data.
+   * @param parent the container element to append the `message-card` element into.
+   * @param cardProperties configuration properties for the `message-card` element.
+   */
+  static prepare(content, parent, cardProperties) {
+    const properties = { duration: DEFAULT_DURATION_MILLISECONDS, heading: "Notification" };
+    if (cardProperties != null) {
+      Object.assign(properties, cardProperties);
+    }
+    if (typeof content == "string") {
+      properties.value = content;
+    }
+    const card = content instanceof _MessageCardElement ? content : _MessageCardElement.create(properties);
+    card.toggleAttribute("managed", true);
+    if (content instanceof HTMLElement && card != content) {
+      card.append(content);
+    }
+    parent.append(card);
+    return card;
+  }
+  static create(props) {
+    const element = document.createElement(COMPONENT_TAG_NAME6);
+    if (props == null) {
+      return element;
+    }
+    for (const [key, value] of Object.entries(props)) {
+      if (key == "value" || key == "type" || key == "duration" || key == "heading" || key == "prevent-close") {
+        element.setAttribute(key, value);
+      } else if (key.startsWith("on")) {
+        const eventName = key.substring(2).toLowerCase();
+        element.addEventListener(eventName, value);
+      }
+    }
+    return element;
+  }
+  show() {
+    this.toggleAttribute("open", true);
+    if (this.duration > 0) {
+      this.startTimeout();
+    }
+  }
+  close() {
+    if (this.hasAttribute("prevent-close")) {
+      return;
+    }
+    this.removeAttribute("open");
+    if (this.#animationFrameHandle != null) {
+      cancelAnimationFrame(this.#animationFrameHandle);
+    }
+  }
+  static observedAttributes = ["open", "value", "type", "heading", "duration"];
+  attributeChangedCallback(attributeName, _oldValue, newValue) {
+    if (attributeName == "open") {
+      if (newValue != null) {
+        this.dispatchEvent(new CustomEvent("open", { cancelable: true, bubbles: true }));
+      } else {
+        this.dispatchEvent(new CustomEvent("close", { cancelable: true, bubbles: true }));
+      }
+    } else if (attributeName == "value") {
+      let toReplace = null;
+      for (let i = 0; i < this.childNodes.length; i++) {
+        if (this.childNodes[i].nodeType == 3) {
+          toReplace = this.childNodes[i];
+          break;
+        }
+      }
+      if (toReplace != null) {
+        toReplace.replaceWith(newValue);
+      } else {
+        this.append(newValue);
+      }
+    } else if (attributeName == "heading") {
+      this.findPart("heading").textContent = newValue;
+    } else if (attributeName == "duration") {
+      if (this.hasAttribute("open")) {
+        this.startTimeout();
+      }
+    }
+  }
+  startTimeout() {
+    this.#timeout = new ProgressTimeout(this.duration, this.timeout_onAnimationFrame.bind(this), () => {
+      this.#timeout = void 0;
+      const result = this.dispatchEvent(new CustomEvent("progresscomplete", { cancelable: true, bubbles: true }));
+      if (this.hasAttribute("managed") && result == true) {
+        this.close();
+        const result2 = this.dispatchEvent(new CustomEvent("remove", { cancelable: true, bubbles: true }));
+        if (result2 == false) {
+          return;
+        }
+        this.remove();
+      }
+    });
+    this.#timeout.start();
+  }
+  pauseTimeout() {
+    if (this.#timeout != null) {
+      this.#timeout.pause();
+    }
+  }
+  resumeTimeout() {
+    if (this.#timeout != null) {
+      this.#timeout.resume();
+    }
+  }
+  endTimeout() {
+    if (this.#timeout != null) {
+      this.#timeout.clear();
+    }
+  }
+  timeout_onAnimationFrame(timestamp, timeLeft) {
+    let progress = 100 * timeLeft / this.#timeout.duration;
+    this.getPart("duration").value = progress;
+  }
+  connectedCallback() {
+    this.tabIndex = 0;
+  }
+};
+if (customElements.get(COMPONENT_TAG_NAME6) == null) {
+  customElements.define(COMPONENT_TAG_NAME6, MessageCardElement);
+}
+
 // dialog.service.ts
 var DATA_ERROR_MESSAGE = `<p>An error occurred trying to access the [subject] data.</p>
 <p>If this is a repeating issue, you can try to refresh the application. Data may be lost when taking this action.</p>
@@ -3509,7 +3776,7 @@ var TASK_ERROR_MESSAGE = DATA_ERROR_MESSAGE.replace("[subject]", "Task");
 var IMAGE_ERROR_MESSAGE = DATA_ERROR_MESSAGE.replace("[subject]", "Image");
 var HISTORY_ERROR_MESSAGE = DATA_ERROR_MESSAGE.replace("[subject]", "History");
 var SETTINGS_ERROR_MESSAGE = DATA_ERROR_MESSAGE.replace("[subject]", "Settings");
-var DialogService = class _DialogService {
+var FeedbackService = class _FeedbackService {
   static #manager;
   static ErrorMessages = {
     ["UNKNOWN" /* UNKNOWN */]: UNKNOWN_ERROR_MESSAGE,
@@ -3521,18 +3788,18 @@ var DialogService = class _DialogService {
     ["SETTINGS" /* SETTINGS */]: SETTINGS_ERROR_MESSAGE
   };
   static init(taskboardManager) {
-    _DialogService.#manager = taskboardManager;
+    _FeedbackService.#manager = taskboardManager;
   }
   static getConfirmation(message, type = "info") {
-    if (_DialogService.#manager == null) {
+    if (_FeedbackService.#manager == null) {
       throw new Error("Unable to manage dialogs before service has been initialized.");
     }
-    _DialogService.#manager.getElement("confirmation-dialog").querySelector(`route-page[path="${type}"]`).innerHTML = message;
-    _DialogService.#manager.getElement("confirmation-dialog").showModal();
-    _DialogService.#manager.getElement("confirmation-router").navigate(type);
+    _FeedbackService.#manager.getElement("confirmation-dialog").querySelector(`route-page[path="${type}"]`).innerHTML = message;
+    _FeedbackService.#manager.getElement("confirmation-dialog").showModal();
+    _FeedbackService.#manager.getElement("confirmation-router").navigate(type);
     return new Promise((resolve) => {
-      _DialogService.#manager.getElement("confirmation-dialog-form").addEventListener("submit", (event) => {
-        if (event.submitter == _DialogService.#manager.getElement("confirmation-confirm-button")) {
+      _FeedbackService.#manager.getElement("confirmation-dialog-form").addEventListener("submit", (event) => {
+        if (event.submitter == _FeedbackService.#manager.getElement("confirmation-confirm-button")) {
           resolve(true);
           return;
         }
@@ -3541,23 +3808,29 @@ var DialogService = class _DialogService {
     });
   }
   static showErrorMessageDialog(error) {
-    this.showMessageDialog(_DialogService.ErrorMessages[error], "danger");
+    this.showMessageDialog(_FeedbackService.ErrorMessages[error], "danger");
   }
   static showMessageDialog(message, type = "info") {
-    if (_DialogService.#manager == null) {
+    if (_FeedbackService.#manager == null) {
       throw new Error("Unable to manage dialogs before service has been initialized.");
     }
-    const dialog = _DialogService.#manager.getElement("confirmation-dialog");
+    const dialog = _FeedbackService.#manager.getElement("confirmation-dialog");
     dialog.querySelector(`path-route[path="${type}"]`).innerHTML = message;
     dialog.show();
     dialog.classList.add("message");
-    _DialogService.#manager.getElement("confirmation-router").navigate(type);
+    _FeedbackService.#manager.getElement("confirmation-router").navigate(type);
     return new Promise((resolve) => {
-      _DialogService.#manager.getElement("confirmation-dialog-form").addEventListener("submit", (event) => {
+      _FeedbackService.#manager.getElement("confirmation-dialog-form").addEventListener("submit", (event) => {
         dialog.classList.remove("message");
         resolve();
       }, { once: true });
     });
+  }
+  static showMessageCard(message, type) {
+    MessageCardElement.notify(message, _FeedbackService.#manager.getElement("notifications"), { type });
+  }
+  static showErrorMessageCard(message) {
+    _FeedbackService.showMessageCard(message, MessageCardType.Error);
   }
 };
 
@@ -4398,14 +4671,14 @@ var DataService = class _DataService {
   //#region Settings
   static getAppSetting(key) {
     if (_DataService.#data.isInitialized == false) {
-      DialogService.showErrorMessageDialog("SETTINGS" /* SETTINGS */);
+      FeedbackService.showErrorMessageDialog("SETTINGS" /* SETTINGS */);
       throw new Error(`Data Access Error`);
     }
     return _DataService.#data.getValue(key);
   }
   static async saveAppSetting(key, value) {
     if (_DataService.#data.isInitialized == false) {
-      DialogService.showErrorMessageDialog("SETTINGS" /* SETTINGS */);
+      FeedbackService.showErrorMessageDialog("SETTINGS" /* SETTINGS */);
       throw new Error(`Data Access Error`);
     }
     await _DataService.#data.setValue(key, value);
@@ -4527,7 +4800,7 @@ var DataService = class _DataService {
       ]);
     } catch (exception) {
       console.error(exception);
-      DialogService.showMessageDialog(errorMessage || "An error occurred importing the board data. Please confirm the import file contains valid board data.");
+      FeedbackService.showMessageDialog(errorMessage || "An error occurred importing the board data. Please confirm the import file contains valid board data.");
     }
   }
   //#endregion Import/Export
@@ -4560,7 +4833,7 @@ var DataService = class _DataService {
   //#region Internal
   static #getChannel(channel, errorType = "UNKNOWN" /* UNKNOWN */) {
     if (_DataService.data.isInitialized == false || channel == null) {
-      DialogService.showErrorMessageDialog(errorType);
+      FeedbackService.showErrorMessageDialog(errorType);
       throw new Error(`Data Access Error`);
     }
     return channel;
@@ -4649,7 +4922,7 @@ ${defineIcons(
   "Gear" /* Gear */,
   "PlusIcon" /* PlusIcon */
 )}`;
-var COMPONENT_TAG_NAME6 = "app-menu";
+var COMPONENT_TAG_NAME7 = "app-menu";
 var AppMenuElement = class extends HTMLElement {
   // componentParts: Map<string, HTMLElement> = new Map();
   // getElement<T extends HTMLElement = HTMLElement>(id: string)
@@ -4789,8 +5062,8 @@ var AppMenuElement = class extends HTMLElement {
     return orderedBoards;
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME6) == null) {
-  customElements.define(COMPONENT_TAG_NAME6, AppMenuElement);
+if (customElements.get(COMPONENT_TAG_NAME7) == null) {
+  customElements.define(COMPONENT_TAG_NAME7, AppMenuElement);
 }
 
 // components/welcome-panel/welcome-panel.css?raw
@@ -4815,7 +5088,7 @@ ${defineIcons(
   "PlusIcon" /* PlusIcon */,
   "CancelCross" /* CancelCross */
 )}`;
-var COMPONENT_TAG_NAME7 = "welcome-panel";
+var COMPONENT_TAG_NAME8 = "welcome-panel";
 var WelcomePanelElement = class extends HTMLElement {
   static observedAttributes = [
     ...Object.values(WelcomePanelAttributes)
@@ -4919,8 +5192,8 @@ var WelcomePanelElement = class extends HTMLElement {
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME7) == null) {
-  customElements.define(COMPONENT_TAG_NAME7, WelcomePanelElement);
+if (customElements.get(COMPONENT_TAG_NAME8) == null) {
+  customElements.define(COMPONENT_TAG_NAME8, WelcomePanelElement);
 }
 
 // components/board-browser/board-browser.css?raw
@@ -4935,7 +5208,7 @@ var captioned_thumbnail_default2 = '<figure id="figure">\n    <slot name="select
 var KEYCODE_SELECTION_MAP = ["Space", "Enter"];
 var COMPONENT_STYLESHEET8 = new CSSStyleSheet();
 COMPONENT_STYLESHEET8.replaceSync(captioned_thumbnail_default);
-var COMPONENT_TAG_NAME8 = "captioned-thumbnail";
+var COMPONENT_TAG_NAME9 = "captioned-thumbnail";
 var CaptionedThumbnailElement = class _CaptionedThumbnailElement extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
   getElement(id) {
@@ -5107,8 +5380,8 @@ var CaptionedThumbnailElement = class _CaptionedThumbnailElement extends HTMLEle
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME8) == null) {
-  customElements.define(COMPONENT_TAG_NAME8, CaptionedThumbnailElement);
+if (customElements.get(COMPONENT_TAG_NAME9) == null) {
+  customElements.define(COMPONENT_TAG_NAME9, CaptionedThumbnailElement);
 }
 
 // components/board-browser/board-browser.ts
@@ -5124,7 +5397,7 @@ ${defineIcons(
   "ConfirmCheck" /* ConfirmCheck */,
   "CancelCross" /* CancelCross */
 )}`;
-var COMPONENT_TAG_NAME9 = "board-browser";
+var COMPONENT_TAG_NAME10 = "board-browser";
 var BoardBrowserElement = class extends HTMLElement {
   static observedAttributes = [
     ...Object.values(BoardBrowserAttributes)
@@ -5230,8 +5503,8 @@ var BoardBrowserElement = class extends HTMLElement {
     return element;
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME9) == null) {
-  customElements.define(COMPONENT_TAG_NAME9, BoardBrowserElement);
+if (customElements.get(COMPONENT_TAG_NAME10) == null) {
+  customElements.define(COMPONENT_TAG_NAME10, BoardBrowserElement);
 }
 
 // components/board-settings/board-settings.css?raw
@@ -5628,7 +5901,7 @@ ${defineIcons(
   "Trash" /* Trash */,
   "Copy" /* Copy */
 )}`;
-var COMPONENT_TAG_NAME10 = "board-settings";
+var COMPONENT_TAG_NAME11 = "board-settings";
 var BoardSettingsElement = class extends HTMLElement {
   static observedAttributes = [
     ...Object.values(BoardSettingsAttributes)
@@ -5880,7 +6153,7 @@ var BoardSettingsElement = class extends HTMLElement {
     }, { offset: Number.NEGATIVE_INFINITY });
   }
   static create(properties) {
-    const element = document.createElement(COMPONENT_TAG_NAME10);
+    const element = document.createElement(COMPONENT_TAG_NAME11);
     for (const [propertyName, value] of Object.entries(properties)) {
       if (!propertyName.startsWith("on")) {
         element.setAttribute(propertyName, value);
@@ -5892,8 +6165,8 @@ var BoardSettingsElement = class extends HTMLElement {
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME10) == null) {
-  customElements.define(COMPONENT_TAG_NAME10, BoardSettingsElement);
+if (customElements.get(COMPONENT_TAG_NAME11) == null) {
+  customElements.define(COMPONENT_TAG_NAME11, BoardSettingsElement);
 }
 
 // components/config-panel/config-panel.css?raw
@@ -5922,7 +6195,7 @@ ${defineIcons(
   "Gear" /* Gear */,
   "PlusIcon" /* PlusIcon */
 )}`;
-var COMPONENT_TAG_NAME11 = "settings-panel";
+var COMPONENT_TAG_NAME12 = "settings-panel";
 var SettingsPanelElement = class extends HTMLElement {
   static observedAttributes = [
     ...Object.values(SettingsPanelAttributes)
@@ -5993,7 +6266,7 @@ var SettingsPanelElement = class extends HTMLElement {
     button.part.add("selected");
   }
   static create(properties) {
-    const element = document.createElement(COMPONENT_TAG_NAME11);
+    const element = document.createElement(COMPONENT_TAG_NAME12);
     for (const [propertyName, value] of Object.entries(properties)) {
       if (!propertyName.startsWith("on")) {
         element.setAttribute(propertyName, value);
@@ -6003,8 +6276,8 @@ var SettingsPanelElement = class extends HTMLElement {
   attributeChangedCallback(attributeName, _oldValue, newValue) {
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME11) == null) {
-  customElements.define(COMPONENT_TAG_NAME11, SettingsPanelElement);
+if (customElements.get(COMPONENT_TAG_NAME12) == null) {
+  customElements.define(COMPONENT_TAG_NAME12, SettingsPanelElement);
 }
 
 // components/config-panel/data-panel/data-panel.css?raw
@@ -6028,7 +6301,7 @@ ${defineIcons(
   "Trash" /* Trash */,
   "ConfirmCheck" /* ConfirmCheck */
 )}`;
-var COMPONENT_TAG_NAME12 = "data-panel";
+var COMPONENT_TAG_NAME13 = "data-panel";
 var DataPanelElement = class extends HTMLElement {
   static observedAttributes = [
     ...Object.values(DataPanelAttributes)
@@ -6236,8 +6509,8 @@ var DataPanelElement = class extends HTMLElement {
   //     this.#refreshDeletedItems();
   // }
 };
-if (customElements.get(COMPONENT_TAG_NAME12) == null) {
-  customElements.define(COMPONENT_TAG_NAME12, DataPanelElement);
+if (customElements.get(COMPONENT_TAG_NAME13) == null) {
+  customElements.define(COMPONENT_TAG_NAME13, DataPanelElement);
 }
 
 // components/config-panel/about-panel/about-panel.css?raw
@@ -6260,7 +6533,7 @@ ${defineIcons(
   "Gear" /* Gear */,
   "PlusIcon" /* PlusIcon */
 )}`;
-var COMPONENT_TAG_NAME13 = "about-panel";
+var COMPONENT_TAG_NAME14 = "about-panel";
 var AboutPanelElement = class extends HTMLElement {
   static observedAttributes = [
     ...Object.values(AboutPanelAttributes)
@@ -6299,7 +6572,7 @@ var AboutPanelElement = class extends HTMLElement {
     this.findElement("version-value").textContent = version;
   }
   static create(properties) {
-    const element = document.createElement(COMPONENT_TAG_NAME13);
+    const element = document.createElement(COMPONENT_TAG_NAME14);
     for (const [propertyName, value] of Object.entries(properties)) {
       if (!propertyName.startsWith("on")) {
         element.setAttribute(propertyName, value);
@@ -6309,8 +6582,8 @@ var AboutPanelElement = class extends HTMLElement {
   attributeChangedCallback(attributeName, _oldValue, newValue) {
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME13) == null) {
-  customElements.define(COMPONENT_TAG_NAME13, AboutPanelElement);
+if (customElements.get(COMPONENT_TAG_NAME14) == null) {
+  customElements.define(COMPONENT_TAG_NAME14, AboutPanelElement);
 }
 
 // components/config-panel/config-panel.ts
@@ -6327,7 +6600,7 @@ ${defineIcons(
   "Clock" /* Clock */,
   "Info" /* Info */
 )}`;
-var COMPONENT_TAG_NAME14 = "config-panel";
+var COMPONENT_TAG_NAME15 = "config-panel";
 var ConfigPanelElement = class extends HTMLElement {
   static observedAttributes = [
     ...Object.values(ConfigPanelAttributes)
@@ -6384,8 +6657,8 @@ var ConfigPanelElement = class extends HTMLElement {
     this.findElement("history-panel").redo();
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME14) == null) {
-  customElements.define(COMPONENT_TAG_NAME14, ConfigPanelElement);
+if (customElements.get(COMPONENT_TAG_NAME15) == null) {
+  customElements.define(COMPONENT_TAG_NAME15, ConfigPanelElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+editable-list@0.0.11/node_modules/@magnit-ce/editable-list/dist/editable-list.mjs
@@ -6411,7 +6684,7 @@ var STYLE = `
 }`;
 var COMPONENT_STYLESHEET15 = new CSSStyleSheet();
 COMPONENT_STYLESHEET15.replaceSync(STYLE);
-var COMPONENT_TAG_NAME15 = "editable-list";
+var COMPONENT_TAG_NAME16 = "editable-list";
 var EditableListElement = class extends HTMLElement {
   /** if `true`, allows child elements to be removed from the DOM when their remove button is pressed */
   canRemove = true;
@@ -6487,7 +6760,7 @@ var EditableListElement = class extends HTMLElement {
    * @returns a configured instance of an `EditableListElement` element.
    */
   static create(props) {
-    const element = document.createElement(COMPONENT_TAG_NAME15);
+    const element = document.createElement(COMPONENT_TAG_NAME16);
     if (props == null) {
       return element;
     }
@@ -6606,8 +6879,8 @@ var EditableListElement = class extends HTMLElement {
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME15) == null) {
-  customElements.define(COMPONENT_TAG_NAME15, EditableListElement);
+if (customElements.get(COMPONENT_TAG_NAME16) == null) {
+  customElements.define(COMPONENT_TAG_NAME16, EditableListElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+path-router@0.2.8/node_modules/@magnit-ce/path-router/dist/path-router.js
@@ -6731,11 +7004,11 @@ var RouteType = (elementType = HTMLElement) => {
     }
   };
 };
-var COMPONENT_TAG_NAME16 = "route-dialog";
+var COMPONENT_TAG_NAME17 = "route-dialog";
 var RouteDialogElement = class extends RouteType(HTMLDialogElement) {
 };
-if (customElements.get(COMPONENT_TAG_NAME16) == null) {
-  customElements.define(COMPONENT_TAG_NAME16, RouteDialogElement, { extends: "dialog" });
+if (customElements.get(COMPONENT_TAG_NAME17) == null) {
+  customElements.define(COMPONENT_TAG_NAME17, RouteDialogElement, { extends: "dialog" });
 }
 var COMPONENT_TAG_NAME22 = "route-page";
 var RoutePageElement = class extends RouteType() {
@@ -6753,10 +7026,10 @@ var PathRouterElement = class extends HTMLElement {
     return Array.from(this.querySelectorAll(`:scope > ${COMPONENT_TAG_NAME22}, ${COMPONENT_TAG_NAME32} :not(${COMPONENT_TAG_NAME32}) ${COMPONENT_TAG_NAME22}`), (route) => route);
   }
   get routeDialogs() {
-    return Array.from(this.querySelectorAll(`:scope > [is="${COMPONENT_TAG_NAME16}"]`), (routeDialog) => routeDialog);
+    return Array.from(this.querySelectorAll(`:scope > [is="${COMPONENT_TAG_NAME17}"]`), (routeDialog) => routeDialog);
   }
   get routes() {
-    return Array.from(this.querySelectorAll(`:scope > ${COMPONENT_TAG_NAME22},${COMPONENT_TAG_NAME32} :not(${COMPONENT_TAG_NAME32}) ${COMPONENT_TAG_NAME22},:scope > [is="${COMPONENT_TAG_NAME16}"]`), (route) => route);
+    return Array.from(this.querySelectorAll(`:scope > ${COMPONENT_TAG_NAME22},${COMPONENT_TAG_NAME32} :not(${COMPONENT_TAG_NAME32}) ${COMPONENT_TAG_NAME22},:scope > [is="${COMPONENT_TAG_NAME17}"]`), (route) => route);
   }
   /** The `<page-route>` element currently being navigated to. */
   targetPageRoute;
@@ -6925,7 +7198,7 @@ var PathRouterElement = class extends HTMLElement {
         }
         for (let i = 0; i < matchingPageRoutes.length; i++) {
           const routeData = matchingPageRoutes[i];
-          if (routeData.route.closest(`[is="${COMPONENT_TAG_NAME16}"][open]`) != null) {
+          if (routeData.route.closest(`[is="${COMPONENT_TAG_NAME17}"][open]`) != null) {
             openPagePromise = this.#openRoutePage(routeData.route, dialogPath);
             this.#assignRouteProperties(routeData.route, routeData.properties);
           }
@@ -7052,14 +7325,14 @@ var PathRouterElement = class extends HTMLElement {
     const routePath = route.getAttribute("path") ?? "";
     const routePathArray = routePath.split("/");
     const pagePathArray = pagePath.split("/");
-    const pathType = route.closest(`[is="${COMPONENT_TAG_NAME16}"]`) == null ? "Page" : "Dialog";
+    const pathType = route.closest(`[is="${COMPONENT_TAG_NAME17}"]`) == null ? "Page" : "Dialog";
     if (pathType == "Page") {
       return this.routeTypeMatches(route, pagePathArray, routePathArray, `${COMPONENT_TAG_NAME22}`, previousMatches);
     } else if (dialogPath == null) {
       return [false, {}];
     }
     const dialogPathArray = dialogPath.split("/");
-    return this.routeTypeMatches(route, dialogPathArray, routePathArray, `${COMPONENT_TAG_NAME22},[is="${COMPONENT_TAG_NAME16}"]`, previousMatches);
+    return this.routeTypeMatches(route, dialogPathArray, routePathArray, `${COMPONENT_TAG_NAME22},[is="${COMPONENT_TAG_NAME17}"]`, previousMatches);
   }
   routeTypeMatches(route, queryPathArray, routePathArray, parentRouteSelector, previousMatches) {
     if (queryPathArray.length == 1 && queryPathArray[0].trim() == "") {
@@ -7215,7 +7488,7 @@ COMPONENT_STYLESHEET17.replaceSync(`
     min-width: var(--list-min-width);
 }
 `);
-var COMPONENT_TAG_NAME17 = "task-board";
+var COMPONENT_TAG_NAME18 = "task-board";
 var TaskBoardElement = class extends HTMLElement {
   constructor() {
     super();
@@ -7224,8 +7497,8 @@ var TaskBoardElement = class extends HTMLElement {
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET17);
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME17) == null) {
-  customElements.define(COMPONENT_TAG_NAME17, TaskBoardElement);
+if (customElements.get(COMPONENT_TAG_NAME18) == null) {
+  customElements.define(COMPONENT_TAG_NAME18, TaskBoardElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+task-list@0.0.15/node_modules/@magnit-ce/task-list/dist/task-list.js
@@ -7233,7 +7506,7 @@ var task_list_default = ":host\n{\n    --border-color: rgb(95, 95, 95);\n    dis
 var task_list_default2 = '<slot name="header">\n    <header id="header">\n        <label id="color-container" title="Color">\n            <input type="color" id="color" class="input" value="#919191" />\n        </label>\n        <input type="text" id="name" class="input" placeholder="List Name" />\n        <button type="button" id="collapse-button" class="button field-button" title="Collapse">\n            <span id="collapse-icon" class="icon">\u25B2</span>\n        </button>\n    </header>\n</slot>\n<ul id="tasks">\n    <slot></slot>\n</ul>\n<slot name="add-button">\n<button type="button" id="add-button" class="button" title="Add">\n    <span id="add-icon" class="icon">&plus;</span>\n    <span id="add-label">Add Task</span>\n</button>\n</slot>\n<slot name="footer"></slot>';
 var COMPONENT_STYLESHEET18 = new CSSStyleSheet();
 COMPONENT_STYLESHEET18.replaceSync(task_list_default);
-var COMPONENT_TAG_NAME18 = "task-list";
+var COMPONENT_TAG_NAME19 = "task-list";
 var TaskListElement = class extends HTMLElement {
   TASKCARD_TAG_NAME = "task-card";
   dragAndDropQueryParent;
@@ -7280,7 +7553,7 @@ var TaskListElement = class extends HTMLElement {
         if (this.handledItems.has(children[i])) {
           continue;
         }
-        if (children[i].tagName.toLowerCase() == COMPONENT_TAG_NAME18.toLowerCase()) {
+        if (children[i].tagName.toLowerCase() == COMPONENT_TAG_NAME19.toLowerCase()) {
           this.dispatchEvent(new CustomEvent("nested", { bubbles: true, cancelable: true, detail: { target: children[i] } }));
           this.handledItems.add(children[i]);
         }
@@ -7420,8 +7693,8 @@ var TaskListElement = class extends HTMLElement {
     item_onDragEnd: this.#item_onDragEnd.bind(this)
   };
 };
-if (customElements.get(COMPONENT_TAG_NAME18) == null) {
-  customElements.define(COMPONENT_TAG_NAME18, TaskListElement);
+if (customElements.get(COMPONENT_TAG_NAME19) == null) {
+  customElements.define(COMPONENT_TAG_NAME19, TaskListElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+task-card@0.0.22/node_modules/@magnit-ce/task-card/dist/task-card.js
@@ -7429,7 +7702,7 @@ var task_card_default = ':host\n{\n    --border-color: rgb(95, 95, 95);\n    bor
 var task_card_default2 = '<slot name="handle">\n    <span id="handle"></span>\n</slot>\n<label id="color-container">\n    <input type="color" id="color" class="input" value="#919191" />\n</label>\n<input type="checkbox" id="is-finished" class="input checkbox" title="Finished?" />\n<label id="finished-indicator" for="is-finished">\n    <slot id="custom-check" name="custom-check"></slot>\n</label>\n<slot name="description"><div id="description" contenteditable="true"></div></slot>\n<button type="button" id="remove-button" class="button" title="Delete">\n    <slot name="remove-button-label">\n        <svg id="remove-icon" class="icon close-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">\n            <path\n            style="display:inline;fill:var(--icon-primary-color,InfoText);fill-opacity:1;stroke:var(--icon-secondary-color,InfoBackground);stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"\n            d="m 3.8656768,2.2287478 a 1.6392814,1.6392814 0 0 0 -1.15929,0.48032 1.6392814,1.6392814 0 0 0 0,2.31816 l 6.38181,6.3818002 -6.38181,6.38182 a 1.6392814,1.6392814 0 0 0 0,2.31814 1.6392814,1.6392814 0 0 0 2.31816,0 l 6.3818102,-6.3818 6.38181,6.3818 a 1.6392814,1.6392814 0 0 0 2.31816,0 1.6392814,1.6392814 0 0 0 0,-2.31814 l -6.38182,-6.38182 6.38182,-6.3818002 a 1.6392814,1.6392814 0 0 0 0,-2.31816 1.6392814,1.6392814 0 0 0 -1.15929,-0.48032 1.6392814,1.6392814 0 0 0 -1.15887,0.48032 l -6.38181,6.38181 -6.3818102,-6.38181 a 1.6392814,1.6392814 0 0 0 -1.15887,-0.48032 z" />\n        </svg>\n    </slot>\n</button>';
 var COMPONENT_STYLESHEET19 = new CSSStyleSheet();
 COMPONENT_STYLESHEET19.replaceSync(task_card_default);
-var COMPONENT_TAG_NAME19 = "task-card";
+var COMPONENT_TAG_NAME20 = "task-card";
 var TaskCardElement = class extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
   getElement(id) {
@@ -7502,7 +7775,7 @@ var TaskCardElement = class extends HTMLElement {
     };
   }
   static create(props) {
-    const element = document.createElement(COMPONENT_TAG_NAME19);
+    const element = document.createElement(COMPONENT_TAG_NAME20);
     if (props == null) {
       return element;
     }
@@ -7533,8 +7806,8 @@ var TaskCardElement = class extends HTMLElement {
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME19) == null) {
-  customElements.define(COMPONENT_TAG_NAME19, TaskCardElement);
+if (customElements.get(COMPONENT_TAG_NAME20) == null) {
+  customElements.define(COMPONENT_TAG_NAME20, TaskCardElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+collection-browser@0.0.5/node_modules/@magnit-ce/collection-browser/dist/collection-browser.js
@@ -7568,7 +7841,7 @@ function getSelectableItem(event, reference) {
   }
   return selectableItem;
 }
-var COMPONENT_TAG_NAME20 = "selectable-items";
+var COMPONENT_TAG_NAME21 = "selectable-items";
 var SelectableItemsElement = class _SelectableItemsElement extends HTMLElement {
   static observedAttributes = [];
   // internal
@@ -7666,8 +7939,8 @@ var SelectableItemsElement = class _SelectableItemsElement extends HTMLElement {
     return defaultAllowed;
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME20) == null) {
-  customElements.define(COMPONENT_TAG_NAME20, SelectableItemsElement);
+if (customElements.get(COMPONENT_TAG_NAME21) == null) {
+  customElements.define(COMPONENT_TAG_NAME21, SelectableItemsElement);
 }
 var COMPONENT_STYLESHEET22 = new CSSStyleSheet();
 COMPONENT_STYLESHEET22.replaceSync(collection_browser_default);
@@ -7986,7 +8259,7 @@ var ItemFilters = class {
 };
 var COMPONENT_STYLESHEET21 = new CSSStyleSheet();
 COMPONENT_STYLESHEET21.replaceSync(collection_filter_default);
-var COMPONENT_TAG_NAME21 = "collection-filter";
+var COMPONENT_TAG_NAME24 = "collection-filter";
 var CollectionFilterElement = class extends HTMLElement {
   // #boundEventHandlers: Map<string, (event?:Event) => void> = new Map([
   // ]);
@@ -8098,8 +8371,8 @@ var CollectionFilterElement = class extends HTMLElement {
     }
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME21) == null) {
-  customElements.define(COMPONENT_TAG_NAME21, CollectionFilterElement);
+if (customElements.get(COMPONENT_TAG_NAME24) == null) {
+  customElements.define(COMPONENT_TAG_NAME24, CollectionFilterElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+fileimage-input@0.0.2/node_modules/@magnit-ce/fileimage-input/dist/fileimage-input.js
@@ -8107,7 +8380,7 @@ var fileimage_input_default = '\n:host \n{ \n    display: inline-grid;\n    grid
 var fileimage_input_default2 = '<label part="label" tabindex="0">\n    <input type="file" part="input" />\n    <span part="field">\n        <span part="thumbnail">\n            <slot name="placeholder-icon"><span part="placeholder-icon">\u{1F5CE}</span></slot>\n            <img alt="image preview" title="Image Preview" part="preview" />\n        </span>\n        <span part="status">\n            <span part="filename"></span>\n            <slot name="placeholder"><span part="placeholder-label"></span></slot>\n        </span>\n    </span>\n</label>\n<a href="" part="clear" tabindex="0"><slot name="clear">Clear Selection</slot></a>\n<a href="#" target="_blank" part="view-link" tabindex="0"><slot name="view-link">View Selection</slot></a>';
 var COMPONENT_STYLESHEET23 = new CSSStyleSheet();
 COMPONENT_STYLESHEET23.replaceSync(fileimage_input_default);
-var COMPONENT_TAG_NAME24 = "fileimage-input";
+var COMPONENT_TAG_NAME25 = "fileimage-input";
 var FileImageInputElement = class extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
   getPart(key) {
@@ -8323,8 +8596,8 @@ var FileImageInputElement = class extends HTMLElement {
     this.#internals.setFormValue(formValue);
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME24) == null) {
-  customElements.define(COMPONENT_TAG_NAME24, FileImageInputElement);
+if (customElements.get(COMPONENT_TAG_NAME25) == null) {
+  customElements.define(COMPONENT_TAG_NAME25, FileImageInputElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+form-field@0.0.6/node_modules/@magnit-ce/form-field/dist/form-field.js
@@ -8345,7 +8618,7 @@ var groupTemplate = `<div class="container">
     <span class="label"></span>
 </label>
 </div>`;
-var COMPONENT_TAG_NAME25 = "form-field";
+var COMPONENT_TAG_NAME26 = "form-field";
 var FormFieldElement = class _FormFieldElement extends HTMLElement {
   static parser = new DOMParser();
   static singleTemplateDOM;
@@ -8570,8 +8843,8 @@ var FormFieldElement = class _FormFieldElement extends HTMLElement {
     this.renderIntoTemplate();
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME25) == null) {
-  customElements.define(COMPONENT_TAG_NAME25, FormFieldElement);
+if (customElements.get(COMPONENT_TAG_NAME26) == null) {
+  customElements.define(COMPONENT_TAG_NAME26, FormFieldElement);
 }
 
 // node_modules/.pnpm/@magnit-ce+record-tree@0.0.4/node_modules/@magnit-ce/record-tree/dist/record-tree.js
@@ -8589,7 +8862,7 @@ var ICON_UNDO = `<svg class="icon undo-redo" viewBox="0 0 22.812714 22.814663" v
    style="color:#000000;fill:var(--icon-primary-color,InfoText);stroke:var(--icon-secondary-color,CanvasText);fill-opacity:1;stroke-width:0.999999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
    d="M 8.7359009 1.1063924 C 8.3768905 1.0950243 8.0017196 1.1736712 7.641394 1.3523722 L 1.6107544 6.1205566 L 1.5916341 6.1386434 L 1.53479 6.1939372 C 1.0620233 6.6537208 0.70744486 7.6004515 1.0769368 8.152474 L 5.3030355 14.40894 C 6.1798306 15.219356 7.5994445 15.083541 8.4749349 14.106116 C 9.2135837 13.277519 9.3398045 12.086041 8.7787923 11.23549 L 11.334192 11.410673 C 14.129266 11.815808 17.330477 13.067707 18.931144 18.826241 C 19.313756 19.953163 19.735424 21.309718 20.245793 22.173324 C 20.976132 22.497497 21.420713 20.679238 21.478792 18.791101 C 21.506716 14.251463 18.262689 8.6142076 13.845667 6.7716797 C 13.291103 6.5403477 11.805521 5.8978235 10.30118 5.3355916 L 9.7994019 5.1107992 C 10.609379 4.4184442 10.916638 3.2966427 10.55026 2.3703979 C 10.238366 1.5905459 9.5257236 1.1314023 8.7359009 1.1063924 z " />
 </svg>`;
-var COMPONENT_TAG_NAME26 = "record-tree";
+var COMPONENT_TAG_NAME27 = "record-tree";
 var RecordTreeElement = class extends HTMLElement {
   static observedAttributes = [];
   #data;
@@ -9011,275 +9284,8 @@ var RecordTreeElement = class extends HTMLElement {
     return Object.entries(descriptors).filter((entry) => typeof entry[1].get === "function" && entry[0] !== "__proto__").map((entry) => entry[0]);
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME26) == null) {
-  customElements.define(COMPONENT_TAG_NAME26, RecordTreeElement);
-}
-
-// node_modules/.pnpm/@magnit-ce+message-card@0.0.3/node_modules/@magnit-ce/message-card/dist/message-card.js
-var message_card_default = '\n:host([type="info"])    { --primary-color:#0184db; }\n:host([type="success"]) { --primary-color:#20a453; }\n:host([type="warning"]) { --primary-color:#f0cb52; }\n:host([type="error"])   { --primary-color:#db283b; }\n:host([type="aside"])   { --primary-color:#1f3cd0; }\n:host([type="note"])    { --primary-color:#db8630; }\n:host([type="report"])  { --primary-color:#4d5168; }\n\n@media (prefers-color-scheme: dark) \n{\n    :host([type="info"])    { --primary-color:#3baee9; }\n    :host([type="success"]) { --primary-color:#4fc872; }\n    :host([type="warning"]) { --primary-color:#f0cb52; }\n    :host([type="error"])   { --primary-color:#e95a5c; }\n    :host([type="aside"])   { --primary-color:#3760ff; }\n    :host([type="note"])    { --primary-color:#e9ac60; }\n    :host([type="report"])  { --primary-color:#707177; }\n}\n\n:host\n{\n    --primary-color: graytext;\n    --font-color: fieldtext;\n    background-color: var(--background-color, field);\n    color: var(--font-color);\n    border: solid 1px var(--primary-color);\n    border-radius: 3px;\n    padding: .5em;\n    display: none;\n    font-family: sans-serif;\n    font-size: 12px;\n    position: relative;\n\n    grid-template-columns: auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n:host([open])\n{\n    display: grid;\n}\n\n[part="message-icon"]\n,::slotted([slot="message-icon"])\n{\n    align-self: center;\n    grid-row: span 2;\n    margin-right: 1em;\n}\n\n[part="heading"]\n,::slotted([slot="heading"])\n{\n    color: var(--primary-color);\n    font-weight: bold;\n    font-size: 13px;\n    align-self: center;\n    display: inline-block;\n}\n\n[part="message"]\n{\n    grid-row: 2;\n    grid-column: 2;\n    margin-top: .3em;\n}\n\nsvg path { fill: var(--primary-color); }\n\n:host([prevent-close]) [part="close-button"]\n{\n    display: none;\n}\n[part="close-button"]\n{\n    align-self: center;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n    background: none;\n    padding: 2px 5px;\n    margin: 0;\n    border: solid 1px transparent;\n    border-radius: 3px;\n}\n[part="close-button"]:hover\n{\n    background-color: rgb(0 0 0 / .05);\n    border-color: rgb(0 0 0 / .1);\n}\n@media (prefers-color-scheme: dark) \n{\n    [part="close-button"]:hover\n    {\n        background-color: rgb(0 0 0 / .4);\n        border-color: rgb(0 0 0 / .7);\n    }\n}\n[part="close-icon"]\n,::slotted([slot="close-icon"])\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}\n\n[part="duration"]\n{\n    width: 100%;\n    position: absolute;\n    bottom: 0;\n    appearance: none;\n    height: 2px;\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n    border: none;\n    transition: all 50ms ease;\n    accent-color: var(--primary-color);\n}\n\n[part="duration"]::-webkit-progress-value\n{\n    background-color: var(--primary-color, canvastext);\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n}\n\n[part="duration"]::-webkit-progress-bar\n{\n    background: none;\n}\n[part="duration"]::-moz-progress-bar\n{\n    background-color: var(--primary-color, canvastext);\n}\n\n:host(:not([duration])) [part="duration"]\n{\n    display: none;\n}\n\n/* progress {\n}\nprogress::-webkit-progress-bar {\n}\nprogress::-webkit-progress-value {\n}\nprogress::-moz-progress-bar {\n} */';
-var message_card_default2 = '<slot name="message-icon">\n    <svg part="message-icon" class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">\n        <path d="M16.142 2l5.858 5.858v8.284l-5.858 5.858h-8.284l-5.858-5.858v-8.284l5.858-5.858h8.284zm.829-2h-9.942l-7.029 7.029v9.941l7.029 7.03h9.941l7.03-7.029v-9.942l-7.029-7.029zm-5.971 6h2v8h-2v-8zm1 12.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"></path>\n    </svg>\n</slot>\n<header part="header">\n    <slot name="heading"><span part="heading">Message</span></slot>\n</header>\n<div part="message">\n    <slot></slot>\n</div>\n<button part="close-button">\n    <slot name="close-icon">\n        <svg part="close-icon" class="icon" width="14" height="14" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">\n            <path\n            style="color:#000000;fill:var(--primary-color,InfoText);stroke:var(--outline-color,transparent);stroke-linecap:square;stroke-miterlimit:6.3;stroke-dashoffset:29.2913;stroke-opacity:1;-inkscape-stroke:none"\n            d="m 1237.4389,207.63366 -1.8991,1.8987 a 0.65841136,0.65841136 90.003442 0 0 0,0.93116 l 0.4831,0.48317 a 14628.329,14628.329 44.999244 0 0 0.9312,0.93118 l 3.7936,3.79311 a 0.65840885,0.65840885 89.998393 0 1 0,0.93116 l -3.7936,3.7936 a 8783.6896,8783.6896 135.00442 0 1 -0.9313,0.93111 l -0.4829,0.48283 a 0.65811,0.65811 89.993977 0 0 10e-5,0.93094 l 1.8987,1.89741 a 0.65867085,0.65867085 179.98891 0 0 0.9314,-1.8e-4 l 0.4826,-0.48267 a 45427.77,45427.77 134.99941 0 1 0.9312,-0.93119 l 3.7931,-3.79308 a 0.65848899,0.65848899 179.99848 0 1 0.9312,-2e-5 l 3.7936,3.79312 a 10110.91,10110.91 44.992994 0 0 0.9313,0.93108 l 0.483,0.48285 a 0.65856615,0.65856615 179.99438 0 0 0.9313,-9e-5 l 1.897,-1.89705 a 0.65833101,0.65833101 89.994378 0 0 -10e-5,-0.93111 l -0.483,-0.48285 a 5293.5057,5293.5057 44.99639 0 1 -0.9313,-0.93113 l -3.793,-3.79354 a 0.65849247,0.65849247 90.001607 0 1 0,-0.93122 l 3.793,-3.79305 a 149190.44,149190.44 134.99995 0 1 0.9312,-0.93119 l 0.4832,-0.48321 a 0.65863247,0.65863247 90.008202 0 0 10e-5,-0.93132 l -1.8972,-1.89834 a 0.65838576,0.65838576 0.01346964 0 0 -0.9312,-2.2e-4 l -0.483,0.48285 a 7148.543,7148.543 135.00546 0 0 -0.9313,0.9311 l -3.7936,3.79359 a 0.65841791,0.65841791 0.00151591 0 1 -0.9312,-3e-5 l -3.7931,-3.79353 a 52707.551,52707.551 45.002134 0 0 -0.9312,-0.93122 l -0.4826,-0.48267 a 0.65849044,0.65849044 0.00323988 0 0 -0.9312,-5e-5 z"\n            transform="translate(-1232.6358,-204.72848)" />\n        </svg>\n    </slot>\n</button>\n<progress part="duration" min="0" max="100" step="1" value="100"></progress>';
-var ProgressTimeout = class {
-  duration;
-  startTime = performance.now();
-  elapsedTime = 0;
-  onUpdate;
-  onComplete;
-  isPaused = false;
-  #previousTimestamp = 0;
-  #animationFrameHandle;
-  #animationFrameHandler = this.update.bind(this);
-  constructor(duration, onUpdate, onComplete) {
-    this.duration = duration;
-    this.onUpdate = onUpdate;
-    this.onComplete = onComplete;
-  }
-  start() {
-    this.clear();
-    this.startTime = performance.now();
-    this.#previousTimestamp = this.startTime;
-    this.elapsedTime = 0;
-    this.#animationFrameHandle = requestAnimationFrame(this.#animationFrameHandler);
-  }
-  pause() {
-    this.isPaused = true;
-    if (this.#animationFrameHandle != null) {
-      cancelAnimationFrame(this.#animationFrameHandle);
-    }
-  }
-  resume() {
-    this.isPaused = false;
-    this.#previousTimestamp = performance.now();
-    this.#animationFrameHandle = requestAnimationFrame(this.#animationFrameHandler);
-  }
-  update(timestamp) {
-    const delta = timestamp - this.#previousTimestamp;
-    this.elapsedTime += delta;
-    this.#previousTimestamp = timestamp;
-    const timeLeft = this.duration - this.elapsedTime;
-    if (this.onUpdate != null) {
-      this.onUpdate(timestamp, timeLeft);
-    }
-    if (timeLeft > 0) {
-      this.#animationFrameHandle = requestAnimationFrame(this.#animationFrameHandler);
-    } else {
-      if (this.onComplete != null) {
-        this.onComplete();
-      }
-      this.clear();
-    }
-  }
-  clear() {
-    if (this.#animationFrameHandle != null) {
-      cancelAnimationFrame(this.#animationFrameHandle);
-    }
-    this.isPaused = false;
-  }
-};
-var MessageCardType = /* @__PURE__ */ ((MessageCardType2) => {
-  MessageCardType2["Info"] = "info";
-  MessageCardType2["Success"] = "success";
-  MessageCardType2["Warn"] = "warning";
-  MessageCardType2["Error"] = "error";
-  MessageCardType2["Aside"] = "aside";
-  MessageCardType2["Note"] = "note";
-  MessageCardType2["Report"] = "report";
-  return MessageCardType2;
-})(MessageCardType || {});
-var DEFAULT_DURATION_MILLISECONDS = 5e3;
-var componentTemplate = `<style>${message_card_default}</style>
-${message_card_default2}`;
-var COMPONENT_TAG_NAME27 = "message-card";
-var MessageCardElement = class _MessageCardElement extends HTMLElement {
-  componentParts = /* @__PURE__ */ new Map();
-  getPart(key) {
-    if (this.componentParts.get(key) == null) {
-      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
-      if (part != null) {
-        this.componentParts.set(key, part);
-      }
-    }
-    return this.componentParts.get(key);
-  }
-  findPart(key) {
-    return this.shadowRoot.querySelector(`[part="${key}"]`);
-  }
-  get value() {
-    return this.findPart("message").textContent;
-  }
-  get duration() {
-    const durationAttribute = this.getAttribute("duration");
-    return durationAttribute != null ? parseInt(durationAttribute) : DEFAULT_DURATION_MILLISECONDS;
-  }
-  #timeout;
-  #animationFrameHandle;
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = componentTemplate;
-    this.findPart("close-button").addEventListener("click", () => {
-      const result = this.dispatchEvent(new CustomEvent("cancel", { cancelable: true, bubbles: true }));
-      if (result == false) {
-        return;
-      }
-      this.endTimeout();
-      this.#timeout = void 0;
-      this.close();
-      if (this.hasAttribute("open") == false && this.hasAttribute("managed") == true) {
-        const result2 = this.dispatchEvent(new CustomEvent("remove", { cancelable: true, bubbles: true }));
-        if (result2 == false) {
-          return;
-        }
-        this.remove();
-      }
-    });
-    this.addEventListener("mouseenter", () => {
-      this.pauseTimeout();
-    });
-    this.addEventListener("mouseleave", () => {
-      this.resumeTimeout();
-    });
-    this.addEventListener("focus", () => {
-      this.pauseTimeout();
-    });
-    this.addEventListener("blur", () => {
-      this.resumeTimeout();
-    });
-  }
-  /**
-   * Adds a new message-card element to the page, shows it, and then hides and removes it when its duration has elapsed.  
-   Useful for injecting short-lived messages, rather than defining each message as a predetermined html element.
-   * @param content If `content` is a `message-card` element, it will be used as the target card. If `content` is an `HTMLElement`, it will be injected as the message's content. If `content` is a `string`, the message slot will be filled with the string data.
-   * @param parent the container element to append the `message-card` element into.
-   * @param cardProperties configuration properties for the `message-card` element.
-   */
-  static notify(content, parent, cardProperties) {
-    const card = _MessageCardElement.prepare(content, parent, cardProperties);
-    card.show();
-    return card;
-  }
-  /**
-   * Adds a new message-card element to the page, and adds listeners to hide and remove it when its duration has elapsed, without showing it.  
-   Useful for injecting short-lived messages, rather than defining each message as a predetermined html element.
-   Differs from `notify` because when it gets shown is left to the implementer. Allows implementer to get a reference to the card to pass to a function which can call the cancel event.
-   * @param content If `content` is a `message-card` element, it will be used as the target card. If `content` is an `HTMLElement`, it will be injected as the message's content. If `content` is a `string`, the message slot will be filled with the string data.
-   * @param parent the container element to append the `message-card` element into.
-   * @param cardProperties configuration properties for the `message-card` element.
-   */
-  static prepare(content, parent, cardProperties) {
-    const properties = { duration: DEFAULT_DURATION_MILLISECONDS, heading: "Notification" };
-    if (cardProperties != null) {
-      Object.assign(properties, cardProperties);
-    }
-    if (typeof content == "string") {
-      properties.value = content;
-    }
-    const card = content instanceof _MessageCardElement ? content : _MessageCardElement.create(properties);
-    card.toggleAttribute("managed", true);
-    if (content instanceof HTMLElement && card != content) {
-      card.append(content);
-    }
-    parent.append(card);
-    return card;
-  }
-  static create(props) {
-    const element = document.createElement(COMPONENT_TAG_NAME27);
-    if (props == null) {
-      return element;
-    }
-    for (const [key, value] of Object.entries(props)) {
-      if (key == "value" || key == "type" || key == "duration" || key == "heading" || key == "prevent-close") {
-        element.setAttribute(key, value);
-      } else if (key.startsWith("on")) {
-        const eventName = key.substring(2).toLowerCase();
-        element.addEventListener(eventName, value);
-      }
-    }
-    return element;
-  }
-  show() {
-    this.toggleAttribute("open", true);
-    if (this.duration > 0) {
-      this.startTimeout();
-    }
-  }
-  close() {
-    if (this.hasAttribute("prevent-close")) {
-      return;
-    }
-    this.removeAttribute("open");
-    if (this.#animationFrameHandle != null) {
-      cancelAnimationFrame(this.#animationFrameHandle);
-    }
-  }
-  static observedAttributes = ["open", "value", "type", "heading", "duration"];
-  attributeChangedCallback(attributeName, _oldValue, newValue) {
-    if (attributeName == "open") {
-      if (newValue != null) {
-        this.dispatchEvent(new CustomEvent("open", { cancelable: true, bubbles: true }));
-      } else {
-        this.dispatchEvent(new CustomEvent("close", { cancelable: true, bubbles: true }));
-      }
-    } else if (attributeName == "value") {
-      let toReplace = null;
-      for (let i = 0; i < this.childNodes.length; i++) {
-        if (this.childNodes[i].nodeType == 3) {
-          toReplace = this.childNodes[i];
-          break;
-        }
-      }
-      if (toReplace != null) {
-        toReplace.replaceWith(newValue);
-      } else {
-        this.append(newValue);
-      }
-    } else if (attributeName == "heading") {
-      this.findPart("heading").textContent = newValue;
-    } else if (attributeName == "duration") {
-      if (this.hasAttribute("open")) {
-        this.startTimeout();
-      }
-    }
-  }
-  startTimeout() {
-    this.#timeout = new ProgressTimeout(this.duration, this.timeout_onAnimationFrame.bind(this), () => {
-      this.#timeout = void 0;
-      const result = this.dispatchEvent(new CustomEvent("progresscomplete", { cancelable: true, bubbles: true }));
-      if (this.hasAttribute("managed") && result == true) {
-        this.close();
-        const result2 = this.dispatchEvent(new CustomEvent("remove", { cancelable: true, bubbles: true }));
-        if (result2 == false) {
-          return;
-        }
-        this.remove();
-      }
-    });
-    this.#timeout.start();
-  }
-  pauseTimeout() {
-    if (this.#timeout != null) {
-      this.#timeout.pause();
-    }
-  }
-  resumeTimeout() {
-    if (this.#timeout != null) {
-      this.#timeout.resume();
-    }
-  }
-  endTimeout() {
-    if (this.#timeout != null) {
-      this.#timeout.clear();
-    }
-  }
-  timeout_onAnimationFrame(timestamp, timeLeft) {
-    let progress = 100 * timeLeft / this.#timeout.duration;
-    this.getPart("duration").value = progress;
-  }
-  connectedCallback() {
-    this.tabIndex = 0;
-  }
-};
 if (customElements.get(COMPONENT_TAG_NAME27) == null) {
-  customElements.define(COMPONENT_TAG_NAME27, MessageCardElement);
+  customElements.define(COMPONENT_TAG_NAME27, RecordTreeElement);
 }
 
 // handlers/board.handlers.ts
@@ -9365,6 +9371,7 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   setColorScheme(scheme) {
     const value = scheme == "browser" ? "light dark" : scheme;
     this.style.setProperty("color-scheme", value);
+    DataService.saveAppSetting("color-scheme" /* ColorScheme */, scheme);
   }
   async refreshBoards() {
     const boardRecords = await DataService.getAllBoardRecords();
@@ -9556,7 +9563,7 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   async #init() {
     const datastoreName = this.getAttribute("datastore-name");
     await DataService.init(datastoreName);
-    DialogService.init(this);
+    FeedbackService.init(this);
     this.#loadColorScheme();
     const boardsPromise = this.refreshBoards();
     this.findElement("welcome-panel").refresh();
@@ -9952,6 +9959,22 @@ var TaskboardManagerElement2 = class extends HTMLElement {
     const newBoardButton = composedPath.find((item) => item.classList.contains("new-board-button"));
     if (newBoardButton != null) {
       this.#newBoard_onClick();
+      return;
+    }
+    const schemeButton = composedPath.find((item) => item.classList.contains("scheme"));
+    if (schemeButton != null) {
+      const scheme = schemeButton.dataset.value;
+      if (scheme == null) {
+        FeedbackService.showErrorMessageCard(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`);
+        console.error(new Error("Scheme value was undefined."));
+        return;
+      }
+      if (scheme != "inherit" && scheme != "browser" && scheme != "light" && scheme != "dark") {
+        FeedbackService.showErrorMessageCard(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`);
+        console.error(new Error("Scheme value was not recognized as a valid scheme."));
+        return;
+      }
+      this.setColorScheme(scheme);
       return;
     }
     const importOkButton = composedPath.find((item) => item.id == "import-ok");

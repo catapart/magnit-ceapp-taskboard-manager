@@ -1,5 +1,6 @@
 import { PathRouterElement } from "@magnit-ce/path-router";
 import { TaskboardManagerElement } from "./taskboard-manager";
+import { MessageCardElement, MessageCardType } from "@magnit-ce/message-card";
 
 const DATA_ERROR_MESSAGE = `<p>An error occurred trying to access the [subject] data.</p>
 <p>If this is a repeating issue, you can try to refresh the application. Data may be lost when taking this action.</p>
@@ -24,7 +25,7 @@ export enum ErrorMessageType
 }
 
 
-export abstract class DialogService
+export abstract class FeedbackService
 {
     static #manager: TaskboardManagerElement;
 
@@ -40,24 +41,24 @@ export abstract class DialogService
 
     static init(taskboardManager: TaskboardManagerElement)
     {
-        DialogService.#manager = taskboardManager;
+        FeedbackService.#manager = taskboardManager;
     }
     
     static getConfirmation(message: string, type: 'info'|'warn'|'danger' = 'info')
     {
-        if(DialogService.#manager == null)
+        if(FeedbackService.#manager == null)
         {
             throw new Error("Unable to manage dialogs before service has been initialized.");
         }
 
-        DialogService.#manager.getElement('confirmation-dialog').querySelector(`route-page[path="${type}"]`)!.innerHTML = message;
-        DialogService.#manager.getElement<HTMLDialogElement>('confirmation-dialog').showModal();
-        DialogService.#manager.getElement<PathRouterElement>('confirmation-router').navigate(type);
+        FeedbackService.#manager.getElement('confirmation-dialog').querySelector(`route-page[path="${type}"]`)!.innerHTML = message;
+        FeedbackService.#manager.getElement<HTMLDialogElement>('confirmation-dialog').showModal();
+        FeedbackService.#manager.getElement<PathRouterElement>('confirmation-router').navigate(type);
         return new Promise<boolean>((resolve) => 
         {
-            DialogService.#manager.getElement<HTMLDialogElement>('confirmation-dialog-form').addEventListener('submit', (event) =>
+            FeedbackService.#manager.getElement<HTMLDialogElement>('confirmation-dialog-form').addEventListener('submit', (event) =>
             {
-                if((event as SubmitEvent).submitter == DialogService.#manager.getElement('confirmation-confirm-button'))
+                if((event as SubmitEvent).submitter == FeedbackService.#manager.getElement('confirmation-confirm-button'))
                 {
                     resolve(true);
                     return;
@@ -68,27 +69,36 @@ export abstract class DialogService
     }
     static showErrorMessageDialog(error: ErrorMessageType)
     {
-        this.showMessageDialog(DialogService.ErrorMessages[error], 'danger');
+        this.showMessageDialog(FeedbackService.ErrorMessages[error], 'danger');
     }
     static showMessageDialog(message: string, type: 'info'|'warn'|'danger' = 'info')
     {
-        if(DialogService.#manager == null)
+        if(FeedbackService.#manager == null)
         {
             throw new Error("Unable to manage dialogs before service has been initialized.");
         }
 
-        const dialog = DialogService.#manager.getElement<HTMLDialogElement>('confirmation-dialog');
+        const dialog = FeedbackService.#manager.getElement<HTMLDialogElement>('confirmation-dialog');
         dialog.querySelector(`path-route[path="${type}"]`)!.innerHTML = message;
         dialog.show();
         dialog.classList.add('message');
-        DialogService.#manager.getElement<PathRouterElement>('confirmation-router').navigate(type);
+        FeedbackService.#manager.getElement<PathRouterElement>('confirmation-router').navigate(type);
         return new Promise<void>((resolve) => 
         {
-            DialogService.#manager.getElement<HTMLDialogElement>('confirmation-dialog-form').addEventListener('submit', (event) =>
+            FeedbackService.#manager.getElement<HTMLDialogElement>('confirmation-dialog-form').addEventListener('submit', (event) =>
             {
                 dialog.classList.remove('message');
                 resolve();
             }, { once: true });
         });
+    }
+
+    static showMessageCard(message: string, type: MessageCardType)
+    {
+        MessageCardElement.notify(message, FeedbackService.#manager.getElement('notifications'), { type });
+    }
+    static showErrorMessageCard(message: string)
+    {
+        FeedbackService.showMessageCard(message, MessageCardType.Error);
     }
 }

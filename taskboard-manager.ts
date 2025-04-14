@@ -84,7 +84,7 @@ import { BoardSettingsElement } from './components/board-settings/board-settings
 import { ConfigPanelElement } from './components/config-panel/config-panel';
 import { HistoryPanelElement } from './components/config-panel/history-panel/history-panel';
 import { AppSettingKey, DataService, MILLISECONDSINDAY } from './data/data.service';
-import { DialogService, ErrorMessageType } from './dialog.service';
+import { FeedbackService, ErrorMessageType } from './feedback.service';
 
 // export type TaskboardManagerProperties = 
 // {
@@ -220,6 +220,7 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const value = (scheme == 'browser') ? 'light dark' : scheme;
         this.style.setProperty('color-scheme', value);
+        DataService.saveAppSetting(AppSettingKey.ColorScheme, scheme);
     }
     async refreshBoards()
     {
@@ -446,7 +447,7 @@ export class TaskboardManagerElement extends HTMLElement
         const datastoreName = this.getAttribute('datastore-name');
         await DataService.init(datastoreName);
 
-        DialogService.init(this);
+        FeedbackService.init(this);
 
         this.#loadColorScheme();
 
@@ -1017,6 +1018,26 @@ export class TaskboardManagerElement extends HTMLElement
         if(newBoardButton != null)
         {
             this.#newBoard_onClick();
+            return;
+        }
+
+        const schemeButton = composedPath.find(item => item.classList.contains('scheme'));
+        if(schemeButton != null)
+        {
+            const scheme = schemeButton.dataset.value;
+            if(scheme == null)
+            {
+                FeedbackService.showErrorMessageCard(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`);
+                console.error(new Error('Scheme value was undefined.'));
+                return;
+            }
+            if(scheme != 'inherit' && scheme != 'browser' && scheme != 'light' && scheme != 'dark')
+            {
+                FeedbackService.showErrorMessageCard(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`);
+                console.error(new Error('Scheme value was not recognized as a valid scheme.'));
+                return;
+            }
+            this.setColorScheme(scheme);
             return;
         }
 
