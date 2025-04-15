@@ -1,6 +1,5 @@
 import { DataRecord } from "record-setter";
 import { BoardSettingsElement } from "../components/board-settings/board-settings";
-import { DEFAULT_PERSIST_DAYS } from "../components/config-panel/history-panel/history-panel";
 import { FeedbackService, ErrorMessageType } from "../feedback.service";
 import { TaskboardManagerElement } from "../taskboard-manager";
 import { BoardChannel } from "./channels/board.channel";
@@ -16,6 +15,7 @@ import { TaskListRecord } from "./records/task-list.record";
 import { TaskSettingsRecord } from "./records/task-settings.record";
 import { TaskRecord } from "./records/task.record";
 import { CustomImageRecord } from "./records/custom-image.record";
+import { DEFAULT_PERSIST_DAYS } from "../components/config-panel/data-panel/data-panel";
 
 
 export const MILLISECONDSINDAY = 1000 * 60 * 60 * 24;
@@ -32,6 +32,7 @@ export enum AppSettingKey
 export abstract class DataService
 {
     static #data: TaskboardManagerElementData;
+    static #initPromise: Promise<void>;
     static #hasStartedInitialization: boolean = false;
     static #hasFinishedInitialization: boolean = false;
 
@@ -39,7 +40,8 @@ export abstract class DataService
     {
         DataService.#hasStartedInitialization = true;
         DataService.#data = new TaskboardManagerElementData((datastoreName == null) ? undefined : {name: datastoreName});
-        await this.#data.init();
+        DataService.#initPromise = this.#data.init();
+        await this.#initPromise;
         DataService.#hasFinishedInitialization = true;
     }
 
@@ -60,22 +62,14 @@ export abstract class DataService
 
 
     //#region Settings
-    static getAppSetting<T extends string|number|boolean|Blob|null|undefined = undefined>(key: string)
+    static async getAppSetting<T extends string|number|boolean|Blob|null|undefined = undefined>(key: string)
     {
-        if(DataService.#data.isInitialized == false)
-        {
-            FeedbackService.showErrorMessageDialog(ErrorMessageType.SETTINGS);
-            throw new Error(`Data Access Error`);
-        }
+        await this.#initPromise;
         return DataService.#data.getValue<T>(key);
     }
     static async saveAppSetting(key: string, value: string|number|boolean|Blob|null)
     {
-        if(DataService.#data.isInitialized == false)
-        {
-            FeedbackService.showErrorMessageDialog(ErrorMessageType.SETTINGS);
-            throw new Error(`Data Access Error`);
-        }
+        await this.#initPromise;
         await DataService.#data.setValue(key, value);
     }
     //#endregion Settings

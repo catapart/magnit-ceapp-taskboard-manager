@@ -12,16 +12,12 @@ import { HistoryEntryRecord } from '../../../data/records/history-entry.record';
 
 export const HistoryLengthValues = [0, 30, 50, 100, 150];
 
-export enum HistoryPanelAttributes
-{
-}
-
-export type HistoryPanelProperties = { [key in HistoryPanelAttributes]: string } &
-{
-};
-
 export const DEFAULT_HISTORY_LENGTH = "30";
-export const DEFAULT_PERSIST_DAYS = "7";
+
+export type HistoryPanelProperties = 
+{
+    
+}
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
@@ -37,10 +33,6 @@ ${defineIcons(
 const COMPONENT_TAG_NAME = 'history-panel';
 export class HistoryPanelElement extends HTMLElement
 {
-    static observedAttributes = [
-        ...Object.values(HistoryPanelAttributes),
-    ];
-
     componentParts: Map<string, HTMLElement> = new Map();
     getElement<T extends HTMLElement = HTMLElement>(id: string)
     {
@@ -74,34 +66,12 @@ export class HistoryPanelElement extends HTMLElement
 
         this.findElement('clear-history-button').addEventListener("click", this.#clearHistory_onClick.bind(this));
     }
-    #applyPartAttributes()
+
+    async init(_options?: HistoryPanelProperties)
     {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll(':not(form-field,.postfix,.prefix,.container, .field-label)[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            const classedElement = classedElements[i];
-            classedElement.part.add(...classedElements[i].classList);
-        }
-        const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
-        for(let i = 0; i < formFieldElements.length; i++)
-        {
-            const formFieldElement = formFieldElements[i];
-            const inputId = formFieldElement.id;
-            
-            const container = formFieldElement.querySelector('.container')!;
-            container.part.add('container', 'field-container', `${inputId}-container`);
-            const label = formFieldElement.querySelector('.field-label')!;
-            label.part.add('container', 'field-label', `${inputId}-label`);
-            const prefix = formFieldElement.querySelector('.prefix')!;
-            prefix.part.add('container', 'field-prefix', `${inputId}-prefix`);
-            const postfix = formFieldElement.querySelector('.postfix')!;
-            postfix.part.add('container', 'field-postfix', `${inputId}-postfix`);
-        }
+        const historyLength = (await DataService.getAppSetting(AppSettingKey.HistoryLength)) ?? DEFAULT_HISTORY_LENGTH;
+        this.prepareHistoryLength(historyLength);
+        this.refresh();
     }
 
     prepareHistoryLength(historyLength: string)
@@ -600,6 +570,37 @@ export class HistoryPanelElement extends HTMLElement
     //     await this.#data.historyEntries.deleteItems(ids);
     //     this.#refreshActionHistory();
     // }
+
+
+    #applyPartAttributes()
+    {
+        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
+        for(let i = 0; i < identifiedElements.length; i++)
+        {
+            identifiedElements[i].part.add(identifiedElements[i].id);
+        }
+        const classedElements = [...this.shadowRoot!.querySelectorAll(':not(form-field,.postfix,.prefix,.container, .field-label)[class]')];
+        for(let i = 0; i < classedElements.length; i++)
+        {
+            const classedElement = classedElements[i];
+            classedElement.part.add(...classedElements[i].classList);
+        }
+        const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
+        for(let i = 0; i < formFieldElements.length; i++)
+        {
+            const formFieldElement = formFieldElements[i];
+            const inputId = formFieldElement.id;
+            
+            const container = formFieldElement.querySelector('.container')!;
+            container.part.add('container', 'field-container', `${inputId}-container`);
+            const label = formFieldElement.querySelector('.field-label')!;
+            label.part.add('container', 'field-label', `${inputId}-label`);
+            const prefix = formFieldElement.querySelector('.prefix')!;
+            prefix.part.add('container', 'field-prefix', `${inputId}-prefix`);
+            const postfix = formFieldElement.querySelector('.postfix')!;
+            postfix.part.add('container', 'field-postfix', `${inputId}-postfix`);
+        }
+    }
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)

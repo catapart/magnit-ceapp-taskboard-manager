@@ -6,13 +6,11 @@ import html from './about-panel.html?raw';
 // icons
 import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
 
-export enum AboutPanelAttributes
-{
-}
 
-export type AboutPanelProperties = { [key in AboutPanelAttributes]: string } &
+export type AboutPanelProperties = 
 {
-};
+    appVersion: string;
+}
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
@@ -29,10 +27,6 @@ ${defineIcons(
 const COMPONENT_TAG_NAME = 'about-panel';
 export class AboutPanelElement extends HTMLElement
 {
-    static observedAttributes = [
-        ...Object.values(AboutPanelAttributes),
-    ];
-
     componentParts: Map<string, HTMLElement> = new Map();
     getElement<T extends HTMLElement = HTMLElement>(id: string)
     {
@@ -54,6 +48,17 @@ export class AboutPanelElement extends HTMLElement
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
         this.#applyPartAttributes();
     }
+
+    init(options: AboutPanelProperties)
+    {
+        this.setVersion(options.appVersion);
+    }
+
+    setVersion(version: string)
+    {
+        this.findElement('version-value').textContent = version;
+    }
+
     #applyPartAttributes()
     {
         const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
@@ -66,27 +71,6 @@ export class AboutPanelElement extends HTMLElement
         {
             classedElements[i].part.add(...classedElements[i].classList);
         }
-    }
-
-    setVersion(version: string)
-    {
-        this.findElement('version-value').textContent = version;
-    }
-
-    static create(properties: AboutPanelProperties)
-    {
-        const element = document.createElement(COMPONENT_TAG_NAME) as AboutPanelElement;
-        for(const [propertyName, value] of Object.entries(properties))
-        {
-            if(!propertyName.startsWith('on'))
-            {
-                element.setAttribute(propertyName, value as string);
-            }
-        }
-    }
-
-    attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) 
-    {
     }
 }
 

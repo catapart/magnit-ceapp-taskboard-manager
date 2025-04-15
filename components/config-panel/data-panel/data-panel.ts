@@ -8,21 +8,20 @@ import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
 import { EditableListElement } from '@magnit-ce/editable-list';
 import { HistoryEntryTargetType } from '../../../data/history/history-entry-data';
 import { createOptionElement, snapToStep } from '../../../resources/utils';
-import { DataService } from '../../../data/data.service';
+import { AppSettingKey, DataService } from '../../../data/data.service';
 import { TaskBoardRecord } from '../../../data/records/task-board.record';
 import { TaskListRecord } from '../../../data/records/task-list.record';
 import { TaskRecord } from '../../../data/records/task.record';
 import { CustomImageRecord } from '../../../data/records/custom-image.record';
 
 export const DaysToPersistValues = [0, 7, 30];
+export const DEFAULT_PERSIST_DAYS = "7";
 
-export enum DataPanelAttributes
+export type DataPanelProperties = 
 {
+    
 }
 
-export type DataPanelProperties = { [key in DataPanelAttributes]: string } &
-{
-};
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
@@ -39,9 +38,6 @@ ${defineIcons(
 const COMPONENT_TAG_NAME = 'data-panel';
 export class DataPanelElement extends HTMLElement
 {
-    static observedAttributes = [
-        ...Object.values(DataPanelAttributes),
-    ];
 
     componentParts: Map<string, HTMLElement> = new Map();
     getElement<T extends HTMLElement = HTMLElement>(id: string)
@@ -78,111 +74,15 @@ export class DataPanelElement extends HTMLElement
         this.findElement<EditableListElement>('deleted-images').addEventListener('remove', this.#deletedImages_onRemove.bind(this));
         this.findElement<HTMLButtonElement>('clear-image-cache-button').addEventListener('click', this.#clearImageCache_onClick.bind(this));
     }
-    #applyPartAttributes()
-    {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll(':not(form-field,.postfix,.prefix,.container, .field-label)[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            const classedElement = classedElements[i];
-            classedElement.part.add(...classedElements[i].classList);
-        }
-        const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
-        for(let i = 0; i < formFieldElements.length; i++)
-        {
-            const formFieldElement = formFieldElements[i];
-            const inputId = formFieldElement.id;
-            
-            const container = formFieldElement.querySelector('.container')!;
-            container.part.add('container', 'field-container', `${inputId}-container`);
-            const label = formFieldElement.querySelector('.field-label')!;
-            label.part.add('container', 'field-label', `${inputId}-label`);
-            const prefix = formFieldElement.querySelector('.prefix')!;
-            prefix.part.add('container', 'field-prefix', `${inputId}-prefix`);
-            const postfix = formFieldElement.querySelector('.postfix')!;
-            postfix.part.add('container', 'field-postfix', `${inputId}-postfix`);
-        }
-    }
-    
-    prepareDaysToPersistOptions(daysToPersist: string)
-    {
-        const daysToPersistOptions = Array.from(DaysToPersistValues).map(value => createOptionElement(value));
-        this.findElement('data-persist-days-values').append(...daysToPersistOptions);
 
-        this.findElement<HTMLInputElement>('data-persist-days').value = daysToPersist;        
-        this.findElement('data-persist-days-value').textContent = daysToPersist;
+    async init(_options?: DataPanelProperties)
+    {
+        const daysToPersistData = (await DataService.getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
+        this.prepareDaysToPersistOptions(daysToPersistData);
+        this.refreshCache();
     }
 
-    async #importButton_onClick(_event: Event)
-    {
-        const importFileInput = this.findElement<HTMLInputElement>('import-board-file');
-        const boardDataFile = (importFileInput.files != null) ?importFileInput.files[0] : null;
-        if(boardDataFile == null)
-        { 
-            const message = `An error occurred attempting to import board data. Confirm that the selected import file is a valid board export.`;
-            const consoleMessage = 'Unable to import selected file.';
-            this.dispatchEvent(new CustomEvent('error', { detail: { message, consoleMessage }, bubbles: true, composed: true }));
-            return;
-        }
-
-        const boardDataText = await boardDataFile.text();
-        const boardData = JSON.parse(boardDataText);
-        this.dispatchEvent(new CustomEvent('import', { detail: { boardData }, bubbles: true, composed: true }));
-    }
-    #daysToPersist_onChange(event: Event)
-    {
-        const dataPersistsDaysValues = DaysToPersistValues;
-        const input = event.target as HTMLInputElement;
-        snapToStep(input, dataPersistsDaysValues);
-        this.findElement('data-persist-days-value').textContent = input.value;
-    }
-    #applyDaysToPersist_onClick(_event: Event)
-    {
-        this.dispatchEvent(new CustomEvent('daystopersist', { detail: { daysToPersist: this.findElement<HTMLInputElement>('data-persist-days').value }, bubbles: true, composed: true }));
-    }
-    #clearData_onClick(_event: Event)
-    {
-        this.dispatchEvent(new CustomEvent('cleardata', { bubbles: true, composed: true }));
-    }
-    #deletedItems_onRemove(event: Event|CustomEvent)
-    {        
-        const item = (event as CustomEvent).detail;
-        const recordType = item.dataset.recordType;
-        const recordId = item.dataset.recordId;
-        const timestamp = item.getAttribute('data-timestamp');
-
-        const targetType = (recordType == 'board')
-        ? HistoryEntryTargetType.Board
-        : (recordType == 'list')
-        ? HistoryEntryTargetType.List
-        : (recordType == 'task')
-        ? HistoryEntryTargetType.Task
-        : null;
-
-        this.dispatchEvent(new CustomEvent('restoreitem', { detail: { targetType, recordId, timestamp }, bubbles: true, composed: true }));
-    }
-    async #clearDeleted_onClick(_event: Event)
-    {
-        const items = [...this.findElement('deleted-items').querySelectorAll('[data-record-id]:not([data-restore="false"])')] as HTMLElement[];
-        this.dispatchEvent(new CustomEvent('cleardeleted', { detail: { items }, bubbles: true, composed: true }));
-    }
-    #deletedImages_onRemove(event: Event|CustomEvent)
-    {
-        const item = (event as CustomEvent).detail;
-        this.dispatchEvent(new CustomEvent('deleteimage', { detail: { item }, bubbles: true, composed: true }));
-    }
-    async #clearImageCache_onClick(_event: Event)
-    {
-        const items = [...this.findElement('deleted-images').querySelectorAll('[data-record-id]')] as HTMLElement[];
-        this.dispatchEvent(new CustomEvent('clearimages', { detail: { items }, bubbles: true, composed: true }));
-    }
-
-    
-    async refresh()
+    async refreshCache()
     {
         console.log('refresh');
 
@@ -228,6 +128,82 @@ export class DataPanelElement extends HTMLElement
         deletedItemsElement.innerHTML = "";
         deletedItemsElement.append(...deletedItems);
     }
+    
+    prepareDaysToPersistOptions(daysToPersist: string)
+    {
+        const daysToPersistOptions = Array.from(DaysToPersistValues).map(value => createOptionElement(value));
+        this.findElement('data-persist-days-values').append(...daysToPersistOptions);
+
+        this.findElement<HTMLInputElement>('data-persist-days').value = daysToPersist;        
+        this.findElement('data-persist-days-value').textContent = daysToPersist;
+    }
+
+    async #importButton_onClick(_event: Event)
+    {
+        const importFileInput = this.findElement<HTMLInputElement>('import-board-file');
+        const boardDataFile = (importFileInput.files != null) ?importFileInput.files[0] : null;
+        if(boardDataFile == null)
+        { 
+            const message = `An error occurred attempting to import board data. Confirm that the selected import file is a valid board export.`;
+            const consoleMessage = 'Unable to import selected file.';
+            this.dispatchEvent(new CustomEvent('error', { detail: { message, consoleMessage }, bubbles: true, composed: true }));
+            return;
+        }
+
+        const boardDataText = await boardDataFile.text();
+        const boardData = JSON.parse(boardDataText);
+        this.dispatchEvent(new CustomEvent('import', { detail: { boardData }, bubbles: true, composed: true }));
+    }
+    #applyDaysToPersist_onClick(_event: Event)
+    {
+        this.dispatchEvent(new CustomEvent('daystopersist', { detail: { daysToPersist: this.findElement<HTMLInputElement>('data-persist-days').value }, bubbles: true, composed: true }));
+    }
+    #clearData_onClick(_event: Event)
+    {
+        this.dispatchEvent(new CustomEvent('cleardata', { bubbles: true, composed: true }));
+    }
+    async #clearDeleted_onClick(_event: Event)
+    {
+        const items = [...this.findElement('deleted-items').querySelectorAll('[data-record-id]:not([data-restore="false"])')] as HTMLElement[];
+        this.dispatchEvent(new CustomEvent('cleardeleted', { detail: { items }, bubbles: true, composed: true }));
+    }
+    async #clearImageCache_onClick(_event: Event)
+    {
+        const items = [...this.findElement('deleted-images').querySelectorAll('[data-record-id]')] as HTMLElement[];
+        this.dispatchEvent(new CustomEvent('clearimages', { detail: { items }, bubbles: true, composed: true }));
+    }
+
+    #daysToPersist_onChange(event: Event)
+    {
+        const dataPersistsDaysValues = DaysToPersistValues;
+        const input = event.target as HTMLInputElement;
+        snapToStep(input, dataPersistsDaysValues);
+        this.findElement('data-persist-days-value').textContent = input.value;
+    }
+    #deletedItems_onRemove(event: Event|CustomEvent)
+    {        
+        const item = (event as CustomEvent).detail;
+        const recordType = item.dataset.recordType;
+        const recordId = item.dataset.recordId;
+        const timestamp = item.getAttribute('data-timestamp');
+
+        const targetType = (recordType == 'board')
+        ? HistoryEntryTargetType.Board
+        : (recordType == 'list')
+        ? HistoryEntryTargetType.List
+        : (recordType == 'task')
+        ? HistoryEntryTargetType.Task
+        : null;
+
+        this.dispatchEvent(new CustomEvent('restoreitem', { detail: { targetType, recordId, timestamp }, bubbles: true, composed: true }));
+    }
+    #deletedImages_onRemove(event: Event|CustomEvent)
+    {
+        const item = (event as CustomEvent).detail;
+        this.dispatchEvent(new CustomEvent('deleteimage', { detail: { item }, bubbles: true, composed: true }));
+    }
+
+    
     #createDeletedItem(data: unknown, recordType: 'board'|'list'|'task'|'image', canRestore: boolean, timestamp: number)
     {
         const item = document.createElement('div');
@@ -315,6 +291,36 @@ export class DataPanelElement extends HTMLElement
     //     }
     //     this.#refreshDeletedItems();
     // }
+
+    #applyPartAttributes()
+    {
+        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
+        for(let i = 0; i < identifiedElements.length; i++)
+        {
+            identifiedElements[i].part.add(identifiedElements[i].id);
+        }
+        const classedElements = [...this.shadowRoot!.querySelectorAll(':not(form-field,.postfix,.prefix,.container, .field-label)[class]')];
+        for(let i = 0; i < classedElements.length; i++)
+        {
+            const classedElement = classedElements[i];
+            classedElement.part.add(...classedElements[i].classList);
+        }
+        const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
+        for(let i = 0; i < formFieldElements.length; i++)
+        {
+            const formFieldElement = formFieldElements[i];
+            const inputId = formFieldElement.id;
+            
+            const container = formFieldElement.querySelector('.container')!;
+            container.part.add('container', 'field-container', `${inputId}-container`);
+            const label = formFieldElement.querySelector('.field-label')!;
+            label.part.add('container', 'field-label', `${inputId}-label`);
+            const prefix = formFieldElement.querySelector('.prefix')!;
+            prefix.part.add('container', 'field-prefix', `${inputId}-prefix`);
+            const postfix = formFieldElement.querySelector('.postfix')!;
+            postfix.part.add('container', 'field-postfix', `${inputId}-postfix`);
+        }
+    }
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)

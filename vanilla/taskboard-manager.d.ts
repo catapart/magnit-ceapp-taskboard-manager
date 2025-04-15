@@ -124,6 +124,8 @@ declare class BoardExport extends BoardExport_base {
     constructor(board?: TaskBoardRecord, taskSettings?: TaskSettingsRecord, backgroundImage?: CustomImageRecord, lists?: ListExport[]);
 }
 
+type ColorScheme = 'inherit' | 'browser' | 'light' | 'dark';
+
 /** Helper const for accessing component-specific methods and properties
 * used to make development possible across multiple modular files.
 * Not suited for interacting with the component  */
@@ -142,7 +144,7 @@ declare class TaskboardManagerElement extends HTMLElement {
     * Not necessary if the `autolaunch` attribute was not set to `false`.
     */
     init(): Promise<void>;
-    setColorScheme(scheme: 'inherit' | 'browser' | 'light' | 'dark'): void;
+    setColorScheme(scheme: ColorScheme): void;
     refreshBoards(): Promise<void>;
     addBoard(): Promise<void>;
     openBoardSettings(id: string): Promise<void>;

@@ -11,19 +11,19 @@ import './settings-panel/settings-panel';
 import './data-panel/data-panel';
 import './history-panel/history-panel';
 import './about-panel/about-panel';
-import { DEFAULT_HISTORY_LENGTH, DEFAULT_PERSIST_DAYS, HistoryLengthValues, HistoryPanelElement } from './history-panel/history-panel';
+import { DEFAULT_HISTORY_LENGTH, HistoryLengthValues, HistoryPanelElement } from './history-panel/history-panel';
 import { DataPanelElement, DaysToPersistValues } from './data-panel/data-panel';
 import { AboutPanelElement } from './about-panel/about-panel';
 import { ActionHistoryElement } from '@magnit-ce/action-history';
 import { AppSettingKey, DataService } from '../../data/data.service';
+import { ColorScheme, SettingsPanelElement } from './settings-panel/settings-panel';
 
-export enum ConfigPanelAttributes
+
+export type ConfigPanelProperties = 
 {
+    appVersion: string;
+    scheme_onChange: (scheme: ColorScheme) => void;
 }
-
-export type ConfigPanelProperties = { [key in ConfigPanelAttributes]: string } &
-{
-};
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
@@ -40,10 +40,6 @@ ${defineIcons(
 const COMPONENT_TAG_NAME = 'config-panel';
 export class ConfigPanelElement extends HTMLElement
 {
-    static observedAttributes = [
-        ...Object.values(ConfigPanelAttributes),
-    ];
-
     componentParts: Map<string, HTMLElement> = new Map();
     getElement<T extends HTMLElement = HTMLElement>(id: string)
     {
@@ -208,31 +204,13 @@ export class ConfigPanelElement extends HTMLElement
     //         this.clearHistory();
     //     });
     }
-    #applyPartAttributes()
+
+    async init(options: ConfigPanelProperties)
     {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            classedElements[i].part.add(...classedElements[i].classList);
-        }
-    }
-
-    async init(appVersion: string)
-    {
-        const historyLength = (await DataService.getAppSetting(AppSettingKey.HistoryLength)) ?? DEFAULT_HISTORY_LENGTH;
-        const daysToPersistData = (await DataService.getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
-
-        this.findElement<AboutPanelElement>('about-panel').setVersion(appVersion);
-        this.findElement<DataPanelElement>('data-panel').prepareDaysToPersistOptions(daysToPersistData);
-        this.findElement<HistoryPanelElement>('history-panel').prepareHistoryLength(historyLength);
-
-        this.refreshHistory();
-        this.refreshCache();
+        this.findElement<SettingsPanelElement>('settings-panel').init({ scheme_onChange: options.scheme_onChange });
+        this.findElement<DataPanelElement>('data-panel').init();
+        this.findElement<HistoryPanelElement>('history-panel').init();
+        this.findElement<AboutPanelElement>('about-panel').init({ appVersion: options.appVersion });
     }
 
     refreshHistory()
@@ -254,6 +232,19 @@ export class ConfigPanelElement extends HTMLElement
 
 
 
+    #applyPartAttributes()
+    {
+        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
+        for(let i = 0; i < identifiedElements.length; i++)
+        {
+            identifiedElements[i].part.add(identifiedElements[i].id);
+        }
+        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
+        for(let i = 0; i < classedElements.length; i++)
+        {
+            classedElements[i].part.add(...classedElements[i].classList);
+        }
+    }
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)

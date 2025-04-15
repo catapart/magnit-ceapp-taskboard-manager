@@ -2653,851 +2653,6 @@ var app_menu_default = `#app-menu
 // components/app-menu/app-menu.html?raw
 var app_menu_default2 = '<menu id="app-menu" class="menu">\n    <header id="app-menu-header" class="header">\n        <div id="app-menu-branding" class="branding" title="Manager Icon">\n            <svg class="icon logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button id="find-board-button" class="button" type="button" data-route="#boards" title="Find Board">\n            <svg class="icon button-icon magnifying-glass">\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="button-label">Find Board</span>\n        </button>\n        <button id="open-settings-button" class="button" type="button" data-route="#config/settings" title="App Administration">\n            <svg class="icon button-icon gear">\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list id="boards" remove="false" edit="true" edit-class="board-edit-button" exportparts="items: board-items">\n        <slot></slot>\n        <button id="new-board-button" class="button new-board-button" type="button" slot="add" title="New Board">\n            <svg class="icon button-icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label button-label">New Board</span>\n        </button>\n        <template part="edit-button button">\n            <svg class="icon button-icon expand">\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n';
 
-// components/config-panel/history-panel/history-panel.css?raw
-var history_panel_default = ":host\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n    overflow: hidden;\n}\n\n#history-header\n{\n    font-size: 14px;\n    font-weight: bold;\n}\n\n#history-length-fieldset\n{\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    flex: 1;\n}\n\n#history-length-field .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    flex: 1;\n}\n\n#action-history-length\n{\n    flex: 1;\n}\n\n#history-navigation-fieldset\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n    gap: 7px;\n    overflow: hidden;\n}\n#clear-history-button\n{\n    grid-column: 4;\n    white-space: nowrap;\n}\n#action-history\n{\n    grid-column: span 4;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    overflow: auto;\n    flex: 1;\n}\n@media (max-width: 665px) \n{\n    #action-history-length\n    {\n        width: 50px;\n    }\n}";
-
-// components/config-panel/history-panel/history-panel.html?raw
-var history_panel_default2 = '\n<header id="history-header" class="header page-header">History</header>\n<fieldset id="history-navigation-fieldset" class="fieldset config-fieldset">\n    <legend id="history-navigation-legend" class="legend config-legend">Navigation</legend>\n    <button id="undo" class="button">\n        <svg id="restore-item-icon" class="icon" title="Undo">\n            <use href="#icon-definition_undo-redo"></use>\n        </svg>\n        <span part="undo-label">Undo</span>\n    </button>\n    <button id="redo" class="button">\n        <svg id="restore-item-icon" class="icon" title="Redo" style="transform: scaleX(-1);">\n            <use href="#icon-definition_undo-redo"></use>\n        </svg>\n        <span id="redo-label">Redo</span>\n    </button>\n    <button id="clear-history-button" class="button">\n        <svg id="clear-history-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-history-label">Clear History</span>\n    </button>\n    <action-history id="action-history" reverse>\n        <slot name="action-history"></slot>\n    </action-history>\n</fieldset>\n<fieldset id="history-length-fieldset" class="fieldset config-fieldset">\n    <legend id="history-length-legend" class="legend config-legend">History Length</legend>\n    <form-field id="history-length-field" class="field">\n        <input type="range" id="action-history-length" class="input" max="150" list="action-history-length-values" />\n        <datalist id="action-history-length-values"></datalist>\n        <span slot="postfix" id="action-history-length-value" part="field-postfix"></span>\n        <button slot="postfix" id="apply-history-length-button" part="button field-postfix">\n            <svg id="apply-history-length-icon" class="icon">\n                <use href="#icon-definition_confirm-check"></use>\n            </svg>\n            <span id="apply-history-length-label">Apply</span>\n        </button>\n    </form-field>\n</fieldset>';
-
-// node_modules/.pnpm/@magnit-ce+action-history@0.0.7/node_modules/@magnit-ce/action-history/dist/action-history.js
-var action_history_default = ":host\n{\n    display: flex; /* needed for reverse ordering */\n    flex-direction: column;\n    overflow: auto;\n}\n:host([empty])::before\n{\n    content: attr(placeholder);\n    color: graytext;\n    font-style: italic;\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n::slotted([data-entry])\n{\n    cursor: pointer;\n    flex-shrink: 0; /* prevents squishing due to the flex display */\n}\n\n::slotted([data-active][data-entry])\n{\n    text-decoration: underline;\n}\n\n::slotted([data-entry][data-reversed])\n{\n    scale: .98;\n    opacity: .5;\n}";
-var HistoryEntryType = /* @__PURE__ */ ((HistoryEntryType2) => {
-  HistoryEntryType2["Create"] = "create";
-  HistoryEntryType2["Read"] = "read";
-  HistoryEntryType2["Update"] = "update";
-  HistoryEntryType2["Delete"] = "delete";
-  HistoryEntryType2["Custom"] = "custom";
-  return HistoryEntryType2;
-})(HistoryEntryType || {});
-var ATTRIBUTENAME_REVERSED = "data-reversed";
-var ATTRIBUTENAME_ACTIVE = "data-active";
-var ATTRIBUTENAME_ENTRY = "data-entry";
-var ATTRIBUTENAME_TIMESTAMP = "data-timestamp";
-var COMPONENT_STYLESHEET4 = new CSSStyleSheet();
-COMPONENT_STYLESHEET4.replaceSync(action_history_default);
-var COMPONENT_TAG_NAME4 = "action-history";
-var ActionHistoryElement = class extends HTMLElement {
-  onBack = async (target, previous, toReverse, targetIndex, previousActiveEntryIndex) => {
-  };
-  onForward = async (target, previous, toActivate, targetIndex, previousActiveEntryIndex) => {
-  };
-  get entryAttributeName() {
-    return this.getAttribute("entry-attribute") ?? ATTRIBUTENAME_ENTRY;
-  }
-  get activeAttributeName() {
-    return this.getAttribute("active-attribute") ?? ATTRIBUTENAME_ACTIVE;
-  }
-  get reversedAttributeName() {
-    return this.getAttribute("reversed-attribute") ?? ATTRIBUTENAME_REVERSED;
-  }
-  get timestampAttributeName() {
-    return this.getAttribute("timestamp-attribute") ?? ATTRIBUTENAME_TIMESTAMP;
-  }
-  #slot;
-  #boundSlotChange;
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = `<slot></slot>`;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET4);
-    this.#boundSlotChange = ((_event) => {
-      const children = this.#slot.assignedElements();
-      if (children.length == 1 && children[0] instanceof HTMLSlotElement) {
-        let descendantSlot = children[0];
-        let descendantSlotChildren = descendantSlot.assignedElements();
-        while (descendantSlot instanceof HTMLSlotElement && descendantSlotChildren[0] instanceof HTMLSlotElement) {
-          descendantSlot = descendantSlotChildren[0];
-          if (descendantSlot instanceof HTMLSlotElement) {
-            descendantSlotChildren = descendantSlot.assignedElements();
-          }
-        }
-        this.#registerSlot(descendantSlot);
-        return;
-      }
-      this.#updateEntries(children);
-    }).bind(this);
-    this.#registerSlot(this.shadowRoot.querySelector(`slot`));
-    this.addEventListener("click", (event) => {
-      const target = event.target.closest(`[${this.entryAttributeName}]`);
-      if (target == null) {
-        return;
-      }
-      this.activateEntry(target);
-    });
-  }
-  #registerSlot(slot) {
-    if (this.#slot != null) {
-      this.#slot.removeEventListener("slotchange", this.#boundSlotChange);
-    }
-    this.#slot = slot;
-    this.#slot.addEventListener("slotchange", this.#boundSlotChange);
-    const children = this.#slot.assignedElements();
-    this.toggleAttribute("empty", children.length == 0);
-    this.#updateEntries(children);
-  }
-  #updateEntries(children) {
-    let activeEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
-    if (activeEntry != null && activeEntry.getAttribute(this.timestampAttributeName) != null) {
-      activeEntry.removeAttribute(this.activeAttributeName);
-      activeEntry = void 0;
-    }
-    const canRemoveReversedEntries = this.getAttribute("prevent-removal") == void 0;
-    let lastChild = null;
-    for (let i = 0; i < children.length; i++) {
-      if (children[i].getAttribute(this.entryAttributeName) == null) {
-        continue;
-      }
-      lastChild = children[i];
-      if (children[i].hasAttribute(this.timestampAttributeName)) {
-        continue;
-      }
-      if (canRemoveReversedEntries == true) {
-        const toReverse = children.filter((item) => item.getAttribute(this.reversedAttributeName) != null);
-        for (let i2 = 0; i2 < toReverse.length; i2++) {
-          toReverse[i2].remove();
-        }
-      }
-      children[i].setAttribute(this.timestampAttributeName, Date.now().toString());
-      this.updateOrder(children);
-      this.dispatchEvent(new CustomEvent("add", { detail: { target: children[i] }, bubbles: true, composed: true }));
-    }
-    if (activeEntry == null && lastChild != null && lastChild.getAttribute(this.reversedAttributeName) == null) {
-      lastChild.toggleAttribute(this.activeAttributeName, true);
-    }
-    this.toggleAttribute("empty", children.length == 0);
-  }
-  updateOrder(children) {
-    children = children ?? this.#slot.assignedElements();
-    if (this.hasAttribute("reverse")) {
-      for (let i = 0; i < children.length; i++) {
-        const order = children.length - i;
-        const element = children[i];
-        element.tabIndex = order;
-        element.style.order = order.toString();
-      }
-    } else {
-      for (let i = 0; i < children.length; i++) {
-        const element = children[i];
-        element.removeAttribute("tabindex");
-        element.style.removeProperty("order");
-      }
-    }
-  }
-  /**
-   * Activate the previous entry, if it exists.
-   * @returns `void`
-   */
-  back() {
-    const children = this.#slot.assignedElements();
-    const activeEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
-    if (activeEntry == null) {
-      return;
-    }
-    const activeIndex = children.indexOf(activeEntry);
-    const backIndex = activeIndex - 1;
-    if (backIndex == -1) {
-      new Promise(async (resolve) => {
-        await this.onBack(activeEntry, activeEntry, [activeEntry], backIndex, activeIndex);
-        activeEntry.toggleAttribute(this.reversedAttributeName, true);
-        activeEntry.removeAttribute(this.activeAttributeName);
-        resolve();
-      });
-      return;
-    }
-    if (backIndex >= 0 && backIndex < children.length) {
-      const entry = children[backIndex];
-      entry.click();
-    }
-  }
-  /**
-   * Activate the next entry, if it exists.
-   * @returns `void`
-   */
-  forward() {
-    const children = this.#slot.assignedElements();
-    let activeEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
-    const forwardIndex = activeEntry == null ? children.length > 0 ? 0 : -1 : children.indexOf(activeEntry) + 1;
-    if (forwardIndex == -1) {
-      return;
-    }
-    if (forwardIndex < children.length) {
-      const entry = children[forwardIndex];
-      entry.click();
-    }
-  }
-  /**
-   * 
-   * @returns `void`
-   */
-  async activateEntry(target) {
-    if (target.hasAttribute(this.activeAttributeName)) {
-      this.dispatchEvent(new CustomEvent("refresh", { detail: { target }, bubbles: true, composed: true }));
-      return;
-    }
-    const activationProperties = await this.#activateEntry(target);
-    this.dispatchEvent(new CustomEvent("activate", { detail: activationProperties, bubbles: true, composed: true }));
-  }
-  async #activateEntry(target) {
-    const children = this.#slot.assignedElements();
-    const previousActiveEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
-    if (previousActiveEntry != null) {
-      previousActiveEntry.removeAttribute(this.activeAttributeName);
-    }
-    const targetIndex = children.indexOf(target);
-    const previousActiveEntryIndex = previousActiveEntry == null ? -1 : children.indexOf(previousActiveEntry);
-    const toReverse = [];
-    const toActivate = [];
-    if (previousActiveEntryIndex > targetIndex) {
-      for (let i = previousActiveEntryIndex; i > targetIndex; i--) {
-        toReverse.push(children[i]);
-      }
-    } else if (previousActiveEntryIndex < targetIndex) {
-      for (let i = previousActiveEntryIndex + 1; i <= targetIndex; i++) {
-        toActivate.push(children[i]);
-      }
-    } else {
-      throw new Error("Unable to determine action");
-    }
-    const activationProperties = { target, previousActiveEntry, toReverse, toActivate, targetIndex, previousActiveEntryIndex };
-    if (toReverse.length > 0) {
-      for (let i = 0; i < toReverse.length; i++) {
-        toReverse[i].toggleAttribute(this.reversedAttributeName, true);
-      }
-      const reverseTarget = toReverse[toReverse.length - 1];
-      ;
-      await this.onBack(reverseTarget, previousActiveEntry, toReverse, children.indexOf(reverseTarget), previousActiveEntryIndex);
-    } else if (toActivate.length > 0) {
-      for (let i = 0; i < toActivate.length; i++) {
-        toActivate[i].removeAttribute(this.reversedAttributeName);
-      }
-      const activateTarget = toActivate[toActivate.length - 1];
-      await this.onForward(activateTarget, previousActiveEntry, toActivate, children.indexOf(activateTarget), previousActiveEntryIndex);
-    }
-    target.toggleAttribute(this.activeAttributeName, true);
-    return activationProperties;
-  }
-  /**
-   * Using the target for reference, sets the active entry as the 
-   * entry directly preceeding the target entry. Calls `onBack`
-   * handlers, in order, for every entry that is active, and later 
-   * than the activated entry (including the target entry), or 
-   * `onForward` handlers, in order, for  every entry that is inactive
-   *  and earlier than the activated entry.
-   * @returns `void`
-   * @description Useful for "Undo" functionality where the action to
-   * reverse is well-known, but finding the action to activate might
-   * require a lookup/query.
-   */
-  async reverseEntry(target) {
-    if (target.hasAttribute(this.reversedAttributeName)) {
-      return;
-    }
-    const children = this.#slot.assignedElements();
-    const previousActiveEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
-    if (previousActiveEntry != null) {
-      previousActiveEntry.removeAttribute(this.activeAttributeName);
-    }
-    const targetIndex = children.indexOf(target);
-    const previousActiveEntryIndex = previousActiveEntry == null ? -1 : children.indexOf(previousActiveEntry);
-    const toReverse = [target];
-    const toActivate = [];
-    if (targetIndex == previousActiveEntryIndex) {
-      await this.onBack(target, target, [target], targetIndex, previousActiveEntryIndex);
-      target.toggleAttribute(this.reversedAttributeName, true);
-      target.removeAttribute(this.activeAttributeName);
-      const itemIndex2 = children.findIndex((item) => item.dataset.timestamp == target.dataset.timestamp);
-      const preceedingItemIndex2 = itemIndex2 - 1;
-      const preceedingItem2 = preceedingItemIndex2 < 0 || preceedingItemIndex2 > children.length - 1 ? void 0 : children[preceedingItemIndex2];
-      if (preceedingItem2 != null) {
-        preceedingItem2.toggleAttribute(this.activeAttributeName, true);
-      }
-      this.dispatchEvent(new CustomEvent("reverse", { detail: { target, previousActiveEntry, toReverse, toActivate, targetIndex, previousActiveEntryIndex }, bubbles: true, composed: true }));
-      return;
-    }
-    if (previousActiveEntryIndex > targetIndex) {
-      for (let i = previousActiveEntryIndex; i > targetIndex; i--) {
-        toReverse.push(children[i]);
-      }
-    } else if (previousActiveEntryIndex < targetIndex) {
-      for (let i = previousActiveEntryIndex + 1; i <= targetIndex; i++) {
-        toActivate.push(children[i]);
-      }
-    } else {
-      throw new Error("Unable to determine action");
-    }
-    const activationProperties = { target, previousActiveEntry, toReverse, toActivate, targetIndex, previousActiveEntryIndex };
-    if (toReverse.length > 0) {
-      for (let i = 0; i < toReverse.length; i++) {
-        toReverse[i].toggleAttribute(this.reversedAttributeName, true);
-      }
-      const reverseTarget = toReverse[toReverse.length - 1];
-      await this.onBack(reverseTarget, previousActiveEntry, toReverse, children.indexOf(reverseTarget), previousActiveEntryIndex);
-    } else if (toActivate.length > 0) {
-      for (let i = 0; i < toActivate.length; i++) {
-        toActivate[i].removeAttribute(this.reversedAttributeName);
-      }
-      const activateTarget = toActivate[toActivate.length - 1];
-      await this.onForward(activateTarget, previousActiveEntry, toActivate, children.indexOf(activateTarget), previousActiveEntryIndex);
-    }
-    const itemIndex = children.findIndex((item) => item.dataset.timestamp == target.dataset.timestamp);
-    const preceedingItemIndex = itemIndex - 1;
-    const preceedingItem = preceedingItemIndex < 0 || preceedingItemIndex > children.length - 1 ? void 0 : children[preceedingItemIndex];
-    if (preceedingItem != null) {
-      preceedingItem.toggleAttribute(this.activeAttributeName, true);
-    }
-    target.removeAttribute(this.activeAttributeName);
-    this.dispatchEvent(new CustomEvent("reverse", { detail: activationProperties, bubbles: true, composed: true }));
-  }
-  static observedAttributes = ["reverse"];
-  attributeChangedCallback(attributeName, _oldValue, newValue) {
-    if (attributeName == "reverse") {
-      this.updateOrder();
-    }
-  }
-};
-if (customElements.get(COMPONENT_TAG_NAME4) == null) {
-  customElements.define(COMPONENT_TAG_NAME4, ActionHistoryElement);
-}
-
-// resources/utils.ts
-function snapToStep(target, steps) {
-  const inputValue = parseFloat(target.value);
-  for (let i = 1; i < steps.length; i++) {
-    const value = steps[i];
-    const lastValue = steps[i - 1];
-    const distanceFromValue = Math.abs(value - inputValue);
-    const distanceFromLastValue = Math.abs(lastValue - inputValue);
-    const isCloserToNewValue = Math.min(distanceFromValue, distanceFromLastValue) == distanceFromValue;
-    if (isCloserToNewValue) {
-      target.value = value.toString();
-    } else {
-      target.value = lastValue.toString();
-      break;
-    }
-  }
-}
-function createOptionElement(value) {
-  const option = document.createElement("option");
-  const stringValue = value.toString();
-  option.value = stringValue;
-  option.textContent = stringValue;
-  return option;
-}
-
-// components/config-panel/history-panel/history-panel.ts
-var HistoryLengthValues = [0, 30, 50, 100, 150];
-var HistoryPanelAttributes = /* @__PURE__ */ ((HistoryPanelAttributes2) => {
-  return HistoryPanelAttributes2;
-})(HistoryPanelAttributes || {});
-var DEFAULT_HISTORY_LENGTH = "30";
-var DEFAULT_PERSIST_DAYS = "7";
-var COMPONENT_STYLESHEET5 = new CSSStyleSheet();
-COMPONENT_STYLESHEET5.replaceSync(`${shared_default}
-    ${history_panel_default}`);
-var COMPONENT_TEMPLATE3 = `${history_panel_default2}
-${defineIcons(
-  "ConfirmCheck" /* ConfirmCheck */,
-  "UndoRedo" /* UndoRedo */,
-  "Trash" /* Trash */
-)}`;
-var COMPONENT_TAG_NAME5 = "history-panel";
-var HistoryPanelElement = class extends HTMLElement {
-  static observedAttributes = [
-    ...Object.values(HistoryPanelAttributes)
-  ];
-  componentParts = /* @__PURE__ */ new Map();
-  getElement(id) {
-    if (this.componentParts.get(id) == null) {
-      const part = this.findElement(id);
-      if (part != null) {
-        this.componentParts.set(id, part);
-      }
-    }
-    return this.componentParts.get(id);
-  }
-  findElement(id) {
-    return this.shadowRoot.getElementById(id);
-  }
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE3;
-    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET5);
-    this.#applyPartAttributes();
-    this.findElement("undo").addEventListener("click", this.#undo_onClick.bind(this));
-    this.findElement("redo").addEventListener("click", this.#redo_onClick.bind(this));
-    const actionHistory = this.getElement("action-history");
-    actionHistory.onBack = this.#actionHistory_onBack.bind(this);
-    actionHistory.onForward = this.#actionHistory_onForward.bind(this);
-    this.findElement("action-history-length").addEventListener("change", this.#historyLength_onChange.bind(this));
-    this.findElement("apply-history-length-button").addEventListener("click", this.#applyHistoryLength_onClick.bind(this));
-    this.findElement("clear-history-button").addEventListener("click", this.#clearHistory_onClick.bind(this));
-  }
-  #applyPartAttributes() {
-    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
-    for (let i = 0; i < identifiedElements.length; i++) {
-      identifiedElements[i].part.add(identifiedElements[i].id);
-    }
-    const classedElements = [...this.shadowRoot.querySelectorAll(":not(form-field,.postfix,.prefix,.container, .field-label)[class]")];
-    for (let i = 0; i < classedElements.length; i++) {
-      const classedElement = classedElements[i];
-      classedElement.part.add(...classedElements[i].classList);
-    }
-    const formFieldElements = [...this.shadowRoot.querySelectorAll("form-field")];
-    for (let i = 0; i < formFieldElements.length; i++) {
-      const formFieldElement = formFieldElements[i];
-      const inputId = formFieldElement.id;
-      const container = formFieldElement.querySelector(".container");
-      container.part.add("container", "field-container", `${inputId}-container`);
-      const label = formFieldElement.querySelector(".field-label");
-      label.part.add("container", "field-label", `${inputId}-label`);
-      const prefix = formFieldElement.querySelector(".prefix");
-      prefix.part.add("container", "field-prefix", `${inputId}-prefix`);
-      const postfix = formFieldElement.querySelector(".postfix");
-      postfix.part.add("container", "field-postfix", `${inputId}-postfix`);
-    }
-  }
-  prepareHistoryLength(historyLength) {
-    const historyLengthOptions = Array.from(HistoryLengthValues).map((value) => createOptionElement(value));
-    this.findElement("action-history-length-values").append(...historyLengthOptions);
-    this.findElement("action-history-length").value = historyLength;
-    this.findElement("action-history-length-value").textContent = historyLength;
-  }
-  undo() {
-    this.findElement("action-history").back();
-  }
-  redo() {
-    this.findElement("action-history").forward();
-  }
-  #undo_onClick(_event) {
-    this.undo();
-    this.dispatchEvent(new CustomEvent("undo", { bubbles: true, composed: true }));
-  }
-  #redo_onClick(_event) {
-    this.redo();
-    this.dispatchEvent(new CustomEvent("redo", { bubbles: true, composed: true }));
-  }
-  async #actionHistory_onBack(target, previous, all, targetIndex, previousActiveEntryIndex) {
-    let refreshBoards = false;
-    let refreshDeletedItems = false;
-    const isLastUpdate = all.indexOf(target) == all.length - 1;
-    if (isLastUpdate == true) {
-      const recordType = target.querySelector(".target-type")?.textContent?.toLowerCase();
-      if (recordType == "board") {
-        refreshBoards = true;
-      }
-      refreshDeletedItems = true;
-    }
-    this.dispatchEvent(new CustomEvent("historyback", { detail: {
-      target,
-      previous,
-      targetIndex,
-      previousActiveEntryIndex,
-      refreshBoards,
-      refreshDeletedItems
-    }, bubbles: true, composed: true }));
-  }
-  async #actionHistory_onForward(target, previous, all, targetIndex, previousActiveEntryIndex) {
-    let refreshBoards = false;
-    let refreshDeletedItems = false;
-    const isLastUpdate = all.indexOf(target) == all.length - 1;
-    if (isLastUpdate == true) {
-      const recordType = target.querySelector(".target-type")?.textContent?.toLowerCase();
-      if (recordType == "board") {
-        refreshBoards = true;
-      }
-      refreshDeletedItems = true;
-    }
-    this.dispatchEvent(new CustomEvent("historyforward", { detail: {
-      target,
-      previous,
-      targetIndex,
-      previousActiveEntryIndex,
-      refreshBoards,
-      refreshDeletedItems
-    }, bubbles: true, composed: true }));
-  }
-  async #historyLength_onChange(event) {
-    const input = event.target;
-    snapToStep(input, HistoryLengthValues);
-    this.findElement("action-history-length-value").textContent = input.value;
-    let startIndex = parseInt(this.findElement("action-history-length").value);
-    if (startIndex > 0) {
-      startIndex--;
-    }
-    const actionHistory = this.findElement("action-history");
-    this.dispatchEvent(new CustomEvent("preparehistoryitems", { detail: { actionHistory, startIndex }, bubbles: true, composed: true }));
-  }
-  async #applyHistoryLength_onClick(_event) {
-    const historyLength = this.findElement("action-history-length").value;
-    this.dispatchEvent(new CustomEvent("historylength", { detail: { historyLength }, bubbles: true, composed: true }));
-  }
-  #clearHistory_onClick(_event) {
-    this.dispatchEvent(new CustomEvent("clearhistory", { bubbles: true, composed: true }));
-  }
-  async refresh() {
-    const actionHistory = this.getElement("action-history");
-    actionHistory.innerHTML = "";
-    actionHistory.toggleAttribute("prevent-removal", true);
-    const records = await DataService.getHistoryEntries();
-    if (records.length == 0) {
-      return;
-    }
-    let activeEntryIndex = await DataService.getAppSetting("activeEntryIndex" /* ActiveEntryIndex */);
-    if (activeEntryIndex != null && activeEntryIndex > records.length) {
-      activeEntryIndex = records.length - 1;
-    }
-    let entries = [];
-    let activeEntry = null;
-    for (let i = 0; i < records.length; i++) {
-      const record = records[i];
-      const entry = this.#createActionHistoryEntryElement(record);
-      entries.push(entry);
-      if (i == activeEntryIndex) {
-        entry.toggleAttribute(ATTRIBUTENAME_ACTIVE, true);
-        activeEntry = entry;
-        activeEntry.part.add("active");
-        const descendants = [...activeEntry.querySelectorAll("span")];
-        for (let i2 = 0; i2 < descendants.length; i2++) {
-          descendants[i2].part.add("active");
-        }
-        continue;
-      }
-      if (activeEntry != null) {
-        entry.toggleAttribute(ATTRIBUTENAME_REVERSED, true);
-      }
-    }
-    if (activeEntry == null) {
-      entries = entries.map((item) => {
-        item.toggleAttribute(ATTRIBUTENAME_REVERSED, true);
-        return item;
-      });
-    }
-    actionHistory.append(...entries);
-    requestAnimationFrame(() => {
-      actionHistory.toggleAttribute("prevent-removal", false);
-    });
-  }
-  #createActionHistoryEntryElement(entry) {
-    const element = document.createElement("div");
-    element.toggleAttribute("data-entry", true);
-    element.setAttribute("timestamp", entry.timestamp.toString());
-    element.setAttribute("data-entry-id", entry.id);
-    element.setAttribute("part", "action-history-entry");
-    element.classList.add("action-history-entry");
-    element.innerHTML = `<span class="action-type" part="action-history-entry-type">${entry.action.toUpperCase()}</span>
-        <span class="data" part="action-history-entry-data">
-            <span class="target-type" part="action-history-target-type">${entry.data.targetType[0].toUpperCase()}${entry.data.targetType.substring(1)}</span>
-            <span class="target-id" part="action-history-target-id">${entry.data.properties.id}</span>
-        </span>`;
-    return element;
-  }
-  // async #handleActionEntryReverse(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
-  // {
-  //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
-  //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
-  //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
-  //     const entryId = targetEntry.getAttribute('data-entry-id');
-  //     if(actionType == null || recordType == null || recordId == null || entryId == null)
-  //     { 
-  //         console.error(new Error('Required property was not found.')); return;
-  //     }
-  //     const channel = (recordType == 'board')
-  //     ? this.#data.boards 
-  //     : (recordType == 'list')
-  //     ? this.#data.lists
-  //     : (recordType == 'task')
-  //     ? this.#data.tasks
-  //     : (recordType == 'image')
-  //     ? this.#data.customImages
-  //     : null;
-  //     if(channel == null) 
-  //     {
-  //         throw new Error(`Unknown record type: ${recordType}`);
-  //     }
-  //     if(actionType == 'create')
-  //     {
-  //         await channel.delete(recordId);
-  //     }
-  //     else if (actionType == 'update')
-  //     {
-  //         const currentEntry = await this.#data.historyEntries?.get(entryId);
-  //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
-  //         const target = await channel.get(recordId);
-  //         if(target == null) { throw new Error('Unable to find target record.'); }
-  //         await this.#reverseUpdate(channel, currentEntry, target)
-  //     }
-  //     else if (actionType == 'delete')
-  //     {
-  //         await channel.restore(recordId);
-  //     }
-  //     else
-  //     {
-  //         console.error(`Unknown action type: ${actionType}`);
-  //     }
-  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
-  // }
-  // async #reverseUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
-  // {
-  //     if(currentEntry.data.properties.updates != null)
-  //     {
-  //         let isRestorationUpdate = false;
-  //         for(const [key, value] of currentEntry.data.properties.updates)
-  //         {
-  //             if(key == 'deletedTimestamp')
-  //             {
-  //                 isRestorationUpdate = true;
-  //                 continue;
-  //             }
-  //             (target as unknown as any)[key] = value.from;
-  //         }
-  //         await channel.save(target as unknown as any);
-  //         if(isRestorationUpdate == true)
-  //         {
-  //             await channel.delete(currentEntry.data.properties.id);
-  //         }
-  //     }
-  //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
-  //     {
-  //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
-  //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
-  //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
-  //         {
-  //             (settingsTarget as unknown as any)[key] = value.from;
-  //         }
-  //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
-  //     }
-  //     if(currentEntry.data.properties.backgroundImages != null)
-  //     {
-  //         const updatedImages: CustomImageRecord[] = [];
-  //         const deletedImageIds: string[] = [];
-  //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
-  //         {
-  //             const data = currentEntry.data.properties.backgroundImages[i];
-  //             const imageTarget = await this.#data.customImages?.get(data.id);
-  //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
-  //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
-  //             {
-  //                 // if boardId going from "" to id, this is an insert; treat it like undoing an image insert
-  //                 if(key == 'boardId' && value.from == "")
-  //                 {
-  //                     deletedImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
-  //                     continue;
-  //                 }
-  //                 (imageTarget as unknown as any)[key] = value.from;
-  //             }
-  //             updatedImages.push(imageTarget);
-  //         }
-  //         await this.#data.customImages?.saveItems(updatedImages);
-  //         await this.#data.customImages?.deleteItems(deletedImageIds);
-  //     }
-  // }
-  // async #handelActionEntryActivate(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
-  // {
-  //     const previouslyActive = [...targetEntry.parentElement!.querySelectorAll('[part="active"]')] as HTMLElement[];
-  //     for(let i = 0; i < previouslyActive.length; i++)
-  //     {
-  //         previouslyActive[i].part.remove('active');
-  //         const descendants = [...previouslyActive[i].querySelectorAll('span')] as HTMLElement[];
-  //         for(let i = 0; i < descendants.length; i++)
-  //         {
-  //             descendants[i].part.add('active');
-  //         }
-  //     }
-  //     targetEntry.part.add('active');
-  //     const descendants = [...targetEntry.querySelectorAll('span')] as HTMLElement[];
-  //     for(let i = 0; i < descendants.length; i++)
-  //     {
-  //         descendants[i].part.add('active');
-  //     }
-  //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
-  //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
-  //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
-  //     const entryId = targetEntry.getAttribute('data-entry-id');
-  //     if(actionType == null || recordType == null || recordId == null || entryId == null) { console.error(new Error('Required property was not found.')); return; }
-  //     const channel = (recordType == 'board')
-  //     ? this.#data.boards 
-  //     : (recordType == 'list')
-  //     ? this.#data.lists
-  //     : (recordType == 'task')
-  //     ? this.#data.tasks
-  //     : (recordType == 'image')
-  //     ? this.#data.customImages
-  //     : null;
-  //     if(channel == null) 
-  //     {
-  //         throw new Error(`Unknown record type: ${recordType}`);
-  //     }
-  //     if(actionType == 'create')
-  //     {
-  //         await channel.restore(recordId);
-  //     }
-  //     else if (actionType == 'update')
-  //     {
-  //         const currentEntry = await this.#data.historyEntries?.get(entryId);
-  //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
-  //         const target = await channel.get(recordId);
-  //         if(target == null) { throw new Error('Unable to find target record.'); }
-  //         await this.#activateUpdate(channel, currentEntry, target);
-  //     }
-  //     else if (actionType == 'delete')
-  //     {
-  //         await channel.delete(recordId);
-  //     }
-  //     else
-  //     {
-  //         console.error(`Unknown action type: ${actionType}`);
-  //     }
-  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
-  // }
-  // async #activateUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
-  // {
-  //     if(currentEntry.data.properties.updates != null)
-  //     {
-  //         let isRestorationUpdate = false;
-  //         for(const [key, value] of currentEntry.data.properties.updates)
-  //         {
-  //             if(key == 'deletedTimestamp')
-  //             {
-  //                 isRestorationUpdate = true;
-  //                 continue;
-  //             }
-  //             (target as unknown as any)[key] = value.to;
-  //         }
-  //         await channel.save(target as unknown as any);
-  //         if(isRestorationUpdate == true)
-  //         {
-  //             await channel.restore(currentEntry.data.properties.id);
-  //         }
-  //     }
-  //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
-  //     {
-  //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
-  //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
-  //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
-  //         {
-  //             (settingsTarget as unknown as any)[key] = value.to;
-  //         }
-  //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
-  //     }
-  //     if(currentEntry.data.properties.backgroundImages != null)
-  //     {
-  //         // doesn't clear from image cache when undo after remove
-  //         const updatedImages: CustomImageRecord[] = [];
-  //         const restoredImageIds: string[] = [];
-  //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
-  //         {
-  //             const data = currentEntry.data.properties.backgroundImages[i];
-  //             const imageTarget = await this.#data.customImages?.get(data.id);
-  //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
-  //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
-  //             {
-  //                 // if boardId going from "" to id, this is an insert; treat it like redoing an image insert
-  //                 if(key == 'boardId' && value.from == "")
-  //                 {
-  //                     restoredImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
-  //                     continue;
-  //                 }
-  //                 (imageTarget as unknown as any)[key] = value.to;
-  //             }
-  //             updatedImages.push(imageTarget);
-  //         }
-  //         await this.#data.customImages?.saveItems(updatedImages);
-  //         await this.#data.customImages?.restoreItems(restoredImageIds);
-  //     }
-  // }
-  // async #addActionHistoryEntry<T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
-  // {
-  //     const historyLength = parseFloat(await this.#getAppSetting(AppSettingKey.HistoryLength) ?? DEFAULT_HISTORY_LENGTH);
-  //     if(historyLength == 0) { return; }
-  //     const channel = await this.#getChannel(this.#data.historyEntries, HISTORY_ERROR_MESSAGE, 'danger');
-  //     const history = this.findElement('action-history');
-  //     const historyEntries = [...history.children] as HTMLElement[];
-  //     const elementsToRemove = historyEntries.filter(item => item.hasAttribute(ATTRIBUTENAME_REVERSED));
-  //     const removeIds: string[] = [];
-  //     if(elementsToRemove.length > 0)
-  //     {
-  //         for(let i = 0; i < elementsToRemove.length; i++)
-  //         {
-  //             const entryId = elementsToRemove[i].getAttribute('data-entry-id');
-  //             if(entryId != null)
-  //             {
-  //                 removeIds.push(entryId)
-  //             }
-  //             elementsToRemove[i].remove();
-  //         }
-  //     }
-  //     const data = new HistoryEntryData(type, properties);
-  //     const entry = channel.create(data, action);
-  //     await channel.save(entry);
-  //     const entries = await channel.getAll('timestamp');
-  //     const removeCount = entries.length - historyLength;
-  //     if(removeCount > 0)
-  //     {
-  //         for(let i = 0; i < removeCount; i++)
-  //         {
-  //             removeIds.push(entries[i].id);
-  //             history.querySelector(`[data-entry-id="${entries[i].id}"]`)?.remove();
-  //         }
-  //     }
-  //     if(removeIds.length > 0)
-  //     {
-  //         await channel.deleteIfExists(removeIds);
-  //     }
-  //     const entryElement = this.#createActionHistoryEntryElement(entry);   
-  //     history.append(entryElement);
-  //     const activeIndex = [...history.children].indexOf(entryElement);
-  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (activeIndex > -1) ? activeIndex : null);
-  //     return entryElement;
-  // }
-  // async #prepareHistoryEntries(historyElement: ActionHistoryElement, startIndex: number)
-  // {
-  //     if(this.#data.historyEntries == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred accessing Action History data. Unable to refresh action history.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         console.error(new Error(`An error occurred accessing Action History data. Unable to refresh action history.`));
-  //         return;
-  //     }
-  //     const entries = await this.#data.historyEntries.getAll('timestamp');
-  //     for(let i = 0; i < entries.length; i++)
-  //     {
-  //         const element = historyElement.querySelector(`[data-entry-id="${entries[i].id}"]`) as HTMLElement;
-  //         if(i < startIndex)
-  //         {
-  //             element.removeAttribute(ATTRIBUTE_PREPARED_FOR_DELETE);
-  //         }
-  //         else
-  //         {
-  //             element.toggleAttribute(ATTRIBUTE_PREPARED_FOR_DELETE, true);
-  //         }
-  //     }        
-  // }
-  // async #applyHistoryLength(actionHistoryLength: number)
-  // {
-  //     await this.#saveAppSetting(AppSettingKey.HistoryLength, actionHistoryLength);
-  //     if(this.#data.historyEntries == null)
-  //     {
-  //         // todo: add toast to inform user
-  //         console.warn(`An error occurred accessing Action History data. Unable to refresh action history.`);
-  //         return;
-  //     }
-  //     const entries = await this.#data.historyEntries.getAll('timestamp');
-  //     let startIndex = actionHistoryLength;
-  //     if(startIndex > 0) { startIndex--; } // fix zero index offset if non-zero number
-  //     const ids: string[] = [];
-  //     for(let i = startIndex; i < entries.length; i++)
-  //     {
-  //         ids.push(entries[i].id);
-  //     }
-  //     await this.#data.historyEntries.deleteItems(ids);
-  //     this.#refreshActionHistory();
-  // }
-};
-if (customElements.get(COMPONENT_TAG_NAME5) == null) {
-  customElements.define(COMPONENT_TAG_NAME5, HistoryPanelElement);
-}
-
 // node_modules/.pnpm/@magnit-ce+message-card@0.0.3/node_modules/@magnit-ce/message-card/dist/message-card.js
 var message_card_default = '\n:host([type="info"])    { --primary-color:#0184db; }\n:host([type="success"]) { --primary-color:#20a453; }\n:host([type="warning"]) { --primary-color:#f0cb52; }\n:host([type="error"])   { --primary-color:#db283b; }\n:host([type="aside"])   { --primary-color:#1f3cd0; }\n:host([type="note"])    { --primary-color:#db8630; }\n:host([type="report"])  { --primary-color:#4d5168; }\n\n@media (prefers-color-scheme: dark) \n{\n    :host([type="info"])    { --primary-color:#3baee9; }\n    :host([type="success"]) { --primary-color:#4fc872; }\n    :host([type="warning"]) { --primary-color:#f0cb52; }\n    :host([type="error"])   { --primary-color:#e95a5c; }\n    :host([type="aside"])   { --primary-color:#3760ff; }\n    :host([type="note"])    { --primary-color:#e9ac60; }\n    :host([type="report"])  { --primary-color:#707177; }\n}\n\n:host\n{\n    --primary-color: graytext;\n    --font-color: fieldtext;\n    background-color: var(--background-color, field);\n    color: var(--font-color);\n    border: solid 1px var(--primary-color);\n    border-radius: 3px;\n    padding: .5em;\n    display: none;\n    font-family: sans-serif;\n    font-size: 12px;\n    position: relative;\n\n    grid-template-columns: auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n:host([open])\n{\n    display: grid;\n}\n\n[part="message-icon"]\n,::slotted([slot="message-icon"])\n{\n    align-self: center;\n    grid-row: span 2;\n    margin-right: 1em;\n}\n\n[part="heading"]\n,::slotted([slot="heading"])\n{\n    color: var(--primary-color);\n    font-weight: bold;\n    font-size: 13px;\n    align-self: center;\n    display: inline-block;\n}\n\n[part="message"]\n{\n    grid-row: 2;\n    grid-column: 2;\n    margin-top: .3em;\n}\n\nsvg path { fill: var(--primary-color); }\n\n:host([prevent-close]) [part="close-button"]\n{\n    display: none;\n}\n[part="close-button"]\n{\n    align-self: center;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n    background: none;\n    padding: 2px 5px;\n    margin: 0;\n    border: solid 1px transparent;\n    border-radius: 3px;\n}\n[part="close-button"]:hover\n{\n    background-color: rgb(0 0 0 / .05);\n    border-color: rgb(0 0 0 / .1);\n}\n@media (prefers-color-scheme: dark) \n{\n    [part="close-button"]:hover\n    {\n        background-color: rgb(0 0 0 / .4);\n        border-color: rgb(0 0 0 / .7);\n    }\n}\n[part="close-icon"]\n,::slotted([slot="close-icon"])\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}\n\n[part="duration"]\n{\n    width: 100%;\n    position: absolute;\n    bottom: 0;\n    appearance: none;\n    height: 2px;\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n    border: none;\n    transition: all 50ms ease;\n    accent-color: var(--primary-color);\n}\n\n[part="duration"]::-webkit-progress-value\n{\n    background-color: var(--primary-color, canvastext);\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n}\n\n[part="duration"]::-webkit-progress-bar\n{\n    background: none;\n}\n[part="duration"]::-moz-progress-bar\n{\n    background-color: var(--primary-color, canvastext);\n}\n\n:host(:not([duration])) [part="duration"]\n{\n    display: none;\n}\n\n/* progress {\n}\nprogress::-webkit-progress-bar {\n}\nprogress::-webkit-progress-value {\n}\nprogress::-moz-progress-bar {\n} */';
 var message_card_default2 = '<slot name="message-icon">\n    <svg part="message-icon" class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">\n        <path d="M16.142 2l5.858 5.858v8.284l-5.858 5.858h-8.284l-5.858-5.858v-8.284l5.858-5.858h8.284zm.829-2h-9.942l-7.029 7.029v9.941l7.029 7.03h9.941l7.03-7.029v-9.942l-7.029-7.029zm-5.971 6h2v8h-2v-8zm1 12.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"></path>\n    </svg>\n</slot>\n<header part="header">\n    <slot name="heading"><span part="heading">Message</span></slot>\n</header>\n<div part="message">\n    <slot></slot>\n</div>\n<button part="close-button">\n    <slot name="close-icon">\n        <svg part="close-icon" class="icon" width="14" height="14" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">\n            <path\n            style="color:#000000;fill:var(--primary-color,InfoText);stroke:var(--outline-color,transparent);stroke-linecap:square;stroke-miterlimit:6.3;stroke-dashoffset:29.2913;stroke-opacity:1;-inkscape-stroke:none"\n            d="m 1237.4389,207.63366 -1.8991,1.8987 a 0.65841136,0.65841136 90.003442 0 0 0,0.93116 l 0.4831,0.48317 a 14628.329,14628.329 44.999244 0 0 0.9312,0.93118 l 3.7936,3.79311 a 0.65840885,0.65840885 89.998393 0 1 0,0.93116 l -3.7936,3.7936 a 8783.6896,8783.6896 135.00442 0 1 -0.9313,0.93111 l -0.4829,0.48283 a 0.65811,0.65811 89.993977 0 0 10e-5,0.93094 l 1.8987,1.89741 a 0.65867085,0.65867085 179.98891 0 0 0.9314,-1.8e-4 l 0.4826,-0.48267 a 45427.77,45427.77 134.99941 0 1 0.9312,-0.93119 l 3.7931,-3.79308 a 0.65848899,0.65848899 179.99848 0 1 0.9312,-2e-5 l 3.7936,3.79312 a 10110.91,10110.91 44.992994 0 0 0.9313,0.93108 l 0.483,0.48285 a 0.65856615,0.65856615 179.99438 0 0 0.9313,-9e-5 l 1.897,-1.89705 a 0.65833101,0.65833101 89.994378 0 0 -10e-5,-0.93111 l -0.483,-0.48285 a 5293.5057,5293.5057 44.99639 0 1 -0.9313,-0.93113 l -3.793,-3.79354 a 0.65849247,0.65849247 90.001607 0 1 0,-0.93122 l 3.793,-3.79305 a 149190.44,149190.44 134.99995 0 1 0.9312,-0.93119 l 0.4832,-0.48321 a 0.65863247,0.65863247 90.008202 0 0 10e-5,-0.93132 l -1.8972,-1.89834 a 0.65838576,0.65838576 0.01346964 0 0 -0.9312,-2.2e-4 l -0.483,0.48285 a 7148.543,7148.543 135.00546 0 0 -0.9313,0.9311 l -3.7936,3.79359 a 0.65841791,0.65841791 0.00151591 0 1 -0.9312,-3e-5 l -3.7931,-3.79353 a 52707.551,52707.551 45.002134 0 0 -0.9312,-0.93122 l -0.4826,-0.48267 a 0.65849044,0.65849044 0.00323988 0 0 -0.9312,-5e-5 z"\n            transform="translate(-1232.6358,-204.72848)" />\n        </svg>\n    </slot>\n</button>\n<progress part="duration" min="0" max="100" step="1" value="100"></progress>';
@@ -3571,7 +2726,7 @@ var MessageCardType = /* @__PURE__ */ ((MessageCardType2) => {
 var DEFAULT_DURATION_MILLISECONDS = 5e3;
 var componentTemplate = `<style>${message_card_default}</style>
 ${message_card_default2}`;
-var COMPONENT_TAG_NAME6 = "message-card";
+var COMPONENT_TAG_NAME4 = "message-card";
 var MessageCardElement = class _MessageCardElement extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
   getPart(key) {
@@ -3665,7 +2820,7 @@ var MessageCardElement = class _MessageCardElement extends HTMLElement {
     return card;
   }
   static create(props) {
-    const element = document.createElement(COMPONENT_TAG_NAME6);
+    const element = document.createElement(COMPONENT_TAG_NAME4);
     if (props == null) {
       return element;
     }
@@ -3761,11 +2916,11 @@ var MessageCardElement = class _MessageCardElement extends HTMLElement {
     this.tabIndex = 0;
   }
 };
-if (customElements.get(COMPONENT_TAG_NAME6) == null) {
-  customElements.define(COMPONENT_TAG_NAME6, MessageCardElement);
+if (customElements.get(COMPONENT_TAG_NAME4) == null) {
+  customElements.define(COMPONENT_TAG_NAME4, MessageCardElement);
 }
 
-// dialog.service.ts
+// feedback.service.ts
 var DATA_ERROR_MESSAGE = `<p>An error occurred trying to access the [subject] data.</p>
 <p>If this is a repeating issue, you can try to refresh the application. Data may be lost when taking this action.</p>
 <p>For more information, see the console in the browser's developer tools.</p>`;
@@ -4178,6 +3333,306 @@ var CustomImageChannel = class extends DataChannel {
     return record;
   }
 };
+
+// node_modules/.pnpm/@magnit-ce+action-history@0.0.7/node_modules/@magnit-ce/action-history/dist/action-history.js
+var action_history_default = ":host\n{\n    display: flex; /* needed for reverse ordering */\n    flex-direction: column;\n    overflow: auto;\n}\n:host([empty])::before\n{\n    content: attr(placeholder);\n    color: graytext;\n    font-style: italic;\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n::slotted([data-entry])\n{\n    cursor: pointer;\n    flex-shrink: 0; /* prevents squishing due to the flex display */\n}\n\n::slotted([data-active][data-entry])\n{\n    text-decoration: underline;\n}\n\n::slotted([data-entry][data-reversed])\n{\n    scale: .98;\n    opacity: .5;\n}";
+var HistoryEntryType = /* @__PURE__ */ ((HistoryEntryType2) => {
+  HistoryEntryType2["Create"] = "create";
+  HistoryEntryType2["Read"] = "read";
+  HistoryEntryType2["Update"] = "update";
+  HistoryEntryType2["Delete"] = "delete";
+  HistoryEntryType2["Custom"] = "custom";
+  return HistoryEntryType2;
+})(HistoryEntryType || {});
+var ATTRIBUTENAME_REVERSED = "data-reversed";
+var ATTRIBUTENAME_ACTIVE = "data-active";
+var ATTRIBUTENAME_ENTRY = "data-entry";
+var ATTRIBUTENAME_TIMESTAMP = "data-timestamp";
+var COMPONENT_STYLESHEET4 = new CSSStyleSheet();
+COMPONENT_STYLESHEET4.replaceSync(action_history_default);
+var COMPONENT_TAG_NAME5 = "action-history";
+var ActionHistoryElement = class extends HTMLElement {
+  onBack = async (target, previous, toReverse, targetIndex, previousActiveEntryIndex) => {
+  };
+  onForward = async (target, previous, toActivate, targetIndex, previousActiveEntryIndex) => {
+  };
+  get entryAttributeName() {
+    return this.getAttribute("entry-attribute") ?? ATTRIBUTENAME_ENTRY;
+  }
+  get activeAttributeName() {
+    return this.getAttribute("active-attribute") ?? ATTRIBUTENAME_ACTIVE;
+  }
+  get reversedAttributeName() {
+    return this.getAttribute("reversed-attribute") ?? ATTRIBUTENAME_REVERSED;
+  }
+  get timestampAttributeName() {
+    return this.getAttribute("timestamp-attribute") ?? ATTRIBUTENAME_TIMESTAMP;
+  }
+  #slot;
+  #boundSlotChange;
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = `<slot></slot>`;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET4);
+    this.#boundSlotChange = ((_event) => {
+      const children = this.#slot.assignedElements();
+      if (children.length == 1 && children[0] instanceof HTMLSlotElement) {
+        let descendantSlot = children[0];
+        let descendantSlotChildren = descendantSlot.assignedElements();
+        while (descendantSlot instanceof HTMLSlotElement && descendantSlotChildren[0] instanceof HTMLSlotElement) {
+          descendantSlot = descendantSlotChildren[0];
+          if (descendantSlot instanceof HTMLSlotElement) {
+            descendantSlotChildren = descendantSlot.assignedElements();
+          }
+        }
+        this.#registerSlot(descendantSlot);
+        return;
+      }
+      this.#updateEntries(children);
+    }).bind(this);
+    this.#registerSlot(this.shadowRoot.querySelector(`slot`));
+    this.addEventListener("click", (event) => {
+      const target = event.target.closest(`[${this.entryAttributeName}]`);
+      if (target == null) {
+        return;
+      }
+      this.activateEntry(target);
+    });
+  }
+  #registerSlot(slot) {
+    if (this.#slot != null) {
+      this.#slot.removeEventListener("slotchange", this.#boundSlotChange);
+    }
+    this.#slot = slot;
+    this.#slot.addEventListener("slotchange", this.#boundSlotChange);
+    const children = this.#slot.assignedElements();
+    this.toggleAttribute("empty", children.length == 0);
+    this.#updateEntries(children);
+  }
+  #updateEntries(children) {
+    let activeEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
+    if (activeEntry != null && activeEntry.getAttribute(this.timestampAttributeName) != null) {
+      activeEntry.removeAttribute(this.activeAttributeName);
+      activeEntry = void 0;
+    }
+    const canRemoveReversedEntries = this.getAttribute("prevent-removal") == void 0;
+    let lastChild = null;
+    for (let i = 0; i < children.length; i++) {
+      if (children[i].getAttribute(this.entryAttributeName) == null) {
+        continue;
+      }
+      lastChild = children[i];
+      if (children[i].hasAttribute(this.timestampAttributeName)) {
+        continue;
+      }
+      if (canRemoveReversedEntries == true) {
+        const toReverse = children.filter((item) => item.getAttribute(this.reversedAttributeName) != null);
+        for (let i2 = 0; i2 < toReverse.length; i2++) {
+          toReverse[i2].remove();
+        }
+      }
+      children[i].setAttribute(this.timestampAttributeName, Date.now().toString());
+      this.updateOrder(children);
+      this.dispatchEvent(new CustomEvent("add", { detail: { target: children[i] }, bubbles: true, composed: true }));
+    }
+    if (activeEntry == null && lastChild != null && lastChild.getAttribute(this.reversedAttributeName) == null) {
+      lastChild.toggleAttribute(this.activeAttributeName, true);
+    }
+    this.toggleAttribute("empty", children.length == 0);
+  }
+  updateOrder(children) {
+    children = children ?? this.#slot.assignedElements();
+    if (this.hasAttribute("reverse")) {
+      for (let i = 0; i < children.length; i++) {
+        const order = children.length - i;
+        const element = children[i];
+        element.tabIndex = order;
+        element.style.order = order.toString();
+      }
+    } else {
+      for (let i = 0; i < children.length; i++) {
+        const element = children[i];
+        element.removeAttribute("tabindex");
+        element.style.removeProperty("order");
+      }
+    }
+  }
+  /**
+   * Activate the previous entry, if it exists.
+   * @returns `void`
+   */
+  back() {
+    const children = this.#slot.assignedElements();
+    const activeEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
+    if (activeEntry == null) {
+      return;
+    }
+    const activeIndex = children.indexOf(activeEntry);
+    const backIndex = activeIndex - 1;
+    if (backIndex == -1) {
+      new Promise(async (resolve) => {
+        await this.onBack(activeEntry, activeEntry, [activeEntry], backIndex, activeIndex);
+        activeEntry.toggleAttribute(this.reversedAttributeName, true);
+        activeEntry.removeAttribute(this.activeAttributeName);
+        resolve();
+      });
+      return;
+    }
+    if (backIndex >= 0 && backIndex < children.length) {
+      const entry = children[backIndex];
+      entry.click();
+    }
+  }
+  /**
+   * Activate the next entry, if it exists.
+   * @returns `void`
+   */
+  forward() {
+    const children = this.#slot.assignedElements();
+    let activeEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
+    const forwardIndex = activeEntry == null ? children.length > 0 ? 0 : -1 : children.indexOf(activeEntry) + 1;
+    if (forwardIndex == -1) {
+      return;
+    }
+    if (forwardIndex < children.length) {
+      const entry = children[forwardIndex];
+      entry.click();
+    }
+  }
+  /**
+   * 
+   * @returns `void`
+   */
+  async activateEntry(target) {
+    if (target.hasAttribute(this.activeAttributeName)) {
+      this.dispatchEvent(new CustomEvent("refresh", { detail: { target }, bubbles: true, composed: true }));
+      return;
+    }
+    const activationProperties = await this.#activateEntry(target);
+    this.dispatchEvent(new CustomEvent("activate", { detail: activationProperties, bubbles: true, composed: true }));
+  }
+  async #activateEntry(target) {
+    const children = this.#slot.assignedElements();
+    const previousActiveEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
+    if (previousActiveEntry != null) {
+      previousActiveEntry.removeAttribute(this.activeAttributeName);
+    }
+    const targetIndex = children.indexOf(target);
+    const previousActiveEntryIndex = previousActiveEntry == null ? -1 : children.indexOf(previousActiveEntry);
+    const toReverse = [];
+    const toActivate = [];
+    if (previousActiveEntryIndex > targetIndex) {
+      for (let i = previousActiveEntryIndex; i > targetIndex; i--) {
+        toReverse.push(children[i]);
+      }
+    } else if (previousActiveEntryIndex < targetIndex) {
+      for (let i = previousActiveEntryIndex + 1; i <= targetIndex; i++) {
+        toActivate.push(children[i]);
+      }
+    } else {
+      throw new Error("Unable to determine action");
+    }
+    const activationProperties = { target, previousActiveEntry, toReverse, toActivate, targetIndex, previousActiveEntryIndex };
+    if (toReverse.length > 0) {
+      for (let i = 0; i < toReverse.length; i++) {
+        toReverse[i].toggleAttribute(this.reversedAttributeName, true);
+      }
+      const reverseTarget = toReverse[toReverse.length - 1];
+      ;
+      await this.onBack(reverseTarget, previousActiveEntry, toReverse, children.indexOf(reverseTarget), previousActiveEntryIndex);
+    } else if (toActivate.length > 0) {
+      for (let i = 0; i < toActivate.length; i++) {
+        toActivate[i].removeAttribute(this.reversedAttributeName);
+      }
+      const activateTarget = toActivate[toActivate.length - 1];
+      await this.onForward(activateTarget, previousActiveEntry, toActivate, children.indexOf(activateTarget), previousActiveEntryIndex);
+    }
+    target.toggleAttribute(this.activeAttributeName, true);
+    return activationProperties;
+  }
+  /**
+   * Using the target for reference, sets the active entry as the 
+   * entry directly preceeding the target entry. Calls `onBack`
+   * handlers, in order, for every entry that is active, and later 
+   * than the activated entry (including the target entry), or 
+   * `onForward` handlers, in order, for  every entry that is inactive
+   *  and earlier than the activated entry.
+   * @returns `void`
+   * @description Useful for "Undo" functionality where the action to
+   * reverse is well-known, but finding the action to activate might
+   * require a lookup/query.
+   */
+  async reverseEntry(target) {
+    if (target.hasAttribute(this.reversedAttributeName)) {
+      return;
+    }
+    const children = this.#slot.assignedElements();
+    const previousActiveEntry = children.find((item) => item.getAttribute(this.activeAttributeName) != null);
+    if (previousActiveEntry != null) {
+      previousActiveEntry.removeAttribute(this.activeAttributeName);
+    }
+    const targetIndex = children.indexOf(target);
+    const previousActiveEntryIndex = previousActiveEntry == null ? -1 : children.indexOf(previousActiveEntry);
+    const toReverse = [target];
+    const toActivate = [];
+    if (targetIndex == previousActiveEntryIndex) {
+      await this.onBack(target, target, [target], targetIndex, previousActiveEntryIndex);
+      target.toggleAttribute(this.reversedAttributeName, true);
+      target.removeAttribute(this.activeAttributeName);
+      const itemIndex2 = children.findIndex((item) => item.dataset.timestamp == target.dataset.timestamp);
+      const preceedingItemIndex2 = itemIndex2 - 1;
+      const preceedingItem2 = preceedingItemIndex2 < 0 || preceedingItemIndex2 > children.length - 1 ? void 0 : children[preceedingItemIndex2];
+      if (preceedingItem2 != null) {
+        preceedingItem2.toggleAttribute(this.activeAttributeName, true);
+      }
+      this.dispatchEvent(new CustomEvent("reverse", { detail: { target, previousActiveEntry, toReverse, toActivate, targetIndex, previousActiveEntryIndex }, bubbles: true, composed: true }));
+      return;
+    }
+    if (previousActiveEntryIndex > targetIndex) {
+      for (let i = previousActiveEntryIndex; i > targetIndex; i--) {
+        toReverse.push(children[i]);
+      }
+    } else if (previousActiveEntryIndex < targetIndex) {
+      for (let i = previousActiveEntryIndex + 1; i <= targetIndex; i++) {
+        toActivate.push(children[i]);
+      }
+    } else {
+      throw new Error("Unable to determine action");
+    }
+    const activationProperties = { target, previousActiveEntry, toReverse, toActivate, targetIndex, previousActiveEntryIndex };
+    if (toReverse.length > 0) {
+      for (let i = 0; i < toReverse.length; i++) {
+        toReverse[i].toggleAttribute(this.reversedAttributeName, true);
+      }
+      const reverseTarget = toReverse[toReverse.length - 1];
+      await this.onBack(reverseTarget, previousActiveEntry, toReverse, children.indexOf(reverseTarget), previousActiveEntryIndex);
+    } else if (toActivate.length > 0) {
+      for (let i = 0; i < toActivate.length; i++) {
+        toActivate[i].removeAttribute(this.reversedAttributeName);
+      }
+      const activateTarget = toActivate[toActivate.length - 1];
+      await this.onForward(activateTarget, previousActiveEntry, toActivate, children.indexOf(activateTarget), previousActiveEntryIndex);
+    }
+    const itemIndex = children.findIndex((item) => item.dataset.timestamp == target.dataset.timestamp);
+    const preceedingItemIndex = itemIndex - 1;
+    const preceedingItem = preceedingItemIndex < 0 || preceedingItemIndex > children.length - 1 ? void 0 : children[preceedingItemIndex];
+    if (preceedingItem != null) {
+      preceedingItem.toggleAttribute(this.activeAttributeName, true);
+    }
+    target.removeAttribute(this.activeAttributeName);
+    this.dispatchEvent(new CustomEvent("reverse", { detail: activationProperties, bubbles: true, composed: true }));
+  }
+  static observedAttributes = ["reverse"];
+  attributeChangedCallback(attributeName, _oldValue, newValue) {
+    if (attributeName == "reverse") {
+      this.updateOrder();
+    }
+  }
+};
+if (customElements.get(COMPONENT_TAG_NAME5) == null) {
+  customElements.define(COMPONENT_TAG_NAME5, ActionHistoryElement);
+}
 
 // data/records/history-entry.record.ts
 var HistoryEntryRecord = class extends DataRecord {
@@ -4647,16 +4102,276 @@ var ListExport = class extends extendableType() {
   }
 };
 
+// components/config-panel/data-panel/data-panel.css?raw
+var data_panel_default = ':host\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 7px;\n}\n\n\n#data-header\n{\n    grid-column: span 3;\n    font-size: 14px;\n    font-weight: bold;\n}\n\n\n#deleted-items [data-restore="false"]\n{\n    scale: .98 .9;\n    opacity: .5;\n    pointer-events: none;\n}\n\n[to-delete]\n{\n    text-decoration: line-through;\n    color: #444;\n}\n\n#import-fieldset\n{\n    grid-column: span 3;\n    display: flex;\n    gap: 7px;\n}\n\n#import-field .container\n{\n    flex: 1;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n}\n\n#import-board-file\n{\n    flex: 1;\n}\n\n/* #import-content\n{\n    overflow: hidden;\n    padding: 1em;\n    display: flex;\n} */\n\n/* #import-manager\n{\n    overflow: hidden;\n    display: flex;\n    flex-direction: column;\n    flex: 1;\n}\n\n#import-actions\n{\n    display: grid;\n    grid-template-columns: 1fr auto auto;\n    gap: 7px;\n}\n\n#import-cancel\n{\n    grid-column: 2;\n}\n\n#import-ok\n{\n    grid-column: 3;\n} */\n\n/* #config-data-caches\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 7px;\n} */\n\n#data-cleanup-fieldset\n{\n    display: grid;\n    grid-template-rows: max-content 1fr max-content;\n    gap: 7px;\n}\n\n#data-cleanup-range .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    align-self: flex-end;\n}\n#data-persist-days\n{\n    flex: 1;\n}\n\n#apply-data-persist-days-button\n{\n    justify-self: flex-end;\n}\n\n#data-pending-fieldset\n,#image-cache-fieldset\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n}\n\n#deleted-items\n,#deleted-images\n{\n    display: flex;\n    flex-direction: column;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    height: 130px;\n    overflow-x: hidden;\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    align-self: flex-end;\n}\n\n#deleted-items::part(add)\n,#deleted-images::part(add)\n{\n    display: none !important;\n}\n\n#clear-deleted-button\n,#clear-image-cache-button\n{\n    justify-self: flex-end;\n}\n\n#data-clear-fieldset\n{\n    display: grid;\n    gap: 7px;\n    grid-column: span 3;\n}\n\n#clear-data-button\n{\n    justify-self: flex-end;\n}\n@media (max-width: 665px) \n{\n\n    #import-fieldset\n    {\n        flex-direction: column;\n    }\n    #import-field .container\n    {\n        flex-direction: column;\n        align-items: stretch;\n    }\n    #import-button\n    {\n        align-self: flex-end;\n    }\n    #config-data-caches\n    {\n        display: grid;\n        grid-template-columns: 1fr;\n        gap: 7px;\n    }\n}';
+
+// components/config-panel/data-panel/data-panel.html?raw
+var data_panel_default2 = '\n<header id="data-header" class="header page-header">Data</header>\n<fieldset id="import-fieldset" class="fieldset config-fieldset">\n    <legend id="import-legend" class="legend config-legend">Import</legend>\n    <form-field id="import-field" class="field config-field data-field" label="Taskboard Data File" input-selector="fileimage-input">\n        <fileimage-input id="import-board-file" exportparts="field:input">\n            <svg slot="icon" id="import-file-icon" class="icon">\n                <use href="#icon-definition_file"></use>\n            </svg>\n        </fileimage-input>\n    </form-field>\n    <button id="import-button" class="button">\n        <svg id="import-button-icon" class="icon">\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span id="import-button-label">Import Board</span>\n    </button>\n</fieldset>\n<fieldset id="data-cleanup-fieldset" class="fieldset config-fieldset">\n    <legend id="data-cleanup-legend" class="legend config-legend">Data Cleanup</legend>\n    <div id="data-cleanup-description">\n        <p class="text">Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>\n        <p class="text">Set how many days deleted item should perisist using the slider below.</p>\n    </div>\n    <form-field label="Days" id="data-cleanup-range" class="field config-field data-field">\n        <input type="range" id="data-persist-days" class="input range" max="30" list="data-persist-days-values" />\n        <datalist id="data-persist-days-values"></datalist>\n        <span slot="postfix" id="data-persist-days-value"></span>\n        <button slot="postfix" id="apply-data-persist-days-button" class="button">\n            <svg id="apply-data-persist-days-icon" class="icon">\n                <use href="#icon-definition_confirm-check"></use>\n            </svg>\n            <span id="apply-data-persist-days-label">Apply</span>\n        </button>\n    </form-field>\n</fieldset>\n<fieldset id="data-pending-fieldset" class="fieldset config-fieldset">\n    <legend id="data-pending-legend" class="legend config-legend">Pending Cleanup</legend>\n    <div id="data-pending-description">\n        <p class="text">The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>\n    </div>\n    <editable-list id="deleted-items" class="cache-list" remove-class="restore-button button" exportparts="remove:restore-item-button">\n        <!-- <slot name="deleted-items"></slot> -->\n        <template part="remove-button">\n            <svg id="restore-item-icon" class="icon" title="Restore">\n                <use href="#icon-definition_restore"></use>\n            </svg>\n        </template>\n    </editable-list>\n    <button id="clear-deleted-button" class="button">\n        <svg id="clear-deleted-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-deleted-label">Clear Pending Items</span>\n    </button>\n</fieldset>\n<fieldset id="image-cache-fieldset" class="fieldset config-fieldset">\n    <legend id="image-cache-legend" class="legend config-legend">Image Cache</legend>\n    <div id="image-cache-description">\n        <p class="text">Caching some image files provides undo and redo support.</p>\n        <p class="text">The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>\n    </div>\n    <editable-list id="deleted-images" remove-class="button" class="cache-list" exportparts="button, remove:delete-cached-image-button">\n        <!-- <slot name="deleted-images"></slot> -->\n    </editable-list>\n    <button id="clear-image-cache-button" class="button">\n        <svg id="clear-images-icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-images-label">Clear Image Cache</span>\n    </button>\n</fieldset>\n<fieldset id="data-clear-fieldset" class="fieldset config-fieldset">\n    <legend id="data-clear-legend" class="legend config-legend">Clear Data</legend>\n    <div id="data-clear-description">\n        <p class="text">Delete all data, including app settings and history.</p>\n    </div>\n    <button id="clear-data-button" class="button">\n        <svg id="clear-data-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-data-label">Clear All Data</span>\n    </button>\n</fieldset>';
+
+// resources/utils.ts
+function snapToStep(target, steps) {
+  const inputValue = parseFloat(target.value);
+  for (let i = 1; i < steps.length; i++) {
+    const value = steps[i];
+    const lastValue = steps[i - 1];
+    const distanceFromValue = Math.abs(value - inputValue);
+    const distanceFromLastValue = Math.abs(lastValue - inputValue);
+    const isCloserToNewValue = Math.min(distanceFromValue, distanceFromLastValue) == distanceFromValue;
+    if (isCloserToNewValue) {
+      target.value = value.toString();
+    } else {
+      target.value = lastValue.toString();
+      break;
+    }
+  }
+}
+function createOptionElement(value) {
+  const option = document.createElement("option");
+  const stringValue = value.toString();
+  option.value = stringValue;
+  option.textContent = stringValue;
+  return option;
+}
+
+// components/config-panel/data-panel/data-panel.ts
+var DaysToPersistValues = [0, 7, 30];
+var DEFAULT_PERSIST_DAYS = "7";
+var COMPONENT_STYLESHEET5 = new CSSStyleSheet();
+COMPONENT_STYLESHEET5.replaceSync(`${shared_default}
+    ${data_panel_default}`);
+var COMPONENT_TEMPLATE3 = `${data_panel_default2}
+${defineIcons(
+  "File" /* File */,
+  "Import" /* Import */,
+  "Trash" /* Trash */,
+  "ConfirmCheck" /* ConfirmCheck */
+)}`;
+var COMPONENT_TAG_NAME6 = "data-panel";
+var DataPanelElement = class extends HTMLElement {
+  componentParts = /* @__PURE__ */ new Map();
+  getElement(id) {
+    if (this.componentParts.get(id) == null) {
+      const part = this.findElement(id);
+      if (part != null) {
+        this.componentParts.set(id, part);
+      }
+    }
+    return this.componentParts.get(id);
+  }
+  findElement(id) {
+    return this.shadowRoot.getElementById(id);
+  }
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = COMPONENT_TEMPLATE3;
+    this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET5);
+    this.#applyPartAttributes();
+    this.findElement("import-button").addEventListener("click", this.#importButton_onClick.bind(this));
+    this.findElement("data-persist-days").addEventListener("change", this.#daysToPersist_onChange.bind(this));
+    this.findElement("apply-data-persist-days-button").addEventListener("click", this.#applyDaysToPersist_onClick.bind(this));
+    this.findElement("clear-data-button").addEventListener("click", this.#clearData_onClick.bind(this));
+    this.findElement("deleted-items").addEventListener("remove", this.#deletedItems_onRemove.bind(this));
+    this.findElement("clear-deleted-button").addEventListener("click", this.#clearDeleted_onClick.bind(this));
+    this.findElement("deleted-images").addEventListener("remove", this.#deletedImages_onRemove.bind(this));
+    this.findElement("clear-image-cache-button").addEventListener("click", this.#clearImageCache_onClick.bind(this));
+  }
+  async init(_options) {
+    const daysToPersistData = await DataService.getAppSetting("daysToPersistData" /* DaysToPersistData */) ?? DEFAULT_PERSIST_DAYS;
+    this.prepareDaysToPersistOptions(daysToPersistData);
+    this.refreshCache();
+  }
+  async refreshCache() {
+    console.log("refresh");
+    const deletedItems = [];
+    const [deletedBoards, deletedLists, deletedTasks, deletedImages] = await DataService.getDeletedItems();
+    for (let i = 0; i < deletedBoards.length; i++) {
+      const record = deletedBoards[i];
+      const element = this.#createDeletedItem(record, "board", true, record.deletedTimestamp);
+      deletedItems.push(element);
+    }
+    for (let i = 0; i < deletedLists.length; i++) {
+      const record = deletedLists[i];
+      const canRestore = deletedBoards.find((item) => item.id == record.boardId && item.deletedTimestamp != null) == null;
+      const element = this.#createDeletedItem(record, "list", canRestore, record.deletedTimestamp);
+      deletedItems.push(element);
+    }
+    for (let i = 0; i < deletedTasks.length; i++) {
+      const record = deletedTasks[i];
+      const canRestore = deletedBoards.find((item) => item.id == record.boardId && item.deletedTimestamp != null) == null;
+      const element = this.#createDeletedItem(record, "task", canRestore, record.deletedTimestamp);
+      deletedItems.push(element);
+    }
+    const deletedImageElements = [];
+    for (let i = 0; i < deletedImages.length; i++) {
+      const record = deletedImages[i];
+      const element = this.#createDeletedItem(record, "image", true, record.deletedTimestamp);
+      deletedImageElements.push(element);
+    }
+    const deletedImagesElement = this.findElement("deleted-images");
+    deletedImagesElement.innerHTML = "";
+    deletedImagesElement.append(...deletedImageElements);
+    const deletedItemsElement = this.findElement("deleted-items");
+    deletedItemsElement.innerHTML = "";
+    deletedItemsElement.append(...deletedItems);
+  }
+  prepareDaysToPersistOptions(daysToPersist) {
+    const daysToPersistOptions = Array.from(DaysToPersistValues).map((value) => createOptionElement(value));
+    this.findElement("data-persist-days-values").append(...daysToPersistOptions);
+    this.findElement("data-persist-days").value = daysToPersist;
+    this.findElement("data-persist-days-value").textContent = daysToPersist;
+  }
+  async #importButton_onClick(_event) {
+    const importFileInput = this.findElement("import-board-file");
+    const boardDataFile = importFileInput.files != null ? importFileInput.files[0] : null;
+    if (boardDataFile == null) {
+      const message = `An error occurred attempting to import board data. Confirm that the selected import file is a valid board export.`;
+      const consoleMessage = "Unable to import selected file.";
+      this.dispatchEvent(new CustomEvent("error", { detail: { message, consoleMessage }, bubbles: true, composed: true }));
+      return;
+    }
+    const boardDataText = await boardDataFile.text();
+    const boardData = JSON.parse(boardDataText);
+    this.dispatchEvent(new CustomEvent("import", { detail: { boardData }, bubbles: true, composed: true }));
+  }
+  #applyDaysToPersist_onClick(_event) {
+    this.dispatchEvent(new CustomEvent("daystopersist", { detail: { daysToPersist: this.findElement("data-persist-days").value }, bubbles: true, composed: true }));
+  }
+  #clearData_onClick(_event) {
+    this.dispatchEvent(new CustomEvent("cleardata", { bubbles: true, composed: true }));
+  }
+  async #clearDeleted_onClick(_event) {
+    const items = [...this.findElement("deleted-items").querySelectorAll('[data-record-id]:not([data-restore="false"])')];
+    this.dispatchEvent(new CustomEvent("cleardeleted", { detail: { items }, bubbles: true, composed: true }));
+  }
+  async #clearImageCache_onClick(_event) {
+    const items = [...this.findElement("deleted-images").querySelectorAll("[data-record-id]")];
+    this.dispatchEvent(new CustomEvent("clearimages", { detail: { items }, bubbles: true, composed: true }));
+  }
+  #daysToPersist_onChange(event) {
+    const dataPersistsDaysValues = DaysToPersistValues;
+    const input = event.target;
+    snapToStep(input, dataPersistsDaysValues);
+    this.findElement("data-persist-days-value").textContent = input.value;
+  }
+  #deletedItems_onRemove(event) {
+    const item = event.detail;
+    const recordType = item.dataset.recordType;
+    const recordId = item.dataset.recordId;
+    const timestamp = item.getAttribute("data-timestamp");
+    const targetType = recordType == "board" ? "board" /* Board */ : recordType == "list" ? "list" /* List */ : recordType == "task" ? "task" /* Task */ : null;
+    this.dispatchEvent(new CustomEvent("restoreitem", { detail: { targetType, recordId, timestamp }, bubbles: true, composed: true }));
+  }
+  #deletedImages_onRemove(event) {
+    const item = event.detail;
+    this.dispatchEvent(new CustomEvent("deleteimage", { detail: { item }, bubbles: true, composed: true }));
+  }
+  #createDeletedItem(data, recordType, canRestore, timestamp) {
+    const item = document.createElement("div");
+    item.setAttribute("data-record-type", recordType);
+    item.setAttribute("part", "deleted-item");
+    item.classList.add("deleted-item");
+    item.setAttribute("data-timestamp", timestamp.toString());
+    const label = document.createElement("span");
+    label.setAttribute("part", "deleted-item-label");
+    label.classList.add("deleted-item-label");
+    let record;
+    if (recordType == "board") {
+      record = data;
+      label.textContent = record.name;
+    } else if (recordType == "list") {
+      record = data;
+      label.textContent = record.name;
+    } else if (recordType == "task") {
+      record = data;
+      label.textContent = record.description.trim() == "" ? "[Blank Task]" : record.description;
+    } else if (recordType == "image") {
+      record = data;
+      label.textContent = record.name;
+    } else {
+      throw new Error("Unknown deleted record type");
+    }
+    item.setAttribute("data-record-id", record.id);
+    item.append(label);
+    if (canRestore == false) {
+      item.dataset.restore = "false";
+    }
+    return item;
+  }
+  // async #restoreDeletedItem(targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number)
+  // {
+  //     if(targetType == null)
+  //     {
+  //         console.error("Unable to restore record with unknown type or id");
+  //         return;
+  //     }
+  //     const channel = (targetType == 'board')
+  //     ? this.#data.boards 
+  //     : (targetType == 'list')
+  //     ? this.#data.lists
+  //     : (targetType == 'task')
+  //     ? this.#data.tasks
+  //     : null;
+  //     if(channel == null)
+  //     {
+  //         console.error("Unable to restore record. Error accessing data.");
+  //         return;
+  //     }
+  //     await channel.restore(recordId);
+  //     const updates: Map<string, PropertyUpdate> = new Map([ ['deletedTimestamp', { from: timestamp, to: undefined }] ]);
+  //     const properties = {
+  //         id: recordId,
+  //         updates
+  //     };
+  //     await this.#addActionHistoryEntry(HistoryEntryType.Update, targetType, properties);
+  //     if(targetType == HistoryEntryTargetType.Board)
+  //     {
+  //         this.openBoard(recordId);
+  //         this.#refreshBoards();
+  //     }
+  //     this.#refreshDeletedItems();
+  // }
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll(":not(form-field,.postfix,.prefix,.container, .field-label)[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      const classedElement = classedElements[i];
+      classedElement.part.add(...classedElements[i].classList);
+    }
+    const formFieldElements = [...this.shadowRoot.querySelectorAll("form-field")];
+    for (let i = 0; i < formFieldElements.length; i++) {
+      const formFieldElement = formFieldElements[i];
+      const inputId = formFieldElement.id;
+      const container = formFieldElement.querySelector(".container");
+      container.part.add("container", "field-container", `${inputId}-container`);
+      const label = formFieldElement.querySelector(".field-label");
+      label.part.add("container", "field-label", `${inputId}-label`);
+      const prefix = formFieldElement.querySelector(".prefix");
+      prefix.part.add("container", "field-prefix", `${inputId}-prefix`);
+      const postfix = formFieldElement.querySelector(".postfix");
+      postfix.part.add("container", "field-postfix", `${inputId}-postfix`);
+    }
+  }
+};
+if (customElements.get(COMPONENT_TAG_NAME6) == null) {
+  customElements.define(COMPONENT_TAG_NAME6, DataPanelElement);
+}
+
 // data/data.service.ts
 var MILLISECONDSINDAY = 1e3 * 60 * 60 * 24;
 var DataService = class _DataService {
   static #data;
+  static #initPromise;
   static #hasStartedInitialization = false;
   static #hasFinishedInitialization = false;
   static async init(datastoreName) {
     _DataService.#hasStartedInitialization = true;
     _DataService.#data = new TaskboardManagerElementData(datastoreName == null ? void 0 : { name: datastoreName });
-    await this.#data.init();
+    _DataService.#initPromise = this.#data.init();
+    await this.#initPromise;
     _DataService.#hasFinishedInitialization = true;
   }
   static get data() {
@@ -4669,18 +4384,12 @@ var DataService = class _DataService {
     return this.#data;
   }
   //#region Settings
-  static getAppSetting(key) {
-    if (_DataService.#data.isInitialized == false) {
-      FeedbackService.showErrorMessageDialog("SETTINGS" /* SETTINGS */);
-      throw new Error(`Data Access Error`);
-    }
+  static async getAppSetting(key) {
+    await this.#initPromise;
     return _DataService.#data.getValue(key);
   }
   static async saveAppSetting(key, value) {
-    if (_DataService.#data.isInitialized == false) {
-      FeedbackService.showErrorMessageDialog("SETTINGS" /* SETTINGS */);
-      throw new Error(`Data Access Error`);
-    }
+    await this.#initPromise;
     await _DataService.#data.setValue(key, value);
   }
   //#endregion Settings
@@ -6182,9 +5891,6 @@ var settings_panel_default = "\n\n:host\n{\n    display: grid;\n    grid-templat
 var settings_panel_default2 = '\n<header id="settings-header" class="header page-header">App Settings</header>\n<fieldset id="color-scheme-fieldset" class="fieldset config-fieldset">\n    <legend id="color-scheme-legend" class="legend config-legend">Color Scheme</legend>\n    <div class="button-group" id="scheme-options">\n        <button class="button scheme first" id="inherit-button" data-value="inherit">Inherit</button>\n        <button class="button scheme" id="browser-button" data-value="browser">Browser</button>\n        <button class="button scheme" id="light-button" data-value="light">Light</button>\n        <button class="button scheme last" id="dark-button" data-value="dark">Dark</button>\n    </div>\n</fieldset>\n<fieldset id="custom-settings-fieldset" class="fieldset config-fieldset">\n    <legend id="custom-settings-legend" class="legend config-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>\n    <slot name="custom-settings">[ No Custom Settings ]</slot>\n</fieldset>\n<fieldset id="shortcuts-fieldset" class="fieldset config-fieldset">\n    <legend id="shortcuts-legend" class="legend config-legend">Shortcuts</legend>\n    <div id="shortcuts">\n        <div id="previous-word" class="shortcut word">\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Left</kbd></div>\n            <div class="shortcut-description">Move text cursor to previous word.</div>\n        </div>\n        <div id="next-word" class="shortcut word">\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Right</kbd></div>\n            <div class="shortcut-description">Move text cursor to next word.</div>\n        </div>\n        <div id="previous-line" class="shortcut line">\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Up</kbd></div>\n            <div class="shortcut-description">Move text cursor to closest word in previous line.</div>\n        </div>\n        <div id="next-line" class="shortcut line">\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Down</kbd></div>\n            <div class="shortcut-description">Move text cursor to closest word in next line.</div>\n        </div>\n        <div id="highlight-previous-word" class="shortcut highlight word">\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Left</kbd></div>\n            <div class="shortcut-description">Highlight from the current cursor position to the start of the previous word.</div>\n        </div>\n        <div id="highlight-next-word" class="shortcut highlight word">\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Right</kbd></div>\n            <div class="shortcut-description">Highlight from the current cursor position to the end of the next word.</div>\n        </div>\n        <div id="previous-line" class="shortcut highlight line">\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Up</kbd></div>\n            <div class="shortcut-description">Highlight from the current cursor position to the closest position in the previous line.</div>\n        </div>\n        <div id="next-line" class="shortcut highlight line">\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Down</kbd></div>\n            <div class="shortcut-description">Highlight from the current cursor position to the closest position in the next line.</div>\n        </div>\n        <div id="previous-task" class="shortcut task">\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Left</kbd></div>\n            <div class="shortcut-description">Move to the task in the previous list</div>\n        </div>\n        <div id="next-task" class="shortcut task">\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Right</kbd></div>\n            <div class="shortcut-description">Move to the task in the next list.</div>\n        </div>\n        <div id="next-list" class="shortcut task list">\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Up</kbd></div>\n            <div class="shortcut-description">Move to the task in the previous list.</div>\n        </div>\n        <div id="previous-list" class="shortcut task list">\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Down</kbd></div>\n            <div class="shortcut-description">Move to the task in the previous list.</div>\n        </div>\n    </div>\n</fieldset>';
 
 // components/config-panel/settings-panel/settings-panel.ts
-var SettingsPanelAttributes = /* @__PURE__ */ ((SettingsPanelAttributes2) => {
-  return SettingsPanelAttributes2;
-})(SettingsPanelAttributes || {});
 var COMPONENT_STYLESHEET11 = new CSSStyleSheet();
 COMPONENT_STYLESHEET11.replaceSync(`${shared_default}
     ${settings_panel_default}`);
@@ -6197,9 +5903,6 @@ ${defineIcons(
 )}`;
 var COMPONENT_TAG_NAME12 = "settings-panel";
 var SettingsPanelElement = class extends HTMLElement {
-  static observedAttributes = [
-    ...Object.values(SettingsPanelAttributes)
-  ];
   componentParts = /* @__PURE__ */ new Map();
   getElement(id) {
     if (this.componentParts.get(id) == null) {
@@ -6218,11 +5921,45 @@ var SettingsPanelElement = class extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = COMPONENT_TEMPLATE8;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET11);
+    this.addEventListener("click", this.#onClick.bind(this));
     this.#applyPartAttributes();
-    const schemeOptions = [...this.findElement("scheme-options").querySelectorAll("button")];
-    for (let i = 0; i < schemeOptions.length; i++) {
-      schemeOptions[i].addEventListener("click", this.#colorSchemeButton_onClick.bind(this));
+  }
+  #scheme_onChange;
+  async init(options) {
+    const scheme = await DataService.getAppSetting("color-scheme" /* ColorScheme */);
+    const button = this.shadowRoot.querySelector(`.scheme[data-value="${scheme}"]`);
+    if (button != null) {
+      button.classList.add("selected");
+      button.part.add("selected");
     }
+    this.#scheme_onChange = options.scheme_onChange;
+  }
+  #onClick(event) {
+    const composedPath = event.composedPath();
+    const button = composedPath.find((item) => item instanceof HTMLButtonElement);
+    if (button == null) {
+      return;
+    }
+    const buttons = [...this.shadowRoot.querySelectorAll("button.scheme")];
+    for (let i = 0; i < buttons.length; i++) {
+      const button2 = buttons[i];
+      button2.classList.remove("selected");
+      button2.part.remove("selected");
+    }
+    button.classList.add("selected");
+    button.part.add("selected");
+    const scheme = button.dataset.value;
+    if (scheme == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`);
+      console.error(new Error("Scheme value was undefined."));
+      return;
+    }
+    if (scheme != "inherit" && scheme != "browser" && scheme != "light" && scheme != "dark") {
+      FeedbackService.showErrorMessageCard(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`);
+      console.error(new Error("Scheme value was not recognized as a valid scheme."));
+      return;
+    }
+    this.#scheme_onChange(scheme);
   }
   #applyPartAttributes() {
     const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
@@ -6234,78 +5971,31 @@ var SettingsPanelElement = class extends HTMLElement {
       classedElements[i].part.add(...classedElements[i].classList);
     }
   }
-  #colorSchemeButton_onClick(event) {
-    const scheme = event.target.dataset.value;
-    if (scheme == null) {
-      const message = `An error occurred attempting to set the app's color scheme. Scheme was not changed.`;
-      const consoleMessage = "Scheme value was undefined.";
-      this.dispatchEvent(new CustomEvent("error", { detail: { message, consoleMessage }, bubbles: true, composed: true }));
-      return;
-    }
-    if (scheme != "inherit" && scheme != "browser" && scheme != "light" && scheme != "dark") {
-      const message = `An error occurred attempting to set the app's color scheme. Scheme was not changed.`;
-      const consoleMessage = "Scheme value was not recognized as a valid scheme.";
-      this.dispatchEvent(new CustomEvent("error", { detail: { message, consoleMessage }, bubbles: true, composed: true }));
-      return;
-    }
-    const isAllowed = this.dispatchEvent(new CustomEvent("scheme", { detail: { scheme }, bubbles: true, composed: true }));
-    if (isAllowed == false) {
-      return;
-    }
-    const buttons = [...this.shadowRoot.querySelectorAll("button.scheme")];
-    for (let i = 0; i < buttons.length; i++) {
-      const button2 = buttons[i];
-      button2.classList.remove("selected");
-      button2.part.remove("selected");
-    }
-    const button = event.composedPath().find((item) => item instanceof HTMLButtonElement);
-    if (button == null) {
-      return;
-    }
-    button.classList.add("selected");
-    button.part.add("selected");
-  }
-  static create(properties) {
-    const element = document.createElement(COMPONENT_TAG_NAME12);
-    for (const [propertyName, value] of Object.entries(properties)) {
-      if (!propertyName.startsWith("on")) {
-        element.setAttribute(propertyName, value);
-      }
-    }
-  }
-  attributeChangedCallback(attributeName, _oldValue, newValue) {
-  }
 };
 if (customElements.get(COMPONENT_TAG_NAME12) == null) {
   customElements.define(COMPONENT_TAG_NAME12, SettingsPanelElement);
 }
 
-// components/config-panel/data-panel/data-panel.css?raw
-var data_panel_default = ':host\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 7px;\n}\n\n\n#data-header\n{\n    grid-column: span 3;\n    font-size: 14px;\n    font-weight: bold;\n}\n\n\n#deleted-items [data-restore="false"]\n{\n    scale: .98 .9;\n    opacity: .5;\n    pointer-events: none;\n}\n\n[to-delete]\n{\n    text-decoration: line-through;\n    color: #444;\n}\n\n#import-fieldset\n{\n    grid-column: span 3;\n    display: flex;\n    gap: 7px;\n}\n\n#import-field .container\n{\n    flex: 1;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n}\n\n#import-board-file\n{\n    flex: 1;\n}\n\n/* #import-content\n{\n    overflow: hidden;\n    padding: 1em;\n    display: flex;\n} */\n\n/* #import-manager\n{\n    overflow: hidden;\n    display: flex;\n    flex-direction: column;\n    flex: 1;\n}\n\n#import-actions\n{\n    display: grid;\n    grid-template-columns: 1fr auto auto;\n    gap: 7px;\n}\n\n#import-cancel\n{\n    grid-column: 2;\n}\n\n#import-ok\n{\n    grid-column: 3;\n} */\n\n/* #config-data-caches\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 7px;\n} */\n\n#data-cleanup-fieldset\n{\n    display: grid;\n    grid-template-rows: max-content 1fr max-content;\n    gap: 7px;\n}\n\n#data-cleanup-range .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    align-self: flex-end;\n}\n#data-persist-days\n{\n    flex: 1;\n}\n\n#apply-data-persist-days-button\n{\n    justify-self: flex-end;\n}\n\n#data-pending-fieldset\n,#image-cache-fieldset\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n}\n\n#deleted-items\n,#deleted-images\n{\n    display: flex;\n    flex-direction: column;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    height: 130px;\n    overflow-x: hidden;\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    align-self: flex-end;\n}\n\n#deleted-items::part(add)\n,#deleted-images::part(add)\n{\n    display: none !important;\n}\n\n#clear-deleted-button\n,#clear-image-cache-button\n{\n    justify-self: flex-end;\n}\n\n#data-clear-fieldset\n{\n    display: grid;\n    gap: 7px;\n    grid-column: span 3;\n}\n\n#clear-data-button\n{\n    justify-self: flex-end;\n}\n@media (max-width: 665px) \n{\n\n    #import-fieldset\n    {\n        flex-direction: column;\n    }\n    #import-field .container\n    {\n        flex-direction: column;\n        align-items: stretch;\n    }\n    #import-button\n    {\n        align-self: flex-end;\n    }\n    #config-data-caches\n    {\n        display: grid;\n        grid-template-columns: 1fr;\n        gap: 7px;\n    }\n}';
+// components/config-panel/history-panel/history-panel.css?raw
+var history_panel_default = ":host\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n    overflow: hidden;\n}\n\n#history-header\n{\n    font-size: 14px;\n    font-weight: bold;\n}\n\n#history-length-fieldset\n{\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    flex: 1;\n}\n\n#history-length-field .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    flex: 1;\n}\n\n#action-history-length\n{\n    flex: 1;\n}\n\n#history-navigation-fieldset\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n    gap: 7px;\n    overflow: hidden;\n}\n#clear-history-button\n{\n    grid-column: 4;\n    white-space: nowrap;\n}\n#action-history\n{\n    grid-column: span 4;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    overflow: auto;\n    flex: 1;\n}\n@media (max-width: 665px) \n{\n    #action-history-length\n    {\n        width: 50px;\n    }\n}";
 
-// components/config-panel/data-panel/data-panel.html?raw
-var data_panel_default2 = '\n<header id="data-header" class="header page-header">Data</header>\n<fieldset id="import-fieldset" class="fieldset config-fieldset">\n    <legend id="import-legend" class="legend config-legend">Import</legend>\n    <form-field id="import-field" class="field config-field data-field" label="Taskboard Data File" input-selector="fileimage-input">\n        <fileimage-input id="import-board-file" exportparts="field:input">\n            <svg slot="icon" id="import-file-icon" class="icon">\n                <use href="#icon-definition_file"></use>\n            </svg>\n        </fileimage-input>\n    </form-field>\n    <button id="import-button" class="button">\n        <svg id="import-button-icon" class="icon">\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span id="import-button-label">Import Board</span>\n    </button>\n</fieldset>\n<fieldset id="data-cleanup-fieldset" class="fieldset config-fieldset">\n    <legend id="data-cleanup-legend" class="legend config-legend">Data Cleanup</legend>\n    <div id="data-cleanup-description">\n        <p class="text">Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>\n        <p class="text">Set how many days deleted item should perisist using the slider below.</p>\n    </div>\n    <form-field label="Days" id="data-cleanup-range" class="field config-field data-field">\n        <input type="range" id="data-persist-days" class="input range" max="30" list="data-persist-days-values" />\n        <datalist id="data-persist-days-values"></datalist>\n        <span slot="postfix" id="data-persist-days-value"></span>\n        <button slot="postfix" id="apply-data-persist-days-button" class="button">\n            <svg id="apply-data-persist-days-icon" class="icon">\n                <use href="#icon-definition_confirm-check"></use>\n            </svg>\n            <span id="apply-data-persist-days-label">Apply</span>\n        </button>\n    </form-field>\n</fieldset>\n<fieldset id="data-pending-fieldset" class="fieldset config-fieldset">\n    <legend id="data-pending-legend" class="legend config-legend">Pending Cleanup</legend>\n    <div id="data-pending-description">\n        <p class="text">The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>\n    </div>\n    <editable-list id="deleted-items" class="cache-list" remove-class="restore-button button" exportparts="remove:restore-item-button">\n        <!-- <slot name="deleted-items"></slot> -->\n        <template part="remove-button">\n            <svg id="restore-item-icon" class="icon" title="Restore">\n                <use href="#icon-definition_restore"></use>\n            </svg>\n        </template>\n    </editable-list>\n    <button id="clear-deleted-button" class="button">\n        <svg id="clear-deleted-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-deleted-label">Clear Pending Items</span>\n    </button>\n</fieldset>\n<fieldset id="image-cache-fieldset" class="fieldset config-fieldset">\n    <legend id="image-cache-legend" class="legend config-legend">Image Cache</legend>\n    <div id="image-cache-description">\n        <p class="text">Caching some image files provides undo and redo support.</p>\n        <p class="text">The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>\n    </div>\n    <editable-list id="deleted-images" remove-class="button" class="cache-list" exportparts="button, remove:delete-cached-image-button">\n        <!-- <slot name="deleted-images"></slot> -->\n    </editable-list>\n    <button id="clear-image-cache-button" class="button">\n        <svg id="clear-images-icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-images-label">Clear Image Cache</span>\n    </button>\n</fieldset>\n<fieldset id="data-clear-fieldset" class="fieldset config-fieldset">\n    <legend id="data-clear-legend" class="legend config-legend">Clear Data</legend>\n    <div id="data-clear-description">\n        <p class="text">Delete all data, including app settings and history.</p>\n    </div>\n    <button id="clear-data-button" class="button">\n        <svg id="clear-data-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-data-label">Clear All Data</span>\n    </button>\n</fieldset>';
+// components/config-panel/history-panel/history-panel.html?raw
+var history_panel_default2 = '\n<header id="history-header" class="header page-header">History</header>\n<fieldset id="history-navigation-fieldset" class="fieldset config-fieldset">\n    <legend id="history-navigation-legend" class="legend config-legend">Navigation</legend>\n    <button id="undo" class="button">\n        <svg id="restore-item-icon" class="icon" title="Undo">\n            <use href="#icon-definition_undo-redo"></use>\n        </svg>\n        <span part="undo-label">Undo</span>\n    </button>\n    <button id="redo" class="button">\n        <svg id="restore-item-icon" class="icon" title="Redo" style="transform: scaleX(-1);">\n            <use href="#icon-definition_undo-redo"></use>\n        </svg>\n        <span id="redo-label">Redo</span>\n    </button>\n    <button id="clear-history-button" class="button">\n        <svg id="clear-history-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-history-label">Clear History</span>\n    </button>\n    <action-history id="action-history" reverse>\n        <slot name="action-history"></slot>\n    </action-history>\n</fieldset>\n<fieldset id="history-length-fieldset" class="fieldset config-fieldset">\n    <legend id="history-length-legend" class="legend config-legend">History Length</legend>\n    <form-field id="history-length-field" class="field">\n        <input type="range" id="action-history-length" class="input" max="150" list="action-history-length-values" />\n        <datalist id="action-history-length-values"></datalist>\n        <span slot="postfix" id="action-history-length-value" part="field-postfix"></span>\n        <button slot="postfix" id="apply-history-length-button" part="button field-postfix">\n            <svg id="apply-history-length-icon" class="icon">\n                <use href="#icon-definition_confirm-check"></use>\n            </svg>\n            <span id="apply-history-length-label">Apply</span>\n        </button>\n    </form-field>\n</fieldset>';
 
-// components/config-panel/data-panel/data-panel.ts
-var DaysToPersistValues = [0, 7, 30];
-var DataPanelAttributes = /* @__PURE__ */ ((DataPanelAttributes2) => {
-  return DataPanelAttributes2;
-})(DataPanelAttributes || {});
+// components/config-panel/history-panel/history-panel.ts
+var HistoryLengthValues = [0, 30, 50, 100, 150];
+var DEFAULT_HISTORY_LENGTH = "30";
 var COMPONENT_STYLESHEET12 = new CSSStyleSheet();
 COMPONENT_STYLESHEET12.replaceSync(`${shared_default}
-    ${data_panel_default}`);
-var COMPONENT_TEMPLATE9 = `${data_panel_default2}
+    ${history_panel_default}`);
+var COMPONENT_TEMPLATE9 = `${history_panel_default2}
 ${defineIcons(
-  "File" /* File */,
-  "Import" /* Import */,
-  "Trash" /* Trash */,
-  "ConfirmCheck" /* ConfirmCheck */
+  "ConfirmCheck" /* ConfirmCheck */,
+  "UndoRedo" /* UndoRedo */,
+  "Trash" /* Trash */
 )}`;
-var COMPONENT_TAG_NAME13 = "data-panel";
-var DataPanelElement = class extends HTMLElement {
-  static observedAttributes = [
-    ...Object.values(DataPanelAttributes)
-  ];
+var COMPONENT_TAG_NAME13 = "history-panel";
+var HistoryPanelElement = class extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
   getElement(id) {
     if (this.componentParts.get(id) == null) {
@@ -6325,15 +6015,456 @@ var DataPanelElement = class extends HTMLElement {
     this.shadowRoot.innerHTML = COMPONENT_TEMPLATE9;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET12);
     this.#applyPartAttributes();
-    this.findElement("import-button").addEventListener("click", this.#importButton_onClick.bind(this));
-    this.findElement("data-persist-days").addEventListener("change", this.#daysToPersist_onChange.bind(this));
-    this.findElement("apply-data-persist-days-button").addEventListener("click", this.#applyDaysToPersist_onClick.bind(this));
-    this.findElement("clear-data-button").addEventListener("click", this.#clearData_onClick.bind(this));
-    this.findElement("deleted-items").addEventListener("remove", this.#deletedItems_onRemove.bind(this));
-    this.findElement("clear-deleted-button").addEventListener("click", this.#clearDeleted_onClick.bind(this));
-    this.findElement("deleted-images").addEventListener("remove", this.#deletedImages_onRemove.bind(this));
-    this.findElement("clear-image-cache-button").addEventListener("click", this.#clearImageCache_onClick.bind(this));
+    this.findElement("undo").addEventListener("click", this.#undo_onClick.bind(this));
+    this.findElement("redo").addEventListener("click", this.#redo_onClick.bind(this));
+    const actionHistory = this.getElement("action-history");
+    actionHistory.onBack = this.#actionHistory_onBack.bind(this);
+    actionHistory.onForward = this.#actionHistory_onForward.bind(this);
+    this.findElement("action-history-length").addEventListener("change", this.#historyLength_onChange.bind(this));
+    this.findElement("apply-history-length-button").addEventListener("click", this.#applyHistoryLength_onClick.bind(this));
+    this.findElement("clear-history-button").addEventListener("click", this.#clearHistory_onClick.bind(this));
   }
+  async init(_options) {
+    const historyLength = await DataService.getAppSetting("historyLength" /* HistoryLength */) ?? DEFAULT_HISTORY_LENGTH;
+    this.prepareHistoryLength(historyLength);
+    this.refresh();
+  }
+  prepareHistoryLength(historyLength) {
+    const historyLengthOptions = Array.from(HistoryLengthValues).map((value) => createOptionElement(value));
+    this.findElement("action-history-length-values").append(...historyLengthOptions);
+    this.findElement("action-history-length").value = historyLength;
+    this.findElement("action-history-length-value").textContent = historyLength;
+  }
+  undo() {
+    this.findElement("action-history").back();
+  }
+  redo() {
+    this.findElement("action-history").forward();
+  }
+  #undo_onClick(_event) {
+    this.undo();
+    this.dispatchEvent(new CustomEvent("undo", { bubbles: true, composed: true }));
+  }
+  #redo_onClick(_event) {
+    this.redo();
+    this.dispatchEvent(new CustomEvent("redo", { bubbles: true, composed: true }));
+  }
+  async #actionHistory_onBack(target, previous, all, targetIndex, previousActiveEntryIndex) {
+    let refreshBoards = false;
+    let refreshDeletedItems = false;
+    const isLastUpdate = all.indexOf(target) == all.length - 1;
+    if (isLastUpdate == true) {
+      const recordType = target.querySelector(".target-type")?.textContent?.toLowerCase();
+      if (recordType == "board") {
+        refreshBoards = true;
+      }
+      refreshDeletedItems = true;
+    }
+    this.dispatchEvent(new CustomEvent("historyback", { detail: {
+      target,
+      previous,
+      targetIndex,
+      previousActiveEntryIndex,
+      refreshBoards,
+      refreshDeletedItems
+    }, bubbles: true, composed: true }));
+  }
+  async #actionHistory_onForward(target, previous, all, targetIndex, previousActiveEntryIndex) {
+    let refreshBoards = false;
+    let refreshDeletedItems = false;
+    const isLastUpdate = all.indexOf(target) == all.length - 1;
+    if (isLastUpdate == true) {
+      const recordType = target.querySelector(".target-type")?.textContent?.toLowerCase();
+      if (recordType == "board") {
+        refreshBoards = true;
+      }
+      refreshDeletedItems = true;
+    }
+    this.dispatchEvent(new CustomEvent("historyforward", { detail: {
+      target,
+      previous,
+      targetIndex,
+      previousActiveEntryIndex,
+      refreshBoards,
+      refreshDeletedItems
+    }, bubbles: true, composed: true }));
+  }
+  async #historyLength_onChange(event) {
+    const input = event.target;
+    snapToStep(input, HistoryLengthValues);
+    this.findElement("action-history-length-value").textContent = input.value;
+    let startIndex = parseInt(this.findElement("action-history-length").value);
+    if (startIndex > 0) {
+      startIndex--;
+    }
+    const actionHistory = this.findElement("action-history");
+    this.dispatchEvent(new CustomEvent("preparehistoryitems", { detail: { actionHistory, startIndex }, bubbles: true, composed: true }));
+  }
+  async #applyHistoryLength_onClick(_event) {
+    const historyLength = this.findElement("action-history-length").value;
+    this.dispatchEvent(new CustomEvent("historylength", { detail: { historyLength }, bubbles: true, composed: true }));
+  }
+  #clearHistory_onClick(_event) {
+    this.dispatchEvent(new CustomEvent("clearhistory", { bubbles: true, composed: true }));
+  }
+  async refresh() {
+    const actionHistory = this.getElement("action-history");
+    actionHistory.innerHTML = "";
+    actionHistory.toggleAttribute("prevent-removal", true);
+    const records = await DataService.getHistoryEntries();
+    if (records.length == 0) {
+      return;
+    }
+    let activeEntryIndex = await DataService.getAppSetting("activeEntryIndex" /* ActiveEntryIndex */);
+    if (activeEntryIndex != null && activeEntryIndex > records.length) {
+      activeEntryIndex = records.length - 1;
+    }
+    let entries = [];
+    let activeEntry = null;
+    for (let i = 0; i < records.length; i++) {
+      const record = records[i];
+      const entry = this.#createActionHistoryEntryElement(record);
+      entries.push(entry);
+      if (i == activeEntryIndex) {
+        entry.toggleAttribute(ATTRIBUTENAME_ACTIVE, true);
+        activeEntry = entry;
+        activeEntry.part.add("active");
+        const descendants = [...activeEntry.querySelectorAll("span")];
+        for (let i2 = 0; i2 < descendants.length; i2++) {
+          descendants[i2].part.add("active");
+        }
+        continue;
+      }
+      if (activeEntry != null) {
+        entry.toggleAttribute(ATTRIBUTENAME_REVERSED, true);
+      }
+    }
+    if (activeEntry == null) {
+      entries = entries.map((item) => {
+        item.toggleAttribute(ATTRIBUTENAME_REVERSED, true);
+        return item;
+      });
+    }
+    actionHistory.append(...entries);
+    requestAnimationFrame(() => {
+      actionHistory.toggleAttribute("prevent-removal", false);
+    });
+  }
+  #createActionHistoryEntryElement(entry) {
+    const element = document.createElement("div");
+    element.toggleAttribute("data-entry", true);
+    element.setAttribute("timestamp", entry.timestamp.toString());
+    element.setAttribute("data-entry-id", entry.id);
+    element.setAttribute("part", "action-history-entry");
+    element.classList.add("action-history-entry");
+    element.innerHTML = `<span class="action-type" part="action-history-entry-type">${entry.action.toUpperCase()}</span>
+        <span class="data" part="action-history-entry-data">
+            <span class="target-type" part="action-history-target-type">${entry.data.targetType[0].toUpperCase()}${entry.data.targetType.substring(1)}</span>
+            <span class="target-id" part="action-history-target-id">${entry.data.properties.id}</span>
+        </span>`;
+    return element;
+  }
+  // async #handleActionEntryReverse(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
+  // {
+  //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
+  //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
+  //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
+  //     const entryId = targetEntry.getAttribute('data-entry-id');
+  //     if(actionType == null || recordType == null || recordId == null || entryId == null)
+  //     { 
+  //         console.error(new Error('Required property was not found.')); return;
+  //     }
+  //     const channel = (recordType == 'board')
+  //     ? this.#data.boards 
+  //     : (recordType == 'list')
+  //     ? this.#data.lists
+  //     : (recordType == 'task')
+  //     ? this.#data.tasks
+  //     : (recordType == 'image')
+  //     ? this.#data.customImages
+  //     : null;
+  //     if(channel == null) 
+  //     {
+  //         throw new Error(`Unknown record type: ${recordType}`);
+  //     }
+  //     if(actionType == 'create')
+  //     {
+  //         await channel.delete(recordId);
+  //     }
+  //     else if (actionType == 'update')
+  //     {
+  //         const currentEntry = await this.#data.historyEntries?.get(entryId);
+  //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
+  //         const target = await channel.get(recordId);
+  //         if(target == null) { throw new Error('Unable to find target record.'); }
+  //         await this.#reverseUpdate(channel, currentEntry, target)
+  //     }
+  //     else if (actionType == 'delete')
+  //     {
+  //         await channel.restore(recordId);
+  //     }
+  //     else
+  //     {
+  //         console.error(`Unknown action type: ${actionType}`);
+  //     }
+  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
+  // }
+  // async #reverseUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
+  // {
+  //     if(currentEntry.data.properties.updates != null)
+  //     {
+  //         let isRestorationUpdate = false;
+  //         for(const [key, value] of currentEntry.data.properties.updates)
+  //         {
+  //             if(key == 'deletedTimestamp')
+  //             {
+  //                 isRestorationUpdate = true;
+  //                 continue;
+  //             }
+  //             (target as unknown as any)[key] = value.from;
+  //         }
+  //         await channel.save(target as unknown as any);
+  //         if(isRestorationUpdate == true)
+  //         {
+  //             await channel.delete(currentEntry.data.properties.id);
+  //         }
+  //     }
+  //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
+  //     {
+  //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
+  //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
+  //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
+  //         {
+  //             (settingsTarget as unknown as any)[key] = value.from;
+  //         }
+  //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
+  //     }
+  //     if(currentEntry.data.properties.backgroundImages != null)
+  //     {
+  //         const updatedImages: CustomImageRecord[] = [];
+  //         const deletedImageIds: string[] = [];
+  //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
+  //         {
+  //             const data = currentEntry.data.properties.backgroundImages[i];
+  //             const imageTarget = await this.#data.customImages?.get(data.id);
+  //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
+  //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
+  //             {
+  //                 // if boardId going from "" to id, this is an insert; treat it like undoing an image insert
+  //                 if(key == 'boardId' && value.from == "")
+  //                 {
+  //                     deletedImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
+  //                     continue;
+  //                 }
+  //                 (imageTarget as unknown as any)[key] = value.from;
+  //             }
+  //             updatedImages.push(imageTarget);
+  //         }
+  //         await this.#data.customImages?.saveItems(updatedImages);
+  //         await this.#data.customImages?.deleteItems(deletedImageIds);
+  //     }
+  // }
+  // async #handelActionEntryActivate(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
+  // {
+  //     const previouslyActive = [...targetEntry.parentElement!.querySelectorAll('[part="active"]')] as HTMLElement[];
+  //     for(let i = 0; i < previouslyActive.length; i++)
+  //     {
+  //         previouslyActive[i].part.remove('active');
+  //         const descendants = [...previouslyActive[i].querySelectorAll('span')] as HTMLElement[];
+  //         for(let i = 0; i < descendants.length; i++)
+  //         {
+  //             descendants[i].part.add('active');
+  //         }
+  //     }
+  //     targetEntry.part.add('active');
+  //     const descendants = [...targetEntry.querySelectorAll('span')] as HTMLElement[];
+  //     for(let i = 0; i < descendants.length; i++)
+  //     {
+  //         descendants[i].part.add('active');
+  //     }
+  //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
+  //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
+  //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
+  //     const entryId = targetEntry.getAttribute('data-entry-id');
+  //     if(actionType == null || recordType == null || recordId == null || entryId == null) { console.error(new Error('Required property was not found.')); return; }
+  //     const channel = (recordType == 'board')
+  //     ? this.#data.boards 
+  //     : (recordType == 'list')
+  //     ? this.#data.lists
+  //     : (recordType == 'task')
+  //     ? this.#data.tasks
+  //     : (recordType == 'image')
+  //     ? this.#data.customImages
+  //     : null;
+  //     if(channel == null) 
+  //     {
+  //         throw new Error(`Unknown record type: ${recordType}`);
+  //     }
+  //     if(actionType == 'create')
+  //     {
+  //         await channel.restore(recordId);
+  //     }
+  //     else if (actionType == 'update')
+  //     {
+  //         const currentEntry = await this.#data.historyEntries?.get(entryId);
+  //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
+  //         const target = await channel.get(recordId);
+  //         if(target == null) { throw new Error('Unable to find target record.'); }
+  //         await this.#activateUpdate(channel, currentEntry, target);
+  //     }
+  //     else if (actionType == 'delete')
+  //     {
+  //         await channel.delete(recordId);
+  //     }
+  //     else
+  //     {
+  //         console.error(`Unknown action type: ${actionType}`);
+  //     }
+  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
+  // }
+  // async #activateUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
+  // {
+  //     if(currentEntry.data.properties.updates != null)
+  //     {
+  //         let isRestorationUpdate = false;
+  //         for(const [key, value] of currentEntry.data.properties.updates)
+  //         {
+  //             if(key == 'deletedTimestamp')
+  //             {
+  //                 isRestorationUpdate = true;
+  //                 continue;
+  //             }
+  //             (target as unknown as any)[key] = value.to;
+  //         }
+  //         await channel.save(target as unknown as any);
+  //         if(isRestorationUpdate == true)
+  //         {
+  //             await channel.restore(currentEntry.data.properties.id);
+  //         }
+  //     }
+  //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
+  //     {
+  //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
+  //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
+  //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
+  //         {
+  //             (settingsTarget as unknown as any)[key] = value.to;
+  //         }
+  //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
+  //     }
+  //     if(currentEntry.data.properties.backgroundImages != null)
+  //     {
+  //         // doesn't clear from image cache when undo after remove
+  //         const updatedImages: CustomImageRecord[] = [];
+  //         const restoredImageIds: string[] = [];
+  //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
+  //         {
+  //             const data = currentEntry.data.properties.backgroundImages[i];
+  //             const imageTarget = await this.#data.customImages?.get(data.id);
+  //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
+  //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
+  //             {
+  //                 // if boardId going from "" to id, this is an insert; treat it like redoing an image insert
+  //                 if(key == 'boardId' && value.from == "")
+  //                 {
+  //                     restoredImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
+  //                     continue;
+  //                 }
+  //                 (imageTarget as unknown as any)[key] = value.to;
+  //             }
+  //             updatedImages.push(imageTarget);
+  //         }
+  //         await this.#data.customImages?.saveItems(updatedImages);
+  //         await this.#data.customImages?.restoreItems(restoredImageIds);
+  //     }
+  // }
+  // async #addActionHistoryEntry<T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
+  // {
+  //     const historyLength = parseFloat(await this.#getAppSetting(AppSettingKey.HistoryLength) ?? DEFAULT_HISTORY_LENGTH);
+  //     if(historyLength == 0) { return; }
+  //     const channel = await this.#getChannel(this.#data.historyEntries, HISTORY_ERROR_MESSAGE, 'danger');
+  //     const history = this.findElement('action-history');
+  //     const historyEntries = [...history.children] as HTMLElement[];
+  //     const elementsToRemove = historyEntries.filter(item => item.hasAttribute(ATTRIBUTENAME_REVERSED));
+  //     const removeIds: string[] = [];
+  //     if(elementsToRemove.length > 0)
+  //     {
+  //         for(let i = 0; i < elementsToRemove.length; i++)
+  //         {
+  //             const entryId = elementsToRemove[i].getAttribute('data-entry-id');
+  //             if(entryId != null)
+  //             {
+  //                 removeIds.push(entryId)
+  //             }
+  //             elementsToRemove[i].remove();
+  //         }
+  //     }
+  //     const data = new HistoryEntryData(type, properties);
+  //     const entry = channel.create(data, action);
+  //     await channel.save(entry);
+  //     const entries = await channel.getAll('timestamp');
+  //     const removeCount = entries.length - historyLength;
+  //     if(removeCount > 0)
+  //     {
+  //         for(let i = 0; i < removeCount; i++)
+  //         {
+  //             removeIds.push(entries[i].id);
+  //             history.querySelector(`[data-entry-id="${entries[i].id}"]`)?.remove();
+  //         }
+  //     }
+  //     if(removeIds.length > 0)
+  //     {
+  //         await channel.deleteIfExists(removeIds);
+  //     }
+  //     const entryElement = this.#createActionHistoryEntryElement(entry);   
+  //     history.append(entryElement);
+  //     const activeIndex = [...history.children].indexOf(entryElement);
+  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (activeIndex > -1) ? activeIndex : null);
+  //     return entryElement;
+  // }
+  // async #prepareHistoryEntries(historyElement: ActionHistoryElement, startIndex: number)
+  // {
+  //     if(this.#data.historyEntries == null)
+  //     {
+  //         MessageCardElement.notify(`An error occurred accessing Action History data. Unable to refresh action history.`, 
+  //         this.getElement('notifications'), { type: MessageCardType.Error });
+  //         console.error(new Error(`An error occurred accessing Action History data. Unable to refresh action history.`));
+  //         return;
+  //     }
+  //     const entries = await this.#data.historyEntries.getAll('timestamp');
+  //     for(let i = 0; i < entries.length; i++)
+  //     {
+  //         const element = historyElement.querySelector(`[data-entry-id="${entries[i].id}"]`) as HTMLElement;
+  //         if(i < startIndex)
+  //         {
+  //             element.removeAttribute(ATTRIBUTE_PREPARED_FOR_DELETE);
+  //         }
+  //         else
+  //         {
+  //             element.toggleAttribute(ATTRIBUTE_PREPARED_FOR_DELETE, true);
+  //         }
+  //     }        
+  // }
+  // async #applyHistoryLength(actionHistoryLength: number)
+  // {
+  //     await this.#saveAppSetting(AppSettingKey.HistoryLength, actionHistoryLength);
+  //     if(this.#data.historyEntries == null)
+  //     {
+  //         // todo: add toast to inform user
+  //         console.warn(`An error occurred accessing Action History data. Unable to refresh action history.`);
+  //         return;
+  //     }
+  //     const entries = await this.#data.historyEntries.getAll('timestamp');
+  //     let startIndex = actionHistoryLength;
+  //     if(startIndex > 0) { startIndex--; } // fix zero index offset if non-zero number
+  //     const ids: string[] = [];
+  //     for(let i = startIndex; i < entries.length; i++)
+  //     {
+  //         ids.push(entries[i].id);
+  //     }
+  //     await this.#data.historyEntries.deleteItems(ids);
+  //     this.#refreshActionHistory();
+  // }
   #applyPartAttributes() {
     const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
     for (let i = 0; i < identifiedElements.length; i++) {
@@ -6358,159 +6489,9 @@ var DataPanelElement = class extends HTMLElement {
       postfix.part.add("container", "field-postfix", `${inputId}-postfix`);
     }
   }
-  prepareDaysToPersistOptions(daysToPersist) {
-    const daysToPersistOptions = Array.from(DaysToPersistValues).map((value) => createOptionElement(value));
-    this.findElement("data-persist-days-values").append(...daysToPersistOptions);
-    this.findElement("data-persist-days").value = daysToPersist;
-    this.findElement("data-persist-days-value").textContent = daysToPersist;
-  }
-  async #importButton_onClick(_event) {
-    const importFileInput = this.findElement("import-board-file");
-    const boardDataFile = importFileInput.files != null ? importFileInput.files[0] : null;
-    if (boardDataFile == null) {
-      const message = `An error occurred attempting to import board data. Confirm that the selected import file is a valid board export.`;
-      const consoleMessage = "Unable to import selected file.";
-      this.dispatchEvent(new CustomEvent("error", { detail: { message, consoleMessage }, bubbles: true, composed: true }));
-      return;
-    }
-    const boardDataText = await boardDataFile.text();
-    const boardData = JSON.parse(boardDataText);
-    this.dispatchEvent(new CustomEvent("import", { detail: { boardData }, bubbles: true, composed: true }));
-  }
-  #daysToPersist_onChange(event) {
-    const dataPersistsDaysValues = DaysToPersistValues;
-    const input = event.target;
-    snapToStep(input, dataPersistsDaysValues);
-    this.findElement("data-persist-days-value").textContent = input.value;
-  }
-  #applyDaysToPersist_onClick(_event) {
-    this.dispatchEvent(new CustomEvent("daystopersist", { detail: { daysToPersist: this.findElement("data-persist-days").value }, bubbles: true, composed: true }));
-  }
-  #clearData_onClick(_event) {
-    this.dispatchEvent(new CustomEvent("cleardata", { bubbles: true, composed: true }));
-  }
-  #deletedItems_onRemove(event) {
-    const item = event.detail;
-    const recordType = item.dataset.recordType;
-    const recordId = item.dataset.recordId;
-    const timestamp = item.getAttribute("data-timestamp");
-    const targetType = recordType == "board" ? "board" /* Board */ : recordType == "list" ? "list" /* List */ : recordType == "task" ? "task" /* Task */ : null;
-    this.dispatchEvent(new CustomEvent("restoreitem", { detail: { targetType, recordId, timestamp }, bubbles: true, composed: true }));
-  }
-  async #clearDeleted_onClick(_event) {
-    const items = [...this.findElement("deleted-items").querySelectorAll('[data-record-id]:not([data-restore="false"])')];
-    this.dispatchEvent(new CustomEvent("cleardeleted", { detail: { items }, bubbles: true, composed: true }));
-  }
-  #deletedImages_onRemove(event) {
-    const item = event.detail;
-    this.dispatchEvent(new CustomEvent("deleteimage", { detail: { item }, bubbles: true, composed: true }));
-  }
-  async #clearImageCache_onClick(_event) {
-    const items = [...this.findElement("deleted-images").querySelectorAll("[data-record-id]")];
-    this.dispatchEvent(new CustomEvent("clearimages", { detail: { items }, bubbles: true, composed: true }));
-  }
-  async refresh() {
-    console.log("refresh");
-    const deletedItems = [];
-    const [deletedBoards, deletedLists, deletedTasks, deletedImages] = await DataService.getDeletedItems();
-    for (let i = 0; i < deletedBoards.length; i++) {
-      const record = deletedBoards[i];
-      const element = this.#createDeletedItem(record, "board", true, record.deletedTimestamp);
-      deletedItems.push(element);
-    }
-    for (let i = 0; i < deletedLists.length; i++) {
-      const record = deletedLists[i];
-      const canRestore = deletedBoards.find((item) => item.id == record.boardId && item.deletedTimestamp != null) == null;
-      const element = this.#createDeletedItem(record, "list", canRestore, record.deletedTimestamp);
-      deletedItems.push(element);
-    }
-    for (let i = 0; i < deletedTasks.length; i++) {
-      const record = deletedTasks[i];
-      const canRestore = deletedBoards.find((item) => item.id == record.boardId && item.deletedTimestamp != null) == null;
-      const element = this.#createDeletedItem(record, "task", canRestore, record.deletedTimestamp);
-      deletedItems.push(element);
-    }
-    const deletedImageElements = [];
-    for (let i = 0; i < deletedImages.length; i++) {
-      const record = deletedImages[i];
-      const element = this.#createDeletedItem(record, "image", true, record.deletedTimestamp);
-      deletedImageElements.push(element);
-    }
-    const deletedImagesElement = this.findElement("deleted-images");
-    deletedImagesElement.innerHTML = "";
-    deletedImagesElement.append(...deletedImageElements);
-    const deletedItemsElement = this.findElement("deleted-items");
-    deletedItemsElement.innerHTML = "";
-    deletedItemsElement.append(...deletedItems);
-  }
-  #createDeletedItem(data, recordType, canRestore, timestamp) {
-    const item = document.createElement("div");
-    item.setAttribute("data-record-type", recordType);
-    item.setAttribute("part", "deleted-item");
-    item.classList.add("deleted-item");
-    item.setAttribute("data-timestamp", timestamp.toString());
-    const label = document.createElement("span");
-    label.setAttribute("part", "deleted-item-label");
-    label.classList.add("deleted-item-label");
-    let record;
-    if (recordType == "board") {
-      record = data;
-      label.textContent = record.name;
-    } else if (recordType == "list") {
-      record = data;
-      label.textContent = record.name;
-    } else if (recordType == "task") {
-      record = data;
-      label.textContent = record.description.trim() == "" ? "[Blank Task]" : record.description;
-    } else if (recordType == "image") {
-      record = data;
-      label.textContent = record.name;
-    } else {
-      throw new Error("Unknown deleted record type");
-    }
-    item.setAttribute("data-record-id", record.id);
-    item.append(label);
-    if (canRestore == false) {
-      item.dataset.restore = "false";
-    }
-    return item;
-  }
-  // async #restoreDeletedItem(targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number)
-  // {
-  //     if(targetType == null)
-  //     {
-  //         console.error("Unable to restore record with unknown type or id");
-  //         return;
-  //     }
-  //     const channel = (targetType == 'board')
-  //     ? this.#data.boards 
-  //     : (targetType == 'list')
-  //     ? this.#data.lists
-  //     : (targetType == 'task')
-  //     ? this.#data.tasks
-  //     : null;
-  //     if(channel == null)
-  //     {
-  //         console.error("Unable to restore record. Error accessing data.");
-  //         return;
-  //     }
-  //     await channel.restore(recordId);
-  //     const updates: Map<string, PropertyUpdate> = new Map([ ['deletedTimestamp', { from: timestamp, to: undefined }] ]);
-  //     const properties = {
-  //         id: recordId,
-  //         updates
-  //     };
-  //     await this.#addActionHistoryEntry(HistoryEntryType.Update, targetType, properties);
-  //     if(targetType == HistoryEntryTargetType.Board)
-  //     {
-  //         this.openBoard(recordId);
-  //         this.#refreshBoards();
-  //     }
-  //     this.#refreshDeletedItems();
-  // }
 };
 if (customElements.get(COMPONENT_TAG_NAME13) == null) {
-  customElements.define(COMPONENT_TAG_NAME13, DataPanelElement);
+  customElements.define(COMPONENT_TAG_NAME13, HistoryPanelElement);
 }
 
 // components/config-panel/about-panel/about-panel.css?raw
@@ -6520,9 +6501,6 @@ var about_panel_default = ":host\n{\n    display: grid;\n    gap: 7px;\n    grid
 var about_panel_default2 = '<header id="about-header" class="header page-header">About</header>\n<fieldset id="about-app-fieldset" class="fieldset config-fieldset">\n    <legend id="about-app-legend" class="legend config-legend">App</legend>\n    <p class="text">The <em class="emphasis">My Boards</em> app is a Single Page App (SPA) implementation of the <code class="code">taskboard-manager</code> custom element.</p>\n    <p class="text">To see a Progressive Web App implementation of the <code class="code">taskboard-manager</code> custom element, see the </p>\n</fieldset>\n<fieldset id="version-fieldset" class="fieldset config-fieldset">\n    <legend id="version-legend" class="legend config-legend">Version</legend>\n    <div id="version-value">--.--.--</div>\n</fieldset>\n<fieldset id="copyright-fieldset" class="fieldset config-fieldset">\n    <legend id="copyright-legend" class="legend config-legend">Copyright</legend>\n    <div id="copyright-description">\n        <!-- For derivative work, replace this license with your own copyright -->\n        <p class="text copyright-text" xmlns:cc="http://creativecommons.org/ns#" >\n            Both are released with \n            <a id="cc0-link" class="link copyright-link" href="https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1" \n            target="_blank" \n            rel="license noopener noreferrer" \n            style="display:inline-block;">\n                CC0 1.0\n                <img id="cc-icon" class="icon raster" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt="Creative Commons Icon">\n                <img id="zero-icon" class="icon raster" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1" alt="Zero Icon">\n            </a>\n        </p>\n        <!-- End of CC0 License -->\n    </div>\n</fieldset>';
 
 // components/config-panel/about-panel/about-panel.ts
-var AboutPanelAttributes = /* @__PURE__ */ ((AboutPanelAttributes2) => {
-  return AboutPanelAttributes2;
-})(AboutPanelAttributes || {});
 var COMPONENT_STYLESHEET13 = new CSSStyleSheet();
 COMPONENT_STYLESHEET13.replaceSync(`${shared_default}
     ${about_panel_default}`);
@@ -6535,9 +6513,6 @@ ${defineIcons(
 )}`;
 var COMPONENT_TAG_NAME14 = "about-panel";
 var AboutPanelElement = class extends HTMLElement {
-  static observedAttributes = [
-    ...Object.values(AboutPanelAttributes)
-  ];
   componentParts = /* @__PURE__ */ new Map();
   getElement(id) {
     if (this.componentParts.get(id) == null) {
@@ -6558,6 +6533,12 @@ var AboutPanelElement = class extends HTMLElement {
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET13);
     this.#applyPartAttributes();
   }
+  init(options) {
+    this.setVersion(options.appVersion);
+  }
+  setVersion(version) {
+    this.findElement("version-value").textContent = version;
+  }
   #applyPartAttributes() {
     const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
     for (let i = 0; i < identifiedElements.length; i++) {
@@ -6568,28 +6549,12 @@ var AboutPanelElement = class extends HTMLElement {
       classedElements[i].part.add(...classedElements[i].classList);
     }
   }
-  setVersion(version) {
-    this.findElement("version-value").textContent = version;
-  }
-  static create(properties) {
-    const element = document.createElement(COMPONENT_TAG_NAME14);
-    for (const [propertyName, value] of Object.entries(properties)) {
-      if (!propertyName.startsWith("on")) {
-        element.setAttribute(propertyName, value);
-      }
-    }
-  }
-  attributeChangedCallback(attributeName, _oldValue, newValue) {
-  }
 };
 if (customElements.get(COMPONENT_TAG_NAME14) == null) {
   customElements.define(COMPONENT_TAG_NAME14, AboutPanelElement);
 }
 
 // components/config-panel/config-panel.ts
-var ConfigPanelAttributes = /* @__PURE__ */ ((ConfigPanelAttributes2) => {
-  return ConfigPanelAttributes2;
-})(ConfigPanelAttributes || {});
 var COMPONENT_STYLESHEET14 = new CSSStyleSheet();
 COMPONENT_STYLESHEET14.replaceSync(`${shared_default}
     ${config_panel_default}`);
@@ -6602,9 +6567,6 @@ ${defineIcons(
 )}`;
 var COMPONENT_TAG_NAME15 = "config-panel";
 var ConfigPanelElement = class extends HTMLElement {
-  static observedAttributes = [
-    ...Object.values(ConfigPanelAttributes)
-  ];
   componentParts = /* @__PURE__ */ new Map();
   getElement(id) {
     if (this.componentParts.get(id) == null) {
@@ -6625,24 +6587,11 @@ var ConfigPanelElement = class extends HTMLElement {
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET14);
     this.#applyPartAttributes();
   }
-  #applyPartAttributes() {
-    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
-    for (let i = 0; i < identifiedElements.length; i++) {
-      identifiedElements[i].part.add(identifiedElements[i].id);
-    }
-    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
-    for (let i = 0; i < classedElements.length; i++) {
-      classedElements[i].part.add(...classedElements[i].classList);
-    }
-  }
-  async init(appVersion) {
-    const historyLength = await DataService.getAppSetting("historyLength" /* HistoryLength */) ?? DEFAULT_HISTORY_LENGTH;
-    const daysToPersistData = await DataService.getAppSetting("daysToPersistData" /* DaysToPersistData */) ?? DEFAULT_PERSIST_DAYS;
-    this.findElement("about-panel").setVersion(appVersion);
-    this.findElement("data-panel").prepareDaysToPersistOptions(daysToPersistData);
-    this.findElement("history-panel").prepareHistoryLength(historyLength);
-    this.refreshHistory();
-    this.refreshCache();
+  async init(options) {
+    this.findElement("settings-panel").init({ scheme_onChange: options.scheme_onChange });
+    this.findElement("data-panel").init();
+    this.findElement("history-panel").init();
+    this.findElement("about-panel").init({ appVersion: options.appVersion });
   }
   refreshHistory() {
     this.findElement("history-panel").refresh();
@@ -6655,6 +6604,16 @@ var ConfigPanelElement = class extends HTMLElement {
   }
   history_redo() {
     this.findElement("history-panel").redo();
+  }
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      classedElements[i].part.add(...classedElements[i].classList);
+    }
   }
 };
 if (customElements.get(COMPONENT_TAG_NAME15) == null) {
@@ -9581,7 +9540,7 @@ var TaskboardManagerElement2 = class extends HTMLElement {
       this.findElement("app-router").navigate(`board/${boardId}`);
     });
     const appVersion = await this.#getAppVersion();
-    this.findElement("config-panel").init(appVersion);
+    this.findElement("config-panel").init({ appVersion, scheme_onChange: this.setColorScheme.bind(this) });
     this.#addRouteHandlers();
     this.addEventListener("click", this.#onClick.bind(this));
     await this.#handleInitialNavigation(boardsPromise);
@@ -9959,22 +9918,6 @@ var TaskboardManagerElement2 = class extends HTMLElement {
     const newBoardButton = composedPath.find((item) => item.classList.contains("new-board-button"));
     if (newBoardButton != null) {
       this.#newBoard_onClick();
-      return;
-    }
-    const schemeButton = composedPath.find((item) => item.classList.contains("scheme"));
-    if (schemeButton != null) {
-      const scheme = schemeButton.dataset.value;
-      if (scheme == null) {
-        FeedbackService.showErrorMessageCard(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`);
-        console.error(new Error("Scheme value was undefined."));
-        return;
-      }
-      if (scheme != "inherit" && scheme != "browser" && scheme != "light" && scheme != "dark") {
-        FeedbackService.showErrorMessageCard(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`);
-        console.error(new Error("Scheme value was not recognized as a valid scheme."));
-        return;
-      }
-      this.setColorScheme(scheme);
       return;
     }
     const importOkButton = composedPath.find((item) => item.id == "import-ok");

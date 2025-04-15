@@ -5,14 +5,15 @@ import sharedStyles from '../../../styles/shared.css?raw';
 import html from './settings-panel.html?raw';
 // icons
 import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
+import { AppSettingKey, DataService } from '../../../data/data.service';
+import { FeedbackService } from '../../../feedback.service';
 
-export enum SettingsPanelAttributes
+export type ColorScheme = 'inherit'|'browser'|'light'|'dark';
+
+export type SettingsPanelProperties = 
 {
+    scheme_onChange: (scheme: ColorScheme) => void;
 }
-
-export type SettingsPanelProperties = { [key in SettingsPanelAttributes]: string } &
-{
-};
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
@@ -29,10 +30,6 @@ ${defineIcons(
 const COMPONENT_TAG_NAME = 'settings-panel';
 export class SettingsPanelElement extends HTMLElement
 {
-    static observedAttributes = [
-        ...Object.values(SettingsPanelAttributes),
-    ];
-
     componentParts: Map<string, HTMLElement> = new Map();
     getElement<T extends HTMLElement = HTMLElement>(id: string)
     {
@@ -53,17 +50,60 @@ export class SettingsPanelElement extends HTMLElement
         this.attachShadow({ mode: "open" });
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
+
+        this.addEventListener('click', this.#onClick.bind(this));
+
         this.#applyPartAttributes();
 
-        // todo: assign save scheme option
-        
-        const schemeOptions = [...this.findElement('scheme-options').querySelectorAll('button')] as HTMLElement[];
-        for(let i = 0; i < schemeOptions.length; i++)
-        {
-            schemeOptions[i].addEventListener('click', this.#colorSchemeButton_onClick.bind(this));
-            // console.log(schemeOptions[i]);
-        }
     }
+
+    #scheme_onChange!: (scheme: ColorScheme) => void;
+    async init(options: SettingsPanelProperties)
+    {
+        const scheme = await DataService.getAppSetting(AppSettingKey.ColorScheme);
+        const button = this.shadowRoot!.querySelector(`.scheme[data-value="${scheme}"]`);
+        if(button != null)
+        {
+            button.classList.add('selected');
+            button.part.add('selected');
+        }
+        this.#scheme_onChange = options.scheme_onChange;
+    }
+
+    
+    #onClick(event: Event)
+    {
+        const composedPath = event.composedPath();
+        const button = composedPath.find(item => item instanceof HTMLButtonElement) as HTMLButtonElement;
+        if(button == null) { return; }
+
+        const buttons = [...this.shadowRoot!.querySelectorAll('button.scheme')];
+        for(let i = 0; i < buttons.length; i++)
+        {
+            const button = buttons[i];
+            button.classList.remove('selected');
+            button.part.remove('selected');
+        }
+        
+        button.classList.add('selected');
+        button.part.add('selected');
+        
+        const scheme = button.dataset.value;
+        if(scheme == null)
+        {
+            FeedbackService.showErrorMessageCard(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`);
+            console.error(new Error('Scheme value was undefined.'));
+            return;
+        }
+        if(scheme != 'inherit' && scheme != 'browser' && scheme != 'light' && scheme != 'dark')
+        {
+            FeedbackService.showErrorMessageCard(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`);
+            console.error(new Error('Scheme value was not recognized as a valid scheme.'));
+            return;
+        }
+        this.#scheme_onChange(scheme);
+    }
+
     #applyPartAttributes()
     {
         const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
@@ -76,58 +116,6 @@ export class SettingsPanelElement extends HTMLElement
         {
             classedElements[i].part.add(...classedElements[i].classList);
         }
-    }
-
-    
-    #colorSchemeButton_onClick(event: Event)
-    {
-        const scheme = (event.target as HTMLElement).dataset.value;
-        if(scheme == null)
-        {
-            const message = `An error occurred attempting to set the app's color scheme. Scheme was not changed.`;
-            const consoleMessage = 'Scheme value was undefined.';
-            this.dispatchEvent(new CustomEvent('error', { detail: { message, consoleMessage }, bubbles: true, composed: true }));
-            return;
-        }
-        if(scheme != 'inherit' && scheme != 'browser' && scheme != 'light' && scheme != 'dark')
-        {
-            const message = `An error occurred attempting to set the app's color scheme. Scheme was not changed.`;
-            const consoleMessage = 'Scheme value was not recognized as a valid scheme.';
-            this.dispatchEvent(new CustomEvent('error', { detail: { message, consoleMessage }, bubbles: true, composed: true }));
-            return;
-        }
-        const isAllowed = this.dispatchEvent(new CustomEvent('scheme', { detail: { scheme }, bubbles: true, composed: true }));
-        if(isAllowed == false) { return; }
-
-        const buttons = [...this.shadowRoot!.querySelectorAll('button.scheme')];
-        for(let i = 0; i < buttons.length; i++)
-        {
-            const button = buttons[i];
-            button.classList.remove('selected');
-            button.part.remove('selected');
-        }
-        
-        const button = event.composedPath().find(item => item instanceof HTMLButtonElement) as HTMLButtonElement;
-        if(button == null) { return; }
-        button.classList.add('selected');
-        button.part.add('selected');
-    }
-
-
-    static create(properties: SettingsPanelProperties)
-    {
-        const element = document.createElement(COMPONENT_TAG_NAME) as SettingsPanelElement;
-        for(const [propertyName, value] of Object.entries(properties))
-        {
-            if(!propertyName.startsWith('on'))
-            {
-                element.setAttribute(propertyName, value as string);
-            }
-        }
-    }
-
-    attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) 
-    {
     }
 }
 

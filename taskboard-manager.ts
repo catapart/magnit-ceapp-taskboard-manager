@@ -85,6 +85,7 @@ import { ConfigPanelElement } from './components/config-panel/config-panel';
 import { HistoryPanelElement } from './components/config-panel/history-panel/history-panel';
 import { AppSettingKey, DataService, MILLISECONDSINDAY } from './data/data.service';
 import { FeedbackService, ErrorMessageType } from './feedback.service';
+import { ColorScheme } from './components/config-panel/settings-panel/settings-panel';
 
 // export type TaskboardManagerProperties = 
 // {
@@ -216,7 +217,7 @@ export class TaskboardManagerElement extends HTMLElement
     {
         this.initPromise = this.#init();
     }
-    setColorScheme(scheme: 'inherit'|'browser'|'light'|'dark')
+    setColorScheme(scheme: ColorScheme)
     {
         const value = (scheme == 'browser') ? 'light dark' : scheme;
         this.style.setProperty('color-scheme', value);
@@ -477,7 +478,7 @@ export class TaskboardManagerElement extends HTMLElement
 
         // config-panel
         const appVersion = await this.#getAppVersion();
-        this.findElement<ConfigPanelElement>('config-panel').init(appVersion);
+        this.findElement<ConfigPanelElement>('config-panel').init({ appVersion, scheme_onChange: this.setColorScheme.bind(this) });
 
         // board-settings
 
@@ -518,7 +519,7 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const colorScheme = await DataService.getAppSetting(AppSettingKey.ColorScheme);
         if(colorScheme == null) { return; }
-        this.setColorScheme(colorScheme as 'inherit'|'browser'|'light'|'dark');
+        this.setColorScheme(colorScheme);
     }
     #historyIsUpdating = false;
     #addRouteHandlers()
@@ -1021,25 +1022,6 @@ export class TaskboardManagerElement extends HTMLElement
             return;
         }
 
-        const schemeButton = composedPath.find(item => item.classList.contains('scheme'));
-        if(schemeButton != null)
-        {
-            const scheme = schemeButton.dataset.value;
-            if(scheme == null)
-            {
-                FeedbackService.showErrorMessageCard(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`);
-                console.error(new Error('Scheme value was undefined.'));
-                return;
-            }
-            if(scheme != 'inherit' && scheme != 'browser' && scheme != 'light' && scheme != 'dark')
-            {
-                FeedbackService.showErrorMessageCard(`An error occurred attempting to set the app's color scheme. Scheme was not changed.`);
-                console.error(new Error('Scheme value was not recognized as a valid scheme.'));
-                return;
-            }
-            this.setColorScheme(scheme);
-            return;
-        }
 
         const importOkButton = composedPath.find(item => item.id == 'import-ok');
         if(importOkButton != null)
@@ -1247,7 +1229,7 @@ export class TaskboardManagerElement extends HTMLElement
             console.warn(`A manifest file could not be found linked in the index document's head. The app's version information could not be determined.`);
             return DEFAULT_APP_VERSION;
         }
-        return manifest.version;
+        return manifest.version as string;
     }
     #parseWindowPath()
     {
