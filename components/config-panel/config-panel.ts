@@ -14,15 +14,19 @@ import './about-panel/about-panel';
 import { DEFAULT_HISTORY_LENGTH, HistoryLengthValues, HistoryPanelElement } from './history-panel/history-panel';
 import { DataPanelElement, DaysToPersistValues } from './data-panel/data-panel';
 import { AboutPanelElement } from './about-panel/about-panel';
-import { ActionHistoryElement } from '@magnit-ce/action-history';
+import { HistoryEntryType } from '@magnit-ce/action-history';
 import { AppSettingKey, DataService } from '../../data/data.service';
 import { ColorScheme, SettingsPanelElement } from './settings-panel/settings-panel';
+import { HistoryEntryTargetType, PropertiesType } from '../../data/history/history-entry-data';
 
 
 export type ConfigPanelProperties = 
 {
     appVersion: string;
     scheme_onChange: (scheme: ColorScheme) => void;
+    openImportManager: (data: any) => void;
+    openBoard: (id: string) => void;
+    refreshBoards: () => void;
 }
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -60,166 +64,29 @@ export class ConfigPanelElement extends HTMLElement
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
         this.#applyPartAttributes();
-
-
-
-    //     const configPanel = this.getElement<ConfigPanelElement>('config-panel');
-    //     configPanel.addEventListener('error', (event: Event|CustomEvent) =>
-    //     {
-    //         const { message, type, consoleMessage } = (event as CustomEvent).detail;
-    //         MessageCardElement.notify(message, 
-    //         this.getElement('notifications'), { type: type ?? MessageCardType.Error });
-    //         console.error(new Error(consoleMessage));
-    //     });
-    //     configPanel.addEventListener('scheme', (event: Event|CustomEvent) =>
-    //     {
-    //         const { scheme } = (event as CustomEvent).detail;
-    //         this.setColorScheme(scheme);
-    //         this.#saveAppSetting(AppSettingKey.ColorScheme, scheme);
-    //     });
-    //     configPanel.addEventListener('import', (event: Event|CustomEvent) =>
-    //     {
-    //         const { boardData } = (event as CustomEvent).detail;
-    //         console.log(boardData);
-    //         this.#openImportManager(boardData);
-    //     });
-    //     configPanel.addEventListener('daystopersist', (event: Event|CustomEvent) =>
-    //     {
-    //         const { daysToPersist } = (event as CustomEvent).detail;
-    //         this.#saveAppSetting(AppSettingKey.DaysToPersistData, daysToPersist);
-    //     });
-    //     configPanel.addEventListener('cleardata', (event: Event|CustomEvent) =>
-    //     {
-    //         this.clearData();
-    //     });
-    //     configPanel.addEventListener('restoreitem', (event: Event|CustomEvent) =>
-    //     {
-    //         const { targetType, recordId, timestamp } = (event as CustomEvent).detail;
-    //         this.#restoreDeletedItem(targetType, recordId, timestamp);
-    //     });
-    //     configPanel.addEventListener('cleardeleted', async (event: Event|CustomEvent) =>
-    //     {
-    //         const { items } = (event as CustomEvent).detail;
-    //         for(let i = 0; i < items.length; i++)
-    //         {
-    //             const item = items[i];
-    //             await this.deleteItem(item, false);
-    //         }
-    //         this.#refreshDeletedItems();
-    //         this.#refreshActionHistory();
-    //     });
-    //     configPanel.addEventListener('restoreitem', (event: Event|CustomEvent) =>
-    //     {
-    //         const { item } = (event as CustomEvent).detail;
-    //         return this.deleteImage(item);
-    //     });
-    //     configPanel.addEventListener('clearimages', async (event: Event|CustomEvent) =>
-    //     {
-    //         const { items } = (event as CustomEvent).detail;
-    //         for(let i = 0; i < items.length; i++)
-    //         {
-    //             const item = items[i];
-    //             await this.deleteImage(item, false);
-    //         }
-    //         this.#refreshActionHistory();
-    //         this.#refreshDeletedItems();
-    //     });
-    //     // configPanel.addEventListener('undo', (event: Event|CustomEvent) =>
-    //     // {
-    //     //     this.undo();
-    //     // });
-    //     // configPanel.addEventListener('redo', (event: Event|CustomEvent) =>
-    //     // {
-    //     //     this.redo();
-    //     // });
-    //     configPanel.addEventListener('historyback', async (event: Event|CustomEvent) =>
-    //     {
-    //         const {
-    //             target,
-    //             previous,
-    //             targetIndex,
-    //             previousActiveEntryIndex,
-    //             refreshBoards,
-    //             refreshDeletedItems
-    //         } = (event as CustomEvent).detail;
-
-    //         await this.#handleActionEntryReverse(target, previous, targetIndex, previousActiveEntryIndex);
-
-            
-    //         if(refreshBoards == true)
-    //         {
-    //             this.#refreshBoards();
-    //         }
-    //         if(refreshDeletedItems == true)
-    //         {
-    //             this.#refreshDeletedItems();
-    //         }
-            
-    //         const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
-    //         if(currentBoardId != "")
-    //         {
-    //             this.#renderBoard(currentBoardId);
-    //         }
-    //     });
-    //     configPanel.addEventListener('historyforward', async (event: Event|CustomEvent) =>
-    //     {
-    //         const {
-    //             target,
-    //             previous,
-    //             targetIndex,
-    //             previousActiveEntryIndex,
-    //             refreshBoards,
-    //             refreshDeletedItems
-    //         } = (event as CustomEvent).detail;
-
-    //         await this.#handelActionEntryActivate(target, previous, targetIndex, previousActiveEntryIndex);
-
-    //         if(refreshBoards == true)
-    //         {
-    //             this.#refreshBoards();
-    //         }
-    //         if(refreshDeletedItems == true)
-    //         {
-    //             this.#refreshDeletedItems();
-    //         }
-            
-    //         const currentBoardId = this.findElement('task-board').dataset.boardId ?? "";
-    //         if(currentBoardId != "")
-    //         {
-    //             this.#renderBoard(currentBoardId);
-    //         }
-    //     });
-    //     configPanel.addEventListener('preparehistoryitems', async (event: Event|CustomEvent) =>
-    //     {
-    //         const { actionHistory, startIndex } = (event as CustomEvent).detail;
-    //         this.#prepareHistoryEntries(actionHistory, startIndex);
-    //     });
-    //     configPanel.addEventListener('historylength', async (event: Event|CustomEvent) =>
-    //     {
-    //         const { historyLength } = (event as CustomEvent).detail;
-    //         this.#applyHistoryLength(historyLength);
-    //     });
-    //     configPanel.addEventListener('clearhistory', async (_event: Event|CustomEvent) =>
-    //     {
-    //         this.clearHistory();
-    //     });
     }
 
     async init(options: ConfigPanelProperties)
     {
         this.findElement<SettingsPanelElement>('settings-panel').init({ scheme_onChange: options.scheme_onChange });
-        this.findElement<DataPanelElement>('data-panel').init();
-        this.findElement<HistoryPanelElement>('history-panel').init();
+        this.findElement<DataPanelElement>('data-panel').init({ 
+            openImportManager: options.openImportManager,
+            openBoard: options.openBoard,
+            refreshActionHistory: this.refreshHistory.bind(this),
+            refreshBoards: options.refreshBoards,
+            addActionHistoryEntry: this.addActionHistoryEntry.bind(this),
+        });
+        this.findElement<HistoryPanelElement>('history-panel').init({ refreshBoards: options.refreshBoards, refreshCache: this.refreshCache.bind(this) });
         this.findElement<AboutPanelElement>('about-panel').init({ appVersion: options.appVersion });
     }
 
+    refreshCache()
+    {
+        this.findElement<DataPanelElement>('data-panel').refreshCache();
+    }
     refreshHistory()
     {
         this.findElement<HistoryPanelElement>('history-panel').refresh();
-    }
-    refreshCache()
-    {
-        this.findElement<HistoryPanelElement>('data-panel').refresh();
     }
     history_undo()
     {
@@ -228,6 +95,14 @@ export class ConfigPanelElement extends HTMLElement
     history_redo()
     {
         this.findElement<HistoryPanelElement>('history-panel').redo();
+    }
+    addActionHistoryEntry<T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
+    {
+        this.findElement<HistoryPanelElement>('history-panel').addActionHistoryEntry(action, type, properties);
+    }
+    async clearData()
+    {
+        this.findElement<DataPanelElement>('data-panel').clearData();
     }
 
 

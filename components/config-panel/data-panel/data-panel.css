@@ -141,6 +141,21 @@
     display: none !important;
 }
 
+.deleted-item
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 7px;
+    align-items: center;
+}
+
+.deleted-item-label
+{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 #clear-deleted-button
 ,#clear-image-cache-button
 {

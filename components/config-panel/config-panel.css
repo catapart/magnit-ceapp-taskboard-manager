@@ -13,10 +13,19 @@
 
 #config-header
 {
-    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 0;
+    font-weight: bold;
 }
 
-#config-icon
+#config-title
+{
+    font-weight: bold;
+}
+
+.header-icon
 {
     width: var(--dialog-header-icon-size);
     height: var(--dialog-header-icon-size);
@@ -25,6 +34,7 @@
 #config-navigation
 {
     margin: 0;
+    margin-bottom: 14px;
     padding: 0;
     display: flex;
     align-items: center;
@@ -32,7 +42,6 @@
     color: fieldtext;
     border: solid 1px graytext;
     border-radius: 2px;
-    margin-bottom: 20px;
     user-select: none;
 }
 
@@ -83,7 +92,7 @@
     display: grid;
     grid-template-columns: 1fr auto auto;
     gap: 14px;
-    padding-block-start: 10px;
+    padding: 7px 0;
 }
 
 .button

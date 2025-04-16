@@ -6,10 +6,15 @@
     grid-template-columns: auto 1fr auto;
     gap: 7px;
     align-items: center;
-    font-weight: bold;
-    padding-block: 5px;
+    padding: 7px 0;
 }
-#board-browser-icon
+
+#board-browser-title
+{
+    font-weight: bold;
+}
+
+.header-icon
 {
     width: var(--dialog-header-icon-size);
     height: var(--dialog-header-icon-size);
@@ -17,7 +22,6 @@
 
 collection-browser
 {
-    margin: 1em;
     overflow: hidden;
 }
 
@@ -32,7 +36,7 @@ collection-browser::part(items)
     display: flex;
     gap: .5em;
     flex-wrap: wrap;
-    padding: 7px;
+    padding: 7px 0;
     overflow: hidden auto;
 }
 
@@ -47,6 +51,7 @@ collection-browser::part(add-button)
     align-items: center;
     justify-content: flex-end;
     gap: 14px;
+    padding: 7px 0;
 }
 
 #board-browser-actions button

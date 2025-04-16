@@ -6,20 +6,27 @@ import html from './data-panel.html?raw';
 // icons
 import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
 import { EditableListElement } from '@magnit-ce/editable-list';
-import { HistoryEntryTargetType } from '../../../data/history/history-entry-data';
+import { BasicActionProperties, HistoryEntryTargetType, PropertiesType, PropertyUpdate } from '../../../data/history/history-entry-data';
 import { createOptionElement, snapToStep } from '../../../resources/utils';
 import { AppSettingKey, DataService } from '../../../data/data.service';
 import { TaskBoardRecord } from '../../../data/records/task-board.record';
 import { TaskListRecord } from '../../../data/records/task-list.record';
 import { TaskRecord } from '../../../data/records/task.record';
 import { CustomImageRecord } from '../../../data/records/custom-image.record';
+import { FeedbackService } from '../../../feedback.service';
+import { HistoryEntryType } from '@magnit-ce/action-history';
+import { HistoryEntryRecord } from '../../../data/records/history-entry.record';
 
 export const DaysToPersistValues = [0, 7, 30];
 export const DEFAULT_PERSIST_DAYS = "7";
 
 export type DataPanelProperties = 
 {
-    
+    openImportManager: (data: any) => void;
+    openBoard: (id: string) => void;
+    refreshActionHistory: () => void;
+    refreshBoards: () => void;
+    addActionHistoryEntry: <T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>) => void;
 }
 
 
@@ -33,6 +40,7 @@ ${defineIcons(
     IconType.Import,
     IconType.Trash,
     IconType.ConfirmCheck,
+    IconType.Restore,
 )}`;
 
 const COMPONENT_TAG_NAME = 'data-panel';
@@ -52,6 +60,7 @@ export class DataPanelElement extends HTMLElement
     }
     findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
 
+    //#region Housekeeping
     constructor()
     {
         super();
@@ -59,33 +68,33 @@ export class DataPanelElement extends HTMLElement
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
         this.#applyPartAttributes();
-
-        
-        this.findElement<HTMLButtonElement>('import-button').addEventListener('click', this.#importButton_onClick.bind(this));
-
+        this.addEventListener('click', this.#onClick.bind(this));
         this.findElement('data-persist-days').addEventListener("change", this.#daysToPersist_onChange.bind(this));
-        this.findElement('apply-data-persist-days-button').addEventListener("click", this.#applyDaysToPersist_onClick.bind(this));
-
-        this.findElement<HTMLButtonElement>('clear-data-button').addEventListener('click', this.#clearData_onClick.bind(this));
-
         this.findElement<EditableListElement>('deleted-items').addEventListener('remove', this.#deletedItems_onRemove.bind(this));
-        this.findElement<HTMLButtonElement>('clear-deleted-button').addEventListener('click', this.#clearDeleted_onClick.bind(this));
-
         this.findElement<EditableListElement>('deleted-images').addEventListener('remove', this.#deletedImages_onRemove.bind(this));
-        this.findElement<HTMLButtonElement>('clear-image-cache-button').addEventListener('click', this.#clearImageCache_onClick.bind(this));
     }
+    //#endregion Housekeeping
 
-    async init(_options?: DataPanelProperties)
+    //#region API
+
+    #openImportManager!: (data: any) => void;
+    #openBoard!: (data: any) => void;
+    #refreshActionHistory!: () => void;
+    #refreshBoards!: () => void;
+    #addActionHistoryEntry!: <T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>) => void;
+    async init(options: DataPanelProperties)
     {
+        this.#openImportManager = options.openImportManager;
+        this.#openBoard = options.openBoard;
+        this.#refreshActionHistory = options.refreshActionHistory;
+        this.#refreshBoards = options.refreshBoards;
+        this.#addActionHistoryEntry = options.addActionHistoryEntry;
         const daysToPersistData = (await DataService.getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
-        this.prepareDaysToPersistOptions(daysToPersistData);
+        this.#prepareDaysToPersistOptions(daysToPersistData);
         this.refreshCache();
     }
-
     async refreshCache()
     {
-        console.log('refresh');
-
         const deletedItems = [];
         const [ deletedBoards, deletedLists, deletedTasks, deletedImages ] = await DataService.getDeletedItems();
 
@@ -120,16 +129,29 @@ export class DataPanelElement extends HTMLElement
 
         // deleted images
         const deletedImagesElement = this.findElement<EditableListElement>('deleted-images');
-        deletedImagesElement.innerHTML = "";
+        [...deletedImagesElement.children].forEach(item => { if(!(item instanceof HTMLTemplateElement)) { item.remove(); } });
         deletedImagesElement.append(...deletedImageElements);
 
         // deleted items
         const deletedItemsElement = this.findElement<EditableListElement>('deleted-items');
-        deletedItemsElement.innerHTML = "";
+        [...deletedItemsElement.children].forEach(item => { if(!(item instanceof HTMLTemplateElement)) { item.remove(); } });
         deletedItemsElement.append(...deletedItems);
     }
+    async clearData()
+    {
+        const confirmed = await FeedbackService.getConfirmation('Are you sure you want to delete all data associated with the app? This CAN NOT be undone.', 'danger');
+        if(confirmed == false) { return; }
+        await DataService.clearAllData();
+        this.#refreshBoards();
+        this.#refreshActionHistory();
+        this.refreshCache();
+    }
+    //#endregion API
+
     
-    prepareDaysToPersistOptions(daysToPersist: string)
+
+    //#region Management
+    #prepareDaysToPersistOptions(daysToPersist: string)
     {
         const daysToPersistOptions = Array.from(DaysToPersistValues).map(value => createOptionElement(value));
         this.findElement('data-persist-days-values').append(...daysToPersistOptions);
@@ -138,72 +160,6 @@ export class DataPanelElement extends HTMLElement
         this.findElement('data-persist-days-value').textContent = daysToPersist;
     }
 
-    async #importButton_onClick(_event: Event)
-    {
-        const importFileInput = this.findElement<HTMLInputElement>('import-board-file');
-        const boardDataFile = (importFileInput.files != null) ?importFileInput.files[0] : null;
-        if(boardDataFile == null)
-        { 
-            const message = `An error occurred attempting to import board data. Confirm that the selected import file is a valid board export.`;
-            const consoleMessage = 'Unable to import selected file.';
-            this.dispatchEvent(new CustomEvent('error', { detail: { message, consoleMessage }, bubbles: true, composed: true }));
-            return;
-        }
-
-        const boardDataText = await boardDataFile.text();
-        const boardData = JSON.parse(boardDataText);
-        this.dispatchEvent(new CustomEvent('import', { detail: { boardData }, bubbles: true, composed: true }));
-    }
-    #applyDaysToPersist_onClick(_event: Event)
-    {
-        this.dispatchEvent(new CustomEvent('daystopersist', { detail: { daysToPersist: this.findElement<HTMLInputElement>('data-persist-days').value }, bubbles: true, composed: true }));
-    }
-    #clearData_onClick(_event: Event)
-    {
-        this.dispatchEvent(new CustomEvent('cleardata', { bubbles: true, composed: true }));
-    }
-    async #clearDeleted_onClick(_event: Event)
-    {
-        const items = [...this.findElement('deleted-items').querySelectorAll('[data-record-id]:not([data-restore="false"])')] as HTMLElement[];
-        this.dispatchEvent(new CustomEvent('cleardeleted', { detail: { items }, bubbles: true, composed: true }));
-    }
-    async #clearImageCache_onClick(_event: Event)
-    {
-        const items = [...this.findElement('deleted-images').querySelectorAll('[data-record-id]')] as HTMLElement[];
-        this.dispatchEvent(new CustomEvent('clearimages', { detail: { items }, bubbles: true, composed: true }));
-    }
-
-    #daysToPersist_onChange(event: Event)
-    {
-        const dataPersistsDaysValues = DaysToPersistValues;
-        const input = event.target as HTMLInputElement;
-        snapToStep(input, dataPersistsDaysValues);
-        this.findElement('data-persist-days-value').textContent = input.value;
-    }
-    #deletedItems_onRemove(event: Event|CustomEvent)
-    {        
-        const item = (event as CustomEvent).detail;
-        const recordType = item.dataset.recordType;
-        const recordId = item.dataset.recordId;
-        const timestamp = item.getAttribute('data-timestamp');
-
-        const targetType = (recordType == 'board')
-        ? HistoryEntryTargetType.Board
-        : (recordType == 'list')
-        ? HistoryEntryTargetType.List
-        : (recordType == 'task')
-        ? HistoryEntryTargetType.Task
-        : null;
-
-        this.dispatchEvent(new CustomEvent('restoreitem', { detail: { targetType, recordId, timestamp }, bubbles: true, composed: true }));
-    }
-    #deletedImages_onRemove(event: Event|CustomEvent)
-    {
-        const item = (event as CustomEvent).detail;
-        this.dispatchEvent(new CustomEvent('deleteimage', { detail: { item }, bubbles: true, composed: true }));
-    }
-
-    
     #createDeletedItem(data: unknown, recordType: 'board'|'list'|'task'|'image', canRestore: boolean, timestamp: number)
     {
         const item = document.createElement('div');
@@ -255,43 +211,241 @@ export class DataPanelElement extends HTMLElement
         return item;
     }
 
-    // async #restoreDeletedItem(targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number)
-    // {
-    //     if(targetType == null)
-    //     {
-    //         console.error("Unable to restore record with unknown type or id");
-    //         return;
-    //     }
-    //     const channel = (targetType == 'board')
-    //     ? this.#data.boards 
-    //     : (targetType == 'list')
-    //     ? this.#data.lists
-    //     : (targetType == 'task')
-    //     ? this.#data.tasks
-    //     : null;
 
-    //     if(channel == null)
-    //     {
-    //         console.error("Unable to restore record. Error accessing data.");
-    //         return;
-    //     }
-
-    //     await channel.restore(recordId);
-    //     const updates: Map<string, PropertyUpdate> = new Map([ ['deletedTimestamp', { from: timestamp, to: undefined }] ]);
-    //     const properties = {
-    //         id: recordId,
-    //         updates
-    //     };
-    //     await this.#addActionHistoryEntry(HistoryEntryType.Update, targetType, properties);
+    async #deleteItem(item: HTMLElement, refresh: boolean = true)
+    {        
+        const recordId = item.dataset.recordId;
+        if(recordId == null) { throw new Error('Unable to manage entry with unset "data-record-id" attribute'); }
+        const recordType = item.dataset.recordType;
+        if(recordType == null) { throw new Error('Unable to manage entry with unset "data-record-type" attribute'); }
         
-    //     if(targetType == HistoryEntryTargetType.Board)
-    //     {
-    //         this.openBoard(recordId);
-    //         this.#refreshBoards();
-    //     }
-    //     this.#refreshDeletedItems();
-    // }
+        const channel = (recordType == 'board')
+        ? DataService.data.boards 
+        : (recordType == 'list')
+        ? DataService.data.lists
+        : (recordType == 'task')
+        ? DataService.data.tasks
+        : null;
+        if(channel == null)
+        {
+            FeedbackService.showErrorMessageCard("An error occurred deleting a cache item.");
+            console.error(`Unable to delete entry with unknown record type.`);
+            return;
+        }
 
+        await channel.delete(recordId, true);
+
+        const historyEntries = await DataService.getHistoryEntries();
+        const toDelete: string[] = [];
+        for(let i = 0; i < historyEntries.length; i++)
+        {
+            const entry = historyEntries[i];
+            const entryId = entry.data.properties.id;
+            if(entryId == recordId)
+            {
+                toDelete.push(entry.id);
+            }
+        }
+
+        await DataService.deleteHistoryEntries(...toDelete);
+
+        if(refresh == true)
+        {
+            this.#refreshActionHistory();
+        }
+    }
+    async #deleteImage(item: HTMLElement, refresh: boolean = true)
+    {
+
+        const recordId = item.dataset.recordId;
+        if(recordId == null) { throw new Error('Unable to manage image entry with unset "data-record-id" attribute'); }
+        await DataService.deleteImage(recordId, true);
+
+        const historyEntries = await DataService.getHistoryEntries();
+        const updatedEntries: HistoryEntryRecord[] = [];
+        for(let i = 0; i < historyEntries.length; i++)
+        {
+            const entry = historyEntries[i];
+            const imageUpdates = entry.data.properties.backgroundImages;
+            if(imageUpdates == null)
+            {
+                continue;
+            }
+            const toKeep: BasicActionProperties[] = [];
+            for(let j = 0; j < imageUpdates.length; j++)
+            {
+                if(imageUpdates[j].id != recordId)
+                {
+                    toKeep.push(imageUpdates[i]);
+                }
+            }
+            entry.data.properties.backgroundImages = toKeep;
+            updatedEntries.push(entry);
+        }
+
+        await DataService.saveHistoryEntries(...updatedEntries);
+
+        if(refresh == true)
+        {
+            this.#refreshActionHistory();
+        }
+    }
+
+    async #restoreDeletedItem(targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number)
+    {
+        if(targetType == null)
+        {
+            console.error("Unable to restore record with unknown type or id");
+            return;
+        }
+        const channel = (targetType == 'board')
+        ? DataService.data.boards 
+        : (targetType == 'list')
+        ? DataService.data.lists
+        : (targetType == 'task')
+        ? DataService.data.tasks
+        : null;
+
+        if(channel == null)
+        {
+            console.error("Unable to restore record. Error accessing data.");
+            return;
+        }
+
+        await channel.restore(recordId);
+        const updates: Map<string, PropertyUpdate> = new Map([ ['deletedTimestamp', { from: timestamp, to: undefined }] ]);
+        const properties = {
+            id: recordId,
+            updates
+        };
+        await this.#addActionHistoryEntry(HistoryEntryType.Update, targetType, properties);
+        
+        if(targetType == HistoryEntryTargetType.Board)
+        {
+            this.#openBoard(recordId);
+            this.#refreshBoards();
+        }
+        this.refreshCache();
+    }
+    //#endregion Management
+
+    //#region Handlers
+    #onClick(event: Event)
+    {
+        const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
+
+        const importButton = composedPath.find(item => item.id == "import-button");
+        if(importButton != null)
+        {
+            this.#importButton_onClick();
+            return;
+        }
+        const applyDaysToPersistButton = composedPath.find(item => item.id == "apply-data-persist-days-button");
+        if(applyDaysToPersistButton != null)
+        {
+            this.#applyDaysToPersist_onClick();
+            return;
+        }
+        const clearDataButton = composedPath.find(item => item.id == "clear-data-button");
+        if(clearDataButton != null)
+        {
+            this.#clearData_onClick();
+            return;
+        }
+        const clearDeletedButton = composedPath.find(item => item.id == "clear-deleted-button");
+        if(clearDeletedButton != null)
+        {
+            this.#clearDeleted_onClick();
+            return;
+        }
+        const clearImagesButton = composedPath.find(item => item.id == "clear-image-cache-button");
+        if(clearImagesButton != null)
+        {
+            this.#clearImageCache_onClick();
+            return;
+        }            
+    }
+
+    async #importButton_onClick()
+    {
+        const importFileInput = this.findElement<HTMLInputElement>('import-board-file');
+        const boardDataFile = (importFileInput.files != null) ?importFileInput.files[0] : null;
+        if(boardDataFile == null)
+        { 
+            FeedbackService.showErrorMessageCard(`An error occurred attempting to import board data. Confirm that the selected import file is a valid board export.`)
+            console.error('Unable to import selected file.');
+            return;
+        }
+
+        const boardDataText = await boardDataFile.text();
+        const boardData = JSON.parse(boardDataText);
+        this.#openImportManager(boardData);
+    }
+
+    #applyDaysToPersist_onClick()
+    {
+        const daysToPersist = this.findElement<HTMLInputElement>('data-persist-days').value
+        DataService.saveAppSetting(AppSettingKey.DaysToPersistData, daysToPersist);
+    }
+    #clearData_onClick()
+    {
+        this.clearData();
+    }
+    async #clearDeleted_onClick()
+    {
+        const items = [...this.findElement('deleted-items').querySelectorAll('[data-record-id]:not([data-restore="false"])')] as HTMLElement[];
+        for(let i = 0; i < items.length; i++)
+        {
+            const item = items[i];
+            await this.#deleteItem(item, false);
+        }
+        this.refreshCache();
+        this.#refreshActionHistory();
+    }
+    async #clearImageCache_onClick()
+    {
+        const items = [...this.findElement('deleted-images').querySelectorAll('[data-record-id]')] as HTMLElement[];
+        for(let i = 0; i < items.length; i++)
+        {
+            const item = items[i];
+            await this.#deleteImage(item, false);
+        }
+        this.refreshCache();
+        this.#refreshActionHistory();
+    }
+
+    #daysToPersist_onChange(event: Event)
+    {
+        const dataPersistsDaysValues = DaysToPersistValues;
+        const input = event.target as HTMLInputElement;
+        snapToStep(input, dataPersistsDaysValues);
+        this.findElement('data-persist-days-value').textContent = input.value;
+    }
+    #deletedItems_onRemove(event: Event|CustomEvent)
+    {        
+        const item = (event as CustomEvent).detail;
+        const recordType = item.dataset.recordType;
+        const recordId = item.dataset.recordId;
+        const timestamp = item.getAttribute('data-timestamp');
+
+        const targetType = (recordType == 'board')
+        ? HistoryEntryTargetType.Board
+        : (recordType == 'list')
+        ? HistoryEntryTargetType.List
+        : (recordType == 'task')
+        ? HistoryEntryTargetType.Task
+        : null;
+
+        this.#restoreDeletedItem(targetType, recordId, timestamp);
+    }
+    #deletedImages_onRemove(event: Event|CustomEvent)
+    {
+        const item = (event as CustomEvent).detail;
+        return this.#deleteImage(item);
+    }
+    //#endregion Handlers
+
+    //#region Internal
     #applyPartAttributes()
     {
         const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
@@ -321,6 +475,7 @@ export class DataPanelElement extends HTMLElement
             postfix.part.add('container', 'field-postfix', `${inputId}-postfix`);
         }
     }
+    //#endregion Internal
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)

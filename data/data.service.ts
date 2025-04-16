@@ -16,6 +16,11 @@ import { TaskSettingsRecord } from "./records/task-settings.record";
 import { TaskRecord } from "./records/task.record";
 import { CustomImageRecord } from "./records/custom-image.record";
 import { DEFAULT_PERSIST_DAYS } from "../components/config-panel/data-panel/data-panel";
+import { TaskListChannel } from "./channels/task-list.channel";
+import { TaskChannel } from "./channels/task.channel";
+import { HistoryEntryRecord } from "./records/history-entry.record";
+import { HistoryEntryData, HistoryEntryTargetType } from "./history/history-entry-data";
+import { HistoryEntryType } from "@magnit-ce/action-history";
 
 
 export const MILLISECONDSINDAY = 1000 * 60 * 60 * 24;
@@ -163,11 +168,162 @@ export abstract class DataService
     //#endregion
 
     //#region History
+
     static getHistoryEntries()
     {
         const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
-        return channel.getAll('timestamp');}
+        return channel.getAll('timestamp');
+    }
+    static getHistoryEntry(id: string)
+    {
+        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
+        return channel.get(id);
+    }
+    static createHistoryEntry<T extends HistoryEntryTargetType>(data: HistoryEntryData<T>, action: HistoryEntryType)
+    {
+        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
+        return channel.create(data, action);
+    }
+    static saveHistoryEntry<T extends HistoryEntryTargetType>(entry: HistoryEntryRecord<T>)
+    {
+        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
+        return channel.save(entry);
+    }
+    static saveHistoryEntries<T extends HistoryEntryTargetType>(...entries: HistoryEntryRecord<T>[])
+    {
+        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
+        return channel.saveItems(entries);
+    }
+    static deleteHistoryEntriesIfExists(ids: string[])
+    {
+        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
+        return channel.deleteIfExists(ids);
+    }
+    static deleteHistoryEntries(...ids: string[])
+    {
+        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
+        return channel.deleteItems(ids);
+    }
     
+    static async reverseUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
+    {
+        if(currentEntry.data.properties.updates != null)
+        {
+            let isRestorationUpdate = false;
+            for(const [key, value] of currentEntry.data.properties.updates)
+            {
+                if(key == 'deletedTimestamp')
+                {
+                    isRestorationUpdate = true;
+                    continue;
+                }
+                (target as unknown as any)[key] = value.from;
+            }
+            await channel.save(target as unknown as any);
+            if(isRestorationUpdate == true)
+            {
+                await channel.delete(currentEntry.data.properties.id);
+            }
+        }
+
+        if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
+        {
+            const taskSettingsChannel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageType.SETTINGS);
+            const settingsTarget = await taskSettingsChannel.get(currentEntry.data.properties.taskSettings.id);
+            if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
+            for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
+            {
+                (settingsTarget as unknown as any)[key] = value.from;
+            }
+            await taskSettingsChannel.save(settingsTarget as unknown as any);
+        }
+
+        if(currentEntry.data.properties.backgroundImages != null)
+        {
+            const imagesChannel = DataService.#getChannel<CustomImageChannel>(DataService.data.customImages, ErrorMessageType.IMAGE);
+            const updatedImages: CustomImageRecord[] = [];
+            const deletedImageIds: string[] = [];
+            for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
+            {
+                const data = currentEntry.data.properties.backgroundImages[i];
+                const imageTarget = await imagesChannel.get(data.id);
+                if(imageTarget == null) { throw new Error('Unable to find target record.'); }
+                for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
+                {
+                    // if boardId going from "" to id, this is an insert; treat it like undoing an image insert
+                    if(key == 'boardId' && value.from == "")
+                    {
+                        deletedImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
+                        continue;
+                    }
+                    (imageTarget as unknown as any)[key] = value.from;
+                }
+                updatedImages.push(imageTarget);
+            }
+            await imagesChannel.saveItems(updatedImages);
+            await imagesChannel.deleteItems(deletedImageIds);
+        }
+    }
+    static async activateUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
+    {
+        if(currentEntry.data.properties.updates != null)
+        {
+            let isRestorationUpdate = false;
+            for(const [key, value] of currentEntry.data.properties.updates)
+            {
+                if(key == 'deletedTimestamp')
+                {
+                    isRestorationUpdate = true;
+                    continue;
+                }
+                (target as unknown as any)[key] = value.to;
+            }
+            await channel.save(target as unknown as any);
+            if(isRestorationUpdate == true)
+            {
+                await channel.restore(currentEntry.data.properties.id);
+            }
+        }
+
+        if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
+        {
+            const taskSettingsChannel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageType.SETTINGS);
+            const settingsTarget = await taskSettingsChannel.get(currentEntry.data.properties.taskSettings.id);
+            if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
+            for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
+            {
+                (settingsTarget as unknown as any)[key] = value.to;
+            }
+            await taskSettingsChannel.save(settingsTarget as unknown as any);
+        }
+
+        if(currentEntry.data.properties.backgroundImages != null)
+        {
+            const imagesChannel = DataService.#getChannel<CustomImageChannel>(DataService.data.customImages, ErrorMessageType.IMAGE);
+            // doesn't clear from image cache when undo after remove
+            const updatedImages: CustomImageRecord[] = [];
+            const restoredImageIds: string[] = [];
+            for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
+            {
+                const data = currentEntry.data.properties.backgroundImages[i];
+                const imageTarget = await imagesChannel.get(data.id);
+                if(imageTarget == null) { throw new Error('Unable to find target record.'); }
+                for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
+                {
+                    // if boardId going from "" to id, this is an insert; treat it like redoing an image insert
+                    if(key == 'boardId' && value.from == "")
+                    {
+                        restoredImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
+                        continue;
+                    }
+                    (imageTarget as unknown as any)[key] = value.to;
+                }
+                updatedImages.push(imageTarget);
+            }
+            await imagesChannel.saveItems(updatedImages);
+            await imagesChannel.restoreItems(restoredImageIds);
+        }
+    }
     //#endregion History
 
     //#region Cache
@@ -189,6 +345,16 @@ export abstract class DataService
         const deletedImages = images.filter(item => item.deletedTimestamp != null);
 
         return [ deletedBoards, deletedLists, deletedTasks, deletedImages ] as [TaskBoardRecord[], TaskListRecord[], TaskRecord[], CustomImageRecord[]];
+    }
+    static deleteImage(id: string, overrideSoftDelete: boolean = false)
+    {
+        const channel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
+        return channel.delete(id, overrideSoftDelete);
+    }
+    static deleteImages(...ids: string[])
+    {
+        const channel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
+        return channel.deleteItems(ids);
     }
     //#endregion Cache
 
@@ -226,6 +392,13 @@ export abstract class DataService
     }
 
     //#endregion Import/Export
+
+    //#region Management
+    static clearAllData()
+    {
+        return this.#data.clearAllData();
+    }
+    //#endregion Management
 
     //#region Utilities
     static async removeExpiredData()

@@ -55,7 +55,7 @@ import { PropertiesType } from './data/history/history-entry-data';
 import { ListActionProperties } from './data/history/list-action-properties';
 import { CustomImageActionProperties } from './data/history/custom-image-action-properties';
 import { DataChannel } from './data/channels/data.channel';
-import { addAdminHandlers } from './handlers/admin.handlers';
+// import { addAdminHandlers } from './handlers/admin.handlers';
 // import { addNavigationhandlers } from './handlers/navigation.handlers';
 // import { addBoardBrowserHandlers } from './handlers/board-browser.handlers';
 // import { parseWindowPath } from './handlers/route.handlers';
@@ -102,7 +102,6 @@ import { ColorScheme } from './components/config-panel/settings-panel/settings-p
 const DEFAULT_APP_VERSION = "--.--.--";
 
 
-const ATTRIBUTE_PREPARED_FOR_DELETE = "to-delete";
 
 /** Helper const for accessing component-specific methods and properties
 * used to make development possible across multiple modular files.  
@@ -163,7 +162,6 @@ ${defineIcons(
     IconType.PlusIcon,
     IconType.Stylus,
     IconType.TaskBoard,
-    IconType.Restore,
 )}`;
 
 const COMPONENT_TAG_NAME = 'taskboard-manager';
@@ -186,7 +184,7 @@ export class TaskboardManagerElement extends HTMLElement
     }
     findElement<T extends HTMLElement|RoutePageElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
 
-    initPromise?: Promise<void>;
+    // initPromise?: Promise<void>;
 
     #customImageUrls: Map<string,string> = new Map();
 
@@ -203,7 +201,8 @@ export class TaskboardManagerElement extends HTMLElement
         const autoLaunch = this.getAttribute('autolaunch') != 'false';
         if(autoLaunch == true)
         {
-            this.initPromise = this.#init();
+            // this.initPromise = this.#init();
+            this.#init();
         }
     }
 
@@ -213,9 +212,10 @@ export class TaskboardManagerElement extends HTMLElement
     * Initializes the app.  
     * Not necessary if the `autolaunch` attribute was not set to `false`.
     */
-    async init()
+    init()
     {
-        this.initPromise = this.#init();
+        // this.initPromise = this.#init();
+        return this.#init();
     }
     setColorScheme(scheme: ColorScheme)
     {
@@ -223,14 +223,46 @@ export class TaskboardManagerElement extends HTMLElement
         this.style.setProperty('color-scheme', value);
         DataService.saveAppSetting(AppSettingKey.ColorScheme, scheme);
     }
+
+    async undo()
+    {
+        this.findElement<ConfigPanelElement>('config-panel').history_undo();
+    }
+    async redo()
+    {
+        this.findElement<ConfigPanelElement>('config-panel').history_redo();
+    }
+
     async refreshBoards()
+    {
+        this.refreshBoardCollections();
+        this.refreshCurrentBoard();
+    }
+    refreshCurrentBoard()
+    {
+        const currentBoardId = this.findElement('task-board').dataset.boardId;
+        if(currentBoardId != null)
+        {
+            this.#renderBoard(currentBoardId);
+        }
+    }
+    async refreshBoardCollections()
     {
         const boardRecords = await DataService.getAllBoardRecords();
         
         this.findElement<AppMenuElement>('app-menu').updateBoards(boardRecords);
         this.findElement<BoardBrowserElement>('board-browser').updateBoards(boardRecords);
     }
-
+    async openBoard(id: string)
+    {
+        await this.closeBoard();
+        await this.getElement<PathRouterElement>('app-router').navigate(`board/${id}`);
+    }
+    async closeBoard()
+    {
+        await this.findElement<PathRouterElement>('app-router').navigate('/' + window.location.hash);
+        this.getElement('task-board').innerHTML = "";        
+    }
     async addBoard()
     {
         const order = this.findElement('app-menu').querySelectorAll('a').length;
@@ -244,7 +276,7 @@ export class TaskboardManagerElement extends HTMLElement
     }
     async openBoardSettings(id: string)
     {
-        await this.initPromise;
+        // await this.initPromise;
 
         const board = await DataService.getBoardRecord(id);
         if(board == null)
@@ -285,19 +317,16 @@ export class TaskboardManagerElement extends HTMLElement
         return DataService.importBoard(boardData, order, errorMessage);
     }
 
+    async clearData()
+    {
+        this.findElement<ConfigPanelElement>('config-panel').clearData();
+    }
+    // async clearHistory()
+    // {
+    //     this.findElement<ConfigPanelElement>('config-panel').history_clear();
+    // }
     //#endregion API
 
-    // async openBoard(id: string)
-    // {
-    //     await this.initPromise;
-    //     await this.closeBoard();
-    //     await this.getElement<PathRouterElement>('app-router').navigate(`board/${id}`);
-    // }
-    // async closeBoard()
-    // {
-    //     await this.findElement<PathRouterElement>('app-router').navigate('/' + window.location.hash);
-    //     this.getElement('task-board').innerHTML = "";        
-    // }
     // async duplicateBoard(id: string)
     // {
     //     const boardExportData = await this.#prepareExportData(id);
@@ -411,33 +440,6 @@ export class TaskboardManagerElement extends HTMLElement
     // //     newCard.findPart('description').focus();
     // // }
 
-    // async undo()
-    // {
-    //     this.findElement<ConfigPanelElement>('config-panel').history_undo();
-    // }
-    // async redo()
-    // {
-    //     this.findElement<ConfigPanelElement>('config-panel').history_redo();
-    // }
-
-    // // async clearData()
-    // // {
-    // //     const confirmed = await this.#getConfirmation('Are you sure you want to delete all data associated with the app? This CAN NOT be undone.', 'danger');
-    // //     if(confirmed == false) { return; }
-    // //     await this.#data.clearAllData();
-    // //     this.#refreshBoards();
-    // //     this.#refreshActionHistory();
-    // //     this.#refreshDeletedItems();
-    // // }
-    // // async clearHistory()
-    // // {
-    // //     const confirmed = await this.#getConfirmation('Are you sure you want to delete all app history? This CAN NOT be undone.', 'danger');
-    // //     if(confirmed == false) { return; }
-    // //     const channel = this.#getChannel<HistoryEntryChannel>(this.#data.historyEntries, DATA_ERROR_MESSAGE.replace('[subject]', 'History'), 'danger');
-    // //     const ids = (await channel.getAll()).map(item => item.id);
-    // //     await channel.deleteItems(ids);
-    // //     this.#refreshActionHistory();
-    // // }
 
     
 
@@ -453,7 +455,7 @@ export class TaskboardManagerElement extends HTMLElement
         this.#loadColorScheme();
 
         // refresh boards
-        const boardsPromise = this.refreshBoards();
+        const boardsPromise = this.refreshBoardCollections();
 
         // app menu
 
@@ -468,8 +470,7 @@ export class TaskboardManagerElement extends HTMLElement
             const { boardId } = (event as CustomEvent).detail;
             if(boardId == null)
             {
-                MessageCardElement.notify(`An error occurred attempting to open the board.`, 
-                this.getElement('notifications'), { type: MessageCardType.Error });
+                FeedbackService.showErrorMessageCard(`An error occurred attempting to open the board.`);
                 console.error('Unable to open board: data-board-id attribute is unset on target element.');
                 return;
             }
@@ -478,7 +479,13 @@ export class TaskboardManagerElement extends HTMLElement
 
         // config-panel
         const appVersion = await this.#getAppVersion();
-        this.findElement<ConfigPanelElement>('config-panel').init({ appVersion, scheme_onChange: this.setColorScheme.bind(this) });
+        this.findElement<ConfigPanelElement>('config-panel').init({
+            appVersion,
+            scheme_onChange: this.setColorScheme.bind(this),
+            openImportManager: this.#openImportManager.bind(this),
+            openBoard: this.openBoard.bind(this),
+            refreshBoards: this.refreshBoards.bind(this),
+        });
 
         // board-settings
 
@@ -582,6 +589,7 @@ export class TaskboardManagerElement extends HTMLElement
     }
 
     //#region Management
+
     #initTaskCard(card: TaskCardElement, task: TaskRecord)
     {
         card.dataset.taskId = task.id;
@@ -593,6 +601,18 @@ export class TaskboardManagerElement extends HTMLElement
         card.setAttribute('exportparts', "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator, button, input, finished");
         card.style.setProperty('--task-color', task.color);
         card.findElement('description').addEventListener('keyup', taskDescription_onKeyUp.bind(this));
+    }
+
+    async #openImportManager(data: any)
+    {
+        const boardData = new BoardExport(data, data.taskSettings, data.backgroundImage, data.lists);
+        const router = this.findElement<PathRouterElement>('app-router');
+        const currentPath = router.path ?? "";
+        const currentPathArray = currentPath.split('#');
+        currentPathArray[1] = 'import';
+        const importPath = currentPathArray.join('#');
+        router.navigate(importPath);
+        this.findElement<ImportManagerComponent>('import-manager').setData(boardData);
     }
     //#endregion Management
 
@@ -1201,7 +1221,7 @@ export class TaskboardManagerElement extends HTMLElement
         const boardData = this.findElement<ImportManagerComponent>('import-manager').getRecord();
         await this.importBoard(boardData);
 
-        this.refreshBoards();
+        this.refreshBoardCollections();
     }
 
     //#endregion Handler
@@ -1761,116 +1781,6 @@ export class TaskboardManagerElement extends HTMLElement
     
 
 
-    // async #openImportManager(data: any)
-    // {
-    //     const boardData = new BoardExport(data, data.taskSettings, data.backgroundImage, data.lists);
-    //     const router = this.findElement<PathRouterElement>('app-router');
-    //     const currentPath = router.path ?? "";
-    //     const currentPathArray = currentPath.split('#');
-    //     currentPathArray[1] = 'import';
-    //     const importPath = currentPathArray.join('#');
-    //     router.navigate(importPath);
-    //     this.findElement<ImportManagerComponent>('import-manager').setData(boardData);
-    // }
-
-    // async deleteItem(item: HTMLElement, refresh: boolean = true)
-    // {
-    //     if(this.#data.historyEntries == null)
-    //     {
-    //         // todo: add toast to inform user
-    //         console.warn(`An error occurred accessing Action History data.`);
-    //         return;
-    //     }
-        
-    //     const recordId = item.dataset.recordId;
-    //     if(recordId == null) { throw new Error('Unable to manage entry with unset "data-record-id" attribute'); }
-    //     const recordType = item.dataset.recordType;
-    //     if(recordType == null) { throw new Error('Unable to manage entry with unset "data-record-type" attribute'); }
-        
-    //     const channel = (recordType == 'board')
-    //     ? this.#data.boards 
-    //     : (recordType == 'list')
-    //     ? this.#data.lists
-    //     : (recordType == 'task')
-    //     ? this.#data.tasks
-    //     : null;
-    //     if(channel == null)
-    //     {
-    //         // todo: add toast to inform user
-    //         console.warn(`An error occurred accessing board data.`);
-    //         return;
-    //     }
-
-    //     await channel.delete(recordId, true);
-
-    //     const historyEntries = await this.#data.historyEntries.getAll();
-    //     const toDelete: string[] = [];
-    //     for(let i = 0; i < historyEntries.length; i++)
-    //     {
-    //         const entry = historyEntries[i];
-    //         const entryId = entry.data.properties.id;
-    //         if(entryId == recordId)
-    //         {
-    //             toDelete.push(entry.id);
-    //         }
-    //     }
-
-    //     await this.#data.historyEntries.deleteItems(toDelete);
-
-    //     if(refresh == true)
-    //     {
-    //         this.#refreshActionHistory();
-    //     }
-    // }
-    // async deleteImage(item: HTMLElement, refresh: boolean = true)
-    // {
-    //     if(this.#data.customImages == null)
-    //     {
-    //         // todo: add toast to inform user
-    //         console.warn(`An error occurred accessing custom image data.`);
-    //         return;
-    //     }
-
-    //     if(this.#data.historyEntries == null)
-    //     {
-    //         // todo: add toast to inform user
-    //         console.warn(`An error occurred accessing Action History data.`);
-    //         return;
-    //     }
-
-    //     const recordId = item.dataset.recordId;
-    //     if(recordId == null) { throw new Error('Unable to manage image entry with unset "data-record-id" attribute'); }
-    //     await this.#data.customImages.delete(recordId, true);
-
-    //     const historyEntries = await this.#data.historyEntries.getAll();
-    //     const updatedEntries: HistoryEntryRecord[] = [];
-    //     for(let i = 0; i < historyEntries.length; i++)
-    //     {
-    //         const entry = historyEntries[i];
-    //         const imageUpdates = entry.data.properties.backgroundImages;
-    //         if(imageUpdates == null)
-    //         {
-    //             continue;
-    //         }
-    //         const toKeep: BasicActionProperties[] = [];
-    //         for(let j = 0; j < imageUpdates.length; j++)
-    //         {
-    //             if(imageUpdates[j].id != recordId)
-    //             {
-    //                 toKeep.push(imageUpdates[i]);
-    //             }
-    //         }
-    //         entry.data.properties.backgroundImages = toKeep;
-    //         updatedEntries.push(entry);
-    //     }
-
-    //     await this.#data.historyEntries.saveItems(updatedEntries);
-
-    //     if(refresh == true)
-    //     {
-    //         this.#refreshActionHistory();
-    //     }
-    // }
 
     // //utils
     

@@ -1,5 +1,6 @@
 import style from './import-manager.component.css?raw';
 import html from './import-manager.component.html?raw';
+import sharedStyles from '../../styles/shared.css?raw';
 
 import { BoardExport } from '../../data/foreign/exported-board';
 import { RecordSetter } from 'record-setter';
@@ -9,7 +10,9 @@ import { defineIcons, IconType } from '../../assets/icons/icons.asset';
 const ID_PROPERTIES = new Set(['id', 'listId', 'taskSettingsId', 'backgroundImageId', 'boardId']);
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
-COMPONENT_STYLESHEET.replaceSync(style);
+COMPONENT_STYLESHEET.replaceSync(`${style}
+${sharedStyles}
+`);
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(

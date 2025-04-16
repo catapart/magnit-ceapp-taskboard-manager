@@ -5,18 +5,23 @@ import sharedStyles from '../../../styles/shared.css?raw';
 import html from './history-panel.html?raw';
 // icons
 import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
-import { ActionHistoryElement, ATTRIBUTENAME_ACTIVE, ATTRIBUTENAME_REVERSED } from '@magnit-ce/action-history';
+import { ActionHistoryElement, ATTRIBUTENAME_ACTIVE, ATTRIBUTENAME_REVERSED, HistoryEntryType } from '@magnit-ce/action-history';
 import { createOptionElement, snapToStep } from '../../../resources/utils';
 import { AppSettingKey, DataService } from '../../../data/data.service';
 import { HistoryEntryRecord } from '../../../data/records/history-entry.record';
+import { FeedbackService } from '../../../feedback.service';
+import { HistoryEntryData, HistoryEntryTargetType, PropertiesType } from '../../../data/history/history-entry-data';
 
 export const HistoryLengthValues = [0, 30, 50, 100, 150];
 
 export const DEFAULT_HISTORY_LENGTH = "30";
 
+const ATTRIBUTE_PREPARED_FOR_DELETE = "to-delete";
+
 export type HistoryPanelProperties = 
 {
-    
+    refreshBoards: () => void;
+    refreshCache: () => void;
 }
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -46,6 +51,7 @@ export class HistoryPanelElement extends HTMLElement
     }
     findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
 
+    //#region Housekeeping
     constructor()
     {
         super();
@@ -53,129 +59,28 @@ export class HistoryPanelElement extends HTMLElement
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
         this.#applyPartAttributes();
+        this.addEventListener('click', this.#onClick.bind(this));
 
-        this.findElement<HTMLButtonElement>('undo').addEventListener('click', this.#undo_onClick.bind(this));
-        this.findElement<HTMLButtonElement>('redo').addEventListener('click', this.#redo_onClick.bind(this));
+        this.findElement('action-history-length').addEventListener("change", this.#historyLength_onChange.bind(this));
 
         const actionHistory = this.getElement<ActionHistoryElement>('action-history');
         actionHistory.onBack = this.#actionHistory_onBack.bind(this);
         actionHistory.onForward = this.#actionHistory_onForward.bind(this);
-
-        this.findElement('action-history-length').addEventListener("change", this.#historyLength_onChange.bind(this));
-        this.findElement('apply-history-length-button').addEventListener("click", this.#applyHistoryLength_onClick.bind(this));
-
-        this.findElement('clear-history-button').addEventListener("click", this.#clearHistory_onClick.bind(this));
-    }
-
-    async init(_options?: HistoryPanelProperties)
-    {
-        const historyLength = (await DataService.getAppSetting(AppSettingKey.HistoryLength)) ?? DEFAULT_HISTORY_LENGTH;
-        this.prepareHistoryLength(historyLength);
-        this.refresh();
-    }
-
-    prepareHistoryLength(historyLength: string)
-    {
-        const historyLengthOptions = Array.from(HistoryLengthValues).map(value => createOptionElement(value));
-        this.findElement('action-history-length-values').append(...historyLengthOptions);
-
-        this.findElement<HTMLInputElement>('action-history-length').value = historyLength;
-        this.findElement('action-history-length-value').textContent = historyLength;
-    }
-
-    undo()
-    {
-        this.findElement<ActionHistoryElement>('action-history').back();
-    }
-    redo()
-    {
-
-        this.findElement<ActionHistoryElement>('action-history').forward();
     }
     
-    #undo_onClick(_event: Event)
+    #refreshBoards!: () => void;
+    #refreshCache!: () => void;
+    async init(options: HistoryPanelProperties)
     {
-        this.undo();
-        this.dispatchEvent(new CustomEvent('undo', { bubbles: true, composed: true }));
+        this.#refreshBoards = options.refreshBoards;
+        this.#refreshCache = options.refreshCache;
+        const historyLength = (await DataService.getAppSetting(AppSettingKey.HistoryLength)) ?? DEFAULT_HISTORY_LENGTH;
+        this.#prepareHistoryLength(historyLength);
+        this.refresh();
     }
-    #redo_onClick(_event: Event)
-    {
-        this.redo();
-        this.dispatchEvent(new CustomEvent('redo', { bubbles: true, composed: true }));
-    }
-    async #actionHistory_onBack(target: HTMLElement, previous: HTMLElement|undefined, all: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
-    {
-        let refreshBoards = false;
-        let refreshDeletedItems = false;
+    //#endregion Housekeeping
 
-        const isLastUpdate = all.indexOf(target) == all.length - 1;
-        if(isLastUpdate == true)
-        {
-            const recordType = target.querySelector('.target-type')?.textContent?.toLowerCase();
-            if(recordType == 'board')
-            {
-                refreshBoards = true;
-            }
-            refreshDeletedItems = true;
-        }
-        this.dispatchEvent(new CustomEvent('historyback', { detail: { 
-            target,
-            previous,
-            targetIndex,
-            previousActiveEntryIndex,
-            refreshBoards,
-            refreshDeletedItems
-        }, bubbles: true, composed: true }));
-    }
-    async #actionHistory_onForward(target: HTMLElement, previous: HTMLElement|undefined, all: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
-    {
-        let refreshBoards = false;
-        let refreshDeletedItems = false;
-
-        const isLastUpdate = all.indexOf(target) == all.length - 1;
-        if(isLastUpdate == true)
-        {
-            const recordType = target.querySelector('.target-type')?.textContent?.toLowerCase();
-            if(recordType == 'board')
-            {
-                refreshBoards = true;
-            }
-            refreshDeletedItems = true;
-        }
-        this.dispatchEvent(new CustomEvent('historyforward', { detail: { 
-            target,
-            previous,
-            targetIndex,
-            previousActiveEntryIndex,
-            refreshBoards,
-            refreshDeletedItems
-        }, bubbles: true, composed: true }));
-    }
-    async #historyLength_onChange(event: Event)
-    {
-        const input = event.target as HTMLInputElement;
-        snapToStep(input, HistoryLengthValues);
-
-        this.findElement('action-history-length-value').textContent = input.value;
-        
-        let startIndex = parseInt(this.findElement<HTMLInputElement>('action-history-length').value);
-        if(startIndex > 0) { startIndex--; } // fix zero index offset if non-zero number
-
-        const actionHistory = this.findElement('action-history');
-        this.dispatchEvent(new CustomEvent('preparehistoryitems', { detail: { actionHistory, startIndex }, bubbles: true, composed: true }));
-    }
-    async #applyHistoryLength_onClick(_event: Event)
-    {
-        const historyLength = this.findElement<HTMLInputElement>('action-history-length').value
-        this.dispatchEvent(new CustomEvent('historylength', { detail: { historyLength }, bubbles: true, composed: true }));
-    }
-    #clearHistory_onClick(_event: Event)
-    {
-        this.dispatchEvent(new CustomEvent('clearhistory', { bubbles: true, composed: true }));
-    }
-
-
-     
+    //#region API
     async refresh()
     {
         const actionHistory = this.getElement<ActionHistoryElement>('action-history')
@@ -229,6 +134,119 @@ export class HistoryPanelElement extends HTMLElement
             actionHistory.toggleAttribute('prevent-removal', false);
         });
     }
+
+    undo()
+    {
+        this.findElement<ActionHistoryElement>('action-history').back();
+    }
+    redo()
+    {
+
+        this.findElement<ActionHistoryElement>('action-history').forward();
+    }
+
+    async addActionHistoryEntry<T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
+    {
+        const historyLength = parseFloat(await DataService.getAppSetting(AppSettingKey.HistoryLength) ?? DEFAULT_HISTORY_LENGTH);
+        if(historyLength == 0) { return; }
+
+        const history = this.findElement('action-history');
+        const historyEntries = [...history.children] as HTMLElement[];
+        const elementsToRemove = historyEntries.filter(item => item.hasAttribute(ATTRIBUTENAME_REVERSED));
+        const removeIds: string[] = [];
+        if(elementsToRemove.length > 0)
+        {
+            for(let i = 0; i < elementsToRemove.length; i++)
+            {
+                const entryId = elementsToRemove[i].getAttribute('data-entry-id');
+                if(entryId != null)
+                {
+                    removeIds.push(entryId)
+                }
+                elementsToRemove[i].remove();
+            }
+        }
+
+        const data = new HistoryEntryData(type, properties);
+        const entry = DataService.createHistoryEntry(data, action);
+        await DataService.saveHistoryEntry(entry);
+
+        const entries = await DataService.getHistoryEntries();
+        const removeCount = entries.length - historyLength;
+        if(removeCount > 0)
+        {
+            for(let i = 0; i < removeCount; i++)
+            {
+                removeIds.push(entries[i].id);
+                history.querySelector(`[data-entry-id="${entries[i].id}"]`)?.remove();
+            }
+        }
+        if(removeIds.length > 0)
+        {
+            await DataService.deleteHistoryEntriesIfExists(removeIds);
+        }
+
+        const entryElement = this.#createActionHistoryEntryElement(entry);   
+        history.append(entryElement);
+        const activeIndex = [...history.children].indexOf(entryElement);
+        await DataService.saveAppSetting(AppSettingKey.ActiveEntryIndex, (activeIndex > -1) ? activeIndex : null);
+
+        return entryElement;
+    }
+
+    async clearHistory()
+    {
+        const confirmed = await FeedbackService.getConfirmation('Are you sure you want to delete all app history? This CAN NOT be undone.', 'danger');
+        if(confirmed == false) { return; }
+        const ids = (await DataService.getHistoryEntries()).map(item => item.id);
+        await DataService.deleteHistoryEntries(...ids);
+        this.refresh();
+    }
+    //#endregion API
+
+    //#region Internal
+    #prepareHistoryLength(historyLength: string)
+    {
+        const historyLengthOptions = Array.from(HistoryLengthValues).map(value => createOptionElement(value));
+        this.findElement('action-history-length-values').append(...historyLengthOptions);
+
+        this.findElement<HTMLInputElement>('action-history-length').value = historyLength;
+        this.findElement('action-history-length-value').textContent = historyLength;
+    }
+    async #prepareHistoryEntries(historyElement: ActionHistoryElement, startIndex: number)
+    {
+        const entries = await DataService.getHistoryEntries();
+
+        for(let i = 0; i < entries.length; i++)
+        {
+            const element = historyElement.querySelector(`[data-entry-id="${entries[i].id}"]`) as HTMLElement;
+            if(i < startIndex)
+            {
+                element.removeAttribute(ATTRIBUTE_PREPARED_FOR_DELETE);
+            }
+            else
+            {
+                element.toggleAttribute(ATTRIBUTE_PREPARED_FOR_DELETE, true);
+            }
+        }        
+    }
+    async #applyHistoryLength(actionHistoryLength: number)
+    {
+        await DataService.saveAppSetting(AppSettingKey.HistoryLength, actionHistoryLength);
+
+        const entries = await DataService.getHistoryEntries();
+
+        let startIndex = actionHistoryLength;
+        if(startIndex > 0) { startIndex--; } // fix zero index offset if non-zero number
+
+        const ids: string[] = [];
+        for(let i = startIndex; i < entries.length; i++)
+        {
+            ids.push(entries[i].id);
+        }
+        await DataService.deleteHistoryEntries(...ids);
+        this.refresh();
+    }
     #createActionHistoryEntryElement(entry: HistoryEntryRecord)
     {
         const element = document.createElement('div');
@@ -245,332 +263,218 @@ export class HistoryPanelElement extends HTMLElement
         </span>`;
         return element;
     }
-    // async #handleActionEntryReverse(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
-    // {
-    //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
-    //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
-    //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
-    //     const entryId = targetEntry.getAttribute('data-entry-id');
-    //     if(actionType == null || recordType == null || recordId == null || entryId == null)
-    //     { 
-    //         console.error(new Error('Required property was not found.')); return;
-    //     }
+    async #handleActionEntryReverse(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
+    {
+        const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
+        const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
+        const recordId = targetEntry.querySelector('.target-id')?.textContent;
+        const entryId = targetEntry.getAttribute('data-entry-id');
+        if(actionType == null || recordType == null || recordId == null || entryId == null)
+        { 
+            console.error(new Error('Required property was not found.')); return;
+        }
 
-    //     const channel = (recordType == 'board')
-    //     ? this.#data.boards 
-    //     : (recordType == 'list')
-    //     ? this.#data.lists
-    //     : (recordType == 'task')
-    //     ? this.#data.tasks
-    //     : (recordType == 'image')
-    //     ? this.#data.customImages
-    //     : null;
+        const channel = (recordType == 'board')
+        ? DataService.data.boards 
+        : (recordType == 'list')
+        ? DataService.data.lists
+        : (recordType == 'task')
+        ? DataService.data.tasks
+        : (recordType == 'image')
+        ? DataService.data.customImages
+        : null;
         
-    //     if(channel == null) 
-    //     {
-    //         throw new Error(`Unknown record type: ${recordType}`);
-    //     }
+        if(channel == null) 
+        {
+            throw new Error(`Unknown record type: ${recordType}`);
+        }
 
-    //     if(actionType == 'create')
-    //     {
-    //         await channel.delete(recordId);
-    //     }
-    //     else if (actionType == 'update')
-    //     {
-    //         const currentEntry = await this.#data.historyEntries?.get(entryId);
-    //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
-    //         const target = await channel.get(recordId);
-    //         if(target == null) { throw new Error('Unable to find target record.'); }
-    //         await this.#reverseUpdate(channel, currentEntry, target)
-    //     }
-    //     else if (actionType == 'delete')
-    //     {
-    //         await channel.restore(recordId);
-    //     }
-    //     else
-    //     {
-    //         console.error(`Unknown action type: ${actionType}`);
-    //     }
+        if(actionType == 'create')
+        {
+            await channel.delete(recordId);
+        }
+        else if (actionType == 'update')
+        {
+            const currentEntry = await DataService.getHistoryEntry(entryId);
+            if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
+            const target = await channel.get(recordId);
+            if(target == null) { throw new Error('Unable to find target record.'); }
+            await DataService.reverseUpdate(channel, currentEntry, target)
+        }
+        else if (actionType == 'delete')
+        {
+            await channel.restore(recordId);
+        }
+        else
+        {
+            console.error(`Unknown action type: ${actionType}`);
+        }
         
-    //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
-    // }
-    // async #reverseUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
-    // {
-    //     if(currentEntry.data.properties.updates != null)
-    //     {
-    //         let isRestorationUpdate = false;
-    //         for(const [key, value] of currentEntry.data.properties.updates)
-    //         {
-    //             if(key == 'deletedTimestamp')
-    //             {
-    //                 isRestorationUpdate = true;
-    //                 continue;
-    //             }
-    //             (target as unknown as any)[key] = value.from;
-    //         }
-    //         await channel.save(target as unknown as any);
-    //         if(isRestorationUpdate == true)
-    //         {
-    //             await channel.delete(currentEntry.data.properties.id);
-    //         }
-    //     }
+        await DataService.saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
+    }
+    async #handleActionEntryActivate(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
+    {
+        const previouslyActive = [...targetEntry.parentElement!.querySelectorAll('[part="active"]')] as HTMLElement[];
+        for(let i = 0; i < previouslyActive.length; i++)
+        {
+            previouslyActive[i].part.remove('active');
+            const descendants = [...previouslyActive[i].querySelectorAll('span')] as HTMLElement[];
+            for(let i = 0; i < descendants.length; i++)
+            {
+                descendants[i].part.add('active');
+            }
+        }
+        targetEntry.part.add('active');
+        const descendants = [...targetEntry.querySelectorAll('span')] as HTMLElement[];
+        for(let i = 0; i < descendants.length; i++)
+        {
+            descendants[i].part.add('active');
+        }
 
-    //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
-    //     {
-    //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
-    //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
-    //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
-    //         {
-    //             (settingsTarget as unknown as any)[key] = value.from;
-    //         }
-    //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
-    //     }
+        const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
+        const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
+        const recordId = targetEntry.querySelector('.target-id')?.textContent;
+        const entryId = targetEntry.getAttribute('data-entry-id');
+        if(actionType == null || recordType == null || recordId == null || entryId == null) { console.error(new Error('Required property was not found.')); return; }
 
-    //     if(currentEntry.data.properties.backgroundImages != null)
-    //     {
-    //         const updatedImages: CustomImageRecord[] = [];
-    //         const deletedImageIds: string[] = [];
-    //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
-    //         {
-    //             const data = currentEntry.data.properties.backgroundImages[i];
-    //             const imageTarget = await this.#data.customImages?.get(data.id);
-    //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
-    //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
-    //             {
-    //                 // if boardId going from "" to id, this is an insert; treat it like undoing an image insert
-    //                 if(key == 'boardId' && value.from == "")
-    //                 {
-    //                     deletedImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
-    //                     continue;
-    //                 }
-    //                 (imageTarget as unknown as any)[key] = value.from;
-    //             }
-    //             updatedImages.push(imageTarget);
-    //         }
-    //         await this.#data.customImages?.saveItems(updatedImages);
-    //         await this.#data.customImages?.deleteItems(deletedImageIds);
-    //     }
-    // }
-    // async #handelActionEntryActivate(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
-    // {
-    //     const previouslyActive = [...targetEntry.parentElement!.querySelectorAll('[part="active"]')] as HTMLElement[];
-    //     for(let i = 0; i < previouslyActive.length; i++)
-    //     {
-    //         previouslyActive[i].part.remove('active');
-    //         const descendants = [...previouslyActive[i].querySelectorAll('span')] as HTMLElement[];
-    //         for(let i = 0; i < descendants.length; i++)
-    //         {
-    //             descendants[i].part.add('active');
-    //         }
-    //     }
-    //     targetEntry.part.add('active');
-    //     const descendants = [...targetEntry.querySelectorAll('span')] as HTMLElement[];
-    //     for(let i = 0; i < descendants.length; i++)
-    //     {
-    //         descendants[i].part.add('active');
-    //     }
-
-    //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
-    //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
-    //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
-    //     const entryId = targetEntry.getAttribute('data-entry-id');
-    //     if(actionType == null || recordType == null || recordId == null || entryId == null) { console.error(new Error('Required property was not found.')); return; }
-
-    //     const channel = (recordType == 'board')
-    //     ? this.#data.boards 
-    //     : (recordType == 'list')
-    //     ? this.#data.lists
-    //     : (recordType == 'task')
-    //     ? this.#data.tasks
-    //     : (recordType == 'image')
-    //     ? this.#data.customImages
-    //     : null;
+        const channel = (recordType == 'board')
+        ? DataService.data.boards 
+        : (recordType == 'list')
+        ? DataService.data.lists
+        : (recordType == 'task')
+        ? DataService.data.tasks
+        : (recordType == 'image')
+        ? DataService.data.customImages
+        : null;
         
-    //     if(channel == null) 
-    //     {
-    //         throw new Error(`Unknown record type: ${recordType}`);
-    //     }
+        if(channel == null) 
+        {
+            throw new Error(`Unknown record type: ${recordType}`);
+        }
 
-    //     if(actionType == 'create')
-    //     {
-    //         await channel.restore(recordId);
-    //     }
-    //     else if (actionType == 'update')
-    //     {
-    //         const currentEntry = await this.#data.historyEntries?.get(entryId);
-    //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
-    //         const target = await channel.get(recordId);
-    //         if(target == null) { throw new Error('Unable to find target record.'); }
-    //         await this.#activateUpdate(channel, currentEntry, target);
-    //     }
-    //     else if (actionType == 'delete')
-    //     {
-    //         await channel.delete(recordId);
-    //     }
-    //     else
-    //     {
-    //         console.error(`Unknown action type: ${actionType}`);
-    //     }
+        if(actionType == 'create')
+        {
+            await channel.restore(recordId);
+        }
+        else if (actionType == 'update')
+        {
+            const currentEntry = await DataService.getHistoryEntry(entryId);
+            if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
+            const target = await channel.get(recordId);
+            if(target == null) { throw new Error('Unable to find target record.'); }
+            await DataService.activateUpdate(channel, currentEntry, target);
+        }
+        else if (actionType == 'delete')
+        {
+            await channel.delete(recordId);
+        }
+        else
+        {
+            console.error(`Unknown action type: ${actionType}`);
+        }
 
-    //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
-    // }
-    // async #activateUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
-    // {
-    //     if(currentEntry.data.properties.updates != null)
-    //     {
-    //         let isRestorationUpdate = false;
-    //         for(const [key, value] of currentEntry.data.properties.updates)
-    //         {
-    //             if(key == 'deletedTimestamp')
-    //             {
-    //                 isRestorationUpdate = true;
-    //                 continue;
-    //             }
-    //             (target as unknown as any)[key] = value.to;
-    //         }
-    //         await channel.save(target as unknown as any);
-    //         if(isRestorationUpdate == true)
-    //         {
-    //             await channel.restore(currentEntry.data.properties.id);
-    //         }
-    //     }
+        await DataService.saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
+    }
 
-    //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
-    //     {
-    //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
-    //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
-    //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
-    //         {
-    //             (settingsTarget as unknown as any)[key] = value.to;
-    //         }
-    //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
-    //     }
+    //#region Handlers
+    #onClick(event: Event)
+    {
+        const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
 
-    //     if(currentEntry.data.properties.backgroundImages != null)
-    //     {
-    //         // doesn't clear from image cache when undo after remove
-    //         const updatedImages: CustomImageRecord[] = [];
-    //         const restoredImageIds: string[] = [];
-    //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
-    //         {
-    //             const data = currentEntry.data.properties.backgroundImages[i];
-    //             const imageTarget = await this.#data.customImages?.get(data.id);
-    //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
-    //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
-    //             {
-    //                 // if boardId going from "" to id, this is an insert; treat it like redoing an image insert
-    //                 if(key == 'boardId' && value.from == "")
-    //                 {
-    //                     restoredImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
-    //                     continue;
-    //                 }
-    //                 (imageTarget as unknown as any)[key] = value.to;
-    //             }
-    //             updatedImages.push(imageTarget);
-    //         }
-    //         await this.#data.customImages?.saveItems(updatedImages);
-    //         await this.#data.customImages?.restoreItems(restoredImageIds);
-    //     }
-    // }
+        const undoButton = composedPath.find(item => item.id == "undo-button");
+        if(undoButton != null)
+        {
+            this.undo();
+            return;
+        }
+        
+        const redoButton = composedPath.find(item => item.id == "redo-button");
+        if(redoButton != null)
+        {
+            this.redo();
+            return;
+        }
+        
+        const applyHistoryLengthButton = composedPath.find(item => item.id == 'apply-history-length-button');
+        if(applyHistoryLengthButton != null)
+        {
+            const historyLength = this.findElement<HTMLInputElement>('action-history-length').value;
+            this.#applyHistoryLength(parseInt(historyLength));
+            return;
+        }
 
-    // async #addActionHistoryEntry<T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
-    // {
-    //     const historyLength = parseFloat(await this.#getAppSetting(AppSettingKey.HistoryLength) ?? DEFAULT_HISTORY_LENGTH);
-    //     if(historyLength == 0) { return; }
+        const clearHistoryButton = composedPath.find(item => item.id == 'clear-history-button');
+        if(clearHistoryButton != null)
+        {
+            this.clearHistory();
+            return;
+        }
+    }
+    async #historyLength_onChange(event: Event)
+    {
+        const input = event.target as HTMLInputElement;
+        snapToStep(input, HistoryLengthValues);
 
-    //     const channel = await this.#getChannel(this.#data.historyEntries, HISTORY_ERROR_MESSAGE, 'danger');
-    //     const history = this.findElement('action-history');
-    //     const historyEntries = [...history.children] as HTMLElement[];
-    //     const elementsToRemove = historyEntries.filter(item => item.hasAttribute(ATTRIBUTENAME_REVERSED));
-    //     const removeIds: string[] = [];
-    //     if(elementsToRemove.length > 0)
-    //     {
-    //         for(let i = 0; i < elementsToRemove.length; i++)
-    //         {
-    //             const entryId = elementsToRemove[i].getAttribute('data-entry-id');
-    //             if(entryId != null)
-    //             {
-    //                 removeIds.push(entryId)
-    //             }
-    //             elementsToRemove[i].remove();
-    //         }
-    //     }
+        this.findElement('action-history-length-value').textContent = input.value;
+        
+        let startIndex = parseInt(this.findElement<HTMLInputElement>('action-history-length').value);
+        if(startIndex > 0) { startIndex--; } // fix zero index offset if non-zero number
 
-    //     const data = new HistoryEntryData(type, properties);
-    //     const entry = channel.create(data, action);
-    //     await channel.save(entry);
+        const actionHistory = this.findElement<ActionHistoryElement>('action-history');
+        this.#prepareHistoryEntries(actionHistory, startIndex);
+    }
+    async #actionHistory_onBack(target: HTMLElement, previous: HTMLElement|undefined, all: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
+    {
+        let refreshBoards = false;
+        let refreshDeletedItems = false;
 
-    //     const entries = await channel.getAll('timestamp');
-    //     const removeCount = entries.length - historyLength;
-    //     if(removeCount > 0)
-    //     {
-    //         for(let i = 0; i < removeCount; i++)
-    //         {
-    //             removeIds.push(entries[i].id);
-    //             history.querySelector(`[data-entry-id="${entries[i].id}"]`)?.remove();
-    //         }
-    //     }
-    //     if(removeIds.length > 0)
-    //     {
-    //         await channel.deleteIfExists(removeIds);
-    //     }
+        const isLastUpdate = all.indexOf(target) == all.length - 1;
+        if(isLastUpdate == true)
+        {
+            const recordType = target.querySelector('.target-type')?.textContent?.toLowerCase();
+            if(recordType == 'board')
+            {
+                refreshBoards = true;
+            }
+            refreshDeletedItems = true;
+        }
 
-    //     const entryElement = this.#createActionHistoryEntryElement(entry);   
-    //     history.append(entryElement);
-    //     const activeIndex = [...history.children].indexOf(entryElement);
-    //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (activeIndex > -1) ? activeIndex : null);
+        await this.#handleActionEntryReverse(target, previous, targetIndex, previousActiveEntryIndex);
+        if(refreshBoards == true)
+        {
+            this.#refreshBoards();
+        }
+        if(refreshDeletedItems == true)
+        {
+            this.#refreshCache();
+        }
+    }
+    async #actionHistory_onForward(target: HTMLElement, previous: HTMLElement|undefined, all: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
+    {
+        let refreshBoards = false;
+        let refreshDeletedItems = false;
 
-    //     return entryElement;
-    // }
-
-    // async #prepareHistoryEntries(historyElement: ActionHistoryElement, startIndex: number)
-    // {
-    //     if(this.#data.historyEntries == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred accessing Action History data. Unable to refresh action history.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         console.error(new Error(`An error occurred accessing Action History data. Unable to refresh action history.`));
-    //         return;
-    //     }
-    //     const entries = await this.#data.historyEntries.getAll('timestamp');
-
-    //     for(let i = 0; i < entries.length; i++)
-    //     {
-    //         const element = historyElement.querySelector(`[data-entry-id="${entries[i].id}"]`) as HTMLElement;
-    //         if(i < startIndex)
-    //         {
-    //             element.removeAttribute(ATTRIBUTE_PREPARED_FOR_DELETE);
-    //         }
-    //         else
-    //         {
-    //             element.toggleAttribute(ATTRIBUTE_PREPARED_FOR_DELETE, true);
-    //         }
-    //     }        
-    // }
-    // async #applyHistoryLength(actionHistoryLength: number)
-    // {
-    //     await this.#saveAppSetting(AppSettingKey.HistoryLength, actionHistoryLength);
-
-    //     if(this.#data.historyEntries == null)
-    //     {
-    //         // todo: add toast to inform user
-    //         console.warn(`An error occurred accessing Action History data. Unable to refresh action history.`);
-    //         return;
-    //     }
-    //     const entries = await this.#data.historyEntries.getAll('timestamp');
-
-    //     let startIndex = actionHistoryLength;
-    //     if(startIndex > 0) { startIndex--; } // fix zero index offset if non-zero number
-
-    //     const ids: string[] = [];
-    //     for(let i = startIndex; i < entries.length; i++)
-    //     {
-    //         ids.push(entries[i].id);
-    //     }
-    //     await this.#data.historyEntries.deleteItems(ids);
-    //     this.#refreshActionHistory();
-    // }
-
+        const isLastUpdate = all.indexOf(target) == all.length - 1;
+        if(isLastUpdate == true)
+        {
+            const recordType = target.querySelector('.target-type')?.textContent?.toLowerCase();
+            if(recordType == 'board')
+            {
+                refreshBoards = true;
+            }
+            refreshDeletedItems = true;
+        }
+        await this.#handleActionEntryActivate(target, previous, targetIndex, previousActiveEntryIndex);
+        if(refreshBoards == true)
+        {
+            this.#refreshBoards();
+        }
+        if(refreshDeletedItems == true)
+        {
+            this.#refreshCache();
+        }
+    }
+    //#endregion Handlers
 
     #applyPartAttributes()
     {
@@ -601,6 +505,7 @@ export class HistoryPanelElement extends HTMLElement
             postfix.part.add('container', 'field-postfix', `${inputId}-postfix`);
         }
     }
+    //#endregion Internal
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)

@@ -40,9 +40,8 @@
         <p class="text">The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>
     </div>
     <editable-list id="deleted-items" class="cache-list" remove-class="restore-button button" exportparts="remove:restore-item-button">
-        <!-- <slot name="deleted-items"></slot> -->
         <template part="remove-button">
-            <svg id="restore-item-icon" class="icon" title="Restore">
+            <svg class="icon restore-icon restore-item-icon" class="icon" title="Restore">
                 <use href="#icon-definition_restore"></use>
             </svg>
         </template>
@@ -61,7 +60,11 @@
         <p class="text">The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>
     </div>
     <editable-list id="deleted-images" remove-class="button" class="cache-list" exportparts="button, remove:delete-cached-image-button">
-        <!-- <slot name="deleted-images"></slot> -->
+        <template part="remove-button">
+            <svg class="icon delete-image-icon trash-icon" title="Clear">
+                <use href="#icon-definition_trash"></use>
+            </svg>
+        </template>
     </editable-list>
     <button id="clear-image-cache-button" class="button">
         <svg id="clear-images-icon" title="Clear">

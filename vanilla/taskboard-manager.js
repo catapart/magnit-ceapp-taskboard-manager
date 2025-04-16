@@ -99,18 +99,6 @@ app-menu
     display: contents;
 }
 
-
-.action-history-entry
-{
-    padding: 3px 7px;
-    border-radius: 2px;
-}
-.action-history-entry:hover
-{
-    background-color: highlight;
-    color: highlighttext;
-}
-
 .board
 {
     user-select: none;
@@ -201,21 +189,6 @@ message-card::part(message)
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-}
-
-.deleted-item
-{
-    display: grid;
-    grid-template-columns: 1fr auto;
-    padding: 7px;
-    align-items: center;
-}
-
-.deleted-item-label
-{
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }
   
 @keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }
@@ -399,7 +372,7 @@ dialog[open]
 }`;
 
 // taskboard-manager.html?raw
-var taskboard_manager_default2 = '<app-menu\nid="app-menu"\nexportparts="menu,\n            header,\n            menu-header,\n            branding,\n            icon,\n            logo,\n            mark,\n            button,\n            open-board-browser,\n            label,\n            magnifying-glass,\n            open-settings,\n            gear,\n            boards,\n            board-items,\n            board-edit-button,\n            new-board-button,\n            expand\n            "\n>\n</app-menu>\n<path-router id="app-router" path="">\n    <route-page id="welcome-page" class="page" path="">\n        <welcome-panel\n            id="welcome-panel"\n            exportparts="panel-fieldset,\n                         logo,\n                         welcome-logo,\n                         description,\n                         welcome-description,\n                         welcome-text,\n                         create-text,\n                         text,\n                         fieldset,\n                         legend,\n                         recent-fieldset,\n                         recent-legend,\n                         recent-boards,\n                         button,\n                         edit-button:recent-edit-button,\n                         handle:recent-edit-handle,\n                         new-board-button:recent-new-board-button,\n                         plus,\n                         label\n                         ">\n        </welcome-panel>\n    </route-page>\n    <route-page id="board-page" class="page" path="board/:id" >\n        <task-board id="task-board" exportparts="lists:task-board-lists"></task-board>\n    </route-page>\n    <dialog id="board-browser-dialog" class="dialog" is="route-dialog" path="boards">\n        <board-browser\n            id="board-browser"\n            exportparts="header,\n                         board-browser-header,\n                         dialog-header,\n                         icon,\n                         title,\n                         board-browser-title,\n                         add-button-icon:board-browser-add-button-icon,\n                         add-button-label:board-browser-add-button-label,\n                         input,\n                         filter-search:browser-filter-search,\n                         filter-form:browser-filter-form,\n                         filter-query:browser-filter-query,\n                         filter-input:browser-filter-input,\n                         filter-regex-button:browser-filter-regex-button,\n                         filter-search-button:browser-filter-search-button,\n                         field-button:browser-filter-field-button,\n                         filter-regex-icon:browser-filter-regex-icon,\n                         filter-search-icon:browser-filter-search-icon,\n                         collection-browser:board-collection-browser,\n                         gallery:board-browser-gallery,\n                         gallery-header:board-browser-gallery-header,\n                         items:board-browser-items,\n                         add-button:board-browser-add-button,\n                         footer,\n                         board-browser-footer,\n                         actions,\n                         board-browser-actions,\n                         cancel:board-browser-cancel,\n                         ok:board-browser-ok,\n                         button,\n                         preferred-button">\n        </board-browser>\n    </dialog>\n    <dialog id="config-dialog" class="dialog" is="route-dialog" path="config">\n        <config-panel\n            id="config-panel"\n            exportparts="config-header,\n                         header,\n                         dialog-header,\n                         config-icon,\n                         icon,\n                         config-title,\n                         title,\n                         config-navigation,\n                         navigation,\n                         nav-item,\n                         selected,\n                         first,\n                         last,\n                         nav-item-icon,\n                         nav-item-label,\n                         settings-nav-item,\n                         data-nav-item,\n                         history-nav-item,\n                         about-nav-item,\n                         config-router,\n                         router,\n                         page,\n                         config-page,\n                         panel,\n                         settings-page,\n                         settings-panel,\n                         data-page,\n                         data-panel,\n                         history-page,\n                         history-panel,\n                         about-page,\n                         about-panel,\n                         config-footer,\n                         footer,\n                         dialog-footer,\n                         config-actions,\n                         actions,\n                         config-cancel,\n                         button,\n                         action-button,\n                         cancel,\n                         config-ok,\n                         ok,\n                         preferred-button,\n\n                         settings-header,\n                         header,\n                         page-header,\n                         fieldset,\n                         config-fieldset,\n                         legend,\n                         config-legend,\n                         color-scheme-fieldset,\n                         color-scheme-legend,\n                         scheme-options,\n                         button-group,\n                         button,\n                         scheme,\n                         inherit-button,\n                         browser-button,\n                         light-button,\n                         dark-button,\n                         custom-settings-fieldset,\n                         custom-settings-legend,\n                         shortcuts-fieldset,\n                         shortcuts-legend,\n                         shortcuts,\n                         shortcut,\n                         word,\n                         line,\n                         hightlight,\n                         task,\n                         list,\n                         key,\n                         shortcut-title,\n                         shortcut-description,\n                         previous-word,\n                         next-word,\n                         previous-line,\n                         next-line,\n                         highlight-previous-word,\n                         highlight-next-word,\n                         previous-line,\n                         next-line,\n                         previous-task,\n                         next-task,\n                         previous-list,\n                         next-list,\n\n                         data-header,\n                         import-fieldset,\n                         import-legend,\n                         import-field,\n                         import-field-container,\n                         field-container,\n                         field-label,\n                         field-prefix,\n                         field-postfix,\n                         import-board-file,\n                         field,\n                         input,\n                         config-field,\n                         data-field,\n                         import-file-icon,\n                         import-button,\n                         import-button-icon,\n                         import-button-label,\n                         config-data-caches,\n                         data-cleanup-fieldset,\n                         data-cleanup-legend,\n                         data-cleanup-description,\n                         text,\n                         data-cleanup-range,\n                         data-persist-days,\n                         data-persist-days-values,\n                         data-persist-days-value,\n                         apply-data-persist-days-button,\n                         apply-data-persist-days-icon,\n                         apply-data-persist-days-label,\n                         data-pending-fieldset,\n                         data-pending-legend,\n                         data-pending-description,\n                         deleted-items,\n                         restore-item-icon,\n                         clear-deleted-button,\n                         clear-deleted-icon,\n                         clear-deleted-label,\n                         image-cache-fieldset,\n                         image-cache-legend,\n                         image-cache-description,\n                         deleted-images,\n                         clear-image-cache-button,\n                         clear-images-icon,\n                         clear-images-label,\n                         data-clear-fieldset,\n                         data-clear-legend,\n                         data-clear-description,\n                         clear-data-button,\n                         clear-data-icon,\n                         clear-data-label,\n                         cache-list,\n                         range,\n\n                         header,\n                         history-header,\n                         history-navigation-fieldset,\n                         fieldset,\n                         config-fieldset,\n                         legend,\n                         config-legend,\n                         history-navigation-legend,\n                         undo,\n                         button,\n                         restore-item-icon,\n                         icon,\n                         undo-label,\n                         redo,\n                         button,\n                         redo-label,\n                         clear-history-button,\n                         clear-history-icon,\n                         clear-history-label,\n                         action-history,\n                         action-history-entry,\n                         action-history-entry-type,\n                         action-history-entry-data,\n                         action-history-target-type,\n                         action-history-target-id,\n                         active,\n                         history-length-fieldset,\n                         history-length-legend,\n                         history-length-field,\n                         field,\n                         field-container,\n                         field-label,\n                         field-prefix,\n                         field-postfix,\n                         action-history-length,\n                         action-history-length-values,\n                         apply-history-length-button,\n                         apply-history-length-label,\n\n                         about-header,\n                         about-app-fieldset,\n                         about-app-legend,\n                         emphasis,\n                         code,\n                         version-fieldset,\n                         version-legend,\n                         version-value,\n                         copyright-fieldset,\n                         copyright-legend,\n                         copyright-text,\n                         cc0-link,\n                         link,\n                         copyright-link,\n                         cc-icon,\n                         zero-icon,\n                         icon,\n                         raster\n                        ">\n            <slot name="custom-settings" slot="custom-settings"></slot>\n        </config-panel>\n    </dialog>\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\n        <board-settings\n            id="board-settings"\n            exportparts="header,\n                         dialog-header,\n                         fieldset,\n                         legend,\n                         form,\n                         icon,\n                         title,\n                         button,\n                         header-button,\n                         field,\n                         input,\n                         label,\n                         legend-label,\n                         footer,\n                         dialog-footer,\n                         button,\n                         action-button,\n                         ok,\n                         cancel,\n                         preferred-button,\n                         board-settings-form,\n                         board-settings-header,\n                         board-settings-icon,\n                         board-settings-title,\n                         close-board-button,\n                         close-board-icon,\n                         fields: board-settings-fields,\n                         record-id,\n                         properties: board-settings-properties,\n                         color-field,\n                         color-input,\n                         name-field,\n                         name-input,\n                         order-field,\n                         order-input,\n                         appearance-fieldset,\n                         appearance-legend,\n                         color-icon,\n                         appearance-label,\n                         background-color-field,\n                         background-color: background-color-input,\n                         font-color-field,\n                         font-color: font-color-input,\n                         image-fieldset,\n                         image-legend,\n                         image-icon,\n                         image-label,\n                         background-image-field,\n                         background-image:background-image-input,\n                         background-image-icon,\n                         background-image-display-field,\n                         background-image-display: background-image-display-select,\n                         background-image-offset,\n                         offset-header,\n                         offset-label,\n                         background-image-offset-x-field,\n                         background-image-offset-x: background-image-offset-x-input,\n                         background-image-offset-y-field,\n                         background-image-offset-y: background-image-offset-y-input,\n                         board-settings-details,\n                         settings-details,\n                         board-settings-summary,\n                         settings-summary,\n                         lists: board-settings-lists,\n                         lists-summary,\n                         lists-icon,\n                         lists-label,\n                         list-items,\n                         lists-placeholder,\n                         list-actions,\n                         clear-lists-button,\n                         clear-lists-button-icon,\n                         clear-lists-button-label,\n                         add-list-button,\n                         add-list-button-icon,\n                         add-list-button-label,\n                         tasks: board-settings-task-settings,\n                         tasks-summary: board-settings-task-settings-summary,\n                         tasks-icon: board-settings-task-settings-icon,\n                         tasks-label: board-settings-task-settings-label,\n                         board-task-settings,\n                         task-fields,\n                         delete-fieldset,\n                         delete-legend,\n                         field-question,\n                         remove-board-button,\n                         remove-board-label,\n                         duplicate-fieldset,\n                         duplicate-legend,\n                         duplicate-board-name-field,\n                         duplicate-board-name,\n                         duplicate-board-button,\n                         duplicate-board-icon,\n                         duplicate-board-label,\n                         export-fieldset,\n                         export-legend,\n                         export-options,\n                         export-options-header,\n                         export-images-field,\n                         export-images-icon,\n                         export-background-image,\n                         export-button,\n                         export-button-icon,\n                         export-button-label,\n                         board-settings-footer,\n                         board-settings-cancel,\n                         board-settings-save,\n                         "\n            ></board-settings>\n    </dialog>\n    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">\n        <import-manager\n            id="import-manager"\n            exportparts="header,\n                         dialog-header,\n                         import-header,\n                         import-icon,\n                         icon,\n                         import-title,\n                         title,\n                         dialog-title,\n                         content: import-dialog-content,\n                         import-board-data-fieldset,\n                         fieldset,\n                         legend,\n                         import-board-data-legend,\n                         preview: import-preview,\n                         description,\n                         import-footer,\n                         footer,\n                         dialog-footer,\n                         import-actions,\n                         actions,\n                         import-cancel,\n                         cancel,\n                         button,\n                         dialog-button,\n                         ok,\n                         import-ok,\n                         preferred-button\n            "\n            ></import-manager>\n    </dialog>\n</path-router>\n<dialog id="confirmation-dialog" class="dialog">\n    <header id="confirmation-dialog-header" class="header dialog-header">\n        <svg id="confirmation-dialog-icon" class="icon">\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span id="confirmation-dialog-title" class="title">Confirmation</span>\n    </header>\n    <path-router id="confirmation-router" class="router">\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\n    </path-router>\n    <footer id="confirmation-dialog-footer" class="footer dialog-footer">\n        <form id="confirmation-dialog-form" method="dialog">\n            <button type="submit" id="confirmation-cancel-button" class="button action-button cancel">Cancel</button>\n            <button type="submit" id="confirmation-confirm-button" class="button action-button ok preferred-button">Confirm</button>\n        </form>\n    </footer>\n</dialog>\n<div id="notifications"></div>\n<div id="loading"></div>';
+var taskboard_manager_default2 = '<app-menu\nid="app-menu"\nexportparts="menu,\n            header,\n            menu-header,\n            branding,\n            icon,\n            logo,\n            mark,\n            button,\n            open-board-browser,\n            label,\n            magnifying-glass,\n            open-settings,\n            gear,\n            boards,\n            board-items,\n            board-edit-button,\n            new-board-button,\n            expand\n            "\n>\n</app-menu>\n<path-router id="app-router" path="">\n    <route-page id="welcome-page" class="page" path="">\n        <welcome-panel\n            id="welcome-panel"\n            exportparts="panel-fieldset,\n                         logo,\n                         welcome-logo,\n                         description,\n                         welcome-description,\n                         welcome-text,\n                         create-text,\n                         text,\n                         fieldset,\n                         legend,\n                         recent-fieldset,\n                         recent-legend,\n                         recent-boards,\n                         button,\n                         edit-button:recent-edit-button,\n                         handle:recent-edit-handle,\n                         new-board-button:recent-new-board-button,\n                         plus,\n                         label\n                         ">\n        </welcome-panel>\n    </route-page>\n    <route-page id="board-page" class="page" path="board/:id" >\n        <task-board id="task-board" exportparts="lists:task-board-lists"></task-board>\n    </route-page>\n    <dialog id="board-browser-dialog" class="dialog" is="route-dialog" path="boards">\n        <board-browser\n            id="board-browser"\n            exportparts="header,\n                         board-browser-header,\n                         dialog-header,\n                         icon,\n                         title,\n                         board-browser-title,\n                         add-button-icon:board-browser-add-button-icon,\n                         add-button-label:board-browser-add-button-label,\n                         input,\n                         filter-search:browser-filter-search,\n                         filter-form:browser-filter-form,\n                         filter-query:browser-filter-query,\n                         filter-input:browser-filter-input,\n                         filter-regex-button:browser-filter-regex-button,\n                         filter-search-button:browser-filter-search-button,\n                         field-button:browser-filter-field-button,\n                         filter-regex-icon:browser-filter-regex-icon,\n                         filter-search-icon:browser-filter-search-icon,\n                         collection-browser:board-collection-browser,\n                         gallery:board-browser-gallery,\n                         gallery-header:board-browser-gallery-header,\n                         items:board-browser-items,\n                         add-button:board-browser-add-button,\n                         footer,\n                         board-browser-footer,\n                         actions,\n                         board-browser-actions,\n                         cancel:board-browser-cancel,\n                         ok:board-browser-ok,\n                         button,\n                         preferred-button">\n        </board-browser>\n    </dialog>\n    <dialog id="config-dialog" class="dialog" is="route-dialog" path="config">\n        <config-panel\n            id="config-panel"\n            exportparts="config-header,\n                         header,\n                         dialog-header,\n                         config-icon,\n                         icon,\n                         config-title,\n                         title,\n                         config-navigation,\n                         navigation,\n                         nav-item,\n                         selected,\n                         first,\n                         last,\n                         nav-item-icon,\n                         nav-item-label,\n                         settings-nav-item,\n                         data-nav-item,\n                         history-nav-item,\n                         about-nav-item,\n                         config-router,\n                         router,\n                         page,\n                         config-page,\n                         panel,\n                         settings-page,\n                         settings-panel,\n                         data-page,\n                         data-panel,\n                         history-page,\n                         history-panel,\n                         about-page,\n                         about-panel,\n                         config-footer,\n                         footer,\n                         dialog-footer,\n                         config-actions,\n                         actions,\n                         config-cancel,\n                         button,\n                         action-button,\n                         cancel,\n                         config-ok,\n                         ok,\n                         preferred-button,\n\n                         settings-header,\n                         header,\n                         page-header,\n                         fieldset,\n                         config-fieldset,\n                         legend,\n                         config-legend,\n                         color-scheme-fieldset,\n                         color-scheme-legend,\n                         scheme-options,\n                         button-group,\n                         button,\n                         scheme,\n                         inherit-button,\n                         browser-button,\n                         light-button,\n                         dark-button,\n                         custom-settings-fieldset,\n                         custom-settings-legend,\n                         shortcuts-fieldset,\n                         shortcuts-legend,\n                         shortcuts,\n                         shortcut,\n                         word,\n                         line,\n                         hightlight,\n                         task,\n                         list,\n                         key,\n                         shortcut-title,\n                         shortcut-description,\n                         previous-word,\n                         next-word,\n                         previous-line,\n                         next-line,\n                         highlight-previous-word,\n                         highlight-next-word,\n                         previous-line,\n                         next-line,\n                         previous-task,\n                         next-task,\n                         previous-list,\n                         next-list,\n\n                         data-header,\n                         import-fieldset,\n                         import-legend,\n                         import-field,\n                         import-field-container,\n                         field-container,\n                         field-label,\n                         field-prefix,\n                         field-postfix,\n                         import-board-file,\n                         field,\n                         input,\n                         config-field,\n                         data-field,\n                         import-file-icon,\n                         import-button,\n                         import-button-icon,\n                         import-button-label,\n                         config-data-caches,\n                         data-cleanup-fieldset,\n                         data-cleanup-legend,\n                         data-cleanup-description,\n                         text,\n                         data-cleanup-range,\n                         data-persist-days,\n                         data-persist-days-values,\n                         data-persist-days-value,\n                         apply-data-persist-days-button,\n                         apply-data-persist-days-icon,\n                         apply-data-persist-days-label,\n                         data-pending-fieldset,\n                         data-pending-legend,\n                         data-pending-description,\n                         deleted-items,\n                         restore-item-icon,\n                         clear-deleted-button,\n                         clear-deleted-icon,\n                         clear-deleted-label,\n                         image-cache-fieldset,\n                         image-cache-legend,\n                         image-cache-description,\n                         deleted-images,\n                         clear-image-cache-button,\n                         clear-images-icon,\n                         clear-images-label,\n                         data-clear-fieldset,\n                         data-clear-legend,\n                         data-clear-description,\n                         clear-data-button,\n                         clear-data-icon,\n                         clear-data-label,\n                         cache-list,\n                         range,\n\n                         header,\n                         history-header,\n                         history-navigation-fieldset,\n                         fieldset,\n                         config-fieldset,\n                         legend,\n                         config-legend,\n                         history-navigation-legend,\n                         undo,\n                         button,\n                         restore-item-icon,\n                         icon,\n                         undo-label,\n                         redo,\n                         button,\n                         redo-label,\n                         clear-history-button,\n                         clear-history-icon,\n                         clear-history-label,\n                         action-history,\n                         action-history-entry,\n                         action-history-entry-type,\n                         action-history-entry-data,\n                         action-history-target-type,\n                         action-history-target-id,\n                         active,\n                         history-length-fieldset,\n                         history-length-legend,\n                         history-length-field,\n                         field,\n                         field-container,\n                         field-label,\n                         field-prefix,\n                         field-postfix,\n                         action-history-length,\n                         action-history-length-values,\n                         apply-history-length-button,\n                         apply-history-length-label,\n\n                         about-header,\n                         about-app-fieldset,\n                         about-app-legend,\n                         emphasis,\n                         code,\n                         version-fieldset,\n                         version-legend,\n                         version-value,\n                         copyright-fieldset,\n                         copyright-legend,\n                         copyright-text,\n                         cc0-link,\n                         link,\n                         copyright-link,\n                         cc-icon,\n                         zero-icon,\n                         icon,\n                         raster\n                        ">\n            <slot name="custom-settings" slot="custom-settings"></slot>\n        </config-panel>\n    </dialog>\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\n        <board-settings\n            id="board-settings"\n            exportparts="header,\n                         dialog-header,\n                         fieldset,\n                         legend,\n                         form,\n                         icon,\n                         title,\n                         button,\n                         header-button,\n                         field,\n                         input,\n                         label,\n                         legend-label,\n                         footer,\n                         dialog-footer,\n                         button,\n                         action-button,\n                         ok,\n                         cancel,\n                         preferred-button,\n                         board-settings-form,\n                         board-settings-header,\n                         board-settings-icon,\n                         board-settings-title,\n                         close-board-button,\n                         close-board-icon,\n                         fields: board-settings-fields,\n                         record-id,\n                         properties: board-settings-properties,\n                         color-field,\n                         color-input,\n                         name-field,\n                         name-input,\n                         order-field,\n                         order-input,\n                         appearance-fieldset,\n                         appearance-legend,\n                         color-icon,\n                         appearance-label,\n                         background-color-field,\n                         background-color: background-color-input,\n                         font-color-field,\n                         font-color: font-color-input,\n                         image-fieldset,\n                         image-legend,\n                         image-icon,\n                         image-label,\n                         background-image-field,\n                         background-image:background-image-input,\n                         background-image-icon,\n                         background-image-display-field,\n                         background-image-display: background-image-display-select,\n                         background-image-offset,\n                         offset-header,\n                         offset-label,\n                         background-image-offset-x-field,\n                         background-image-offset-x: background-image-offset-x-input,\n                         background-image-offset-y-field,\n                         background-image-offset-y: background-image-offset-y-input,\n                         board-settings-details,\n                         settings-details,\n                         board-settings-summary,\n                         settings-summary,\n                         lists: board-settings-lists,\n                         lists-summary,\n                         lists-icon,\n                         lists-label,\n                         list-items,\n                         lists-placeholder,\n                         list-actions,\n                         clear-lists-button,\n                         clear-lists-button-icon,\n                         clear-lists-button-label,\n                         add-list-button,\n                         add-list-button-icon,\n                         add-list-button-label,\n                         tasks: board-settings-task-settings,\n                         tasks-summary: board-settings-task-settings-summary,\n                         tasks-icon: board-settings-task-settings-icon,\n                         tasks-label: board-settings-task-settings-label,\n                         board-task-settings,\n                         task-fields,\n                         delete-fieldset,\n                         delete-legend,\n                         field-question,\n                         remove-board-button,\n                         remove-board-label,\n                         duplicate-fieldset,\n                         duplicate-legend,\n                         duplicate-board-name-field,\n                         duplicate-board-name,\n                         duplicate-board-button,\n                         duplicate-board-icon,\n                         duplicate-board-label,\n                         export-fieldset,\n                         export-legend,\n                         export-options,\n                         export-options-header,\n                         export-images-field,\n                         export-images-icon,\n                         export-background-image,\n                         export-button,\n                         export-button-icon,\n                         export-button-label,\n                         board-settings-footer,\n                         board-settings-cancel,\n                         board-settings-save,\n                         "\n            ></board-settings>\n    </dialog>\n    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">\n        <import-manager\n            id="import-manager"\n            exportparts="header,\n                         dialog-header,\n                         import-header,\n                         import-icon,\n                         icon,\n                         import-title,\n                         title,\n                         dialog-title,\n                         content: import-dialog-content,\n                         import-board-data-fieldset,\n                         fieldset,\n                         legend,\n                         import-board-data-legend,\n                         preview: import-preview,\n                         description,\n                         import-footer,\n                         footer,\n                         dialog-footer,\n                         import-actions,\n                         actions,\n                         import-cancel,\n                         cancel,\n                         button,\n                         action-button,\n                         ok,\n                         import-ok,\n                         preferred-button\n            "\n            ></import-manager>\n    </dialog>\n</path-router>\n<dialog id="confirmation-dialog" class="dialog">\n    <header id="confirmation-dialog-header" class="header dialog-header">\n        <svg id="confirmation-dialog-icon" class="icon">\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span id="confirmation-dialog-title" class="title">Confirmation</span>\n    </header>\n    <path-router id="confirmation-router" class="router">\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\n    </path-router>\n    <footer id="confirmation-dialog-footer" class="footer dialog-footer">\n        <form id="confirmation-dialog-form" method="dialog">\n            <button type="submit" id="confirmation-cancel-button" class="button action-button cancel">Cancel</button>\n            <button type="submit" id="confirmation-confirm-button" class="button action-button ok preferred-button">Confirm</button>\n        </form>\n    </footer>\n</dialog>\n<div id="notifications"></div>\n<div id="loading"></div>';
 
 // assets/icons/cancel-cross.ts
 var CancelCross = `<svg id="icon-definition_cancel-cross" class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -945,10 +918,10 @@ ${value}`
 }
 
 // components/import-manager/import-manager.component.css?raw
-var import_manager_component_default = ":host { display: contents; }\n\n#import-header\n{\n    display: flex;\n    gap: .5em;\n    padding: .5em;\n}\n\n.icon\n{\n    width: var(--tab-icon-size);\n    height: var(--tab-icon-size);\n}\n\n.value\n{\n    display: flex;\n    align-items: center;\n}\n\n.old\n{\n    text-decoration: line-through;\n    opacity: .8;\n    padding-inline: .5em;\n    display: inline-block;\n    width: 100px;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    overflow: hidden;\n}\n\n.value\n{\n    max-width: 500px;\n    overflow: hidden;\n    word-break: break-word;\n}\n.value:has(.display)\n{\n    display: flex;\n    flex-direction: column;\n}\n.value .view-link\n{\n    align-self: flex-end;\n}\n\n.removed\n{\n    text-decoration: line-through;\n}\n\n.value img.preview\n{\n    max-height: 200px;\n}\n\n#content\n{\n    overflow: hidden;\n    display: grid;\n}\n\n#import-board-data-fieldset\n{\n    overflow: hidden;\n    flex: 1;\n    display: flex;\n    flex-direction: column;\n}\n\n#preview\n{\n    overflow: auto;\n}\n\n.actions\n{\n    display: flex;\n    align-items: center;\n    justify-content: flex-end;\n    gap: 14px;\n    padding: 7px;\n}\n\n@media (max-width: 665px) \n{\n    #preview\n    {\n        --indent: 5px;\n        --property-name-width: 75px;\n    }\n    #preview .property .name\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n    }\n    #preview .property .value\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n        word-break: break-all;\n    }\n}";
+var import_manager_component_default = ":host { display: contents; }\n\n#import-header\n{\n    display: flex;\n    align-items: center;\n    gap: 7px;\n    padding: 7px 0;\n    font-weight: bold;\n}\n\n#import-title\n{\n    font-weight: bold;\n}\n\n.header-icon\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n}\n\n.value\n{\n    display: flex;\n    align-items: center;\n}\n\n.old\n{\n    text-decoration: line-through;\n    opacity: .8;\n    padding-inline: .5em;\n    display: inline-block;\n    width: 100px;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    overflow: hidden;\n}\n\n.value\n{\n    max-width: 500px;\n    overflow: hidden;\n    word-break: break-word;\n}\n.value:has(.display)\n{\n    display: flex;\n    flex-direction: column;\n}\n.value .view-link\n{\n    align-self: flex-end;\n}\n\n.removed\n{\n    text-decoration: line-through;\n}\n\n.value img.preview\n{\n    max-height: 200px;\n}\n\n#content\n{\n    overflow: hidden;\n    display: grid;\n}\n\n#import-board-data-fieldset\n{\n    overflow: hidden;\n    flex: 1;\n    display: flex;\n    flex-direction: column;\n}\n\n#preview\n{\n    overflow: auto;\n}\n\n.actions\n{\n    display: flex;\n    align-items: center;\n    justify-content: flex-end;\n    gap: 14px;\n    padding: 7px 0;\n}\n\n@media (max-width: 665px) \n{\n    #preview\n    {\n        --indent: 5px;\n        --property-name-width: 75px;\n    }\n    #preview .property .name\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n    }\n    #preview .property .value\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n        word-break: break-all;\n    }\n}";
 
 // components/import-manager/import-manager.component.html?raw
-var import_manager_component_default2 = '<header id="import-header" class="header dialog-header">\n    <svg id="import-icon" class="icon">\n        <use href="#icon-definition_import"></use>\n    </svg>\n    <span id="import-title" class="title dialog-title">Import</span>\n</header>\n<div id="content">\n    <fieldset id="import-board-data-fieldset" class="fieldset import-fieldset">\n        <legend id="import-board-data-legend" class="legend import-legend">Board Data</legend>\n        <p id="description">The following Taskboard, Tasklists, and Tasks will be imported with their settings. Make final adjustments and select "Import" to complete the import.</p>\n        <record-tree id="preview" removed-class parent-name="Board"></record-tree>\n    </fieldset>\n</div>\n<footer id="import-footer" class="footer dialog-footer">\n    <form id="import-actions" class="actions" method="dialog">\n        <button type="submit" id="import-cancel" class="button dialog-button cancel" title="Cancel import">Cancel</button>\n        <button type="submit" id="import-ok" class="button dialog-button preferred-button ok" title="Confirm import">Import</button>\n    </form>\n</footer>\n\n';
+var import_manager_component_default2 = '<header id="import-header" class="header dialog-header">\n    <svg id="import-icon" class="icon header-icon">\n        <use href="#icon-definition_import"></use>\n    </svg>\n    <span id="import-title" class="title dialog-title">Import</span>\n</header>\n<div id="content">\n    <fieldset id="import-board-data-fieldset" class="fieldset import-fieldset">\n        <legend id="import-board-data-legend" class="legend import-legend">Board Data</legend>\n        <p id="description">The following Taskboard, Tasklists, and Tasks will be imported with their settings. Make final adjustments and select "Import" to complete the import.</p>\n        <record-tree id="preview" removed-class parent-name="Board"></record-tree>\n    </fieldset>\n</div>\n<footer id="import-footer" class="footer dialog-footer">\n    <form id="import-actions" class="actions" method="dialog">\n        <button type="submit" id="import-cancel" class="button action-button cancel" title="Cancel import">Cancel</button>\n        <button type="submit" id="import-ok" class="button action-button preferred-button ok" title="Confirm import">Import</button>\n    </form>\n</footer>\n\n';
 
 // node_modules/.pnpm/record-setter@1.0.6/node_modules/record-setter/dist/record-setter.mjs
 var RecordBase = class {
@@ -1951,7 +1924,9 @@ var RecordSetter = class _RecordSetter {
 // components/import-manager/import-manager.component.ts
 var ID_PROPERTIES = /* @__PURE__ */ new Set(["id", "listId", "taskSettingsId", "backgroundImageId", "boardId"]);
 var COMPONENT_STYLESHEET = new CSSStyleSheet();
-COMPONENT_STYLESHEET.replaceSync(import_manager_component_default);
+COMPONENT_STYLESHEET.replaceSync(`${import_manager_component_default}
+${shared_default}
+`);
 var COMPONENT_TEMPLATE = `${import_manager_component_default2}
 ${defineIcons(
   "Import" /* Import */
@@ -2651,7 +2626,7 @@ var app_menu_default = `#app-menu
 }`;
 
 // components/app-menu/app-menu.html?raw
-var app_menu_default2 = '<menu id="app-menu" class="menu">\n    <header id="app-menu-header" class="header">\n        <div id="app-menu-branding" class="branding" title="Manager Icon">\n            <svg class="icon logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button id="find-board-button" class="button" type="button" data-route="#boards" title="Find Board">\n            <svg class="icon button-icon magnifying-glass">\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="button-label">Find Board</span>\n        </button>\n        <button id="open-settings-button" class="button" type="button" data-route="#config/settings" title="App Administration">\n            <svg class="icon button-icon gear">\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list id="boards" remove="false" edit="true" edit-class="board-edit-button" exportparts="items: board-items">\n        <slot></slot>\n        <button id="new-board-button" class="button new-board-button" type="button" slot="add" title="New Board">\n            <svg class="icon button-icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label button-label">New Board</span>\n        </button>\n        <template part="edit-button button">\n            <svg class="icon button-icon expand">\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n';
+var app_menu_default2 = '<menu id="app-menu" class="menu">\n    <header id="app-menu-header" class="header">\n        <div id="app-menu-branding" class="branding" title="Manager Icon">\n            <svg class="icon logo mark" alt="Manager Brand Mark">\n                <use href="#icon-definition_logo-mark"></use>\n            </svg>\n        </div>\n        <button id="find-board-button" class="button" type="button" data-route="#boards" title="Find Board">\n            <svg class="icon button-icon magnifying-glass">\n                <use href="#icon-definition_magnifying-glass"></use>\n            </svg>\n            <span class="button-label">Find Board</span>\n        </button>\n        <button id="open-settings-button" class="button" type="button" data-route="#config/settings" title="App Administration">\n            <svg class="icon button-icon gear">\n                <use href="#icon-definition_gear"></use>\n            </svg>\n        </button>\n    </header>\n    <editable-list id="boards" remove="false" edit="true" edit-class="board-edit-button" exportparts="items: board-items">\n        <slot></slot>\n        <button id="new-board-button" class="button new-board-button" type="button" slot="add" title="New Board">\n            <svg class="icon button-icon plus" >\n                <use href="#icon-definition_plus"></use>\n            </svg>\n            <span class="label button-label">New Board</span>\n        </button>\n        <template part="edit-button">\n            <svg class="icon button-icon expand">\n                <use href="#icon-definition_stylus"></use>\n            </svg>\n        </template>\n    </editable-list>\n</menu>\n';
 
 // node_modules/.pnpm/@magnit-ce+message-card@0.0.3/node_modules/@magnit-ce/message-card/dist/message-card.js
 var message_card_default = '\n:host([type="info"])    { --primary-color:#0184db; }\n:host([type="success"]) { --primary-color:#20a453; }\n:host([type="warning"]) { --primary-color:#f0cb52; }\n:host([type="error"])   { --primary-color:#db283b; }\n:host([type="aside"])   { --primary-color:#1f3cd0; }\n:host([type="note"])    { --primary-color:#db8630; }\n:host([type="report"])  { --primary-color:#4d5168; }\n\n@media (prefers-color-scheme: dark) \n{\n    :host([type="info"])    { --primary-color:#3baee9; }\n    :host([type="success"]) { --primary-color:#4fc872; }\n    :host([type="warning"]) { --primary-color:#f0cb52; }\n    :host([type="error"])   { --primary-color:#e95a5c; }\n    :host([type="aside"])   { --primary-color:#3760ff; }\n    :host([type="note"])    { --primary-color:#e9ac60; }\n    :host([type="report"])  { --primary-color:#707177; }\n}\n\n:host\n{\n    --primary-color: graytext;\n    --font-color: fieldtext;\n    background-color: var(--background-color, field);\n    color: var(--font-color);\n    border: solid 1px var(--primary-color);\n    border-radius: 3px;\n    padding: .5em;\n    display: none;\n    font-family: sans-serif;\n    font-size: 12px;\n    position: relative;\n\n    grid-template-columns: auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n:host([open])\n{\n    display: grid;\n}\n\n[part="message-icon"]\n,::slotted([slot="message-icon"])\n{\n    align-self: center;\n    grid-row: span 2;\n    margin-right: 1em;\n}\n\n[part="heading"]\n,::slotted([slot="heading"])\n{\n    color: var(--primary-color);\n    font-weight: bold;\n    font-size: 13px;\n    align-self: center;\n    display: inline-block;\n}\n\n[part="message"]\n{\n    grid-row: 2;\n    grid-column: 2;\n    margin-top: .3em;\n}\n\nsvg path { fill: var(--primary-color); }\n\n:host([prevent-close]) [part="close-button"]\n{\n    display: none;\n}\n[part="close-button"]\n{\n    align-self: center;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n    background: none;\n    padding: 2px 5px;\n    margin: 0;\n    border: solid 1px transparent;\n    border-radius: 3px;\n}\n[part="close-button"]:hover\n{\n    background-color: rgb(0 0 0 / .05);\n    border-color: rgb(0 0 0 / .1);\n}\n@media (prefers-color-scheme: dark) \n{\n    [part="close-button"]:hover\n    {\n        background-color: rgb(0 0 0 / .4);\n        border-color: rgb(0 0 0 / .7);\n    }\n}\n[part="close-icon"]\n,::slotted([slot="close-icon"])\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}\n\n[part="duration"]\n{\n    width: 100%;\n    position: absolute;\n    bottom: 0;\n    appearance: none;\n    height: 2px;\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n    border: none;\n    transition: all 50ms ease;\n    accent-color: var(--primary-color);\n}\n\n[part="duration"]::-webkit-progress-value\n{\n    background-color: var(--primary-color, canvastext);\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n}\n\n[part="duration"]::-webkit-progress-bar\n{\n    background: none;\n}\n[part="duration"]::-moz-progress-bar\n{\n    background-color: var(--primary-color, canvastext);\n}\n\n:host(:not([duration])) [part="duration"]\n{\n    display: none;\n}\n\n/* progress {\n}\nprogress::-webkit-progress-bar {\n}\nprogress::-webkit-progress-value {\n}\nprogress::-moz-progress-bar {\n} */';
@@ -3336,13 +3311,13 @@ var CustomImageChannel = class extends DataChannel {
 
 // node_modules/.pnpm/@magnit-ce+action-history@0.0.7/node_modules/@magnit-ce/action-history/dist/action-history.js
 var action_history_default = ":host\n{\n    display: flex; /* needed for reverse ordering */\n    flex-direction: column;\n    overflow: auto;\n}\n:host([empty])::before\n{\n    content: attr(placeholder);\n    color: graytext;\n    font-style: italic;\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n::slotted([data-entry])\n{\n    cursor: pointer;\n    flex-shrink: 0; /* prevents squishing due to the flex display */\n}\n\n::slotted([data-active][data-entry])\n{\n    text-decoration: underline;\n}\n\n::slotted([data-entry][data-reversed])\n{\n    scale: .98;\n    opacity: .5;\n}";
-var HistoryEntryType = /* @__PURE__ */ ((HistoryEntryType2) => {
-  HistoryEntryType2["Create"] = "create";
-  HistoryEntryType2["Read"] = "read";
-  HistoryEntryType2["Update"] = "update";
-  HistoryEntryType2["Delete"] = "delete";
-  HistoryEntryType2["Custom"] = "custom";
-  return HistoryEntryType2;
+var HistoryEntryType = /* @__PURE__ */ ((HistoryEntryType22) => {
+  HistoryEntryType22["Create"] = "create";
+  HistoryEntryType22["Read"] = "read";
+  HistoryEntryType22["Update"] = "update";
+  HistoryEntryType22["Delete"] = "delete";
+  HistoryEntryType22["Custom"] = "custom";
+  return HistoryEntryType22;
 })(HistoryEntryType || {});
 var ATTRIBUTENAME_REVERSED = "data-reversed";
 var ATTRIBUTENAME_ACTIVE = "data-active";
@@ -4103,10 +4078,20 @@ var ListExport = class extends extendableType() {
 };
 
 // components/config-panel/data-panel/data-panel.css?raw
-var data_panel_default = ':host\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 7px;\n}\n\n\n#data-header\n{\n    grid-column: span 3;\n    font-size: 14px;\n    font-weight: bold;\n}\n\n\n#deleted-items [data-restore="false"]\n{\n    scale: .98 .9;\n    opacity: .5;\n    pointer-events: none;\n}\n\n[to-delete]\n{\n    text-decoration: line-through;\n    color: #444;\n}\n\n#import-fieldset\n{\n    grid-column: span 3;\n    display: flex;\n    gap: 7px;\n}\n\n#import-field .container\n{\n    flex: 1;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n}\n\n#import-board-file\n{\n    flex: 1;\n}\n\n/* #import-content\n{\n    overflow: hidden;\n    padding: 1em;\n    display: flex;\n} */\n\n/* #import-manager\n{\n    overflow: hidden;\n    display: flex;\n    flex-direction: column;\n    flex: 1;\n}\n\n#import-actions\n{\n    display: grid;\n    grid-template-columns: 1fr auto auto;\n    gap: 7px;\n}\n\n#import-cancel\n{\n    grid-column: 2;\n}\n\n#import-ok\n{\n    grid-column: 3;\n} */\n\n/* #config-data-caches\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 7px;\n} */\n\n#data-cleanup-fieldset\n{\n    display: grid;\n    grid-template-rows: max-content 1fr max-content;\n    gap: 7px;\n}\n\n#data-cleanup-range .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    align-self: flex-end;\n}\n#data-persist-days\n{\n    flex: 1;\n}\n\n#apply-data-persist-days-button\n{\n    justify-self: flex-end;\n}\n\n#data-pending-fieldset\n,#image-cache-fieldset\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n}\n\n#deleted-items\n,#deleted-images\n{\n    display: flex;\n    flex-direction: column;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    height: 130px;\n    overflow-x: hidden;\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    align-self: flex-end;\n}\n\n#deleted-items::part(add)\n,#deleted-images::part(add)\n{\n    display: none !important;\n}\n\n#clear-deleted-button\n,#clear-image-cache-button\n{\n    justify-self: flex-end;\n}\n\n#data-clear-fieldset\n{\n    display: grid;\n    gap: 7px;\n    grid-column: span 3;\n}\n\n#clear-data-button\n{\n    justify-self: flex-end;\n}\n@media (max-width: 665px) \n{\n\n    #import-fieldset\n    {\n        flex-direction: column;\n    }\n    #import-field .container\n    {\n        flex-direction: column;\n        align-items: stretch;\n    }\n    #import-button\n    {\n        align-self: flex-end;\n    }\n    #config-data-caches\n    {\n        display: grid;\n        grid-template-columns: 1fr;\n        gap: 7px;\n    }\n}';
+var data_panel_default = ':host\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 7px;\n}\n\n\n#data-header\n{\n    grid-column: span 3;\n    font-size: 14px;\n    font-weight: bold;\n}\n\n\n#deleted-items [data-restore="false"]\n{\n    scale: .98 .9;\n    opacity: .5;\n    pointer-events: none;\n}\n\n[to-delete]\n{\n    text-decoration: line-through;\n    color: #444;\n}\n\n#import-fieldset\n{\n    grid-column: span 3;\n    display: flex;\n    gap: 7px;\n}\n\n#import-field .container\n{\n    flex: 1;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n}\n\n#import-board-file\n{\n    flex: 1;\n}\n\n/* #import-content\n{\n    overflow: hidden;\n    padding: 1em;\n    display: flex;\n} */\n\n/* #import-manager\n{\n    overflow: hidden;\n    display: flex;\n    flex-direction: column;\n    flex: 1;\n}\n\n#import-actions\n{\n    display: grid;\n    grid-template-columns: 1fr auto auto;\n    gap: 7px;\n}\n\n#import-cancel\n{\n    grid-column: 2;\n}\n\n#import-ok\n{\n    grid-column: 3;\n} */\n\n/* #config-data-caches\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 7px;\n} */\n\n#data-cleanup-fieldset\n{\n    display: grid;\n    grid-template-rows: max-content 1fr max-content;\n    gap: 7px;\n}\n\n#data-cleanup-range .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    align-self: flex-end;\n}\n#data-persist-days\n{\n    flex: 1;\n}\n\n#apply-data-persist-days-button\n{\n    justify-self: flex-end;\n}\n\n#data-pending-fieldset\n,#image-cache-fieldset\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n}\n\n#deleted-items\n,#deleted-images\n{\n    display: flex;\n    flex-direction: column;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    height: 130px;\n    overflow-x: hidden;\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    align-self: flex-end;\n}\n\n#deleted-items::part(add)\n,#deleted-images::part(add)\n{\n    display: none !important;\n}\n\n.deleted-item\n{\n    display: grid;\n    grid-template-columns: 1fr auto;\n    padding: 7px;\n    align-items: center;\n}\n\n.deleted-item-label\n{\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    overflow: hidden;\n}\n\n#clear-deleted-button\n,#clear-image-cache-button\n{\n    justify-self: flex-end;\n}\n\n#data-clear-fieldset\n{\n    display: grid;\n    gap: 7px;\n    grid-column: span 3;\n}\n\n#clear-data-button\n{\n    justify-self: flex-end;\n}\n@media (max-width: 665px) \n{\n\n    #import-fieldset\n    {\n        flex-direction: column;\n    }\n    #import-field .container\n    {\n        flex-direction: column;\n        align-items: stretch;\n    }\n    #import-button\n    {\n        align-self: flex-end;\n    }\n    #config-data-caches\n    {\n        display: grid;\n        grid-template-columns: 1fr;\n        gap: 7px;\n    }\n}';
 
 // components/config-panel/data-panel/data-panel.html?raw
-var data_panel_default2 = '\n<header id="data-header" class="header page-header">Data</header>\n<fieldset id="import-fieldset" class="fieldset config-fieldset">\n    <legend id="import-legend" class="legend config-legend">Import</legend>\n    <form-field id="import-field" class="field config-field data-field" label="Taskboard Data File" input-selector="fileimage-input">\n        <fileimage-input id="import-board-file" exportparts="field:input">\n            <svg slot="icon" id="import-file-icon" class="icon">\n                <use href="#icon-definition_file"></use>\n            </svg>\n        </fileimage-input>\n    </form-field>\n    <button id="import-button" class="button">\n        <svg id="import-button-icon" class="icon">\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span id="import-button-label">Import Board</span>\n    </button>\n</fieldset>\n<fieldset id="data-cleanup-fieldset" class="fieldset config-fieldset">\n    <legend id="data-cleanup-legend" class="legend config-legend">Data Cleanup</legend>\n    <div id="data-cleanup-description">\n        <p class="text">Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>\n        <p class="text">Set how many days deleted item should perisist using the slider below.</p>\n    </div>\n    <form-field label="Days" id="data-cleanup-range" class="field config-field data-field">\n        <input type="range" id="data-persist-days" class="input range" max="30" list="data-persist-days-values" />\n        <datalist id="data-persist-days-values"></datalist>\n        <span slot="postfix" id="data-persist-days-value"></span>\n        <button slot="postfix" id="apply-data-persist-days-button" class="button">\n            <svg id="apply-data-persist-days-icon" class="icon">\n                <use href="#icon-definition_confirm-check"></use>\n            </svg>\n            <span id="apply-data-persist-days-label">Apply</span>\n        </button>\n    </form-field>\n</fieldset>\n<fieldset id="data-pending-fieldset" class="fieldset config-fieldset">\n    <legend id="data-pending-legend" class="legend config-legend">Pending Cleanup</legend>\n    <div id="data-pending-description">\n        <p class="text">The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>\n    </div>\n    <editable-list id="deleted-items" class="cache-list" remove-class="restore-button button" exportparts="remove:restore-item-button">\n        <!-- <slot name="deleted-items"></slot> -->\n        <template part="remove-button">\n            <svg id="restore-item-icon" class="icon" title="Restore">\n                <use href="#icon-definition_restore"></use>\n            </svg>\n        </template>\n    </editable-list>\n    <button id="clear-deleted-button" class="button">\n        <svg id="clear-deleted-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-deleted-label">Clear Pending Items</span>\n    </button>\n</fieldset>\n<fieldset id="image-cache-fieldset" class="fieldset config-fieldset">\n    <legend id="image-cache-legend" class="legend config-legend">Image Cache</legend>\n    <div id="image-cache-description">\n        <p class="text">Caching some image files provides undo and redo support.</p>\n        <p class="text">The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>\n    </div>\n    <editable-list id="deleted-images" remove-class="button" class="cache-list" exportparts="button, remove:delete-cached-image-button">\n        <!-- <slot name="deleted-images"></slot> -->\n    </editable-list>\n    <button id="clear-image-cache-button" class="button">\n        <svg id="clear-images-icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-images-label">Clear Image Cache</span>\n    </button>\n</fieldset>\n<fieldset id="data-clear-fieldset" class="fieldset config-fieldset">\n    <legend id="data-clear-legend" class="legend config-legend">Clear Data</legend>\n    <div id="data-clear-description">\n        <p class="text">Delete all data, including app settings and history.</p>\n    </div>\n    <button id="clear-data-button" class="button">\n        <svg id="clear-data-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-data-label">Clear All Data</span>\n    </button>\n</fieldset>';
+var data_panel_default2 = '\n<header id="data-header" class="header page-header">Data</header>\n<fieldset id="import-fieldset" class="fieldset config-fieldset">\n    <legend id="import-legend" class="legend config-legend">Import</legend>\n    <form-field id="import-field" class="field config-field data-field" label="Taskboard Data File" input-selector="fileimage-input">\n        <fileimage-input id="import-board-file" exportparts="field:input">\n            <svg slot="icon" id="import-file-icon" class="icon">\n                <use href="#icon-definition_file"></use>\n            </svg>\n        </fileimage-input>\n    </form-field>\n    <button id="import-button" class="button">\n        <svg id="import-button-icon" class="icon">\n            <use href="#icon-definition_import"></use>\n        </svg>\n        <span id="import-button-label">Import Board</span>\n    </button>\n</fieldset>\n<fieldset id="data-cleanup-fieldset" class="fieldset config-fieldset">\n    <legend id="data-cleanup-legend" class="legend config-legend">Data Cleanup</legend>\n    <div id="data-cleanup-description">\n        <p class="text">Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>\n        <p class="text">Set how many days deleted item should perisist using the slider below.</p>\n    </div>\n    <form-field label="Days" id="data-cleanup-range" class="field config-field data-field">\n        <input type="range" id="data-persist-days" class="input range" max="30" list="data-persist-days-values" />\n        <datalist id="data-persist-days-values"></datalist>\n        <span slot="postfix" id="data-persist-days-value"></span>\n        <button slot="postfix" id="apply-data-persist-days-button" class="button">\n            <svg id="apply-data-persist-days-icon" class="icon">\n                <use href="#icon-definition_confirm-check"></use>\n            </svg>\n            <span id="apply-data-persist-days-label">Apply</span>\n        </button>\n    </form-field>\n</fieldset>\n<fieldset id="data-pending-fieldset" class="fieldset config-fieldset">\n    <legend id="data-pending-legend" class="legend config-legend">Pending Cleanup</legend>\n    <div id="data-pending-description">\n        <p class="text">The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>\n    </div>\n    <editable-list id="deleted-items" class="cache-list" remove-class="restore-button button" exportparts="remove:restore-item-button">\n        <template part="remove-button">\n            <svg class="icon restore-icon restore-item-icon" class="icon" title="Restore">\n                <use href="#icon-definition_restore"></use>\n            </svg>\n        </template>\n    </editable-list>\n    <button id="clear-deleted-button" class="button">\n        <svg id="clear-deleted-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-deleted-label">Clear Pending Items</span>\n    </button>\n</fieldset>\n<fieldset id="image-cache-fieldset" class="fieldset config-fieldset">\n    <legend id="image-cache-legend" class="legend config-legend">Image Cache</legend>\n    <div id="image-cache-description">\n        <p class="text">Caching some image files provides undo and redo support.</p>\n        <p class="text">The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>\n    </div>\n    <editable-list id="deleted-images" remove-class="button" class="cache-list" exportparts="button, remove:delete-cached-image-button">\n        <template part="remove-button">\n            <svg class="icon delete-image-icon trash-icon" title="Clear">\n                <use href="#icon-definition_trash"></use>\n            </svg>\n        </template>\n    </editable-list>\n    <button id="clear-image-cache-button" class="button">\n        <svg id="clear-images-icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-images-label">Clear Image Cache</span>\n    </button>\n</fieldset>\n<fieldset id="data-clear-fieldset" class="fieldset config-fieldset">\n    <legend id="data-clear-legend" class="legend config-legend">Clear Data</legend>\n    <div id="data-clear-description">\n        <p class="text">Delete all data, including app settings and history.</p>\n    </div>\n    <button id="clear-data-button" class="button">\n        <svg id="clear-data-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-data-label">Clear All Data</span>\n    </button>\n</fieldset>';
+
+// data/history/history-entry-data.ts
+var HistoryEntryData = class {
+  targetType;
+  properties;
+  constructor(targetType, properties) {
+    this.targetType = targetType;
+    this.properties = properties;
+  }
+};
 
 // resources/utils.ts
 function snapToStep(target, steps) {
@@ -4144,7 +4129,8 @@ ${defineIcons(
   "File" /* File */,
   "Import" /* Import */,
   "Trash" /* Trash */,
-  "ConfirmCheck" /* ConfirmCheck */
+  "ConfirmCheck" /* ConfirmCheck */,
+  "Restore" /* Restore */
 )}`;
 var COMPONENT_TAG_NAME6 = "data-panel";
 var DataPanelElement = class extends HTMLElement {
@@ -4161,28 +4147,36 @@ var DataPanelElement = class extends HTMLElement {
   findElement(id) {
     return this.shadowRoot.getElementById(id);
   }
+  //#region Housekeeping
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = COMPONENT_TEMPLATE3;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET5);
     this.#applyPartAttributes();
-    this.findElement("import-button").addEventListener("click", this.#importButton_onClick.bind(this));
+    this.addEventListener("click", this.#onClick.bind(this));
     this.findElement("data-persist-days").addEventListener("change", this.#daysToPersist_onChange.bind(this));
-    this.findElement("apply-data-persist-days-button").addEventListener("click", this.#applyDaysToPersist_onClick.bind(this));
-    this.findElement("clear-data-button").addEventListener("click", this.#clearData_onClick.bind(this));
     this.findElement("deleted-items").addEventListener("remove", this.#deletedItems_onRemove.bind(this));
-    this.findElement("clear-deleted-button").addEventListener("click", this.#clearDeleted_onClick.bind(this));
     this.findElement("deleted-images").addEventListener("remove", this.#deletedImages_onRemove.bind(this));
-    this.findElement("clear-image-cache-button").addEventListener("click", this.#clearImageCache_onClick.bind(this));
   }
-  async init(_options) {
+  //#endregion Housekeeping
+  //#region API
+  #openImportManager;
+  #openBoard;
+  #refreshActionHistory;
+  #refreshBoards;
+  #addActionHistoryEntry;
+  async init(options) {
+    this.#openImportManager = options.openImportManager;
+    this.#openBoard = options.openBoard;
+    this.#refreshActionHistory = options.refreshActionHistory;
+    this.#refreshBoards = options.refreshBoards;
+    this.#addActionHistoryEntry = options.addActionHistoryEntry;
     const daysToPersistData = await DataService.getAppSetting("daysToPersistData" /* DaysToPersistData */) ?? DEFAULT_PERSIST_DAYS;
-    this.prepareDaysToPersistOptions(daysToPersistData);
+    this.#prepareDaysToPersistOptions(daysToPersistData);
     this.refreshCache();
   }
   async refreshCache() {
-    console.log("refresh");
     const deletedItems = [];
     const [deletedBoards, deletedLists, deletedTasks, deletedImages] = await DataService.getDeletedItems();
     for (let i = 0; i < deletedBoards.length; i++) {
@@ -4209,62 +4203,37 @@ var DataPanelElement = class extends HTMLElement {
       deletedImageElements.push(element);
     }
     const deletedImagesElement = this.findElement("deleted-images");
-    deletedImagesElement.innerHTML = "";
+    [...deletedImagesElement.children].forEach((item) => {
+      if (!(item instanceof HTMLTemplateElement)) {
+        item.remove();
+      }
+    });
     deletedImagesElement.append(...deletedImageElements);
     const deletedItemsElement = this.findElement("deleted-items");
-    deletedItemsElement.innerHTML = "";
+    [...deletedItemsElement.children].forEach((item) => {
+      if (!(item instanceof HTMLTemplateElement)) {
+        item.remove();
+      }
+    });
     deletedItemsElement.append(...deletedItems);
   }
-  prepareDaysToPersistOptions(daysToPersist) {
+  async clearData() {
+    const confirmed = await FeedbackService.getConfirmation("Are you sure you want to delete all data associated with the app? This CAN NOT be undone.", "danger");
+    if (confirmed == false) {
+      return;
+    }
+    await DataService.clearAllData();
+    this.#refreshBoards();
+    this.#refreshActionHistory();
+    this.refreshCache();
+  }
+  //#endregion API
+  //#region Management
+  #prepareDaysToPersistOptions(daysToPersist) {
     const daysToPersistOptions = Array.from(DaysToPersistValues).map((value) => createOptionElement(value));
     this.findElement("data-persist-days-values").append(...daysToPersistOptions);
     this.findElement("data-persist-days").value = daysToPersist;
     this.findElement("data-persist-days-value").textContent = daysToPersist;
-  }
-  async #importButton_onClick(_event) {
-    const importFileInput = this.findElement("import-board-file");
-    const boardDataFile = importFileInput.files != null ? importFileInput.files[0] : null;
-    if (boardDataFile == null) {
-      const message = `An error occurred attempting to import board data. Confirm that the selected import file is a valid board export.`;
-      const consoleMessage = "Unable to import selected file.";
-      this.dispatchEvent(new CustomEvent("error", { detail: { message, consoleMessage }, bubbles: true, composed: true }));
-      return;
-    }
-    const boardDataText = await boardDataFile.text();
-    const boardData = JSON.parse(boardDataText);
-    this.dispatchEvent(new CustomEvent("import", { detail: { boardData }, bubbles: true, composed: true }));
-  }
-  #applyDaysToPersist_onClick(_event) {
-    this.dispatchEvent(new CustomEvent("daystopersist", { detail: { daysToPersist: this.findElement("data-persist-days").value }, bubbles: true, composed: true }));
-  }
-  #clearData_onClick(_event) {
-    this.dispatchEvent(new CustomEvent("cleardata", { bubbles: true, composed: true }));
-  }
-  async #clearDeleted_onClick(_event) {
-    const items = [...this.findElement("deleted-items").querySelectorAll('[data-record-id]:not([data-restore="false"])')];
-    this.dispatchEvent(new CustomEvent("cleardeleted", { detail: { items }, bubbles: true, composed: true }));
-  }
-  async #clearImageCache_onClick(_event) {
-    const items = [...this.findElement("deleted-images").querySelectorAll("[data-record-id]")];
-    this.dispatchEvent(new CustomEvent("clearimages", { detail: { items }, bubbles: true, composed: true }));
-  }
-  #daysToPersist_onChange(event) {
-    const dataPersistsDaysValues = DaysToPersistValues;
-    const input = event.target;
-    snapToStep(input, dataPersistsDaysValues);
-    this.findElement("data-persist-days-value").textContent = input.value;
-  }
-  #deletedItems_onRemove(event) {
-    const item = event.detail;
-    const recordType = item.dataset.recordType;
-    const recordId = item.dataset.recordId;
-    const timestamp = item.getAttribute("data-timestamp");
-    const targetType = recordType == "board" ? "board" /* Board */ : recordType == "list" ? "list" /* List */ : recordType == "task" ? "task" /* Task */ : null;
-    this.dispatchEvent(new CustomEvent("restoreitem", { detail: { targetType, recordId, timestamp }, bubbles: true, composed: true }));
-  }
-  #deletedImages_onRemove(event) {
-    const item = event.detail;
-    this.dispatchEvent(new CustomEvent("deleteimage", { detail: { item }, bubbles: true, composed: true }));
   }
   #createDeletedItem(data, recordType, canRestore, timestamp) {
     const item = document.createElement("div");
@@ -4298,39 +4267,174 @@ var DataPanelElement = class extends HTMLElement {
     }
     return item;
   }
-  // async #restoreDeletedItem(targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number)
-  // {
-  //     if(targetType == null)
-  //     {
-  //         console.error("Unable to restore record with unknown type or id");
-  //         return;
-  //     }
-  //     const channel = (targetType == 'board')
-  //     ? this.#data.boards 
-  //     : (targetType == 'list')
-  //     ? this.#data.lists
-  //     : (targetType == 'task')
-  //     ? this.#data.tasks
-  //     : null;
-  //     if(channel == null)
-  //     {
-  //         console.error("Unable to restore record. Error accessing data.");
-  //         return;
-  //     }
-  //     await channel.restore(recordId);
-  //     const updates: Map<string, PropertyUpdate> = new Map([ ['deletedTimestamp', { from: timestamp, to: undefined }] ]);
-  //     const properties = {
-  //         id: recordId,
-  //         updates
-  //     };
-  //     await this.#addActionHistoryEntry(HistoryEntryType.Update, targetType, properties);
-  //     if(targetType == HistoryEntryTargetType.Board)
-  //     {
-  //         this.openBoard(recordId);
-  //         this.#refreshBoards();
-  //     }
-  //     this.#refreshDeletedItems();
-  // }
+  async #deleteItem(item, refresh = true) {
+    const recordId = item.dataset.recordId;
+    if (recordId == null) {
+      throw new Error('Unable to manage entry with unset "data-record-id" attribute');
+    }
+    const recordType = item.dataset.recordType;
+    if (recordType == null) {
+      throw new Error('Unable to manage entry with unset "data-record-type" attribute');
+    }
+    const channel = recordType == "board" ? DataService.data.boards : recordType == "list" ? DataService.data.lists : recordType == "task" ? DataService.data.tasks : null;
+    if (channel == null) {
+      FeedbackService.showErrorMessageCard("An error occurred deleting a cache item.");
+      console.error(`Unable to delete entry with unknown record type.`);
+      return;
+    }
+    await channel.delete(recordId, true);
+    const historyEntries = await DataService.getHistoryEntries();
+    const toDelete = [];
+    for (let i = 0; i < historyEntries.length; i++) {
+      const entry = historyEntries[i];
+      const entryId = entry.data.properties.id;
+      if (entryId == recordId) {
+        toDelete.push(entry.id);
+      }
+    }
+    await DataService.deleteHistoryEntries(...toDelete);
+    if (refresh == true) {
+      this.#refreshActionHistory();
+    }
+  }
+  async #deleteImage(item, refresh = true) {
+    const recordId = item.dataset.recordId;
+    if (recordId == null) {
+      throw new Error('Unable to manage image entry with unset "data-record-id" attribute');
+    }
+    await DataService.deleteImage(recordId, true);
+    const historyEntries = await DataService.getHistoryEntries();
+    const updatedEntries = [];
+    for (let i = 0; i < historyEntries.length; i++) {
+      const entry = historyEntries[i];
+      const imageUpdates = entry.data.properties.backgroundImages;
+      if (imageUpdates == null) {
+        continue;
+      }
+      const toKeep = [];
+      for (let j = 0; j < imageUpdates.length; j++) {
+        if (imageUpdates[j].id != recordId) {
+          toKeep.push(imageUpdates[i]);
+        }
+      }
+      entry.data.properties.backgroundImages = toKeep;
+      updatedEntries.push(entry);
+    }
+    await DataService.saveHistoryEntries(...updatedEntries);
+    if (refresh == true) {
+      this.#refreshActionHistory();
+    }
+  }
+  async #restoreDeletedItem(targetType, recordId, timestamp) {
+    if (targetType == null) {
+      console.error("Unable to restore record with unknown type or id");
+      return;
+    }
+    const channel = targetType == "board" ? DataService.data.boards : targetType == "list" ? DataService.data.lists : targetType == "task" ? DataService.data.tasks : null;
+    if (channel == null) {
+      console.error("Unable to restore record. Error accessing data.");
+      return;
+    }
+    await channel.restore(recordId);
+    const updates = /* @__PURE__ */ new Map([["deletedTimestamp", { from: timestamp, to: void 0 }]]);
+    const properties = {
+      id: recordId,
+      updates
+    };
+    await this.#addActionHistoryEntry(HistoryEntryType.Update, targetType, properties);
+    if (targetType == "board" /* Board */) {
+      this.#openBoard(recordId);
+      this.#refreshBoards();
+    }
+    this.refreshCache();
+  }
+  //#endregion Management
+  //#region Handlers
+  #onClick(event) {
+    const composedPath = event.composedPath().filter((item) => item instanceof HTMLElement);
+    const importButton = composedPath.find((item) => item.id == "import-button");
+    if (importButton != null) {
+      this.#importButton_onClick();
+      return;
+    }
+    const applyDaysToPersistButton = composedPath.find((item) => item.id == "apply-data-persist-days-button");
+    if (applyDaysToPersistButton != null) {
+      this.#applyDaysToPersist_onClick();
+      return;
+    }
+    const clearDataButton = composedPath.find((item) => item.id == "clear-data-button");
+    if (clearDataButton != null) {
+      this.#clearData_onClick();
+      return;
+    }
+    const clearDeletedButton = composedPath.find((item) => item.id == "clear-deleted-button");
+    if (clearDeletedButton != null) {
+      this.#clearDeleted_onClick();
+      return;
+    }
+    const clearImagesButton = composedPath.find((item) => item.id == "clear-image-cache-button");
+    if (clearImagesButton != null) {
+      this.#clearImageCache_onClick();
+      return;
+    }
+  }
+  async #importButton_onClick() {
+    const importFileInput = this.findElement("import-board-file");
+    const boardDataFile = importFileInput.files != null ? importFileInput.files[0] : null;
+    if (boardDataFile == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred attempting to import board data. Confirm that the selected import file is a valid board export.`);
+      console.error("Unable to import selected file.");
+      return;
+    }
+    const boardDataText = await boardDataFile.text();
+    const boardData = JSON.parse(boardDataText);
+    this.#openImportManager(boardData);
+  }
+  #applyDaysToPersist_onClick() {
+    const daysToPersist = this.findElement("data-persist-days").value;
+    DataService.saveAppSetting("daysToPersistData" /* DaysToPersistData */, daysToPersist);
+  }
+  #clearData_onClick() {
+    this.clearData();
+  }
+  async #clearDeleted_onClick() {
+    const items = [...this.findElement("deleted-items").querySelectorAll('[data-record-id]:not([data-restore="false"])')];
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      await this.#deleteItem(item, false);
+    }
+    this.refreshCache();
+    this.#refreshActionHistory();
+  }
+  async #clearImageCache_onClick() {
+    const items = [...this.findElement("deleted-images").querySelectorAll("[data-record-id]")];
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      await this.#deleteImage(item, false);
+    }
+    this.refreshCache();
+    this.#refreshActionHistory();
+  }
+  #daysToPersist_onChange(event) {
+    const dataPersistsDaysValues = DaysToPersistValues;
+    const input = event.target;
+    snapToStep(input, dataPersistsDaysValues);
+    this.findElement("data-persist-days-value").textContent = input.value;
+  }
+  #deletedItems_onRemove(event) {
+    const item = event.detail;
+    const recordType = item.dataset.recordType;
+    const recordId = item.dataset.recordId;
+    const timestamp = item.getAttribute("data-timestamp");
+    const targetType = recordType == "board" ? "board" /* Board */ : recordType == "list" ? "list" /* List */ : recordType == "task" ? "task" /* Task */ : null;
+    this.#restoreDeletedItem(targetType, recordId, timestamp);
+  }
+  #deletedImages_onRemove(event) {
+    const item = event.detail;
+    return this.#deleteImage(item);
+  }
+  //#endregion Handlers
+  //#region Internal
   #applyPartAttributes() {
     const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
     for (let i = 0; i < identifiedElements.length; i++) {
@@ -4355,6 +4459,7 @@ var DataPanelElement = class extends HTMLElement {
       postfix.part.add("container", "field-postfix", `${inputId}-postfix`);
     }
   }
+  //#endregion Internal
 };
 if (customElements.get(COMPONENT_TAG_NAME6) == null) {
   customElements.define(COMPONENT_TAG_NAME6, DataPanelElement);
@@ -4469,6 +4574,128 @@ var DataService = class _DataService {
     const channel = this.#getChannel(this.#data.historyEntries, "HISTORY" /* HISTORY */);
     return channel.getAll("timestamp");
   }
+  static getHistoryEntry(id) {
+    const channel = this.#getChannel(this.#data.historyEntries, "HISTORY" /* HISTORY */);
+    return channel.get(id);
+  }
+  static createHistoryEntry(data, action) {
+    const channel = this.#getChannel(this.#data.historyEntries, "HISTORY" /* HISTORY */);
+    return channel.create(data, action);
+  }
+  static saveHistoryEntry(entry) {
+    const channel = this.#getChannel(this.#data.historyEntries, "HISTORY" /* HISTORY */);
+    return channel.save(entry);
+  }
+  static saveHistoryEntries(...entries) {
+    const channel = this.#getChannel(this.#data.historyEntries, "HISTORY" /* HISTORY */);
+    return channel.saveItems(entries);
+  }
+  static deleteHistoryEntriesIfExists(ids) {
+    const channel = this.#getChannel(this.#data.historyEntries, "HISTORY" /* HISTORY */);
+    return channel.deleteIfExists(ids);
+  }
+  static deleteHistoryEntries(...ids) {
+    const channel = this.#getChannel(this.#data.historyEntries, "HISTORY" /* HISTORY */);
+    return channel.deleteItems(ids);
+  }
+  static async reverseUpdate(channel, currentEntry, target) {
+    if (currentEntry.data.properties.updates != null) {
+      let isRestorationUpdate = false;
+      for (const [key, value] of currentEntry.data.properties.updates) {
+        if (key == "deletedTimestamp") {
+          isRestorationUpdate = true;
+          continue;
+        }
+        target[key] = value.from;
+      }
+      await channel.save(target);
+      if (isRestorationUpdate == true) {
+        await channel.delete(currentEntry.data.properties.id);
+      }
+    }
+    if (currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null) {
+      const taskSettingsChannel = _DataService.#getChannel(_DataService.data.taskSettings, "SETTINGS" /* SETTINGS */);
+      const settingsTarget = await taskSettingsChannel.get(currentEntry.data.properties.taskSettings.id);
+      if (settingsTarget == null) {
+        throw new Error("Unable to find target record.");
+      }
+      for (const [key, value] of currentEntry.data.properties.taskSettings.updates) {
+        settingsTarget[key] = value.from;
+      }
+      await taskSettingsChannel.save(settingsTarget);
+    }
+    if (currentEntry.data.properties.backgroundImages != null) {
+      const imagesChannel = _DataService.#getChannel(_DataService.data.customImages, "IMAGE" /* IMAGE */);
+      const updatedImages = [];
+      const deletedImageIds = [];
+      for (let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++) {
+        const data = currentEntry.data.properties.backgroundImages[i];
+        const imageTarget = await imagesChannel.get(data.id);
+        if (imageTarget == null) {
+          throw new Error("Unable to find target record.");
+        }
+        for (const [key, value] of currentEntry.data.properties.backgroundImages[i].updates) {
+          if (key == "boardId" && value.from == "") {
+            deletedImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
+            continue;
+          }
+          imageTarget[key] = value.from;
+        }
+        updatedImages.push(imageTarget);
+      }
+      await imagesChannel.saveItems(updatedImages);
+      await imagesChannel.deleteItems(deletedImageIds);
+    }
+  }
+  static async activateUpdate(channel, currentEntry, target) {
+    if (currentEntry.data.properties.updates != null) {
+      let isRestorationUpdate = false;
+      for (const [key, value] of currentEntry.data.properties.updates) {
+        if (key == "deletedTimestamp") {
+          isRestorationUpdate = true;
+          continue;
+        }
+        target[key] = value.to;
+      }
+      await channel.save(target);
+      if (isRestorationUpdate == true) {
+        await channel.restore(currentEntry.data.properties.id);
+      }
+    }
+    if (currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null) {
+      const taskSettingsChannel = _DataService.#getChannel(_DataService.data.taskSettings, "SETTINGS" /* SETTINGS */);
+      const settingsTarget = await taskSettingsChannel.get(currentEntry.data.properties.taskSettings.id);
+      if (settingsTarget == null) {
+        throw new Error("Unable to find target record.");
+      }
+      for (const [key, value] of currentEntry.data.properties.taskSettings.updates) {
+        settingsTarget[key] = value.to;
+      }
+      await taskSettingsChannel.save(settingsTarget);
+    }
+    if (currentEntry.data.properties.backgroundImages != null) {
+      const imagesChannel = _DataService.#getChannel(_DataService.data.customImages, "IMAGE" /* IMAGE */);
+      const updatedImages = [];
+      const restoredImageIds = [];
+      for (let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++) {
+        const data = currentEntry.data.properties.backgroundImages[i];
+        const imageTarget = await imagesChannel.get(data.id);
+        if (imageTarget == null) {
+          throw new Error("Unable to find target record.");
+        }
+        for (const [key, value] of currentEntry.data.properties.backgroundImages[i].updates) {
+          if (key == "boardId" && value.from == "") {
+            restoredImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
+            continue;
+          }
+          imageTarget[key] = value.to;
+        }
+        updatedImages.push(imageTarget);
+      }
+      await imagesChannel.saveItems(updatedImages);
+      await imagesChannel.restoreItems(restoredImageIds);
+    }
+  }
   //#endregion History
   //#region Cache
   static async getDeletedItems() {
@@ -4485,6 +4712,14 @@ var DataService = class _DataService {
     const deletedTasks = tasks.filter((item) => item.deletedTimestamp != null);
     const deletedImages = images.filter((item) => item.deletedTimestamp != null);
     return [deletedBoards, deletedLists, deletedTasks, deletedImages];
+  }
+  static deleteImage(id, overrideSoftDelete = false) {
+    const channel = this.#getChannel(this.#data.customImages, "IMAGE" /* IMAGE */);
+    return channel.delete(id, overrideSoftDelete);
+  }
+  static deleteImages(...ids) {
+    const channel = this.#getChannel(this.#data.customImages, "IMAGE" /* IMAGE */);
+    return channel.deleteItems(ids);
   }
   //#endregion Cache
   //#region Import/Export
@@ -4513,6 +4748,11 @@ var DataService = class _DataService {
     }
   }
   //#endregion Import/Export
+  //#region Management
+  static clearAllData() {
+    return this.#data.clearAllData();
+  }
+  //#endregion Management
   //#region Utilities
   static async removeExpiredData() {
     const boardChannel = _DataService.#getChannel(_DataService.#data.boards, "BOARD" /* BOARD */);
@@ -4906,10 +5146,10 @@ if (customElements.get(COMPONENT_TAG_NAME8) == null) {
 }
 
 // components/board-browser/board-browser.css?raw
-var board_browser_default = ":host { display: contents; }\n\n#board-browser-header\n{\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    gap: 7px;\n    align-items: center;\n    font-weight: bold;\n    padding-block: 5px;\n}\n#board-browser-icon\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n}\n\ncollection-browser\n{\n    margin: 1em;\n    overflow: hidden;\n}\n\ncollection-browser::part(navigation)\n,collection-browser::part(gallery-header)\n{\n    display: none;\n}\n\ncollection-browser::part(items)\n{\n    display: flex;\n    gap: .5em;\n    flex-wrap: wrap;\n    padding: 7px;\n    overflow: hidden auto;\n}\n\ncollection-browser::part(add-button)\n{\n    display: none !important;\n}\n\n#board-browser-actions\n{\n    display: flex;\n    align-items: center;\n    justify-content: flex-end;\n    gap: 14px;\n}\n\n#board-browser-actions button\n{\n    width: 70px;\n    justify-content: center;\n}\n\n@media (max-width: 665px) \n{\n    #filter::part(input)\n    {\n        width: 157px;\n    }\n}";
+var board_browser_default = ":host { display: contents; }\n\n#board-browser-header\n{\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    gap: 7px;\n    align-items: center;\n    padding: 7px 0;\n}\n\n#board-browser-title\n{\n    font-weight: bold;\n}\n\n.header-icon\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n}\n\ncollection-browser\n{\n    overflow: hidden;\n}\n\ncollection-browser::part(navigation)\n,collection-browser::part(gallery-header)\n{\n    display: none;\n}\n\ncollection-browser::part(items)\n{\n    display: flex;\n    gap: .5em;\n    flex-wrap: wrap;\n    padding: 7px 0;\n    overflow: hidden auto;\n}\n\ncollection-browser::part(add-button)\n{\n    display: none !important;\n}\n\n#board-browser-actions\n{\n    display: flex;\n    align-items: center;\n    justify-content: flex-end;\n    gap: 14px;\n    padding: 7px 0;\n}\n\n#board-browser-actions button\n{\n    width: 70px;\n    justify-content: center;\n}\n\n@media (max-width: 665px) \n{\n    #filter::part(input)\n    {\n        width: 157px;\n    }\n}";
 
 // components/board-browser/board-browser.html?raw
-var board_browser_default2 = '<header id="board-browser-header" class="header dialog-header">\n    <svg id="board-browser-icon" class="icon board-icon">\n        <use href="#icon-definition_task-board"></use>\n    </svg>\n    <span id="board-browser-title" class="title">Boards</span>\n    <collection-filter \n        id="filter"\n        exportparts="search:filter-search,\n                     form:filter-form,\n                     query:filter-query,\n                     input,\n                     filter-input,\n                     button,\n                     field-button,\n                     regex-button:filter-regex-button,\n                     search-button:filter-search-button,\n                     icon,\n                     regex-icon:filter-regex-icon,\n                     search-icon:filter-search-icon">\n    </collection-filter>\n</header>\n<collection-browser\n    id="collection-browser"\n    exportparts="gallery,\n                 gallery-header,\n                 header,\n                 items,\n                 add-button,\n                 button,\n                 icon,\n                 add-button-icon,\n                 add-button-label">\n    <slot></slot>\n</collection-browser>\n<footer id="board-browser-footer" class="footer dialog-footer">\n    <form id="board-browser-actions" class="actions form" method="dialog">\n        <button type="submit" id="board-browser-cancel" class="button action-button cancel">Cancel</button>\n        <button type="submit" id="board-browser-ok" class="button action-button ok preferred-button">Open</button>\n    </form>\n</footer>\n\n<!-- <header part="board-browser-header">\n    <svg part="board-browser-icon" >\n        <use href="#icon-definition_task-board"></use>\n    </svg>\n    <span part="board-browser-title">Boards</span>\n    <collection-filter part="board-browser-filter" id="board-browser-filter"></collection-filter>\n</header>\n<collection-browser part="board-browser" id="board-browser"></collection-browser>\n<footer part="board-browser-footer">\n    <form part="board-browser-actions" method="dialog">\n        <button type="submit" part="board-browser-cancel" id="board-browser-cancel">Cancel</button>\n        <button type="submit" part="board-browser-ok" id="board-browser-ok">Open</button>\n    </form>\n</footer> -->';
+var board_browser_default2 = '<header id="board-browser-header" class="header dialog-header">\n    <svg id="board-browser-icon" class="icon board-icon header-icon">\n        <use href="#icon-definition_task-board"></use>\n    </svg>\n    <span id="board-browser-title" class="title">Boards</span>\n    <collection-filter \n        id="filter"\n        exportparts="search:filter-search,\n                     form:filter-form,\n                     query:filter-query,\n                     input,\n                     filter-input,\n                     button,\n                     field-button,\n                     regex-button:filter-regex-button,\n                     search-button:filter-search-button,\n                     icon,\n                     regex-icon:filter-regex-icon,\n                     search-icon:filter-search-icon">\n    </collection-filter>\n</header>\n<collection-browser\n    id="collection-browser"\n    exportparts="gallery,\n                 gallery-header,\n                 header,\n                 items,\n                 add-button,\n                 button,\n                 icon,\n                 add-button-icon,\n                 add-button-label">\n    <slot></slot>\n</collection-browser>\n<footer id="board-browser-footer" class="footer dialog-footer">\n    <form id="board-browser-actions" class="actions form" method="dialog">\n        <button type="submit" id="board-browser-cancel" class="button action-button cancel">Cancel</button>\n        <button type="submit" id="board-browser-ok" class="button action-button ok preferred-button">Open</button>\n    </form>\n</footer>\n\n<!-- <header part="board-browser-header">\n    <svg part="board-browser-icon" >\n        <use href="#icon-definition_task-board"></use>\n    </svg>\n    <span part="board-browser-title">Boards</span>\n    <collection-filter part="board-browser-filter" id="board-browser-filter"></collection-filter>\n</header>\n<collection-browser part="board-browser" id="board-browser"></collection-browser>\n<footer part="board-browser-footer">\n    <form part="board-browser-actions" method="dialog">\n        <button type="submit" part="board-browser-cancel" id="board-browser-cancel">Cancel</button>\n        <button type="submit" part="board-browser-ok" id="board-browser-ok">Open</button>\n    </form>\n</footer> -->';
 
 // node_modules/.pnpm/@magnit-ce+captioned-thumbnail@0.0.5/node_modules/@magnit-ce/captioned-thumbnail/dist/captioned-thumbnail.js
 var captioned_thumbnail_default = '\n\n:host\n{\n    display: inline-flex;\n    width: 80px;\n    height: 80px;\n    color-scheme: light dark;\n}\n\n:host(:focus) figure\n{\n    border-color: rgb(205 205 205);\n}\n@media (prefers-color-scheme: dark) \n{\n    :host(:focus) figure\n    {\n        border-color: rgb(81 81 81);\n    }\n}\n\nfigure\n{\n    flex: 1;\n    display: grid;\n    grid-template-rows: 1fr auto;\n    margin: 0;\n    padding: 0;\n    border: solid 1px transparent;\n}\n:host(.selected) figure\n{\n    border-color: inherit;\n}\n\n#selected\n,::slotted([slot="selected"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: flex-start;\n    align-self: flex-start;\n    z-index: 2;\n\n    opacity: 0;\n    transition: opacity 200ms ease;\n}\n\n:host(:not([select],[selectable])) #selected\n,:host(:not([select],[selectable])) ::slotted([slot="selected"])\n{\n    display: none;\n    pointer-events: none;\n}\n\n#edit-button\n,::slotted([slot="edit-button"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: flex-end;\n    align-self: flex-start;\n    z-index: 2;\n\n    opacity: 0;\n    transition: opacity 200ms ease;\n}\n\n:host(:not([edit],[editable])) #edit-button\n,:host(:not([edit],[editable])) ::slotted([slot="edit-button"])\n{\n    display: none;\n    pointer-events: none;\n}\n\n.icon\n,::slotted([slot="icon"])\n{\n    grid-column: 1;\n    grid-row: 1;\n\n    justify-self: center;\n    align-self: center;\n\n    width: var(--icon-width, var(--icon-size));\n    margin: .25em;\n}\n#image-icon\n,::slotted(img[slot="icon"])\n{\n    display: block;\n    max-width: 100%;\n    min-width: 0;\n    max-height: 100%;\n    min-height: 0;\n}\n#text-icon\n{\n    font-size: 36px;\n    line-height: 1;\n    margin: 0;\n    padding: 0;\n    box-sizing: border-box;\n}\n\n:host(:not([src])) #image-icon\n,:host([src]) #text-icon\n{\n    display: none;\n}\n\n#caption\n,::slotted([slot="caption"])\n{\n    text-align: center;\n    text-overflow: ellipsis;\n    overflow: hidden;\n}\n\n:host(:not([select],[selectable]):hover)  #edit-button\n,:host(:not([select],[selectable]):hover) ::slotted([slot="edit-button"])\n,:host(:focus)  #edit-button\n,:host(:focus) ::slotted([slot="edit-button"])\n,figure:has(:checked) #edit-button\n,figure:has(:checked) ::slotted([slot="edit-button"])\n,figure:has(:focus) #edit-button\n,figure:has(:focus) ::slotted([slot="edit-button"])\n,figure:has(:focus-within) #edit-button\n,figure:has(:focus-within) ::slotted([slot="edit-button"])\n{ \n    opacity: 1;\n}\n\n\n:host(:hover) #selected\n,figure:has(:checked) #selected\n,figure:focus #selected\n,figure:focus-within #selected\n{ \n    opacity: 1;\n}';
@@ -5226,7 +5466,7 @@ var board_settings_default = `:host { display: contents; }
     gap: 7px;
     align-items: center;
     font-weight: bold;
-    padding-block: 5px;
+    padding: 7px 0;
 }
 #board-settings-icon
 {
@@ -5529,6 +5769,15 @@ button .icon
 #icon-definitions
 {
     display: none;
+}
+
+#board-settings-footer
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    padding: 7px 0;
 }
 
 
@@ -5879,10 +6128,10 @@ if (customElements.get(COMPONENT_TAG_NAME11) == null) {
 }
 
 // components/config-panel/config-panel.css?raw
-var config_panel_default = ':host\n{\n    display: grid;\n    grid-template-rows: auto auto 1fr auto;\n    overflow: hidden;\n}\n\n.icon\n{\n    width: var(--tab-icon-size);\n    height: var(--tab-icon-size);\n}\n\n#config-header\n{\n    margin-bottom: 20px;\n}\n\n#config-icon\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n}\n\n#config-navigation\n{\n    margin: 0;\n    padding: 0;\n    display: flex;\n    align-items: center;\n    background-color: field;\n    color: fieldtext;\n    border: solid 1px graytext;\n    border-radius: 2px;\n    margin-bottom: 20px;\n    user-select: none;\n}\n\n.nav-item\n{\n    --tab-icon-size: 14px;\n    padding: 7px 12px;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n}\n\n@media (max-width: 665px) \n{\n    #navigation\n    {\n        display: grid;\n        grid-template-columns: 1fr 1fr;\n        grid-template-rows: 1fr 1fr;\n    }\n\n    .nav-item\n    {\n        justify-content: center;\n    }\n}\n\n.nav-item[aria-current="page"]\n,.nav-item:hover\n{\n    background-color: highlight;\n    color: highlighttext;\n}\n\n#config-router\n{\n    overflow: hidden;\n}\n.page\n{\n    overflow-y: auto;\n    display: grid;\n}\n\n\n#config-actions\n{\n    display: grid;\n    grid-template-columns: 1fr auto auto;\n    gap: 14px;\n    padding-block-start: 10px;\n}\n\n.button\n{\n    width: 75px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n#config-cancel\n{\n    grid-column: 2;\n}\n#config-ok\n{\n    grid-column: 3;\n}';
+var config_panel_default = ':host\n{\n    display: grid;\n    grid-template-rows: auto auto 1fr auto;\n    overflow: hidden;\n}\n\n.icon\n{\n    width: var(--tab-icon-size);\n    height: var(--tab-icon-size);\n}\n\n#config-header\n{\n    display: flex;\n    align-items: center;\n    gap: 7px;\n    padding: 7px 0;\n    font-weight: bold;\n}\n\n#config-title\n{\n    font-weight: bold;\n}\n\n.header-icon\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n}\n\n#config-navigation\n{\n    margin: 0;\n    margin-bottom: 14px;\n    padding: 0;\n    display: flex;\n    align-items: center;\n    background-color: field;\n    color: fieldtext;\n    border: solid 1px graytext;\n    border-radius: 2px;\n    user-select: none;\n}\n\n.nav-item\n{\n    --tab-icon-size: 14px;\n    padding: 7px 12px;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n}\n\n@media (max-width: 665px) \n{\n    #navigation\n    {\n        display: grid;\n        grid-template-columns: 1fr 1fr;\n        grid-template-rows: 1fr 1fr;\n    }\n\n    .nav-item\n    {\n        justify-content: center;\n    }\n}\n\n.nav-item[aria-current="page"]\n,.nav-item:hover\n{\n    background-color: highlight;\n    color: highlighttext;\n}\n\n#config-router\n{\n    overflow: hidden;\n}\n.page\n{\n    overflow-y: auto;\n    display: grid;\n}\n\n\n#config-actions\n{\n    display: grid;\n    grid-template-columns: 1fr auto auto;\n    gap: 14px;\n    padding: 7px 0;\n}\n\n.button\n{\n    width: 75px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n#config-cancel\n{\n    grid-column: 2;\n}\n#config-ok\n{\n    grid-column: 3;\n}';
 
 // components/config-panel/config-panel.html?raw
-var config_panel_default2 = '<header id="config-header" class="header dialog-header">\n    <svg id="config-icon" class="icon">\n        <use href="#icon-definition_gear"></use>\n    </svg>\n    <span id="config-title" class="title">Configuration</span>\n</header>\n<menu id="config-navigation" class="navigation">\n    <a data-route="#config/settings" id="settings-nav-item" class="nav-item first">\n        <svg id="settings-route-icon" class="icon nav-item-icon">\n            <use href="#icon-definition_gear"></use>\n        </svg>\n        <span class="nav-item-label">Settings</span>\n    </a>\n    <a data-route="#config/data" id="data-nav-item"  class="nav-item">\n        <svg id="data-route-icon" class="icon nav-item-icon">\n            <use href="#icon-definition_data"></use>\n        </svg>\n        <span class="nav-item-label">Data</span>\n    </a>\n    <a data-route="#config/history" id="history-nav-item"  class="nav-item">\n        <svg id="history-route-icon" class="icon nav-item-icon">\n            <use href="#icon-definition_clock"></use>\n        </svg>\n        <span class="nav-item-label">History</span>\n    </a>\n    <a data-route="#config/about" id="about-nav-item"  class="nav-item last">\n        <svg id="about-route-icon" class="icon nav-item-icon">\n            <use href="#icon-definition_info"></use>\n        </svg>\n        <span class="nav-item-label">About</span>\n    </a>\n</menu>\n<path-router id="config-router" class="router" path="settings">\n    <route-page path="settings" id="settings-page" class="page config-page">\n        <settings-panel\n            id="settings-panel"\n            exportparts="settings-header,\n                         header,\n                         page-header,\n                         fieldset,\n                         config-fieldset,\n                         legend,\n                         config-legend,\n                         color-scheme-fieldset,\n                         color-scheme-legend,\n                         scheme-options,\n                         button-group,\n                         button,\n                         scheme,\n                         selected,\n                         first,\n                         last,\n                         inherit-button,\n                         browser-button,\n                         light-button,\n                         dark-button,\n                         custom-settings-fieldset,\n                         custom-settings-legend,\n                         shortcuts-fieldset,\n                         shortcuts-legend,\n                         shortcuts,\n                         shortcut,\n                         word,\n                         line,\n                         hightlight,\n                         task,\n                         list,\n                         key,\n                         shortcut-title,\n                         shortcut-description,\n                         previous-word,\n                         next-word,\n                         previous-line,\n                         next-line,\n                         highlight-previous-word,\n                         highlight-next-word,\n                         previous-line,\n                         next-line,\n                         previous-task,\n                         next-task,\n                         previous-list,\n                         next-list\n                         ">\n            <slot name="custom-settings" slot="custom-settings"></slot>\n        </settings-panel>\n    </route-page>\n    <route-page path="data" id="data-page" class="page config-page">\n        <data-panel\n            id="data-panel"\n            exportparts="data-header,\n                         header,\n                         page-header,\n                         fieldset,\n                         config-fieldset,\n                         config-legend,\n                         legend,\n                         import-fieldset,\n                         import-legend,\n                         import-field,\n                         field-container,\n                         field-label,\n                         field-prefix,\n                         field-postfix,\n                         import-board-file,\n                         import-field-container,\n                         import-field-label,\n                         import-field-prefix,\n                         import-field-postfix,\n                         import-board-file,\n                         field,\n                         input,\n                         config-field,\n                         data-field,\n                         icon,\n                         import-file-icon,\n                         button,\n                         import-button,\n                         import-button-icon,\n                         import-button-label,\n                         config-data-caches,\n                         data-cleanup-fieldset,\n                         data-cleanup-legend,\n                         data-cleanup-description,\n                         text,\n                         data-cleanup-range,\n                         data-persist-days,\n                         data-persist-days-values,\n                         data-persist-days-value,\n                         apply-data-persist-days-button,\n                         apply-data-persist-days-icon,\n                         apply-data-persist-days-label,\n                         data-pending-fieldset,\n                         data-pending-legend,\n                         data-pending-description,\n                         deleted-items,\n                         restore-item-icon,\n                         clear-deleted-button,\n                         clear-deleted-icon,\n                         clear-deleted-label,\n                         image-cache-fieldset,\n                         image-cache-legend,\n                         image-cache-description,\n                         deleted-images,\n                         clear-image-cache-button,\n                         clear-images-icon,\n                         clear-images-label,\n                         data-clear-fieldset,\n                         data-clear-legend,\n                         data-clear-description,\n                         clear-data-button,\n                         clear-data-icon,\n                         clear-data-label,\n                         cache-list,\n                         range\n                        "\n            >\n            <slot name="deleted-images" slot="deleted-images"></slot>\n            <slot name="deleted-items" slot="deleted-items"></slot>\n        </data-panel>\n    </route-page>\n    <route-page path="history" id="history-page" class="page config-page">\n        <history-panel\n            id="history-panel"\n            exportparts="header,\n                         page-header,\n                         history-header,\n                         history-navigation-fieldset,\n                         fieldset,\n                         config-fieldset,\n                         legend,\n                         config-legend,\n                         history-navigation-legend,\n                         undo,\n                         button,\n                         restore-item-icon,\n                         icon,\n                         undo-label,\n                         redo,\n                         button,\n                         redo-label,\n                         clear-history-button,\n                         clear-history-icon,\n                         clear-history-label,\n                         action-history,\n                         action-history-entry,\n                         action-history-entry-type,\n                         action-history-entry-data,\n                         action-history-target-type,\n                         action-history-target-id,\n                         active,\n                         history-length-fieldset,\n                         history-length-legend,\n                         history-length-field,\n                         field,\n                         field-container,\n                         field-label,\n                         field-prefix,\n                         field-postfix,\n                         action-history-length,\n                         action-history-length-values,\n                         apply-history-length-button,\n                         apply-history-length-label\n                         " >\n            <slot name="action-history" slot="action-history"></slot>\n        </history-panel>\n    </route-page>\n    <route-page path="about" id="about-page" class="page config-page">\n        <about-panel\n            id="about-panel"\n            exportparts="header,\n                         page-header,\n                         about-header,\n                         about-app-fieldset,\n                         fieldset,\n                         config-fieldset,\n                         about-app-legend,\n                         legend,\n                         config-legend,\n                         text,\n                         emphasis,\n                         code,\n                         version-fieldset,\n                         version-legend,\n                         version-value,\n                         copyright-fieldset,\n                         copyright-legend,\n                         copyright-text,\n                         cc0-link,\n                         link,\n                         copyright-link,\n                         cc-icon,\n                         zero-icon,\n                         icon,\n                         raster\n            "\n            ></about-panel>\n    </route-page>\n</path-router>\n<footer id="config-footer" class="footer dialog-footer">\n    <form id="config-actions" class="actions" method="dialog">\n        <button type="submit" id="config-cancel" class="button action-button cancel">Cancel</button>\n        <button type="submit" id="config-ok" class="button action-button ok preferred-button">Ok</button>\n    </form>\n</footer>';
+var config_panel_default2 = '<header id="config-header" class="header dialog-header">\n    <svg id="config-icon" class="icon gear-icon header-icon">\n        <use href="#icon-definition_gear"></use>\n    </svg>\n    <span id="config-title" class="title">Configuration</span>\n</header>\n<menu id="config-navigation" class="navigation">\n    <a data-route="#config/settings" id="settings-nav-item" class="nav-item first">\n        <svg id="settings-route-icon" class="icon nav-item-icon">\n            <use href="#icon-definition_gear"></use>\n        </svg>\n        <span class="nav-item-label">Settings</span>\n    </a>\n    <a data-route="#config/data" id="data-nav-item"  class="nav-item">\n        <svg id="data-route-icon" class="icon nav-item-icon">\n            <use href="#icon-definition_data"></use>\n        </svg>\n        <span class="nav-item-label">Data</span>\n    </a>\n    <a data-route="#config/history" id="history-nav-item"  class="nav-item">\n        <svg id="history-route-icon" class="icon nav-item-icon">\n            <use href="#icon-definition_clock"></use>\n        </svg>\n        <span class="nav-item-label">History</span>\n    </a>\n    <a data-route="#config/about" id="about-nav-item"  class="nav-item last">\n        <svg id="about-route-icon" class="icon nav-item-icon">\n            <use href="#icon-definition_info"></use>\n        </svg>\n        <span class="nav-item-label">About</span>\n    </a>\n</menu>\n<path-router id="config-router" class="router" path="settings">\n    <route-page path="settings" id="settings-page" class="page config-page">\n        <settings-panel\n            id="settings-panel"\n            exportparts="settings-header,\n                         header,\n                         page-header,\n                         fieldset,\n                         config-fieldset,\n                         legend,\n                         config-legend,\n                         color-scheme-fieldset,\n                         color-scheme-legend,\n                         scheme-options,\n                         button-group,\n                         button,\n                         scheme,\n                         selected,\n                         first,\n                         last,\n                         inherit-button,\n                         browser-button,\n                         light-button,\n                         dark-button,\n                         custom-settings-fieldset,\n                         custom-settings-legend,\n                         shortcuts-fieldset,\n                         shortcuts-legend,\n                         shortcuts,\n                         shortcut,\n                         word,\n                         line,\n                         hightlight,\n                         task,\n                         list,\n                         key,\n                         shortcut-title,\n                         shortcut-description,\n                         previous-word,\n                         next-word,\n                         previous-line,\n                         next-line,\n                         highlight-previous-word,\n                         highlight-next-word,\n                         previous-line,\n                         next-line,\n                         previous-task,\n                         next-task,\n                         previous-list,\n                         next-list\n                         ">\n            <slot name="custom-settings" slot="custom-settings"></slot>\n        </settings-panel>\n    </route-page>\n    <route-page path="data" id="data-page" class="page config-page">\n        <data-panel\n            id="data-panel"\n            exportparts="data-header,\n                         header,\n                         page-header,\n                         fieldset,\n                         config-fieldset,\n                         config-legend,\n                         legend,\n                         import-fieldset,\n                         import-legend,\n                         import-field,\n                         field-container,\n                         field-label,\n                         field-prefix,\n                         field-postfix,\n                         import-board-file,\n                         import-field-container,\n                         import-field-label,\n                         import-field-prefix,\n                         import-field-postfix,\n                         import-board-file,\n                         field,\n                         input,\n                         config-field,\n                         data-field,\n                         icon,\n                         import-file-icon,\n                         button,\n                         import-button,\n                         import-button-icon,\n                         import-button-label,\n                         config-data-caches,\n                         data-cleanup-fieldset,\n                         data-cleanup-legend,\n                         data-cleanup-description,\n                         text,\n                         data-cleanup-range,\n                         data-persist-days,\n                         data-persist-days-values,\n                         data-persist-days-value,\n                         apply-data-persist-days-button,\n                         apply-data-persist-days-icon,\n                         apply-data-persist-days-label,\n                         data-pending-fieldset,\n                         data-pending-legend,\n                         data-pending-description,\n                         deleted-items,\n                         restore-item-icon,\n                         clear-deleted-button,\n                         clear-deleted-icon,\n                         clear-deleted-label,\n                         image-cache-fieldset,\n                         image-cache-legend,\n                         image-cache-description,\n                         deleted-images,\n                         clear-image-cache-button,\n                         clear-images-icon,\n                         clear-images-label,\n                         data-clear-fieldset,\n                         data-clear-legend,\n                         data-clear-description,\n                         clear-data-button,\n                         clear-data-icon,\n                         clear-data-label,\n                         cache-list,\n                         range\n                        "\n            >\n            <slot name="deleted-images" slot="deleted-images"></slot>\n            <slot name="deleted-items" slot="deleted-items"></slot>\n        </data-panel>\n    </route-page>\n    <route-page path="history" id="history-page" class="page config-page">\n        <history-panel\n            id="history-panel"\n            exportparts="header,\n                         page-header,\n                         history-header,\n                         history-navigation-fieldset,\n                         fieldset,\n                         config-fieldset,\n                         legend,\n                         config-legend,\n                         history-navigation-legend,\n                         undo,\n                         button,\n                         restore-item-icon,\n                         icon,\n                         undo-label,\n                         redo,\n                         button,\n                         redo-label,\n                         clear-history-button,\n                         clear-history-icon,\n                         clear-history-label,\n                         action-history,\n                         action-history-entry,\n                         action-history-entry-type,\n                         action-history-entry-data,\n                         action-history-target-type,\n                         action-history-target-id,\n                         active,\n                         history-length-fieldset,\n                         history-length-legend,\n                         history-length-field,\n                         field,\n                         field-container,\n                         field-label,\n                         field-prefix,\n                         field-postfix,\n                         action-history-length,\n                         action-history-length-values,\n                         apply-history-length-button,\n                         apply-history-length-label\n                         " >\n            <slot name="action-history" slot="action-history"></slot>\n        </history-panel>\n    </route-page>\n    <route-page path="about" id="about-page" class="page config-page">\n        <about-panel\n            id="about-panel"\n            exportparts="header,\n                         page-header,\n                         about-header,\n                         about-app-fieldset,\n                         fieldset,\n                         config-fieldset,\n                         about-app-legend,\n                         legend,\n                         config-legend,\n                         text,\n                         emphasis,\n                         code,\n                         version-fieldset,\n                         version-legend,\n                         version-value,\n                         copyright-fieldset,\n                         copyright-legend,\n                         copyright-text,\n                         cc0-link,\n                         link,\n                         copyright-link,\n                         cc-icon,\n                         zero-icon,\n                         icon,\n                         raster\n            "\n            ></about-panel>\n    </route-page>\n</path-router>\n<footer id="config-footer" class="footer dialog-footer">\n    <form id="config-actions" class="actions" method="dialog">\n        <button type="submit" id="config-cancel" class="button action-button cancel">Cancel</button>\n        <button type="submit" id="config-ok" class="button action-button ok preferred-button">Ok</button>\n    </form>\n</footer>';
 
 // components/config-panel/settings-panel/settings-panel.css?raw
 var settings_panel_default = "\n\n:host\n{\n    display: grid;\n    grid-template-rows: auto auto 1fr;\n    gap: 7px;\n    flex: 1;\n}\n.header\n{\n    font-size: 14px;\n    font-weight: bold;\n}\n\n#custom-settings-fieldset\n{\n    color: graytext;\n    display: flex;\n    align-items: center;\n}\n\n.key\n{\n    background-color: #eee;\n    border-radius: 3px;\n    border: 1px solid #b4b4b4;\n    box-shadow:\n    0 1px 1px rgba(0, 0, 0, 0.2),\n    0 2px 0 0 rgba(255, 255, 255, 0.7) inset;\n    color: #333;\n    display: inline-block;\n    font-size: 0.85em;\n    font-weight: 700;\n    line-height: 1;\n    padding: 2px 4px;\n    white-space: nowrap;\n    padding-block: 5px;\n    margin-block: 3px;\n}";
@@ -5977,14 +6226,15 @@ if (customElements.get(COMPONENT_TAG_NAME12) == null) {
 }
 
 // components/config-panel/history-panel/history-panel.css?raw
-var history_panel_default = ":host\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n    overflow: hidden;\n}\n\n#history-header\n{\n    font-size: 14px;\n    font-weight: bold;\n}\n\n#history-length-fieldset\n{\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    flex: 1;\n}\n\n#history-length-field .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    flex: 1;\n}\n\n#action-history-length\n{\n    flex: 1;\n}\n\n#history-navigation-fieldset\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n    gap: 7px;\n    overflow: hidden;\n}\n#clear-history-button\n{\n    grid-column: 4;\n    white-space: nowrap;\n}\n#action-history\n{\n    grid-column: span 4;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    overflow: auto;\n    flex: 1;\n}\n@media (max-width: 665px) \n{\n    #action-history-length\n    {\n        width: 50px;\n    }\n}";
+var history_panel_default = ":host\n{\n    display: grid;\n    grid-template-rows: auto 1fr auto;\n    gap: 7px;\n    overflow: hidden;\n}\n\n#history-header\n{\n    font-size: 14px;\n    font-weight: bold;\n}\n\n#history-length-fieldset\n{\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    flex: 1;\n}\n\n#history-length-field .container\n{\n    display: flex;\n    align-items: center;\n    gap: 5px;\n    flex: 1;\n}\n\n#action-history-length\n{\n    flex: 1;\n}\n\n#history-navigation-fieldset\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n    gap: 7px;\n    overflow: hidden;\n}\n#clear-history-button\n{\n    grid-column: 4;\n    white-space: nowrap;\n}\n#action-history\n{\n    grid-column: span 4;\n    background: field;\n    border-radius: 2px;\n    border: 1px solid graytext;\n    color: fieldtext;\n    overflow: auto;\n    flex: 1;\n}\n\n\n.action-history-entry\n{\n    padding: 7px;\n    border-radius: 2px;\n}\n.action-history-entry:hover\n{\n    background-color: highlight;\n    color: highlighttext;\n}\n\n@media (max-width: 665px) \n{\n    #action-history-length\n    {\n        width: 50px;\n    }\n}";
 
 // components/config-panel/history-panel/history-panel.html?raw
-var history_panel_default2 = '\n<header id="history-header" class="header page-header">History</header>\n<fieldset id="history-navigation-fieldset" class="fieldset config-fieldset">\n    <legend id="history-navigation-legend" class="legend config-legend">Navigation</legend>\n    <button id="undo" class="button">\n        <svg id="restore-item-icon" class="icon" title="Undo">\n            <use href="#icon-definition_undo-redo"></use>\n        </svg>\n        <span part="undo-label">Undo</span>\n    </button>\n    <button id="redo" class="button">\n        <svg id="restore-item-icon" class="icon" title="Redo" style="transform: scaleX(-1);">\n            <use href="#icon-definition_undo-redo"></use>\n        </svg>\n        <span id="redo-label">Redo</span>\n    </button>\n    <button id="clear-history-button" class="button">\n        <svg id="clear-history-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-history-label">Clear History</span>\n    </button>\n    <action-history id="action-history" reverse>\n        <slot name="action-history"></slot>\n    </action-history>\n</fieldset>\n<fieldset id="history-length-fieldset" class="fieldset config-fieldset">\n    <legend id="history-length-legend" class="legend config-legend">History Length</legend>\n    <form-field id="history-length-field" class="field">\n        <input type="range" id="action-history-length" class="input" max="150" list="action-history-length-values" />\n        <datalist id="action-history-length-values"></datalist>\n        <span slot="postfix" id="action-history-length-value" part="field-postfix"></span>\n        <button slot="postfix" id="apply-history-length-button" part="button field-postfix">\n            <svg id="apply-history-length-icon" class="icon">\n                <use href="#icon-definition_confirm-check"></use>\n            </svg>\n            <span id="apply-history-length-label">Apply</span>\n        </button>\n    </form-field>\n</fieldset>';
+var history_panel_default2 = '\n<header id="history-header" class="header page-header">History</header>\n<fieldset id="history-navigation-fieldset" class="fieldset config-fieldset">\n    <legend id="history-navigation-legend" class="legend config-legend">Navigation</legend>\n    <button id="undo-button" class="button">\n        <svg id="undo-icon" class="icon" title="Undo">\n            <use href="#icon-definition_undo-redo"></use>\n        </svg>\n        <span part="undo-label">Undo</span>\n    </button>\n    <button id="redo-button" class="button">\n        <svg id="redo-icon" class="icon" title="Redo" style="transform: scaleX(-1);">\n            <use href="#icon-definition_undo-redo"></use>\n        </svg>\n        <span id="redo-label">Redo</span>\n    </button>\n    <button id="clear-history-button" class="button">\n        <svg id="clear-history-icon" class="icon" title="Clear">\n            <use href="#icon-definition_trash"></use>\n        </svg>\n        <span id="clear-history-label">Clear History</span>\n    </button>\n    <action-history id="action-history" reverse></action-history>\n</fieldset>\n<fieldset id="history-length-fieldset" class="fieldset config-fieldset">\n    <legend id="history-length-legend" class="legend config-legend">History Length</legend>\n    <form-field id="history-length-field" class="field">\n        <input type="range" id="action-history-length" class="input" max="150" list="action-history-length-values" />\n        <datalist id="action-history-length-values"></datalist>\n        <span slot="postfix" id="action-history-length-value" part="field-postfix"></span>\n        <button slot="postfix" id="apply-history-length-button" part="button field-postfix">\n            <svg id="apply-history-length-icon" class="icon">\n                <use href="#icon-definition_confirm-check"></use>\n            </svg>\n            <span id="apply-history-length-label">Apply</span>\n        </button>\n    </form-field>\n</fieldset>';
 
 // components/config-panel/history-panel/history-panel.ts
 var HistoryLengthValues = [0, 30, 50, 100, 150];
 var DEFAULT_HISTORY_LENGTH = "30";
+var ATTRIBUTE_PREPARED_FOR_DELETE = "to-delete";
 var COMPONENT_STYLESHEET12 = new CSSStyleSheet();
 COMPONENT_STYLESHEET12.replaceSync(`${shared_default}
     ${history_panel_default}`);
@@ -6009,104 +6259,30 @@ var HistoryPanelElement = class extends HTMLElement {
   findElement(id) {
     return this.shadowRoot.getElementById(id);
   }
+  //#region Housekeeping
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = COMPONENT_TEMPLATE9;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET12);
     this.#applyPartAttributes();
-    this.findElement("undo").addEventListener("click", this.#undo_onClick.bind(this));
-    this.findElement("redo").addEventListener("click", this.#redo_onClick.bind(this));
+    this.addEventListener("click", this.#onClick.bind(this));
+    this.findElement("action-history-length").addEventListener("change", this.#historyLength_onChange.bind(this));
     const actionHistory = this.getElement("action-history");
     actionHistory.onBack = this.#actionHistory_onBack.bind(this);
     actionHistory.onForward = this.#actionHistory_onForward.bind(this);
-    this.findElement("action-history-length").addEventListener("change", this.#historyLength_onChange.bind(this));
-    this.findElement("apply-history-length-button").addEventListener("click", this.#applyHistoryLength_onClick.bind(this));
-    this.findElement("clear-history-button").addEventListener("click", this.#clearHistory_onClick.bind(this));
   }
-  async init(_options) {
+  #refreshBoards;
+  #refreshCache;
+  async init(options) {
+    this.#refreshBoards = options.refreshBoards;
+    this.#refreshCache = options.refreshCache;
     const historyLength = await DataService.getAppSetting("historyLength" /* HistoryLength */) ?? DEFAULT_HISTORY_LENGTH;
-    this.prepareHistoryLength(historyLength);
+    this.#prepareHistoryLength(historyLength);
     this.refresh();
   }
-  prepareHistoryLength(historyLength) {
-    const historyLengthOptions = Array.from(HistoryLengthValues).map((value) => createOptionElement(value));
-    this.findElement("action-history-length-values").append(...historyLengthOptions);
-    this.findElement("action-history-length").value = historyLength;
-    this.findElement("action-history-length-value").textContent = historyLength;
-  }
-  undo() {
-    this.findElement("action-history").back();
-  }
-  redo() {
-    this.findElement("action-history").forward();
-  }
-  #undo_onClick(_event) {
-    this.undo();
-    this.dispatchEvent(new CustomEvent("undo", { bubbles: true, composed: true }));
-  }
-  #redo_onClick(_event) {
-    this.redo();
-    this.dispatchEvent(new CustomEvent("redo", { bubbles: true, composed: true }));
-  }
-  async #actionHistory_onBack(target, previous, all, targetIndex, previousActiveEntryIndex) {
-    let refreshBoards = false;
-    let refreshDeletedItems = false;
-    const isLastUpdate = all.indexOf(target) == all.length - 1;
-    if (isLastUpdate == true) {
-      const recordType = target.querySelector(".target-type")?.textContent?.toLowerCase();
-      if (recordType == "board") {
-        refreshBoards = true;
-      }
-      refreshDeletedItems = true;
-    }
-    this.dispatchEvent(new CustomEvent("historyback", { detail: {
-      target,
-      previous,
-      targetIndex,
-      previousActiveEntryIndex,
-      refreshBoards,
-      refreshDeletedItems
-    }, bubbles: true, composed: true }));
-  }
-  async #actionHistory_onForward(target, previous, all, targetIndex, previousActiveEntryIndex) {
-    let refreshBoards = false;
-    let refreshDeletedItems = false;
-    const isLastUpdate = all.indexOf(target) == all.length - 1;
-    if (isLastUpdate == true) {
-      const recordType = target.querySelector(".target-type")?.textContent?.toLowerCase();
-      if (recordType == "board") {
-        refreshBoards = true;
-      }
-      refreshDeletedItems = true;
-    }
-    this.dispatchEvent(new CustomEvent("historyforward", { detail: {
-      target,
-      previous,
-      targetIndex,
-      previousActiveEntryIndex,
-      refreshBoards,
-      refreshDeletedItems
-    }, bubbles: true, composed: true }));
-  }
-  async #historyLength_onChange(event) {
-    const input = event.target;
-    snapToStep(input, HistoryLengthValues);
-    this.findElement("action-history-length-value").textContent = input.value;
-    let startIndex = parseInt(this.findElement("action-history-length").value);
-    if (startIndex > 0) {
-      startIndex--;
-    }
-    const actionHistory = this.findElement("action-history");
-    this.dispatchEvent(new CustomEvent("preparehistoryitems", { detail: { actionHistory, startIndex }, bubbles: true, composed: true }));
-  }
-  async #applyHistoryLength_onClick(_event) {
-    const historyLength = this.findElement("action-history-length").value;
-    this.dispatchEvent(new CustomEvent("historylength", { detail: { historyLength }, bubbles: true, composed: true }));
-  }
-  #clearHistory_onClick(_event) {
-    this.dispatchEvent(new CustomEvent("clearhistory", { bubbles: true, composed: true }));
-  }
+  //#endregion Housekeeping
+  //#region API
   async refresh() {
     const actionHistory = this.getElement("action-history");
     actionHistory.innerHTML = "";
@@ -6150,6 +6326,92 @@ var HistoryPanelElement = class extends HTMLElement {
       actionHistory.toggleAttribute("prevent-removal", false);
     });
   }
+  undo() {
+    this.findElement("action-history").back();
+  }
+  redo() {
+    this.findElement("action-history").forward();
+  }
+  async addActionHistoryEntry(action, type, properties) {
+    const historyLength = parseFloat(await DataService.getAppSetting("historyLength" /* HistoryLength */) ?? DEFAULT_HISTORY_LENGTH);
+    if (historyLength == 0) {
+      return;
+    }
+    const history = this.findElement("action-history");
+    const historyEntries = [...history.children];
+    const elementsToRemove = historyEntries.filter((item) => item.hasAttribute(ATTRIBUTENAME_REVERSED));
+    const removeIds = [];
+    if (elementsToRemove.length > 0) {
+      for (let i = 0; i < elementsToRemove.length; i++) {
+        const entryId = elementsToRemove[i].getAttribute("data-entry-id");
+        if (entryId != null) {
+          removeIds.push(entryId);
+        }
+        elementsToRemove[i].remove();
+      }
+    }
+    const data = new HistoryEntryData(type, properties);
+    const entry = DataService.createHistoryEntry(data, action);
+    await DataService.saveHistoryEntry(entry);
+    const entries = await DataService.getHistoryEntries();
+    const removeCount = entries.length - historyLength;
+    if (removeCount > 0) {
+      for (let i = 0; i < removeCount; i++) {
+        removeIds.push(entries[i].id);
+        history.querySelector(`[data-entry-id="${entries[i].id}"]`)?.remove();
+      }
+    }
+    if (removeIds.length > 0) {
+      await DataService.deleteHistoryEntriesIfExists(removeIds);
+    }
+    const entryElement = this.#createActionHistoryEntryElement(entry);
+    history.append(entryElement);
+    const activeIndex = [...history.children].indexOf(entryElement);
+    await DataService.saveAppSetting("activeEntryIndex" /* ActiveEntryIndex */, activeIndex > -1 ? activeIndex : null);
+    return entryElement;
+  }
+  async clearHistory() {
+    const confirmed = await FeedbackService.getConfirmation("Are you sure you want to delete all app history? This CAN NOT be undone.", "danger");
+    if (confirmed == false) {
+      return;
+    }
+    const ids = (await DataService.getHistoryEntries()).map((item) => item.id);
+    await DataService.deleteHistoryEntries(...ids);
+    this.refresh();
+  }
+  //#endregion API
+  //#region Internal
+  #prepareHistoryLength(historyLength) {
+    const historyLengthOptions = Array.from(HistoryLengthValues).map((value) => createOptionElement(value));
+    this.findElement("action-history-length-values").append(...historyLengthOptions);
+    this.findElement("action-history-length").value = historyLength;
+    this.findElement("action-history-length-value").textContent = historyLength;
+  }
+  async #prepareHistoryEntries(historyElement, startIndex) {
+    const entries = await DataService.getHistoryEntries();
+    for (let i = 0; i < entries.length; i++) {
+      const element = historyElement.querySelector(`[data-entry-id="${entries[i].id}"]`);
+      if (i < startIndex) {
+        element.removeAttribute(ATTRIBUTE_PREPARED_FOR_DELETE);
+      } else {
+        element.toggleAttribute(ATTRIBUTE_PREPARED_FOR_DELETE, true);
+      }
+    }
+  }
+  async #applyHistoryLength(actionHistoryLength) {
+    await DataService.saveAppSetting("historyLength" /* HistoryLength */, actionHistoryLength);
+    const entries = await DataService.getHistoryEntries();
+    let startIndex = actionHistoryLength;
+    if (startIndex > 0) {
+      startIndex--;
+    }
+    const ids = [];
+    for (let i = startIndex; i < entries.length; i++) {
+      ids.push(entries[i].id);
+    }
+    await DataService.deleteHistoryEntries(...ids);
+    this.refresh();
+  }
   #createActionHistoryEntryElement(entry) {
     const element = document.createElement("div");
     element.toggleAttribute("data-entry", true);
@@ -6164,307 +6426,158 @@ var HistoryPanelElement = class extends HTMLElement {
         </span>`;
     return element;
   }
-  // async #handleActionEntryReverse(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
-  // {
-  //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
-  //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
-  //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
-  //     const entryId = targetEntry.getAttribute('data-entry-id');
-  //     if(actionType == null || recordType == null || recordId == null || entryId == null)
-  //     { 
-  //         console.error(new Error('Required property was not found.')); return;
-  //     }
-  //     const channel = (recordType == 'board')
-  //     ? this.#data.boards 
-  //     : (recordType == 'list')
-  //     ? this.#data.lists
-  //     : (recordType == 'task')
-  //     ? this.#data.tasks
-  //     : (recordType == 'image')
-  //     ? this.#data.customImages
-  //     : null;
-  //     if(channel == null) 
-  //     {
-  //         throw new Error(`Unknown record type: ${recordType}`);
-  //     }
-  //     if(actionType == 'create')
-  //     {
-  //         await channel.delete(recordId);
-  //     }
-  //     else if (actionType == 'update')
-  //     {
-  //         const currentEntry = await this.#data.historyEntries?.get(entryId);
-  //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
-  //         const target = await channel.get(recordId);
-  //         if(target == null) { throw new Error('Unable to find target record.'); }
-  //         await this.#reverseUpdate(channel, currentEntry, target)
-  //     }
-  //     else if (actionType == 'delete')
-  //     {
-  //         await channel.restore(recordId);
-  //     }
-  //     else
-  //     {
-  //         console.error(`Unknown action type: ${actionType}`);
-  //     }
-  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
-  // }
-  // async #reverseUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
-  // {
-  //     if(currentEntry.data.properties.updates != null)
-  //     {
-  //         let isRestorationUpdate = false;
-  //         for(const [key, value] of currentEntry.data.properties.updates)
-  //         {
-  //             if(key == 'deletedTimestamp')
-  //             {
-  //                 isRestorationUpdate = true;
-  //                 continue;
-  //             }
-  //             (target as unknown as any)[key] = value.from;
-  //         }
-  //         await channel.save(target as unknown as any);
-  //         if(isRestorationUpdate == true)
-  //         {
-  //             await channel.delete(currentEntry.data.properties.id);
-  //         }
-  //     }
-  //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
-  //     {
-  //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
-  //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
-  //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
-  //         {
-  //             (settingsTarget as unknown as any)[key] = value.from;
-  //         }
-  //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
-  //     }
-  //     if(currentEntry.data.properties.backgroundImages != null)
-  //     {
-  //         const updatedImages: CustomImageRecord[] = [];
-  //         const deletedImageIds: string[] = [];
-  //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
-  //         {
-  //             const data = currentEntry.data.properties.backgroundImages[i];
-  //             const imageTarget = await this.#data.customImages?.get(data.id);
-  //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
-  //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
-  //             {
-  //                 // if boardId going from "" to id, this is an insert; treat it like undoing an image insert
-  //                 if(key == 'boardId' && value.from == "")
-  //                 {
-  //                     deletedImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
-  //                     continue;
-  //                 }
-  //                 (imageTarget as unknown as any)[key] = value.from;
-  //             }
-  //             updatedImages.push(imageTarget);
-  //         }
-  //         await this.#data.customImages?.saveItems(updatedImages);
-  //         await this.#data.customImages?.deleteItems(deletedImageIds);
-  //     }
-  // }
-  // async #handelActionEntryActivate(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
-  // {
-  //     const previouslyActive = [...targetEntry.parentElement!.querySelectorAll('[part="active"]')] as HTMLElement[];
-  //     for(let i = 0; i < previouslyActive.length; i++)
-  //     {
-  //         previouslyActive[i].part.remove('active');
-  //         const descendants = [...previouslyActive[i].querySelectorAll('span')] as HTMLElement[];
-  //         for(let i = 0; i < descendants.length; i++)
-  //         {
-  //             descendants[i].part.add('active');
-  //         }
-  //     }
-  //     targetEntry.part.add('active');
-  //     const descendants = [...targetEntry.querySelectorAll('span')] as HTMLElement[];
-  //     for(let i = 0; i < descendants.length; i++)
-  //     {
-  //         descendants[i].part.add('active');
-  //     }
-  //     const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
-  //     const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
-  //     const recordId = targetEntry.querySelector('.target-id')?.textContent;
-  //     const entryId = targetEntry.getAttribute('data-entry-id');
-  //     if(actionType == null || recordType == null || recordId == null || entryId == null) { console.error(new Error('Required property was not found.')); return; }
-  //     const channel = (recordType == 'board')
-  //     ? this.#data.boards 
-  //     : (recordType == 'list')
-  //     ? this.#data.lists
-  //     : (recordType == 'task')
-  //     ? this.#data.tasks
-  //     : (recordType == 'image')
-  //     ? this.#data.customImages
-  //     : null;
-  //     if(channel == null) 
-  //     {
-  //         throw new Error(`Unknown record type: ${recordType}`);
-  //     }
-  //     if(actionType == 'create')
-  //     {
-  //         await channel.restore(recordId);
-  //     }
-  //     else if (actionType == 'update')
-  //     {
-  //         const currentEntry = await this.#data.historyEntries?.get(entryId);
-  //         if(currentEntry == null) { throw new Error('Unable to find target entry.'); }
-  //         const target = await channel.get(recordId);
-  //         if(target == null) { throw new Error('Unable to find target record.'); }
-  //         await this.#activateUpdate(channel, currentEntry, target);
-  //     }
-  //     else if (actionType == 'delete')
-  //     {
-  //         await channel.delete(recordId);
-  //     }
-  //     else
-  //     {
-  //         console.error(`Unknown action type: ${actionType}`);
-  //     }
-  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
-  // }
-  // async #activateUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
-  // {
-  //     if(currentEntry.data.properties.updates != null)
-  //     {
-  //         let isRestorationUpdate = false;
-  //         for(const [key, value] of currentEntry.data.properties.updates)
-  //         {
-  //             if(key == 'deletedTimestamp')
-  //             {
-  //                 isRestorationUpdate = true;
-  //                 continue;
-  //             }
-  //             (target as unknown as any)[key] = value.to;
-  //         }
-  //         await channel.save(target as unknown as any);
-  //         if(isRestorationUpdate == true)
-  //         {
-  //             await channel.restore(currentEntry.data.properties.id);
-  //         }
-  //     }
-  //     if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
-  //     {
-  //         const settingsTarget = await this.#data.taskSettings?.get(currentEntry.data.properties.taskSettings.id);
-  //         if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
-  //         for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
-  //         {
-  //             (settingsTarget as unknown as any)[key] = value.to;
-  //         }
-  //         await this.#data.taskSettings?.save(settingsTarget as unknown as any);
-  //     }
-  //     if(currentEntry.data.properties.backgroundImages != null)
-  //     {
-  //         // doesn't clear from image cache when undo after remove
-  //         const updatedImages: CustomImageRecord[] = [];
-  //         const restoredImageIds: string[] = [];
-  //         for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
-  //         {
-  //             const data = currentEntry.data.properties.backgroundImages[i];
-  //             const imageTarget = await this.#data.customImages?.get(data.id);
-  //             if(imageTarget == null) { throw new Error('Unable to find target record.'); }
-  //             for(const [key, value] of currentEntry.data.properties.backgroundImages[i].updates!)
-  //             {
-  //                 // if boardId going from "" to id, this is an insert; treat it like redoing an image insert
-  //                 if(key == 'boardId' && value.from == "")
-  //                 {
-  //                     restoredImageIds.push(currentEntry.data.properties.backgroundImages[i].id);
-  //                     continue;
-  //                 }
-  //                 (imageTarget as unknown as any)[key] = value.to;
-  //             }
-  //             updatedImages.push(imageTarget);
-  //         }
-  //         await this.#data.customImages?.saveItems(updatedImages);
-  //         await this.#data.customImages?.restoreItems(restoredImageIds);
-  //     }
-  // }
-  // async #addActionHistoryEntry<T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
-  // {
-  //     const historyLength = parseFloat(await this.#getAppSetting(AppSettingKey.HistoryLength) ?? DEFAULT_HISTORY_LENGTH);
-  //     if(historyLength == 0) { return; }
-  //     const channel = await this.#getChannel(this.#data.historyEntries, HISTORY_ERROR_MESSAGE, 'danger');
-  //     const history = this.findElement('action-history');
-  //     const historyEntries = [...history.children] as HTMLElement[];
-  //     const elementsToRemove = historyEntries.filter(item => item.hasAttribute(ATTRIBUTENAME_REVERSED));
-  //     const removeIds: string[] = [];
-  //     if(elementsToRemove.length > 0)
-  //     {
-  //         for(let i = 0; i < elementsToRemove.length; i++)
-  //         {
-  //             const entryId = elementsToRemove[i].getAttribute('data-entry-id');
-  //             if(entryId != null)
-  //             {
-  //                 removeIds.push(entryId)
-  //             }
-  //             elementsToRemove[i].remove();
-  //         }
-  //     }
-  //     const data = new HistoryEntryData(type, properties);
-  //     const entry = channel.create(data, action);
-  //     await channel.save(entry);
-  //     const entries = await channel.getAll('timestamp');
-  //     const removeCount = entries.length - historyLength;
-  //     if(removeCount > 0)
-  //     {
-  //         for(let i = 0; i < removeCount; i++)
-  //         {
-  //             removeIds.push(entries[i].id);
-  //             history.querySelector(`[data-entry-id="${entries[i].id}"]`)?.remove();
-  //         }
-  //     }
-  //     if(removeIds.length > 0)
-  //     {
-  //         await channel.deleteIfExists(removeIds);
-  //     }
-  //     const entryElement = this.#createActionHistoryEntryElement(entry);   
-  //     history.append(entryElement);
-  //     const activeIndex = [...history.children].indexOf(entryElement);
-  //     await this.#saveAppSetting(AppSettingKey.ActiveEntryIndex, (activeIndex > -1) ? activeIndex : null);
-  //     return entryElement;
-  // }
-  // async #prepareHistoryEntries(historyElement: ActionHistoryElement, startIndex: number)
-  // {
-  //     if(this.#data.historyEntries == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred accessing Action History data. Unable to refresh action history.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         console.error(new Error(`An error occurred accessing Action History data. Unable to refresh action history.`));
-  //         return;
-  //     }
-  //     const entries = await this.#data.historyEntries.getAll('timestamp');
-  //     for(let i = 0; i < entries.length; i++)
-  //     {
-  //         const element = historyElement.querySelector(`[data-entry-id="${entries[i].id}"]`) as HTMLElement;
-  //         if(i < startIndex)
-  //         {
-  //             element.removeAttribute(ATTRIBUTE_PREPARED_FOR_DELETE);
-  //         }
-  //         else
-  //         {
-  //             element.toggleAttribute(ATTRIBUTE_PREPARED_FOR_DELETE, true);
-  //         }
-  //     }        
-  // }
-  // async #applyHistoryLength(actionHistoryLength: number)
-  // {
-  //     await this.#saveAppSetting(AppSettingKey.HistoryLength, actionHistoryLength);
-  //     if(this.#data.historyEntries == null)
-  //     {
-  //         // todo: add toast to inform user
-  //         console.warn(`An error occurred accessing Action History data. Unable to refresh action history.`);
-  //         return;
-  //     }
-  //     const entries = await this.#data.historyEntries.getAll('timestamp');
-  //     let startIndex = actionHistoryLength;
-  //     if(startIndex > 0) { startIndex--; } // fix zero index offset if non-zero number
-  //     const ids: string[] = [];
-  //     for(let i = startIndex; i < entries.length; i++)
-  //     {
-  //         ids.push(entries[i].id);
-  //     }
-  //     await this.#data.historyEntries.deleteItems(ids);
-  //     this.#refreshActionHistory();
-  // }
+  async #handleActionEntryReverse(targetEntry, previousEntry, targetIndex, previousEntryIndex) {
+    const actionType = targetEntry.querySelector(".action-type")?.textContent?.toLowerCase();
+    const recordType = targetEntry.querySelector(".target-type")?.textContent?.toLowerCase();
+    const recordId = targetEntry.querySelector(".target-id")?.textContent;
+    const entryId = targetEntry.getAttribute("data-entry-id");
+    if (actionType == null || recordType == null || recordId == null || entryId == null) {
+      console.error(new Error("Required property was not found."));
+      return;
+    }
+    const channel = recordType == "board" ? DataService.data.boards : recordType == "list" ? DataService.data.lists : recordType == "task" ? DataService.data.tasks : recordType == "image" ? DataService.data.customImages : null;
+    if (channel == null) {
+      throw new Error(`Unknown record type: ${recordType}`);
+    }
+    if (actionType == "create") {
+      await channel.delete(recordId);
+    } else if (actionType == "update") {
+      const currentEntry = await DataService.getHistoryEntry(entryId);
+      if (currentEntry == null) {
+        throw new Error("Unable to find target entry.");
+      }
+      const target = await channel.get(recordId);
+      if (target == null) {
+        throw new Error("Unable to find target record.");
+      }
+      await DataService.reverseUpdate(channel, currentEntry, target);
+    } else if (actionType == "delete") {
+      await channel.restore(recordId);
+    } else {
+      console.error(`Unknown action type: ${actionType}`);
+    }
+    await DataService.saveAppSetting("activeEntryIndex" /* ActiveEntryIndex */, targetIndex > -1 ? targetIndex : null);
+  }
+  async #handleActionEntryActivate(targetEntry, previousEntry, targetIndex, previousEntryIndex) {
+    const previouslyActive = [...targetEntry.parentElement.querySelectorAll('[part="active"]')];
+    for (let i = 0; i < previouslyActive.length; i++) {
+      previouslyActive[i].part.remove("active");
+      const descendants2 = [...previouslyActive[i].querySelectorAll("span")];
+      for (let i2 = 0; i2 < descendants2.length; i2++) {
+        descendants2[i2].part.add("active");
+      }
+    }
+    targetEntry.part.add("active");
+    const descendants = [...targetEntry.querySelectorAll("span")];
+    for (let i = 0; i < descendants.length; i++) {
+      descendants[i].part.add("active");
+    }
+    const actionType = targetEntry.querySelector(".action-type")?.textContent?.toLowerCase();
+    const recordType = targetEntry.querySelector(".target-type")?.textContent?.toLowerCase();
+    const recordId = targetEntry.querySelector(".target-id")?.textContent;
+    const entryId = targetEntry.getAttribute("data-entry-id");
+    if (actionType == null || recordType == null || recordId == null || entryId == null) {
+      console.error(new Error("Required property was not found."));
+      return;
+    }
+    const channel = recordType == "board" ? DataService.data.boards : recordType == "list" ? DataService.data.lists : recordType == "task" ? DataService.data.tasks : recordType == "image" ? DataService.data.customImages : null;
+    if (channel == null) {
+      throw new Error(`Unknown record type: ${recordType}`);
+    }
+    if (actionType == "create") {
+      await channel.restore(recordId);
+    } else if (actionType == "update") {
+      const currentEntry = await DataService.getHistoryEntry(entryId);
+      if (currentEntry == null) {
+        throw new Error("Unable to find target entry.");
+      }
+      const target = await channel.get(recordId);
+      if (target == null) {
+        throw new Error("Unable to find target record.");
+      }
+      await DataService.activateUpdate(channel, currentEntry, target);
+    } else if (actionType == "delete") {
+      await channel.delete(recordId);
+    } else {
+      console.error(`Unknown action type: ${actionType}`);
+    }
+    await DataService.saveAppSetting("activeEntryIndex" /* ActiveEntryIndex */, targetIndex > -1 ? targetIndex : null);
+  }
+  //#region Handlers
+  #onClick(event) {
+    const composedPath = event.composedPath().filter((item) => item instanceof HTMLElement);
+    const undoButton = composedPath.find((item) => item.id == "undo-button");
+    if (undoButton != null) {
+      this.undo();
+      return;
+    }
+    const redoButton = composedPath.find((item) => item.id == "redo-button");
+    if (redoButton != null) {
+      this.redo();
+      return;
+    }
+    const applyHistoryLengthButton = composedPath.find((item) => item.id == "apply-history-length-button");
+    if (applyHistoryLengthButton != null) {
+      const historyLength = this.findElement("action-history-length").value;
+      this.#applyHistoryLength(parseInt(historyLength));
+      return;
+    }
+    const clearHistoryButton = composedPath.find((item) => item.id == "clear-history-button");
+    if (clearHistoryButton != null) {
+      this.clearHistory();
+      return;
+    }
+  }
+  async #historyLength_onChange(event) {
+    const input = event.target;
+    snapToStep(input, HistoryLengthValues);
+    this.findElement("action-history-length-value").textContent = input.value;
+    let startIndex = parseInt(this.findElement("action-history-length").value);
+    if (startIndex > 0) {
+      startIndex--;
+    }
+    const actionHistory = this.findElement("action-history");
+    this.#prepareHistoryEntries(actionHistory, startIndex);
+  }
+  async #actionHistory_onBack(target, previous, all, targetIndex, previousActiveEntryIndex) {
+    let refreshBoards = false;
+    let refreshDeletedItems = false;
+    const isLastUpdate = all.indexOf(target) == all.length - 1;
+    if (isLastUpdate == true) {
+      const recordType = target.querySelector(".target-type")?.textContent?.toLowerCase();
+      if (recordType == "board") {
+        refreshBoards = true;
+      }
+      refreshDeletedItems = true;
+    }
+    await this.#handleActionEntryReverse(target, previous, targetIndex, previousActiveEntryIndex);
+    if (refreshBoards == true) {
+      this.#refreshBoards();
+    }
+    if (refreshDeletedItems == true) {
+      this.#refreshCache();
+    }
+  }
+  async #actionHistory_onForward(target, previous, all, targetIndex, previousActiveEntryIndex) {
+    let refreshBoards = false;
+    let refreshDeletedItems = false;
+    const isLastUpdate = all.indexOf(target) == all.length - 1;
+    if (isLastUpdate == true) {
+      const recordType = target.querySelector(".target-type")?.textContent?.toLowerCase();
+      if (recordType == "board") {
+        refreshBoards = true;
+      }
+      refreshDeletedItems = true;
+    }
+    await this.#handleActionEntryActivate(target, previous, targetIndex, previousActiveEntryIndex);
+    if (refreshBoards == true) {
+      this.#refreshBoards();
+    }
+    if (refreshDeletedItems == true) {
+      this.#refreshCache();
+    }
+  }
+  //#endregion Handlers
   #applyPartAttributes() {
     const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
     for (let i = 0; i < identifiedElements.length; i++) {
@@ -6489,6 +6602,7 @@ var HistoryPanelElement = class extends HTMLElement {
       postfix.part.add("container", "field-postfix", `${inputId}-postfix`);
     }
   }
+  //#endregion Internal
 };
 if (customElements.get(COMPONENT_TAG_NAME13) == null) {
   customElements.define(COMPONENT_TAG_NAME13, HistoryPanelElement);
@@ -6589,21 +6703,33 @@ var ConfigPanelElement = class extends HTMLElement {
   }
   async init(options) {
     this.findElement("settings-panel").init({ scheme_onChange: options.scheme_onChange });
-    this.findElement("data-panel").init();
-    this.findElement("history-panel").init();
+    this.findElement("data-panel").init({
+      openImportManager: options.openImportManager,
+      openBoard: options.openBoard,
+      refreshActionHistory: this.refreshHistory.bind(this),
+      refreshBoards: options.refreshBoards,
+      addActionHistoryEntry: this.addActionHistoryEntry.bind(this)
+    });
+    this.findElement("history-panel").init({ refreshBoards: options.refreshBoards, refreshCache: this.refreshCache.bind(this) });
     this.findElement("about-panel").init({ appVersion: options.appVersion });
+  }
+  refreshCache() {
+    this.findElement("data-panel").refreshCache();
   }
   refreshHistory() {
     this.findElement("history-panel").refresh();
-  }
-  refreshCache() {
-    this.findElement("data-panel").refresh();
   }
   history_undo() {
     this.findElement("history-panel").undo();
   }
   history_redo() {
     this.findElement("history-panel").redo();
+  }
+  addActionHistoryEntry(action, type, properties) {
+    this.findElement("history-panel").addActionHistoryEntry(action, type, properties);
+  }
+  async clearData() {
+    this.findElement("data-panel").clearData();
   }
   #applyPartAttributes() {
     const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
@@ -9286,8 +9412,7 @@ ${defineIcons(
   "Logo" /* Logo */,
   "PlusIcon" /* PlusIcon */,
   "Stylus" /* Stylus */,
-  "TaskBoard" /* TaskBoard */,
-  "Restore" /* Restore */
+  "TaskBoard" /* TaskBoard */
 )}`;
 var COMPONENT_TAG_NAME28 = "taskboard-manager";
 var TaskboardManagerElement2 = class extends HTMLElement {
@@ -9305,7 +9430,7 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   findElement(id) {
     return this.shadowRoot.getElementById(id);
   }
-  initPromise;
+  // initPromise?: Promise<void>;
   #customImageUrls = /* @__PURE__ */ new Map();
   /** Exposes "shared" private functions/properties to external modules. */
   // [SHAREDACCESSKEY]!: SharedContent;
@@ -9316,7 +9441,7 @@ var TaskboardManagerElement2 = class extends HTMLElement {
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET26);
     const autoLaunch = this.getAttribute("autolaunch") != "false";
     if (autoLaunch == true) {
-      this.initPromise = this.#init();
+      this.#init();
     }
   }
   //#region API
@@ -9324,18 +9449,42 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   * Initializes the app.  
   * Not necessary if the `autolaunch` attribute was not set to `false`.
   */
-  async init() {
-    this.initPromise = this.#init();
+  init() {
+    return this.#init();
   }
   setColorScheme(scheme) {
     const value = scheme == "browser" ? "light dark" : scheme;
     this.style.setProperty("color-scheme", value);
     DataService.saveAppSetting("color-scheme" /* ColorScheme */, scheme);
   }
+  async undo() {
+    this.findElement("config-panel").history_undo();
+  }
+  async redo() {
+    this.findElement("config-panel").history_redo();
+  }
   async refreshBoards() {
+    this.refreshBoardCollections();
+    this.refreshCurrentBoard();
+  }
+  refreshCurrentBoard() {
+    const currentBoardId = this.findElement("task-board").dataset.boardId;
+    if (currentBoardId != null) {
+      this.#renderBoard(currentBoardId);
+    }
+  }
+  async refreshBoardCollections() {
     const boardRecords = await DataService.getAllBoardRecords();
     this.findElement("app-menu").updateBoards(boardRecords);
     this.findElement("board-browser").updateBoards(boardRecords);
+  }
+  async openBoard(id) {
+    await this.closeBoard();
+    await this.getElement("app-router").navigate(`board/${id}`);
+  }
+  async closeBoard() {
+    await this.findElement("app-router").navigate("/" + window.location.hash);
+    this.getElement("task-board").innerHTML = "";
   }
   async addBoard() {
     const order = this.findElement("app-menu").querySelectorAll("a").length;
@@ -9344,7 +9493,6 @@ var TaskboardManagerElement2 = class extends HTMLElement {
     this.findElement("welcome-panel").refresh();
   }
   async openBoardSettings(id) {
-    await this.initPromise;
     const board = await DataService.getBoardRecord(id);
     if (board == null) {
       MessageCardElement.notify(
@@ -9381,18 +9529,14 @@ var TaskboardManagerElement2 = class extends HTMLElement {
     const order = this.findElement("app-menu").querySelectorAll("a").length;
     return DataService.importBoard(boardData, order, errorMessage);
   }
+  async clearData() {
+    this.findElement("config-panel").clearData();
+  }
+  // async clearHistory()
+  // {
+  //     this.findElement<ConfigPanelElement>('config-panel').history_clear();
+  // }
   //#endregion API
-  // async openBoard(id: string)
-  // {
-  //     await this.initPromise;
-  //     await this.closeBoard();
-  //     await this.getElement<PathRouterElement>('app-router').navigate(`board/${id}`);
-  // }
-  // async closeBoard()
-  // {
-  //     await this.findElement<PathRouterElement>('app-router').navigate('/' + window.location.hash);
-  //     this.getElement('task-board').innerHTML = "";        
-  // }
   // async duplicateBoard(id: string)
   // {
   //     const boardExportData = await this.#prepareExportData(id);
@@ -9492,55 +9636,31 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   // //     list.append(newCard);
   // //     newCard.findPart('description').focus();
   // // }
-  // async undo()
-  // {
-  //     this.findElement<ConfigPanelElement>('config-panel').history_undo();
-  // }
-  // async redo()
-  // {
-  //     this.findElement<ConfigPanelElement>('config-panel').history_redo();
-  // }
-  // // async clearData()
-  // // {
-  // //     const confirmed = await this.#getConfirmation('Are you sure you want to delete all data associated with the app? This CAN NOT be undone.', 'danger');
-  // //     if(confirmed == false) { return; }
-  // //     await this.#data.clearAllData();
-  // //     this.#refreshBoards();
-  // //     this.#refreshActionHistory();
-  // //     this.#refreshDeletedItems();
-  // // }
-  // // async clearHistory()
-  // // {
-  // //     const confirmed = await this.#getConfirmation('Are you sure you want to delete all app history? This CAN NOT be undone.', 'danger');
-  // //     if(confirmed == false) { return; }
-  // //     const channel = this.#getChannel<HistoryEntryChannel>(this.#data.historyEntries, DATA_ERROR_MESSAGE.replace('[subject]', 'History'), 'danger');
-  // //     const ids = (await channel.getAll()).map(item => item.id);
-  // //     await channel.deleteItems(ids);
-  // //     this.#refreshActionHistory();
-  // // }
   //#region Internal
   async #init() {
     const datastoreName = this.getAttribute("datastore-name");
     await DataService.init(datastoreName);
     FeedbackService.init(this);
     this.#loadColorScheme();
-    const boardsPromise = this.refreshBoards();
+    const boardsPromise = this.refreshBoardCollections();
     this.findElement("welcome-panel").refresh();
     this.findElement("board-browser").addEventListener("select", async (event) => {
       const { boardId } = event.detail;
       if (boardId == null) {
-        MessageCardElement.notify(
-          `An error occurred attempting to open the board.`,
-          this.getElement("notifications"),
-          { type: MessageCardType.Error }
-        );
+        FeedbackService.showErrorMessageCard(`An error occurred attempting to open the board.`);
         console.error("Unable to open board: data-board-id attribute is unset on target element.");
         return;
       }
       this.findElement("app-router").navigate(`board/${boardId}`);
     });
     const appVersion = await this.#getAppVersion();
-    this.findElement("config-panel").init({ appVersion, scheme_onChange: this.setColorScheme.bind(this) });
+    this.findElement("config-panel").init({
+      appVersion,
+      scheme_onChange: this.setColorScheme.bind(this),
+      openImportManager: this.#openImportManager.bind(this),
+      openBoard: this.openBoard.bind(this),
+      refreshBoards: this.refreshBoards.bind(this)
+    });
     this.#addRouteHandlers();
     this.addEventListener("click", this.#onClick.bind(this));
     await this.#handleInitialNavigation(boardsPromise);
@@ -9611,6 +9731,16 @@ var TaskboardManagerElement2 = class extends HTMLElement {
     card.setAttribute("exportparts", "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator, button, input, finished");
     card.style.setProperty("--task-color", task.color);
     card.findElement("description").addEventListener("keyup", taskDescription_onKeyUp.bind(this));
+  }
+  async #openImportManager(data) {
+    const boardData = new BoardExport(data, data.taskSettings, data.backgroundImage, data.lists);
+    const router = this.findElement("app-router");
+    const currentPath = router.path ?? "";
+    const currentPathArray = currentPath.split("#");
+    currentPathArray[1] = "import";
+    const importPath = currentPathArray.join("#");
+    router.navigate(importPath);
+    this.findElement("import-manager").setData(boardData);
   }
   //#endregion Management
   //#region Rendering
@@ -10027,7 +10157,7 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   async #importDialog_import_onClick() {
     const boardData = this.findElement("import-manager").getRecord();
     await this.importBoard(boardData);
-    this.refreshBoards();
+    this.refreshBoardCollections();
   }
   //#endregion Handler
   //#region Utilities
@@ -10494,104 +10624,6 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   //     }
   //     const toSave = await this.#getOrderedTasks(parent);
   //     await this.#data.tasks.saveItems(toSave); 
-  // }
-  // async #openImportManager(data: any)
-  // {
-  //     const boardData = new BoardExport(data, data.taskSettings, data.backgroundImage, data.lists);
-  //     const router = this.findElement<PathRouterElement>('app-router');
-  //     const currentPath = router.path ?? "";
-  //     const currentPathArray = currentPath.split('#');
-  //     currentPathArray[1] = 'import';
-  //     const importPath = currentPathArray.join('#');
-  //     router.navigate(importPath);
-  //     this.findElement<ImportManagerComponent>('import-manager').setData(boardData);
-  // }
-  // async deleteItem(item: HTMLElement, refresh: boolean = true)
-  // {
-  //     if(this.#data.historyEntries == null)
-  //     {
-  //         // todo: add toast to inform user
-  //         console.warn(`An error occurred accessing Action History data.`);
-  //         return;
-  //     }
-  //     const recordId = item.dataset.recordId;
-  //     if(recordId == null) { throw new Error('Unable to manage entry with unset "data-record-id" attribute'); }
-  //     const recordType = item.dataset.recordType;
-  //     if(recordType == null) { throw new Error('Unable to manage entry with unset "data-record-type" attribute'); }
-  //     const channel = (recordType == 'board')
-  //     ? this.#data.boards 
-  //     : (recordType == 'list')
-  //     ? this.#data.lists
-  //     : (recordType == 'task')
-  //     ? this.#data.tasks
-  //     : null;
-  //     if(channel == null)
-  //     {
-  //         // todo: add toast to inform user
-  //         console.warn(`An error occurred accessing board data.`);
-  //         return;
-  //     }
-  //     await channel.delete(recordId, true);
-  //     const historyEntries = await this.#data.historyEntries.getAll();
-  //     const toDelete: string[] = [];
-  //     for(let i = 0; i < historyEntries.length; i++)
-  //     {
-  //         const entry = historyEntries[i];
-  //         const entryId = entry.data.properties.id;
-  //         if(entryId == recordId)
-  //         {
-  //             toDelete.push(entry.id);
-  //         }
-  //     }
-  //     await this.#data.historyEntries.deleteItems(toDelete);
-  //     if(refresh == true)
-  //     {
-  //         this.#refreshActionHistory();
-  //     }
-  // }
-  // async deleteImage(item: HTMLElement, refresh: boolean = true)
-  // {
-  //     if(this.#data.customImages == null)
-  //     {
-  //         // todo: add toast to inform user
-  //         console.warn(`An error occurred accessing custom image data.`);
-  //         return;
-  //     }
-  //     if(this.#data.historyEntries == null)
-  //     {
-  //         // todo: add toast to inform user
-  //         console.warn(`An error occurred accessing Action History data.`);
-  //         return;
-  //     }
-  //     const recordId = item.dataset.recordId;
-  //     if(recordId == null) { throw new Error('Unable to manage image entry with unset "data-record-id" attribute'); }
-  //     await this.#data.customImages.delete(recordId, true);
-  //     const historyEntries = await this.#data.historyEntries.getAll();
-  //     const updatedEntries: HistoryEntryRecord[] = [];
-  //     for(let i = 0; i < historyEntries.length; i++)
-  //     {
-  //         const entry = historyEntries[i];
-  //         const imageUpdates = entry.data.properties.backgroundImages;
-  //         if(imageUpdates == null)
-  //         {
-  //             continue;
-  //         }
-  //         const toKeep: BasicActionProperties[] = [];
-  //         for(let j = 0; j < imageUpdates.length; j++)
-  //         {
-  //             if(imageUpdates[j].id != recordId)
-  //             {
-  //                 toKeep.push(imageUpdates[i]);
-  //             }
-  //         }
-  //         entry.data.properties.backgroundImages = toKeep;
-  //         updatedEntries.push(entry);
-  //     }
-  //     await this.#data.historyEntries.saveItems(updatedEntries);
-  //     if(refresh == true)
-  //     {
-  //         this.#refreshActionHistory();
-  //     }
   // }
   // //utils
   // #getIdFromRoute()

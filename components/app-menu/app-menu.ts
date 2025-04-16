@@ -78,8 +78,7 @@ export class AppMenuElement extends HTMLElement
         }
 
         // menu items
-        this.innerHTML = "";
-        // [...this.querySelectorAll('a')].map(item => item.remove());
+        this.innerHTML = '';
         this.append(...menuItems);
     }
     

@@ -1,12 +1,7 @@
-import { EditableListElement } from "@magnit-ce/editable-list";
-import { ImportManagerComponent } from "../components/import-manager/import-manager.component";
-import { HistoryEntryTargetType } from "../data/history/history-entry-data";
-import { AppSettingKey, SHAREDACCESSKEY, TaskboardManagerElement } from "../taskboard-manager";
-import { ActionHistoryElement } from "@magnit-ce/action-history";
-import { MessageCardElement, MessageCardType } from "@magnit-ce/message-card";
 
-export function addAdminHandlers(this: TaskboardManagerElement)
-{
+
+// export function addAdminHandlers(this: TaskboardManagerElement)
+// {
     // const schemeOptions = [...this.findElement('scheme-options').querySelectorAll('button')] as HTMLElement[];
     // for(let i = 0; i < schemeOptions.length; i++)
     // {
@@ -41,7 +36,7 @@ export function addAdminHandlers(this: TaskboardManagerElement)
     // this.findElement('clear-history-button').addEventListener("click", clearHistory_onClick.bind(this));
 
     // this.getElement('recent-boards').addEventListener("remove", recentBoard_onRemove.bind(this));
-}
+// }
 // function colorSchemeButton_onClick(this: TaskboardManagerElement, event: Event)
 // {
 //     const scheme = (event.target as HTMLElement).dataset.value;

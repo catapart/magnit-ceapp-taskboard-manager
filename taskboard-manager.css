@@ -86,18 +86,6 @@ app-menu
     display: contents;
 }
 
-
-.action-history-entry
-{
-    padding: 3px 7px;
-    border-radius: 2px;
-}
-.action-history-entry:hover
-{
-    background-color: highlight;
-    color: highlighttext;
-}
-
 .board
 {
     user-select: none;
@@ -188,21 +176,6 @@ message-card::part(message)
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-}
-
-.deleted-item
-{
-    display: grid;
-    grid-template-columns: 1fr auto;
-    padding: 7px;
-    align-items: center;
-}
-
-.deleted-item-label
-{
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }
   
 @keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }

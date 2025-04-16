@@ -3,14 +3,21 @@
 #import-header
 {
     display: flex;
-    gap: .5em;
-    padding: .5em;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 0;
+    font-weight: bold;
 }
 
-.icon
+#import-title
 {
-    width: var(--tab-icon-size);
-    height: var(--tab-icon-size);
+    font-weight: bold;
+}
+
+.header-icon
+{
+    width: var(--dialog-header-icon-size);
+    height: var(--dialog-header-icon-size);
 }
 
 .value
@@ -82,7 +89,7 @@
     align-items: center;
     justify-content: flex-end;
     gap: 14px;
-    padding: 7px;
+    padding: 7px 0;
 }
 
 @media (max-width: 665px) 

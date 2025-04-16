@@ -56,6 +56,19 @@
     overflow: auto;
     flex: 1;
 }
+
+
+.action-history-entry
+{
+    padding: 7px;
+    border-radius: 2px;
+}
+.action-history-entry:hover
+{
+    background-color: highlight;
+    color: highlighttext;
+}
+
 @media (max-width: 665px) 
 {
     #action-history-length

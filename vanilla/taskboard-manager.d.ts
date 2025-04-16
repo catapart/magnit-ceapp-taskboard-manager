@@ -136,7 +136,6 @@ declare class TaskboardManagerElement extends HTMLElement {
     componentParts: Map<string, HTMLElement>;
     getElement<T extends HTMLElement | RoutePageElement = HTMLElement>(id: string): T;
     findElement<T extends HTMLElement | RoutePageElement = HTMLElement>(id: string): T;
-    initPromise?: Promise<void>;
     /** Exposes "shared" private functions/properties to external modules. */
     constructor();
     /**
@@ -145,11 +144,18 @@ declare class TaskboardManagerElement extends HTMLElement {
     */
     init(): Promise<void>;
     setColorScheme(scheme: ColorScheme): void;
+    undo(): Promise<void>;
+    redo(): Promise<void>;
     refreshBoards(): Promise<void>;
+    refreshCurrentBoard(): void;
+    refreshBoardCollections(): Promise<void>;
+    openBoard(id: string): Promise<void>;
+    closeBoard(): Promise<void>;
     addBoard(): Promise<void>;
     openBoardSettings(id: string): Promise<void>;
     exportBoard(id: string): Promise<void>;
     importBoard(boardData: BoardExport, errorMessage?: string): Promise<void>;
+    clearData(): Promise<void>;
 }
 
 export { SHAREDACCESSKEY, TaskboardManagerElement };

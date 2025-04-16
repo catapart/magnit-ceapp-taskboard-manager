@@ -149,7 +149,6 @@ export class BoardBrowserElement extends HTMLElement
                 allItems[i].classList.add('match');
             }
         }
-        // console.log(filters, items);
     }
     
     updateBoards(boards: TaskBoardRecord[])
@@ -162,7 +161,7 @@ export class BoardBrowserElement extends HTMLElement
             menuItems.push(menuItem);
         }
 
-        // menu items
+        // browser items
         this.innerHTML = "";
         this.append(...menuItems);
     }
