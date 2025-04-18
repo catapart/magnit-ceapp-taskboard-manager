@@ -171,11 +171,40 @@ message-card::part(message)
 {
     margin-block: 1em;
 }
+
+#confirmation-dialog-header
+{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 7px;
+    align-items: center;
+    font-weight: bold;
+    padding-bottom: 1em;
+}
+#confirmation-dialog-icon
+{
+    width: var(--dialog-header-icon-size);
+    height: var(--dialog-header-icon-size);
+}
+
 #confirmation-dialog-form
 {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
+}
+
+.notification
+{
+    background-color: canvas;
+}
+
+.notification-message-content
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 14px;
 }
   
 @keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }

@@ -101,4 +101,8 @@ export abstract class FeedbackService
     {
         FeedbackService.showMessageCard(message, MessageCardType.Error);
     }
+    static showMessageCard_customTitle(message: string, type: MessageCardType, title: string)
+    {
+        MessageCardElement.notify(message, FeedbackService.#manager.getElement('notifications'), { type, heading: title });
+    }
 }

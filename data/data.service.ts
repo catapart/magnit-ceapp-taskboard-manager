@@ -137,6 +137,11 @@ export abstract class DataService
         const boardChannel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageType.BOARD);
         return boardChannel.saveItems(items);
     }
+    static async deleteBoard(id: string)
+    {
+        const channel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageType.BOARD);
+        return channel.delete(id);
+    }
 
     //#endregion Boards
 
@@ -145,6 +150,20 @@ export abstract class DataService
     {
         const taskLists = this.#getChannel<TaskListChannel>(this.#data.lists, ErrorMessageType.LIST);
         return taskLists.create(list, settings);
+    }
+    static async saveListRecords(...items: TaskListRecord[])
+    {
+        if(items.length == 0) { return; }
+
+        const channel = DataService.#getChannel<TaskListChannel>(DataService.data.lists, ErrorMessageType.LIST);
+        return channel.saveItems(items);
+    }
+    static async deleteListRecords(...ids: string[])
+    {
+        if(ids.length == 0) { return; }
+
+        const channel = DataService.#getChannel<TaskListChannel>(DataService.data.lists, ErrorMessageType.LIST);
+        return channel.deleteItems(ids);
     }
     //#endregion Lists
 
@@ -160,6 +179,13 @@ export abstract class DataService
     {
         const channel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageType.BOARD);
         return channel.get(id);
+    }
+    static async saveTaskSettingsRecords(...items: TaskSettingsRecord[])
+    {
+        if(items.length == 0) { return; }
+
+        const channel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageType.SETTINGS);
+        return channel.saveItems(items);
     }
     //#endregion Tasks
 
@@ -350,6 +376,16 @@ export abstract class DataService
 
         return [ deletedBoards, deletedLists, deletedTasks, deletedImages ] as [TaskBoardRecord[], TaskListRecord[], TaskRecord[], CustomImageRecord[]];
     }
+    static saveImage(item: CustomImageRecord)
+    {
+        const channel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
+        return channel.save(item);
+    }
+    static createImageFromImage(image: File)
+    {
+        const channel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
+        return channel.createFromImage(image);
+    }
     static deleteImage(id: string, overrideSoftDelete: boolean = false)
     {
         const channel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
@@ -363,9 +399,69 @@ export abstract class DataService
     //#endregion Cache
 
     //#region Import/Export
+    static async prepareExportData(target: TaskboardManagerElement, id: string)
+    {
+        const exportBackgroundImage = target.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('export-background-image').checked;
+        
+        const boardChannel = this.#getChannel(this.#data.boards, ErrorMessageType.BOARD);
+        const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, ErrorMessageType.BOARD);
+        const imageChannel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
+
+        const board = await boardChannel.get(id);
+        if(board == null) { throw new Error(`Error loading board from id: ${id}`); }
+
+
+        const tasks = await boardChannel.getTasks(id);
+
+        const lists = await boardChannel.getTaskLists(id);
+        const listExports: ListExport[] = [];
+        const taskSettingsIds: string[] = [board.taskSettingsId];
+        for(let i = 0; i < lists.length; i++)
+        {
+            const list = lists[i];
+            if(list.deletedTimestamp != undefined) { continue; }
+            const listTasks = tasks.filter(item => item.listId == list.id && item.deletedTimestamp == undefined);
+            const listExport = new ListExport(list, undefined, listTasks);
+            taskSettingsIds.push(list.taskSettingsId);
+            listExports.push(listExport);
+        }
+
+        const backgroundImage = (exportBackgroundImage == true && board.backgroundImageId != null && board.backgroundImageId != '') ? (await imageChannel.get(board.backgroundImageId)) ?? undefined : undefined;
+
+        const boardExportData = new BoardExport(board, undefined, backgroundImage);
+        if(boardExportData.backgroundImage != null)
+        {
+            await (boardExportData.backgroundImage as ImageExport).loadImage();
+        }
+        else if(exportBackgroundImage == false)
+        {
+            delete boardExportData.backgroundImageId;
+        }
+
+        const taskSettings = await taskSettingsChannel.getItems(taskSettingsIds);
+        for(let i = 0; i < taskSettings.length; i++)
+        {
+            const item = taskSettings[i];
+            if(board.taskSettingsId == item.id)
+            {
+                boardExportData.taskSettings = item;
+                continue;
+            }
+
+            const target = listExports.find(listItem => listItem.taskSettingsId == item.id);
+            if(target == null)
+            {
+                throw new Error(`Error assigning task settings to target list`);
+            }
+            target.taskSettings = item;
+        }
+        boardExportData.lists = listExports;
+
+        return boardExportData;
+    }
     static async exportBoard(target: TaskboardManagerElement, id: string)
     {
-        const boardExportData = await this.#prepareExportData(target, id);
+        const boardExportData = await this.prepareExportData(target, id);
         this.#downloadExportData(target, boardExportData);
     }
     static async importBoard(boardData: BoardExport, order: number, errorMessage?: string)
@@ -444,66 +540,6 @@ export abstract class DataService
             throw new Error(`Data Access Error`);
         }
         return channel;
-    }
-    static async #prepareExportData(target: TaskboardManagerElement, id: string)
-    {
-        const exportBackgroundImage = target.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('export-background-image').checked;
-        
-        const boardChannel = this.#getChannel(this.#data.boards, ErrorMessageType.BOARD);
-        const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, ErrorMessageType.BOARD);
-        const imageChannel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
-
-        const board = await boardChannel.get(id);
-        if(board == null) { throw new Error(`Error loading board from id: ${id}`); }
-
-
-        const tasks = await boardChannel.getTasks(id);
-
-        const lists = await boardChannel.getTaskLists(id);
-        const listExports: ListExport[] = [];
-        const taskSettingsIds: string[] = [board.taskSettingsId];
-        for(let i = 0; i < lists.length; i++)
-        {
-            const list = lists[i];
-            if(list.deletedTimestamp != undefined) { continue; }
-            const listTasks = tasks.filter(item => item.listId == list.id && item.deletedTimestamp == undefined);
-            const listExport = new ListExport(list, undefined, listTasks);
-            taskSettingsIds.push(list.taskSettingsId);
-            listExports.push(listExport);
-        }
-
-        const backgroundImage = (exportBackgroundImage == true && board.backgroundImageId != null && board.backgroundImageId != '') ? (await imageChannel.get(board.backgroundImageId)) ?? undefined : undefined;
-
-        const boardExportData = new BoardExport(board, undefined, backgroundImage);
-        if(boardExportData.backgroundImage != null)
-        {
-            await (boardExportData.backgroundImage as ImageExport).loadImage();
-        }
-        else if(exportBackgroundImage == false)
-        {
-            delete boardExportData.backgroundImageId;
-        }
-
-        const taskSettings = await taskSettingsChannel.getItems(taskSettingsIds);
-        for(let i = 0; i < taskSettings.length; i++)
-        {
-            const item = taskSettings[i];
-            if(board.taskSettingsId == item.id)
-            {
-                boardExportData.taskSettings = item;
-                continue;
-            }
-
-            const target = listExports.find(listItem => listItem.taskSettingsId == item.id);
-            if(target == null)
-            {
-                throw new Error(`Error assigning task settings to target list`);
-            }
-            target.taskSettings = item;
-        }
-        boardExportData.lists = listExports;
-
-        return boardExportData;
     }
     static #downloadExportData(target: TaskboardManagerElement, boardExportData: BoardExport)
     {

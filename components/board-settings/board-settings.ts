@@ -14,10 +14,18 @@ import { FileImageInputElement } from '@magnit-ce/fileimage-input';
 import { CustomImageRecord } from '../../data/records/custom-image.record';
 import { DataService } from '../../data/data.service';
 import { FeedbackService } from '../../feedback.service';
+import { MessageCardType } from '@magnit-ce/message-card';
+import { CustomImageActionProperties } from '../../data/history/custom-image-action-properties';
 
 export type BoardSettingsProperties = 
 {
     canAddList: () => boolean;
+    removeBoard: (boardId: string, confirm?: boolean) => void;
+    duplicateBoard: (id: string) => void;
+    exportBoard: (id: string) => void;
+    closeBoard: () => void;
+    closeBoardSettings: () => void;
+    saveSettingsTarget: () => void;
 }
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -105,9 +113,21 @@ export class BoardSettingsElement extends HTMLElement
 
     //#region API
     #canAddList!: () => boolean;
+    #removeBoard!: (boardId: string, confirm?: boolean) => void;
+    #duplicateBoard!: (id: string) => void;
+    #exportBoard!: (id: string) => void;
+    #closeBoard!: () => void;
+    #closeBoardSettings!: () => void;
+    #saveSettingsTarget!: () => void;
     init(options: BoardSettingsProperties)
     {
         this.#canAddList = options.canAddList;
+        this.#removeBoard = options.removeBoard;
+        this.#duplicateBoard = options.duplicateBoard;
+        this.#exportBoard = options.exportBoard;
+        this.#closeBoard = options.closeBoard;
+        this.#closeBoardSettings = options.closeBoardSettings;
+        this.#saveSettingsTarget = options.saveSettingsTarget;
     }
     setValues(board: TaskBoardRecord, taskSettings: TaskSettingsRecord, backgroundImage: CustomImageRecord|null = null)
     {
@@ -171,10 +191,10 @@ export class BoardSettingsElement extends HTMLElement
         board.backgroundOffsetX = parseInt(this.findElement<HTMLInputElement>('board-background-image-offset-x').value);
         board.backgroundOffsetY = parseInt(this.findElement<HTMLInputElement>('board-background-image-offset-y').value);
 
-        const boardTaskSettings = this.findElement<TaskFieldsComponent>('task-fields').getRecord();
+        const boardTaskSettings = this.findElement<TaskFieldsComponent>('board-task-settings').getRecord();
         boardTaskSettings.parentRecordType = 'board';
 
-        board.taskSettingsId = this.findElement<TaskFieldsComponent>('task-fields').getAttribute('record-id')!;
+        board.taskSettingsId = boardTaskSettings.id;
 
         const listFields = [...this.querySelectorAll('tasklist-fields')] as TaskListFieldsComponent[];
         const lists: TaskListRecord[] = [];
@@ -185,7 +205,7 @@ export class BoardSettingsElement extends HTMLElement
             const element = listFields[i];
             if(element.hasAttribute('removed'))
             {
-                const recordId = element.getAttribute('record-id');
+                const recordId = element.getAttribute('tasklist-record-id');
                 if(recordId == null) { console.error("Unable to remove TaskList: record id attribute is unset."); continue; }
                 toRemove.push(recordId);
                 continue;
@@ -229,46 +249,91 @@ export class BoardSettingsElement extends HTMLElement
         this.insertList(target, duplicateList, duplicateSettings);
     }
 
-    // async duplicateBoard(id: string)
-    // {
-    //     const boardExportData = await this.#prepareExportData(id);
-    //     const duplicateData = this.findElement<ImportManagerComponent>('import-manager').prepareData(boardExportData);
+    async saveBoard(order: number)
+    {
+        const [ board, taskLists, taskSettings, removedListIds ] = this.getRecords();
 
-    //     const newNameInput = this.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('duplicate-board-name');
-    //     if(newNameInput?.value != null && newNameInput.value.trim() != "")
-    //     {
-    //         duplicateData.name = newNameInput.value;
-    //     }
+        const [existingBoard, existingTaskLists, existingTaskSettings ] = await Promise.all([
+            DataService.getBoardRecord(board.id),
+            (await DataService.getBoardLists(board.id)).filter(item => item.deletedTimestamp == undefined),
+            DataService.getTaskSettingsRecords(...taskSettings.map(item => item.id))
+        ]);
+        if(existingBoard == null)
+        { 
+            FeedbackService.showErrorMessageCard(`An error occurred saving a task board.`);
+            console.error(`An error occurred finding the existing board record.`);
+            return [];
+        }
+        board.order = order;
+        board.backgroundImageId = existingBoard.backgroundImageId;
 
-    //     await this.importBoard(duplicateData, "An error occurred duplicating a board.");
-    // }
-    // async removeBoard(boardId: string, confirm: boolean = true)
-    // {
-    //     const confirmed = await this.#getConfirmation('Are you sure you want to delete this board and all of its tasks, lists, and images?', 'warn');
-    //     if(confirm == true && confirmed == false)
-    //     {
-    //         return;
-    //     }
+        // convert backgroundImage into backgroundImageUpdates
+        let existingImageActionProperties: CustomImageActionProperties = { id: board.backgroundImageId, updates: new Map() };
+        const imageUpdates: CustomImageActionProperties[] = [];
 
-    //     await this.closeBoardSettings();
+        const imageValue = this.findElement<FileImageInputElement>('board-background-image').value;
+        let backgroundImageRecord: CustomImageRecord|null = null;
+        if(imageValue != null)
+        {
+            if(board.backgroundImageId != "")
+            {
+                const existingImage = await DataService.getImageRecord(board.backgroundImageId);
+                if(existingImage != null)
+                {
+                    await DataService.deleteImage(existingImage.id);
+                    const deletedImage = await DataService.getImageRecord(board.backgroundImageId);
+                    existingImageActionProperties.updates!.set('deletedTimestamp', { from: undefined, to: deletedImage?.deletedTimestamp });
+                    imageUpdates.push(existingImageActionProperties);
+                }
+            }
 
-    //     const channel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-    //     if(this.findElement('app-router').getAttribute('path')?.indexOf(boardId) != null)
-    //     {
-    //         this.closeBoard();
-    //     }
-    //     await channel.delete(boardId);
-    //     const entry = await this.#addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Board, { id: boardId });
-    //     this.#refreshBoards();
-    //     this.#refreshDeletedItems();
-    //     await this.#removeBoardFromRecentBoards(boardId);
-    //     this.#refreshRecentBoards();
+            backgroundImageRecord = DataService.createImageFromImage(imageValue);
+            backgroundImageRecord.boardId = board.id;
+            backgroundImageRecord = await DataService.saveImage(backgroundImageRecord);
+            const newImageActionUpdates = { id: backgroundImageRecord.id, updates: new Map([['boardId', { from: "", to: backgroundImageRecord.boardId }]]) };
+            imageUpdates.push(newImageActionUpdates);
 
-    //     if(entry != null)
-    //     {
-    //         this.#addUndoNotification("A board was just deleted", entry.getAttribute('data-entry-id')!);
-    //     }
-    // }
+            board.backgroundImageId = backgroundImageRecord.id;
+        }
+        else
+        {
+            if(board.backgroundImageId != "")
+            {
+                await DataService.deleteImage(board.backgroundImageId);
+                const deletedImage = await DataService.getImageRecord(board.backgroundImageId);
+                existingImageActionProperties.updates!.set('deletedTimestamp', { from: undefined, to: deletedImage?.deletedTimestamp });
+                imageUpdates.push(existingImageActionProperties);
+                board.backgroundImageId = "";
+            }
+        }
+
+        // save data
+        await Promise.allSettled([
+            DataService.saveBoardRecords(board),
+            DataService.saveListRecords(...taskLists),
+            DataService.saveTaskSettingsRecords(...taskSettings),
+            DataService.deleteListRecords(...removedListIds),
+        ]);
+
+        
+        FeedbackService.showMessageCard_customTitle(`The board settings have been saved successfully!`, MessageCardType.Success, "Success!");
+
+        return [ existingBoard,
+            existingTaskLists,
+            existingTaskSettings,
+            board,
+            taskLists,
+            taskSettings,
+            imageUpdates,
+        ] as [ TaskBoardRecord,
+        TaskListRecord[],
+        TaskSettingsRecord[],
+        TaskBoardRecord,
+        TaskListRecord[],
+        TaskSettingsRecord[],
+        CustomImageActionProperties[]
+        ];
+    }
     //#endregion API
 
     //#region Handlers
@@ -307,79 +372,65 @@ export class BoardSettingsElement extends HTMLElement
         const removeBoardButton = composedPath.find(item => item.id == "remove-board-button");
         if(removeBoardButton != null)
         {
-            
-    //     const id  =this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id') ?? this[SHAREDACCESSKEY].getIdFromRoute();
-    //     if(id == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred deleting a board.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error('Unable to determine the target board\'s id');
-    //     }
-
-    //     this.removeBoard(id);
+            const id = this.getAttribute('record-id');
+            if(id == null || id.trim() == "")
+            {
+                FeedbackService.showErrorMessageCard(`An error occurred deleting a board.`);
+                throw new Error(`Unable to determine the target board's id`);
+            }
+            event.preventDefault();
+            event.stopPropagation();
+            this.#removeBoard(id);
             return;
         }
+
         const duplicateBoardButton = composedPath.find(item => item.id == "duplicate-board-button");
         if(duplicateBoardButton != null)
         {
+            const id = this.getAttribute('record-id');
+            if(id == null)
+            {
+                FeedbackService.showErrorMessageCard(`An error occurred duplicating theboard.`);
+                throw new Error('Unable to determine the target board\'s id');
+            }
             
-    //     const id = this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id');
-    //     if(id == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred duplicating theboard.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error('Unable to determine the target board\'s id');
-    //     }
-    //     await this.duplicateBoard(id);
-    //     this[SHAREDACCESSKEY].refreshBoards();
+            this.#duplicateBoard(id);
+
             return;
         }
         const exportBoardButton = composedPath.find(item => item.id == "export-button");
         if(exportBoardButton != null)
         {
-            
-    //     const boardId = this.findElement('board-fields').getAttribute('record-id');
-    //     if(boardId == null || boardId == '')
-    //     {
-    //         MessageCardElement.notify(`An error occurred attempting to export the board.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error('Unable to determine the target board\'s id');
-    //     }
-    //     this.exportBoard(boardId);
+            const boardId = this.getAttribute('record-id');
+            if(boardId == null || boardId == '')
+            {
+                FeedbackService.showErrorMessageCard(`An error occurred attempting to export the board.`);
+                throw new Error('Unable to determine the target board\'s id');
+            }
+            this.#exportBoard(boardId);
             return;
         }
 
         const closeBoardButton = composedPath.find(item => item.id == "close-board-button");
         if(closeBoardButton != null)
         {
-            //     await this.closeBoardSettings();
-            //     this.closeBoard();
+            this.#closeBoardSettings();
+            this.#closeBoard();
             return;
         }
 
         const saveBoardButton = composedPath.find(item => item.id == "board-settings-save");
         if(saveBoardButton != null)
         {
-            //     await this[SHAREDACCESSKEY].updateBoardSettings();
-            //     this[SHAREDACCESSKEY].refreshBoards();
-            //     this[SHAREDACCESSKEY].refreshDeletedItems();
-            //     const id  =this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id') ?? this[SHAREDACCESSKEY].getIdFromRoute();
-            //     if(id == null)
-            //     {
-            //         MessageCardElement.notify(`An error occurred saving the board settings.`, 
-            //         this.getElement('notifications'), { type: MessageCardType.Error });
-            //         throw new Error('Unable to determine the target board\'s id');
-            //     }
-            //     // console.log(id);
-        
-            //     this.openBoard(id);
+            new Promise<void>(async (resolve) =>
+            {
+                this.#saveSettingsTarget();
+            });
             return;
         }
 
-        // finish click handlers
-        // saving content
-        // export parts
         // smaller screen width
+        // exportparts
 
     }
     //#endregion Handlers
@@ -400,11 +451,9 @@ export class BoardSettingsElement extends HTMLElement
         }
         
         taskListElement.setValues(taskList, taskSettings);
-        taskListElement.addEventListener('duplicate', (event) =>
-        {
-            const [ list, settings ] = taskListElement.getRecords();
-            this.dispatchEvent(new CustomEvent('duplicate', { detail: { target: taskListElement, list, settings }}));
-        });
+        taskListElement.classList.add('tasklist-settings');
+        taskListElement.part.add('tasklist-settings');
+        taskListElement.style.setProperty('color-scheme', this.style.getPropertyValue('color-scheme'));
         
         const handle = taskListElement.findElement('tasklist-settings-handle');
         handle.addEventListener('mousedown', (_event) =>

@@ -38,6 +38,7 @@ export class BoardChannel extends DataChannel<TaskBoardRecord>
         board.taskSettingsId = taskSettings.id;
 
         const value: [TaskBoardRecord, TaskSettingsRecord, [TaskListRecord, TaskSettingsRecord][]] = [ board, taskSettings, lists ];
+        console.log(value);
         return value;
     }
     async getTaskLists(boardId: string)

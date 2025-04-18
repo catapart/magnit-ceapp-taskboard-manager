@@ -162,6 +162,7 @@ ${defineIcons(
     IconType.PlusIcon,
     IconType.Stylus,
     IconType.TaskBoard,
+    IconType.UndoRedo,
 )}`;
 
 const COMPONENT_TAG_NAME = 'taskboard-manager';
@@ -221,6 +222,13 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const value = (scheme == 'browser') ? 'light dark' : scheme;
         this.style.setProperty('color-scheme', value);
+        const boardSettings = this.findElement<BoardSettingsElement>('board-settings');
+        boardSettings.style.setProperty('color-scheme', value);
+        const tasklistSettings = [...boardSettings.shadowRoot!.querySelectorAll('.tasklist-settings')] as TaskListElement[];
+        for(let i = 0; i < tasklistSettings.length; i++)
+        {
+            tasklistSettings[i].style.setProperty('color-scheme', value);
+        }
         DataService.saveAppSetting(AppSettingKey.ColorScheme, scheme);
     }
 
@@ -258,6 +266,21 @@ export class TaskboardManagerElement extends HTMLElement
         await this.closeBoard();
         await this.getElement<PathRouterElement>('app-router').navigate(`board/${id}`);
     }
+    async refreshBoard()
+    {
+        // refresh items that reference the board's properties (name, description, etc)
+        this.refreshBoards();
+        this.findElement<ConfigPanelElement>('config-panel').refreshCache();
+
+        // refresh board
+        const id  =this.findElement<BoardSettingsElement>('board-settings').getAttribute('record-id');
+        if(id == null)
+        {
+            FeedbackService.showErrorMessageCard(`An error occurred saving the board settings.`);
+            throw new Error('Unable to determine the target board\'s id');
+        }
+        this.openBoard(id);
+    }
     async closeBoard()
     {
         await this.findElement<PathRouterElement>('app-router').navigate('/' + window.location.hash);
@@ -268,8 +291,8 @@ export class TaskboardManagerElement extends HTMLElement
         const order = this.findElement('app-menu').querySelectorAll('a').length;
         const board = await DataService.createBoard(order);
 
-        // await this.findElement<ConfigPanelElement>('config-panel')
-        // .addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Board, { id: board.id });
+        await this.findElement<ConfigPanelElement>('config-panel')
+        .addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Board, { id: board.id });
 
         this.findElement<AppMenuElement>('app-menu').refresh();
         this.findElement<WelcomePanelElement>('welcome-panel').refresh();
@@ -316,6 +339,64 @@ export class TaskboardManagerElement extends HTMLElement
         const order = this.findElement('app-menu').querySelectorAll('a').length;
         return DataService.importBoard(boardData, order, errorMessage);
     }
+    async removeBoard(boardId: string, confirm: boolean = true)
+    {
+        const confirmed = await FeedbackService.getConfirmation('Are you sure you want to delete this board and all of its tasks, lists, and images?', 'warn');
+        if(confirm == true && confirmed == false)
+        {
+            return;
+        }
+
+        if(this.findElement('app-router').getAttribute('path')?.indexOf(boardId) != null)
+        {
+            this.closeBoard();
+        }
+        await this.closeBoardSettings();
+
+        await DataService.deleteBoard(boardId);
+
+        const configPanel = this.findElement<ConfigPanelElement>('config-panel');
+        const welcomePanel = this.findElement<WelcomePanelElement>('welcome-panel');
+        const entry = await configPanel.addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Board, { id: boardId });
+        this.refreshBoards();
+        configPanel.refreshCache();
+        await welcomePanel.removeBoardFromRecentBoards(boardId);
+        welcomePanel.refresh();
+
+        if(entry != null)
+        {
+            this.#addUndoNotification("A board was just deleted", entry.getAttribute('data-entry-id')!);
+        }
+    }
+    async duplicateBoard(id: string)
+    {
+        const boardExportData = await DataService.prepareExportData(this, id);
+        const duplicateData = this.findElement<ImportManagerComponent>('import-manager').prepareData(boardExportData);
+
+        const newNameInput = this.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('duplicate-board-name');
+        if(newNameInput?.value != null && newNameInput.value.trim() != "")
+        {
+            duplicateData.name = newNameInput.value;
+        }
+
+        await this.importBoard(duplicateData, "An error occurred duplicating a board.");
+        this.refreshBoards();
+        this.findElement<WelcomePanelElement>('welcome-panel').refresh();
+    }
+
+    async closeBoardSettings()
+    {
+        return new Promise((resolve) =>
+        {
+            this.findElement<HTMLDialogElement>('board-settings-dialog').close();
+
+            // wait for the settings to close and update the window location
+            // to prevent the board settings from trying to open, after the
+            // board has been closed and the new location still contains
+            // the settings hash
+            requestAnimationFrame(resolve);
+        });
+    }
 
     async clearData()
     {
@@ -326,52 +407,6 @@ export class TaskboardManagerElement extends HTMLElement
     //     this.findElement<ConfigPanelElement>('config-panel').history_clear();
     // }
     //#endregion API
-
-    // #addUndoNotification(message: string, entryId: string)
-    // {
-    //     const content = document.createElement('span');
-    //     content.setAttribute('part', 'message-content');
-
-    //     const messageText = document.createElement('span');
-    //     messageText.setAttribute('part', 'undo-message');
-    //     messageText.textContent = message;
-
-    //     const messageButton = document.createElement('button');
-    //     messageButton.setAttribute('part', 'notification-undo-button');
-    //     messageButton.innerHTML = `<span part="button-label">Undo?</span>`;
-    //     messageButton.type = 'button';
-
-    //     content.append(messageText, messageButton);
-    //     const notification = MessageCardElement.prepare(content, this.findElement('notifications'), { type: MessageCardType.Success, heading: "Success!" });
-    //     messageButton.addEventListener('click', () =>
-    //     {
-    //         const entry = this.getElement<ActionHistoryElement>('action-history').querySelector(`[data-entry-id="${entryId}"]`) as HTMLElement;
-    //         if(entry == null)
-    //         {
-    //             MessageCardElement.notify(`An error occurred restoring a record. The record was not restored`,
-    //             this.findElement('notifications'), { type: MessageCardType.Error });
-    //             return;
-    //         }
-    //         this.getElement<ActionHistoryElement>('action-history').reverseEntry(entry);
-    //         notification.dispatchEvent(new CustomEvent(MessageCardEvent.Cancel));
-    //         notification.remove();
-    //     });
-    //     notification.show();
-    // }
-
-    // async closeBoardSettings()
-    // {
-    //     return new Promise((resolve) =>
-    //     {
-    //         this.findElement<HTMLDialogElement>('board-settings-dialog').close();
-
-    //         // wait for the settings to close and update the window location
-    //         // to prevent the board settings from trying to open, after the
-    //         // board has been closed and the new location still contains
-    //         // the settings hash
-    //         requestAnimationFrame(resolve);
-    //     });
-    // }
     
 
     // // async addTask(listId: string)
@@ -438,7 +473,13 @@ export class TaskboardManagerElement extends HTMLElement
 
         // board-settings
         this.findElement<BoardSettingsElement>('board-settings').init({
-            canAddList: this.#canAddList.bind(this)
+            canAddList: this.#canAddList.bind(this),
+            removeBoard: this.removeBoard.bind(this),
+            duplicateBoard: this.duplicateBoard.bind(this),
+            exportBoard: this.exportBoard.bind(this),
+            closeBoard: this.closeBoard.bind(this),
+            closeBoardSettings: this.closeBoardSettings.bind(this),
+            saveSettingsTarget: this.#saveSettingsTarget.bind(this)
         });
 
         // import-dialog
@@ -565,6 +606,134 @@ export class TaskboardManagerElement extends HTMLElement
         const importPath = currentPathArray.join('#');
         router.navigate(importPath);
         this.findElement<ImportManagerComponent>('import-manager').setData(boardData);
+    }
+    
+    async #saveSettingsTarget()
+    {
+        const settingsTarget = this.findElement<BoardSettingsElement>('board-settings');
+        const settingsTargetId = settingsTarget.getAttribute('record-id');
+        const boardItem = this.findElement<AppMenuElement>('app-menu').querySelector(`a[data-route*="${settingsTargetId}"]`) as HTMLAnchorElement;
+        if(boardItem == null)
+        {
+            FeedbackService.showErrorMessageCard(`An error occurred saving a task board.`);
+            console.error(`An error occurred finding the board's menu item.`);
+            return;
+        }
+
+        const order = [...this.shadowRoot!.querySelectorAll('a')].indexOf(boardItem);
+        const [ existingBoard,
+            existingTaskLists,
+            existingTaskSettings,
+            board,
+            taskLists,
+            taskSettings,
+            imageUpdates
+        ] = await settingsTarget.saveBoard(order);
+        if(board == null) { return; }
+
+        await this.#updateActionHistory(existingBoard,
+            existingTaskLists,
+            existingTaskSettings,
+            board,
+            taskLists,
+            taskSettings,
+            imageUpdates);
+
+        this.findElement<WelcomePanelElement>('welcome-panel').updateRecentBoardEntry(board.id, board.name);
+
+        this.refreshBoard();
+    }
+    async #updateActionHistory(existingBoard: TaskBoardRecord,
+        existingTaskLists: TaskListRecord[],
+        existingTaskSettings: TaskSettingsRecord[],
+        board: TaskBoardRecord,
+        taskLists: TaskListRecord[],
+        taskSettings: TaskSettingsRecord[],
+        imageUpdates: CustomImageActionProperties[])
+    {
+        const configPanel = this.findElement<ConfigPanelElement>('config-panel')
+        const [ 
+            boardActionProperties,
+            listActionProperties
+        ] = DataService.data.boardUpdate_getActionProperties({ existing: existingBoard, updated: board }
+        ,{ existing: existingTaskLists, updated: taskLists }
+        ,{ existing: existingTaskSettings, updated: taskSettings });
+
+        // console.log(boardActionProperties, listActionProperties);
+
+        if(boardActionProperties != null && imageUpdates.length > 0)
+        {
+            if(boardActionProperties.backgroundImages != null)
+            {
+                boardActionProperties.backgroundImages = boardActionProperties.backgroundImages.concat(imageUpdates);
+            }
+            else if(boardActionProperties.backgroundImages == null)
+            {
+                boardActionProperties.backgroundImages = imageUpdates;
+            }
+
+            await configPanel.addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.Board, boardActionProperties);
+        }
+
+        for(let i = 0; i < listActionProperties.length; i++)
+        {
+            const actionProperties = listActionProperties[i];
+            await configPanel.addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.List, actionProperties);
+        }
+
+        const existingListIds = new Set(existingTaskLists.filter(item => item != undefined).map(item => item.id));
+        const currentListIds = new Set(taskLists.filter(item => item != undefined).map(item => item.id));
+        const addedLists = taskLists.filter(item => item != undefined && !existingListIds.has(item.id));
+        for(let i = 0; i < addedLists.length; i++)
+        {
+            const addedList = addedLists[i];
+            await configPanel.addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.List, { id: addedList.id });
+        }
+        const removedLists = existingTaskLists.filter(item => item != undefined && !currentListIds.has(item.id));
+        for(let i = 0; i < removedLists.length; i++)
+        {
+            const removedList = removedLists[i];
+            await configPanel.addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.List, { id: removedList.id });
+        }
+    }
+    #addUndoNotification(message: string, entryId: string)
+    {
+        const content = document.createElement('span');
+        content.setAttribute('part', 'notification-message-content');
+        content.classList.add('notification-message-content');
+
+        const messageText = document.createElement('span');
+        messageText.setAttribute('part', 'undo-message');
+        messageText.classList.add('undo-message');
+        messageText.textContent = message;
+
+        const messageButton = document.createElement('button');
+        messageButton.setAttribute('part', 'notification-undo-button');
+        messageButton.classList.add('notification-undo-button');
+        messageButton.innerHTML = `<svg id="notification-undo-icon" class="icon">
+                                        <use href="#icon-definition_undo-redo"></use>
+                                    </svg>
+                                    <span part="notification-undo-button-label">Undo?</span>`;
+        messageButton.type = 'button';
+
+        content.append(messageText, messageButton);
+        const notification = MessageCardElement.prepare(content, this.findElement('notifications'), { type: MessageCardType.Success, heading: "Success!" });
+        notification.part.add('notification');
+        notification.classList.add('notification');
+        messageButton.addEventListener('click', () =>
+        {
+            const entry = this.getElement<ActionHistoryElement>('action-history').querySelector(`[data-entry-id="${entryId}"]`) as HTMLElement;
+            if(entry == null)
+            {
+                MessageCardElement.notify(`An error occurred restoring a record. The record was not restored`,
+                this.findElement('notifications'), { type: MessageCardType.Error });
+                return;
+            }
+            this.getElement<ActionHistoryElement>('action-history').reverseEntry(entry);
+            notification.dispatchEvent(new CustomEvent(MessageCardEvent.Cancel));
+            notification.remove();
+        });
+        notification.show();
     }
     //#endregion Management
 
@@ -1241,143 +1410,6 @@ export class TaskboardManagerElement extends HTMLElement
     //#endregion Internal
 
 
-    // async #updateBoardSettings()
-    // {
-    //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-    //     const listChannel = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, 'danger');
-    //     const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
-    //     const imageChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
-
-    //     const boards = this.findElement('boards');
-
-    //     const boardSettings = this.findElement<BoardSettingsElement>('board-settings');
-    //     const [ board, taskLists, taskSettings, removedListIds ] = boardSettings.getRecords();
-
-    //     const [existingBoard, existingTaskLists, existingTaskSettings ] = await Promise.all([
-    //         boardChannel.get(board.id),
-    //         (await boardChannel.getTaskLists(board.id)).filter(item => item.deletedTimestamp == undefined),
-    //         taskSettingsChannel.getItems(taskSettings.map(item => item.id))
-    //     ]);
-    //     if(existingBoard == null)
-    //     { 
-    //         MessageCardElement.notify(`An error occurred saving a task board.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         console.error(`An error occurred finding the existing board record.`);
-    //         return;
-    //     }
-        
-    //     const boardItem = boards.querySelector(`a[data-route*="${board.id}"]`) as HTMLAnchorElement;
-    //     if(boardItem == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred saving a task board.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         console.error(`An error occurred finding the board's menu item.`);
-    //         return;
-    //     }
-    //     board.order = [...this.shadowRoot!.querySelectorAll('a')].indexOf(boardItem);
-    //     board.backgroundImageId = existingBoard.backgroundImageId;
-
-
-    //     // convert backgroundImage into backgroundImageUpdates
-    //     let existingImageActionProperties: CustomImageActionProperties = { id: board.backgroundImageId, updates: new Map() };
-    //     const imageUpdates: CustomImageActionProperties[] = [];
-
-    //     const imageValue = boardSettings.findElement<FileImageInputElement>('background-image').value;
-    //     let backgroundImageRecord: CustomImageRecord|null = null;
-    //     if(imageValue != null)
-    //     {
-    //         if(board.backgroundImageId != "")
-    //         {
-    //             const existingImage = await imageChannel.get(board.backgroundImageId);
-    //             if(existingImage != null)
-    //             {
-    //                 await imageChannel.delete(existingImage.id);
-    //                 const deletedImage = await imageChannel.get(board.backgroundImageId);
-    //                 existingImageActionProperties.updates!.set('deletedTimestamp', { from: undefined, to: deletedImage?.deletedTimestamp });
-    //                 imageUpdates.push(existingImageActionProperties);
-    //             }
-    //         }
-
-    //         backgroundImageRecord = imageChannel.createFromImage(imageValue);
-    //         backgroundImageRecord.boardId = board.id;
-    //         backgroundImageRecord = await imageChannel.save(backgroundImageRecord);
-    //         const newImageActionUpdates = { id: backgroundImageRecord.id, updates: new Map([['boardId', { from: "", to: backgroundImageRecord.boardId }]]) };
-    //         imageUpdates.push(newImageActionUpdates);
-
-    //         board.backgroundImageId = backgroundImageRecord.id;
-    //     }
-    //     else
-    //     {
-    //         if(board.backgroundImageId != "")
-    //         {
-    //             await imageChannel.delete(board.backgroundImageId);
-    //             const deletedImage = await imageChannel.get(board.backgroundImageId);
-    //             existingImageActionProperties.updates!.set('deletedTimestamp', { from: undefined, to: deletedImage?.deletedTimestamp });
-    //             imageUpdates.push(existingImageActionProperties);
-    //             board.backgroundImageId = "";
-    //         }
-    //     }
-
-    //     // save data
-    //     await Promise.allSettled([
-    //         boardChannel.save(board),
-    //         listChannel.saveItems(taskLists),
-    //         taskSettingsChannel.saveItems(taskSettings),
-    //         this.#data.lists!.deleteItems(removedListIds),
-    //     ]);
-
-        
-    //     MessageCardElement.notify(`The board settings have been saved successfully!`, 
-    //     this.getElement('notifications'), { type: MessageCardType.Success, heading: "Success!" });
-
-    //     // update action history
-    //     const [ 
-    //         boardActionProperties,
-    //         listActionProperties
-    //     ] = this.#data.boardUpdate_getActionProperties({ existing: existingBoard, updated: board }
-    //     ,{ existing: existingTaskLists, updated: taskLists }
-    //     ,{ existing: existingTaskSettings, updated: taskSettings });
-
-    //     // console.log(boardActionProperties, listActionProperties);
-
-    //     if(boardActionProperties != null && imageUpdates.length > 0)
-    //     {
-    //         if(boardActionProperties.backgroundImages != null)
-    //         {
-    //             boardActionProperties.backgroundImages = boardActionProperties.backgroundImages.concat(imageUpdates);
-    //         }
-    //         else if(boardActionProperties.backgroundImages == null)
-    //         {
-    //             boardActionProperties.backgroundImages = imageUpdates;
-    //         }
-
-    //         await this.#addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.Board, boardActionProperties);
-    //     }
-
-    //     for(let i = 0; i < listActionProperties.length; i++)
-    //     {
-    //         const actionProperties = listActionProperties[i];
-    //         await this.#addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.List, actionProperties);
-    //     }
-
-    //     const existingListIds = new Set(existingTaskLists.filter(item => item != undefined).map(item => item.id));
-    //     const currentListIds = new Set(taskLists.filter(item => item != undefined).map(item => item.id));
-    //     const addedLists = taskLists.filter(item => item != undefined && !existingListIds.has(item.id));
-    //     for(let i = 0; i < addedLists.length; i++)
-    //     {
-    //         const addedList = addedLists[i];
-    //         await this.#addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.List, { id: addedList.id });
-    //     }
-    //     const removedLists = existingTaskLists.filter(item => item != undefined && !currentListIds.has(item.id));
-    //     for(let i = 0; i < removedLists.length; i++)
-    //     {
-    //         const removedList = removedLists[i];
-    //         await this.#addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.List, { id: removedList.id });
-    //     }
-
-    //     // update recent entries
-    //     this.#updateRecentBoardEntry(board.id, board.name);
-    // }
     // #registerSharedData()
     // {
     //     this[SHAREDACCESSKEY] = 

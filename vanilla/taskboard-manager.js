@@ -184,11 +184,40 @@ message-card::part(message)\r
 {\r
     margin-block: 1em;\r
 }\r
+\r
+#confirmation-dialog-header\r
+{\r
+    display: grid;\r
+    grid-template-columns: auto 1fr auto;\r
+    gap: 7px;\r
+    align-items: center;\r
+    font-weight: bold;\r
+    padding-bottom: 1em;\r
+}\r
+#confirmation-dialog-icon\r
+{\r
+    width: var(--dialog-header-icon-size);\r
+    height: var(--dialog-header-icon-size);\r
+}\r
+\r
 #confirmation-dialog-form\r
 {\r
     display: flex;\r
     justify-content: flex-end;\r
     gap: 10px;\r
+}\r
+\r
+.notification\r
+{\r
+    background-color: canvas;\r
+}\r
+\r
+.notification-message-content\r
+{\r
+    display: grid;\r
+    grid-template-columns: 1fr auto;\r
+    align-items: center;\r
+    gap: 14px;\r
 }\r
   \r
 @keyframes loading-spin { to { -webkit-transform: rotate(360deg); } }\r
@@ -378,7 +407,7 @@ dialog[open]\r
 }`;
 
 // taskboard-manager.html?raw
-var taskboard_manager_default2 = '<app-menu\r\nid="app-menu"\r\nexportparts="menu,\r\n            header,\r\n            menu-header,\r\n            branding,\r\n            icon,\r\n            logo,\r\n            mark,\r\n            button,\r\n            open-board-browser,\r\n            label,\r\n            magnifying-glass,\r\n            open-settings,\r\n            gear,\r\n            boards,\r\n            board-items,\r\n            board-edit-button,\r\n            new-board-button,\r\n            expand\r\n            "\r\n>\r\n</app-menu>\r\n<path-router id="app-router" path="">\r\n    <route-page id="welcome-page" class="page" path="">\r\n        <welcome-panel\r\n            id="welcome-panel"\r\n            exportparts="panel-fieldset,\r\n                         logo,\r\n                         welcome-logo,\r\n                         description,\r\n                         welcome-description,\r\n                         welcome-text,\r\n                         create-text,\r\n                         text,\r\n                         fieldset,\r\n                         legend,\r\n                         recent-fieldset,\r\n                         recent-legend,\r\n                         recent-boards,\r\n                         button,\r\n                         edit-button:recent-edit-button,\r\n                         handle:recent-edit-handle,\r\n                         new-board-button:recent-new-board-button,\r\n                         plus,\r\n                         label\r\n                         ">\r\n        </welcome-panel>\r\n    </route-page>\r\n    <route-page id="board-page" class="page" path="board/:id" >\r\n        <task-board id="task-board" exportparts="lists:task-board-lists"></task-board>\r\n    </route-page>\r\n    <dialog id="board-browser-dialog" class="dialog" is="route-dialog" path="boards">\r\n        <board-browser\r\n            id="board-browser"\r\n            exportparts="header,\r\n                         board-browser-header,\r\n                         dialog-header,\r\n                         icon,\r\n                         title,\r\n                         board-browser-title,\r\n                         add-button-icon:board-browser-add-button-icon,\r\n                         add-button-label:board-browser-add-button-label,\r\n                         input,\r\n                         filter-search:browser-filter-search,\r\n                         filter-form:browser-filter-form,\r\n                         filter-query:browser-filter-query,\r\n                         filter-input:browser-filter-input,\r\n                         filter-regex-button:browser-filter-regex-button,\r\n                         filter-search-button:browser-filter-search-button,\r\n                         field-button:browser-filter-field-button,\r\n                         filter-regex-icon:browser-filter-regex-icon,\r\n                         filter-search-icon:browser-filter-search-icon,\r\n                         collection-browser:board-collection-browser,\r\n                         gallery:board-browser-gallery,\r\n                         gallery-header:board-browser-gallery-header,\r\n                         items:board-browser-items,\r\n                         add-button:board-browser-add-button,\r\n                         footer,\r\n                         board-browser-footer,\r\n                         actions,\r\n                         board-browser-actions,\r\n                         cancel:board-browser-cancel,\r\n                         ok:board-browser-ok,\r\n                         button,\r\n                         preferred-button">\r\n        </board-browser>\r\n    </dialog>\r\n    <dialog id="config-dialog" class="dialog" is="route-dialog" path="config">\r\n        <config-panel\r\n            id="config-panel"\r\n            exportparts="config-header,\r\n                         header,\r\n                         dialog-header,\r\n                         config-icon,\r\n                         icon,\r\n                         config-title,\r\n                         title,\r\n                         config-navigation,\r\n                         navigation,\r\n                         nav-item,\r\n                         selected,\r\n                         first,\r\n                         last,\r\n                         nav-item-icon,\r\n                         nav-item-label,\r\n                         settings-nav-item,\r\n                         data-nav-item,\r\n                         history-nav-item,\r\n                         about-nav-item,\r\n                         config-router,\r\n                         router,\r\n                         page,\r\n                         config-page,\r\n                         panel,\r\n                         settings-page,\r\n                         settings-panel,\r\n                         data-page,\r\n                         data-panel,\r\n                         history-page,\r\n                         history-panel,\r\n                         about-page,\r\n                         about-panel,\r\n                         config-footer,\r\n                         footer,\r\n                         dialog-footer,\r\n                         config-actions,\r\n                         actions,\r\n                         config-cancel,\r\n                         button,\r\n                         action-button,\r\n                         cancel,\r\n                         config-ok,\r\n                         ok,\r\n                         preferred-button,\r\n\r\n                         settings-header,\r\n                         header,\r\n                         page-header,\r\n                         fieldset,\r\n                         config-fieldset,\r\n                         legend,\r\n                         config-legend,\r\n                         color-scheme-fieldset,\r\n                         color-scheme-legend,\r\n                         scheme-options,\r\n                         button-group,\r\n                         button,\r\n                         scheme,\r\n                         inherit-button,\r\n                         browser-button,\r\n                         light-button,\r\n                         dark-button,\r\n                         custom-settings-fieldset,\r\n                         custom-settings-legend,\r\n                         shortcuts-fieldset,\r\n                         shortcuts-legend,\r\n                         shortcuts,\r\n                         shortcut,\r\n                         word,\r\n                         line,\r\n                         hightlight,\r\n                         task,\r\n                         list,\r\n                         key,\r\n                         shortcut-title,\r\n                         shortcut-description,\r\n                         previous-word,\r\n                         next-word,\r\n                         previous-line,\r\n                         next-line,\r\n                         highlight-previous-word,\r\n                         highlight-next-word,\r\n                         previous-line,\r\n                         next-line,\r\n                         previous-task,\r\n                         next-task,\r\n                         previous-list,\r\n                         next-list,\r\n\r\n                         data-header,\r\n                         import-fieldset,\r\n                         import-legend,\r\n                         import-field,\r\n                         import-field-container,\r\n                         field-container,\r\n                         field-label,\r\n                         field-prefix,\r\n                         field-postfix,\r\n                         import-board-file,\r\n                         field,\r\n                         input,\r\n                         config-field,\r\n                         data-field,\r\n                         import-file-icon,\r\n                         import-button,\r\n                         import-button-icon,\r\n                         import-button-label,\r\n                         config-data-caches,\r\n                         data-cleanup-fieldset,\r\n                         data-cleanup-legend,\r\n                         data-cleanup-description,\r\n                         text,\r\n                         data-cleanup-range,\r\n                         data-persist-days,\r\n                         data-persist-days-values,\r\n                         data-persist-days-value,\r\n                         apply-data-persist-days-button,\r\n                         apply-data-persist-days-icon,\r\n                         apply-data-persist-days-label,\r\n                         data-pending-fieldset,\r\n                         data-pending-legend,\r\n                         data-pending-description,\r\n                         deleted-items,\r\n                         restore-item-icon,\r\n                         clear-deleted-button,\r\n                         clear-deleted-icon,\r\n                         clear-deleted-label,\r\n                         image-cache-fieldset,\r\n                         image-cache-legend,\r\n                         image-cache-description,\r\n                         deleted-images,\r\n                         clear-image-cache-button,\r\n                         clear-images-icon,\r\n                         clear-images-label,\r\n                         data-clear-fieldset,\r\n                         data-clear-legend,\r\n                         data-clear-description,\r\n                         clear-data-button,\r\n                         clear-data-icon,\r\n                         clear-data-label,\r\n                         cache-list,\r\n                         range,\r\n\r\n                         header,\r\n                         history-header,\r\n                         history-navigation-fieldset,\r\n                         fieldset,\r\n                         config-fieldset,\r\n                         legend,\r\n                         config-legend,\r\n                         history-navigation-legend,\r\n                         undo,\r\n                         button,\r\n                         restore-item-icon,\r\n                         icon,\r\n                         undo-label,\r\n                         redo,\r\n                         button,\r\n                         redo-label,\r\n                         clear-history-button,\r\n                         clear-history-icon,\r\n                         clear-history-label,\r\n                         action-history,\r\n                         action-history-entry,\r\n                         action-history-entry-type,\r\n                         action-history-entry-data,\r\n                         action-history-target-type,\r\n                         action-history-target-id,\r\n                         active,\r\n                         history-length-fieldset,\r\n                         history-length-legend,\r\n                         history-length-field,\r\n                         field,\r\n                         field-container,\r\n                         field-label,\r\n                         field-prefix,\r\n                         field-postfix,\r\n                         action-history-length,\r\n                         action-history-length-values,\r\n                         apply-history-length-button,\r\n                         apply-history-length-label,\r\n\r\n                         about-header,\r\n                         about-app-fieldset,\r\n                         about-app-legend,\r\n                         emphasis,\r\n                         code,\r\n                         version-fieldset,\r\n                         version-legend,\r\n                         version-value,\r\n                         copyright-fieldset,\r\n                         copyright-legend,\r\n                         copyright-text,\r\n                         cc0-link,\r\n                         link,\r\n                         copyright-link,\r\n                         cc-icon,\r\n                         zero-icon,\r\n                         icon,\r\n                         raster\r\n                        ">\r\n            <slot name="custom-settings" slot="custom-settings"></slot>\r\n        </config-panel>\r\n    </dialog>\r\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\r\n        <board-settings\r\n            id="board-settings"\r\n            exportparts="header,\r\n                         dialog-header,\r\n                         fieldset,\r\n                         legend,\r\n                         form,\r\n                         icon,\r\n                         title,\r\n                         button,\r\n                         header-button,\r\n                         field,\r\n                         input,\r\n                         label,\r\n                         legend-label,\r\n                         footer,\r\n                         dialog-footer,\r\n                         button,\r\n                         action-button,\r\n                         ok,\r\n                         cancel,\r\n                         preferred-button,\r\n                         board-settings-form,\r\n                         board-settings-header,\r\n                         board-settings-icon,\r\n                         board-settings-title,\r\n                         close-board-button,\r\n                         close-board-icon,\r\n                         fields: board-settings-fields,\r\n                         record-id,\r\n                         properties: board-settings-properties,\r\n                         color-field,\r\n                         color-input,\r\n                         name-field,\r\n                         name-input,\r\n                         order-field,\r\n                         order-input,\r\n                         appearance-fieldset,\r\n                         appearance-legend,\r\n                         color-icon,\r\n                         appearance-label,\r\n                         background-color-field,\r\n                         background-color: background-color-input,\r\n                         font-color-field,\r\n                         font-color: font-color-input,\r\n                         image-fieldset,\r\n                         image-legend,\r\n                         image-icon,\r\n                         image-label,\r\n                         background-image-field,\r\n                         background-image:background-image-input,\r\n                         background-image-icon,\r\n                         background-image-display-field,\r\n                         background-image-display: background-image-display-select,\r\n                         background-image-offset,\r\n                         offset-header,\r\n                         offset-label,\r\n                         background-image-offset-x-field,\r\n                         background-image-offset-x: background-image-offset-x-input,\r\n                         background-image-offset-y-field,\r\n                         background-image-offset-y: background-image-offset-y-input,\r\n                         board-settings-details,\r\n                         settings-details,\r\n                         board-settings-summary,\r\n                         settings-summary,\r\n                         lists: board-settings-lists,\r\n                         lists-summary,\r\n                         lists-icon,\r\n                         lists-label,\r\n                         list-items,\r\n                         lists-placeholder,\r\n                         list-actions,\r\n                         clear-lists-button,\r\n                         clear-lists-button-icon,\r\n                         clear-lists-button-label,\r\n                         add-list-button,\r\n                         add-list-button-icon,\r\n                         add-list-button-label,\r\n                         tasks: board-settings-task-settings,\r\n                         tasks-summary: board-settings-task-settings-summary,\r\n                         tasks-icon: board-settings-task-settings-icon,\r\n                         tasks-label: board-settings-task-settings-label,\r\n                         board-task-settings,\r\n                         task-fields,\r\n                         delete-fieldset,\r\n                         delete-legend,\r\n                         field-question,\r\n                         remove-board-button,\r\n                         remove-board-label,\r\n                         duplicate-fieldset,\r\n                         duplicate-legend,\r\n                         duplicate-board-name-field,\r\n                         duplicate-board-name,\r\n                         duplicate-board-button,\r\n                         duplicate-board-icon,\r\n                         duplicate-board-label,\r\n                         export-fieldset,\r\n                         export-legend,\r\n                         export-options,\r\n                         export-options-header,\r\n                         export-images-field,\r\n                         export-images-icon,\r\n                         export-background-image,\r\n                         export-button,\r\n                         export-button-icon,\r\n                         export-button-label,\r\n                         board-settings-footer,\r\n                         board-settings-cancel,\r\n                         board-settings-save,\r\n                         "\r\n            ></board-settings>\r\n    </dialog>\r\n    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">\r\n        <import-manager\r\n            id="import-manager"\r\n            exportparts="header,\r\n                         dialog-header,\r\n                         import-header,\r\n                         import-icon,\r\n                         icon,\r\n                         import-title,\r\n                         title,\r\n                         dialog-title,\r\n                         content: import-dialog-content,\r\n                         import-board-data-fieldset,\r\n                         fieldset,\r\n                         legend,\r\n                         import-board-data-legend,\r\n                         preview: import-preview,\r\n                         description,\r\n                         import-footer,\r\n                         footer,\r\n                         dialog-footer,\r\n                         import-actions,\r\n                         actions,\r\n                         import-cancel,\r\n                         cancel,\r\n                         button,\r\n                         action-button,\r\n                         ok,\r\n                         import-ok,\r\n                         preferred-button\r\n            "\r\n            ></import-manager>\r\n    </dialog>\r\n</path-router>\r\n<dialog id="confirmation-dialog" class="dialog">\r\n    <header id="confirmation-dialog-header" class="header dialog-header">\r\n        <svg id="confirmation-dialog-icon" class="icon">\r\n            <use href="#icon-definition_import"></use>\r\n        </svg>\r\n        <span id="confirmation-dialog-title" class="title">Confirmation</span>\r\n    </header>\r\n    <path-router id="confirmation-router" class="router">\r\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\r\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\r\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\r\n    </path-router>\r\n    <footer id="confirmation-dialog-footer" class="footer dialog-footer">\r\n        <form id="confirmation-dialog-form" method="dialog">\r\n            <button type="submit" id="confirmation-cancel-button" class="button action-button cancel">Cancel</button>\r\n            <button type="submit" id="confirmation-confirm-button" class="button action-button ok preferred-button">Confirm</button>\r\n        </form>\r\n    </footer>\r\n</dialog>\r\n<div id="notifications"></div>\r\n<div id="loading"></div>';
+var taskboard_manager_default2 = '<app-menu\r\nid="app-menu"\r\nexportparts="menu,\r\n            header,\r\n            menu-header,\r\n            branding,\r\n            icon,\r\n            logo,\r\n            mark,\r\n            button,\r\n            open-board-browser,\r\n            label,\r\n            magnifying-glass,\r\n            open-settings,\r\n            gear,\r\n            boards,\r\n            board-items,\r\n            board-edit-button,\r\n            new-board-button,\r\n            expand\r\n            "\r\n>\r\n</app-menu>\r\n<path-router id="app-router" path="">\r\n    <route-page id="welcome-page" class="page" path="">\r\n        <welcome-panel\r\n            id="welcome-panel"\r\n            exportparts="panel-fieldset,\r\n                         logo,\r\n                         welcome-logo,\r\n                         description,\r\n                         welcome-description,\r\n                         welcome-text,\r\n                         create-text,\r\n                         text,\r\n                         fieldset,\r\n                         legend,\r\n                         recent-fieldset,\r\n                         recent-legend,\r\n                         recent-boards,\r\n                         button,\r\n                         edit-button:recent-edit-button,\r\n                         handle:recent-edit-handle,\r\n                         new-board-button:recent-new-board-button,\r\n                         plus,\r\n                         label\r\n                         ">\r\n        </welcome-panel>\r\n    </route-page>\r\n    <route-page id="board-page" class="page" path="board/:id" >\r\n        <task-board id="task-board" exportparts="lists:task-board-lists"></task-board>\r\n    </route-page>\r\n    <dialog id="board-browser-dialog" class="dialog" is="route-dialog" path="boards">\r\n        <board-browser\r\n            id="board-browser"\r\n            exportparts="header,\r\n                         board-browser-header,\r\n                         dialog-header,\r\n                         icon,\r\n                         title,\r\n                         board-browser-title,\r\n                         add-button-icon:board-browser-add-button-icon,\r\n                         add-button-label:board-browser-add-button-label,\r\n                         input,\r\n                         filter-search:browser-filter-search,\r\n                         filter-form:browser-filter-form,\r\n                         filter-query:browser-filter-query,\r\n                         filter-input:browser-filter-input,\r\n                         filter-regex-button:browser-filter-regex-button,\r\n                         filter-search-button:browser-filter-search-button,\r\n                         field-button:browser-filter-field-button,\r\n                         filter-regex-icon:browser-filter-regex-icon,\r\n                         filter-search-icon:browser-filter-search-icon,\r\n                         collection-browser:board-collection-browser,\r\n                         gallery:board-browser-gallery,\r\n                         gallery-header:board-browser-gallery-header,\r\n                         items:board-browser-items,\r\n                         add-button:board-browser-add-button,\r\n                         footer,\r\n                         board-browser-footer,\r\n                         actions,\r\n                         board-browser-actions,\r\n                         cancel:board-browser-cancel,\r\n                         ok:board-browser-ok,\r\n                         button,\r\n                         preferred-button">\r\n        </board-browser>\r\n    </dialog>\r\n    <dialog id="config-dialog" class="dialog" is="route-dialog" path="config">\r\n        <config-panel\r\n            id="config-panel"\r\n            exportparts="config-header,\r\n                         header,\r\n                         dialog-header,\r\n                         config-icon,\r\n                         icon,\r\n                         config-title,\r\n                         title,\r\n                         config-navigation,\r\n                         navigation,\r\n                         nav-item,\r\n                         selected,\r\n                         first,\r\n                         last,\r\n                         nav-item-icon,\r\n                         nav-item-label,\r\n                         settings-nav-item,\r\n                         data-nav-item,\r\n                         history-nav-item,\r\n                         about-nav-item,\r\n                         config-router,\r\n                         router,\r\n                         page,\r\n                         config-page,\r\n                         panel,\r\n                         settings-page,\r\n                         settings-panel,\r\n                         data-page,\r\n                         data-panel,\r\n                         history-page,\r\n                         history-panel,\r\n                         about-page,\r\n                         about-panel,\r\n                         config-footer,\r\n                         footer,\r\n                         dialog-footer,\r\n                         config-actions,\r\n                         actions,\r\n                         config-cancel,\r\n                         button,\r\n                         action-button,\r\n                         cancel,\r\n                         config-ok,\r\n                         ok,\r\n                         preferred-button,\r\n\r\n                         settings-header,\r\n                         header,\r\n                         page-header,\r\n                         fieldset,\r\n                         config-fieldset,\r\n                         legend,\r\n                         config-legend,\r\n                         color-scheme-fieldset,\r\n                         color-scheme-legend,\r\n                         scheme-options,\r\n                         button-group,\r\n                         button,\r\n                         scheme,\r\n                         inherit-button,\r\n                         browser-button,\r\n                         light-button,\r\n                         dark-button,\r\n                         custom-settings-fieldset,\r\n                         custom-settings-legend,\r\n                         shortcuts-fieldset,\r\n                         shortcuts-legend,\r\n                         shortcuts,\r\n                         shortcut,\r\n                         word,\r\n                         line,\r\n                         hightlight,\r\n                         task,\r\n                         list,\r\n                         key,\r\n                         shortcut-title,\r\n                         shortcut-description,\r\n                         previous-word,\r\n                         next-word,\r\n                         previous-line,\r\n                         next-line,\r\n                         highlight-previous-word,\r\n                         highlight-next-word,\r\n                         previous-line,\r\n                         next-line,\r\n                         previous-task,\r\n                         next-task,\r\n                         previous-list,\r\n                         next-list,\r\n\r\n                         data-header,\r\n                         import-fieldset,\r\n                         import-legend,\r\n                         import-field,\r\n                         import-field-container,\r\n                         field-container,\r\n                         field-label,\r\n                         field-prefix,\r\n                         field-postfix,\r\n                         import-board-file,\r\n                         field,\r\n                         input,\r\n                         config-field,\r\n                         data-field,\r\n                         import-file-icon,\r\n                         import-button,\r\n                         import-button-icon,\r\n                         import-button-label,\r\n                         config-data-caches,\r\n                         data-cleanup-fieldset,\r\n                         data-cleanup-legend,\r\n                         data-cleanup-description,\r\n                         text,\r\n                         data-cleanup-range,\r\n                         data-persist-days,\r\n                         data-persist-days-values,\r\n                         data-persist-days-value,\r\n                         apply-data-persist-days-button,\r\n                         apply-data-persist-days-icon,\r\n                         apply-data-persist-days-label,\r\n                         data-pending-fieldset,\r\n                         data-pending-legend,\r\n                         data-pending-description,\r\n                         deleted-items,\r\n                         restore-item-icon,\r\n                         clear-deleted-button,\r\n                         clear-deleted-icon,\r\n                         clear-deleted-label,\r\n                         image-cache-fieldset,\r\n                         image-cache-legend,\r\n                         image-cache-description,\r\n                         deleted-images,\r\n                         clear-image-cache-button,\r\n                         clear-images-icon,\r\n                         clear-images-label,\r\n                         data-clear-fieldset,\r\n                         data-clear-legend,\r\n                         data-clear-description,\r\n                         clear-data-button,\r\n                         clear-data-icon,\r\n                         clear-data-label,\r\n                         cache-list,\r\n                         range,\r\n\r\n                         header,\r\n                         history-header,\r\n                         history-navigation-fieldset,\r\n                         fieldset,\r\n                         config-fieldset,\r\n                         legend,\r\n                         config-legend,\r\n                         history-navigation-legend,\r\n                         undo,\r\n                         button,\r\n                         restore-item-icon,\r\n                         icon,\r\n                         undo-label,\r\n                         redo,\r\n                         button,\r\n                         redo-label,\r\n                         clear-history-button,\r\n                         clear-history-icon,\r\n                         clear-history-label,\r\n                         action-history,\r\n                         action-history-entry,\r\n                         action-history-entry-type,\r\n                         action-history-entry-data,\r\n                         action-history-target-type,\r\n                         action-history-target-id,\r\n                         active,\r\n                         history-length-fieldset,\r\n                         history-length-legend,\r\n                         history-length-field,\r\n                         field,\r\n                         field-container,\r\n                         field-label,\r\n                         field-prefix,\r\n                         field-postfix,\r\n                         action-history-length,\r\n                         action-history-length-values,\r\n                         apply-history-length-button,\r\n                         apply-history-length-label,\r\n\r\n                         about-header,\r\n                         about-app-fieldset,\r\n                         about-app-legend,\r\n                         emphasis,\r\n                         code,\r\n                         version-fieldset,\r\n                         version-legend,\r\n                         version-value,\r\n                         copyright-fieldset,\r\n                         copyright-legend,\r\n                         copyright-text,\r\n                         cc0-link,\r\n                         link,\r\n                         copyright-link,\r\n                         cc-icon,\r\n                         zero-icon,\r\n                         icon,\r\n                         raster\r\n                        ">\r\n            <slot name="custom-settings" slot="custom-settings"></slot>\r\n        </config-panel>\r\n    </dialog>\r\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\r\n        <board-settings\r\n            id="board-settings"\r\n            exportparts="header,\r\n                         dialog-header,\r\n                         fieldset,\r\n                         legend,\r\n                         form,\r\n                         icon,\r\n                         title,\r\n                         button,\r\n                         header-button,\r\n                         field,\r\n                         input,\r\n                         label,\r\n                         legend-label,\r\n                         footer,\r\n                         dialog-footer,\r\n                         button,\r\n                         action-button,\r\n                         ok,\r\n                         cancel,\r\n                         preferred-button,\r\n                         board-settings-form,\r\n                         board-settings-header,\r\n                         board-settings-icon,\r\n                         board-settings-title,\r\n                         close-board-button,\r\n                         close-board-icon,\r\n                         fields: board-settings-fields,\r\n                         record-id,\r\n                         properties: board-settings-properties,\r\n                         color-field,\r\n                         color-input,\r\n                         name-field,\r\n                         name-input,\r\n                         order-field,\r\n                         order-input,\r\n                         appearance-fieldset,\r\n                         appearance-legend,\r\n                         color-icon,\r\n                         appearance-label,\r\n                         background-color-field,\r\n                         background-color: background-color-input,\r\n                         font-color-field,\r\n                         font-color: font-color-input,\r\n                         image-fieldset,\r\n                         image-legend,\r\n                         image-icon,\r\n                         image-label,\r\n                         background-image-field,\r\n                         background-image:background-image-input,\r\n                         background-image-icon,\r\n                         background-image-display-field,\r\n                         background-image-display: background-image-display-select,\r\n                         background-image-offset,\r\n                         offset-header,\r\n                         offset-label,\r\n                         background-image-offset-x-field,\r\n                         background-image-offset-x: background-image-offset-x-input,\r\n                         background-image-offset-y-field,\r\n                         background-image-offset-y: background-image-offset-y-input,\r\n                         board-settings-details,\r\n                         settings-details,\r\n                         board-settings-summary,\r\n                         settings-summary,\r\n                         lists: board-settings-lists,\r\n                         lists-summary,\r\n                         lists-icon,\r\n                         lists-label,\r\n                         list-items,\r\n                         lists-placeholder,\r\n                         list-actions,\r\n                         clear-lists-button,\r\n                         clear-lists-button-icon,\r\n                         clear-lists-button-label,\r\n                         add-list-button,\r\n                         add-list-button-icon,\r\n                         add-list-button-label,\r\n                         tasks: board-settings-task-settings,\r\n                         tasks-summary: board-settings-task-settings-summary,\r\n                         tasks-icon: board-settings-task-settings-icon,\r\n                         tasks-label: board-settings-task-settings-label,\r\n                         board-task-settings,\r\n                         task-fields,\r\n                         delete-fieldset,\r\n                         delete-legend,\r\n                         field-question,\r\n                         remove-board-button,\r\n                         remove-board-label,\r\n                         duplicate-fieldset,\r\n                         duplicate-legend,\r\n                         duplicate-board-name-field,\r\n                         duplicate-board-name,\r\n                         duplicate-board-button,\r\n                         duplicate-board-icon,\r\n                         duplicate-board-label,\r\n                         export-fieldset,\r\n                         export-legend,\r\n                         export-options,\r\n                         export-options-header,\r\n                         export-images-field,\r\n                         export-images-icon,\r\n                         export-background-image,\r\n                         export-button,\r\n                         export-button-icon,\r\n                         export-button-label,\r\n                         board-settings-footer,\r\n                         board-settings-cancel,\r\n                         board-settings-save,\r\n                         "\r\n            ></board-settings>\r\n    </dialog>\r\n    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">\r\n        <import-manager\r\n            id="import-manager"\r\n            exportparts="header,\r\n                         dialog-header,\r\n                         import-header,\r\n                         import-icon,\r\n                         icon,\r\n                         import-title,\r\n                         title,\r\n                         dialog-title,\r\n                         content: import-dialog-content,\r\n                         import-board-data-fieldset,\r\n                         fieldset,\r\n                         legend,\r\n                         import-board-data-legend,\r\n                         preview: import-preview,\r\n                         description,\r\n                         import-footer,\r\n                         footer,\r\n                         dialog-footer,\r\n                         import-actions,\r\n                         actions,\r\n                         import-cancel,\r\n                         cancel,\r\n                         button,\r\n                         action-button,\r\n                         ok,\r\n                         import-ok,\r\n                         preferred-button\r\n            "\r\n            ></import-manager>\r\n    </dialog>\r\n</path-router>\r\n<dialog id="confirmation-dialog" class="dialog">\r\n    <header id="confirmation-dialog-header" class="header dialog-header">\r\n        <svg id="confirmation-dialog-icon" class="icon">\r\n            <use href="#icon-definition_logo-mark"></use>\r\n        </svg>\r\n        <span id="confirmation-dialog-title" class="title">Confirmation</span>\r\n    </header>\r\n    <path-router id="confirmation-router" class="router">\r\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\r\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\r\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\r\n    </path-router>\r\n    <footer id="confirmation-dialog-footer" class="footer dialog-footer">\r\n        <form id="confirmation-dialog-form" method="dialog">\r\n            <button type="submit" id="confirmation-cancel-button" class="button action-button cancel">Cancel</button>\r\n            <button type="submit" id="confirmation-confirm-button" class="button action-button ok preferred-button">Confirm</button>\r\n        </form>\r\n    </footer>\r\n</dialog>\r\n<div id="notifications"></div>\r\n<div id="loading"></div>';
 
 // assets/icons/cancel-cross.ts
 var CancelCross = `<svg id="icon-definition_cancel-cross" class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -2203,7 +2232,7 @@ var TaskFieldsComponent = class extends HTMLElement {
   }
   getRecord() {
     const settings = new TaskSettingsRecord();
-    settings.id = this.getAttribute("record-id");
+    settings.id = this.getAttribute("task-record-id");
     settings.useCustomBackgroundColor = this.findElement("task-background-color-field").getAttribute("optional-value") == "true";
     settings.customBackgroundColor = this.findElement("task-background-color").value;
     settings.useCustomFontColor = this.findElement("task-font-color-field").getAttribute("optional-value") == "true";
@@ -2472,6 +2501,12 @@ input[type="text"]\r
     align-self: flex-end;\r
 }\r
 \r
+:host([style*="color-scheme: light;"]) svg.copy\r
+{\r
+    --icon-primary-color: canvas;\r
+    --icon-secondary-color: canvastext;\r
+}\r
+\r
 @media (prefers-color-scheme: light) \r
 {\r
     :host(:not([style*="color-scheme: dark;"])) svg.copy\r
@@ -2489,7 +2524,7 @@ input[type="text"]\r
 }`;
 
 // components/board-settings/tasklist-fields/tasklist-fields.component.html?raw
-var tasklist_fields_component_default2 = '<details class="details" id="tasklist-settings-details">\r\n    <summary class="summary" id="tasklist-settings-summary">\r\n        <div class="handle" id="tasklist-settings-handle"></div>\r\n        <input class="input color" id="tasklist-color" name="tasklist-color" type="color" />\r\n        <input class="input name" id="tasklist-name" name="tasklist-name" type="text" />\r\n        <button class="duplicate-button" id="tasklist-settings-duplicate-button" type="button">\r\n            <svg class="icon copy" id="tasklist-settings-duplicate-icon">\r\n                <use href="#icon-definition_copy"></use>\r\n            </svg>\r\n        </button>\r\n        <button class="button" id="tasklist-settings-remove-button" type="button">\r\n            <svg class="icon" id="tasklist-settings-remove-icon">\r\n                <use href="#icon-definition_cancel-cross"></use>\r\n            </svg>\r\n            <svg class="icon" id="tasklist-settings-undo-icon">\r\n                <use href="#icon-definition_undo-redo"></use>\r\n            </svg>\r\n        </button>\r\n    </summary>\r\n    <div class="details-content" id="task-fields-content">\r\n        <fieldset class="fieldset" id="tasklist-settings-fieldset">\r\n            <legend class="legend" id="tasklist-settings-legend">List</legend>\r\n            <div class="fieldset-column first">\r\n                <form-field class="field"  id="tasklist-background-color-field"label="Background Color" optional optional-title="Override Background Color?">\r\n                    <input class="input" id="tasklist-background-color" type="color" name="background-color" value="#f9faf5" />\r\n                </form-field>\r\n                <form-field class="field" id="tasklist-font-color-field" label="Font Color" optional optional-title="Override Font Color?">\r\n                    <input class="input" id="tasklist-font-color" type="color" name="font-color" value="#060703" />\r\n                </form-field>\r\n            </div>\r\n            <div class="fieldset-column second">\r\n                <form-field class="field" id="tasklist-order-field" label="Order" >\r\n                    <input class="input" id="tasklist-order" type="text" name="order" inputmode="numeric" disabled />\r\n                </form-field>\r\n                <form-field class="field" id="tasklist-width-field" label="List Width" optional optional-title="Use a custom list width?">\r\n                    <input class="input" id="tasklist-width" type="text" inputmode="numeric" name="list-width" value="" />\r\n                    <span class="postfix" id="tasklist-width-unit" slot="postfix">px</span>\r\n                </form-field>\r\n                <form-field class="field" id="tasklist-color-display-field" label="Color Display">\r\n                    <select class="select" id="tasklist-color-display" name="color-display"></select>\r\n                </form-field>\r\n            </div>\r\n        </fieldset>\r\n        <fieldset class="fieldset" id="task-settings-fieldset">\r\n            <legend class="legend" id="task-settings-legend">List Tasks</legend>\r\n            <task-fields\r\n                id="task-fields"\r\n                exportparts="\r\n                "\r\n            ></task-fields>\r\n        </fieldset>\r\n    </div>\r\n</details>';
+var tasklist_fields_component_default2 = '<details class="details" id="tasklist-settings-details">\r\n    <summary class="summary" id="tasklist-settings-summary">\r\n        <div class="handle" id="tasklist-settings-handle"></div>\r\n        <input class="input color" id="tasklist-color" name="tasklist-color" type="color" />\r\n        <input class="input name" id="tasklist-name" name="tasklist-name" type="text" />\r\n        <button class="duplicate-button" id="tasklist-settings-duplicate-button" type="button">\r\n            <svg class="icon copy" id="tasklist-settings-duplicate-icon">\r\n                <use href="#icon-definition_copy"></use>\r\n            </svg>\r\n        </button>\r\n        <button class="button" id="tasklist-settings-remove-button" type="button">\r\n            <svg class="icon" id="tasklist-settings-remove-icon">\r\n                <use href="#icon-definition_cancel-cross"></use>\r\n            </svg>\r\n            <svg class="icon" id="tasklist-settings-undo-icon">\r\n                <use href="#icon-definition_undo-redo"></use>\r\n            </svg>\r\n        </button>\r\n    </summary>\r\n    <div class="details-content" id="task-fields-content">\r\n        <fieldset class="fieldset" id="tasklist-settings-fieldset">\r\n            <legend class="legend" id="tasklist-settings-legend">List</legend>\r\n            <div class="fieldset-column first">\r\n                <form-field class="field"  id="tasklist-background-color-field"label="Background Color" optional optional-title="Override Background Color?">\r\n                    <input class="input" id="tasklist-background-color" type="color" name="background-color" value="#f9faf5" />\r\n                </form-field>\r\n                <form-field class="field" id="tasklist-font-color-field" label="Font Color" optional optional-title="Override Font Color?">\r\n                    <input class="input" id="tasklist-font-color" type="color" name="font-color" value="#060703" />\r\n                </form-field>\r\n            </div>\r\n            <div class="fieldset-column second">\r\n                <form-field class="field" id="tasklist-order-field" label="Order" >\r\n                    <input class="input" id="tasklist-order" type="text" name="order" inputmode="numeric" disabled />\r\n                </form-field>\r\n                <form-field class="field" id="tasklist-width-field" label="List Width" optional optional-title="Use a custom list width?">\r\n                    <input class="input" id="tasklist-width" type="text" inputmode="numeric" name="list-width" value="" />\r\n                    <span class="postfix" id="tasklist-width-unit" slot="postfix">px</span>\r\n                </form-field>\r\n                <form-field class="field" id="tasklist-color-display-field" label="Color Display">\r\n                    <select class="select" id="tasklist-color-display" name="color-display"></select>\r\n                </form-field>\r\n            </div>\r\n        </fieldset>\r\n        <fieldset class="fieldset" id="task-settings-fieldset">\r\n            <legend class="legend" id="task-settings-legend">List Tasks</legend>\r\n            <task-fields\r\n                id="task-settings"\r\n                exportparts="\r\n                "\r\n            ></task-fields>\r\n        </fieldset>\r\n    </div>\r\n</details>';
 
 // components/board-settings/tasklist-fields/tasklist-fields.component.ts
 var COMPONENT_STYLESHEET3 = new CSSStyleSheet();
@@ -2550,7 +2585,7 @@ var TaskListFieldsComponent = class extends HTMLElement {
     this.findElement("tasklist-width-field").setAttribute("optional-value", taskList.useCustomWidth == true ? "true" : "false");
     this.findElement("tasklist-width").value = taskList.width.toString();
     this.findElement("tasklist-color-display").value = taskList.colorDisplay;
-    this.findElement("task-fields").setValues(taskSettings);
+    this.findElement("task-settings").setValues(taskSettings);
   }
   getRecords() {
     const taskList = new TaskListRecord();
@@ -2564,9 +2599,9 @@ var TaskListFieldsComponent = class extends HTMLElement {
     taskList.useCustomWidth = this.findElement("tasklist-width-field").getAttribute("optional-value") == "true";
     taskList.width = parseFloat(this.findElement("tasklist-width").value);
     taskList.colorDisplay = this.findElement("tasklist-color-display").value;
-    const taskSettings = this.findElement("task-fields").getRecord();
+    const taskSettings = this.findElement("task-settings").getRecord();
     taskSettings.parentRecordType = "list";
-    taskList.taskSettingsId = this.findElement("task-fields").getAttribute("record-id");
+    taskList.taskSettingsId = taskSettings.id;
     const result = [taskList, taskSettings];
     return result;
   }
@@ -2813,6 +2848,14 @@ var MessageCardType = /* @__PURE__ */ ((MessageCardType2) => {
   MessageCardType2["Report"] = "report";
   return MessageCardType2;
 })(MessageCardType || {});
+var MessageCardEvent = /* @__PURE__ */ ((MessageCardEvent2) => {
+  MessageCardEvent2["Open"] = "open";
+  MessageCardEvent2["Close"] = "close";
+  MessageCardEvent2["ProgressComplete"] = "progresscomplete";
+  MessageCardEvent2["Remove"] = "remove";
+  MessageCardEvent2["Cancel"] = "cancel";
+  return MessageCardEvent2;
+})(MessageCardEvent || {});
 var DEFAULT_DURATION_MILLISECONDS = 5e3;
 var componentTemplate = `<style>${message_card_default}</style>
 ${message_card_default2}`;
@@ -3077,6 +3120,9 @@ var FeedbackService = class _FeedbackService {
   static showErrorMessageCard(message) {
     _FeedbackService.showMessageCard(message, MessageCardType.Error);
   }
+  static showMessageCard_customTitle(message, type, title) {
+    MessageCardElement.notify(message, _FeedbackService.#manager.getElement("notifications"), { type, heading: title });
+  }
 };
 
 // data/records/task-board.record.ts
@@ -3243,6 +3289,7 @@ var BoardChannel = class extends DataChannel {
     const taskSettings = this.channels.taskSettings.create("board");
     board.taskSettingsId = taskSettings.id;
     const value = [board, taskSettings, lists];
+    console.log(value);
     return value;
   }
   async getTaskLists(boardId) {
@@ -4662,11 +4709,29 @@ var DataService = class _DataService {
     const boardChannel = _DataService.#getChannel(_DataService.data.boards, "BOARD" /* BOARD */);
     return boardChannel.saveItems(items);
   }
+  static async deleteBoard(id) {
+    const channel = _DataService.#getChannel(_DataService.data.boards, "BOARD" /* BOARD */);
+    return channel.delete(id);
+  }
   //#endregion Boards
   //#region Lists
   static async createList(list, settings) {
     const taskLists = this.#getChannel(this.#data.lists, "LIST" /* LIST */);
     return taskLists.create(list, settings);
+  }
+  static async saveListRecords(...items) {
+    if (items.length == 0) {
+      return;
+    }
+    const channel = _DataService.#getChannel(_DataService.data.lists, "LIST" /* LIST */);
+    return channel.saveItems(items);
+  }
+  static async deleteListRecords(...ids) {
+    if (ids.length == 0) {
+      return;
+    }
+    const channel = _DataService.#getChannel(_DataService.data.lists, "LIST" /* LIST */);
+    return channel.deleteItems(ids);
   }
   //#endregion Lists
   //#region Tasks
@@ -4680,6 +4745,13 @@ var DataService = class _DataService {
   static async getTaskSettingsRecord(id) {
     const channel = _DataService.#getChannel(_DataService.data.taskSettings, "BOARD" /* BOARD */);
     return channel.get(id);
+  }
+  static async saveTaskSettingsRecords(...items) {
+    if (items.length == 0) {
+      return;
+    }
+    const channel = _DataService.#getChannel(_DataService.data.taskSettings, "SETTINGS" /* SETTINGS */);
+    return channel.saveItems(items);
   }
   //#endregion Tasks
   //#region Images
@@ -4832,6 +4904,14 @@ var DataService = class _DataService {
     const deletedImages = images.filter((item) => item.deletedTimestamp != null);
     return [deletedBoards, deletedLists, deletedTasks, deletedImages];
   }
+  static saveImage(item) {
+    const channel = this.#getChannel(this.#data.customImages, "IMAGE" /* IMAGE */);
+    return channel.save(item);
+  }
+  static createImageFromImage(image) {
+    const channel = this.#getChannel(this.#data.customImages, "IMAGE" /* IMAGE */);
+    return channel.createFromImage(image);
+  }
   static deleteImage(id, overrideSoftDelete = false) {
     const channel = this.#getChannel(this.#data.customImages, "IMAGE" /* IMAGE */);
     return channel.delete(id, overrideSoftDelete);
@@ -4842,8 +4922,54 @@ var DataService = class _DataService {
   }
   //#endregion Cache
   //#region Import/Export
+  static async prepareExportData(target, id) {
+    const exportBackgroundImage = target.findElement("board-settings").findElement("export-background-image").checked;
+    const boardChannel = this.#getChannel(this.#data.boards, "BOARD" /* BOARD */);
+    const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, "BOARD" /* BOARD */);
+    const imageChannel = this.#getChannel(this.#data.customImages, "IMAGE" /* IMAGE */);
+    const board = await boardChannel.get(id);
+    if (board == null) {
+      throw new Error(`Error loading board from id: ${id}`);
+    }
+    const tasks = await boardChannel.getTasks(id);
+    const lists = await boardChannel.getTaskLists(id);
+    const listExports = [];
+    const taskSettingsIds = [board.taskSettingsId];
+    for (let i = 0; i < lists.length; i++) {
+      const list = lists[i];
+      if (list.deletedTimestamp != void 0) {
+        continue;
+      }
+      const listTasks = tasks.filter((item) => item.listId == list.id && item.deletedTimestamp == void 0);
+      const listExport = new ListExport(list, void 0, listTasks);
+      taskSettingsIds.push(list.taskSettingsId);
+      listExports.push(listExport);
+    }
+    const backgroundImage = exportBackgroundImage == true && board.backgroundImageId != null && board.backgroundImageId != "" ? await imageChannel.get(board.backgroundImageId) ?? void 0 : void 0;
+    const boardExportData = new BoardExport(board, void 0, backgroundImage);
+    if (boardExportData.backgroundImage != null) {
+      await boardExportData.backgroundImage.loadImage();
+    } else if (exportBackgroundImage == false) {
+      delete boardExportData.backgroundImageId;
+    }
+    const taskSettings = await taskSettingsChannel.getItems(taskSettingsIds);
+    for (let i = 0; i < taskSettings.length; i++) {
+      const item = taskSettings[i];
+      if (board.taskSettingsId == item.id) {
+        boardExportData.taskSettings = item;
+        continue;
+      }
+      const target2 = listExports.find((listItem) => listItem.taskSettingsId == item.id);
+      if (target2 == null) {
+        throw new Error(`Error assigning task settings to target list`);
+      }
+      target2.taskSettings = item;
+    }
+    boardExportData.lists = listExports;
+    return boardExportData;
+  }
   static async exportBoard(target, id) {
-    const boardExportData = await this.#prepareExportData(target, id);
+    const boardExportData = await this.prepareExportData(target, id);
     this.#downloadExportData(target, boardExportData);
   }
   static async importBoard(boardData, order, errorMessage) {
@@ -4905,52 +5031,6 @@ var DataService = class _DataService {
       throw new Error(`Data Access Error`);
     }
     return channel;
-  }
-  static async #prepareExportData(target, id) {
-    const exportBackgroundImage = target.findElement("board-settings").findElement("export-background-image").checked;
-    const boardChannel = this.#getChannel(this.#data.boards, "BOARD" /* BOARD */);
-    const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, "BOARD" /* BOARD */);
-    const imageChannel = this.#getChannel(this.#data.customImages, "IMAGE" /* IMAGE */);
-    const board = await boardChannel.get(id);
-    if (board == null) {
-      throw new Error(`Error loading board from id: ${id}`);
-    }
-    const tasks = await boardChannel.getTasks(id);
-    const lists = await boardChannel.getTaskLists(id);
-    const listExports = [];
-    const taskSettingsIds = [board.taskSettingsId];
-    for (let i = 0; i < lists.length; i++) {
-      const list = lists[i];
-      if (list.deletedTimestamp != void 0) {
-        continue;
-      }
-      const listTasks = tasks.filter((item) => item.listId == list.id && item.deletedTimestamp == void 0);
-      const listExport = new ListExport(list, void 0, listTasks);
-      taskSettingsIds.push(list.taskSettingsId);
-      listExports.push(listExport);
-    }
-    const backgroundImage = exportBackgroundImage == true && board.backgroundImageId != null && board.backgroundImageId != "" ? await imageChannel.get(board.backgroundImageId) ?? void 0 : void 0;
-    const boardExportData = new BoardExport(board, void 0, backgroundImage);
-    if (boardExportData.backgroundImage != null) {
-      await boardExportData.backgroundImage.loadImage();
-    } else if (exportBackgroundImage == false) {
-      delete boardExportData.backgroundImageId;
-    }
-    const taskSettings = await taskSettingsChannel.getItems(taskSettingsIds);
-    for (let i = 0; i < taskSettings.length; i++) {
-      const item = taskSettings[i];
-      if (board.taskSettingsId == item.id) {
-        boardExportData.taskSettings = item;
-        continue;
-      }
-      const target2 = listExports.find((listItem) => listItem.taskSettingsId == item.id);
-      if (target2 == null) {
-        throw new Error(`Error assigning task settings to target list`);
-      }
-      target2.taskSettings = item;
-    }
-    boardExportData.lists = listExports;
-    return boardExportData;
   }
   static #downloadExportData(target, boardExportData) {
     const currentDate = /* @__PURE__ */ new Date();
@@ -5998,6 +6078,12 @@ form-field [part="container"]:has([slot="postfix"]) [part="field-label"]\r
 } */\r
 \r
 \r
+:host([style*="color-scheme: light;"]) svg.copy\r
+{\r
+    --icon-primary-color: canvas;\r
+    --icon-secondary-color: canvastext;\r
+}\r
+\r
 \r
 @media (min-width: 800px) \r
 {\r
@@ -6087,8 +6173,20 @@ var BoardSettingsElement = class extends HTMLElement {
   }
   //#region API
   #canAddList;
+  #removeBoard;
+  #duplicateBoard;
+  #exportBoard;
+  #closeBoard;
+  #closeBoardSettings;
+  #saveSettingsTarget;
   init(options) {
     this.#canAddList = options.canAddList;
+    this.#removeBoard = options.removeBoard;
+    this.#duplicateBoard = options.duplicateBoard;
+    this.#exportBoard = options.exportBoard;
+    this.#closeBoard = options.closeBoard;
+    this.#closeBoardSettings = options.closeBoardSettings;
+    this.#saveSettingsTarget = options.saveSettingsTarget;
   }
   setValues(board, taskSettings, backgroundImage = null) {
     this.setAttribute("record-id", board.id);
@@ -6141,9 +6239,9 @@ var BoardSettingsElement = class extends HTMLElement {
     board.backgroundDisplay = this.findElement("board-background-image-display").value;
     board.backgroundOffsetX = parseInt(this.findElement("board-background-image-offset-x").value);
     board.backgroundOffsetY = parseInt(this.findElement("board-background-image-offset-y").value);
-    const boardTaskSettings = this.findElement("task-fields").getRecord();
+    const boardTaskSettings = this.findElement("board-task-settings").getRecord();
     boardTaskSettings.parentRecordType = "board";
-    board.taskSettingsId = this.findElement("task-fields").getAttribute("record-id");
+    board.taskSettingsId = boardTaskSettings.id;
     const listFields = [...this.querySelectorAll("tasklist-fields")];
     const lists = [];
     const toRemove = [];
@@ -6151,7 +6249,7 @@ var BoardSettingsElement = class extends HTMLElement {
     for (let i = 0; i < listFields.length; i++) {
       const element = listFields[i];
       if (element.hasAttribute("removed")) {
-        const recordId = element.getAttribute("record-id");
+        const recordId = element.getAttribute("tasklist-record-id");
         if (recordId == null) {
           console.error("Unable to remove TaskList: record id attribute is unset.");
           continue;
@@ -6188,41 +6286,66 @@ var BoardSettingsElement = class extends HTMLElement {
     const [duplicateList, duplicateSettings] = await DataService.createList(list, settings);
     this.insertList(target, duplicateList, duplicateSettings);
   }
-  // async duplicateBoard(id: string)
-  // {
-  //     const boardExportData = await this.#prepareExportData(id);
-  //     const duplicateData = this.findElement<ImportManagerComponent>('import-manager').prepareData(boardExportData);
-  //     const newNameInput = this.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('duplicate-board-name');
-  //     if(newNameInput?.value != null && newNameInput.value.trim() != "")
-  //     {
-  //         duplicateData.name = newNameInput.value;
-  //     }
-  //     await this.importBoard(duplicateData, "An error occurred duplicating a board.");
-  // }
-  // async removeBoard(boardId: string, confirm: boolean = true)
-  // {
-  //     const confirmed = await this.#getConfirmation('Are you sure you want to delete this board and all of its tasks, lists, and images?', 'warn');
-  //     if(confirm == true && confirmed == false)
-  //     {
-  //         return;
-  //     }
-  //     await this.closeBoardSettings();
-  //     const channel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //     if(this.findElement('app-router').getAttribute('path')?.indexOf(boardId) != null)
-  //     {
-  //         this.closeBoard();
-  //     }
-  //     await channel.delete(boardId);
-  //     const entry = await this.#addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Board, { id: boardId });
-  //     this.#refreshBoards();
-  //     this.#refreshDeletedItems();
-  //     await this.#removeBoardFromRecentBoards(boardId);
-  //     this.#refreshRecentBoards();
-  //     if(entry != null)
-  //     {
-  //         this.#addUndoNotification("A board was just deleted", entry.getAttribute('data-entry-id')!);
-  //     }
-  // }
+  async saveBoard(order) {
+    const [board, taskLists, taskSettings, removedListIds] = this.getRecords();
+    const [existingBoard, existingTaskLists, existingTaskSettings] = await Promise.all([
+      DataService.getBoardRecord(board.id),
+      (await DataService.getBoardLists(board.id)).filter((item) => item.deletedTimestamp == void 0),
+      DataService.getTaskSettingsRecords(...taskSettings.map((item) => item.id))
+    ]);
+    if (existingBoard == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred saving a task board.`);
+      console.error(`An error occurred finding the existing board record.`);
+      return [];
+    }
+    board.order = order;
+    board.backgroundImageId = existingBoard.backgroundImageId;
+    let existingImageActionProperties = { id: board.backgroundImageId, updates: /* @__PURE__ */ new Map() };
+    const imageUpdates = [];
+    const imageValue = this.findElement("board-background-image").value;
+    let backgroundImageRecord = null;
+    if (imageValue != null) {
+      if (board.backgroundImageId != "") {
+        const existingImage = await DataService.getImageRecord(board.backgroundImageId);
+        if (existingImage != null) {
+          await DataService.deleteImage(existingImage.id);
+          const deletedImage = await DataService.getImageRecord(board.backgroundImageId);
+          existingImageActionProperties.updates.set("deletedTimestamp", { from: void 0, to: deletedImage?.deletedTimestamp });
+          imageUpdates.push(existingImageActionProperties);
+        }
+      }
+      backgroundImageRecord = DataService.createImageFromImage(imageValue);
+      backgroundImageRecord.boardId = board.id;
+      backgroundImageRecord = await DataService.saveImage(backgroundImageRecord);
+      const newImageActionUpdates = { id: backgroundImageRecord.id, updates: /* @__PURE__ */ new Map([["boardId", { from: "", to: backgroundImageRecord.boardId }]]) };
+      imageUpdates.push(newImageActionUpdates);
+      board.backgroundImageId = backgroundImageRecord.id;
+    } else {
+      if (board.backgroundImageId != "") {
+        await DataService.deleteImage(board.backgroundImageId);
+        const deletedImage = await DataService.getImageRecord(board.backgroundImageId);
+        existingImageActionProperties.updates.set("deletedTimestamp", { from: void 0, to: deletedImage?.deletedTimestamp });
+        imageUpdates.push(existingImageActionProperties);
+        board.backgroundImageId = "";
+      }
+    }
+    await Promise.allSettled([
+      DataService.saveBoardRecords(board),
+      DataService.saveListRecords(...taskLists),
+      DataService.saveTaskSettingsRecords(...taskSettings),
+      DataService.deleteListRecords(...removedListIds)
+    ]);
+    FeedbackService.showMessageCard_customTitle(`The board settings have been saved successfully!`, MessageCardType.Success, "Success!");
+    return [
+      existingBoard,
+      existingTaskLists,
+      existingTaskSettings,
+      board,
+      taskLists,
+      taskSettings,
+      imageUpdates
+    ];
+  }
   //#endregion API
   //#region Handlers
   #onClick(event) {
@@ -6251,22 +6374,47 @@ var BoardSettingsElement = class extends HTMLElement {
     }
     const removeBoardButton = composedPath.find((item) => item.id == "remove-board-button");
     if (removeBoardButton != null) {
+      const id = this.getAttribute("record-id");
+      if (id == null || id.trim() == "") {
+        FeedbackService.showErrorMessageCard(`An error occurred deleting a board.`);
+        throw new Error(`Unable to determine the target board's id`);
+      }
+      event.preventDefault();
+      event.stopPropagation();
+      this.#removeBoard(id);
       return;
     }
     const duplicateBoardButton = composedPath.find((item) => item.id == "duplicate-board-button");
     if (duplicateBoardButton != null) {
+      const id = this.getAttribute("record-id");
+      if (id == null) {
+        FeedbackService.showErrorMessageCard(`An error occurred duplicating theboard.`);
+        throw new Error("Unable to determine the target board's id");
+      }
+      this.#duplicateBoard(id);
       return;
     }
     const exportBoardButton = composedPath.find((item) => item.id == "export-button");
     if (exportBoardButton != null) {
+      const boardId = this.getAttribute("record-id");
+      if (boardId == null || boardId == "") {
+        FeedbackService.showErrorMessageCard(`An error occurred attempting to export the board.`);
+        throw new Error("Unable to determine the target board's id");
+      }
+      this.#exportBoard(boardId);
       return;
     }
     const closeBoardButton = composedPath.find((item) => item.id == "close-board-button");
     if (closeBoardButton != null) {
+      this.#closeBoardSettings();
+      this.#closeBoard();
       return;
     }
     const saveBoardButton = composedPath.find((item) => item.id == "board-settings-save");
     if (saveBoardButton != null) {
+      new Promise(async (resolve) => {
+        this.#saveSettingsTarget();
+      });
       return;
     }
   }
@@ -6282,10 +6430,9 @@ var BoardSettingsElement = class extends HTMLElement {
       throw new Error("Unable to load list settings");
     }
     taskListElement.setValues(taskList, taskSettings);
-    taskListElement.addEventListener("duplicate", (event) => {
-      const [list, settings] = taskListElement.getRecords();
-      this.dispatchEvent(new CustomEvent("duplicate", { detail: { target: taskListElement, list, settings } }));
-    });
+    taskListElement.classList.add("tasklist-settings");
+    taskListElement.part.add("tasklist-settings");
+    taskListElement.style.setProperty("color-scheme", this.style.getPropertyValue("color-scheme"));
     const handle = taskListElement.findElement("tasklist-settings-handle");
     handle.addEventListener("mousedown", (_event) => {
       taskListElement.draggable = true;
@@ -6336,7 +6483,7 @@ if (customElements.get(COMPONENT_TAG_NAME11) == null) {
 }
 
 // components/config-panel/config-panel.css?raw
-var config_panel_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto auto 1fr auto;\r\n    overflow: hidden;\r\n}\r\n\r\n.icon\r\n{\r\n    width: var(--tab-icon-size);\r\n    height: var(--tab-icon-size);\r\n}\r\n\r\n#config-header\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n    padding: 7px 0;\r\n    font-weight: bold;\r\n}\r\n\r\n#config-title\r\n{\r\n    font-weight: bold;\r\n}\r\n\r\n.header-icon\r\n{\r\n    width: var(--dialog-header-icon-size);\r\n    height: var(--dialog-header-icon-size);\r\n}\r\n\r\n#config-navigation\r\n{\r\n    margin: 0;\r\n    margin-bottom: 14px;\r\n    padding: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: field;\r\n    color: fieldtext;\r\n    border: solid 1px graytext;\r\n    border-radius: 2px;\r\n    user-select: none;\r\n}\r\n\r\n.nav-item\r\n{\r\n    --tab-icon-size: 14px;\r\n    padding: 7px 12px;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n    #navigation\r\n    {\r\n        display: grid;\r\n        grid-template-columns: 1fr 1fr;\r\n        grid-template-rows: 1fr 1fr;\r\n    }\r\n\r\n    .nav-item\r\n    {\r\n        justify-content: center;\r\n    }\r\n}\r\n\r\n.nav-item[aria-current="page"]\r\n,.nav-item:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n\r\n#config-router\r\n{\r\n    overflow: hidden;\r\n}\r\n.page\r\n{\r\n    overflow-y: auto;\r\n    display: grid;\r\n}\r\n\r\n\r\n#config-actions\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto auto;\r\n    gap: 14px;\r\n    padding: 7px 0;\r\n}\r\n\r\n.button\r\n{\r\n    width: 75px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n#config-cancel\r\n{\r\n    grid-column: 2;\r\n}\r\n#config-ok\r\n{\r\n    grid-column: 3;\r\n}';
+var config_panel_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto auto 1fr auto;\r\n    overflow: hidden;\r\n}\r\n\r\n.icon\r\n{\r\n    width: var(--tab-icon-size);\r\n    height: var(--tab-icon-size);\r\n}\r\n\r\n#board-settings-header\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto 1fr auto;\r\n    gap: 7px;\r\n    align-items: center;\r\n    font-weight: bold;\r\n    padding-bottom: 1em;\r\n}\r\n#board-settings-icon\r\n{\r\n    width: var(--dialog-header-icon-size);\r\n    height: var(--dialog-header-icon-size);\r\n}\r\n\r\n#board-settings-form\r\n{\r\n    display: flex;\r\n    flex-direction: column;\r\n    overflow: hidden;\r\n}\r\n\r\n#config-header\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n    padding: 7px 0;\r\n    font-weight: bold;\r\n}\r\n\r\n#config-title\r\n{\r\n    font-weight: bold;\r\n}\r\n\r\n.header-icon\r\n{\r\n    width: var(--dialog-header-icon-size);\r\n    height: var(--dialog-header-icon-size);\r\n}\r\n\r\n#config-navigation\r\n{\r\n    margin: 0;\r\n    margin-bottom: 14px;\r\n    padding: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: field;\r\n    color: fieldtext;\r\n    border: solid 1px graytext;\r\n    border-radius: 2px;\r\n    user-select: none;\r\n}\r\n\r\n.nav-item\r\n{\r\n    --tab-icon-size: 14px;\r\n    padding: 7px 12px;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n    #navigation\r\n    {\r\n        display: grid;\r\n        grid-template-columns: 1fr 1fr;\r\n        grid-template-rows: 1fr 1fr;\r\n    }\r\n\r\n    .nav-item\r\n    {\r\n        justify-content: center;\r\n    }\r\n}\r\n\r\n.nav-item[aria-current="page"]\r\n,.nav-item:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n\r\n#config-router\r\n{\r\n    overflow: hidden;\r\n}\r\n.page\r\n{\r\n    overflow-y: auto;\r\n    display: grid;\r\n}\r\n\r\n\r\n#board-settings-footer\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    gap: 14px;\r\n    padding-top: 1em;\r\n}\r\n\r\n#config-actions\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto auto;\r\n    gap: 14px;\r\n    padding: 7px 0;\r\n}\r\n\r\n.button\r\n{\r\n    width: 75px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n#config-cancel\r\n{\r\n    grid-column: 2;\r\n}\r\n#config-ok\r\n{\r\n    grid-column: 3;\r\n}';
 
 // components/config-panel/config-panel.html?raw
 var config_panel_default2 = '<header id="config-header" class="header dialog-header">\r\n    <svg id="config-icon" class="icon gear-icon header-icon">\r\n        <use href="#icon-definition_gear"></use>\r\n    </svg>\r\n    <span id="config-title" class="title">Configuration</span>\r\n</header>\r\n<menu id="config-navigation" class="navigation">\r\n    <a data-route="#config/settings" id="settings-nav-item" class="nav-item first">\r\n        <svg id="settings-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_gear"></use>\r\n        </svg>\r\n        <span class="nav-item-label">Settings</span>\r\n    </a>\r\n    <a data-route="#config/data" id="data-nav-item"  class="nav-item">\r\n        <svg id="data-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_data"></use>\r\n        </svg>\r\n        <span class="nav-item-label">Data</span>\r\n    </a>\r\n    <a data-route="#config/history" id="history-nav-item"  class="nav-item">\r\n        <svg id="history-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_clock"></use>\r\n        </svg>\r\n        <span class="nav-item-label">History</span>\r\n    </a>\r\n    <a data-route="#config/about" id="about-nav-item"  class="nav-item last">\r\n        <svg id="about-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_info"></use>\r\n        </svg>\r\n        <span class="nav-item-label">About</span>\r\n    </a>\r\n</menu>\r\n<path-router id="config-router" class="router" path="settings">\r\n    <route-page path="settings" id="settings-page" class="page config-page">\r\n        <settings-panel\r\n            id="settings-panel"\r\n            exportparts="settings-header,\r\n                         header,\r\n                         page-header,\r\n                         fieldset,\r\n                         config-fieldset,\r\n                         legend,\r\n                         config-legend,\r\n                         color-scheme-fieldset,\r\n                         color-scheme-legend,\r\n                         scheme-options,\r\n                         button-group,\r\n                         button,\r\n                         scheme,\r\n                         selected,\r\n                         first,\r\n                         last,\r\n                         inherit-button,\r\n                         browser-button,\r\n                         light-button,\r\n                         dark-button,\r\n                         custom-settings-fieldset,\r\n                         custom-settings-legend,\r\n                         shortcuts-fieldset,\r\n                         shortcuts-legend,\r\n                         shortcuts,\r\n                         shortcut,\r\n                         word,\r\n                         line,\r\n                         hightlight,\r\n                         task,\r\n                         list,\r\n                         key,\r\n                         shortcut-title,\r\n                         shortcut-description,\r\n                         previous-word,\r\n                         next-word,\r\n                         previous-line,\r\n                         next-line,\r\n                         highlight-previous-word,\r\n                         highlight-next-word,\r\n                         previous-line,\r\n                         next-line,\r\n                         previous-task,\r\n                         next-task,\r\n                         previous-list,\r\n                         next-list\r\n                         ">\r\n            <slot name="custom-settings" slot="custom-settings"></slot>\r\n        </settings-panel>\r\n    </route-page>\r\n    <route-page path="data" id="data-page" class="page config-page">\r\n        <data-panel\r\n            id="data-panel"\r\n            exportparts="data-header,\r\n                         header,\r\n                         page-header,\r\n                         fieldset,\r\n                         config-fieldset,\r\n                         config-legend,\r\n                         legend,\r\n                         import-fieldset,\r\n                         import-legend,\r\n                         import-field,\r\n                         field-container,\r\n                         field-label,\r\n                         field-prefix,\r\n                         field-postfix,\r\n                         import-board-file,\r\n                         import-field-container,\r\n                         import-field-label,\r\n                         import-field-prefix,\r\n                         import-field-postfix,\r\n                         import-board-file,\r\n                         field,\r\n                         input,\r\n                         config-field,\r\n                         data-field,\r\n                         icon,\r\n                         import-file-icon,\r\n                         button,\r\n                         import-button,\r\n                         import-button-icon,\r\n                         import-button-label,\r\n                         config-data-caches,\r\n                         data-cleanup-fieldset,\r\n                         data-cleanup-legend,\r\n                         data-cleanup-description,\r\n                         text,\r\n                         data-cleanup-range,\r\n                         data-persist-days,\r\n                         data-persist-days-values,\r\n                         data-persist-days-value,\r\n                         apply-data-persist-days-button,\r\n                         apply-data-persist-days-icon,\r\n                         apply-data-persist-days-label,\r\n                         data-pending-fieldset,\r\n                         data-pending-legend,\r\n                         data-pending-description,\r\n                         deleted-items,\r\n                         restore-item-icon,\r\n                         clear-deleted-button,\r\n                         clear-deleted-icon,\r\n                         clear-deleted-label,\r\n                         image-cache-fieldset,\r\n                         image-cache-legend,\r\n                         image-cache-description,\r\n                         deleted-images,\r\n                         clear-image-cache-button,\r\n                         clear-images-icon,\r\n                         clear-images-label,\r\n                         data-clear-fieldset,\r\n                         data-clear-legend,\r\n                         data-clear-description,\r\n                         clear-data-button,\r\n                         clear-data-icon,\r\n                         clear-data-label,\r\n                         cache-list,\r\n                         range\r\n                        "\r\n            >\r\n            <slot name="deleted-images" slot="deleted-images"></slot>\r\n            <slot name="deleted-items" slot="deleted-items"></slot>\r\n        </data-panel>\r\n    </route-page>\r\n    <route-page path="history" id="history-page" class="page config-page">\r\n        <history-panel\r\n            id="history-panel"\r\n            exportparts="header,\r\n                         page-header,\r\n                         history-header,\r\n                         history-navigation-fieldset,\r\n                         fieldset,\r\n                         config-fieldset,\r\n                         legend,\r\n                         config-legend,\r\n                         history-navigation-legend,\r\n                         undo,\r\n                         button,\r\n                         restore-item-icon,\r\n                         icon,\r\n                         undo-label,\r\n                         redo,\r\n                         button,\r\n                         redo-label,\r\n                         clear-history-button,\r\n                         clear-history-icon,\r\n                         clear-history-label,\r\n                         action-history,\r\n                         action-history-entry,\r\n                         action-history-entry-type,\r\n                         action-history-entry-data,\r\n                         action-history-target-type,\r\n                         action-history-target-id,\r\n                         active,\r\n                         history-length-fieldset,\r\n                         history-length-legend,\r\n                         history-length-field,\r\n                         field,\r\n                         field-container,\r\n                         field-label,\r\n                         field-prefix,\r\n                         field-postfix,\r\n                         action-history-length,\r\n                         action-history-length-values,\r\n                         apply-history-length-button,\r\n                         apply-history-length-label\r\n                         " >\r\n            <slot name="action-history" slot="action-history"></slot>\r\n        </history-panel>\r\n    </route-page>\r\n    <route-page path="about" id="about-page" class="page config-page">\r\n        <about-panel\r\n            id="about-panel"\r\n            exportparts="header,\r\n                         page-header,\r\n                         about-header,\r\n                         about-app-fieldset,\r\n                         fieldset,\r\n                         config-fieldset,\r\n                         about-app-legend,\r\n                         legend,\r\n                         config-legend,\r\n                         text,\r\n                         emphasis,\r\n                         code,\r\n                         version-fieldset,\r\n                         version-legend,\r\n                         version-value,\r\n                         copyright-fieldset,\r\n                         copyright-legend,\r\n                         copyright-text,\r\n                         cc0-link,\r\n                         link,\r\n                         copyright-link,\r\n                         cc-icon,\r\n                         zero-icon,\r\n                         icon,\r\n                         raster\r\n            "\r\n            ></about-panel>\r\n    </route-page>\r\n</path-router>\r\n<footer id="config-footer" class="footer dialog-footer">\r\n    <form id="config-actions" class="actions" method="dialog">\r\n        <button type="submit" id="config-cancel" class="button action-button cancel">Cancel</button>\r\n        <button type="submit" id="config-ok" class="button action-button ok preferred-button">Ok</button>\r\n    </form>\r\n</footer>';
@@ -6934,7 +7081,7 @@ var ConfigPanelElement = class extends HTMLElement {
     this.findElement("history-panel").redo();
   }
   addActionHistoryEntry(action, type, properties) {
-    this.findElement("history-panel").addActionHistoryEntry(action, type, properties);
+    return this.findElement("history-panel").addActionHistoryEntry(action, type, properties);
   }
   async clearData() {
     this.findElement("data-panel").clearData();
@@ -9597,7 +9744,8 @@ ${defineIcons(
   "Logo" /* Logo */,
   "PlusIcon" /* PlusIcon */,
   "Stylus" /* Stylus */,
-  "TaskBoard" /* TaskBoard */
+  "TaskBoard" /* TaskBoard */,
+  "UndoRedo" /* UndoRedo */
 )}`;
 var COMPONENT_TAG_NAME28 = "taskboard-manager";
 var TaskboardManagerElement = class extends HTMLElement {
@@ -9640,6 +9788,12 @@ var TaskboardManagerElement = class extends HTMLElement {
   setColorScheme(scheme) {
     const value = scheme == "browser" ? "light dark" : scheme;
     this.style.setProperty("color-scheme", value);
+    const boardSettings = this.findElement("board-settings");
+    boardSettings.style.setProperty("color-scheme", value);
+    const tasklistSettings = [...boardSettings.shadowRoot.querySelectorAll(".tasklist-settings")];
+    for (let i = 0; i < tasklistSettings.length; i++) {
+      tasklistSettings[i].style.setProperty("color-scheme", value);
+    }
     DataService.saveAppSetting("color-scheme" /* ColorScheme */, scheme);
   }
   async undo() {
@@ -9667,6 +9821,16 @@ var TaskboardManagerElement = class extends HTMLElement {
     await this.closeBoard();
     await this.getElement("app-router").navigate(`board/${id}`);
   }
+  async refreshBoard() {
+    this.refreshBoards();
+    this.findElement("config-panel").refreshCache();
+    const id = this.findElement("board-settings").getAttribute("record-id");
+    if (id == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred saving the board settings.`);
+      throw new Error("Unable to determine the target board's id");
+    }
+    this.openBoard(id);
+  }
   async closeBoard() {
     await this.findElement("app-router").navigate("/" + window.location.hash);
     this.getElement("task-board").innerHTML = "";
@@ -9674,6 +9838,7 @@ var TaskboardManagerElement = class extends HTMLElement {
   async addBoard() {
     const order = this.findElement("app-menu").querySelectorAll("a").length;
     const board = await DataService.createBoard(order);
+    await this.findElement("config-panel").addActionHistoryEntry(HistoryEntryType.Create, "board" /* Board */, { id: board.id });
     this.findElement("app-menu").refresh();
     this.findElement("welcome-panel").refresh();
   }
@@ -9714,6 +9879,44 @@ var TaskboardManagerElement = class extends HTMLElement {
     const order = this.findElement("app-menu").querySelectorAll("a").length;
     return DataService.importBoard(boardData, order, errorMessage);
   }
+  async removeBoard(boardId, confirm = true) {
+    const confirmed = await FeedbackService.getConfirmation("Are you sure you want to delete this board and all of its tasks, lists, and images?", "warn");
+    if (confirm == true && confirmed == false) {
+      return;
+    }
+    if (this.findElement("app-router").getAttribute("path")?.indexOf(boardId) != null) {
+      this.closeBoard();
+    }
+    await this.closeBoardSettings();
+    await DataService.deleteBoard(boardId);
+    const configPanel = this.findElement("config-panel");
+    const welcomePanel = this.findElement("welcome-panel");
+    const entry = await configPanel.addActionHistoryEntry(HistoryEntryType.Delete, "board" /* Board */, { id: boardId });
+    this.refreshBoards();
+    configPanel.refreshCache();
+    await welcomePanel.removeBoardFromRecentBoards(boardId);
+    welcomePanel.refresh();
+    if (entry != null) {
+      this.#addUndoNotification("A board was just deleted", entry.getAttribute("data-entry-id"));
+    }
+  }
+  async duplicateBoard(id) {
+    const boardExportData = await DataService.prepareExportData(this, id);
+    const duplicateData = this.findElement("import-manager").prepareData(boardExportData);
+    const newNameInput = this.findElement("board-settings").findElement("duplicate-board-name");
+    if (newNameInput?.value != null && newNameInput.value.trim() != "") {
+      duplicateData.name = newNameInput.value;
+    }
+    await this.importBoard(duplicateData, "An error occurred duplicating a board.");
+    this.refreshBoards();
+    this.findElement("welcome-panel").refresh();
+  }
+  async closeBoardSettings() {
+    return new Promise((resolve) => {
+      this.findElement("board-settings-dialog").close();
+      requestAnimationFrame(resolve);
+    });
+  }
   async clearData() {
     this.findElement("config-panel").clearData();
   }
@@ -9722,46 +9925,6 @@ var TaskboardManagerElement = class extends HTMLElement {
   //     this.findElement<ConfigPanelElement>('config-panel').history_clear();
   // }
   //#endregion API
-  // #addUndoNotification(message: string, entryId: string)
-  // {
-  //     const content = document.createElement('span');
-  //     content.setAttribute('part', 'message-content');
-  //     const messageText = document.createElement('span');
-  //     messageText.setAttribute('part', 'undo-message');
-  //     messageText.textContent = message;
-  //     const messageButton = document.createElement('button');
-  //     messageButton.setAttribute('part', 'notification-undo-button');
-  //     messageButton.innerHTML = `<span part="button-label">Undo?</span>`;
-  //     messageButton.type = 'button';
-  //     content.append(messageText, messageButton);
-  //     const notification = MessageCardElement.prepare(content, this.findElement('notifications'), { type: MessageCardType.Success, heading: "Success!" });
-  //     messageButton.addEventListener('click', () =>
-  //     {
-  //         const entry = this.getElement<ActionHistoryElement>('action-history').querySelector(`[data-entry-id="${entryId}"]`) as HTMLElement;
-  //         if(entry == null)
-  //         {
-  //             MessageCardElement.notify(`An error occurred restoring a record. The record was not restored`,
-  //             this.findElement('notifications'), { type: MessageCardType.Error });
-  //             return;
-  //         }
-  //         this.getElement<ActionHistoryElement>('action-history').reverseEntry(entry);
-  //         notification.dispatchEvent(new CustomEvent(MessageCardEvent.Cancel));
-  //         notification.remove();
-  //     });
-  //     notification.show();
-  // }
-  // async closeBoardSettings()
-  // {
-  //     return new Promise((resolve) =>
-  //     {
-  //         this.findElement<HTMLDialogElement>('board-settings-dialog').close();
-  //         // wait for the settings to close and update the window location
-  //         // to prevent the board settings from trying to open, after the
-  //         // board has been closed and the new location still contains
-  //         // the settings hash
-  //         requestAnimationFrame(resolve);
-  //     });
-  // }
   // // async addTask(listId: string)
   // // {
   // //     const list = this.shadowRoot!.querySelector(`task-list[data-tasklist-id="${listId}"]`);
@@ -9801,7 +9964,13 @@ var TaskboardManagerElement = class extends HTMLElement {
       refreshBoards: this.refreshBoards.bind(this)
     });
     this.findElement("board-settings").init({
-      canAddList: this.#canAddList.bind(this)
+      canAddList: this.#canAddList.bind(this),
+      removeBoard: this.removeBoard.bind(this),
+      duplicateBoard: this.duplicateBoard.bind(this),
+      exportBoard: this.exportBoard.bind(this),
+      closeBoard: this.closeBoard.bind(this),
+      closeBoardSettings: this.closeBoardSettings.bind(this),
+      saveSettingsTarget: this.#saveSettingsTarget.bind(this)
     });
     this.#addRouteHandlers();
     this.addEventListener("click", this.#onClick.bind(this));
@@ -9882,6 +10051,111 @@ var TaskboardManagerElement = class extends HTMLElement {
     const importPath = currentPathArray.join("#");
     router.navigate(importPath);
     this.findElement("import-manager").setData(boardData);
+  }
+  async #saveSettingsTarget() {
+    const settingsTarget = this.findElement("board-settings");
+    const settingsTargetId = settingsTarget.getAttribute("record-id");
+    const boardItem = this.findElement("app-menu").querySelector(`a[data-route*="${settingsTargetId}"]`);
+    if (boardItem == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred saving a task board.`);
+      console.error(`An error occurred finding the board's menu item.`);
+      return;
+    }
+    const order = [...this.shadowRoot.querySelectorAll("a")].indexOf(boardItem);
+    const [
+      existingBoard,
+      existingTaskLists,
+      existingTaskSettings,
+      board,
+      taskLists,
+      taskSettings,
+      imageUpdates
+    ] = await settingsTarget.saveBoard(order);
+    if (board == null) {
+      return;
+    }
+    await this.#updateActionHistory(
+      existingBoard,
+      existingTaskLists,
+      existingTaskSettings,
+      board,
+      taskLists,
+      taskSettings,
+      imageUpdates
+    );
+    this.findElement("welcome-panel").updateRecentBoardEntry(board.id, board.name);
+    this.refreshBoard();
+  }
+  async #updateActionHistory(existingBoard, existingTaskLists, existingTaskSettings, board, taskLists, taskSettings, imageUpdates) {
+    const configPanel = this.findElement("config-panel");
+    const [
+      boardActionProperties,
+      listActionProperties
+    ] = DataService.data.boardUpdate_getActionProperties(
+      { existing: existingBoard, updated: board },
+      { existing: existingTaskLists, updated: taskLists },
+      { existing: existingTaskSettings, updated: taskSettings }
+    );
+    if (boardActionProperties != null && imageUpdates.length > 0) {
+      if (boardActionProperties.backgroundImages != null) {
+        boardActionProperties.backgroundImages = boardActionProperties.backgroundImages.concat(imageUpdates);
+      } else if (boardActionProperties.backgroundImages == null) {
+        boardActionProperties.backgroundImages = imageUpdates;
+      }
+      await configPanel.addActionHistoryEntry(HistoryEntryType.Update, "board" /* Board */, boardActionProperties);
+    }
+    for (let i = 0; i < listActionProperties.length; i++) {
+      const actionProperties = listActionProperties[i];
+      await configPanel.addActionHistoryEntry(HistoryEntryType.Update, "list" /* List */, actionProperties);
+    }
+    const existingListIds = new Set(existingTaskLists.filter((item) => item != void 0).map((item) => item.id));
+    const currentListIds = new Set(taskLists.filter((item) => item != void 0).map((item) => item.id));
+    const addedLists = taskLists.filter((item) => item != void 0 && !existingListIds.has(item.id));
+    for (let i = 0; i < addedLists.length; i++) {
+      const addedList = addedLists[i];
+      await configPanel.addActionHistoryEntry(HistoryEntryType.Create, "list" /* List */, { id: addedList.id });
+    }
+    const removedLists = existingTaskLists.filter((item) => item != void 0 && !currentListIds.has(item.id));
+    for (let i = 0; i < removedLists.length; i++) {
+      const removedList = removedLists[i];
+      await configPanel.addActionHistoryEntry(HistoryEntryType.Delete, "list" /* List */, { id: removedList.id });
+    }
+  }
+  #addUndoNotification(message, entryId) {
+    const content = document.createElement("span");
+    content.setAttribute("part", "notification-message-content");
+    content.classList.add("notification-message-content");
+    const messageText = document.createElement("span");
+    messageText.setAttribute("part", "undo-message");
+    messageText.classList.add("undo-message");
+    messageText.textContent = message;
+    const messageButton = document.createElement("button");
+    messageButton.setAttribute("part", "notification-undo-button");
+    messageButton.classList.add("notification-undo-button");
+    messageButton.innerHTML = `<svg id="notification-undo-icon" class="icon">
+                                        <use href="#icon-definition_undo-redo"></use>
+                                    </svg>
+                                    <span part="notification-undo-button-label">Undo?</span>`;
+    messageButton.type = "button";
+    content.append(messageText, messageButton);
+    const notification = MessageCardElement.prepare(content, this.findElement("notifications"), { type: MessageCardType.Success, heading: "Success!" });
+    notification.part.add("notification");
+    notification.classList.add("notification");
+    messageButton.addEventListener("click", () => {
+      const entry = this.getElement("action-history").querySelector(`[data-entry-id="${entryId}"]`);
+      if (entry == null) {
+        MessageCardElement.notify(
+          `An error occurred restoring a record. The record was not restored`,
+          this.findElement("notifications"),
+          { type: MessageCardType.Error }
+        );
+        return;
+      }
+      this.getElement("action-history").reverseEntry(entry);
+      notification.dispatchEvent(new CustomEvent(MessageCardEvent.Cancel));
+      notification.remove();
+    });
+    notification.show();
   }
   //#endregion Management
   //#region Rendering
@@ -10352,124 +10626,6 @@ var TaskboardManagerElement = class extends HTMLElement {
   }
   //#endregion Utilities
   //#endregion Internal
-  // async #updateBoardSettings()
-  // {
-  //     const boardChannel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //     const listChannel = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, 'danger');
-  //     const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, BOARD_ERROR_MESSAGE, 'danger');
-  //     const imageChannel = this.#getChannel(this.#data.customImages, IMAGE_ERROR_MESSAGE, 'danger');
-  //     const boards = this.findElement('boards');
-  //     const boardSettings = this.findElement<BoardSettingsElement>('board-settings');
-  //     const [ board, taskLists, taskSettings, removedListIds ] = boardSettings.getRecords();
-  //     const [existingBoard, existingTaskLists, existingTaskSettings ] = await Promise.all([
-  //         boardChannel.get(board.id),
-  //         (await boardChannel.getTaskLists(board.id)).filter(item => item.deletedTimestamp == undefined),
-  //         taskSettingsChannel.getItems(taskSettings.map(item => item.id))
-  //     ]);
-  //     if(existingBoard == null)
-  //     { 
-  //         MessageCardElement.notify(`An error occurred saving a task board.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         console.error(`An error occurred finding the existing board record.`);
-  //         return;
-  //     }
-  //     const boardItem = boards.querySelector(`a[data-route*="${board.id}"]`) as HTMLAnchorElement;
-  //     if(boardItem == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred saving a task board.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         console.error(`An error occurred finding the board's menu item.`);
-  //         return;
-  //     }
-  //     board.order = [...this.shadowRoot!.querySelectorAll('a')].indexOf(boardItem);
-  //     board.backgroundImageId = existingBoard.backgroundImageId;
-  //     // convert backgroundImage into backgroundImageUpdates
-  //     let existingImageActionProperties: CustomImageActionProperties = { id: board.backgroundImageId, updates: new Map() };
-  //     const imageUpdates: CustomImageActionProperties[] = [];
-  //     const imageValue = boardSettings.findElement<FileImageInputElement>('background-image').value;
-  //     let backgroundImageRecord: CustomImageRecord|null = null;
-  //     if(imageValue != null)
-  //     {
-  //         if(board.backgroundImageId != "")
-  //         {
-  //             const existingImage = await imageChannel.get(board.backgroundImageId);
-  //             if(existingImage != null)
-  //             {
-  //                 await imageChannel.delete(existingImage.id);
-  //                 const deletedImage = await imageChannel.get(board.backgroundImageId);
-  //                 existingImageActionProperties.updates!.set('deletedTimestamp', { from: undefined, to: deletedImage?.deletedTimestamp });
-  //                 imageUpdates.push(existingImageActionProperties);
-  //             }
-  //         }
-  //         backgroundImageRecord = imageChannel.createFromImage(imageValue);
-  //         backgroundImageRecord.boardId = board.id;
-  //         backgroundImageRecord = await imageChannel.save(backgroundImageRecord);
-  //         const newImageActionUpdates = { id: backgroundImageRecord.id, updates: new Map([['boardId', { from: "", to: backgroundImageRecord.boardId }]]) };
-  //         imageUpdates.push(newImageActionUpdates);
-  //         board.backgroundImageId = backgroundImageRecord.id;
-  //     }
-  //     else
-  //     {
-  //         if(board.backgroundImageId != "")
-  //         {
-  //             await imageChannel.delete(board.backgroundImageId);
-  //             const deletedImage = await imageChannel.get(board.backgroundImageId);
-  //             existingImageActionProperties.updates!.set('deletedTimestamp', { from: undefined, to: deletedImage?.deletedTimestamp });
-  //             imageUpdates.push(existingImageActionProperties);
-  //             board.backgroundImageId = "";
-  //         }
-  //     }
-  //     // save data
-  //     await Promise.allSettled([
-  //         boardChannel.save(board),
-  //         listChannel.saveItems(taskLists),
-  //         taskSettingsChannel.saveItems(taskSettings),
-  //         this.#data.lists!.deleteItems(removedListIds),
-  //     ]);
-  //     MessageCardElement.notify(`The board settings have been saved successfully!`, 
-  //     this.getElement('notifications'), { type: MessageCardType.Success, heading: "Success!" });
-  //     // update action history
-  //     const [ 
-  //         boardActionProperties,
-  //         listActionProperties
-  //     ] = this.#data.boardUpdate_getActionProperties({ existing: existingBoard, updated: board }
-  //     ,{ existing: existingTaskLists, updated: taskLists }
-  //     ,{ existing: existingTaskSettings, updated: taskSettings });
-  //     // console.log(boardActionProperties, listActionProperties);
-  //     if(boardActionProperties != null && imageUpdates.length > 0)
-  //     {
-  //         if(boardActionProperties.backgroundImages != null)
-  //         {
-  //             boardActionProperties.backgroundImages = boardActionProperties.backgroundImages.concat(imageUpdates);
-  //         }
-  //         else if(boardActionProperties.backgroundImages == null)
-  //         {
-  //             boardActionProperties.backgroundImages = imageUpdates;
-  //         }
-  //         await this.#addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.Board, boardActionProperties);
-  //     }
-  //     for(let i = 0; i < listActionProperties.length; i++)
-  //     {
-  //         const actionProperties = listActionProperties[i];
-  //         await this.#addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.List, actionProperties);
-  //     }
-  //     const existingListIds = new Set(existingTaskLists.filter(item => item != undefined).map(item => item.id));
-  //     const currentListIds = new Set(taskLists.filter(item => item != undefined).map(item => item.id));
-  //     const addedLists = taskLists.filter(item => item != undefined && !existingListIds.has(item.id));
-  //     for(let i = 0; i < addedLists.length; i++)
-  //     {
-  //         const addedList = addedLists[i];
-  //         await this.#addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.List, { id: addedList.id });
-  //     }
-  //     const removedLists = existingTaskLists.filter(item => item != undefined && !currentListIds.has(item.id));
-  //     for(let i = 0; i < removedLists.length; i++)
-  //     {
-  //         const removedList = removedLists[i];
-  //         await this.#addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.List, { id: removedList.id });
-  //     }
-  //     // update recent entries
-  //     this.#updateRecentBoardEntry(board.id, board.name);
-  // }
   // #registerSharedData()
   // {
   //     this[SHAREDACCESSKEY] = 

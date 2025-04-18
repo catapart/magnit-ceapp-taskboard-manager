@@ -150,11 +150,15 @@ declare class TaskboardManagerElement extends HTMLElement {
     refreshCurrentBoard(): void;
     refreshBoardCollections(): Promise<void>;
     openBoard(id: string): Promise<void>;
+    refreshBoard(): Promise<void>;
     closeBoard(): Promise<void>;
     addBoard(): Promise<void>;
     openBoardSettings(id: string): Promise<void>;
     exportBoard(id: string): Promise<void>;
     importBoard(boardData: BoardExport, errorMessage?: string): Promise<void>;
+    removeBoard(boardId: string, confirm?: boolean): Promise<void>;
+    duplicateBoard(id: string): Promise<void>;
+    closeBoardSettings(): Promise<unknown>;
     clearData(): Promise<void>;
 }
 

@@ -420,6 +420,12 @@ form-field [part="container"]:has([slot="postfix"]) [part="field-label"]
 } */
 
 
+:host([style*="color-scheme: light;"]) svg.copy
+{
+    --icon-primary-color: canvas;
+    --icon-secondary-color: canvastext;
+}
+
 
 @media (min-width: 800px) 
 {

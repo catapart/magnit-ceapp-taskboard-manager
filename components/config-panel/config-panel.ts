@@ -98,7 +98,7 @@ export class ConfigPanelElement extends HTMLElement
     }
     addActionHistoryEntry<T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
     {
-        this.findElement<HistoryPanelElement>('history-panel').addActionHistoryEntry(action, type, properties);
+        return this.findElement<HistoryPanelElement>('history-panel').addActionHistoryEntry(action, type, properties);
     }
     async clearData()
     {

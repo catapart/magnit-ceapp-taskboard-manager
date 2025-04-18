@@ -75,7 +75,7 @@ export class TaskListFieldsComponent extends HTMLElement
         this.findElement<HTMLInputElement>('tasklist-width').value = taskList.width.toString();
         this.findElement<HTMLInputElement>('tasklist-color-display').value = taskList.colorDisplay;
 
-        this.findElement<TaskFieldsComponent>('task-fields').setValues(taskSettings);
+        this.findElement<TaskFieldsComponent>('task-settings').setValues(taskSettings);
     }
 
     getRecords()
@@ -93,10 +93,10 @@ export class TaskListFieldsComponent extends HTMLElement
         taskList.width = parseFloat(this.findElement<HTMLInputElement>('tasklist-width').value);
         taskList.colorDisplay = this.findElement<HTMLInputElement>('tasklist-color-display').value as TaskListColorDisplay;
 
-        const taskSettings = this.findElement<TaskFieldsComponent>('task-fields').getRecord();
+        const taskSettings = this.findElement<TaskFieldsComponent>('task-settings').getRecord();
         taskSettings.parentRecordType = 'list';
 
-        taskList.taskSettingsId = this.findElement<TaskFieldsComponent>('task-fields').getAttribute('record-id')!;
+        taskList.taskSettingsId = taskSettings.id;
 
         const result: [TaskListRecord, TaskSettingsRecord] = [ taskList, taskSettings ]
         return result;

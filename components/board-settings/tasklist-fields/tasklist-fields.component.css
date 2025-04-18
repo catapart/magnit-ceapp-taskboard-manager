@@ -196,6 +196,12 @@ input[type="text"]
     align-self: flex-end;
 }
 
+:host([style*="color-scheme: light;"]) svg.copy
+{
+    --icon-primary-color: canvas;
+    --icon-secondary-color: canvastext;
+}
+
 @media (prefers-color-scheme: light) 
 {
     :host(:not([style*="color-scheme: dark;"])) svg.copy

@@ -83,7 +83,7 @@ export class TaskFieldsComponent extends HTMLElement
     getRecord()
     {
         const settings = new TaskSettingsRecord();
-        settings.id = this.getAttribute('record-id')!;
+        settings.id = this.getAttribute('task-record-id')!;
         settings.useCustomBackgroundColor = this.findElement<HTMLInputElement>('task-background-color-field').getAttribute('optional-value') == "true";
         settings.customBackgroundColor = this.findElement<HTMLInputElement>('task-background-color').value;
         settings.useCustomFontColor = this.findElement<HTMLInputElement>('task-font-color-field').getAttribute('optional-value') == "true";

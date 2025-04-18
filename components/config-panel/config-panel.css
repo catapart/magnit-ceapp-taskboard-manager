@@ -11,6 +11,28 @@
     height: var(--tab-icon-size);
 }
 
+#board-settings-header
+{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 7px;
+    align-items: center;
+    font-weight: bold;
+    padding-bottom: 1em;
+}
+#board-settings-icon
+{
+    width: var(--dialog-header-icon-size);
+    height: var(--dialog-header-icon-size);
+}
+
+#board-settings-form
+{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
 #config-header
 {
     display: flex;
@@ -86,6 +108,15 @@
     display: grid;
 }
 
+
+#board-settings-footer
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    padding-top: 1em;
+}
 
 #config-actions
 {
