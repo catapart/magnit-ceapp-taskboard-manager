@@ -267,6 +267,12 @@ message-card::part(message)
         top: 50px;
     }
 
+    #config-dialog
+    ,#board-settings-dialog
+    {
+        width: 850px;
+    }
+
     task-card::part(description)
     {
         width: min-content;
@@ -2127,10 +2133,10 @@ var TaskSettingsRecord = class extends DataRecord {
 var form_field_default = '[part="field-label"]\n{\n    white-space: nowrap;\n}\nform-field [part="label"]\n,form-field [part="field-label"]\n{\n    display: flex;\n    gap: .25em;\n    align-items: center;\n}\nform-field [part="label"] input\n,form-field [part="field-label"] input\n{\n    margin: 0;\n}\nform-field [part="label"] [part="text"]\n,form-field [part="field-label"] [part="text"]\n{\n    flex: 1;\n}\n\nform-field [part="container"]\n{\n    display: grid;\n    grid-template-rows: auto 1fr;\n    gap: .25em;\n}\nform-field [part="container"]:has([slot="postfix"])\n{\n    display: grid;\n    grid-template-columns: 1fr auto;\n    column-gap: 0;\n    row-gap: .25em;\n}\nform-field [part="container"]:has([slot="postfix"]) [part="field-label"]\n{\n    grid-column: span 2;\n}\n\n';
 
 // components/board-settings/task-fields/task-fields.component.css?raw
-var task_fields_component_default = ':host\n{\n    display: grid;\n    grid-template-columns: auto minmax(160px, 1fr) auto;\n}\n\nfieldset\n{\n    display: grid;\n    gap: 1em;\n    min-width: 0;\n    width: auto;\n}\ninput,select,textarea\n{\n    font: inherit;\n    min-width: 0;\n    width: auto;\n}\n\ninput[type="color"]\n{\n    width: 100%;\n}\ninput[type="text"][inputmode="numeric"]\n{\n    width: 5ch;\n}\n\nform-field .container\n{\n}\nform-field .field-label\n{\n    display: flex;\n    gap: 5px;\n    margin-bottom: 7px;\n}\n\n[part="appearance-fields"]\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n[part="appearance-fields"] .container > input\n{\n    flex: 1;\n    min-height: 2ch;\n}\n\n[part="border-radius-field"] .option\n{\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 5px;\n}\n\n[part="border-weights-fields"]\n{\n    display: grid;\n    grid-template-columns: 1fr auto;\n    grid-template-rows: min-content min-content;\n}\n\n[part="font-size-field"] .container\n,[part="card-width-field"] .container\n,[part="border-weights-fields"] .container\n{\n    align-items: flex-start;\n    column-gap: .25em !important;\n}\n\n[part="font-size-field"] [slot="postfix"]\n,[part="card-width-field"] .container\n,[part="card-width-field"] [slot="postfix"]\n,[part="card-width-field"] input[type="text"]\n,[part="border-weights-fields"] [slot="postfix"]\n{\n    align-self: flex-end;\n}\n\n[part="center-checkbox-field"] input\n,[part="center-remove-button-field"] input\n{\n    justify-self: flex-start;\n    margin: 0;\n}';
+var task_fields_component_default = ':host\n{\n    display: grid;\n    grid-template-columns: auto minmax(160px, 1fr) auto;\n}\n\nfieldset\n{\n    display: grid;\n    gap: 1em;\n    min-width: 0;\n    width: auto;\n}\ninput,select,textarea\n{\n    font: inherit;\n    min-width: 0;\n    width: auto;\n}\n\ninput[type="color"]\n{\n    width: 100%;\n}\ninput[type="text"][inputmode="numeric"]\n{\n    width: 5ch;\n}\n\nform-field .container\n{\n}\nform-field .field-label\n{\n    display: flex;\n    gap: 5px;\n    margin-bottom: 7px;\n}\n\n#task-appearance-fieldset\n{\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n#task-appearance-fieldset .container > input\n{\n    flex: 1;\n    min-height: 2ch;\n}\n\n#task-border-radius-field .option\n{\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 5px;\n}\n\n#task-border-weights-fieldset\n{\n    display: grid;\n    grid-template-columns: 1fr auto;\n    grid-template-rows: min-content min-content;\n}\n\n#task-font-size-field .container\n,#task-card-width-field .container\n,#task-border-weights-fieldset .container\n{\n    align-items: flex-start;\n    column-gap: .25em !important;\n}\n\n#task-font-size-field .postfix\n,#task-card-width-field .container\n,#task-card-width-field .postfix\n,#task-card-width-field input[type="text"]\n,#task-border-weights-fieldset .postfix\n{\n    align-self: flex-end;\n}\n\n#task-center-checkbox-field input\n,#task-center-remove-button-field input\n{\n    justify-self: flex-start;\n    margin: 0;\n}';
 
 // components/board-settings/task-fields/task-fields.component.html?raw
-var task_fields_component_default2 = '<input type="hidden" name="record-id" part="record-id" />\n<fieldset part="appearance-fields">\n    <legend part="appearance-legend">Appearance</legend>\n\n    <form-field part="font-size-field" label="Font Size" optional optional-title="Override Font Size?">\n        <input type="text" inputmode="numeric" name="font-size" part="font-size" />\n        <span part="font-size-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\n        <input type="color" name="background-color" part="background-color" value="#f9faf5" />\n    </form-field>\n    <form-field part="border-radius-field" label="Border Radius" optional optional-title="Override Border Radius?">\n        <input type="text" inputmode="numeric" name="border-radius" part="border-radius" />\n        <select part="border-radius-unit" slot="postfix">\n            <option value="px">px</option>\n            <option value="%">%</option>\n        </select>\n    </form-field>\n    <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\n        <input type="color" name="font-color" part="font-color" value="#060703" />\n    </form-field>\n    <form-field part="color-display-field" label="Color Display">\n        <select name="color-display" part="color-display"></select>\n    </form-field>\n    <form-field part="border-color-field" label="Border Color" optional optional-title="Override Border Color?">\n        <input type="color" name="border-color" part="border-color" value="#060703" />\n    </form-field>\n</fieldset>  \n\n<fieldset part="layout-fields">\n    <legend part="layout-legend">Layout</legend>\n    <form-field part="center-checkbox-field" label="Center Checkbox">\n        <input type="checkbox" name="center-checkbox" part="center-checkbox" title="Center the checkbox?" />\n    </form-field>\n    <form-field part="center-remove-button-field" label="Center Remove Button">\n        <input type="checkbox" name="center-remove-button" part="center-remove-button" title="Center the remove button?" />\n    </form-field>\n    <form-field part="card-width-field" label="Card Width" optional option-title="Override Task Card Width?">\n        <input type="text" inputmode="numeric" name="card-width" part="card-width" value="" />\n        <span part="card-width-unit" slot="postfix">px</span>\n    </form-field>\n</fieldset>      \n\n<fieldset part="border-weights-fields">\n    <legend part="border-weights-legend">Border Weights</legend>\n    <form-field part="border-top-field" label="Top" optional optional-title="Use a custom top border size?">\n        <input type="text" inputmode="numeric" name="border-top" part="border-top" />\n        <span part="border-top-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field part="border-right-field" label="Right" optional optional-title="Use a custom right border size?">\n        <input type="text" inputmode="numeric" name="border-right" part="border-right" />\n        <span part="border-right-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field part="border-bottom-field" label="Bottom" optional optional-title="Use a custom bottom border size?">\n        <input type="text" inputmode="numeric" name="border-bottom" part="border-bottom" />\n        <span part="border-bottom-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field part="border-left-field" label="Left" optional optional-title="Use a custom left border size?">\n        <input type="text" inputmode="numeric" name="border-left" part="border-left" />\n        <span part="border-left-unit" slot="postfix">px</span>\n    </form-field>\n</fieldset>';
+var task_fields_component_default2 = '<fieldset class="fieldset" id="task-appearance-fieldset">\n    <legend class="legend" id="task-appearance-legend">Appearance</legend>\n    <form-field class="field" id="task-font-size-field" label="Font Size" optional optional-title="Override Font Size?">\n        <input class="input"  id="task-font-size" name="task-font-size" type="text" inputmode="numeric" />\n        <span class="postfix" id="font-size-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field class="field" id="task-background-color-field" label="Background Color" optional optional-title="Override Background Color?">\n        <input class="input" id="task-background-color" name="task-background-color" type="color" value="#f9faf5" />\n    </form-field>\n    <form-field class="field" id="task-border-radius-field" label="Border Radius" optional optional-title="Override Border Radius?">\n        <input class="input" id="task-border-radius" name="task-border-radius" type="text" inputmode="numeric" />\n        <select class="select postfix" id="task-border-radius-unit" slot="postfix">\n            <option class="option first" value="px">px</option>\n            <option class="option last" value="%">%</option>\n        </select>\n    </form-field>\n    <form-field class="field" id="task-font-color-field" label="Font Color" optional optional-title="Override Font Color?">\n        <input class="input" id="task-font-color" name="task-font-color" type="color" value="#060703" />\n    </form-field>\n    <form-field class="field" id="task-color-display-field" label="Color Display">\n        <select class="select" id="task-color-display" name="task-color-display"></select>\n    </form-field>\n    <form-field class="field" id="task-border-color-field" label="Border Color" optional optional-title="Override Border Color?">\n        <input class="input" id="task-border-color" name="task-border-color"  type="color"value="#060703" />\n    </form-field>\n</fieldset>  \n\n<fieldset class="fieldset" id="task-layout-fieldset">\n    <legend class="legend" id="task-layout-fields-legend">Layout</legend>\n    <form-field class="field" id="task-center-checkbox-field" label="Center Checkbox">\n        <input class="input" id="task-center-checkbox"  name="task-center-checkbox" type="checkbox"title="Center the checkbox?" />\n    </form-field>\n    <form-field class="field" id="task-center-remove-button-field" label="Center Remove Button">\n        <input class="input" id="task-center-remove-button" name="task-center-remove-button" type="checkbox" title="Center the remove button?" />\n    </form-field>\n    <form-field class="field" id="task-card-width-field" label="Card Width" optional option-title="Override Task Card Width?">\n        <input class="input" id="task-card-width" name="task-card-width" type="text" inputmode="numeric" value="" />\n        <span class="postfix" id="task-card-width-unit" slot="postfix">px</span>\n    </form-field>\n</fieldset>      \n\n<fieldset class="fieldset" id="task-border-weights-fieldset">\n    <legend class="legend" id="task-border-weights-legend">Border Weights</legend>\n    <form-field class="field" id="task-border-top-field" label="Top" optional optional-title="Use a custom top border size?">\n        <input class="input" id="task-border-top" name="task-border-top" type="text" inputmode="numeric"/>\n        <span class="postfix" id="task-border-top-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field class="field" id="task-border-right-field" label="Right" optional optional-title="Use a custom right border size?">\n        <input class="input" id="task-border-right" name="task-border-right" type="text" inputmode="numeric" />\n        <span class="postfix" id="task-border-right-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field class="field" id="task-border-bottom-field" label="Bottom" optional optional-title="Use a custom bottom border size?">\n        <input class="input" id="task-border-bottom" name="task-border-bottom" type="text" inputmode="numeric"/>\n        <span class="postfix" id="task-border-bottom-unit" slot="postfix">px</span>\n    </form-field>\n    <form-field class="field" id="task-border-left-field" label="Left" optional optional-title="Use a custom left border size?">\n        <input class="input" id="task-border-left" name="task-border-left" type="text" inputmode="numeric" />\n        <span class="postfix" id="task-border-left-unit" slot="postfix">px</span>\n    </form-field>\n</fieldset>';
 
 // components/board-settings/task-fields/task-fields.component.ts
 var COMPONENT_STYLESHEET2 = new CSSStyleSheet();
@@ -2140,17 +2146,17 @@ ${task_fields_component_default}
 var COMPONENT_TAG_NAME2 = "task-fields";
 var TaskFieldsComponent = class extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
-  getPart(key) {
-    if (this.componentParts.get(key) == null) {
-      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
+  getElement(id) {
+    if (this.componentParts.get(id) == null) {
+      const part = this.findElement(id);
       if (part != null) {
-        this.componentParts.set(key, part);
+        this.componentParts.set(id, part);
       }
     }
-    return this.componentParts.get(key);
+    return this.componentParts.get(id);
   }
-  findPart(key) {
-    return this.shadowRoot.querySelector(`[part="${key}"]`);
+  findElement(id) {
+    return this.shadowRoot.getElementById(id);
   }
   constructor() {
     super();
@@ -2164,64 +2170,79 @@ var TaskFieldsComponent = class extends HTMLElement {
       option.textContent = key.replace(/([A-Z])/g, " $1").trim();
       options.push(option);
     }
-    this.findPart("color-display").append(...options);
+    this.findElement("task-color-display").append(...options);
+    this.#applyPartAttributes();
   }
+  //#region API
   setValues(settings) {
-    this.setAttribute("record-id", settings.id);
-    this.findPart("background-color-field").setAttribute("optional-value", settings.useCustomBackgroundColor == true ? "true" : "false");
-    this.findPart("background-color").value = settings.customBackgroundColor;
-    this.findPart("font-color-field").setAttribute("optional-value", settings.useCustomFontColor == true ? "true" : "false");
-    this.findPart("font-color").value = settings.customFontColor;
-    this.findPart("font-size-field").setAttribute("optional-value", settings.useCustomFontSize == true ? "true" : "false");
-    this.findPart("font-size").value = settings.customFontSize.toString();
-    this.findPart("border-color-field").setAttribute("optional-value", settings.useCustomBorderColor == true ? "true" : "false");
-    this.findPart("border-color").value = settings.customBorderColor;
-    this.findPart("border-radius-field").setAttribute("optional-value", settings.useCustomBorderRadius == true ? "true" : "false");
-    this.findPart("border-radius").value = settings.borderRadiusValue.toString();
-    this.findPart("border-radius-unit").value = settings.borderRadiusUnit;
-    this.findPart("color-display").value = settings.colorDisplay;
-    this.findPart("center-checkbox").checked = settings.centerCheckbox;
-    this.findPart("center-remove-button").checked = settings.centerRemoveButton;
-    this.findPart("card-width-field").setAttribute("optional-value", settings.useCustomWidth == true ? "true" : "false");
-    this.findPart("card-width").value = settings.customWidth.toString();
-    this.findPart("border-top-field").setAttribute("optional-value", settings.useCustomBorderWidth_top == true ? "true" : "false");
-    this.findPart("border-top").value = settings.borderWidth_top.toString();
-    this.findPart("border-right-field").setAttribute("optional-value", settings.useCustomBorderWidth_right == true ? "true" : "false");
-    this.findPart("border-right").value = settings.borderWidth_right.toString();
-    this.findPart("border-bottom-field").setAttribute("optional-value", settings.useCustomBorderWidth_bottom == true ? "true" : "false");
-    this.findPart("border-bottom").value = settings.borderWidth_bottom.toString();
-    this.findPart("border-left-field").setAttribute("optional-value", settings.useCustomBorderWidth_left == true ? "true" : "false");
-    this.findPart("border-left").value = settings.borderWidth_left.toString();
+    this.setAttribute("task-record-id", settings.id);
+    this.findElement("task-background-color-field").setAttribute("optional-value", settings.useCustomBackgroundColor == true ? "true" : "false");
+    this.findElement("task-background-color").value = settings.customBackgroundColor;
+    this.findElement("task-font-color-field").setAttribute("optional-value", settings.useCustomFontColor == true ? "true" : "false");
+    this.findElement("task-font-color").value = settings.customFontColor;
+    this.findElement("task-font-size-field").setAttribute("optional-value", settings.useCustomFontSize == true ? "true" : "false");
+    this.findElement("task-font-size").value = settings.customFontSize.toString();
+    this.findElement("task-border-color-field").setAttribute("optional-value", settings.useCustomBorderColor == true ? "true" : "false");
+    this.findElement("task-border-color").value = settings.customBorderColor;
+    this.findElement("task-border-radius-field").setAttribute("optional-value", settings.useCustomBorderRadius == true ? "true" : "false");
+    this.findElement("task-border-radius").value = settings.borderRadiusValue.toString();
+    this.findElement("task-border-radius-unit").value = settings.borderRadiusUnit;
+    this.findElement("task-color-display").value = settings.colorDisplay;
+    this.findElement("task-center-checkbox").checked = settings.centerCheckbox;
+    this.findElement("task-center-remove-button").checked = settings.centerRemoveButton;
+    this.findElement("task-card-width-field").setAttribute("optional-value", settings.useCustomWidth == true ? "true" : "false");
+    this.findElement("task-card-width").value = settings.customWidth.toString();
+    this.findElement("task-border-top-field").setAttribute("optional-value", settings.useCustomBorderWidth_top == true ? "true" : "false");
+    this.findElement("task-border-top").value = settings.borderWidth_top.toString();
+    this.findElement("task-border-right-field").setAttribute("optional-value", settings.useCustomBorderWidth_right == true ? "true" : "false");
+    this.findElement("task-border-right").value = settings.borderWidth_right.toString();
+    this.findElement("task-border-bottom-field").setAttribute("optional-value", settings.useCustomBorderWidth_bottom == true ? "true" : "false");
+    this.findElement("task-border-bottom").value = settings.borderWidth_bottom.toString();
+    this.findElement("task-border-left-field").setAttribute("optional-value", settings.useCustomBorderWidth_left == true ? "true" : "false");
+    this.findElement("task-border-left").value = settings.borderWidth_left.toString();
   }
   getRecord() {
     const settings = new TaskSettingsRecord();
     settings.id = this.getAttribute("record-id");
-    settings.useCustomBackgroundColor = this.findPart("background-color-field").getAttribute("optional-value") == "true";
-    settings.customBackgroundColor = this.findPart("background-color").value;
-    settings.useCustomFontColor = this.findPart("font-color-field").getAttribute("optional-value") == "true";
-    settings.customFontColor = this.findPart("font-color").value;
-    settings.useCustomFontSize = this.findPart("font-size-field").getAttribute("optional-value") == "true";
-    settings.customFontSize = parseFloat(this.findPart("font-size").value);
-    settings.useCustomBorderColor = this.findPart("border-color-field").getAttribute("optional-value") == "true";
-    settings.customBorderColor = this.findPart("border-color").value;
-    settings.useCustomBorderRadius = this.findPart("border-radius-field").getAttribute("optional-value") == "true";
-    settings.borderRadiusValue = parseFloat(this.findPart("border-radius").value);
-    settings.borderRadiusUnit = this.findPart("border-radius-unit").value;
-    settings.colorDisplay = this.findPart("color-display").value;
-    settings.centerCheckbox = this.findPart("center-checkbox").checked;
-    settings.centerRemoveButton = this.findPart("center-remove-button").checked;
-    settings.useCustomWidth = this.findPart("card-width-field").getAttribute("optional-value") == "true";
-    settings.customWidth = parseFloat(this.findPart("card-width").value);
-    settings.useCustomBorderWidth_top = this.findPart("border-top-field").getAttribute("optional-value") == "true";
-    settings.borderWidth_top = parseFloat(this.findPart("border-top").value);
-    settings.useCustomBorderWidth_right = this.findPart("border-right-field").getAttribute("optional-value") == "true";
-    settings.borderWidth_right = parseFloat(this.findPart("border-right").value);
-    settings.useCustomBorderWidth_bottom = this.findPart("border-bottom-field").getAttribute("optional-value") == "true";
-    settings.borderWidth_bottom = parseFloat(this.findPart("border-bottom").value);
-    settings.useCustomBorderWidth_left = this.findPart("border-left-field").getAttribute("optional-value") == "true";
-    settings.borderWidth_left = parseFloat(this.findPart("border-left").value);
+    settings.useCustomBackgroundColor = this.findElement("task-background-color-field").getAttribute("optional-value") == "true";
+    settings.customBackgroundColor = this.findElement("task-background-color").value;
+    settings.useCustomFontColor = this.findElement("task-font-color-field").getAttribute("optional-value") == "true";
+    settings.customFontColor = this.findElement("task-font-color").value;
+    settings.useCustomFontSize = this.findElement("task-font-size-field").getAttribute("optional-value") == "true";
+    settings.customFontSize = parseFloat(this.findElement("task-font-size").value);
+    settings.useCustomBorderColor = this.findElement("task-border-color-field").getAttribute("optional-value") == "true";
+    settings.customBorderColor = this.findElement("task-border-color").value;
+    settings.useCustomBorderRadius = this.findElement("task-border-radius-field").getAttribute("optional-value") == "true";
+    settings.borderRadiusValue = parseFloat(this.findElement("task-border-radius").value);
+    settings.borderRadiusUnit = this.findElement("task-border-radius-unit").value;
+    settings.colorDisplay = this.findElement("task-color-display").value;
+    settings.centerCheckbox = this.findElement("task-center-checkbox").checked;
+    settings.centerRemoveButton = this.findElement("task-center-remove-button").checked;
+    settings.useCustomWidth = this.findElement("task-card-width-field").getAttribute("optional-value") == "true";
+    settings.customWidth = parseFloat(this.findElement("task-card-width").value);
+    settings.useCustomBorderWidth_top = this.findElement("task-border-top-field").getAttribute("optional-value") == "true";
+    settings.borderWidth_top = parseFloat(this.findElement("task-border-top").value);
+    settings.useCustomBorderWidth_right = this.findElement("task-border-right-field").getAttribute("optional-value") == "true";
+    settings.borderWidth_right = parseFloat(this.findElement("task-border-right").value);
+    settings.useCustomBorderWidth_bottom = this.findElement("task-border-bottom-field").getAttribute("optional-value") == "true";
+    settings.borderWidth_bottom = parseFloat(this.findElement("task-border-bottom").value);
+    settings.useCustomBorderWidth_left = this.findElement("task-border-left-field").getAttribute("optional-value") == "true";
+    settings.borderWidth_left = parseFloat(this.findElement("task-border-left").value);
     return settings;
   }
+  //#endregion API
+  //#region Internal
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      classedElements[i].part.add(...classedElements[i].classList);
+    }
+  }
+  //#endregion Internal
 };
 if (customElements.get(COMPONENT_TAG_NAME2) == null) {
   customElements.define(COMPONENT_TAG_NAME2, TaskFieldsComponent);
@@ -2267,12 +2288,12 @@ input,select,textarea
     width: auto;
 }
 
-[part="icon-definitions"]
+#icon-definitions
 {
     display: none;
 }
 
-[part="handle"]
+#tasklist-settings-handle
 {
     display: flex;
     width: 15px;
@@ -2285,13 +2306,13 @@ input,select,textarea
     background-size: 5px 5px;
     background-position: 0 0, 2px 2px;
 }
-[part="handle"]:active
+#tasklist-settings-handle:active
 {
     cursor: grabbing;
 }
 
-[part="remove-icon"]
-,[part="duplicate-icon"]
+#tasklist-settings-remove-icon
+,#tasklist-settings-duplicate-icon
 {
     width: var(--icon-size, 12px);
     height: var(--icon-size, 12px);
@@ -2342,30 +2363,31 @@ form-field .container
 form-field input[type="color"]
 {
     width: 100%;
+    height: auto;
 }
 
-[part="color"]
+#tasklist-color
 {
     width: 3ch;
 }
 
-[part="name"]
+#tasklist-name
 {
     flex: 1;
 }
 
-[part="list-settings"]
+#tasklist-settings-fieldset
 {
     grid-template-columns: 1fr minmax(min-content, 18ch);
 }
 
-[part="list-settings"] .column
+#tasklist-settings-fieldset .fieldset-column
 {
     display: grid;
     gap: .5em;
 }
 
-[part="list-settings"] .column input[type="color"]
+#tasklist-settings-fieldset .column input[type="color"]
 {
     height: auto;
 }
@@ -2375,18 +2397,18 @@ input[type="text"]
     min-width: 5ch;
 }
 
-[part="list-width-field"] .container
+#tasklist-width-field .container
 {
     column-gap: .25em !important;
 }
 
-[part="list-width-field"] [slot="postfix"]
+#tasklist-width-field [slot="postfix"]
 {
     align-self: flex-end;
 }`;
 
 // components/board-settings/tasklist-fields/tasklist-fields.component.html?raw
-var tasklist_fields_component_default2 = '<details part="details">\n    <summary part="summary">\n        <div part="handle"></div>\n        <input part="color" type="color" />\n        <input part="name" type="text" />\n        <button part="duplicate-button" type="button">\n            <svg part="duplicate-icon">\n                <use href="#icon-definition_copy"></use>\n            </svg>\n        </button>\n        <button part="remove-button" type="button">\n            <svg part="remove-icon">\n                <use href="#icon-definition_cancel-cross"></use>\n            </svg>\n        </button>\n    </summary>\n    <div part="detail-content">\n        <fieldset part="list-settings">\n            <legend part="list-settings-legend">\n                <span part="list-setting-title">List</span>\n            </legend>\n            <div class="column">\n                <form-field part="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\n                    <input type="color" name="background-color" part="background-color" value="#f9faf5" />\n                </form-field>\n                <form-field part="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\n                    <input type="color" name="font-color" part="font-color" value="#060703" />\n                </form-field>\n            </div>\n            <div class="column">\n                <form-field label="Order" part="order-field">\n                    <input type="text" part="order" name="order" inputmode="numeric" disabled />\n                </form-field>\n                <form-field part="list-width-field" label="List Width" optional optional-title="Use a custom list width?">\n                    <input type="text" inputmode="numeric" name="list-width" part="list-width" value="" />\n                    <span part="list-width-unit" slot="postfix">px</span>\n                </form-field>\n                <form-field part="color-display-field" label="Color Display">\n                    <select name="color-display" part="color-display"></select>\n                </form-field>\n            </div>\n        </fieldset>\n        <fieldset part="task-settings">\n            <legend part="task-settings-legend">\n                <span part="task-setting-title">List Tasks</span>\n            </legend>\n            <task-fields part="task-fields"></task-fields>\n        </fieldset>\n    </div>\n</details>';
+var tasklist_fields_component_default2 = '<details class="details" id="tasklist-settings-details">\n    <summary class="summary" id="tasklist-settings-summary">\n        <div class="handle" id="tasklist-settings-handle"></div>\n        <input class="input color" id="tasklist-color" name="tasklist-color" type="color" />\n        <input class="input name" id="tasklist-name" name="tasklist-name" type="text" />\n        <button class="duplicate-button" id="tasklist-settings-duplicate-button" type="button">\n            <svg class="icon" id="tasklist-settings-duplicate-icon">\n                <use href="#icon-definition_copy"></use>\n            </svg>\n        </button>\n        <button class="button" id="tasklist-settings-remove-button" type="button">\n            <svg class="icon" id="tasklist-settings-remove-icon">\n                <use href="#icon-definition_cancel-cross"></use>\n            </svg>\n        </button>\n    </summary>\n    <div class="details-content" id="task-fields-content">\n        <fieldset class="fieldset" id="tasklist-settings-fieldset">\n            <legend class="legend" id="tasklist-settings-legend">List</legend>\n            <div class="fieldset-column first">\n                <form-field class="field"  id="tasklist-background-color-field"label="Background Color" optional optional-title="Override Background Color?">\n                    <input class="input" id="tasklist-background-color" type="color" name="background-color" value="#f9faf5" />\n                </form-field>\n                <form-field class="field" id="tasklist-font-color-field" label="Font Color" optional optional-title="Override Font Color?">\n                    <input class="input" id="tasklist-font-color" type="color" name="font-color" value="#060703" />\n                </form-field>\n            </div>\n            <div class="fieldset-column second">\n                <form-field class="field" id="tasklist-order-field" label="Order" >\n                    <input class="input" id="tasklist-order" type="text" name="order" inputmode="numeric" disabled />\n                </form-field>\n                <form-field class="field" id="tasklist-width-field" label="List Width" optional optional-title="Use a custom list width?">\n                    <input class="input" id="tasklist-width" type="text" inputmode="numeric" name="list-width" value="" />\n                    <span class="postfix" id="tasklist-width-unit" slot="postfix">px</span>\n                </form-field>\n                <form-field class="field" id="tasklist-color-display-field" label="Color Display">\n                    <select class="select" id="tasklist-color-display" name="color-display"></select>\n                </form-field>\n            </div>\n        </fieldset>\n        <fieldset class="fieldset" id="task-settings-fieldset">\n            <legend class="legend" id="task-settings-legend">List Tasks</legend>\n            <task-fields\n                id="task-fields"\n                exportparts="\n                "\n            ></task-fields>\n        </fieldset>\n    </div>\n</details>';
 
 // components/board-settings/tasklist-fields/tasklist-fields.component.ts
 var COMPONENT_STYLESHEET3 = new CSSStyleSheet();
@@ -2394,24 +2416,24 @@ COMPONENT_STYLESHEET3.replaceSync(`${form_field_default}
 ${tasklist_fields_component_default}
 `);
 var COMPONENT_TEMPLATE2 = `${tasklist_fields_component_default2}
-<div part="icon-definitions">
+<div id="icon-definitions">
     ${Icons.CancelCross}
     ${Icons.Copy}
 </div>`;
 var COMPONENT_TAG_NAME3 = "tasklist-fields";
 var TaskListFieldsComponent = class extends HTMLElement {
   componentParts = /* @__PURE__ */ new Map();
-  getPart(key) {
-    if (this.componentParts.get(key) == null) {
-      const part = this.shadowRoot.querySelector(`[part="${key}"]`);
+  getElement(id) {
+    if (this.componentParts.get(id) == null) {
+      const part = this.findElement(id);
       if (part != null) {
-        this.componentParts.set(key, part);
+        this.componentParts.set(id, part);
       }
     }
-    return this.componentParts.get(key);
+    return this.componentParts.get(id);
   }
-  findPart(key) {
-    return this.shadowRoot.querySelector(`[part="${key}"]`);
+  findElement(id) {
+    return this.shadowRoot.getElementById(id);
   }
   constructor() {
     super();
@@ -2425,51 +2447,62 @@ var TaskListFieldsComponent = class extends HTMLElement {
       option.textContent = key.replace(/([A-Z])/g, " $1").trim();
       options.push(option);
     }
-    this.findPart("color-display").append(...options);
-    this.findPart("remove-button").addEventListener("click", () => {
-      this.toggleAttribute("removed");
-    });
-    this.findPart("duplicate-button").addEventListener("click", () => {
-      this.dispatchEvent(new Event("duplicate"));
-    });
-    this.findPart("name").addEventListener("keyup", (event) => {
+    this.findElement("tasklist-color-display").append(...options);
+    this.#applyPartAttributes();
+    this.findElement("tasklist-name").addEventListener("keyup", (event) => {
       if (event.code == "Space") {
         event.preventDefault();
       }
     });
   }
+  //#region API
   setValues(taskList, taskSettings) {
-    this.setAttribute("record-id", taskList.id);
-    this.findPart("color").value = taskList.color;
-    this.findPart("name").value = taskList.name;
-    this.findPart("order").value = taskList.order.toString();
-    this.findPart("background-color-field").setAttribute("optional-value", taskList.useCustomBackgroundColor == true ? "true" : "false");
-    this.findPart("background-color").value = taskList.backgroundColor;
-    this.findPart("font-color-field").setAttribute("optional-value", taskList.useCustomFontColor == true ? "true" : "false");
-    this.findPart("font-color").value = taskList.fontColor;
-    this.findPart("list-width-field").setAttribute("optional-value", taskList.useCustomWidth == true ? "true" : "false");
-    this.findPart("list-width").value = taskList.width.toString();
-    this.findPart("color-display").value = taskList.colorDisplay;
-    this.findPart("task-fields").setValues(taskSettings);
+    this.setAttribute("tasklist-record-id", taskList.id);
+    this.findElement("tasklist-color").value = taskList.color;
+    this.findElement("tasklist-name").value = taskList.name;
+    this.findElement("tasklist-order").value = taskList.order.toString();
+    this.findElement("tasklist-background-color-field").setAttribute("optional-value", taskList.useCustomBackgroundColor == true ? "true" : "false");
+    this.findElement("tasklist-background-color").value = taskList.backgroundColor;
+    this.findElement("tasklist-font-color-field").setAttribute("optional-value", taskList.useCustomFontColor == true ? "true" : "false");
+    this.findElement("tasklist-font-color").value = taskList.fontColor;
+    this.findElement("tasklist-width-field").setAttribute("optional-value", taskList.useCustomWidth == true ? "true" : "false");
+    this.findElement("tasklist-width").value = taskList.width.toString();
+    this.findElement("tasklist-color-display").value = taskList.colorDisplay;
+    this.findElement("task-fields").setValues(taskSettings);
   }
   getRecords() {
     const taskList = new TaskListRecord();
-    taskList.id = this.getAttribute("record-id");
-    taskList.color = this.findPart("color").value;
-    taskList.name = this.findPart("name").value;
-    taskList.useCustomBackgroundColor = this.findPart("background-color-field").getAttribute("optional-value") == "true";
-    taskList.backgroundColor = this.findPart("background-color").value;
-    taskList.useCustomFontColor = this.findPart("font-color-field").getAttribute("optional-value") == "true";
-    taskList.fontColor = this.findPart("font-color").value;
-    taskList.useCustomWidth = this.findPart("list-width-field").getAttribute("optional-value") == "true";
-    taskList.width = parseFloat(this.findPart("list-width").value);
-    taskList.colorDisplay = this.findPart("color-display").value;
-    const taskSettings = this.findPart("task-fields").getRecord();
+    taskList.id = this.getAttribute("tasklist-record-id");
+    taskList.color = this.findElement("tasklist-color").value;
+    taskList.name = this.findElement("tasklist-name").value;
+    taskList.useCustomBackgroundColor = this.findElement("tasklist-background-color-field").getAttribute("optional-value") == "true";
+    taskList.backgroundColor = this.findElement("tasklist-background-color").value;
+    taskList.useCustomFontColor = this.findElement("tasklist-font-color-field").getAttribute("optional-value") == "true";
+    taskList.fontColor = this.findElement("tasklist-font-color").value;
+    taskList.useCustomWidth = this.findElement("tasklist-width-field").getAttribute("optional-value") == "true";
+    taskList.width = parseFloat(this.findElement("tasklist-width").value);
+    taskList.colorDisplay = this.findElement("tasklist-color-display").value;
+    const taskSettings = this.findElement("task-fields").getRecord();
     taskSettings.parentRecordType = "list";
-    taskList.taskSettingsId = this.findPart("task-fields").getAttribute("record-id");
+    taskList.taskSettingsId = this.findElement("task-fields").getAttribute("record-id");
     const result = [taskList, taskSettings];
     return result;
   }
+  //#endregion API
+  //#region Management
+  //#endregion Management
+  //#region Internal
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      classedElements[i].part.add(...classedElements[i].classList);
+    }
+  }
+  //#endregion Internal
 };
 if (customElements.get(COMPONENT_TAG_NAME3) == null) {
   customElements.define(COMPONENT_TAG_NAME3, TaskListFieldsComponent);
@@ -4549,6 +4582,10 @@ var DataService = class _DataService {
   }
   //#endregion Boards
   //#region Lists
+  static async createList(list, settings) {
+    const taskLists = this.#getChannel(this.#data.lists, "LIST" /* LIST */);
+    return taskLists.create(list, settings);
+  }
   //#endregion Lists
   //#region Tasks
   static async getTaskSettingsRecords(...ids) {
@@ -5481,7 +5518,7 @@ var board_settings_default = `:host { display: contents; }
     overflow: hidden;
 }
 
-#fields
+#board-fields
 {
     overflow-y: auto;
     flex: 1;
@@ -5621,7 +5658,7 @@ fileimage-input::part(view-link)
 }
 
 
-#properties
+#board-properties
 {
     display: flex;
     align-items: center;
@@ -5634,7 +5671,7 @@ fileimage-input::part(view-link)
     flex: 1;
 }
 
-#appearance-fieldset .container > input
+#board-appearance-fieldset .container > input
 {
     flex: 1;
     min-height: 2ch;
@@ -5666,27 +5703,27 @@ fileimage-input::part(view-link)
     /* max-width: 10ch; */
 }
 
-#lists
+#board-list-details
 {
     grid-column: span 2;
 }
 
-#list-items
+#board-lists
 {
     gap: 1em;
     display: grid;
 }
 
-#list-actions
+#board-list-actions
 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: .5em;
-    padding: .5em 0;
+    gap: 7px;
+    padding: 14px 0;
 }
 
-#tasks
+#board-task-details
 {
     grid-column: span 2;
 }
@@ -5761,11 +5798,6 @@ button .icon
     height: 12px;
 }
 
-#list-items::part(add-button)
-{
-    display: none;
-}
-
 #icon-definitions
 {
     display: none;
@@ -5778,6 +5810,11 @@ button .icon
     justify-content: flex-end;
     gap: 14px;
     padding: 7px 0;
+}
+
+#close-board-button
+{
+    margin-right: auto;
 }
 
 
@@ -5835,13 +5872,9 @@ form-field [part="container"]:has([slot="postfix"]) [part="field-label"]
 `;
 
 // components/board-settings/board-settings.html?raw
-var board_settings_default2 = '<form method="dialog" id="board-settings-form" class="form">\n    <header id="board-settings-header" class="header dialog-header">\n        <svg id="board-settings-icon" class="icon">\n            <use href="#icon-definition_task-board"></use>\n        </svg>\n        <span id="board-settings-title" class="title">Board</span>\n        <button type="submit" id="close-board-button" class="button header-button" title="Close Board">\n            <svg id="close-board-icon" class="icon">\n                <use href="#icon-definition_close-cross"></use>\n            </svg>\n        </button>\n    </header>\n    <div id="fields">\n        <input type="hidden" name="record-id" id="record-id" />\n        <div id="properties">\n            <form-field label="Color" id="color-field" class="field">\n                <input type="color" id="color" class="input" name="color" value="#000000" />\n            </form-field>\n            <form-field label="Name" id="name-field" class="field">\n                <input type="text" id="name" class="input" name="name" value="New Board" />\n            </form-field>\n            <form-field label="Order" id="order-field" class="field">\n                <input type="text" id="order" class="input" name="order" inputmode="numeric" disabled />\n            </form-field>\n        </div>\n        <fieldset id="appearance-fieldset" class="fieldset board-settings-fieldset">\n            <legend id="appearance-legend" class="legend board-settings-legend">\n                <svg id="color-icon" class="icon">\n                    <use href="#icon-definition_color"></use>\n                </svg>\n                <span id="appearance-label" class="label legend-label">Appearance</span>\n            </legend>\n            <form-field id="background-color-field" class="field" label="Background Color" optional optional-title="Override Background Color?">\n                <input type="color" name="background-color" id="background-color" class="input" value="#f9faf5" />\n            </form-field>\n            <form-field id="font-color-field" label="Font Color" class="field" optional optional-title="Override Font Color?">\n                <input type="color" name="font-color" id="font-color" class="input" value="#060703" />\n            </form-field>\n        </fieldset>\n        <fieldset id="image-fieldset" class="fieldset board-settings-fieldset">\n            <legend id="image-legend" class="legend board-settings-legend">\n                <svg id="image-icon" class="icon" >\n                    <use href="#icon-definition_image"></use>\n                </svg>\n                <span id="image-label" class="label legend-label">Background Image</span>\n            </legend>\n            <form-field id="background-image-field" class="field" label="Background Image" input-selector="fileimage-input">\n                <fileimage-input name="background-image" id="background-image" class="input" placeholder="Select an image...">\n                    <svg id="background-image-icon" class="icon" slot="placeholder-icon">\n                        <use href="#icon-definition_image"></use>\n                    </svg>\n                </fileimage-input>\n            </form-field>\n            <form-field id="background-image-display-field" class="field" label="Display">\n                <select id="background-image-display" class="select" name="background-image-display">\n                    <option value="stretch">Stretch</option>\n                    <option value="center">Center</option>\n                    <option value="tile">Tile</option>\n                </select>\n            </form-field>\n            <div id="background-image-offset">\n                <div id="offset-header">\n                    <span id="offset-label">Offset</span>\n                </div>\n                <form-field id="background-image-offset-x-field" class="field" label="X">\n                    <input type="text" inputmode="numeric" id="background-image-offset-x" class="input" name="background-image-offset-x" />\n                </form-field>\n                <form-field id="background-image-offset-y-field" class="field" label="Y">\n                    <input type="text" inputmode="numeric" id="background-image-offset-y" class="input" name="background-image-offset-y" />\n                </form-field>\n            </div>\n        </fieldset>\n        <details open id="lists" class="settings-details board-settings-details">\n            <summary id="lists-summary" class="settings-summary board-settings-summary">\n                <svg id="lists-icon" class="icon">\n                    <use href="#icon-definition_task-list"></use>\n                </svg>\n                <span id="lists-label">Lists<span>\n            </summary>\n            <div id="list-items"><slot><em id="lists-placeholder">No Lists</em></slot></div>\n            <div id="list-actions">\n                <button type="button" id="clear-lists-button" class="button" title="Clear All Lists">\n                    <svg id="clear-lists-button-icon" class="icon">\n                        <use href="#icon-definition_trash"></use>\n                    </svg>\n                    <span id="clear-lists-button-label">Clear</span>\n                </button>\n                <button type="button" id="add-list-button" class="button">\n                    <svg id="add-list-button-icon" class="icon">\n                        <use href="#icon-definition_plus"></use>\n                    </svg>\n                    <span id="add-list-button-label">Add List</span>\n                </button>\n            </div>\n        </details>\n        <details id="tasks" open class="settings-details board-settings-details">\n            <summary id="tasks-summary" class="settings-summary board-settings-summary">\n                <svg id="tasks-icon" class="icon">\n                    <use href="#icon-definition_task"></use>\n                </svg>\n                <span id="tasks-label">Task Settings</span>\n            </summary>\n            <task-fields\n                id="board-task-settings"\n                class="task-fields"\n                exportparts=""\n            ></task-fields>\n        </details>\n        <fieldset id="delete-fieldset" class="fieldset board-settings-fieldset">\n            <legend id="delete-legend" class="legend board-settings-legend">Delete</legend>\n            <p class="field-question">Delete this board?</p>\n            <button type="submit" id="remove-board-button" class="button">\n                <svg id="remove-board-icon" class="icon">\n                    <use href="#icon-definition_trash"></use>\n                </svg>\n                <span id="remove-board-label">Delete</span>\n            </button>\n        </fieldset>\n        <fieldset id="duplicate-fieldset" class="fieldset board-settings-fieldset">\n            <legend id="duplicate-legend" class="legend board-settings-legend">Duplicate</legend>\n            <p class="field-question">Duplicate this board?</p>\n            <form-field id="duplicate-board-name-field" class="field" label="New Board Name">\n                <input type="text" id="duplicate-board-name" class="input" />\n            </form-field>\n            <button type="button" id="duplicate-board-button" class="button">\n                <svg id="duplicate-board-icon" class="icon">\n                    <use href="#icon-definition_copy"></use>\n                </svg>\n                <span id="duplicate-board-label">Duplicate</span>\n            </button>\n        </fieldset>\n        <fieldset id="export-fieldset" class="fieldset board-settings-fieldset">\n            <legend id="export-legend" class="legend board-settings-legend">Export</legend>\n            <div id="export-options">\n                <header id="export-options-header" class="field-header">Options</header>\n                <form-field id="export-images-field" class="field" label="Export Background Image?">\n                    <svg id="export-images-icon" class="icon" slot="prefix">\n                        <use href="#icon-definition_image"></use>\n                    </svg>\n                    <input type="checkbox" id="export-background-image" class="input" checked="true">\n                </form-field>\n            </div>\n            <button id="export-button" class="button" type="button">\n                <svg id="export-button-icon" class="icon">\n                    <use href="#icon-definition_export"></use>\n                </svg>\n                <span id="export-button-label">Export Board</span>\n            </button>\n        </fieldset>\n    </div>\n    <footer id="board-settings-footer" class="footer dialog-footer">\n        <button type="submit" id="board-settings-cancel" class="button action-button cancel" title="Cancel changes">Cancel</button>\n        <button type="submit" id="board-settings-save" class="button action-button ok preferred-button" title="Save settings">Save</button>\n    </footer>\n</form>';
+var board_settings_default2 = '<form method="dialog" id="board-settings-form" class="form">\n    <header class="header dialog-header" id="board-settings-header">\n        <svg class="icon dialog-header-icon" id="board-settings-icon">\n            <use href="#icon-definition_task-board"></use>\n        </svg>\n        <span class="title dialog-title" id="board-settings-title">Board</span>\n    </header>\n    <div id="board-fields">\n        <div id="board-properties">\n            <form-field class="field" id="color-field" label="Color">\n                <input class="input" id="color" type="color" name="color" value="#000000" />\n            </form-field>\n            <form-field class="field" id="name-field" label="Name">\n                <input class="input" id="name" type="text" name="name" value="New Board" />\n            </form-field>\n            <form-field class="field" id="order-field" label="Order">\n                <input class="input" id="order"type="text" name="order" inputmode="numeric" disabled />\n            </form-field>\n        </div>\n        <fieldset class="fieldset board-settings-fieldset" id="board-appearance-fieldset">\n            <legend class="legend board-settings-legend" id="board-appearance-legend">\n                <svg class="icon legend-icon" id="board-settings-color-icon">\n                    <use href="#icon-definition_color"></use>\n                </svg>\n                <span class="label legend-label" id="board-settings-appearance-label">Appearance</span>\n            </legend>\n            <form-field class="field" id="background-color-field" label="Background Color" optional optional-title="Override Background Color?">\n                <input class="input" id="background-color"type="color" name="background-color" value="#f9faf5" />\n            </form-field>\n            <form-field class="field" id="font-color-field" label="Font Color" optional optional-title="Override Font Color?">\n                <input class="input" id="font-color" type="color" name="font-color" value="#060703" />\n            </form-field>\n        </fieldset>\n        <fieldset class="fieldset board-settings-fieldset" id="image-fieldset">\n            <legend class="legend board-settings-legend" id="image-legend">\n                <svg class="icon" id="image-icon">\n                    <use href="#icon-definition_image"></use>\n                </svg>\n                <span class="label legend-label" id="image-label">Background Image</span>\n            </legend>\n            <form-field class="field" id="background-image-field" label="Background Image" input-selector="fileimage-input">\n                <fileimage-input class="input" name="background-image" id="background-image" placeholder="Select an image...">\n                    <svg class="icon" id="background-image-icon" slot="placeholder-icon">\n                        <use href="#icon-definition_image"></use>\n                    </svg>\n                </fileimage-input>\n            </form-field>\n            <form-field class="field" id="background-image-display-field" label="Display">\n                <select class="select" id="background-image-display" name="background-image-display">\n                    <option class="option first" value="stretch">Stretch</option>\n                    <option class="option" value="center">Center</option>\n                    <option class="option last" value="tile">Tile</option>\n                </select>\n            </form-field>\n            <div id="background-image-offset">\n                <div id="offset-header">\n                    <span id="offset-label">Offset</span>\n                </div>\n                <form-field class="field" id="background-image-offset-x-field" label="X">\n                    <input class="input" type="text" inputmode="numeric" id="background-image-offset-x" name="background-image-offset-x" />\n                </form-field>\n                <form-field class="field" id="background-image-offset-y-field" label="Y">\n                    <input class="input"type="text" inputmode="numeric" id="background-image-offset-y" name="background-image-offset-y" />\n                </form-field>\n            </div>\n        </fieldset>\n        <details class="settings-details board-settings-details" id="board-list-details" open>\n            <summary class="settings-summary board-settings-summary" id="board-list-summary">\n                <svg class="icon summary-icon" id="board-list-icon">\n                    <use href="#icon-definition_task-list"></use>\n                </svg>\n                <span class="summary-label" id="board-list-label">Lists<span>\n            </summary>\n            <div id="board-lists"><slot><em id="board-list-placeholder">No Lists</em></slot></div>\n            <div id="board-list-actions">\n                <button class="button" id="clear-lists-button" type="button" title="Clear All Lists">\n                    <svg class="icon button-icon" id="clear-lists-button-icon">\n                        <use href="#icon-definition_trash"></use>\n                    </svg>\n                    <span class="label button-label" id="clear-lists-button-label">Clear</span>\n                </button>\n                <button class="button" id="add-list-button" type="button">\n                    <svg class="icon button-icon" id="add-list-button-icon">\n                        <use href="#icon-definition_plus"></use>\n                    </svg>\n                    <span class="label button-label" id="add-list-button-label">Add List</span>\n                </button>\n            </div>\n        </details>\n        <details class="settings-details board-settings-details" id="board-task-details" open>\n            <summary class="settings-summary board-settings-summary" id="board-task-summary">\n                <svg class="icon summary-icon" id="board-task-icon">\n                    <use href="#icon-definition_task"></use>\n                </svg>\n                <span class="label" id="boardtasks-label">Task Settings</span>\n            </summary>\n            <task-fields\n                class="task-fields"\n                id="board-task-settings"\n                exportparts=""\n            ></task-fields>\n        </details>\n        <fieldset class="fieldset board-settings-fieldset" id="delete-fieldset">\n            <legend class="legend board-settings-legend" id="delete-legend">Delete</legend>\n            <p class="field-question">Delete this board?</p>\n            <button class="button" id="remove-board-button" type="submit">\n                <svg class="icon button-icon" id="remove-board-icon">\n                    <use href="#icon-definition_trash"></use>\n                </svg>\n                <span class="label button-label" id="remove-board-label">Delete</span>\n            </button>\n        </fieldset>\n        <fieldset class="fieldset board-settings-fieldset" id="duplicate-fieldset">\n            <legend class="legend board-settings-legend" id="duplicate-legend">Duplicate</legend>\n            <p class="field-question">Duplicate this board?</p>\n            <form-field class="field" id="duplicate-board-name-field" label="New Board Name">\n                <input class="input" id="duplicate-board-name" type="text" />\n            </form-field>\n            <button class="button" id="duplicate-board-button" type="button">\n                <svg class="icon" id="duplicate-board-icon">\n                    <use href="#icon-definition_copy"></use>\n                </svg>\n                <span class="label button-label" id="duplicate-board-label">Duplicate</span>\n            </button>\n        </fieldset>\n        <fieldset class="fieldset board-settings-fieldset" id="export-fieldset">\n            <legend class="legend board-settings-legend" id="export-legend">Export</legend>\n            <div id="export-options">\n                <header class="field-header" id="export-options-header">Options</header>\n                <form-field class="field" id="export-images-field" label="Export Background Image?">\n                    <svg class="icon" id="export-images-icon" slot="prefix">\n                        <use href="#icon-definition_image"></use>\n                    </svg>\n                    <input class="input" id="export-background-image" type="checkbox" checked="true">\n                </form-field>\n            </div>\n            <button class="button" id="export-button" type="button">\n                <svg class="icon" id="export-button-icon">\n                    <use href="#icon-definition_export"></use>\n                </svg>\n                <span class="label button-label" id="export-button-label">Export Board</span>\n            </button>\n        </fieldset>\n    </div>\n    <footer class="footer dialog-footer" id="board-settings-footer">\n        <button class="button" id="close-board-button" type="submit" title="Close Board">\n            <svg class="icon" id="close-board-icon">\n                <use href="#icon-definition_close-cross"></use>\n            </svg>\n        </button>\n        <button class="button action-button cancel" id="board-settings-cancel" type="submit"title="Cancel changes">Cancel</button>\n        <button class="button action-button ok preferred-button"  id="board-settings-save"type="submit" title="Save settings">Save</button>\n    </footer>\n</form>';
 
 // components/board-settings/board-settings.ts
-var BoardSettingsAttributes = /* @__PURE__ */ ((BoardSettingsAttributes2) => {
-  BoardSettingsAttributes2["pathId"] = "path-id";
-  return BoardSettingsAttributes2;
-})(BoardSettingsAttributes || {});
 var COMPONENT_STYLESHEET10 = new CSSStyleSheet();
 COMPONENT_STYLESHEET10.replaceSync(`${shared_default}
     ${board_settings_default}`);
@@ -5861,9 +5894,6 @@ ${defineIcons(
 )}`;
 var COMPONENT_TAG_NAME11 = "board-settings";
 var BoardSettingsElement = class extends HTMLElement {
-  static observedAttributes = [
-    ...Object.values(BoardSettingsAttributes)
-  ];
   componentParts = /* @__PURE__ */ new Map();
   getElement(id) {
     if (this.componentParts.get(id) == null) {
@@ -5886,9 +5916,7 @@ var BoardSettingsElement = class extends HTMLElement {
     this.shadowRoot.innerHTML = COMPONENT_TEMPLATE7;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET10);
     this.#applyPartAttributes();
-    this.findElement("clear-lists-button").addEventListener("click", () => {
-      this.querySelectorAll("tasklist-fields").forEach((item) => item.toggleAttribute("removed", true));
-    });
+    this.addEventListener("click", this.#onClick.bind(this));
     this.addEventListener("dragover", (event) => {
       event.preventDefault();
       event.stopPropagation();
@@ -5906,79 +5934,11 @@ var BoardSettingsElement = class extends HTMLElement {
       }
     });
   }
-  #applyPartAttributes() {
-    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
-    for (let i = 0; i < identifiedElements.length; i++) {
-      identifiedElements[i].part.add(identifiedElements[i].id);
-    }
-    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
-    for (let i = 0; i < classedElements.length; i++) {
-      classedElements[i].part.add(...classedElements[i].classList);
-    }
+  //#region API
+  #canAddList;
+  init(options) {
+    this.#canAddList = options.canAddList;
   }
-  // async function boardSettings_ok_onClick(this: TaskboardManagerElement, event: Event)
-  // {
-  //     await this[SHAREDACCESSKEY].updateBoardSettings();
-  //     this[SHAREDACCESSKEY].refreshBoards();
-  //     this[SHAREDACCESSKEY].refreshDeletedItems();
-  //     const id  =this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id') ?? this[SHAREDACCESSKEY].getIdFromRoute();
-  //     if(id == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred saving the board settings.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         throw new Error('Unable to determine the target board\'s id');
-  //     }
-  //     // console.log(id);
-  //     this.openBoard(id);
-  // }
-  // async function boardSettings_remove_onClick(this: TaskboardManagerElement, event: Event)
-  // {
-  //     const id  =this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id') ?? this[SHAREDACCESSKEY].getIdFromRoute();
-  //     if(id == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred deleting a board.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         throw new Error('Unable to determine the target board\'s id');
-  //     }
-  //     this.removeBoard(id);
-  // }
-  // async function exportBoardButton_onClick(this: TaskboardManagerElement, event: Event)
-  // {        
-  //     const boardId = this.findElement('board-fields').getAttribute('record-id');
-  //     if(boardId == null || boardId == '')
-  //     {
-  //         MessageCardElement.notify(`An error occurred attempting to export the board.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         throw new Error('Unable to determine the target board\'s id');
-  //     }
-  //     this.exportBoard(boardId);
-  // }
-  // function addList_onClick(this: TaskboardManagerElement, event: Event)
-  // {
-  //     this.addList();
-  // }
-  // function list_onDuplicate(this: TaskboardManagerElement, event: Event)
-  // {
-  //     const data = (event as CustomEvent).detail;
-  //     this[SHAREDACCESSKEY].duplicateList(data.target, data.list, data.settings);
-  // }
-  // async function duplicateBoard_onClick(this: TaskboardManagerElement, _event: Event)
-  // {
-  //     const id = this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id');
-  //     if(id == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred duplicating theboard.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         throw new Error('Unable to determine the target board\'s id');
-  //     }
-  //     await this.duplicateBoard(id);
-  //     this[SHAREDACCESSKEY].refreshBoards();
-  // }
-  // async function closeBoard_onClick(this: TaskboardManagerElement, _event: Event)
-  // {
-  //     await this.closeBoardSettings();
-  //     this.closeBoard();
-  // }
   setValues(board, taskSettings, backgroundImage = null) {
     this.setAttribute("record-id", board.id);
     this.findElement("color").value = board.color;
@@ -5997,7 +5957,7 @@ var BoardSettingsElement = class extends HTMLElement {
     } else {
       this.findElement("background-image").value = null;
     }
-    this.findElement("task-fields").setValues(taskSettings);
+    this.findElement("board-task-settings").setValues(taskSettings);
   }
   setLists(taskLists, taskLists_TaskSettings) {
     this.innerHTML = "";
@@ -6014,51 +5974,10 @@ var BoardSettingsElement = class extends HTMLElement {
       if (taskSettings == null) {
         throw new Error("Unable to load list settings");
       }
-      const taskListElement = this.createList(taskList, taskSettings);
+      const taskListElement = this.#createList(taskList, taskSettings);
       listElements.push(taskListElement);
     }
     this.append(...listElements);
-  }
-  addList(taskList, taskSettings) {
-    const list = this.createList(taskList, taskSettings);
-    this.append(list);
-  }
-  insertList(afterTarget, taskList, taskSettings) {
-    const list = this.createList(taskList, taskSettings);
-    if (afterTarget.nextElementSibling == null) {
-      this.append(list);
-    } else {
-      this.insertBefore(list, afterTarget.nextElementSibling);
-    }
-  }
-  createList(taskList, taskSettings) {
-    const taskListElement = new TaskListFieldsComponent();
-    if (taskSettings == null) {
-      throw new Error("Unable to load list settings");
-    }
-    taskListElement.setValues(taskList, taskSettings);
-    taskListElement.addEventListener("duplicate", (event) => {
-      const [list, settings] = taskListElement.getRecords();
-      this.dispatchEvent(new CustomEvent("duplicate", { detail: { target: taskListElement, list, settings } }));
-    });
-    const handle = taskListElement.findPart("handle");
-    handle.addEventListener("mousedown", (_event) => {
-      taskListElement.draggable = true;
-    });
-    handle.addEventListener("mouseup", (_event) => {
-      taskListElement.removeAttribute("draggable");
-    });
-    taskListElement.addEventListener("dragstart", (_event) => {
-      this.#draggingList = taskListElement;
-      taskListElement.classList.add("dragging");
-      this.classList.add("drop-target");
-    });
-    taskListElement.addEventListener("dragend", (_event) => {
-      taskListElement.classList.remove("dragging");
-      this.#draggingList = null;
-      this.classList.remove("drop-target");
-    });
-    return taskListElement;
   }
   getRecords() {
     const board = new TaskBoardRecord();
@@ -6099,6 +6018,131 @@ var BoardSettingsElement = class extends HTMLElement {
     const records = [board, lists, taskSettings, toRemove];
     return records;
   }
+  async addList() {
+    const canAddList = this.#canAddList();
+    if (canAddList == false) {
+      FeedbackService.showMessageDialog("Unable to add list when a board is not open for editing and no board has been opened for task management.");
+    }
+    const [list, settings] = await DataService.createList();
+    this.#addList(list, settings);
+  }
+  insertList(afterTarget, taskList, taskSettings) {
+    const list = this.#createList(taskList, taskSettings);
+    if (afterTarget.nextElementSibling == null) {
+      this.append(list);
+    } else {
+      this.insertBefore(list, afterTarget.nextElementSibling);
+    }
+  }
+  async duplicateList(target, list, settings) {
+    const [duplicateList, duplicateSettings] = await DataService.createList(list, settings);
+    this.insertList(target, duplicateList, duplicateSettings);
+  }
+  // async duplicateBoard(id: string)
+  // {
+  //     const boardExportData = await this.#prepareExportData(id);
+  //     const duplicateData = this.findElement<ImportManagerComponent>('import-manager').prepareData(boardExportData);
+  //     const newNameInput = this.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('duplicate-board-name');
+  //     if(newNameInput?.value != null && newNameInput.value.trim() != "")
+  //     {
+  //         duplicateData.name = newNameInput.value;
+  //     }
+  //     await this.importBoard(duplicateData, "An error occurred duplicating a board.");
+  // }
+  // async removeBoard(boardId: string, confirm: boolean = true)
+  // {
+  //     const confirmed = await this.#getConfirmation('Are you sure you want to delete this board and all of its tasks, lists, and images?', 'warn');
+  //     if(confirm == true && confirmed == false)
+  //     {
+  //         return;
+  //     }
+  //     await this.closeBoardSettings();
+  //     const channel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
+  //     if(this.findElement('app-router').getAttribute('path')?.indexOf(boardId) != null)
+  //     {
+  //         this.closeBoard();
+  //     }
+  //     await channel.delete(boardId);
+  //     const entry = await this.#addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Board, { id: boardId });
+  //     this.#refreshBoards();
+  //     this.#refreshDeletedItems();
+  //     await this.#removeBoardFromRecentBoards(boardId);
+  //     this.#refreshRecentBoards();
+  //     if(entry != null)
+  //     {
+  //         this.#addUndoNotification("A board was just deleted", entry.getAttribute('data-entry-id')!);
+  //     }
+  // }
+  //#endregion API
+  //#region Handlers
+  #onClick(event) {
+    const composedPath = event.composedPath().filter((item) => item instanceof HTMLElement);
+    const addListsButton = composedPath.find((item) => item.id == "add-list-button");
+    if (addListsButton != null) {
+      this.addList();
+      return;
+    }
+    const clearListsButton = composedPath.find((item) => item.id == "clear-lists-button");
+    if (clearListsButton != null) {
+      this.querySelectorAll("tasklist-fields").forEach((item) => item.toggleAttribute("removed", true));
+      return;
+    }
+    const removeListButton = composedPath.find((item) => item.id == "tasklist-settings-remove-button");
+    if (removeListButton != null) {
+      removeListButton.getRootNode().host.toggleAttribute("removed");
+      return;
+    }
+    const duplicateButton = composedPath.find((item) => item.id == "tasklist-settings-duplicate-button");
+    if (duplicateButton != null) {
+      const listElement = duplicateButton.getRootNode().host;
+      const [listRecord, settingsRecord] = listElement.getRecords();
+      this.duplicateList(listElement, listRecord, settingsRecord);
+      return;
+    }
+    const removeBoardButton = composedPath.find((item) => item.id == "remove-board-button");
+    if (removeBoardButton != null) {
+      return;
+    }
+    const duplicateBoardButton = composedPath.find((item) => item.id == "duplicate-board-button");
+    if (duplicateBoardButton != null) {
+      return;
+    }
+  }
+  //#endregion Handlers
+  //#region Management
+  #addList(taskList, taskSettings) {
+    const list = this.#createList(taskList, taskSettings);
+    this.append(list);
+  }
+  #createList(taskList, taskSettings) {
+    const taskListElement = new TaskListFieldsComponent();
+    if (taskSettings == null) {
+      throw new Error("Unable to load list settings");
+    }
+    taskListElement.setValues(taskList, taskSettings);
+    taskListElement.addEventListener("duplicate", (event) => {
+      const [list, settings] = taskListElement.getRecords();
+      this.dispatchEvent(new CustomEvent("duplicate", { detail: { target: taskListElement, list, settings } }));
+    });
+    const handle = taskListElement.findElement("tasklist-settings-handle");
+    handle.addEventListener("mousedown", (_event) => {
+      taskListElement.draggable = true;
+    });
+    handle.addEventListener("mouseup", (_event) => {
+      taskListElement.removeAttribute("draggable");
+    });
+    taskListElement.addEventListener("dragstart", (_event) => {
+      this.#draggingList = taskListElement;
+      taskListElement.classList.add("dragging");
+      this.classList.add("drop-target");
+    });
+    taskListElement.addEventListener("dragend", (_event) => {
+      taskListElement.classList.remove("dragging");
+      this.#draggingList = null;
+      this.classList.remove("drop-target");
+    });
+    return taskListElement;
+  }
   getNextListItem(mouseY) {
     const lists = [...this.querySelectorAll("tasklist-fields:not(.dragging)")];
     return lists.reduce((closest, item) => {
@@ -6110,18 +6154,50 @@ var BoardSettingsElement = class extends HTMLElement {
       return closest;
     }, { offset: Number.NEGATIVE_INFINITY });
   }
-  static create(properties) {
-    const element = document.createElement(COMPONENT_TAG_NAME11);
-    for (const [propertyName, value] of Object.entries(properties)) {
-      if (!propertyName.startsWith("on")) {
-        element.setAttribute(propertyName, value);
-      }
+  //#endregion Management
+  //#region Internal
+  #applyPartAttributes() {
+    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
+    for (let i = 0; i < identifiedElements.length; i++) {
+      identifiedElements[i].part.add(identifiedElements[i].id);
+    }
+    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
+    for (let i = 0; i < classedElements.length; i++) {
+      classedElements[i].part.add(...classedElements[i].classList);
     }
   }
-  attributeChangedCallback(attributeName, _oldValue, newValue) {
-    if (attributeName == "path-id" /* pathId */) {
-    }
-  }
+  //#endregion Internal
+  // async function boardSettings_ok_onClick(this: TaskboardManagerElement, event: Event)
+  // {
+  //     await this[SHAREDACCESSKEY].updateBoardSettings();
+  //     this[SHAREDACCESSKEY].refreshBoards();
+  //     this[SHAREDACCESSKEY].refreshDeletedItems();
+  //     const id  =this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id') ?? this[SHAREDACCESSKEY].getIdFromRoute();
+  //     if(id == null)
+  //     {
+  //         MessageCardElement.notify(`An error occurred saving the board settings.`, 
+  //         this.getElement('notifications'), { type: MessageCardType.Error });
+  //         throw new Error('Unable to determine the target board\'s id');
+  //     }
+  //     // console.log(id);
+  //     this.openBoard(id);
+  // }
+  // async function exportBoardButton_onClick(this: TaskboardManagerElement, event: Event)
+  // {        
+  //     const boardId = this.findElement('board-fields').getAttribute('record-id');
+  //     if(boardId == null || boardId == '')
+  //     {
+  //         MessageCardElement.notify(`An error occurred attempting to export the board.`, 
+  //         this.getElement('notifications'), { type: MessageCardType.Error });
+  //         throw new Error('Unable to determine the target board\'s id');
+  //     }
+  //     this.exportBoard(boardId);
+  // }
+  // async function closeBoard_onClick(this: TaskboardManagerElement, _event: Event)
+  // {
+  //     await this.closeBoardSettings();
+  //     this.closeBoard();
+  // }
 };
 if (customElements.get(COMPONENT_TAG_NAME11) == null) {
   customElements.define(COMPONENT_TAG_NAME11, BoardSettingsElement);
@@ -9537,41 +9613,6 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   //     this.findElement<ConfigPanelElement>('config-panel').history_clear();
   // }
   //#endregion API
-  // async duplicateBoard(id: string)
-  // {
-  //     const boardExportData = await this.#prepareExportData(id);
-  //     const duplicateData = this.findElement<ImportManagerComponent>('import-manager').prepareData(boardExportData);
-  //     const newNameInput = this.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('duplicate-board-name');
-  //     if(newNameInput?.value != null && newNameInput.value.trim() != "")
-  //     {
-  //         duplicateData.name = newNameInput.value;
-  //     }
-  //     await this.importBoard(duplicateData, "An error occurred duplicating a board.");
-  // }
-  // async removeBoard(boardId: string, confirm: boolean = true)
-  // {
-  //     const confirmed = await this.#getConfirmation('Are you sure you want to delete this board and all of its tasks, lists, and images?', 'warn');
-  //     if(confirm == true && confirmed == false)
-  //     {
-  //         return;
-  //     }
-  //     await this.closeBoardSettings();
-  //     const channel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-  //     if(this.findElement('app-router').getAttribute('path')?.indexOf(boardId) != null)
-  //     {
-  //         this.closeBoard();
-  //     }
-  //     await channel.delete(boardId);
-  //     const entry = await this.#addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Board, { id: boardId });
-  //     this.#refreshBoards();
-  //     this.#refreshDeletedItems();
-  //     await this.#removeBoardFromRecentBoards(boardId);
-  //     this.#refreshRecentBoards();
-  //     if(entry != null)
-  //     {
-  //         this.#addUndoNotification("A board was just deleted", entry.getAttribute('data-entry-id')!);
-  //     }
-  // }
   // #addUndoNotification(message: string, entryId: string)
   // {
   //     const content = document.createElement('span');
@@ -9612,17 +9653,6 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   //         requestAnimationFrame(resolve);
   //     });
   // }
-  // addList()
-  // {
-  //     const canAddList = this.#canAddList();
-  //     if(canAddList == false)
-  //     {
-  //         this.#showMessageDialog("Unable to add list when a board is not open for editing and no board has been opened for task management.");
-  //     }
-  //     const channel = this.#getChannel<TaskListChannel>(this.#data.lists, DATA_ERROR_MESSAGE.replace('[subject]', "Task List"));
-  //     const [ list, settings ] = channel.create();
-  //     this.findElement<BoardSettingsElement>('board-settings').addList(list, settings);
-  // }
   // // async addTask(listId: string)
   // // {
   // //     const list = this.shadowRoot!.querySelector(`task-list[data-tasklist-id="${listId}"]`);
@@ -9660,6 +9690,9 @@ var TaskboardManagerElement2 = class extends HTMLElement {
       openImportManager: this.#openImportManager.bind(this),
       openBoard: this.openBoard.bind(this),
       refreshBoards: this.refreshBoards.bind(this)
+    });
+    this.findElement("board-settings").init({
+      canAddList: this.#canAddList.bind(this)
     });
     this.#addRouteHandlers();
     this.addEventListener("click", this.#onClick.bind(this));
@@ -10198,6 +10231,17 @@ var TaskboardManagerElement2 = class extends HTMLElement {
     windowHash = windowHash.trim();
     return { windowPath, windowHash };
   }
+  #canAddList() {
+    const route = this.getElement("app-router").getAttribute("path");
+    if (route == null) {
+      return false;
+    }
+    const boardOrSettingsAreOpen = route.includes("#board-settings") || route.includes("board");
+    if (!boardOrSettingsAreOpen) {
+      return false;
+    }
+    return true;
+  }
   //#endregion Utilities
   //#endregion Internal
   // async #updateBoardSettings()
@@ -10464,26 +10508,6 @@ var TaskboardManagerElement2 = class extends HTMLElement {
   //         updates
   //     };
   //     await this.#addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.List, properties);
-  // }
-  // #duplicateList(target: HTMLElement, list: TaskListRecord, settings: TaskSettingsRecord)
-  // {
-  //     const taskLists = this.#getChannel<TaskListChannel>(this.#data.lists, DATA_ERROR_MESSAGE.replace('[subject]', "Task List"));
-  //     const [ duplicateList, duplicateSettings ] = taskLists.create(list, settings);
-  //     this.findElement<BoardSettingsElement>('board-settings').insertList(target, duplicateList, duplicateSettings);
-  // }
-  // #canAddList()
-  // {
-  //     const route = this.getElement('app-router').getAttribute('path');
-  //     if(route == null)
-  //     {
-  //         return false;
-  //     }
-  //     const boardOrSettingsAreOpen = route.includes('#board-settings') || route.includes('board');
-  //     if(!boardOrSettingsAreOpen)
-  //     {
-  //         return false;
-  //     }
-  //     return true;
   // }
   // // tasks
   // async #getOrderedTasks(tasklist: TaskListElement)

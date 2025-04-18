@@ -327,46 +327,6 @@ export class TaskboardManagerElement extends HTMLElement
     // }
     //#endregion API
 
-    // async duplicateBoard(id: string)
-    // {
-    //     const boardExportData = await this.#prepareExportData(id);
-    //     const duplicateData = this.findElement<ImportManagerComponent>('import-manager').prepareData(boardExportData);
-
-    //     const newNameInput = this.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('duplicate-board-name');
-    //     if(newNameInput?.value != null && newNameInput.value.trim() != "")
-    //     {
-    //         duplicateData.name = newNameInput.value;
-    //     }
-
-    //     await this.importBoard(duplicateData, "An error occurred duplicating a board.");
-    // }
-    // async removeBoard(boardId: string, confirm: boolean = true)
-    // {
-    //     const confirmed = await this.#getConfirmation('Are you sure you want to delete this board and all of its tasks, lists, and images?', 'warn');
-    //     if(confirm == true && confirmed == false)
-    //     {
-    //         return;
-    //     }
-
-    //     await this.closeBoardSettings();
-
-    //     const channel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
-    //     if(this.findElement('app-router').getAttribute('path')?.indexOf(boardId) != null)
-    //     {
-    //         this.closeBoard();
-    //     }
-    //     await channel.delete(boardId);
-    //     const entry = await this.#addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Board, { id: boardId });
-    //     this.#refreshBoards();
-    //     this.#refreshDeletedItems();
-    //     await this.#removeBoardFromRecentBoards(boardId);
-    //     this.#refreshRecentBoards();
-
-    //     if(entry != null)
-    //     {
-    //         this.#addUndoNotification("A board was just deleted", entry.getAttribute('data-entry-id')!);
-    //     }
-    // }
     // #addUndoNotification(message: string, entryId: string)
     // {
     //     const content = document.createElement('span');
@@ -413,17 +373,6 @@ export class TaskboardManagerElement extends HTMLElement
     //     });
     // }
     
-    // addList()
-    // {
-    //     const canAddList = this.#canAddList();
-    //     if(canAddList == false)
-    //     {
-    //         this.#showMessageDialog("Unable to add list when a board is not open for editing and no board has been opened for task management.");
-    //     }
-    //     const channel = this.#getChannel<TaskListChannel>(this.#data.lists, DATA_ERROR_MESSAGE.replace('[subject]', "Task List"));
-    //     const [ list, settings ] = channel.create();
-    //     this.findElement<BoardSettingsElement>('board-settings').addList(list, settings);
-    // }
 
     // // async addTask(listId: string)
     // // {
@@ -488,6 +437,9 @@ export class TaskboardManagerElement extends HTMLElement
         });
 
         // board-settings
+        this.findElement<BoardSettingsElement>('board-settings').init({
+            canAddList: this.#canAddList.bind(this)
+        });
 
         // import-dialog
         
@@ -1268,6 +1220,20 @@ export class TaskboardManagerElement extends HTMLElement
 
         return { windowPath, windowHash }
     }
+    #canAddList()
+    {
+        const route = this.getElement('app-router').getAttribute('path');
+        if(route == null)
+        {
+            return false;
+        }
+        const boardOrSettingsAreOpen = route.includes('#board-settings') || route.includes('board');
+        if(!boardOrSettingsAreOpen)
+        {
+            return false;
+        }
+        return true;
+    }
 
     //#endregion Utilities
 
@@ -1591,27 +1557,7 @@ export class TaskboardManagerElement extends HTMLElement
 
     //     await this.#addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.List, properties);
     // }
-    // #duplicateList(target: HTMLElement, list: TaskListRecord, settings: TaskSettingsRecord)
-    // {
-    //     const taskLists = this.#getChannel<TaskListChannel>(this.#data.lists, DATA_ERROR_MESSAGE.replace('[subject]', "Task List"));
-    //     const [ duplicateList, duplicateSettings ] = taskLists.create(list, settings);
-    //     this.findElement<BoardSettingsElement>('board-settings').insertList(target, duplicateList, duplicateSettings);
-    // }
     
-    // #canAddList()
-    // {
-    //     const route = this.getElement('app-router').getAttribute('path');
-    //     if(route == null)
-    //     {
-    //         return false;
-    //     }
-    //     const boardOrSettingsAreOpen = route.includes('#board-settings') || route.includes('board');
-    //     if(!boardOrSettingsAreOpen)
-    //     {
-    //         return false;
-    //     }
-    //     return true;
-    // }
 
     // // tasks
     // async #getOrderedTasks(tasklist: TaskListElement)

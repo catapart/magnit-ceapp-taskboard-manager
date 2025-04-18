@@ -12,12 +12,12 @@ input,select,textarea
     width: auto;
 }
 
-[part="icon-definitions"]
+#icon-definitions
 {
     display: none;
 }
 
-[part="handle"]
+#tasklist-settings-handle
 {
     display: flex;
     width: 15px;
@@ -30,13 +30,13 @@ input,select,textarea
     background-size: 5px 5px;
     background-position: 0 0, 2px 2px;
 }
-[part="handle"]:active
+#tasklist-settings-handle:active
 {
     cursor: grabbing;
 }
 
-[part="remove-icon"]
-,[part="duplicate-icon"]
+#tasklist-settings-remove-icon
+,#tasklist-settings-duplicate-icon
 {
     width: var(--icon-size, 12px);
     height: var(--icon-size, 12px);
@@ -87,30 +87,31 @@ form-field .container
 form-field input[type="color"]
 {
     width: 100%;
+    height: auto;
 }
 
-[part="color"]
+#tasklist-color
 {
     width: 3ch;
 }
 
-[part="name"]
+#tasklist-name
 {
     flex: 1;
 }
 
-[part="list-settings"]
+#tasklist-settings-fieldset
 {
     grid-template-columns: 1fr minmax(min-content, 18ch);
 }
 
-[part="list-settings"] .column
+#tasklist-settings-fieldset .fieldset-column
 {
     display: grid;
     gap: .5em;
 }
 
-[part="list-settings"] .column input[type="color"]
+#tasklist-settings-fieldset .column input[type="color"]
 {
     height: auto;
 }
@@ -120,12 +121,12 @@ input[type="text"]
     min-width: 5ch;
 }
 
-[part="list-width-field"] .container
+#tasklist-width-field .container
 {
     column-gap: .25em !important;
 }
 
-[part="list-width-field"] [slot="postfix"]
+#tasklist-width-field [slot="postfix"]
 {
     align-self: flex-end;
 }

@@ -254,6 +254,12 @@ message-card::part(message)
         top: 50px;
     }
 
+    #config-dialog
+    ,#board-settings-dialog
+    {
+        width: 850px;
+    }
+
     task-card::part(description)
     {
         width: min-content;

@@ -22,7 +22,7 @@
     overflow: hidden;
 }
 
-#fields
+#board-fields
 {
     overflow-y: auto;
     flex: 1;
@@ -162,7 +162,7 @@ fileimage-input::part(view-link)
 }
 
 
-#properties
+#board-properties
 {
     display: flex;
     align-items: center;
@@ -175,7 +175,7 @@ fileimage-input::part(view-link)
     flex: 1;
 }
 
-#appearance-fieldset .container > input
+#board-appearance-fieldset .container > input
 {
     flex: 1;
     min-height: 2ch;
@@ -207,27 +207,27 @@ fileimage-input::part(view-link)
     /* max-width: 10ch; */
 }
 
-#lists
+#board-list-details
 {
     grid-column: span 2;
 }
 
-#list-items
+#board-lists
 {
     gap: 1em;
     display: grid;
 }
 
-#list-actions
+#board-list-actions
 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: .5em;
-    padding: .5em 0;
+    gap: 7px;
+    padding: 14px 0;
 }
 
-#tasks
+#board-task-details
 {
     grid-column: span 2;
 }
@@ -302,11 +302,6 @@ button .icon
     height: 12px;
 }
 
-#list-items::part(add-button)
-{
-    display: none;
-}
-
 #icon-definitions
 {
     display: none;
@@ -319,6 +314,11 @@ button .icon
     justify-content: flex-end;
     gap: 14px;
     padding: 7px 0;
+}
+
+#close-board-button
+{
+    margin-right: auto;
 }
 
 

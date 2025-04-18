@@ -12,16 +12,22 @@ import { TaskSettingsRecord } from '../../data/records/task-settings.record';
 import { TaskFieldsComponent } from './task-fields/task-fields.component';
 import { FileImageInputElement } from '@magnit-ce/fileimage-input';
 import { CustomImageRecord } from '../../data/records/custom-image.record';
+import { DataService } from '../../data/data.service';
+import { FeedbackService } from '../../feedback.service';
 
-export enum BoardSettingsAttributes
+// export enum BoardSettingsAttributes
+// {
+//     pathId = 'path-id',
+// }
+
+// export type BoardSettingsProperties = { [key in BoardSettingsAttributes]: string } &
+// {
+//     onNavigate: (path: string) => void;
+// };
+export type BoardSettingsProperties = 
 {
-    pathId = 'path-id',
+    canAddList: () => boolean;
 }
-
-export type BoardSettingsProperties = { [key in BoardSettingsAttributes]: string } &
-{
-    onNavigate: (path: string) => void;
-};
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
@@ -45,10 +51,6 @@ ${defineIcons(
 const COMPONENT_TAG_NAME = 'board-settings';
 export class BoardSettingsElement extends HTMLElement
 {
-    static observedAttributes = [
-        ...Object.values(BoardSettingsAttributes),
-    ];
-
     componentParts: Map<string, HTMLElement> = new Map();
     getElement<T extends HTMLElement = HTMLElement>(id: string)
     {
@@ -74,10 +76,8 @@ export class BoardSettingsElement extends HTMLElement
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
         this.#applyPartAttributes();
-        this.findElement('clear-lists-button').addEventListener('click', () =>
-        {
-            this.querySelectorAll('tasklist-fields').forEach(item => item.toggleAttribute('removed', true));
-        });
+        this.addEventListener('click', this.#onClick.bind(this));
+
         this.addEventListener('dragover', (event) =>
         {
             event.preventDefault();
@@ -110,96 +110,14 @@ export class BoardSettingsElement extends HTMLElement
         });
 
         
-        // this.findElement<HTMLButtonElement>('board-settings-save').addEventListener('click', boardSettings_ok_onClick.bind(this));
-        // this.findElement<HTMLButtonElement>('close-board-button').addEventListener('click', closeBoard_onClick.bind(this));
-        // const boardFields = this.findElement<TaskBoardFieldsComponent>('board-fields');
-        // boardFields.findPart('remove-board-button').addEventListener('click', boardSettings_remove_onClick.bind(this));
-        // boardFields.findPart('duplicate-board-button').addEventListener('click', duplicateBoard_onClick.bind(this));
-        // boardFields.findPart('export-button').addEventListener('click', exportBoardButton_onClick.bind(this));
-        // boardFields.findPart('add-list-button').addEventListener('click', addList_onClick.bind(this));
-        // boardFields.addEventListener('duplicate', list_onDuplicate.bind(this));
     }
-    #applyPartAttributes()
+
+    //#region API
+    #canAddList!: () => boolean;
+    init(options: BoardSettingsProperties)
     {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            classedElements[i].part.add(...classedElements[i].classList);
-        }
+        this.#canAddList = options.canAddList;
     }
-    
-    // async function boardSettings_ok_onClick(this: TaskboardManagerElement, event: Event)
-    // {
-    //     await this[SHAREDACCESSKEY].updateBoardSettings();
-    //     this[SHAREDACCESSKEY].refreshBoards();
-    //     this[SHAREDACCESSKEY].refreshDeletedItems();
-    //     const id  =this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id') ?? this[SHAREDACCESSKEY].getIdFromRoute();
-    //     if(id == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred saving the board settings.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error('Unable to determine the target board\'s id');
-    //     }
-    //     // console.log(id);
-
-    //     this.openBoard(id);
-
-    // }
-    // async function boardSettings_remove_onClick(this: TaskboardManagerElement, event: Event)
-    // {
-    //     const id  =this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id') ?? this[SHAREDACCESSKEY].getIdFromRoute();
-    //     if(id == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred deleting a board.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error('Unable to determine the target board\'s id');
-    //     }
-
-    //     this.removeBoard(id);
-    // }
-    // async function exportBoardButton_onClick(this: TaskboardManagerElement, event: Event)
-    // {        
-    //     const boardId = this.findElement('board-fields').getAttribute('record-id');
-    //     if(boardId == null || boardId == '')
-    //     {
-    //         MessageCardElement.notify(`An error occurred attempting to export the board.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error('Unable to determine the target board\'s id');
-    //     }
-    //     this.exportBoard(boardId);
-    // }
-    // function addList_onClick(this: TaskboardManagerElement, event: Event)
-    // {
-    //     this.addList();
-    // }
-    // function list_onDuplicate(this: TaskboardManagerElement, event: Event)
-    // {
-    //     const data = (event as CustomEvent).detail;
-    //     this[SHAREDACCESSKEY].duplicateList(data.target, data.list, data.settings);
-    // }
-    // async function duplicateBoard_onClick(this: TaskboardManagerElement, _event: Event)
-    // {
-    //     const id = this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id');
-    //     if(id == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred duplicating theboard.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error('Unable to determine the target board\'s id');
-    //     }
-    //     await this.duplicateBoard(id);
-    //     this[SHAREDACCESSKEY].refreshBoards();
-    // }
-    // async function closeBoard_onClick(this: TaskboardManagerElement, _event: Event)
-    // {
-    //     await this.closeBoardSettings();
-    //     this.closeBoard();
-    // }
-
     setValues(board: TaskBoardRecord, taskSettings: TaskSettingsRecord, backgroundImage: CustomImageRecord|null = null)
     {
         this.setAttribute('record-id', board.id);
@@ -224,8 +142,9 @@ export class BoardSettingsElement extends HTMLElement
             this.findElement<FileImageInputElement>('background-image').value = null;
         }
 
-        this.findElement<TaskFieldsComponent>('task-fields').setValues(taskSettings);
+        this.findElement<TaskFieldsComponent>('board-task-settings').setValues(taskSettings);
     }
+
     setLists(taskLists: TaskListRecord[], taskLists_TaskSettings: TaskSettingsRecord[])
     {
         this.innerHTML = '';
@@ -241,67 +160,10 @@ export class BoardSettingsElement extends HTMLElement
             if(taskList.deletedTimestamp != undefined) { continue; }
             const taskSettings = taskLists_TaskSettings.find(item => item.id == taskList.taskSettingsId);
             if(taskSettings == null) { throw new Error('Unable to load list settings'); }
-            const taskListElement = this.createList(taskList, taskSettings);
+            const taskListElement = this.#createList(taskList, taskSettings);
             listElements.push(taskListElement);
         }
         this.append(...listElements);
-    }
-    addList(taskList: TaskListRecord, taskSettings: TaskSettingsRecord)
-    {
-        const list = this.createList(taskList, taskSettings);
-        this.append(list);
-    }
-    insertList(afterTarget: HTMLElement, taskList: TaskListRecord, taskSettings: TaskSettingsRecord)
-    {
-        const list = this.createList(taskList, taskSettings);
-        if(afterTarget.nextElementSibling == null)
-        {
-            this.append(list);
-        }
-        else
-        {
-            this.insertBefore(list, afterTarget.nextElementSibling);
-        }
-    }
-    private createList(taskList: TaskListRecord, taskSettings: TaskSettingsRecord)
-    {
-        const taskListElement = new TaskListFieldsComponent();
-        
-        if(taskSettings == null)
-        { 
-            throw new Error('Unable to load list settings'); 
-        }
-        
-        taskListElement.setValues(taskList, taskSettings);
-        taskListElement.addEventListener('duplicate', (event) =>
-        {
-            const [ list, settings ] = taskListElement.getRecords();
-            this.dispatchEvent(new CustomEvent('duplicate', { detail: { target: taskListElement, list, settings }}));
-        });
-        
-        const handle = taskListElement.findPart('handle');
-        handle.addEventListener('mousedown', (_event) =>
-        {
-            taskListElement.draggable = true;
-        });
-        handle.addEventListener('mouseup', (_event) =>
-        {
-            taskListElement.removeAttribute('draggable');
-        });
-        taskListElement.addEventListener('dragstart', (_event: DragEvent) => 
-        {
-            this.#draggingList = taskListElement;
-            taskListElement.classList.add('dragging');
-            this.classList.add('drop-target');
-        });
-        taskListElement.addEventListener('dragend', (_event: DragEvent) => 
-        {
-            taskListElement.classList.remove('dragging');
-            this.#draggingList = null;
-            this.classList.remove('drop-target');
-        });
-        
-        return taskListElement;
     }
 
     getRecords()
@@ -349,6 +211,237 @@ export class BoardSettingsElement extends HTMLElement
         const records = [ board, lists, taskSettings, toRemove ] as [ TaskBoardRecord, TaskListRecord[], TaskSettingsRecord[], string[] ];
         return records;
     }
+
+    async addList()
+    {
+        const canAddList = this.#canAddList();
+        if(canAddList == false)
+        {
+            FeedbackService.showMessageDialog("Unable to add list when a board is not open for editing and no board has been opened for task management.");
+        }
+        const [ list, settings ] = await DataService.createList();
+        this.#addList(list, settings);
+    }
+    insertList(afterTarget: HTMLElement, taskList: TaskListRecord, taskSettings: TaskSettingsRecord)
+    {
+        const list = this.#createList(taskList, taskSettings);
+        if(afterTarget.nextElementSibling == null)
+        {
+            this.append(list);
+        }
+        else
+        {
+            this.insertBefore(list, afterTarget.nextElementSibling);
+        }
+    }    
+    async duplicateList(target: HTMLElement, list: TaskListRecord, settings: TaskSettingsRecord)
+    {
+        const [ duplicateList, duplicateSettings ] = await DataService.createList(list, settings);
+        this.insertList(target, duplicateList, duplicateSettings);
+    }
+
+    // async duplicateBoard(id: string)
+    // {
+    //     const boardExportData = await this.#prepareExportData(id);
+    //     const duplicateData = this.findElement<ImportManagerComponent>('import-manager').prepareData(boardExportData);
+
+    //     const newNameInput = this.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('duplicate-board-name');
+    //     if(newNameInput?.value != null && newNameInput.value.trim() != "")
+    //     {
+    //         duplicateData.name = newNameInput.value;
+    //     }
+
+    //     await this.importBoard(duplicateData, "An error occurred duplicating a board.");
+    // }
+    // async removeBoard(boardId: string, confirm: boolean = true)
+    // {
+    //     const confirmed = await this.#getConfirmation('Are you sure you want to delete this board and all of its tasks, lists, and images?', 'warn');
+    //     if(confirm == true && confirmed == false)
+    //     {
+    //         return;
+    //     }
+
+    //     await this.closeBoardSettings();
+
+    //     const channel = this.#getChannel(this.#data.boards, BOARD_ERROR_MESSAGE, 'danger');
+    //     if(this.findElement('app-router').getAttribute('path')?.indexOf(boardId) != null)
+    //     {
+    //         this.closeBoard();
+    //     }
+    //     await channel.delete(boardId);
+    //     const entry = await this.#addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Board, { id: boardId });
+    //     this.#refreshBoards();
+    //     this.#refreshDeletedItems();
+    //     await this.#removeBoardFromRecentBoards(boardId);
+    //     this.#refreshRecentBoards();
+
+    //     if(entry != null)
+    //     {
+    //         this.#addUndoNotification("A board was just deleted", entry.getAttribute('data-entry-id')!);
+    //     }
+    // }
+    //#endregion API
+
+    //#region Handlers
+    #onClick(event: Event)
+    {
+        const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
+
+        const addListsButton = composedPath.find(item => item.id == "add-list-button");
+        if(addListsButton != null)
+        {
+            this.addList();
+            return;
+        }
+        const clearListsButton = composedPath.find(item => item.id == "clear-lists-button");
+        if(clearListsButton != null)
+        {
+            this.querySelectorAll('tasklist-fields').forEach(item => item.toggleAttribute('removed', true));
+            return;
+        }
+        const removeListButton = composedPath.find(item => item.id == "tasklist-settings-remove-button");
+        if(removeListButton != null)
+        {
+            (removeListButton.getRootNode() as ShadowRoot).host.toggleAttribute('removed');
+            return;
+        }
+        const duplicateButton = composedPath.find(item => item.id == "tasklist-settings-duplicate-button");
+        if(duplicateButton != null)
+        {
+            const listElement = (duplicateButton.getRootNode() as ShadowRoot).host as TaskListFieldsComponent;
+            const [listRecord, settingsRecord] = listElement.getRecords();
+            this.duplicateList(listElement, listRecord, settingsRecord);
+            return;
+        }
+
+
+        const removeBoardButton = composedPath.find(item => item.id == "remove-board-button");
+        if(removeBoardButton != null)
+        {
+            
+    //     const id  =this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id') ?? this[SHAREDACCESSKEY].getIdFromRoute();
+    //     if(id == null)
+    //     {
+    //         MessageCardElement.notify(`An error occurred deleting a board.`, 
+    //         this.getElement('notifications'), { type: MessageCardType.Error });
+    //         throw new Error('Unable to determine the target board\'s id');
+    //     }
+
+    //     this.removeBoard(id);
+            return;
+        }
+        const duplicateBoardButton = composedPath.find(item => item.id == "duplicate-board-button");
+        if(duplicateBoardButton != null)
+        {
+            
+    //     const id = this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id');
+    //     if(id == null)
+    //     {
+    //         MessageCardElement.notify(`An error occurred duplicating theboard.`, 
+    //         this.getElement('notifications'), { type: MessageCardType.Error });
+    //         throw new Error('Unable to determine the target board\'s id');
+    //     }
+    //     await this.duplicateBoard(id);
+    //     this[SHAREDACCESSKEY].refreshBoards();
+            return;
+        }
+        const exportBoardButton = composedPath.find(item => item.id == "export-button");
+        if(exportBoardButton != null)
+        {
+            
+    //     const boardId = this.findElement('board-fields').getAttribute('record-id');
+    //     if(boardId == null || boardId == '')
+    //     {
+    //         MessageCardElement.notify(`An error occurred attempting to export the board.`, 
+    //         this.getElement('notifications'), { type: MessageCardType.Error });
+    //         throw new Error('Unable to determine the target board\'s id');
+    //     }
+    //     this.exportBoard(boardId);
+            return;
+        }
+
+        const closeBoardButton = composedPath.find(item => item.id == "close-board-button");
+        if(closeBoardButton != null)
+        {
+            //     await this.closeBoardSettings();
+            //     this.closeBoard();
+            return;
+        }
+
+        const saveBoardButton = composedPath.find(item => item.id == "board-settings-save");
+        if(saveBoardButton != null)
+        {
+            //     await this[SHAREDACCESSKEY].updateBoardSettings();
+            //     this[SHAREDACCESSKEY].refreshBoards();
+            //     this[SHAREDACCESSKEY].refreshDeletedItems();
+            //     const id  =this.findElement<TaskBoardFieldsComponent>('board-fields').getAttribute('record-id') ?? this[SHAREDACCESSKEY].getIdFromRoute();
+            //     if(id == null)
+            //     {
+            //         MessageCardElement.notify(`An error occurred saving the board settings.`, 
+            //         this.getElement('notifications'), { type: MessageCardType.Error });
+            //         throw new Error('Unable to determine the target board\'s id');
+            //     }
+            //     // console.log(id);
+        
+            //     this.openBoard(id);
+            return;
+        }
+
+        // finish click handlers
+        // saving content
+        // update input ids / input selectors
+        // export parts
+
+    }
+    //#endregion Handlers
+
+    //#region Management
+    #addList(taskList: TaskListRecord, taskSettings: TaskSettingsRecord)
+    {
+        const list = this.#createList(taskList, taskSettings);
+        this.append(list);
+    }
+    #createList(taskList: TaskListRecord, taskSettings: TaskSettingsRecord)
+    {
+        const taskListElement = new TaskListFieldsComponent();
+        
+        if(taskSettings == null)
+        { 
+            throw new Error('Unable to load list settings'); 
+        }
+        
+        taskListElement.setValues(taskList, taskSettings);
+        taskListElement.addEventListener('duplicate', (event) =>
+        {
+            const [ list, settings ] = taskListElement.getRecords();
+            this.dispatchEvent(new CustomEvent('duplicate', { detail: { target: taskListElement, list, settings }}));
+        });
+        
+        const handle = taskListElement.findElement('tasklist-settings-handle');
+        handle.addEventListener('mousedown', (_event) =>
+        {
+            taskListElement.draggable = true;
+        });
+        handle.addEventListener('mouseup', (_event) =>
+        {
+            taskListElement.removeAttribute('draggable');
+        });
+        taskListElement.addEventListener('dragstart', (_event: DragEvent) => 
+        {
+            this.#draggingList = taskListElement;
+            taskListElement.classList.add('dragging');
+            this.classList.add('drop-target');
+        });
+        taskListElement.addEventListener('dragend', (_event: DragEvent) => 
+        {
+            taskListElement.classList.remove('dragging');
+            this.#draggingList = null;
+            this.classList.remove('drop-target');
+        });
+        
+        return taskListElement;
+    }
+
     getNextListItem(mouseY: number)
     {
         const lists = [...this.querySelectorAll('tasklist-fields:not(.dragging)')] as TaskListFieldsComponent[];
@@ -363,27 +456,23 @@ export class BoardSettingsElement extends HTMLElement
             return closest;
         }, { offset: Number.NEGATIVE_INFINITY });
     }
+    //#endregion Management
 
-
-    static create(properties: BoardSettingsProperties)
+    //#region Internal
+    #applyPartAttributes()
     {
-        const element = document.createElement(COMPONENT_TAG_NAME) as BoardSettingsElement;
-        for(const [propertyName, value] of Object.entries(properties))
+        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
+        for(let i = 0; i < identifiedElements.length; i++)
         {
-            if(!propertyName.startsWith('on'))
-            {
-                element.setAttribute(propertyName, value as string);
-            }
+            identifiedElements[i].part.add(identifiedElements[i].id);
+        }
+        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
+        for(let i = 0; i < classedElements.length; i++)
+        {
+            classedElements[i].part.add(...classedElements[i].classList);
         }
     }
-
-    attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) 
-    {
-        if(attributeName == BoardSettingsAttributes.pathId)
-        {
-            // this.findElement('description').textContent = newValue;
-        }
-    }
+    //#endregion Internal
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)

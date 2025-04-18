@@ -141,7 +141,11 @@ export abstract class DataService
     //#endregion Boards
 
     //#region Lists
-    
+    static async createList(list?: TaskListRecord, settings?: TaskSettingsRecord)
+    {
+        const taskLists = this.#getChannel<TaskListChannel>(this.#data.lists, ErrorMessageType.LIST);
+        return taskLists.create(list, settings);
+    }
     //#endregion Lists
 
     //#region Tasks

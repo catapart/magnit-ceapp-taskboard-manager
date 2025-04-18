@@ -12,7 +12,7 @@ ${style}
 `);
 
 const COMPONENT_TEMPLATE = `${html}
-<div part="icon-definitions">
+<div id="icon-definitions">
     ${Icons.CancelCross}
     ${Icons.Copy}
 </div>`;
@@ -21,17 +21,17 @@ const COMPONENT_TAG_NAME = 'tasklist-fields';
 export class TaskListFieldsComponent extends HTMLElement
 {
     componentParts: Map<string, HTMLElement> = new Map();
-    getPart<T extends HTMLElement = HTMLElement>(key: string)
+    getElement<T extends HTMLElement = HTMLElement>(id: string)
     {
-        if(this.componentParts.get(key) == null)
+        if(this.componentParts.get(id) == null)
         {
-            const part = this.shadowRoot!.querySelector(`[part="${key}"]`) as HTMLElement;
-            if(part != null) { this.componentParts.set(key, part); }
+            const part = this.findElement(id);
+            if(part != null) { this.componentParts.set(id, part); }
         }
 
-        return this.componentParts.get(key) as T;
+        return this.componentParts.get(id) as T;
     }
-    findPart<T extends HTMLElement = HTMLElement>(key: string) { return this.shadowRoot!.querySelector(`[part="${key}"]`) as T; }
+    findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
 
 
     constructor()
@@ -49,63 +49,79 @@ export class TaskListFieldsComponent extends HTMLElement
             option.textContent = key.replace(/([A-Z])/g, ' $1').trim();
             options.push(option);
         }
-        this.findPart<HTMLInputElement>('color-display').append(...options);
+        this.findElement<HTMLInputElement>('tasklist-color-display').append(...options);
 
-        this.findPart('remove-button').addEventListener('click', () =>
-        {
-            this.toggleAttribute('removed');
-            // if(this.hasAttribute)
-        });
-        this.findPart('duplicate-button').addEventListener('click', () =>
-        {
-            this.dispatchEvent(new Event('duplicate'));
-        });
-        this.findPart('name').addEventListener('keyup', (event) =>
+        this.#applyPartAttributes();
+        this.findElement('tasklist-name').addEventListener('keyup', (event) =>
         {
             if(event.code == "Space") { event.preventDefault(); }
         });
+
     }
 
+    //#region API
     setValues(taskList: TaskListRecord, taskSettings: TaskSettingsRecord)
     {
-        this.setAttribute('record-id', taskList.id);
-        this.findPart<HTMLInputElement>('color').value = taskList.color;
-        this.findPart<HTMLInputElement>('name').value = taskList.name;
-        this.findPart<HTMLInputElement>('order').value = taskList.order.toString();
-        this.findPart('background-color-field').setAttribute('optional-value', (taskList.useCustomBackgroundColor == true) ? "true" : "false");
-        this.findPart<HTMLInputElement>('background-color').value = taskList.backgroundColor;
-        this.findPart('font-color-field').setAttribute('optional-value', (taskList.useCustomFontColor == true) ? "true" : "false");
-        this.findPart<HTMLInputElement>('font-color').value = taskList.fontColor;
-        this.findPart('list-width-field').setAttribute('optional-value', (taskList.useCustomWidth == true) ? "true" : "false");
-        this.findPart<HTMLInputElement>('list-width').value = taskList.width.toString();
-        this.findPart<HTMLInputElement>('color-display').value = taskList.colorDisplay;
+        this.setAttribute('tasklist-record-id', taskList.id);
+        this.findElement<HTMLInputElement>('tasklist-color').value = taskList.color;
+        this.findElement<HTMLInputElement>('tasklist-name').value = taskList.name;
+        this.findElement<HTMLInputElement>('tasklist-order').value = taskList.order.toString();
+        this.findElement('tasklist-background-color-field').setAttribute('optional-value', (taskList.useCustomBackgroundColor == true) ? "true" : "false");
+        this.findElement<HTMLInputElement>('tasklist-background-color').value = taskList.backgroundColor;
+        this.findElement('tasklist-font-color-field').setAttribute('optional-value', (taskList.useCustomFontColor == true) ? "true" : "false");
+        this.findElement<HTMLInputElement>('tasklist-font-color').value = taskList.fontColor;
+        this.findElement('tasklist-width-field').setAttribute('optional-value', (taskList.useCustomWidth == true) ? "true" : "false");
+        this.findElement<HTMLInputElement>('tasklist-width').value = taskList.width.toString();
+        this.findElement<HTMLInputElement>('tasklist-color-display').value = taskList.colorDisplay;
 
-        this.findPart<TaskFieldsComponent>('task-fields').setValues(taskSettings);
+        this.findElement<TaskFieldsComponent>('task-fields').setValues(taskSettings);
     }
 
     getRecords()
     {
         const taskList = new TaskListRecord();
-        taskList.id = this.getAttribute('record-id')!;
-        taskList.color = this.findPart<HTMLInputElement>('color').value;
-        taskList.name = this.findPart<HTMLInputElement>('name').value;
+        taskList.id = this.getAttribute('tasklist-record-id')!;
+        taskList.color = this.findElement<HTMLInputElement>('tasklist-color').value;
+        taskList.name = this.findElement<HTMLInputElement>('tasklist-name').value;
         // taskList.order = parseInt(this.findPart<HTMLInputElement>('order').value);
-        taskList.useCustomBackgroundColor = this.findPart<HTMLInputElement>('background-color-field').getAttribute('optional-value') == "true";
-        taskList.backgroundColor = this.findPart<HTMLInputElement>('background-color').value;
-        taskList.useCustomFontColor = this.findPart<HTMLInputElement>('font-color-field').getAttribute('optional-value') == "true";
-        taskList.fontColor = this.findPart<HTMLInputElement>('font-color').value;
-        taskList.useCustomWidth = this.findPart<HTMLInputElement>('list-width-field').getAttribute('optional-value') == "true";
-        taskList.width = parseFloat(this.findPart<HTMLInputElement>('list-width').value);
-        taskList.colorDisplay = this.findPart<HTMLInputElement>('color-display').value as TaskListColorDisplay;
+        taskList.useCustomBackgroundColor = this.findElement<HTMLInputElement>('tasklist-background-color-field').getAttribute('optional-value') == "true";
+        taskList.backgroundColor = this.findElement<HTMLInputElement>('tasklist-background-color').value;
+        taskList.useCustomFontColor = this.findElement<HTMLInputElement>('tasklist-font-color-field').getAttribute('optional-value') == "true";
+        taskList.fontColor = this.findElement<HTMLInputElement>('tasklist-font-color').value;
+        taskList.useCustomWidth = this.findElement<HTMLInputElement>('tasklist-width-field').getAttribute('optional-value') == "true";
+        taskList.width = parseFloat(this.findElement<HTMLInputElement>('tasklist-width').value);
+        taskList.colorDisplay = this.findElement<HTMLInputElement>('tasklist-color-display').value as TaskListColorDisplay;
 
-        const taskSettings = this.findPart<TaskFieldsComponent>('task-fields').getRecord();
+        const taskSettings = this.findElement<TaskFieldsComponent>('task-fields').getRecord();
         taskSettings.parentRecordType = 'list';
 
-        taskList.taskSettingsId = this.findPart<TaskFieldsComponent>('task-fields').getAttribute('record-id')!;
+        taskList.taskSettingsId = this.findElement<TaskFieldsComponent>('task-fields').getAttribute('record-id')!;
 
         const result: [TaskListRecord, TaskSettingsRecord] = [ taskList, taskSettings ]
         return result;
     }
+
+    //#endregion API
+
+    //#region Management
+    
+    //#endregion Management
+
+    //#region Internal
+    #applyPartAttributes()
+    {
+        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
+        for(let i = 0; i < identifiedElements.length; i++)
+        {
+            identifiedElements[i].part.add(identifiedElements[i].id);
+        }
+        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
+        for(let i = 0; i < classedElements.length; i++)
+        {
+            classedElements[i].part.add(...classedElements[i].classList);
+        }
+    }
+    //#endregion Internal
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)
