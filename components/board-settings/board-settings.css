@@ -7,7 +7,7 @@
     gap: 7px;
     align-items: center;
     font-weight: bold;
-    padding: 7px 0;
+    padding-bottom: 1em;
 }
 #board-settings-icon
 {
@@ -48,14 +48,6 @@
     grid-column: 4;
 }
 
-@media (min-width: 800px) 
-{
-    :host
-    {
-        width: 801px;
-    }
-}
-
 
 input,select,textarea
 {
@@ -64,12 +56,19 @@ input,select,textarea
     width: auto;
 }
 
+details
+{
+    --board-details-background: rgb(0 0 0 / .05);
+    background-color: var(--board-details-background);
+    border-radius: 3px;
+    padding: 7px 3px;
+}
+
 details summary
 {
     user-select: none;
     display: inline-flex;
     gap: .25em;
-    margin-bottom: 1em;
 }
 summary:before
 {
@@ -85,12 +84,17 @@ details[open] summary:before
     transform: rotate(90deg);
 }
 
-form-field:not([id^="background-image-offset"]) input[inputmode="numeric"]
+.details-content
+{
+    padding: 14px 3px 3px 3px;
+}
+
+form-field:not([id^="board-background-image-offset"]) input[inputmode="numeric"]
 {
     width: 5ch;
 }
 
-form-field:not([id^="background-image-offset"]) .container
+form-field:not([id^="board-background-image-offset"]) .container
 {
     display: flex;
     flex-direction: column;
@@ -170,7 +174,32 @@ fileimage-input::part(view-link)
     grid-column: span 2;
 }
 
-#name-field .container
+#board-color
+{
+    height: 23px;
+    padding: 0;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(170 170 170 / .75);
+    background-color: transparent;
+    border-radius: 3px;
+}
+#board-color:hover
+{
+    border-color: rgb(170 170 170);
+}
+#board-color::-webkit-color-swatch
+{
+    padding: 0;
+    border: none;
+}
+#board-color::-webkit-color-swatch-wrapper
+{
+    padding: 0;
+    border: none;
+}
+
+#board-name-field .container
 {
     flex: 1;
 }
@@ -181,10 +210,28 @@ fileimage-input::part(view-link)
     min-height: 2ch;
 }
 
+#board-background-image-display
+{
+    height: auto;
+    flex: 1;
+}
+
+#board-image-fieldset
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+#board-background-image-field .container
+{
+    grid-column: span 2;
+}
+
 #background-image-offset
 {
     display: grid;
-    gap: .5em;
+    row-gap: .25em;
+    column-gap: .5em;
 }
 
 #offset-header
@@ -204,7 +251,6 @@ fileimage-input::part(view-link)
     flex: 1;
     width: 0;
     min-width: 5ch;
-    /* max-width: 10ch; */
 }
 
 #board-list-details
@@ -214,7 +260,7 @@ fileimage-input::part(view-link)
 
 #board-lists
 {
-    gap: 1em;
+    gap: 7px;
     display: grid;
 }
 
@@ -224,7 +270,7 @@ fileimage-input::part(view-link)
     align-items: center;
     justify-content: space-between;
     gap: 7px;
-    padding: 14px 0;
+    margin-top: 14px;
 }
 
 #board-task-details
@@ -313,7 +359,7 @@ button .icon
     align-items: center;
     justify-content: flex-end;
     gap: 14px;
-    padding: 7px 0;
+    padding-top: 1em;
 }
 
 #close-board-button
@@ -333,7 +379,7 @@ image-input [slot="placeholder"]
     max-height: 300px;
 }
 
-[part="field-label"]
+/* [part="field-label"]
 {
     white-space: nowrap;
 }
@@ -371,5 +417,29 @@ form-field [part="container"]:has([slot="postfix"])
 form-field [part="container"]:has([slot="postfix"]) [part="field-label"]
 {
     grid-column: span 2;
-}
+} */
 
+
+
+@media (min-width: 800px) 
+{
+    :host
+    {
+        width: 801px;
+    }
+}
+@media (prefers-color-scheme: light) 
+{
+    :host(:not([style*="color-scheme: dark;"])) svg.copy
+    {
+        --icon-primary-color: canvas;
+        --icon-secondary-color: canvastext;
+    }
+}
+@media (prefers-color-scheme: dark) 
+{
+    :host(:not([style*="color-scheme: light;"])) details
+    {
+        --board-details-background: rgb(255 255 255 / .05);
+    }
+}

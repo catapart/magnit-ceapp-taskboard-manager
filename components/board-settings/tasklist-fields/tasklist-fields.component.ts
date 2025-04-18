@@ -1,4 +1,4 @@
-import { Icons } from '../../../assets/icons/icons.asset';
+import { defineIcons, Icons, IconType } from '../../../assets/icons/icons.asset';
 import { TaskListColorDisplay, TaskListRecord } from '../../../data/records/task-list.record';
 import { TaskSettingsRecord } from '../../../data/records/task-settings.record';
 import formFieldStyle from '../form-field.css?raw';
@@ -12,10 +12,11 @@ ${style}
 `);
 
 const COMPONENT_TEMPLATE = `${html}
-<div id="icon-definitions">
-    ${Icons.CancelCross}
-    ${Icons.Copy}
-</div>`;
+${defineIcons(
+    IconType.CancelCross,
+    IconType.Copy,
+    IconType.UndoRedo
+)}`;
 
 const COMPONENT_TAG_NAME = 'tasklist-fields';
 export class TaskListFieldsComponent extends HTMLElement

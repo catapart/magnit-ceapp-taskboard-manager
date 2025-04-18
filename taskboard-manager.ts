@@ -552,7 +552,7 @@ export class TaskboardManagerElement extends HTMLElement
         card.setAttribute('part', 'task-card');
         card.setAttribute('exportparts', "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator, button, input, finished");
         card.style.setProperty('--task-color', task.color);
-        card.findElement('description').addEventListener('keyup', taskDescription_onKeyUp.bind(this));
+        // card.findElement('description').addEventListener('keyup', taskDescription_onKeyUp.bind(this));
     }
 
     async #openImportManager(data: any)
@@ -980,6 +980,7 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
 
+        // todo: move to app menu
         const editButton = composedPath.find(item => item.classList.contains('board-edit-button'));
         if(editButton != null)
         {
@@ -994,7 +995,7 @@ export class TaskboardManagerElement extends HTMLElement
             return;
         }
 
-
+        // todo: move to config?
         const importOkButton = composedPath.find(item => item.id == 'import-ok');
         if(importOkButton != null)
         {

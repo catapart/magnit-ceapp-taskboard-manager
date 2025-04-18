@@ -15,15 +15,6 @@ import { CustomImageRecord } from '../../data/records/custom-image.record';
 import { DataService } from '../../data/data.service';
 import { FeedbackService } from '../../feedback.service';
 
-// export enum BoardSettingsAttributes
-// {
-//     pathId = 'path-id',
-// }
-
-// export type BoardSettingsProperties = { [key in BoardSettingsAttributes]: string } &
-// {
-//     onNavigate: (path: string) => void;
-// };
 export type BoardSettingsProperties = 
 {
     canAddList: () => boolean;
@@ -121,25 +112,24 @@ export class BoardSettingsElement extends HTMLElement
     setValues(board: TaskBoardRecord, taskSettings: TaskSettingsRecord, backgroundImage: CustomImageRecord|null = null)
     {
         this.setAttribute('record-id', board.id);
-        this.findElement<HTMLInputElement>('color').value = board.color;
-        this.findElement<HTMLInputElement>('name').value = board.name;
-        this.findElement<HTMLInputElement>('order').value = board.order.toString();
-        this.findElement('background-color-field').setAttribute('optional-value', (board.useCustomBackgroundColor == true) ? "true" : "false");
-        this.findElement<HTMLInputElement>('background-color').value = board.backgroundColor;
-        this.findElement('font-color-field').setAttribute('optional-value', (board.useCustomFontColor == true) ? "true" : "false");
-        this.findElement<HTMLInputElement>('font-color').value = board.fontColor;
-        this.findElement<HTMLInputElement>('background-image-display').value = board.backgroundDisplay;
-        this.findElement<HTMLInputElement>('background-image-offset-x').value = board.backgroundOffsetX.toString();
-        this.findElement<HTMLInputElement>('background-image-offset-y').value = board.backgroundOffsetY.toString();
-        this.findElement<HTMLInputElement>('background-image-offset-y').value = board.backgroundOffsetY.toString();
+        this.findElement<HTMLInputElement>('board-color').value = board.color;
+        this.findElement<HTMLInputElement>('board-name').value = board.name;
+        this.findElement<HTMLInputElement>('board-order').value = board.order.toString();
+        this.findElement('board-background-color-field').setAttribute('optional-value', (board.useCustomBackgroundColor == true) ? "true" : "false");
+        this.findElement<HTMLInputElement>('board-background-color').value = board.backgroundColor;
+        this.findElement('board-font-color-field').setAttribute('optional-value', (board.useCustomFontColor == true) ? "true" : "false");
+        this.findElement<HTMLInputElement>('board-font-color').value = board.fontColor;
+        this.findElement<HTMLInputElement>('board-background-image-display').value = board.backgroundDisplay;
+        this.findElement<HTMLInputElement>('board-background-image-offset-x').value = board.backgroundOffsetX.toString();
+        this.findElement<HTMLInputElement>('board-background-image-offset-y').value = board.backgroundOffsetY.toString();
 
         if(backgroundImage != null)
         {
-            this.findElement<FileImageInputElement>('background-image').value = backgroundImage.image as File;
+            this.findElement<FileImageInputElement>('board-background-image').value = backgroundImage.image as File;
         }
         else
         {
-            this.findElement<FileImageInputElement>('background-image').value = null;
+            this.findElement<FileImageInputElement>('board-background-image').value = null;
         }
 
         this.findElement<TaskFieldsComponent>('board-task-settings').setValues(taskSettings);
@@ -170,17 +160,16 @@ export class BoardSettingsElement extends HTMLElement
     {
         const board = new TaskBoardRecord();
         board.id = this.getAttribute('record-id')!;
-        board.color = this.findElement<HTMLInputElement>('color').value;
-        board.name = this.findElement<HTMLInputElement>('name').value;
-        // board.order = parseInt(this.findElement<HTMLInputElement>('order').value);
-        board.useCustomBackgroundColor = this.findElement<HTMLInputElement>('background-color-field').getAttribute('optional-value') == "true";
-        board.backgroundColor = this.findElement<HTMLInputElement>('background-color').value;
-        board.useCustomFontColor = this.findElement<HTMLInputElement>('font-color-field').getAttribute('optional-value') == "true";
-        board.fontColor = this.findElement<HTMLInputElement>('font-color').value;
+        board.color = this.findElement<HTMLInputElement>('board-color').value;
+        board.name = this.findElement<HTMLInputElement>('board-name').value;
+        board.useCustomBackgroundColor = this.findElement<HTMLInputElement>('board-background-color-field').getAttribute('optional-value') == "true";
+        board.backgroundColor = this.findElement<HTMLInputElement>('board-background-color').value;
+        board.useCustomFontColor = this.findElement<HTMLInputElement>('board-font-color-field').getAttribute('optional-value') == "true";
+        board.fontColor = this.findElement<HTMLInputElement>('board-font-color').value;
 
-        board.backgroundDisplay = this.findElement<HTMLInputElement>('background-image-display').value as TaskBoardBackgroundDisplay;
-        board.backgroundOffsetX = parseInt(this.findElement<HTMLInputElement>('background-image-offset-x').value);
-        board.backgroundOffsetY = parseInt(this.findElement<HTMLInputElement>('background-image-offset-y').value);
+        board.backgroundDisplay = this.findElement<HTMLInputElement>('board-background-image-display').value as TaskBoardBackgroundDisplay;
+        board.backgroundOffsetX = parseInt(this.findElement<HTMLInputElement>('board-background-image-offset-x').value);
+        board.backgroundOffsetY = parseInt(this.findElement<HTMLInputElement>('board-background-image-offset-y').value);
 
         const boardTaskSettings = this.findElement<TaskFieldsComponent>('task-fields').getRecord();
         boardTaskSettings.parentRecordType = 'board';
@@ -389,8 +378,8 @@ export class BoardSettingsElement extends HTMLElement
 
         // finish click handlers
         // saving content
-        // update input ids / input selectors
         // export parts
+        // smaller screen width
 
     }
     //#endregion Handlers
@@ -426,11 +415,12 @@ export class BoardSettingsElement extends HTMLElement
         {
             taskListElement.removeAttribute('draggable');
         });
-        taskListElement.addEventListener('dragstart', (_event: DragEvent) => 
+        taskListElement.addEventListener('dragstart', (event: DragEvent) => 
         {
             this.#draggingList = taskListElement;
             taskListElement.classList.add('dragging');
             this.classList.add('drop-target');
+            event.dataTransfer?.setDragImage(taskListElement.shadowRoot!.querySelector('summary')!, 0, 0); 
         });
         taskListElement.addEventListener('dragend', (_event: DragEvent) => 
         {

@@ -17,7 +17,7 @@ input,select,textarea
     display: none;
 }
 
-#tasklist-settings-handle
+/* #tasklist-settings-handle
 {
     display: flex;
     width: 15px;
@@ -33,13 +33,50 @@ input,select,textarea
 #tasklist-settings-handle:active
 {
     cursor: grabbing;
+} */
+#tasklist-settings-handle
+{
+    display: flex;
+    width: 10px;
+    align-self: stretch;
+    cursor: grab;
+    /* border-radius: 3px; */
+    transform: translateY(-1px);
+    
+    background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);
+    background-size: 5px 6px;
+    background-position: 0 0, 2px 4px;
+}
+#tasklist-settings-handle:active
+{
+    cursor: grabbing;
 }
 
-#tasklist-settings-remove-icon
-,#tasklist-settings-duplicate-icon
+.icon
 {
     width: var(--icon-size, 12px);
     height: var(--icon-size, 12px);
+}
+
+#tasklist-settings-undo-icon
+{
+    display: none;
+}
+:host([removed]) #tasklist-settings-remove-icon
+{
+    display: none;
+}
+:host([removed]) #tasklist-settings-undo-icon
+{
+    display: flex;
+}
+
+details
+{
+    --board-details-background: rgb(0 0 0 / .085);
+    background-color: var(--board-details-background);
+    border-radius: 3px;
+    padding: 7px 3px;
 }
 
 details summary
@@ -62,11 +99,18 @@ details[open] summary:before
     transform: rotate(90deg);
 }
 
-details [part="detail-content"]
+.details-content
 {
+    padding: 7px 3px;
     display: grid;
-    gap: 1em;
-    padding: 1em;
+    gap: 7px;
+}
+
+summary button
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 fieldset
@@ -92,7 +136,28 @@ form-field input[type="color"]
 
 #tasklist-color
 {
-    width: 3ch;
+    width: 15px;
+    height: auto;
+    padding: 0;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(170 170 170 / .75);
+    background-color: transparent;
+    border-radius: 3px;
+}
+#tasklist-color:hover
+{
+    border-color: rgb(170 170 170);
+}
+#tasklist-color::-webkit-color-swatch
+{
+    padding: 0;
+    border: none;
+}
+#tasklist-color::-webkit-color-swatch-wrapper
+{
+    padding: 0;
+    border: none;
 }
 
 #tasklist-name
@@ -129,4 +194,20 @@ input[type="text"]
 #tasklist-width-field [slot="postfix"]
 {
     align-self: flex-end;
+}
+
+@media (prefers-color-scheme: light) 
+{
+    :host(:not([style*="color-scheme: dark;"])) svg.copy
+    {
+        --icon-primary-color: canvas;
+        --icon-secondary-color: canvastext;
+    }
+}
+@media (prefers-color-scheme: dark) 
+{
+    :host(:not([style*="color-scheme: light;"])) details
+    {
+        --board-details-background: rgb(255 255 255 / .085);
+    }
 }
