@@ -202,6 +202,21 @@ input[type="text"]
     --icon-secondary-color: canvastext;
 }
 
+@media (max-width: 450px) 
+{
+    #tasklist-name
+    {
+        width: 0;
+    }
+    #tasklist-settings-fieldset
+    {
+        grid-template-columns: 1fr;
+    }
+    form-field input[type="color"]
+    {
+        min-height: 30px;
+    }
+}
 @media (prefers-color-scheme: light) 
 {
     :host(:not([style*="color-scheme: dark;"])) svg.copy

@@ -51,13 +51,18 @@ export class TaskListFieldsComponent extends HTMLElement
             options.push(option);
         }
         this.findElement<HTMLInputElement>('tasklist-color-display').append(...options);
-
-        this.#applyPartAttributes();
         this.findElement('tasklist-name').addEventListener('keyup', (event) =>
         {
             if(event.code == "Space") { event.preventDefault(); }
         });
 
+    }
+    connectedCallback()
+    {
+        requestAnimationFrame(() =>
+        {
+            this.#applyPartAttributes();
+        });
     }
 
     //#region API
@@ -120,6 +125,23 @@ export class TaskListFieldsComponent extends HTMLElement
         for(let i = 0; i < classedElements.length; i++)
         {
             classedElements[i].part.add(...classedElements[i].classList);
+        }
+        const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
+        for(let i = 0; i < formFieldElements.length; i++)
+        {
+            const formFieldElement = formFieldElements[i];
+            const fieldId = formFieldElement.id;
+            
+            const container = formFieldElement.querySelector('.container');
+            container?.part.add('container', 'field-container', `${fieldId}-container`);
+            const label = formFieldElement.querySelector('.field-label');
+            label?.part.add('label', 'field-label', `${fieldId}-label`);
+            const prefix = formFieldElement.querySelector('.prefix');
+            prefix?.part.add('prefix', 'field-prefix', `${fieldId}-prefix`);
+            const postfix = formFieldElement.querySelector('.postfix');
+            postfix?.part.add('postfix', 'field-postfix', `${fieldId}-postfix`);
+            const enabledCheckbox = formFieldElement.querySelector('.enabled-checkbox');
+            enabledCheckbox?.part.add('enabled-checkbox', 'field-enabled-checkbox', `${fieldId}-enabled-checkbox`);
         }
     }
     //#endregion Internal

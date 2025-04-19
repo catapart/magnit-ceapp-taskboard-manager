@@ -263,7 +263,7 @@ message-card::part(message)\r
         bottom: 25px;\r
     }\r
 }\r
-@media (max-width: 800px) \r
+@media (max-width: 785px) \r
 {\r
     \r
 }\r
@@ -299,7 +299,7 @@ message-card::part(message)\r
     #config-dialog\r
     ,#board-settings-dialog\r
     {\r
-        width: 850px;\r
+        width: calc(100% - (var(--dialog-margin)*2));\r
     }\r
 \r
     task-card::part(description)\r
@@ -2162,7 +2162,7 @@ var TaskSettingsRecord = class extends DataRecord {
 var form_field_default = '[part="field-label"]\r\n{\r\n    white-space: nowrap;\r\n}\r\nform-field [part="label"]\r\n,form-field [part="field-label"]\r\n{\r\n    display: flex;\r\n    gap: .25em;\r\n    align-items: center;\r\n}\r\nform-field [part="label"] input\r\n,form-field [part="field-label"] input\r\n{\r\n    margin: 0;\r\n}\r\nform-field [part="label"] [part="text"]\r\n,form-field [part="field-label"] [part="text"]\r\n{\r\n    flex: 1;\r\n}\r\n\r\nform-field [part="container"]\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto 1fr;\r\n    gap: .25em;\r\n}\r\nform-field [part="container"]:has([slot="postfix"])\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto;\r\n    column-gap: 0;\r\n    row-gap: .25em;\r\n}\r\nform-field [part="container"]:has([slot="postfix"]) [part="field-label"]\r\n{\r\n    grid-column: span 2;\r\n}\r\n\r\n';
 
 // components/board-settings/task-fields/task-fields.component.css?raw
-var task_fields_component_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto minmax(160px, 1fr) auto;\r\n}\r\n\r\nfieldset\r\n{\r\n    display: grid;\r\n    gap: 1em;\r\n    min-width: 0;\r\n    width: auto;\r\n}\r\ninput,select,textarea\r\n{\r\n    font: inherit;\r\n    min-width: 0;\r\n    width: auto;\r\n}\r\n\r\ninput[type="color"]\r\n{\r\n    width: 100%;\r\n}\r\ninput[type="text"][inputmode="numeric"]\r\n{\r\n    width: 5ch;\r\n}\r\n\r\nform-field .container\r\n{\r\n}\r\nform-field .field-label\r\n{\r\n    display: flex;\r\n    gap: 5px;\r\n    margin-bottom: 7px;\r\n}\r\n\r\n#task-appearance-fieldset\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr;\r\n}\r\n\r\n#task-appearance-fieldset .container > input\r\n{\r\n    flex: 1;\r\n    min-height: 2ch;\r\n}\r\n\r\n#task-border-radius-field .option\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto 1fr;\r\n    gap: 5px;\r\n}\r\n\r\n#task-border-weights-fieldset\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto;\r\n    grid-template-rows: min-content min-content;\r\n}\r\n\r\n#task-font-size-field .container\r\n,#task-card-width-field .container\r\n,#task-border-weights-fieldset .container\r\n{\r\n    align-items: flex-start;\r\n    column-gap: .25em !important;\r\n}\r\n\r\n#task-font-size-field .postfix\r\n,#task-card-width-field .container\r\n,#task-card-width-field .postfix\r\n,#task-card-width-field input[type="text"]\r\n,#task-border-weights-fieldset .postfix\r\n{\r\n    align-self: flex-end;\r\n}\r\n\r\n#task-center-checkbox-field input\r\n,#task-center-remove-button-field input\r\n{\r\n    justify-self: flex-start;\r\n    margin: 0;\r\n}';
+var task_fields_component_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto minmax(160px, 1fr) auto;\r\n}\r\n\r\nfieldset\r\n{\r\n    display: grid;\r\n    gap: 1em;\r\n    min-width: 0;\r\n    width: auto;\r\n}\r\ninput,select,textarea\r\n{\r\n    font: inherit;\r\n    min-width: 0;\r\n    width: auto;\r\n}\r\n\r\ninput[type="color"]\r\n{\r\n    width: 100%;\r\n}\r\ninput[type="text"][inputmode="numeric"]\r\n{\r\n    width: 5ch;\r\n}\r\n\r\nform-field .container\r\n{\r\n}\r\nform-field .field-label\r\n{\r\n    display: flex;\r\n    gap: 5px;\r\n    margin-bottom: 7px;\r\n}\r\n\r\n#task-appearance-fieldset\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr;\r\n}\r\n\r\n#task-appearance-fieldset .container > input\r\n{\r\n    flex: 1;\r\n    min-height: 2ch;\r\n}\r\n\r\n#task-border-radius-field .option\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto 1fr;\r\n    gap: 5px;\r\n}\r\n\r\n#task-border-weights-fieldset\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto;\r\n    grid-template-rows: min-content min-content;\r\n}\r\n\r\n#task-font-size-field .container\r\n,#task-card-width-field .container\r\n,#task-border-weights-fieldset .container\r\n{\r\n    align-items: flex-start;\r\n    column-gap: .25em !important;\r\n}\r\n\r\n#task-font-size-field .postfix\r\n,#task-card-width-field .container\r\n,#task-card-width-field .postfix\r\n,#task-card-width-field input[type="text"]\r\n,#task-border-weights-fieldset .postfix\r\n{\r\n    align-self: flex-end;\r\n}\r\n\r\n#task-card-width-field .container\r\n{\r\n    grid-template-columns: auto 1fr;\r\n}\r\n\r\n#task-card-width-field .postfix\r\n{\r\n    justify-self: flex-start;\r\n}\r\n\r\n#task-center-checkbox-field input\r\n,#task-center-remove-button-field input\r\n{\r\n    justify-self: flex-start;\r\n    margin: 0;\r\n}\r\n\r\n\r\n@media (max-width: 785px) \r\n{\r\n    :host\r\n    {\r\n        grid-template-rows: 1fr 1fr;\r\n        grid-template-columns: 1fr auto;\r\n    }\r\n    #task-appearance-fieldset\r\n    {\r\n        grid-template-columns: 1fr;\r\n        grid-row: span 2;\r\n    }\r\n}\r\n@media (max-width: 560px) \r\n{\r\n    :host\r\n    {\r\n        grid-template-columns: 1fr;\r\n    }\r\n    /* #task-border-weights-fieldset\r\n    {\r\n        grid-template-columns: 1fr;\r\n    } */\r\n}\r\n/* @media (max-width: 450px) \r\n{\r\n    #task-border-radius-field .container\r\n    {\r\n        grid-template-columns: 1fr;\r\n    }\r\n} */\r\n';
 
 // components/board-settings/task-fields/task-fields.component.html?raw
 var task_fields_component_default2 = '<fieldset class="fieldset" id="task-appearance-fieldset">\r\n    <legend class="legend" id="task-appearance-legend">Appearance</legend>\r\n    <form-field class="field" id="task-font-size-field" label="Font Size" optional optional-title="Override Font Size?">\r\n        <input class="input"  id="task-font-size" name="task-font-size" type="text" inputmode="numeric" />\r\n        <span class="postfix" id="font-size-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field class="field" id="task-background-color-field" label="Background Color" optional optional-title="Override Background Color?">\r\n        <input class="input" id="task-background-color" name="task-background-color" type="color" value="#f9faf5" />\r\n    </form-field>\r\n    <form-field class="field" id="task-border-radius-field" label="Border Radius" optional optional-title="Override Border Radius?">\r\n        <input class="input" id="task-border-radius" name="task-border-radius" type="text" inputmode="numeric" />\r\n        <select class="select postfix" id="task-border-radius-unit" slot="postfix">\r\n            <option class="option first" value="px">px</option>\r\n            <option class="option last" value="%">%</option>\r\n        </select>\r\n    </form-field>\r\n    <form-field class="field" id="task-font-color-field" label="Font Color" optional optional-title="Override Font Color?">\r\n        <input class="input" id="task-font-color" name="task-font-color" type="color" value="#060703" />\r\n    </form-field>\r\n    <form-field class="field" id="task-color-display-field" label="Color Display">\r\n        <select class="select" id="task-color-display" name="task-color-display"></select>\r\n    </form-field>\r\n    <form-field class="field" id="task-border-color-field" label="Border Color" optional optional-title="Override Border Color?">\r\n        <input class="input" id="task-border-color" name="task-border-color"  type="color"value="#060703" />\r\n    </form-field>\r\n</fieldset>  \r\n\r\n<fieldset class="fieldset" id="task-layout-fieldset">\r\n    <legend class="legend" id="task-layout-fields-legend">Layout</legend>\r\n    <form-field class="field" id="task-center-checkbox-field" label="Center Checkbox">\r\n        <input class="input" id="task-center-checkbox"  name="task-center-checkbox" type="checkbox"title="Center the checkbox?" />\r\n    </form-field>\r\n    <form-field class="field" id="task-center-remove-button-field" label="Center Remove Button">\r\n        <input class="input" id="task-center-remove-button" name="task-center-remove-button" type="checkbox" title="Center the remove button?" />\r\n    </form-field>\r\n    <form-field class="field" id="task-card-width-field" label="Card Width" optional option-title="Override Task Card Width?">\r\n        <input class="input" id="task-card-width" name="task-card-width" type="text" inputmode="numeric" value="" />\r\n        <span class="postfix" id="task-card-width-unit" slot="postfix">px</span>\r\n    </form-field>\r\n</fieldset>      \r\n\r\n<fieldset class="fieldset" id="task-border-weights-fieldset">\r\n    <legend class="legend" id="task-border-weights-legend">Border Weights</legend>\r\n    <form-field class="field" id="task-border-top-field" label="Top" optional optional-title="Use a custom top border size?">\r\n        <input class="input" id="task-border-top" name="task-border-top" type="text" inputmode="numeric"/>\r\n        <span class="postfix" id="task-border-top-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field class="field" id="task-border-right-field" label="Right" optional optional-title="Use a custom right border size?">\r\n        <input class="input" id="task-border-right" name="task-border-right" type="text" inputmode="numeric" />\r\n        <span class="postfix" id="task-border-right-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field class="field" id="task-border-bottom-field" label="Bottom" optional optional-title="Use a custom bottom border size?">\r\n        <input class="input" id="task-border-bottom" name="task-border-bottom" type="text" inputmode="numeric"/>\r\n        <span class="postfix" id="task-border-bottom-unit" slot="postfix">px</span>\r\n    </form-field>\r\n    <form-field class="field" id="task-border-left-field" label="Left" optional optional-title="Use a custom left border size?">\r\n        <input class="input" id="task-border-left" name="task-border-left" type="text" inputmode="numeric" />\r\n        <span class="postfix" id="task-border-left-unit" slot="postfix">px</span>\r\n    </form-field>\r\n</fieldset>';
@@ -2200,7 +2200,11 @@ var TaskFieldsComponent = class extends HTMLElement {
       options.push(option);
     }
     this.findElement("task-color-display").append(...options);
-    this.#applyPartAttributes();
+  }
+  connectedCallback() {
+    requestAnimationFrame(() => {
+      this.#applyPartAttributes();
+    });
   }
   //#region API
   setValues(settings) {
@@ -2269,6 +2273,21 @@ var TaskFieldsComponent = class extends HTMLElement {
     const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
     for (let i = 0; i < classedElements.length; i++) {
       classedElements[i].part.add(...classedElements[i].classList);
+    }
+    const formFieldElements = [...this.shadowRoot.querySelectorAll("form-field")];
+    for (let i = 0; i < formFieldElements.length; i++) {
+      const formFieldElement = formFieldElements[i];
+      const fieldId = formFieldElement.id;
+      const container = formFieldElement.querySelector(".container");
+      container?.part.add("container", "field-container", `${fieldId}-container`);
+      const label = formFieldElement.querySelector(".field-label");
+      label?.part.add("label", "field-label", `${fieldId}-label`);
+      const prefix = formFieldElement.querySelector(".prefix");
+      prefix?.part.add("prefix", "field-prefix", `${fieldId}-prefix`);
+      const postfix = formFieldElement.querySelector(".postfix");
+      postfix?.part.add("postfix", "field-postfix", `${fieldId}-postfix`);
+      const enabledCheckbox = formFieldElement.querySelector(".enabled-checkbox");
+      enabledCheckbox?.part.add("enabled-checkbox", "field-enabled-checkbox", `${fieldId}-enabled-checkbox`);
     }
   }
   //#endregion Internal
@@ -2507,6 +2526,21 @@ input[type="text"]\r
     --icon-secondary-color: canvastext;\r
 }\r
 \r
+@media (max-width: 450px) \r
+{\r
+    #tasklist-name\r
+    {\r
+        width: 0;\r
+    }\r
+    #tasklist-settings-fieldset\r
+    {\r
+        grid-template-columns: 1fr;\r
+    }\r
+    form-field input[type="color"]\r
+    {\r
+        min-height: 30px;\r
+    }\r
+}\r
 @media (prefers-color-scheme: light) \r
 {\r
     :host(:not([style*="color-scheme: dark;"])) svg.copy\r
@@ -2565,11 +2599,15 @@ var TaskListFieldsComponent = class extends HTMLElement {
       options.push(option);
     }
     this.findElement("tasklist-color-display").append(...options);
-    this.#applyPartAttributes();
     this.findElement("tasklist-name").addEventListener("keyup", (event) => {
       if (event.code == "Space") {
         event.preventDefault();
       }
+    });
+  }
+  connectedCallback() {
+    requestAnimationFrame(() => {
+      this.#applyPartAttributes();
     });
   }
   //#region API
@@ -2617,6 +2655,21 @@ var TaskListFieldsComponent = class extends HTMLElement {
     const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
     for (let i = 0; i < classedElements.length; i++) {
       classedElements[i].part.add(...classedElements[i].classList);
+    }
+    const formFieldElements = [...this.shadowRoot.querySelectorAll("form-field")];
+    for (let i = 0; i < formFieldElements.length; i++) {
+      const formFieldElement = formFieldElements[i];
+      const fieldId = formFieldElement.id;
+      const container = formFieldElement.querySelector(".container");
+      container?.part.add("container", "field-container", `${fieldId}-container`);
+      const label = formFieldElement.querySelector(".field-label");
+      label?.part.add("label", "field-label", `${fieldId}-label`);
+      const prefix = formFieldElement.querySelector(".prefix");
+      prefix?.part.add("prefix", "field-prefix", `${fieldId}-prefix`);
+      const postfix = formFieldElement.querySelector(".postfix");
+      postfix?.part.add("postfix", "field-postfix", `${fieldId}-postfix`);
+      const enabledCheckbox = formFieldElement.querySelector(".enabled-checkbox");
+      enabledCheckbox?.part.add("enabled-checkbox", "field-enabled-checkbox", `${fieldId}-enabled-checkbox`);
     }
   }
   //#endregion Internal
@@ -4610,15 +4663,17 @@ var DataPanelElement = class extends HTMLElement {
     const formFieldElements = [...this.shadowRoot.querySelectorAll("form-field")];
     for (let i = 0; i < formFieldElements.length; i++) {
       const formFieldElement = formFieldElements[i];
-      const inputId = formFieldElement.id;
+      const fieldId = formFieldElement.id;
       const container = formFieldElement.querySelector(".container");
-      container.part.add("container", "field-container", `${inputId}-container`);
+      container.part.add("container", "field-container", `${fieldId}-container`);
       const label = formFieldElement.querySelector(".field-label");
-      label.part.add("container", "field-label", `${inputId}-label`);
+      label.part.add("label", "field-label", `${fieldId}-label`);
       const prefix = formFieldElement.querySelector(".prefix");
-      prefix.part.add("container", "field-prefix", `${inputId}-prefix`);
+      prefix.part.add("prefix", "field-prefix", `${fieldId}-prefix`);
       const postfix = formFieldElement.querySelector(".postfix");
-      postfix.part.add("container", "field-postfix", `${inputId}-postfix`);
+      postfix.part.add("postfix", "field-postfix", `${fieldId}-postfix`);
+      const enabledCheckbox = formFieldElement.querySelector(".enabled-checkbox");
+      enabledCheckbox?.part.add("enabled-checkbox", "field-enabled-checkbox", `${fieldId}-enabled-checkbox`);
     }
   }
   //#endregion Internal
@@ -5981,6 +6036,7 @@ fileimage-input::part(view-link)\r
 #export-options\r
 {\r
     display: inline-block;\r
+    margin-bottom: 7px;\r
 }\r
 \r
 #export-options > header\r
@@ -6090,6 +6146,40 @@ form-field [part="container"]:has([slot="postfix"]) [part="field-label"]\r
     :host\r
     {\r
         width: 801px;\r
+    }\r
+}\r
+@media (max-width: 560px) \r
+{\r
+    #board-appearance-fieldset\r
+    ,#board-image-fieldset\r
+    ,#delete-fieldset\r
+    ,#duplicate-fieldset\r
+    {\r
+        grid-column: span 2;\r
+    }\r
+    #board-fields\r
+    {\r
+        grid-template-columns: 1fr;\r
+    }\r
+    #board-image-fieldset\r
+    {\r
+        grid-template-columns: 1fr;\r
+    }\r
+    #board-background-image-field .container\r
+    {\r
+        grid-column: 1;\r
+    }\r
+\r
+}\r
+@media (max-width: 450px) \r
+{\r
+    #board-name\r
+    {\r
+        width: 100%;\r
+    }\r
+    #offset-header\r
+    {\r
+        grid-column: 1;\r
     }\r
 }\r
 @media (prefers-color-scheme: light) \r
@@ -6474,6 +6564,21 @@ var BoardSettingsElement = class extends HTMLElement {
     const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
     for (let i = 0; i < classedElements.length; i++) {
       classedElements[i].part.add(...classedElements[i].classList);
+    }
+    const formFieldElements = [...this.shadowRoot.querySelectorAll("form-field")];
+    for (let i = 0; i < formFieldElements.length; i++) {
+      const formFieldElement = formFieldElements[i];
+      const fieldId = formFieldElement.id;
+      const container = formFieldElement.querySelector(".container");
+      container?.part.add("container", "field-container", `${fieldId}-container`);
+      const label = formFieldElement.querySelector(".field-label");
+      label?.part.add("label", "field-label", `${fieldId}-label`);
+      const prefix = formFieldElement.querySelector(".prefix");
+      prefix?.part.add("prefix", "field-prefix", `${fieldId}-prefix`);
+      const postfix = formFieldElement.querySelector(".postfix");
+      postfix?.part.add("postfix", "field-postfix", `${fieldId}-postfix`);
+      const enabledCheckbox = formFieldElement.querySelector(".enabled-checkbox");
+      enabledCheckbox?.part.add("enabled-checkbox", "field-enabled-checkbox", `${fieldId}-enabled-checkbox`);
     }
   }
   //#endregion Internal

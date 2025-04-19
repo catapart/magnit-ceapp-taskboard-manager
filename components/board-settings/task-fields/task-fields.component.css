@@ -80,9 +80,52 @@ form-field .field-label
     align-self: flex-end;
 }
 
+#task-card-width-field .container
+{
+    grid-template-columns: auto 1fr;
+}
+
+#task-card-width-field .postfix
+{
+    justify-self: flex-start;
+}
+
 #task-center-checkbox-field input
 ,#task-center-remove-button-field input
 {
     justify-self: flex-start;
     margin: 0;
 }
+
+
+@media (max-width: 785px) 
+{
+    :host
+    {
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr auto;
+    }
+    #task-appearance-fieldset
+    {
+        grid-template-columns: 1fr;
+        grid-row: span 2;
+    }
+}
+@media (max-width: 560px) 
+{
+    :host
+    {
+        grid-template-columns: 1fr;
+    }
+    /* #task-border-weights-fieldset
+    {
+        grid-template-columns: 1fr;
+    } */
+}
+/* @media (max-width: 450px) 
+{
+    #task-border-radius-field .container
+    {
+        grid-template-columns: 1fr;
+    }
+} */

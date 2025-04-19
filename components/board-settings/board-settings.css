@@ -323,6 +323,7 @@ fileimage-input::part(view-link)
 #export-options
 {
     display: inline-block;
+    margin-bottom: 7px;
 }
 
 #export-options > header
@@ -432,6 +433,40 @@ form-field [part="container"]:has([slot="postfix"]) [part="field-label"]
     :host
     {
         width: 801px;
+    }
+}
+@media (max-width: 560px) 
+{
+    #board-appearance-fieldset
+    ,#board-image-fieldset
+    ,#delete-fieldset
+    ,#duplicate-fieldset
+    {
+        grid-column: span 2;
+    }
+    #board-fields
+    {
+        grid-template-columns: 1fr;
+    }
+    #board-image-fieldset
+    {
+        grid-template-columns: 1fr;
+    }
+    #board-background-image-field .container
+    {
+        grid-column: 1;
+    }
+
+}
+@media (max-width: 450px) 
+{
+    #board-name
+    {
+        width: 100%;
+    }
+    #offset-header
+    {
+        grid-column: 1;
     }
 }
 @media (prefers-color-scheme: light) 

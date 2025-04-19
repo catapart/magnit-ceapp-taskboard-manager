@@ -463,16 +463,18 @@ export class DataPanelElement extends HTMLElement
         for(let i = 0; i < formFieldElements.length; i++)
         {
             const formFieldElement = formFieldElements[i];
-            const inputId = formFieldElement.id;
+            const fieldId = formFieldElement.id;
             
             const container = formFieldElement.querySelector('.container')!;
-            container.part.add('container', 'field-container', `${inputId}-container`);
+            container.part.add('container', 'field-container', `${fieldId}-container`);
             const label = formFieldElement.querySelector('.field-label')!;
-            label.part.add('container', 'field-label', `${inputId}-label`);
+            label.part.add('label', 'field-label', `${fieldId}-label`);
             const prefix = formFieldElement.querySelector('.prefix')!;
-            prefix.part.add('container', 'field-prefix', `${inputId}-prefix`);
+            prefix.part.add('prefix', 'field-prefix', `${fieldId}-prefix`);
             const postfix = formFieldElement.querySelector('.postfix')!;
-            postfix.part.add('container', 'field-postfix', `${inputId}-postfix`);
+            postfix.part.add('postfix', 'field-postfix', `${fieldId}-postfix`);
+            const enabledCheckbox = formFieldElement.querySelector('.enabled-checkbox');
+            enabledCheckbox?.part.add('enabled-checkbox', 'field-enabled-checkbox', `${fieldId}-enabled-checkbox`);
         }
     }
     //#endregion Internal
