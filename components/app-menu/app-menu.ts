@@ -8,6 +8,12 @@ import { defineIcons, IconType } from '../../assets/icons/icons.asset';
 import { TaskBoardRecord } from '../../data/records/task-board.record';
 import { DataService } from '../../data/data.service';
 
+export type AppMenuProperties =
+{
+    addBoard: () => void,
+    editBoard: (boardId: string) => void,
+}
+
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
     ${style}`);
@@ -61,6 +67,17 @@ export class AppMenuElement extends HTMLElement
         }
     }
 
+    //#region API
+    #addBoard!: () => void;
+    #editBoard!: (boardId: string) => void;
+    init(options: AppMenuProperties)
+    {
+        this.#addBoard = options.addBoard;
+        this.#editBoard = options.editBoard;
+
+        this.addEventListener('click', this.#onClick.bind(this));        
+    }
+
     async refresh()
     {
         const boardRecords = await DataService.getAllBoardRecords();
@@ -81,7 +98,49 @@ export class AppMenuElement extends HTMLElement
         this.innerHTML = '';
         this.append(...menuItems);
     }
+    //#endregion
     
+    //#region Handlers
+    #onClick(event: Event)
+    {
+        const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
+
+        const longpress = composedPath.find(item => item.classList.contains('longpress'));
+        if(longpress != null)
+        {
+            event.stopPropagation();
+            return;
+        }
+
+        const editButton = composedPath.find(item => item.classList.contains('board-edit-button'));
+        if(editButton != null)
+        {
+            const boardId = editButton.parentElement!.dataset.route!.split('/')[1]
+            this.#editBoard(boardId);
+            event.stopPropagation();
+            return;
+        }
+
+        const newBoardButton = composedPath.find(item => item.classList.contains('new-board-button'));
+        if(newBoardButton != null)
+        {
+            this.#addBoard();
+            return;
+        }
+    }
+    boardsList_onDragover(event: DragEvent)
+    {
+        event.preventDefault();
+        event.stopPropagation();
+        this.#updateBoardItemOrder(event.clientY);
+    }
+    async boardsList_onDrop(_event: Event)
+    {
+        this.#updateBoardRecordsAfterMove();
+    }
+    //#endregion Handlers
+
+    //#region Management
     #createBoardMenuItem(board: TaskBoardRecord)
     {
         const element = document.createElement('a');
@@ -91,13 +150,91 @@ export class AppMenuElement extends HTMLElement
         element.setAttribute('part', 'board');
         element.classList.add('board');
         element.dataset.route = `board/${board.id}`;
+
+        let timeout: ReturnType<typeof setTimeout>|null;
+        const cancel = () =>
+        {
+            if(timeout != null)
+            {
+                clearTimeout(timeout);
+                timeout = null;
+            }
+            element.removeEventListener('pointerleave', cancel);
+            element.removeEventListener('pointermove', cancel);
+            requestAnimationFrame(() =>
+            {
+                element.classList.remove('awaiting-longpress', 'pre-longpress');
+                element.part.remove('awaiting-longpress', 'pre-longpress');
+            });
+        }
+        const cancelPointerUp = () =>
+        {
+            cancel();
+            element.removeEventListener('pointerup', cancelPointerUp);
+            requestAnimationFrame(() =>
+            {
+                element.classList.remove('longpress');
+                element.part.remove('longpress');
+            });
+        }
+        
+        element.addEventListener('pointerdown', (event) =>
+        {
+            if(event.composedPath().find(item => item instanceof HTMLElement && item.classList.contains('menu-item-handle')))
+            {
+                return;
+            }
+
+            timeout = setTimeout(() =>
+            {
+                if(timeout == null)
+                {
+                    return;
+                    // element.classList.add('pre-longpress');
+                    // element.part.add('pre-longpress');
+                }
+                clearTimeout(timeout);
+
+                timeout = setTimeout(() =>
+                {
+                    element.classList.add('longpress');
+                    element.part.add('longpress');
+                    this.#editBoard(board.id);
+                    cancel();
+
+                    
+                    const boards = [...this.querySelectorAll('a')] as HTMLElement[];
+                    for(let i = 0; i < boards.length; i++)
+                    {
+                        boards[i].classList.remove('selected');
+                        boards[i].part.remove('selected');
+                        boards[i].toggleAttribute('aria-current', false);
+                    }
+                    element.classList.add('selected');
+                    element.part.add('selected');
+                    element.setAttribute('aria-current', 'page');
+                }, 1000);
+                
+                element.classList.replace('pre-longpress', 'awaiting-longpress');
+                element.part.replace('pre-longpress', 'awaiting-longpress');
+
+            }, 250);
+
+
+            element.addEventListener('pointerup', cancelPointerUp);
+            element.addEventListener('pointerleave', cancel);
+            element.addEventListener('pointermove', cancel);
+
+            element.classList.add('pre-longpress');
+            element.part.add('pre-longpress');
+        });
     
-        const handle = element.querySelector('[part="menu-item-handle"]')!;
-        handle.addEventListener('mousedown', (_event) =>
+        const handle = element.querySelector('.menu-item-handle')!;
+        handle.addEventListener('pointerdown', (_event) =>
         {
             element.draggable = true;
         });
-        handle.addEventListener('mouseup', (_event) =>
+        handle.addEventListener('pointerup', () =>
         {
             element.removeAttribute('draggable');
         });
@@ -116,23 +253,12 @@ export class AppMenuElement extends HTMLElement
 
         return element;
     }
-
     #addDragHandlers()
     {
         this.addEventListener('dragover', this.boardsList_onDragover.bind(this));
         this.addEventListener('drop', this.boardsList_onDrop.bind(this));
     }
 
-    boardsList_onDragover(event: DragEvent)
-    {
-        event.preventDefault();
-        event.stopPropagation();
-        this.#updateBoardItemOrder(event.clientY);
-    }
-    async boardsList_onDrop(_event: Event)
-    {
-        this.#updateBoardRecordsAfterMove();
-    }
     async #updateBoardItemOrder(draggingCursorY: number)
     {
         if(this.#draggingBoard == null)
@@ -203,6 +329,9 @@ export class AppMenuElement extends HTMLElement
 
         return orderedBoards;
     }
+    //#endregion
+    
+
 
 }
 

@@ -5159,6 +5159,14 @@ var AppMenuElement = class extends HTMLElement {
       classedElements[i].part.add(...classedElements[i].classList);
     }
   }
+  //#region API
+  #addBoard;
+  #editBoard;
+  init(options) {
+    this.#addBoard = options.addBoard;
+    this.#editBoard = options.editBoard;
+    this.addEventListener("click", this.#onClick.bind(this));
+  }
   async refresh() {
     const boardRecords = await DataService.getAllBoardRecords();
     this.updateBoards(boardRecords);
@@ -5173,6 +5181,38 @@ var AppMenuElement = class extends HTMLElement {
     this.innerHTML = "";
     this.append(...menuItems);
   }
+  //#endregion
+  //#region Handlers
+  #onClick(event) {
+    const composedPath = event.composedPath().filter((item) => item instanceof HTMLElement);
+    const longpress = composedPath.find((item) => item.classList.contains("longpress"));
+    if (longpress != null) {
+      event.stopPropagation();
+      return;
+    }
+    const editButton = composedPath.find((item) => item.classList.contains("board-edit-button"));
+    if (editButton != null) {
+      const boardId = editButton.parentElement.dataset.route.split("/")[1];
+      this.#editBoard(boardId);
+      event.stopPropagation();
+      return;
+    }
+    const newBoardButton = composedPath.find((item) => item.classList.contains("new-board-button"));
+    if (newBoardButton != null) {
+      this.#addBoard();
+      return;
+    }
+  }
+  boardsList_onDragover(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.#updateBoardItemOrder(event.clientY);
+  }
+  async boardsList_onDrop(_event) {
+    this.#updateBoardRecordsAfterMove();
+  }
+  //#endregion Handlers
+  //#region Management
   #createBoardMenuItem(board) {
     const element = document.createElement("a");
     element.tabIndex = 0;
@@ -5181,11 +5221,65 @@ var AppMenuElement = class extends HTMLElement {
     element.setAttribute("part", "board");
     element.classList.add("board");
     element.dataset.route = `board/${board.id}`;
-    const handle = element.querySelector('[part="menu-item-handle"]');
-    handle.addEventListener("mousedown", (_event) => {
+    let timeout;
+    const cancel = () => {
+      if (timeout != null) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+      element.removeEventListener("pointerleave", cancel);
+      element.removeEventListener("pointermove", cancel);
+      requestAnimationFrame(() => {
+        element.classList.remove("awaiting-longpress", "pre-longpress");
+        element.part.remove("awaiting-longpress", "pre-longpress");
+      });
+    };
+    const cancelPointerUp = () => {
+      cancel();
+      element.removeEventListener("pointerup", cancelPointerUp);
+      requestAnimationFrame(() => {
+        element.classList.remove("longpress");
+        element.part.remove("longpress");
+      });
+    };
+    element.addEventListener("pointerdown", (event) => {
+      if (event.composedPath().find((item) => item instanceof HTMLElement && item.classList.contains("menu-item-handle"))) {
+        return;
+      }
+      timeout = setTimeout(() => {
+        if (timeout == null) {
+          return;
+        }
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          element.classList.add("longpress");
+          element.part.add("longpress");
+          this.#editBoard(board.id);
+          cancel();
+          const boards = [...this.querySelectorAll("a")];
+          for (let i = 0; i < boards.length; i++) {
+            boards[i].classList.remove("selected");
+            boards[i].part.remove("selected");
+            boards[i].toggleAttribute("aria-current", false);
+          }
+          element.classList.add("selected");
+          element.part.add("selected");
+          element.setAttribute("aria-current", "page");
+        }, 1e3);
+        element.classList.replace("pre-longpress", "awaiting-longpress");
+        element.part.replace("pre-longpress", "awaiting-longpress");
+      }, 250);
+      element.addEventListener("pointerup", cancelPointerUp);
+      element.addEventListener("pointerleave", cancel);
+      element.addEventListener("pointermove", cancel);
+      element.classList.add("pre-longpress");
+      element.part.add("pre-longpress");
+    });
+    const handle = element.querySelector(".menu-item-handle");
+    handle.addEventListener("pointerdown", (_event) => {
       element.draggable = true;
     });
-    handle.addEventListener("mouseup", (_event) => {
+    handle.addEventListener("pointerup", () => {
       element.removeAttribute("draggable");
     });
     element.addEventListener("dragstart", (_event) => {
@@ -5203,14 +5297,6 @@ var AppMenuElement = class extends HTMLElement {
   #addDragHandlers() {
     this.addEventListener("dragover", this.boardsList_onDragover.bind(this));
     this.addEventListener("drop", this.boardsList_onDrop.bind(this));
-  }
-  boardsList_onDragover(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.#updateBoardItemOrder(event.clientY);
-  }
-  async boardsList_onDrop(_event) {
-    this.#updateBoardRecordsAfterMove();
   }
   async #updateBoardItemOrder(draggingCursorY) {
     if (this.#draggingBoard == null) {
@@ -5264,6 +5350,7 @@ var AppMenuElement = class extends HTMLElement {
     }
     return orderedBoards;
   }
+  //#endregion
 };
 if (customElements.get(COMPONENT_TAG_NAME7) == null) {
   customElements.define(COMPONENT_TAG_NAME7, AppMenuElement);
@@ -9947,6 +10034,9 @@ var TaskboardManagerElement = class extends HTMLElement {
     this.findElement("app-menu").refresh();
     this.findElement("welcome-panel").refresh();
   }
+  editBoard(boardId) {
+    this.findElement("app-router").navigate(`board/${boardId}#board-settings`);
+  }
   async openBoardSettings(id) {
     const board = await DataService.getBoardRecord(id);
     if (board == null) {
@@ -10050,6 +10140,10 @@ var TaskboardManagerElement = class extends HTMLElement {
     FeedbackService.init(this);
     this.#loadColorScheme();
     const boardsPromise = this.refreshBoardCollections();
+    this.findElement("app-menu").init({
+      addBoard: this.addBoard.bind(this),
+      editBoard: this.editBoard.bind(this)
+    });
     this.findElement("welcome-panel").refresh();
     this.findElement("board-browser").addEventListener("select", async (event) => {
       const { boardId } = event.detail;
@@ -10068,7 +10162,8 @@ var TaskboardManagerElement = class extends HTMLElement {
       openBoard: this.openBoard.bind(this),
       refreshBoards: this.refreshBoards.bind(this)
     });
-    this.findElement("board-settings").init({
+    const boardSettings = this.findElement("board-settings");
+    boardSettings.init({
       canAddList: this.#canAddList.bind(this),
       removeBoard: this.removeBoard.bind(this),
       duplicateBoard: this.duplicateBoard.bind(this),
@@ -10078,7 +10173,6 @@ var TaskboardManagerElement = class extends HTMLElement {
       saveSettingsTarget: this.#saveSettingsTarget.bind(this)
     });
     this.#addRouteHandlers();
-    this.addEventListener("click", this.#onClick.bind(this));
     await this.#handleInitialNavigation(boardsPromise);
     DataService.removeExpiredData();
     setInterval(() => {
@@ -10560,36 +10654,12 @@ var TaskboardManagerElement = class extends HTMLElement {
   //#region Handlers
   #onClick(event) {
     const composedPath = event.composedPath().filter((item) => item instanceof HTMLElement);
-    const editButton = composedPath.find((item) => item.classList.contains("board-edit-button"));
-    if (editButton != null) {
-      this.#board_edit_onClick(editButton.parentElement.dataset.route);
-      return;
-    }
-    const newBoardButton = composedPath.find((item) => item.classList.contains("new-board-button"));
-    if (newBoardButton != null) {
-      this.#newBoard_onClick();
-      return;
-    }
     const importOkButton = composedPath.find((item) => item.id == "import-ok");
     if (importOkButton != null) {
       this.#importDialog_import_onClick();
       return;
     }
     console.log(event.target);
-  }
-  #board_edit_onClick(boardRoute) {
-    if (boardRoute == null) {
-      MessageCardElement.notify(
-        `An error occurred attempting to open the board for editing.`,
-        this.getElement("notifications"),
-        { type: MessageCardType.Error }
-      );
-      throw new Error("Unable to collected path from board item's path attribute.");
-    }
-    this.findElement("app-router").navigate(`${boardRoute}#board-settings`);
-  }
-  async #newBoard_onClick() {
-    this.addBoard();
   }
   #router_onPathChange(event) {
     if (this.#historyIsUpdating == true) {

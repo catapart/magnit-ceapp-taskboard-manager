@@ -297,6 +297,10 @@ export class TaskboardManagerElement extends HTMLElement
         this.findElement<AppMenuElement>('app-menu').refresh();
         this.findElement<WelcomePanelElement>('welcome-panel').refresh();
     }
+    editBoard(boardId: string)
+    {        
+        this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}#board-settings`);
+    }
     async openBoardSettings(id: string)
     {
         // await this.initPromise;
@@ -442,6 +446,10 @@ export class TaskboardManagerElement extends HTMLElement
         const boardsPromise = this.refreshBoardCollections();
 
         // app menu
+        this.findElement<AppMenuElement>('app-menu').init({
+            addBoard: this.addBoard.bind(this),
+            editBoard: this.editBoard.bind(this),
+        });
 
         // welcome page
         this.findElement<WelcomePanelElement>('welcome-panel').refresh();
@@ -472,7 +480,8 @@ export class TaskboardManagerElement extends HTMLElement
         });
 
         // board-settings
-        this.findElement<BoardSettingsElement>('board-settings').init({
+        const boardSettings = this.findElement<BoardSettingsElement>('board-settings');
+        boardSettings.init({
             canAddList: this.#canAddList.bind(this),
             removeBoard: this.removeBoard.bind(this),
             duplicateBoard: this.duplicateBoard.bind(this),
@@ -501,7 +510,7 @@ export class TaskboardManagerElement extends HTMLElement
         
 
         this.#addRouteHandlers();
-        this.addEventListener('click', this.#onClick.bind(this))
+        // this.addEventListener('click', this.#onClick.bind(this))
 
         await this.#handleInitialNavigation(boardsPromise);
 
@@ -1149,21 +1158,6 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
 
-        // todo: move to app menu
-        const editButton = composedPath.find(item => item.classList.contains('board-edit-button'));
-        if(editButton != null)
-        {
-            this.#board_edit_onClick(editButton.parentElement!.dataset.route);
-            return;
-        }
-
-        const newBoardButton = composedPath.find(item => item.classList.contains('new-board-button'));
-        if(newBoardButton != null)
-        {
-            this.#newBoard_onClick();
-            return;
-        }
-
         // todo: move to config?
         const importOkButton = composedPath.find(item => item.id == 'import-ok');
         if(importOkButton != null)
@@ -1173,21 +1167,6 @@ export class TaskboardManagerElement extends HTMLElement
         }
 
         console.log(event.target);
-    }
-    #board_edit_onClick(boardRoute?: string)
-    {
-        if(boardRoute == null)
-        {
-            MessageCardElement.notify(`An error occurred attempting to open the board for editing.`, 
-            this.getElement('notifications'), { type: MessageCardType.Error });
-            throw new Error("Unable to collected path from board item's path attribute.");
-        }
-        
-        this.findElement<PathRouterElement>('app-router').navigate(`${boardRoute}#board-settings`);
-    }
-    async #newBoard_onClick()
-    {
-        this.addBoard();
     }
 
     #router_onPathChange(event: Event|CustomEvent)
