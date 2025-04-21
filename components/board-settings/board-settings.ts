@@ -428,9 +428,6 @@ export class BoardSettingsElement extends HTMLElement
             });
             return;
         }
-
-        // exportparts
-
     }
     //#endregion Handlers
 
@@ -453,6 +450,23 @@ export class BoardSettingsElement extends HTMLElement
         taskListElement.classList.add('tasklist-settings');
         taskListElement.part.add('tasklist-settings');
         taskListElement.style.setProperty('color-scheme', this.style.getPropertyValue('color-scheme'));
+
+        // todo: stop composing this unchanging value
+        const tasklistExportParts = new Set(([...taskListElement.shadowRoot!.querySelectorAll('[id],[class]')] as HTMLElement[]).map(item =>
+        {
+            if(item instanceof TaskFieldsComponent)
+            {
+                const taskFieldsParts = item.getAttribute('exportparts')!.replaceAll(/[\s\n]/g, '').split(',');
+                return taskFieldsParts;
+            }
+            const parts = [item.id,
+            ...item.classList.values()];
+            return parts;
+        }).flat().filter(item => item.length > 0));
+
+        console.log(tasklistExportParts);
+
+        taskListElement.setAttribute('exportparts', `${Array.from(tasklistExportParts).join(",\n")}`);
         
         const handle = taskListElement.findElement('tasklist-settings-handle');
         handle.addEventListener('mousedown', (_event) =>

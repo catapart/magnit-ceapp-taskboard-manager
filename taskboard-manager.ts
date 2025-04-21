@@ -500,13 +500,8 @@ export class TaskboardManagerElement extends HTMLElement
 
         // loading
 
-        // addAdminHandlers.call(this);
-        // addNavigationhandlers.call(this);
-        // // addDragHandlers.call(this);
         // addBoardHandlers.call(this);
-        // addBoardSettingsHandlers.call(this);
-        // addBoardBrowserHandlers.call(this);
-        // addKeyHandlers.call(this);
+        addKeyHandlers.call(this);
         
 
         this.#addRouteHandlers();
@@ -1369,6 +1364,23 @@ export class TaskboardManagerElement extends HTMLElement
 
         return { windowPath, windowHash }
     }
+    #parseWindowPath_pwa()
+    {    
+        let windowPath = window.location.pathname;
+        if(windowPath.startsWith('/')) { windowPath = windowPath.substring(1); }
+        if(windowPath.startsWith('demo/app/')) { windowPath = windowPath.substring(10); }
+        else if(windowPath.startsWith('demo/app.html')) { windowPath = windowPath.substring(14); }
+        windowPath = windowPath.trim();
+
+        let windowHash = window.location.hash;
+        if(windowHash.startsWith('#')) { windowHash = windowHash.substring(1); }
+        windowHash = windowHash.trim();
+
+        
+
+        return { windowPath, windowHash }
+    }
+
     #canAddList()
     {
         const route = this.getElement('app-router').getAttribute('path');
@@ -1434,90 +1446,8 @@ export class TaskboardManagerElement extends HTMLElement
 
 
     // // boards
-    // // #createBoardMenuItem(boardRecord: TaskBoardRecord)
-    // // {
-    // //     const element = document.createElement('a');
-    // //     element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span><span part="board-item-name" class="board-item-name">${boardRecord.name}<span>`;
-    // //     // element.setAttribute('part', 'board-menu-item');
-    // //     element.classList.add('board-menu-item');
-    // //     element.dataset.route = `board/${boardRecord.id}`;
     
-    // //     const handle = element.querySelector('[part="menu-item-handle"]')!;
-    // //     handle.addEventListener('mousedown', (_event) =>
-    // //     {
-    // //         element.draggable = true;
-    // //     });
-    // //     handle.addEventListener('mouseup', (_event) =>
-    // //     {
-    // //         element.removeAttribute('draggable');
-    // //     });
-    // //     element.addEventListener('dragstart', (_event: DragEvent) => 
-    // //     {
-    // //         this.#draggingBoard = element;
-    // //         element.classList.add('dragging');
-    // //         this.classList.add('drop-target');
-    // //     });
-    // //     element.addEventListener('dragend', (_event: DragEvent) => 
-    // //     {
-    // //         element.classList.remove('dragging');
-    // //         this.#draggingBoard = null;
-    // //         this.classList.remove('drop-target');
-    // //     });
 
-    // //     return element;
-    // // }
-    // // #createBoardCollectionItem(boardRecord: TaskBoardRecord)
-    // // {
-    // //     const element = new CaptionedThumbnailElement();
-    // //     element.innerHTML = `<svg part="board-browser-icon" slot="icon">
-    // //         <use href="#icon-definition_task-board"></use>
-    // //     </svg>
-    // //     ${boardRecord.name}`;
-    // //     element.setAttribute('data-board-id', boardRecord.id);
-    // //     element.toggleAttribute('select', true);
-    // //     return element;
-    // // }
-    
-    // // async #updateBoardItemOrder(draggingCursorY: number)
-    // // {
-    // //     if(this.#draggingBoard == null)
-    // //     {
-    // //         return;
-    // //     }
-
-    // //     const boards = this.findElement('boards');
-    // //     const nextElement = this.#getNextBoardItem(draggingCursorY).boardElement;
-        
-    // //     // prevent unecessary re-renders; this can kill perf, if you don't guard here;
-    // //     // re-rendering by appending or inserting on every mouse-move is heavy;
-    // //     if(this.#draggingBoard.parentElement == boards && nextElement == this.#draggingBoard.nextElementSibling){ return; }
-
-
-    // //     if(nextElement == null)
-    // //     {
-    // //         boards.append(this.#draggingBoard);
-    // //     }
-    // //     else
-    // //     {
-    // //         boards.insertBefore(this.#draggingBoard, nextElement);
-    // //     }
-    // // }
-
-
-    // // #getNextBoardItem(mouseY: number)
-    // // {
-    // //     const lists = [...this.findElement('boards').querySelectorAll('a:not(.dragging)')] as HTMLElement[];
-    // //     return lists.reduce((closest: { offset: number, boardElement?:HTMLElement }, item: HTMLElement) =>
-    // //     {
-    // //         const boundingRect = item.getBoundingClientRect();
-    // //         const offset = mouseY - boundingRect.top - (boundingRect.height / 2);
-    // //         if(offset < 0 && offset > closest.offset)
-    // //         {
-    // //             return { offset, boardElement: item };
-    // //         }
-    // //         return closest;
-    // //     }, { offset: Number.NEGATIVE_INFINITY });
-    // // }
 
     
 

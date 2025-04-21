@@ -29,17 +29,6 @@ ${defineIcons(
 const COMPONENT_TAG_NAME = 'app-menu';
 export class AppMenuElement extends HTMLElement
 {
-    // componentParts: Map<string, HTMLElement> = new Map();
-    // getElement<T extends HTMLElement = HTMLElement>(id: string)
-    // {
-    //     if(this.componentParts.get(id) == null)
-    //     {
-    //         const part = this.findElement(id);
-    //         if(part != null) { this.componentParts.set(id, part); }
-    //     }
-
-    //     return this.componentParts.get(id) as T;
-    // }
     findElement<T extends HTMLElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
 
     #draggingBoard: HTMLElement|null = null;
@@ -331,8 +320,6 @@ export class AppMenuElement extends HTMLElement
     }
     //#endregion
     
-
-
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)
