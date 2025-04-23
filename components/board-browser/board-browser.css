@@ -6,7 +6,7 @@
     grid-template-columns: auto 1fr auto;
     gap: 7px;
     align-items: center;
-    padding: 7px 0;
+    padding-bottom: 1em;
 }
 
 #board-browser-title
@@ -28,15 +28,21 @@ collection-browser
 collection-browser::part(navigation)
 ,collection-browser::part(gallery-header)
 {
-    display: none;
+    border: none;
 }
 
 collection-browser::part(items)
 {
     gap: .5em;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     padding: 7px 0;
     overflow: hidden auto;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    /* margin: 0 auto; */
+    justify-content: center;
+    justify-items: center;
 }
 
 collection-browser::part(add-button)
@@ -50,7 +56,7 @@ collection-browser::part(add-button)
     align-items: center;
     justify-content: flex-end;
     gap: 14px;
-    padding: 7px 0;
+    padding-top: 1em;
 }
 
 #board-browser-actions button

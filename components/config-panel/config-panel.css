@@ -11,7 +11,7 @@
     height: var(--tab-icon-size);
 }
 
-#board-settings-header
+#config-header
 {
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -19,27 +19,6 @@
     align-items: center;
     font-weight: bold;
     padding-bottom: 1em;
-}
-#board-settings-icon
-{
-    width: var(--dialog-header-icon-size);
-    height: var(--dialog-header-icon-size);
-}
-
-#board-settings-form
-{
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-#config-header
-{
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px 0;
-    font-weight: bold;
 }
 
 #config-title
@@ -78,7 +57,7 @@
 
 @media (max-width: 665px) 
 {
-    #navigation
+    #config-navigation
     {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -120,10 +99,11 @@
 
 #config-actions
 {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     gap: 14px;
-    padding: 7px 0;
+    padding-top: 1em;
 }
 
 .button

@@ -20,6 +20,23 @@
     align-items: center;
 }
 
+#shortcuts
+{
+    display: grid;
+    gap: 14px;
+}
+
+.shortcut
+{
+    display: grid;
+    gap: 7px;
+}
+
+.shortcut-description
+{
+    margin-left: 7px;
+}
+
 .key
 {
     background-color: #eee;

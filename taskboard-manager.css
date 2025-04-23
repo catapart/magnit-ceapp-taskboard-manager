@@ -226,6 +226,11 @@ message-card::part(message)
         display: none;
     }
 
+    #app-router route-page
+    {
+        width: 100vw;
+    }
+
     task-board::part(lists)
     {
         scroll-snap-type: x mandatory;

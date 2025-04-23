@@ -175,6 +175,15 @@
 }
 @media (max-width: 665px) 
 {
+    :host
+    {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+    }
+    :host > *
+    {
+        grid-column: 1;
+    }
 
     #import-fieldset
     {
