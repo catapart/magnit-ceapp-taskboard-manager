@@ -151,6 +151,11 @@ export abstract class DataService
         const taskLists = this.#getChannel<TaskListChannel>(this.#data.lists, ErrorMessageType.LIST);
         return taskLists.create(list, settings);
     }
+    static async getListRecord(id: string)
+    {
+        const channel = DataService.#getChannel<TaskListChannel>(DataService.data.lists, ErrorMessageType.LIST);
+        return channel.get(id);
+    }
     static async saveListRecords(...items: TaskListRecord[])
     {
         if(items.length == 0) { return; }
@@ -167,7 +172,7 @@ export abstract class DataService
     }
     //#endregion Lists
 
-    //#region Tasks
+    //#region Task Settings
     static async getTaskSettingsRecords(...ids: string[])
     {
         if(ids.length == 0) { return []; }
@@ -186,6 +191,40 @@ export abstract class DataService
 
         const channel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageType.SETTINGS);
         return channel.saveItems(items);
+    }
+    //#endregion Task Settings
+
+    //#region Tasks
+    static async createTask(boardId: string, listId: string)
+    {
+        const tasks = this.#getChannel<TaskChannel>(this.#data.tasks, ErrorMessageType.TASK);
+        return tasks.create(boardId, listId);
+    }
+    static async getTaskRecord(id: string)
+    {
+        const channel = DataService.#getChannel<TaskChannel>(DataService.data.tasks, ErrorMessageType.TASK);
+        return channel.get(id);
+    }
+    static async getTaskRecords(...ids: string[])
+    {
+        if(ids.length == 0) { return []; }
+
+        const channel = DataService.#getChannel<TaskChannel>(DataService.data.tasks, ErrorMessageType.TASK);
+        return (await channel.getItems(ids)).filter(item => item.deletedTimestamp == null);
+    }
+    static async saveTaskRecords(...items: TaskRecord[])
+    {
+        if(items.length == 0) { return; }
+
+        const channel = DataService.#getChannel<TaskChannel>(DataService.data.tasks, ErrorMessageType.TASK);
+        return channel.saveItems(items);
+    }
+    static async deleteTaskRecords(...ids: string[])
+    {
+        if(ids.length == 0) { return; }
+
+        const channel = DataService.#getChannel<TaskChannel>(DataService.data.tasks, ErrorMessageType.TASK);
+        return channel.deleteItems(ids);
     }
     //#endregion Tasks
 

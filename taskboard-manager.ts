@@ -8,7 +8,7 @@ import componentStyle from './taskboard-manager.css?raw';
 // html
 import html from './taskboard-manager.html?raw';
 // icons
-import { defineIcons, Icons, IconType } from './assets/icons/icons.asset';
+import { defineIcons, IconType } from './assets/icons/icons.asset';
 
 // component definitions
 import './components/import-manager/import-manager.component';
@@ -34,114 +34,35 @@ import '@magnit-ce/form-field';
 import '@magnit-ce/action-history';
 import '@magnit-ce/record-tree';
 import '@magnit-ce/message-card';
-// // components
-// // data
-import { TaskboardManagerElementData } from './data/data';
-import { BoardChannel } from './data/channels/board.channel';
-import { TaskListChannel } from './data/channels/task-list.channel';
-import { TaskChannel } from './data/channels/task.channel';
-import { CustomImageChannel } from './data/channels/custom-image.channel';
-// // records
+
 import { TaskRecord } from './data/records/task.record';
 import { TaskListColorDisplay, TaskListRecord } from './data/records/task-list.record';
 import { TaskColorDisplay, TaskSettingsRecord } from './data/records/task-settings.record';
 import { BoardExport } from './data/foreign/exported-board';
-import { ListExport } from './data/foreign/exported-list';
-import { ImageExport } from './data/foreign/exported-image';
-import { DataRecord } from 'record-setter';
 import { TaskBoardRecord } from './data/records/task-board.record';
-import { HistoryEntryData, HistoryEntryTargetType, BasicActionProperties, PropertyUpdate } from './data/history/history-entry-data';
-import { PropertiesType } from './data/history/history-entry-data';
+import { HistoryEntryTargetType, PropertyUpdate } from './data/history/history-entry-data';
 import { ListActionProperties } from './data/history/list-action-properties';
 import { CustomImageActionProperties } from './data/history/custom-image-action-properties';
-import { DataChannel } from './data/channels/data.channel';
-// import { addAdminHandlers } from './handlers/admin.handlers';
-// import { addNavigationhandlers } from './handlers/navigation.handlers';
-// import { addBoardBrowserHandlers } from './handlers/board-browser.handlers';
-// import { parseWindowPath } from './handlers/route.handlers';
-import { addBoardHandlers, taskDescription_onKeyUp } from './handlers/board.handlers';
-// import { addDragHandlers } from './handlers/drag.handlers';
-// import { addBoardSettingsHandlers } from './handlers/board-settings.handlers';
 import { TaskListElement } from '@magnit-ce/task-list';
 import { TaskCardElement } from '@magnit-ce/task-card';
 import { PathRouterElement, RoutePageElement} from '@magnit-ce/path-router';
-import { CaptionedThumbnailElement } from '@magnit-ce/captioned-thumbnail';
-import { EditableListElement } from '@magnit-ce/editable-list';
 import { MessageCardElement, MessageCardEvent, MessageCardType } from '@magnit-ce/message-card';
 import { TaskBoardElement } from '@magnit-ce/task-board';
-import { CustomImageRecord } from './data/records/custom-image.record';
-import { ActionHistoryElement, ATTRIBUTENAME_ACTIVE, ATTRIBUTENAME_REVERSED, HistoryEntryType } from '@magnit-ce/action-history';
-import { HistoryEntryRecord } from './data/records/history-entry.record';
+import { ActionHistoryElement, HistoryEntryType } from '@magnit-ce/action-history';
 import { ImportManagerComponent } from './components/import-manager/import-manager.component';
-import { HistoryEntryChannel } from './data/channels/history-entry.channel';
-import { addKeyHandlers } from './handlers/key.handlers';
-import { FileImageInputElement } from '@magnit-ce/fileimage-input';
+import { addKeyHandlers } from './resources/key.handlers';
 import { AppMenuElement } from './components/app-menu/app-menu';
 import { WelcomePanelElement } from './components/welcome-panel/welcome-panel';
-import { RecentBoardData } from './data/types/recent-board-data.type';
 import { BoardBrowserElement } from './components/board-browser/board-browser';
 import { BoardSettingsElement } from './components/board-settings/board-settings';
 import { ConfigPanelElement } from './components/config-panel/config-panel';
-import { HistoryPanelElement } from './components/config-panel/history-panel/history-panel';
 import { AppSettingKey, DataService, MILLISECONDSINDAY } from './data/data.service';
-import { FeedbackService, ErrorMessageType } from './feedback.service';
+import { FeedbackService } from './feedback.service';
 import { ColorScheme } from './components/config-panel/settings-panel/settings-panel';
-
-// export type TaskboardManagerProperties = 
-// {
-//     // remove?: boolean,
-//     // edit?: boolean,
-//     // onAdd?: (event?: Event) => void|Promise<void>,
-//     // onRemove?: (event?: Event) => void|Promise<void>,
-//     // onEdit?: (event?: Event) => void|Promise<void>,
-// };
-
-
 
 
 const DEFAULT_APP_VERSION = "--.--.--";
 
-
-
-/** Helper const for accessing component-specific methods and properties
-* used to make development possible across multiple modular files.  
-* Not suited for interacting with the component  */
-export const SHAREDACCESSKEY = Symbol('SHAREDACCESSKEY');
-/** Helper type for accessing component-specific methods and properties
-* used to make development possible across multiple modular files.  
-* Not suited for interacting with the component  */
-// type SharedContent =
-// { 
-//     data: TaskboardManagerElementData,
-//     refreshBoards: () => Promise<void>,
-//     refreshActionHistory: () => Promise<void>,
-//     refreshDeletedItems: () => Promise<void>,
-//     saveAppSetting: (key: string, value: string|number|boolean|Blob|null) => Promise<void>,
-//     // restoreDeletedItem: (targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number) => void,
-//     // handleActionEntryReverse: (targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number) => void,
-//     // handelActionEntryActivate: (targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number) => void,
-//     // prepareHistoryEntries: () => void,
-//     // applyHistoryLength: () => Promise<void>,
-
-//     renderBoard: (id: string) => void,
-//     updateBoardSettings: () => void,
-//     updateRecentBoardEntry: (id: string, description?: string) => Promise<void>,
-//     removeBoardFromRecentBoards: (id: string) => Promise<void>,
-
-//     updateListRecord: (taskListComponent: TaskListElement) => void,
-//     duplicateList: (target: HTMLElement, list: TaskListRecord, settings: TaskSettingsRecord) => void,
-
-//     registerTaskCard: (card: TaskCardElement, listId: string, order: number) => void,
-//     updateTaskRecord: (taskComponent: TaskCardElement, parentList: TaskListElement) => void,
-//     deleteTaskRecord: (taskComponent: TaskCardElement) => void,
-//     updateTaskRecordsAfterMove: (target: TaskCardElement, parent: TaskListElement) => void,
-
-//     openImportManager: (data: any) => void,
-
-//     getConfirmation: (message: string, type: 'info'|'warn'|'danger') => Promise<boolean>,
-//     getIdFromRoute: () => string,
-
-// }
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
@@ -152,8 +73,6 @@ ${componentStyle}`);
 
 
 
-// const COMPONENT_TEMPLATE = `${html}
-// ${defineIcons()}`;
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
     IconType.LogoMark,
@@ -168,10 +87,6 @@ ${defineIcons(
 const COMPONENT_TAG_NAME = 'taskboard-manager';
 export class TaskboardManagerElement extends HTMLElement
 {
-    static observedAttributes = [
-        
-    ];
-
     componentParts: Map<string, HTMLElement> = new Map();
     getElement<T extends HTMLElement|RoutePageElement = HTMLElement>(id: string)
     {
@@ -185,12 +100,7 @@ export class TaskboardManagerElement extends HTMLElement
     }
     findElement<T extends HTMLElement|RoutePageElement = HTMLElement>(id: string) { return this.shadowRoot!.getElementById(id) as T; }
 
-    // initPromise?: Promise<void>;
-
     #customImageUrls: Map<string,string> = new Map();
-
-    /** Exposes "shared" private functions/properties to external modules. */
-    // [SHAREDACCESSKEY]!: SharedContent;
 
     constructor()
     {
@@ -202,7 +112,6 @@ export class TaskboardManagerElement extends HTMLElement
         const autoLaunch = this.getAttribute('autolaunch') != 'false';
         if(autoLaunch == true)
         {
-            // this.initPromise = this.#init();
             this.#init();
         }
     }
@@ -215,7 +124,6 @@ export class TaskboardManagerElement extends HTMLElement
     */
     init()
     {
-        // this.initPromise = this.#init();
         return this.#init();
     }
     setColorScheme(scheme: ColorScheme)
@@ -308,8 +216,7 @@ export class TaskboardManagerElement extends HTMLElement
         const board = await DataService.getBoardRecord(id);
         if(board == null)
         {
-            MessageCardElement.notify(`No board found with the target id (${id}).`, 
-            this.getElement('notifications'), { type: MessageCardType.Error });
+            FeedbackService.showErrorMessageCard(`No board found with the target id (${id}).`);
             console.warn(`No board found with the target id (${id}).`);
             return;
         }
@@ -322,8 +229,7 @@ export class TaskboardManagerElement extends HTMLElement
         
         if(boardTaskSettings == null)
         {
-            MessageCardElement.notify(`An error occurred accessing task settings data.`, 
-            this.getElement('notifications'), { type: MessageCardType.Error });
+            FeedbackService.showErrorMessageCard(`An error occurred accessing task settings data.`);
             console.warn(`An error occurred accessing task settings data.`);
             return;
         }
@@ -411,26 +317,6 @@ export class TaskboardManagerElement extends HTMLElement
     //     this.findElement<ConfigPanelElement>('config-panel').history_clear();
     // }
     //#endregion API
-    
-
-    // // async addTask(listId: string)
-    // // {
-    // //     const list = this.shadowRoot!.querySelector(`task-list[data-tasklist-id="${listId}"]`);
-    // //     if(list == null)
-    // //     {
-    // //         this.#showMessageDialog('An error occurred creating a new task.', 'danger');
-    // //         console.error(`An error occurred accessing task-list element. Unable to save new task.`);
-    // //         return;
-    // //     }
-
-    // //     const newCard = new TaskCardElement();
-    // //     list.append(newCard);
-    // //     newCard.findPart('description').focus();
-    // // }
-
-
-    
-
 
     //#region Internal
     async #init()
@@ -500,12 +386,9 @@ export class TaskboardManagerElement extends HTMLElement
 
         // loading
 
-        // addBoardHandlers.call(this);
+        this.#addBoardHandlers();
         addKeyHandlers.call(this);
-        
-
         this.#addRouteHandlers();
-        // this.addEventListener('click', this.#onClick.bind(this))
 
         await this.#handleInitialNavigation(boardsPromise);
 
@@ -597,7 +480,9 @@ export class TaskboardManagerElement extends HTMLElement
         card.setAttribute('part', 'task-card');
         card.setAttribute('exportparts', "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator, button, input, finished");
         card.style.setProperty('--task-color', task.color);
-        // card.findElement('description').addEventListener('keyup', taskDescription_onKeyUp.bind(this));
+        const description = card.findElement('description')
+        description.addEventListener('keyup', this.#taskDescription_onKeyUp.bind(this));
+        description.focus();
     }
 
     async #openImportManager(data: any)
@@ -729,8 +614,7 @@ export class TaskboardManagerElement extends HTMLElement
             const entry = this.getElement<ActionHistoryElement>('action-history').querySelector(`[data-entry-id="${entryId}"]`) as HTMLElement;
             if(entry == null)
             {
-                MessageCardElement.notify(`An error occurred restoring a record. The record was not restored`,
-                this.findElement('notifications'), { type: MessageCardType.Error });
+                FeedbackService.showErrorMessageCard(`An error occurred restoring a record. The record was not restored`);
                 return;
             }
             this.getElement<ActionHistoryElement>('action-history').reverseEntry(entry);
@@ -738,6 +622,203 @@ export class TaskboardManagerElement extends HTMLElement
             notification.remove();
         });
         notification.show();
+    }
+
+
+    async #updateListRecord(taskListComponent: TaskListElement)
+    {
+        const id = taskListComponent.dataset.tasklistId;
+        if(id == null)
+        {
+            FeedbackService.showErrorMessageCard(`An error occurred saving a task list.`);
+            throw new Error("Unable to update tasklist with unset \'data-tasklist-id\' attribute");
+        }
+        const taskList = await DataService.getListRecord(id);
+        if(taskList == null)
+        {
+            FeedbackService.showErrorMessageCard(`An error occurred saving a task list.`);
+            throw new Error(`Unable to update tasklist. No tasklist found with target id (${id}).`);
+        }
+
+        const listPreviousName = taskList.name;
+        const inputNameValue = taskListComponent.findElement<HTMLInputElement>('name').value;
+        const listPreviousColor = taskList.color;
+        const inputColorValue = taskListComponent.findElement<HTMLInputElement>('color').value;
+
+        taskList.name = inputNameValue;
+        taskList.color = inputColorValue;
+
+        DataService.saveListRecords(taskList);
+
+        const updates: Map<string, PropertyUpdate> = new Map();
+        if(listPreviousName != taskList.name)
+        {
+            updates.set('name', { from: listPreviousName, to: taskList.name })
+        }
+        if(listPreviousColor != taskList.color)
+        {
+            updates.set('color', { from: listPreviousColor, to: taskList.color })
+        }
+
+        const properties: ListActionProperties = {
+            id: taskList.id,
+            updates
+        };
+
+        await this.findElement<ConfigPanelElement>('config-panel').addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.List, properties);
+    }
+    async #updateTaskRecord(taskComponent: TaskCardElement, parentList: TaskListElement)
+    {
+        // const channel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
+
+        const listId = parentList.dataset.tasklistId;
+        if(listId == null)
+        {
+            FeedbackService.showErrorMessageCard(`An error occurred saving a task.`);
+            throw new Error('Unable to update task when parent list\'s data-tasklist-id attribute is not available.');
+        }
+
+        const task = await this.#getTaskFromComponent(taskComponent);
+
+        const previousValues = structuredClone(task);
+
+        task.listId = listId;
+        task.color = taskComponent.findElement<HTMLInputElement>('color').value;
+        task.isFinished = taskComponent.findElement<HTMLInputElement>('is-finished').checked;
+        task.description = taskComponent.value ?? "";
+        
+        const tasks = [...parentList.querySelectorAll('task-card')] as TaskCardElement[];
+        task.order = tasks.indexOf(taskComponent);
+        if(task.order == -1)
+        {
+            console.warn('Unable to find index of task in parent list');
+            task.order = tasks.length;
+        }
+
+        await DataService.saveTaskRecords(task);
+
+        const diff: { [key: string]: string|number|boolean } = Object.fromEntries(Object.entries(previousValues)
+        .filter(([key, value]) => value !== (task as unknown as any)[key]));
+
+        const updates: Map<string, PropertyUpdate> = new Map();
+        for(const [key, value] of Object.entries(diff))
+        {
+            updates.set(key, { from: value, to: (task as unknown as any)[key] });
+        }
+
+        const properties: ListActionProperties = {
+            id: task.id,
+            updates
+        };
+
+        await this.findElement<ConfigPanelElement>('config-panel').addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.Task, properties);
+    }
+    async #registerTaskCard(card: TaskCardElement, listId: string, order: number)
+    {
+        const errorMessage = 'An error occured creating a new Task. Refreshing the application may help. If the problem persists, more detail can be found in your browsers development tools.';
+        if(listId == null)
+        {
+            FeedbackService.showErrorMessageCard(errorMessage);
+            throw new Error('Unable to add task when parent list\'s data-tasklist-id attribute is undefined.');
+        }
+        const boardId = this.findElement('task-board').dataset.boardId;
+        if(boardId == null)
+        {
+            FeedbackService.showErrorMessageCard(errorMessage);
+            throw new Error('Unable to add task when parent boards\'s data-board-id attribute is undefined.');
+        }
+
+        const task = await this.#addTaskRecord(boardId, listId, order);
+        if(task == undefined)
+        {
+            return;
+        }
+        this.#initTaskCard(card, task);
+    }
+    async #addTaskRecord(boardId: string, listId: string, order: number)
+    {
+        const task = await DataService.createTask(boardId, listId);
+        task.order = order;
+        await DataService.saveTaskRecords(task);
+
+        this.findElement<ConfigPanelElement>('config-panel').addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Task, { id: task.id });
+
+        return task;
+    }
+    async #deleteTaskRecord(taskComponent: TaskCardElement)
+    {
+        // const channel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
+        const id = taskComponent.dataset.taskId;
+        if(id == null)
+        {
+            FeedbackService.showErrorMessageCard(`An error occurred deleting a task.`);
+            throw new Error('Unable to delete task when task\'s data-task-id attribute is not available.');
+        }
+
+        await DataService.deleteTaskRecords(id);
+
+        const entry = await this.findElement<ConfigPanelElement>('config-panel').addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Task, { id });
+        if(entry != null)
+        {
+            this.#addUndoNotification("A task was just deleted", entry.getAttribute('data-entry-id')!);
+        }
+    }
+    async #updateTaskRecordsAfterMove(target: TaskCardElement, parent: TaskListElement)
+    {
+        await this.#updateTaskRecord(target, parent);
+
+        if(DataService.data.tasks == null)
+        {
+            FeedbackService.showErrorMessageCard(`An error occurred moving a task.`);
+            console.warn(`An error occurred accessing task data. Unable to save task order.`);
+            return;
+        }
+
+        const toSave = await this.#getOrderedTasks(parent);
+        await DataService.saveTaskRecords(...toSave); 
+    }
+    async #getOrderedTasks(tasklist: TaskListElement)
+    {
+        // const channel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
+
+        const orderedIds: string[] = [];
+        const taskItems = [...tasklist.querySelectorAll('task-card')] as HTMLElement[];
+        for(let i = 0; i < taskItems.length; i++)
+        {
+            const item = taskItems[i];
+            const id = item.getAttribute('data-task-id')!;
+            if(id == null) { throw new Error('Unset task id'); }
+            orderedIds.push(id);
+        }
+
+        const tasks = await DataService.getTaskRecords(...orderedIds);
+
+        const orderedTasks = [];
+        for(let i = 0; i < orderedIds.length; i++)
+        {
+            const board = tasks[tasks.findIndex(value => value.id == orderedIds[i])];
+            if(board == null) { throw new Error("Unknown task"); }
+            board.order = i;
+            orderedTasks.push(board);
+        }
+
+        return orderedTasks;
+    }
+    async #getTaskFromComponent(taskComponent: TaskCardElement)
+    {
+        const id = taskComponent.dataset.taskId;
+        if(id == null)
+        {
+            FeedbackService.showErrorMessageCard(`An error occurred identifying a task.`);
+            throw new Error("Unable to update task with unset \'data-tasklist-id\' attribute");
+        }
+        const task = await DataService.getTaskRecord(id);
+        if(task == null)
+        {
+            FeedbackService.showErrorMessageCard(`An error occurred identifying a task.`);
+            throw new Error(`Unable to update task. No task found with target id (${id}).`);
+        }
+        return task;
     }
     //#endregion Management
 
@@ -748,8 +829,7 @@ export class TaskboardManagerElement extends HTMLElement
         if(board == null)
         {
             this.findElement<PathRouterElement>('app-router').navigate('/');
-            MessageCardElement.notify(`No board found with the target id (${id}). Navigated back to Welcome page.`, 
-            this.getElement('notifications'), { type: MessageCardType.Warn });
+            FeedbackService.showMessageCard(`No board found with the target id (${id}). Navigated back to Welcome page.`, MessageCardType.Warn);
             console.warn(`No board found with the target id (${id}). Navigated back to Welcome page.`);
             return;
         }
@@ -793,8 +873,7 @@ export class TaskboardManagerElement extends HTMLElement
                 const backgroundImage = await DataService.getImageRecord(board.backgroundImageId);
                 if(backgroundImage == null)
                 {
-                    MessageCardElement.notify(`No image found with the target id (${board.backgroundImageId}).`, 
-                    this.getElement('notifications'), { type: MessageCardType.Warn });
+                    FeedbackService.showMessageCard(`No image found with the target id (${board.backgroundImageId}).`, MessageCardType.Warn);
                     throw new Error(`Unable to find background image from id: ${board.backgroundImageId}`);
                 }
                 if(backgroundImage.image == null) { throw new Error(`Cannot load custom image with null image property.`); }
@@ -846,8 +925,7 @@ export class TaskboardManagerElement extends HTMLElement
         const boardId = board.dataset.boardId;
         if(boardId == null)
         {
-            MessageCardElement.notify(`An error occurred loading the board. Navigated back to Welcome page.`, 
-            this.getElement('notifications'), { type: MessageCardType.Error });
+            FeedbackService.showErrorMessageCard(`An error occurred loading the board. Navigated back to Welcome page.`);
             console.error(new Error('Unable to add task when parent boards\'s data-board-id attribute is undefined.'));
             return;
         }
@@ -862,8 +940,7 @@ export class TaskboardManagerElement extends HTMLElement
             const settings = taskSettings.find(item => item.id == list.taskSettingsId);
             if(settings == null)
             {
-                MessageCardElement.notify(`An error occurred loading a list's settings. Some settings may not be displayed properly.`, 
-                this.getElement('notifications'), { type: MessageCardType.Warn });
+                FeedbackService.showMessageCard(`An error occurred loading a list's settings. Some settings may not be displayed properly.`, MessageCardType.Warn);
                 console.warn(new Error(`Unable to find settings from list's taskSettingsId.`));
             }
             const element = new TaskListElement();
@@ -1250,41 +1327,6 @@ export class TaskboardManagerElement extends HTMLElement
             menuItem.part.toggle('selected', true);
             menuItem.classList.toggle('selected', true);
         }
-    
-    
-    
-    
-        // if(!this.hasAttribute('update-url')) { return; }
-        // const data = (event as CustomEvent).detail;
-        // // console.log(data);
-    
-        // const { windowPath, windowHash } = parseWindowPath();
-    
-        // let [routePath, routeHash] = this.findPart<PathRouterElement>('app-router').destructurePath(data.path);
-        // if(routePath.startsWith('/')) { routePath = routePath.substring(1); }
-        // routePath = routePath.trim();
-        // if(routeHash.startsWith('#')) { routeHash = routeHash.substring(1); }
-        // routeHash = routeHash.trim();
-    
-        // if(windowPath == routePath && windowHash == routeHash)
-        // {
-        //     // don't update the url if we've
-        //     // gone back to the same page
-        //     return;
-        // }
-        
-        // const newLocation = `${window.location.origin}/${routePath}${(routeHash != '') ? `#${routeHash}` : ''}${window.location.search}`;
-        // if(windowHash != '' && routeHash != '')
-        // {
-        //     // replace the url if only the hash changes
-        //     // otherwise back will cycle through every
-        //     // popup instead of just closing the dialog
-        //     window.history.replaceState(null, '', newLocation);
-        //     return;
-        // }
-    
-        // // console.log(newLocation);
-        // window.history.pushState(null, '', newLocation);
     }
     #boardRoute_beforeOpen(event: Event|CustomEvent)
     {
@@ -1292,8 +1334,7 @@ export class TaskboardManagerElement extends HTMLElement
         const boardId = data.properties.id;
         if(boardId == null)
         {
-            MessageCardElement.notify(`An error occurred attempting to open the board.`, 
-            this.getElement('notifications'), { type: MessageCardType.Error });
+            FeedbackService.showErrorMessageCard(`An error occurred attempting to open the board.`);
             throw new Error('Unable to open board route with unknown id');
         }
         this.#renderBoard(boardId);
@@ -1305,8 +1346,7 @@ export class TaskboardManagerElement extends HTMLElement
         const properties = await router.getRouteProperties();
         if(properties.id == null)
         {
-            MessageCardElement.notify(`An error occurred attempting to open the board for editing.`, 
-            this.getElement('notifications'), { type: MessageCardType.Error });
+            FeedbackService.showErrorMessageCard(`An error occurred attempting to open the board for editing.`);
             throw new Error('Unable to determine the selected board\'s id');
         }
 
@@ -1318,6 +1358,99 @@ export class TaskboardManagerElement extends HTMLElement
         await this.importBoard(boardData);
 
         this.refreshBoardCollections();
+    }
+
+
+    #addBoardHandlers(this: TaskboardManagerElement)
+    {
+        const board = this.findElement<TaskBoardElement>('task-board');    
+        board.addEventListener('change', this.#taskBoard_onChange.bind(this));
+        board.addEventListener('collapse', this.#taskBoard_onListCollapse.bind(this));
+        board.addEventListener('add', this.#taskBoard_onTaskAdd.bind(this));
+        board.addEventListener('remove', this.#taskBoard_onTaskRemove.bind(this));
+        board.addEventListener('added', this.#taskBoard_onTaskMove.bind(this));
+    }
+
+    #taskBoard_onChange(this: TaskboardManagerElement, event: Event|CustomEvent)
+    {
+        if(event.target instanceof TaskCardElement)
+        {
+            this.#taskBoard_onTaskChange.call(this, event);
+        }
+        else if(event.target instanceof TaskListElement)
+        {
+            const { detail } = event as CustomEvent;
+            if(detail.order != null)
+            {
+                this.#taskBoard_onTaskMove.call(this, event);
+            }
+            this.#taskBoard_onListChange.call(this, event);
+        }
+    }
+    #taskBoard_onListChange(this: TaskboardManagerElement, event: Event|CustomEvent)
+    {
+        this.#updateListRecord(event.target as TaskListElement);
+    }
+    #taskBoard_onListCollapse(this: TaskboardManagerElement, event: Event|CustomEvent)
+    {
+        console.log(event.target);
+    }
+    #taskBoard_onTaskChange(this: TaskboardManagerElement, event: Event|CustomEvent)
+    {
+        const cardElement = (event.target as TaskCardElement);
+        const listElement = cardElement.closest('task-list') as TaskListElement;
+        if(listElement == null)
+        {
+            FeedbackService.showErrorMessageCard(`An error occurred updating a task.`);
+            console.error(new Error("Unable to identify a parent task-list element for an updated task-card element.."));
+            return;
+        }
+        this.#updateTaskRecord(cardElement, listElement);
+        cardElement.style.setProperty('--task-color', cardElement.findElement<HTMLInputElement>('color').value);
+    }
+    #taskBoard_onTaskAdd(this: TaskboardManagerElement, event: Event|CustomEvent)
+    {
+        const list = event.target as TaskListElement;
+        const listId = list.dataset.tasklistId!;
+        const card = new TaskCardElement();
+        list.append(card);
+        const data = (event as CustomEvent).detail;
+        this.#registerTaskCard(card, listId, data.order);
+    }
+
+    #taskBoard_onTaskRemove(this: TaskboardManagerElement, event: Event|CustomEvent)
+    {
+        const card = (event.target as HTMLElement).closest('task-card') as TaskCardElement;
+        card.remove();
+        this.#deleteTaskRecord(card);
+    }
+    #taskBoard_onTaskMove(this: TaskboardManagerElement, event: Event|CustomEvent)
+    {
+        const { detail } = event as CustomEvent;
+        const cardElement = (detail.target as TaskCardElement);
+        const listElement = event.target as TaskListElement;
+        this.#updateTaskRecordsAfterMove(cardElement, listElement);
+    }
+    #taskDescription_onKeyUp(this: TaskboardManagerElement, event: KeyboardEvent)
+    {
+        if(event.code != 'Enter' || (event.shiftKey == false && event.ctrlKey == false))
+        {
+            return;
+        }
+        const list = ((event.target as HTMLElement).getRootNode() as any).host.parentElement;
+        const listId = list?.dataset.tasklistId;
+        if(list == null || listId == null)
+        {
+            FeedbackService.showErrorMessageCard(`An error occurred creating a new task.`);
+            console.error(new Error("List data not found."));
+            return;
+        }
+        const card = new TaskCardElement();
+        list.append(card);
+        this.#registerTaskCard(card, listId, list.children.length);
+        
+        list.append(card);
+        card.findElement('description').focus();
     }
 
     //#endregion Handler
@@ -1399,327 +1532,6 @@ export class TaskboardManagerElement extends HTMLElement
     //#endregion Utilities
 
     //#endregion Internal
-
-
-    // #registerSharedData()
-    // {
-    //     this[SHAREDACCESSKEY] = 
-    //     {
-    //         data: this.#data,
-
-    //         refreshBoards: this.#refreshBoards.bind(this),
-    //         refreshActionHistory: this.#refreshActionHistory.bind(this),
-    //         refreshDeletedItems: this.#refreshDeletedItems.bind(this),
-
-    //         saveAppSetting: this.#saveAppSetting.bind(this),
-
-    //         // restoreDeletedItem: this.#restoreDeletedItem.bind(this),
-
-    //         // handleActionEntryReverse: this.#handleActionEntryReverse.bind(this),
-    //         // handelActionEntryActivate: this.#handelActionEntryActivate.bind(this),
-    //         // prepareHistoryEntries: this.#prepareHistoryEntries.bind(this),
-    //         // applyHistoryLength: this.#applyHistoryLength.bind(this),
-
-    //         renderBoard: this.#renderBoard.bind(this),
-    //         updateBoardSettings: this.#updateBoardSettings.bind(this),
-    //         // updateBoardItemOrder: this.#updateBoardItemOrder.bind(this),
-
-    //         updateListRecord: this.#updateListRecord.bind(this),
-    //         duplicateList: this.#duplicateList.bind(this),
-    //         // updateBoardRecordsAfterMove: this.#updateBoardRecordsAfterMove.bind(this),
-    //         updateRecentBoardEntry: this.#updateRecentBoardEntry.bind(this),
-    //         removeBoardFromRecentBoards: this.#removeBoardFromRecentBoards.bind(this),
-
-    //         registerTaskCard: this.#registerTaskCard.bind(this),
-    //         updateTaskRecord: this.#updateTaskRecord.bind(this),
-    //         updateTaskRecordsAfterMove: this.#updateTaskRecordsAfterMove.bind(this),
-    //         deleteTaskRecord: this.#deleteTaskRecord.bind(this),
-
-    //         openImportManager: this.#openImportManager.bind(this),
-
-    //         getConfirmation: this.#getConfirmation.bind(this),
-    //         getIdFromRoute: this.#getIdFromRoute.bind(this),
-
-    //     }
-    // }
-    
-
-
-    // // boards
-    
-
-
-    
-
-    // // lists
-
-    // async #updateListRecord(taskListComponent: TaskListElement)
-    // {
-    //     const lists = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, 'danger');
-
-    //     const id = taskListComponent.dataset.tasklistId;
-    //     if(id == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred saving a task list.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error("Unable to update tasklist with unset \'data-tasklist-id\' attribute");
-    //     }
-    //     const taskList = await lists.get(id);
-    //     if(taskList == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred saving a task list.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error(`Unable to update tasklist. No tasklist found with target id (${id}).`);
-    //     }
-
-    //     const listPreviousName = taskList.name;
-    //     const inputNameValue = taskListComponent.findElement<HTMLInputElement>('name').value;
-    //     const listPreviousColor = taskList.color;
-    //     const inputColorValue = taskListComponent.findElement<HTMLInputElement>('color').value;
-
-    //     taskList.name = inputNameValue;
-    //     taskList.color = inputColorValue;
-
-    //     await lists.save(taskList);
-
-    //     const updates: Map<string, PropertyUpdate> = new Map();
-    //     if(listPreviousName != taskList.name)
-    //     {
-    //         updates.set('name', { from: listPreviousName, to: taskList.name })
-    //     }
-    //     if(listPreviousColor != taskList.color)
-    //     {
-    //         updates.set('color', { from: listPreviousColor, to: taskList.color })
-    //     }
-
-    //     const properties: ListActionProperties = {
-    //         id: taskList.id,
-    //         updates
-    //     };
-
-    //     await this.#addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.List, properties);
-    // }
-    
-
-    // // tasks
-    // async #getOrderedTasks(tasklist: TaskListElement)
-    // {
-    //     const channel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-
-    //     const orderedIds: string[] = [];
-    //     const taskItems = [...tasklist.querySelectorAll('task-card')] as HTMLElement[];
-    //     for(let i = 0; i < taskItems.length; i++)
-    //     {
-    //         const item = taskItems[i];
-    //         const id = item.getAttribute('data-task-id')!;
-    //         if(id == null) { throw new Error('Unset task id'); }
-    //         orderedIds.push(id);
-    //     }
-
-    //     const tasks = await channel.getItems(orderedIds);
-
-    //     const orderedTasks = [];
-    //     for(let i = 0; i < orderedIds.length; i++)
-    //     {
-    //         const board = tasks[tasks.findIndex(value => value.id == orderedIds[i])];
-    //         if(board == null) { throw new Error("Unknown task"); }
-    //         board.order = i;
-    //         orderedTasks.push(board);
-    //     }
-
-    //     return orderedTasks;
-    // }
-    // async #getTaskFromComponent(taskComponent: TaskCardElement)
-    // {
-    //     const channel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-    //     const id = taskComponent.dataset.taskId;
-    //     if(id == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred identifying a task.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error("Unable to update task with unset \'data-tasklist-id\' attribute");
-    //     }
-    //     const task = await channel.get(id);
-    //     if(task == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred identifying a task.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error(`Unable to update task. No task found with target id (${id}).`);
-    //     }
-    //     return task;
-    // }
-
-    // async #registerTaskCard(card: TaskCardElement, listId: string, order: number)
-    // {
-    //     const errorMessage = 'An error occured creating a new Task. Refreshing the application may help. If the problem persists, more detail can be found in your browsers development tools.';
-    //     if(listId == null)
-    //     {
-    //         this.#showMessageDialog(errorMessage);
-    //         throw new Error('Unable to add task when parent list\'s data-tasklist-id attribute is undefined.');
-    //     }
-    //     const boardId = this.findElement('task-board').dataset.boardId;
-    //     if(boardId == null)
-    //     {
-    //         this.#showMessageDialog(errorMessage);
-    //         throw new Error('Unable to add task when parent boards\'s data-board-id attribute is undefined.');
-    //     }
-
-    //     const task = await this.#addTaskRecord(boardId, listId, order);
-    //     if(task == undefined)
-    //     {
-    //         return;
-    //     }
-    //     this.#initTaskCard(card, task);
-    // }
-    // async #addTaskRecord(boardId: string, listId: string, order: number)
-    // {
-    //     const channel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-    //     const task = channel.create(boardId, listId);
-    //     task.order = order;
-    //     await channel.save(task);
-
-    //     this.#addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Task, { id: task.id });
-
-    //     return task;
-    // }
-    // async #updateTaskRecord(taskComponent: TaskCardElement, parentList: TaskListElement)
-    // {
-    //     const channel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-
-    //     const listId = parentList.dataset.tasklistId;
-    //     if(listId == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred saving a task.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error('Unable to update task when parent list\'s data-tasklist-id attribute is not available.');
-    //     }
-
-    //     const task = await this.#getTaskFromComponent(taskComponent);
-
-    //     const previousValues = structuredClone(task);
-
-    //     task.listId = listId;
-    //     task.color = taskComponent.findElement<HTMLInputElement>('color').value;
-    //     task.isFinished = taskComponent.findElement<HTMLInputElement>('is-finished').checked;
-    //     task.description = taskComponent.value ?? "";
-        
-    //     const tasks = [...parentList.querySelectorAll('task-card')] as TaskCardElement[];
-    //     task.order = tasks.indexOf(taskComponent);
-    //     if(task.order == -1)
-    //     {
-    //         console.warn('Unable to find index of task in parent list');
-    //         task.order = tasks.length;
-    //     }
-
-    //     await channel.save(task);
-
-    //     const diff: { [key: string]: string|number|boolean } = Object.fromEntries(Object.entries(previousValues)
-    //     .filter(([key, value]) => value !== (task as unknown as any)[key]));
-
-    //     const updates: Map<string, PropertyUpdate> = new Map();
-    //     for(const [key, value] of Object.entries(diff))
-    //     {
-    //         updates.set(key, { from: value, to: (task as unknown as any)[key] });
-    //     }
-
-    //     const properties: ListActionProperties = {
-    //         id: task.id,
-    //         updates
-    //     };
-
-    //     await this.#addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.Task, properties);
-    // }
-    // async #deleteTaskRecord(taskComponent: TaskCardElement)
-    // {
-    //     const channel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-    //     const id = taskComponent.dataset.taskId;
-    //     if(id == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred deleting a task.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         throw new Error('Unable to delete task when task\'s data-task-id attribute is not available.');
-    //     }
-
-    //     await channel.delete(id);
-
-    //     const entry = await this.#addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Task, { id });
-    //     if(entry != null)
-    //     {
-    //         this.#addUndoNotification("A task was just deleted", entry.getAttribute('data-entry-id')!);
-    //     }
-    // }
-    // async #updateTaskRecordsAfterMove(target: TaskCardElement, parent: TaskListElement)
-    // {
-    //     await this.#updateTaskRecord(target, parent);
-
-    //     if(this.#data.tasks == null)
-    //     {
-    //         MessageCardElement.notify(`An error occurred moving a task.`, 
-    //         this.getElement('notifications'), { type: MessageCardType.Error });
-    //         console.warn(`An error occurred accessing task data. Unable to save task order.`);
-    //         return;
-    //     }
-
-    //     const toSave = await this.#getOrderedTasks(parent);
-    //     await this.#data.tasks.saveItems(toSave); 
-    // }
-
-
-
-    
-
-
-
-    // //utils
-    
-    // #getIdFromRoute()
-    // {
-    //     const pathAttribute = this.findElement('app-router').getAttribute('path') ?? "";
-    //     if(pathAttribute == null)
-    //     {
-    //         throw new Error('Unable to edit board data when path data is unavailable');
-    //     }
-    //     const attributeArray = pathAttribute.split('#');
-    //     const path = attributeArray[0];
-    //     const pathArray = path.split('/');
-    //     const id = pathArray[pathArray.length-1];
-    //     return id;
-    // }
-    
-    // #getConfirmation(message: string, type: 'info'|'warn'|'danger' = 'info')
-    // {
-    //     this.getElement('confirmation-dialog').querySelector(`route-page[path="${type}"]`)!.innerHTML = message;
-    //     this.getElement<HTMLDialogElement>('confirmation-dialog').showModal();
-    //     this.getElement<PathRouterElement>('confirmation-router').navigate(type);
-    //     return new Promise<boolean>((resolve) => 
-    //     {
-    //         this.getElement<HTMLDialogElement>('confirmation-dialog-form').addEventListener('submit', (event) =>
-    //         {
-    //             if((event as SubmitEvent).submitter == this.getElement('confirmation-confirm-button'))
-    //             {
-    //                 resolve(true);
-    //                 return;
-    //             }
-    //             resolve(false);
-    //         }, { once: true });
-    //     });
-    // }
-    // #showMessageDialog(message: string, type: 'info'|'warn'|'danger' = 'info')
-    // {
-    //     const dialog = this.getElement<HTMLDialogElement>('confirmation-dialog');
-    //     dialog.querySelector(`path-route[path="${type}"]`)!.innerHTML = message;
-    //     dialog.show();
-    //     dialog.classList.add('message');
-    //     this.getElement<PathRouterElement>('confirmation-router').navigate(type);
-    //     return new Promise<void>((resolve) => 
-    //     {
-    //         this.getElement<HTMLDialogElement>('confirmation-dialog-form').addEventListener('submit', (event) =>
-    //         {
-    //             dialog.classList.remove('message');
-    //             resolve();
-    //         }, { once: true });
-    //     });
-    // }
 
 }
 

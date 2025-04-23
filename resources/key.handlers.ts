@@ -1,16 +1,11 @@
-import { PathRouterElement, RoutePageElement } from "@magnit-ce/path-router";
-import { SHAREDACCESSKEY, TaskboardManagerElement } from "../taskboard-manager";
-import { MessageCardElement, MessageCardType } from "@magnit-ce/message-card";
+import { TaskboardManagerElement } from "../taskboard-manager";
 import { TaskCardElement } from "@magnit-ce/task-card";
 import { TaskListElement } from "@magnit-ce/task-list";
-
-let historyIsUpdating = false;
 
 export function addKeyHandlers(this: TaskboardManagerElement)
 {
     document.addEventListener('keydown', key_onDown.bind(this));
 }
-
 
 function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
 {
@@ -22,7 +17,7 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
     {
         if(event.altKey == true)
         {
-            const addButton = activeList.findPart('add-button') as HTMLButtonElement;
+            const addButton = activeList.findElement('add-button') as HTMLButtonElement;
             const activeButton = activeList.shadowRoot!.activeElement == addButton
             ? addButton
             : null;
@@ -33,14 +28,14 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
                     const lastTask = findLastTask(activeButton) as TaskCardElement;
                     if(lastTask != null)
                     {
-                        lastTask.findPart("description").focus();
+                        lastTask.findElement("description").focus();
                         return;
                     }
                 }
             }
             if(event.code == 'ArrowDown')
             {
-                (activeList.querySelector('task-card') as TaskCardElement)?.findPart('description').focus();
+                (activeList.querySelector('task-card') as TaskCardElement)?.findElement('description').focus();
                 return;
             }
 
@@ -59,7 +54,7 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
                 const firstTask = findFirstTask(activeCard) as TaskCardElement;
                 if(firstTask != null)
                 {
-                    firstTask.findPart("description").focus();
+                    firstTask.findElement("description").focus();
                 }
             }
             else
@@ -67,11 +62,11 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
                 const previousTask = findPreviousTask(activeCard);
                 if(previousTask != null)
                 {
-                    previousTask.findPart("description").focus();
+                    previousTask.findElement("description").focus();
                 }
                 else
                 {
-                    (activeCard.parentElement as TaskListElement).findPart('name').focus();
+                    (activeCard.parentElement as TaskListElement).findElement('name').focus();
                 }
             }
         }
@@ -82,7 +77,7 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
                 const lastTask = findLastTask(activeCard) as TaskCardElement;
                 if(lastTask != null)
                 {
-                    lastTask.findPart("description").focus();
+                    lastTask.findElement("description").focus();
                 }
             }
             else
@@ -90,11 +85,11 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
                 const nextTask = findNextTask(activeCard);
                 if(nextTask != null)
                 {
-                    nextTask.findPart("description").focus();
+                    nextTask.findElement("description").focus();
                 }
                 else
                 {
-                    (activeCard.parentElement as TaskListElement).findPart('add-button').focus();
+                    (activeCard.parentElement as TaskListElement).findElement('add-button').focus();
                 }
             }
         }
@@ -105,7 +100,7 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
                 const previousListTask = findPreviousListTask(activeCard);
                 if(previousListTask != null)
                 {
-                    previousListTask.findPart("description").focus();
+                    previousListTask.findElement("description").focus();
                 }
             }
         }
@@ -116,7 +111,7 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
                 const nextListTask = findNextListTask(activeCard);
                 if(nextListTask != null)
                 {
-                    nextListTask.findPart("description").focus();
+                    nextListTask.findElement("description").focus();
                 }
             }
         }

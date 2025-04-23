@@ -20,6 +20,7 @@ task-list
 task-list::part(header)
 {
     top: 0;
+    margin-bottom: 14px;
 }
 task-list::part(name)
 {
@@ -36,7 +37,7 @@ task-list.hide-color::part(header)
 
 task-card
 {
-    background-color: var(--task-background-color, none);
+    background-color: var(--task-background-color, canvas);
     width: var(--task-width, 300px);
     overflow: hidden;
     font-family: sans-serif;

@@ -126,17 +126,11 @@ declare class BoardExport extends BoardExport_base {
 
 type ColorScheme = 'inherit' | 'browser' | 'light' | 'dark';
 
-/** Helper const for accessing component-specific methods and properties
-* used to make development possible across multiple modular files.
-* Not suited for interacting with the component  */
-declare const SHAREDACCESSKEY: unique symbol;
 declare class TaskboardManagerElement extends HTMLElement {
     #private;
-    static observedAttributes: never[];
     componentParts: Map<string, HTMLElement>;
     getElement<T extends HTMLElement | RoutePageElement = HTMLElement>(id: string): T;
     findElement<T extends HTMLElement | RoutePageElement = HTMLElement>(id: string): T;
-    /** Exposes "shared" private functions/properties to external modules. */
     constructor();
     /**
     * Initializes the app.
@@ -163,4 +157,4 @@ declare class TaskboardManagerElement extends HTMLElement {
     clearData(): Promise<void>;
 }
 
-export { SHAREDACCESSKEY, TaskboardManagerElement };
+export { TaskboardManagerElement };

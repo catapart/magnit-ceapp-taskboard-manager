@@ -8,7 +8,7 @@ var board_item_global_default = '\na.board\n{\n    margin: 0;\n    flex-shrink: 
 var browser_item_global_default = "captioned-thumbnail\n{\n    height: auto;\n}\n\ncaptioned-thumbnail::part(figure)\n{\n    padding: 3px;\n}\n\ncaptioned-thumbnail svg\n{\n    width: 36px;\n    height: 36px;\n}\n\ncaptioned-thumbnail.match\n{\n    border: solid 1px highlight;\n    order: 0;\n}\nboard-browser:has(captioned-thumbnail.match) captioned-thumbnail:not(.match)\n{\n    order: 1;\n}";
 
 // styles/settings.css?raw
-var settings_default = 'task-board\n{\n    background-color: var(--board-background-color, transparent);\n    color: var(--board-font-color);\n}\ntask-board[style*="--board-background-source"]\n{\n    background:  var(--board-background-source), var(--board-background-color, transparent);\n    background-size: var(--background-image-display);\n    background-position: var(--background-image-position, var(--background-image-offset));\n    background-repeat: var(--background-image-repeat);\n}\n\ntask-list\n{\n    background: var(--list-background-color);\n    color: var(--list-font-color);\n    border-color: var(--list-border-color, transparent);\n}\ntask-list::part(header)\n{\n    top: 0;\n}\ntask-list::part(name)\n{\n    color: inherit;\n}\ntask-list.hide-color::part(color)\n{\n    display: none;\n}\ntask-list.hide-color::part(header)\n{\n    grid-template-columns: 1fr auto;\n}\n\ntask-card\n{\n    background-color: var(--task-background-color, none);\n    width: var(--task-width, 300px);\n    overflow: hidden;\n    font-family: sans-serif;\n    color: var(--task-font-color, currentcolor);\n    font-size: var(--task-font-size, 12px);\n    border-color: var(--task-border-color, var(--input-border-color));\n    border-radius: var(--task-border-radius, 2px);\n    border-top-width: var(--task-border-top, 1px);\n    border-right-width: var(--task-border-right, 1px);\n    border-bottom-width: var(--task-border-bottom, 1px);\n    border-left-width: var(--task-border-left, 1px);\n}\ntask-card::part(description)\n{\n    font: inherit;\n}\n.center-remove task-card::part(remove-button)\n{\n    align-self: center;\n}\ntask-card::part(is-finished)\n{\n    align-self: flex-start;\n}\n.center-checkbox task-card::part(is-finished)\n{\n    align-self: center;\n}\n\n.hide-task-color task-card::part(color)\n{\n    display: none;\n}\n\n.task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card\n{\n    border-color: var(--task-color);\n}\n.task-color-border.color-border-top task-card\n{\n    border-top-color: var(--task-color);\n}\n.task-color-border.color-border-right task-card\n{\n    border-right-color: var(--task-color);\n}\n.task-color-border.color-border-bottom task-card\n{\n    border-bottom-color: var(--task-color);\n}\n.task-color-border.color-border-left task-card\n{\n    border-left-color: var(--task-color);\n}\n.task-color-background task-card\n{\n    background-color: var(--task-color);\n}\n.task-color-border task-card::part(color-container)\n{\n    display: block;\n    margin-block: 1em;\n    margin-inline-start: 1em;\n    width: 16px;\n    height: 16px;\n    background-color: var(--task-color);\n    border-radius: 50%;\n    align-self: center;\n}\n.task-color-border task-card::part(color)\n{\n    display: none;\n}\n\n/* .task-color-border task-card\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n.task-color-border task-card::part(color-container)\n,.task-color-border task-card::part(color)\n{\n    grid-row: 2;\n    grid-column: 2;\n    width: 14px;\n    height: 14px;\n    margin-block-end: 7px;\n    margin-block-start: 0;\n    border-radius: 3px;\n    align-self: center;\n    justify-self: center;\n}\n\n.task-color-border task-card::part(handle)\n{\n    grid-row: span 2;\n    grid-column: 1;\n}\n\n.task-color-border task-card::part(is-finished)\n,.task-color-border task-card::part(finished-indicator)\n{\n    grid-row: 1;\n    grid-column: 2;\n    margin-block-start: 7px;\n    margin-block-end: 0;\n}\n\n.task-color-border task-card::part(description)\n,.task-color-border task-card::part(remove-button)\n{\n    grid-row: span 2;\n} */\n\n@media (min-width: 665px) \n{\n    task-list\n    {\n        width: var(--list-width);\n    } \n}';
+var settings_default = 'task-board\n{\n    background-color: var(--board-background-color, transparent);\n    color: var(--board-font-color);\n}\ntask-board[style*="--board-background-source"]\n{\n    background:  var(--board-background-source), var(--board-background-color, transparent);\n    background-size: var(--background-image-display);\n    background-position: var(--background-image-position, var(--background-image-offset));\n    background-repeat: var(--background-image-repeat);\n}\n\ntask-list\n{\n    background: var(--list-background-color);\n    color: var(--list-font-color);\n    border-color: var(--list-border-color, transparent);\n}\ntask-list::part(header)\n{\n    top: 0;\n    margin-bottom: 14px;\n}\ntask-list::part(name)\n{\n    color: inherit;\n}\ntask-list.hide-color::part(color)\n{\n    display: none;\n}\ntask-list.hide-color::part(header)\n{\n    grid-template-columns: 1fr auto;\n}\n\ntask-card\n{\n    background-color: var(--task-background-color, canvas);\n    width: var(--task-width, 300px);\n    overflow: hidden;\n    font-family: sans-serif;\n    color: var(--task-font-color, currentcolor);\n    font-size: var(--task-font-size, 12px);\n    border-color: var(--task-border-color, var(--input-border-color));\n    border-radius: var(--task-border-radius, 2px);\n    border-top-width: var(--task-border-top, 1px);\n    border-right-width: var(--task-border-right, 1px);\n    border-bottom-width: var(--task-border-bottom, 1px);\n    border-left-width: var(--task-border-left, 1px);\n}\ntask-card::part(description)\n{\n    font: inherit;\n}\n.center-remove task-card::part(remove-button)\n{\n    align-self: center;\n}\ntask-card::part(is-finished)\n{\n    align-self: flex-start;\n}\n.center-checkbox task-card::part(is-finished)\n{\n    align-self: center;\n}\n\n.hide-task-color task-card::part(color)\n{\n    display: none;\n}\n\n.task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card\n{\n    border-color: var(--task-color);\n}\n.task-color-border.color-border-top task-card\n{\n    border-top-color: var(--task-color);\n}\n.task-color-border.color-border-right task-card\n{\n    border-right-color: var(--task-color);\n}\n.task-color-border.color-border-bottom task-card\n{\n    border-bottom-color: var(--task-color);\n}\n.task-color-border.color-border-left task-card\n{\n    border-left-color: var(--task-color);\n}\n.task-color-background task-card\n{\n    background-color: var(--task-color);\n}\n.task-color-border task-card::part(color-container)\n{\n    display: block;\n    margin-block: 1em;\n    margin-inline-start: 1em;\n    width: 16px;\n    height: 16px;\n    background-color: var(--task-color);\n    border-radius: 50%;\n    align-self: center;\n}\n.task-color-border task-card::part(color)\n{\n    display: none;\n}\n\n/* .task-color-border task-card\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n.task-color-border task-card::part(color-container)\n,.task-color-border task-card::part(color)\n{\n    grid-row: 2;\n    grid-column: 2;\n    width: 14px;\n    height: 14px;\n    margin-block-end: 7px;\n    margin-block-start: 0;\n    border-radius: 3px;\n    align-self: center;\n    justify-self: center;\n}\n\n.task-color-border task-card::part(handle)\n{\n    grid-row: span 2;\n    grid-column: 1;\n}\n\n.task-color-border task-card::part(is-finished)\n,.task-color-border task-card::part(finished-indicator)\n{\n    grid-row: 1;\n    grid-column: 2;\n    margin-block-start: 7px;\n    margin-block-end: 0;\n}\n\n.task-color-border task-card::part(description)\n,.task-color-border task-card::part(remove-button)\n{\n    grid-row: span 2;\n} */\n\n@media (min-width: 665px) \n{\n    task-list\n    {\n        width: var(--list-width);\n    } \n}';
 
 // taskboard-manager.css?raw
 var taskboard_manager_default = `*
@@ -4779,6 +4779,10 @@ var DataService = class _DataService {
     const taskLists = this.#getChannel(this.#data.lists, "LIST" /* LIST */);
     return taskLists.create(list, settings);
   }
+  static async getListRecord(id) {
+    const channel = _DataService.#getChannel(_DataService.data.lists, "LIST" /* LIST */);
+    return channel.get(id);
+  }
   static async saveListRecords(...items) {
     if (items.length == 0) {
       return;
@@ -4794,7 +4798,7 @@ var DataService = class _DataService {
     return channel.deleteItems(ids);
   }
   //#endregion Lists
-  //#region Tasks
+  //#region Task Settings
   static async getTaskSettingsRecords(...ids) {
     if (ids.length == 0) {
       return [];
@@ -4812,6 +4816,37 @@ var DataService = class _DataService {
     }
     const channel = _DataService.#getChannel(_DataService.data.taskSettings, "SETTINGS" /* SETTINGS */);
     return channel.saveItems(items);
+  }
+  //#endregion Task Settings
+  //#region Tasks
+  static async createTask(boardId, listId) {
+    const tasks = this.#getChannel(this.#data.tasks, "TASK" /* TASK */);
+    return tasks.create(boardId, listId);
+  }
+  static async getTaskRecord(id) {
+    const channel = _DataService.#getChannel(_DataService.data.tasks, "TASK" /* TASK */);
+    return channel.get(id);
+  }
+  static async getTaskRecords(...ids) {
+    if (ids.length == 0) {
+      return [];
+    }
+    const channel = _DataService.#getChannel(_DataService.data.tasks, "TASK" /* TASK */);
+    return (await channel.getItems(ids)).filter((item) => item.deletedTimestamp == null);
+  }
+  static async saveTaskRecords(...items) {
+    if (items.length == 0) {
+      return;
+    }
+    const channel = _DataService.#getChannel(_DataService.data.tasks, "TASK" /* TASK */);
+    return channel.saveItems(items);
+  }
+  static async deleteTaskRecords(...ids) {
+    if (ids.length == 0) {
+      return;
+    }
+    const channel = _DataService.#getChannel(_DataService.data.tasks, "TASK" /* TASK */);
+    return channel.deleteItems(ids);
   }
   //#endregion Tasks
   //#region Images
@@ -9928,7 +9963,7 @@ if (customElements.get(COMPONENT_TAG_NAME27) == null) {
   customElements.define(COMPONENT_TAG_NAME27, RecordTreeElement);
 }
 
-// handlers/key.handlers.ts
+// resources/key.handlers.ts
 function addKeyHandlers() {
   document.addEventListener("keydown", key_onDown.bind(this));
 }
@@ -9940,19 +9975,19 @@ function key_onDown(event) {
   const activeList = taskboard.shadowRoot?.activeElement;
   if (activeList instanceof TaskListElement) {
     if (event.altKey == true) {
-      const addButton = activeList.findPart("add-button");
+      const addButton = activeList.findElement("add-button");
       const activeButton = activeList.shadowRoot.activeElement == addButton ? addButton : null;
       if (activeButton != null) {
         if (event.code == "ArrowUp") {
           const lastTask = findLastTask(activeButton);
           if (lastTask != null) {
-            lastTask.findPart("description").focus();
+            lastTask.findElement("description").focus();
             return;
           }
         }
       }
       if (event.code == "ArrowDown") {
-        activeList.querySelector("task-card")?.findPart("description").focus();
+        activeList.querySelector("task-card")?.findElement("description").focus();
         return;
       }
     }
@@ -9966,42 +10001,42 @@ function key_onDown(event) {
       if (event.shiftKey == true) {
         const firstTask = findFirstTask(activeCard);
         if (firstTask != null) {
-          firstTask.findPart("description").focus();
+          firstTask.findElement("description").focus();
         }
       } else {
         const previousTask = findPreviousTask(activeCard);
         if (previousTask != null) {
-          previousTask.findPart("description").focus();
+          previousTask.findElement("description").focus();
         } else {
-          activeCard.parentElement.findPart("name").focus();
+          activeCard.parentElement.findElement("name").focus();
         }
       }
     } else if (event.code == "ArrowDown") {
       if (event.shiftKey == true) {
         const lastTask = findLastTask(activeCard);
         if (lastTask != null) {
-          lastTask.findPart("description").focus();
+          lastTask.findElement("description").focus();
         }
       } else {
         const nextTask = findNextTask(activeCard);
         if (nextTask != null) {
-          nextTask.findPart("description").focus();
+          nextTask.findElement("description").focus();
         } else {
-          activeCard.parentElement.findPart("add-button").focus();
+          activeCard.parentElement.findElement("add-button").focus();
         }
       }
     } else if (event.code == "ArrowLeft") {
       if (event.shiftKey == false) {
         const previousListTask = findPreviousListTask(activeCard);
         if (previousListTask != null) {
-          previousListTask.findPart("description").focus();
+          previousListTask.findElement("description").focus();
         }
       }
     } else if (event.code == "ArrowRight") {
       if (event.shiftKey == false) {
         const nextListTask = findNextListTask(activeCard);
         if (nextListTask != null) {
-          nextListTask.findPart("description").focus();
+          nextListTask.findElement("description").focus();
         }
       }
     }
@@ -10120,7 +10155,6 @@ function findLastTask(target) {
 
 // taskboard-manager.ts
 var DEFAULT_APP_VERSION = "--.--.--";
-var SHAREDACCESSKEY = Symbol("SHAREDACCESSKEY");
 var COMPONENT_STYLESHEET26 = new CSSStyleSheet();
 COMPONENT_STYLESHEET26.replaceSync(`${shared_default}
 ${board_item_global_default}
@@ -10139,7 +10173,6 @@ ${defineIcons(
 )}`;
 var COMPONENT_TAG_NAME28 = "taskboard-manager";
 var TaskboardManagerElement = class extends HTMLElement {
-  static observedAttributes = [];
   componentParts = /* @__PURE__ */ new Map();
   getElement(id) {
     if (this.componentParts.get(id) == null) {
@@ -10153,10 +10186,7 @@ var TaskboardManagerElement = class extends HTMLElement {
   findElement(id) {
     return this.shadowRoot.getElementById(id);
   }
-  // initPromise?: Promise<void>;
   #customImageUrls = /* @__PURE__ */ new Map();
-  /** Exposes "shared" private functions/properties to external modules. */
-  // [SHAREDACCESSKEY]!: SharedContent;
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -10238,11 +10268,7 @@ var TaskboardManagerElement = class extends HTMLElement {
   async openBoardSettings(id) {
     const board = await DataService.getBoardRecord(id);
     if (board == null) {
-      MessageCardElement.notify(
-        `No board found with the target id (${id}).`,
-        this.getElement("notifications"),
-        { type: MessageCardType.Error }
-      );
+      FeedbackService.showErrorMessageCard(`No board found with the target id (${id}).`);
       console.warn(`No board found with the target id (${id}).`);
       return;
     }
@@ -10252,11 +10278,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     const boardTaskSettings = taskSettings.find((item) => item.id == board.taskSettingsId);
     const listTaskSettings = taskSettings.filter((item) => taskSettingIds.indexOf(item.id) > -1);
     if (boardTaskSettings == null) {
-      MessageCardElement.notify(
-        `An error occurred accessing task settings data.`,
-        this.getElement("notifications"),
-        { type: MessageCardType.Error }
-      );
+      FeedbackService.showErrorMessageCard(`An error occurred accessing task settings data.`);
       console.warn(`An error occurred accessing task settings data.`);
       return;
     }
@@ -10318,19 +10340,6 @@ var TaskboardManagerElement = class extends HTMLElement {
   //     this.findElement<ConfigPanelElement>('config-panel').history_clear();
   // }
   //#endregion API
-  // // async addTask(listId: string)
-  // // {
-  // //     const list = this.shadowRoot!.querySelector(`task-list[data-tasklist-id="${listId}"]`);
-  // //     if(list == null)
-  // //     {
-  // //         this.#showMessageDialog('An error occurred creating a new task.', 'danger');
-  // //         console.error(`An error occurred accessing task-list element. Unable to save new task.`);
-  // //         return;
-  // //     }
-  // //     const newCard = new TaskCardElement();
-  // //     list.append(newCard);
-  // //     newCard.findPart('description').focus();
-  // // }
   //#region Internal
   async #init() {
     const datastoreName = this.getAttribute("datastore-name");
@@ -10370,6 +10379,7 @@ var TaskboardManagerElement = class extends HTMLElement {
       closeBoardSettings: this.closeBoardSettings.bind(this),
       saveSettingsTarget: this.#saveSettingsTarget.bind(this)
     });
+    this.#addBoardHandlers();
     addKeyHandlers.call(this);
     this.#addRouteHandlers();
     await this.#handleInitialNavigation(boardsPromise);
@@ -10439,6 +10449,9 @@ var TaskboardManagerElement = class extends HTMLElement {
     card.setAttribute("part", "task-card");
     card.setAttribute("exportparts", "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator, button, input, finished");
     card.style.setProperty("--task-color", task.color);
+    const description = card.findElement("description");
+    description.addEventListener("keyup", this.#taskDescription_onKeyUp.bind(this));
+    description.focus();
   }
   async #openImportManager(data) {
     const boardData = new BoardExport(data, data.taskSettings, data.backgroundImage, data.lists);
@@ -10542,11 +10555,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     messageButton.addEventListener("click", () => {
       const entry = this.getElement("action-history").querySelector(`[data-entry-id="${entryId}"]`);
       if (entry == null) {
-        MessageCardElement.notify(
-          `An error occurred restoring a record. The record was not restored`,
-          this.findElement("notifications"),
-          { type: MessageCardType.Error }
-        );
+        FeedbackService.showErrorMessageCard(`An error occurred restoring a record. The record was not restored`);
         return;
       }
       this.getElement("action-history").reverseEntry(entry);
@@ -10555,17 +10564,156 @@ var TaskboardManagerElement = class extends HTMLElement {
     });
     notification.show();
   }
+  async #updateListRecord(taskListComponent) {
+    const id = taskListComponent.dataset.tasklistId;
+    if (id == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred saving a task list.`);
+      throw new Error("Unable to update tasklist with unset 'data-tasklist-id' attribute");
+    }
+    const taskList = await DataService.getListRecord(id);
+    if (taskList == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred saving a task list.`);
+      throw new Error(`Unable to update tasklist. No tasklist found with target id (${id}).`);
+    }
+    const listPreviousName = taskList.name;
+    const inputNameValue = taskListComponent.findElement("name").value;
+    const listPreviousColor = taskList.color;
+    const inputColorValue = taskListComponent.findElement("color").value;
+    taskList.name = inputNameValue;
+    taskList.color = inputColorValue;
+    DataService.saveListRecords(taskList);
+    const updates = /* @__PURE__ */ new Map();
+    if (listPreviousName != taskList.name) {
+      updates.set("name", { from: listPreviousName, to: taskList.name });
+    }
+    if (listPreviousColor != taskList.color) {
+      updates.set("color", { from: listPreviousColor, to: taskList.color });
+    }
+    const properties = {
+      id: taskList.id,
+      updates
+    };
+    await this.findElement("config-panel").addActionHistoryEntry(HistoryEntryType.Update, "list" /* List */, properties);
+  }
+  async #updateTaskRecord(taskComponent, parentList) {
+    const listId = parentList.dataset.tasklistId;
+    if (listId == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred saving a task.`);
+      throw new Error("Unable to update task when parent list's data-tasklist-id attribute is not available.");
+    }
+    const task = await this.#getTaskFromComponent(taskComponent);
+    const previousValues = structuredClone(task);
+    task.listId = listId;
+    task.color = taskComponent.findElement("color").value;
+    task.isFinished = taskComponent.findElement("is-finished").checked;
+    task.description = taskComponent.value ?? "";
+    const tasks = [...parentList.querySelectorAll("task-card")];
+    task.order = tasks.indexOf(taskComponent);
+    if (task.order == -1) {
+      console.warn("Unable to find index of task in parent list");
+      task.order = tasks.length;
+    }
+    await DataService.saveTaskRecords(task);
+    const diff = Object.fromEntries(Object.entries(previousValues).filter(([key, value]) => value !== task[key]));
+    const updates = /* @__PURE__ */ new Map();
+    for (const [key, value] of Object.entries(diff)) {
+      updates.set(key, { from: value, to: task[key] });
+    }
+    const properties = {
+      id: task.id,
+      updates
+    };
+    await this.findElement("config-panel").addActionHistoryEntry(HistoryEntryType.Update, "task" /* Task */, properties);
+  }
+  async #registerTaskCard(card, listId, order) {
+    const errorMessage = "An error occured creating a new Task. Refreshing the application may help. If the problem persists, more detail can be found in your browsers development tools.";
+    if (listId == null) {
+      FeedbackService.showErrorMessageCard(errorMessage);
+      throw new Error("Unable to add task when parent list's data-tasklist-id attribute is undefined.");
+    }
+    const boardId = this.findElement("task-board").dataset.boardId;
+    if (boardId == null) {
+      FeedbackService.showErrorMessageCard(errorMessage);
+      throw new Error("Unable to add task when parent boards's data-board-id attribute is undefined.");
+    }
+    const task = await this.#addTaskRecord(boardId, listId, order);
+    if (task == void 0) {
+      return;
+    }
+    this.#initTaskCard(card, task);
+  }
+  async #addTaskRecord(boardId, listId, order) {
+    const task = await DataService.createTask(boardId, listId);
+    task.order = order;
+    await DataService.saveTaskRecords(task);
+    this.findElement("config-panel").addActionHistoryEntry(HistoryEntryType.Create, "task" /* Task */, { id: task.id });
+    return task;
+  }
+  async #deleteTaskRecord(taskComponent) {
+    const id = taskComponent.dataset.taskId;
+    if (id == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred deleting a task.`);
+      throw new Error("Unable to delete task when task's data-task-id attribute is not available.");
+    }
+    await DataService.deleteTaskRecords(id);
+    const entry = await this.findElement("config-panel").addActionHistoryEntry(HistoryEntryType.Delete, "task" /* Task */, { id });
+    if (entry != null) {
+      this.#addUndoNotification("A task was just deleted", entry.getAttribute("data-entry-id"));
+    }
+  }
+  async #updateTaskRecordsAfterMove(target, parent) {
+    await this.#updateTaskRecord(target, parent);
+    if (DataService.data.tasks == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred moving a task.`);
+      console.warn(`An error occurred accessing task data. Unable to save task order.`);
+      return;
+    }
+    const toSave = await this.#getOrderedTasks(parent);
+    await DataService.saveTaskRecords(...toSave);
+  }
+  async #getOrderedTasks(tasklist) {
+    const orderedIds = [];
+    const taskItems = [...tasklist.querySelectorAll("task-card")];
+    for (let i = 0; i < taskItems.length; i++) {
+      const item = taskItems[i];
+      const id = item.getAttribute("data-task-id");
+      if (id == null) {
+        throw new Error("Unset task id");
+      }
+      orderedIds.push(id);
+    }
+    const tasks = await DataService.getTaskRecords(...orderedIds);
+    const orderedTasks = [];
+    for (let i = 0; i < orderedIds.length; i++) {
+      const board = tasks[tasks.findIndex((value) => value.id == orderedIds[i])];
+      if (board == null) {
+        throw new Error("Unknown task");
+      }
+      board.order = i;
+      orderedTasks.push(board);
+    }
+    return orderedTasks;
+  }
+  async #getTaskFromComponent(taskComponent) {
+    const id = taskComponent.dataset.taskId;
+    if (id == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred identifying a task.`);
+      throw new Error("Unable to update task with unset 'data-tasklist-id' attribute");
+    }
+    const task = await DataService.getTaskRecord(id);
+    if (task == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred identifying a task.`);
+      throw new Error(`Unable to update task. No task found with target id (${id}).`);
+    }
+    return task;
+  }
   //#endregion Management
   //#region Rendering
   async #renderBoard(id) {
     const board = await DataService.getBoardRecord(id);
     if (board == null) {
       this.findElement("app-router").navigate("/");
-      MessageCardElement.notify(
-        `No board found with the target id (${id}). Navigated back to Welcome page.`,
-        this.getElement("notifications"),
-        { type: MessageCardType.Warn }
-      );
+      FeedbackService.showMessageCard(`No board found with the target id (${id}). Navigated back to Welcome page.`, MessageCardType.Warn);
       console.warn(`No board found with the target id (${id}). Navigated back to Welcome page.`);
       return;
     }
@@ -10595,11 +10743,7 @@ var TaskboardManagerElement = class extends HTMLElement {
       if (backgroundImageUrl == null) {
         const backgroundImage = await DataService.getImageRecord(board.backgroundImageId);
         if (backgroundImage == null) {
-          MessageCardElement.notify(
-            `No image found with the target id (${board.backgroundImageId}).`,
-            this.getElement("notifications"),
-            { type: MessageCardType.Warn }
-          );
+          FeedbackService.showMessageCard(`No image found with the target id (${board.backgroundImageId}).`, MessageCardType.Warn);
           throw new Error(`Unable to find background image from id: ${board.backgroundImageId}`);
         }
         if (backgroundImage.image == null) {
@@ -10635,11 +10779,7 @@ var TaskboardManagerElement = class extends HTMLElement {
   async #renderBoardLists(board, tasks) {
     const boardId = board.dataset.boardId;
     if (boardId == null) {
-      MessageCardElement.notify(
-        `An error occurred loading the board. Navigated back to Welcome page.`,
-        this.getElement("notifications"),
-        { type: MessageCardType.Error }
-      );
+      FeedbackService.showErrorMessageCard(`An error occurred loading the board. Navigated back to Welcome page.`);
       console.error(new Error("Unable to add task when parent boards's data-board-id attribute is undefined."));
       return;
     }
@@ -10653,11 +10793,7 @@ var TaskboardManagerElement = class extends HTMLElement {
       }
       const settings = taskSettings.find((item) => item.id == list.taskSettingsId);
       if (settings == null) {
-        MessageCardElement.notify(
-          `An error occurred loading a list's settings. Some settings may not be displayed properly.`,
-          this.getElement("notifications"),
-          { type: MessageCardType.Warn }
-        );
+        FeedbackService.showMessageCard(`An error occurred loading a list's settings. Some settings may not be displayed properly.`, MessageCardType.Warn);
         console.warn(new Error(`Unable to find settings from list's taskSettingsId.`));
       }
       const element = new TaskListElement();
@@ -10920,11 +11056,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     const data = event.detail;
     const boardId = data.properties.id;
     if (boardId == null) {
-      MessageCardElement.notify(
-        `An error occurred attempting to open the board.`,
-        this.getElement("notifications"),
-        { type: MessageCardType.Error }
-      );
+      FeedbackService.showErrorMessageCard(`An error occurred attempting to open the board.`);
       throw new Error("Unable to open board route with unknown id");
     }
     this.#renderBoard(boardId);
@@ -10934,11 +11066,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     const router = this.findElement("app-router");
     const properties = await router.getRouteProperties();
     if (properties.id == null) {
-      MessageCardElement.notify(
-        `An error occurred attempting to open the board for editing.`,
-        this.getElement("notifications"),
-        { type: MessageCardType.Error }
-      );
+      FeedbackService.showErrorMessageCard(`An error occurred attempting to open the board for editing.`);
       throw new Error("Unable to determine the selected board's id");
     }
     this.openBoardSettings(properties.id);
@@ -10947,6 +11075,78 @@ var TaskboardManagerElement = class extends HTMLElement {
     const boardData = this.findElement("import-manager").getRecord();
     await this.importBoard(boardData);
     this.refreshBoardCollections();
+  }
+  #addBoardHandlers() {
+    const board = this.findElement("task-board");
+    board.addEventListener("change", this.#taskBoard_onChange.bind(this));
+    board.addEventListener("collapse", this.#taskBoard_onListCollapse.bind(this));
+    board.addEventListener("add", this.#taskBoard_onTaskAdd.bind(this));
+    board.addEventListener("remove", this.#taskBoard_onTaskRemove.bind(this));
+    board.addEventListener("added", this.#taskBoard_onTaskMove.bind(this));
+  }
+  #taskBoard_onChange(event) {
+    if (event.target instanceof TaskCardElement) {
+      this.#taskBoard_onTaskChange.call(this, event);
+    } else if (event.target instanceof TaskListElement) {
+      const { detail } = event;
+      if (detail.order != null) {
+        this.#taskBoard_onTaskMove.call(this, event);
+      }
+      this.#taskBoard_onListChange.call(this, event);
+    }
+  }
+  #taskBoard_onListChange(event) {
+    this.#updateListRecord(event.target);
+  }
+  #taskBoard_onListCollapse(event) {
+    console.log(event.target);
+  }
+  #taskBoard_onTaskChange(event) {
+    const cardElement = event.target;
+    const listElement = cardElement.closest("task-list");
+    if (listElement == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred updating a task.`);
+      console.error(new Error("Unable to identify a parent task-list element for an updated task-card element.."));
+      return;
+    }
+    this.#updateTaskRecord(cardElement, listElement);
+    cardElement.style.setProperty("--task-color", cardElement.findElement("color").value);
+  }
+  #taskBoard_onTaskAdd(event) {
+    const list = event.target;
+    const listId = list.dataset.tasklistId;
+    const card = new TaskCardElement();
+    list.append(card);
+    const data = event.detail;
+    this.#registerTaskCard(card, listId, data.order);
+  }
+  #taskBoard_onTaskRemove(event) {
+    const card = event.target.closest("task-card");
+    card.remove();
+    this.#deleteTaskRecord(card);
+  }
+  #taskBoard_onTaskMove(event) {
+    const { detail } = event;
+    const cardElement = detail.target;
+    const listElement = event.target;
+    this.#updateTaskRecordsAfterMove(cardElement, listElement);
+  }
+  #taskDescription_onKeyUp(event) {
+    if (event.code != "Enter" || event.shiftKey == false && event.ctrlKey == false) {
+      return;
+    }
+    const list = event.target.getRootNode().host.parentElement;
+    const listId = list?.dataset.tasklistId;
+    if (list == null || listId == null) {
+      FeedbackService.showErrorMessageCard(`An error occurred creating a new task.`);
+      console.error(new Error("List data not found."));
+      return;
+    }
+    const card = new TaskCardElement();
+    list.append(card);
+    this.#registerTaskCard(card, listId, list.children.length);
+    list.append(card);
+    card.findElement("description").focus();
   }
   //#endregion Handler
   //#region Utilities
@@ -11018,271 +11218,10 @@ var TaskboardManagerElement = class extends HTMLElement {
   }
   //#endregion Utilities
   //#endregion Internal
-  // #registerSharedData()
-  // {
-  //     this[SHAREDACCESSKEY] = 
-  //     {
-  //         data: this.#data,
-  //         refreshBoards: this.#refreshBoards.bind(this),
-  //         refreshActionHistory: this.#refreshActionHistory.bind(this),
-  //         refreshDeletedItems: this.#refreshDeletedItems.bind(this),
-  //         saveAppSetting: this.#saveAppSetting.bind(this),
-  //         // restoreDeletedItem: this.#restoreDeletedItem.bind(this),
-  //         // handleActionEntryReverse: this.#handleActionEntryReverse.bind(this),
-  //         // handelActionEntryActivate: this.#handelActionEntryActivate.bind(this),
-  //         // prepareHistoryEntries: this.#prepareHistoryEntries.bind(this),
-  //         // applyHistoryLength: this.#applyHistoryLength.bind(this),
-  //         renderBoard: this.#renderBoard.bind(this),
-  //         updateBoardSettings: this.#updateBoardSettings.bind(this),
-  //         // updateBoardItemOrder: this.#updateBoardItemOrder.bind(this),
-  //         updateListRecord: this.#updateListRecord.bind(this),
-  //         duplicateList: this.#duplicateList.bind(this),
-  //         // updateBoardRecordsAfterMove: this.#updateBoardRecordsAfterMove.bind(this),
-  //         updateRecentBoardEntry: this.#updateRecentBoardEntry.bind(this),
-  //         removeBoardFromRecentBoards: this.#removeBoardFromRecentBoards.bind(this),
-  //         registerTaskCard: this.#registerTaskCard.bind(this),
-  //         updateTaskRecord: this.#updateTaskRecord.bind(this),
-  //         updateTaskRecordsAfterMove: this.#updateTaskRecordsAfterMove.bind(this),
-  //         deleteTaskRecord: this.#deleteTaskRecord.bind(this),
-  //         openImportManager: this.#openImportManager.bind(this),
-  //         getConfirmation: this.#getConfirmation.bind(this),
-  //         getIdFromRoute: this.#getIdFromRoute.bind(this),
-  //     }
-  // }
-  // // boards
-  // // lists
-  // async #updateListRecord(taskListComponent: TaskListElement)
-  // {
-  //     const lists = this.#getChannel(this.#data.lists, LIST_ERROR_MESSAGE, 'danger');
-  //     const id = taskListComponent.dataset.tasklistId;
-  //     if(id == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred saving a task list.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         throw new Error("Unable to update tasklist with unset \'data-tasklist-id\' attribute");
-  //     }
-  //     const taskList = await lists.get(id);
-  //     if(taskList == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred saving a task list.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         throw new Error(`Unable to update tasklist. No tasklist found with target id (${id}).`);
-  //     }
-  //     const listPreviousName = taskList.name;
-  //     const inputNameValue = taskListComponent.findElement<HTMLInputElement>('name').value;
-  //     const listPreviousColor = taskList.color;
-  //     const inputColorValue = taskListComponent.findElement<HTMLInputElement>('color').value;
-  //     taskList.name = inputNameValue;
-  //     taskList.color = inputColorValue;
-  //     await lists.save(taskList);
-  //     const updates: Map<string, PropertyUpdate> = new Map();
-  //     if(listPreviousName != taskList.name)
-  //     {
-  //         updates.set('name', { from: listPreviousName, to: taskList.name })
-  //     }
-  //     if(listPreviousColor != taskList.color)
-  //     {
-  //         updates.set('color', { from: listPreviousColor, to: taskList.color })
-  //     }
-  //     const properties: ListActionProperties = {
-  //         id: taskList.id,
-  //         updates
-  //     };
-  //     await this.#addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.List, properties);
-  // }
-  // // tasks
-  // async #getOrderedTasks(tasklist: TaskListElement)
-  // {
-  //     const channel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-  //     const orderedIds: string[] = [];
-  //     const taskItems = [...tasklist.querySelectorAll('task-card')] as HTMLElement[];
-  //     for(let i = 0; i < taskItems.length; i++)
-  //     {
-  //         const item = taskItems[i];
-  //         const id = item.getAttribute('data-task-id')!;
-  //         if(id == null) { throw new Error('Unset task id'); }
-  //         orderedIds.push(id);
-  //     }
-  //     const tasks = await channel.getItems(orderedIds);
-  //     const orderedTasks = [];
-  //     for(let i = 0; i < orderedIds.length; i++)
-  //     {
-  //         const board = tasks[tasks.findIndex(value => value.id == orderedIds[i])];
-  //         if(board == null) { throw new Error("Unknown task"); }
-  //         board.order = i;
-  //         orderedTasks.push(board);
-  //     }
-  //     return orderedTasks;
-  // }
-  // async #getTaskFromComponent(taskComponent: TaskCardElement)
-  // {
-  //     const channel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-  //     const id = taskComponent.dataset.taskId;
-  //     if(id == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred identifying a task.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         throw new Error("Unable to update task with unset \'data-tasklist-id\' attribute");
-  //     }
-  //     const task = await channel.get(id);
-  //     if(task == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred identifying a task.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         throw new Error(`Unable to update task. No task found with target id (${id}).`);
-  //     }
-  //     return task;
-  // }
-  // async #registerTaskCard(card: TaskCardElement, listId: string, order: number)
-  // {
-  //     const errorMessage = 'An error occured creating a new Task. Refreshing the application may help. If the problem persists, more detail can be found in your browsers development tools.';
-  //     if(listId == null)
-  //     {
-  //         this.#showMessageDialog(errorMessage);
-  //         throw new Error('Unable to add task when parent list\'s data-tasklist-id attribute is undefined.');
-  //     }
-  //     const boardId = this.findElement('task-board').dataset.boardId;
-  //     if(boardId == null)
-  //     {
-  //         this.#showMessageDialog(errorMessage);
-  //         throw new Error('Unable to add task when parent boards\'s data-board-id attribute is undefined.');
-  //     }
-  //     const task = await this.#addTaskRecord(boardId, listId, order);
-  //     if(task == undefined)
-  //     {
-  //         return;
-  //     }
-  //     this.#initTaskCard(card, task);
-  // }
-  // async #addTaskRecord(boardId: string, listId: string, order: number)
-  // {
-  //     const channel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-  //     const task = channel.create(boardId, listId);
-  //     task.order = order;
-  //     await channel.save(task);
-  //     this.#addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Task, { id: task.id });
-  //     return task;
-  // }
-  // async #updateTaskRecord(taskComponent: TaskCardElement, parentList: TaskListElement)
-  // {
-  //     const channel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-  //     const listId = parentList.dataset.tasklistId;
-  //     if(listId == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred saving a task.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         throw new Error('Unable to update task when parent list\'s data-tasklist-id attribute is not available.');
-  //     }
-  //     const task = await this.#getTaskFromComponent(taskComponent);
-  //     const previousValues = structuredClone(task);
-  //     task.listId = listId;
-  //     task.color = taskComponent.findElement<HTMLInputElement>('color').value;
-  //     task.isFinished = taskComponent.findElement<HTMLInputElement>('is-finished').checked;
-  //     task.description = taskComponent.value ?? "";
-  //     const tasks = [...parentList.querySelectorAll('task-card')] as TaskCardElement[];
-  //     task.order = tasks.indexOf(taskComponent);
-  //     if(task.order == -1)
-  //     {
-  //         console.warn('Unable to find index of task in parent list');
-  //         task.order = tasks.length;
-  //     }
-  //     await channel.save(task);
-  //     const diff: { [key: string]: string|number|boolean } = Object.fromEntries(Object.entries(previousValues)
-  //     .filter(([key, value]) => value !== (task as unknown as any)[key]));
-  //     const updates: Map<string, PropertyUpdate> = new Map();
-  //     for(const [key, value] of Object.entries(diff))
-  //     {
-  //         updates.set(key, { from: value, to: (task as unknown as any)[key] });
-  //     }
-  //     const properties: ListActionProperties = {
-  //         id: task.id,
-  //         updates
-  //     };
-  //     await this.#addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.Task, properties);
-  // }
-  // async #deleteTaskRecord(taskComponent: TaskCardElement)
-  // {
-  //     const channel = this.#getChannel(this.#data.tasks, TASK_ERROR_MESSAGE, 'danger');
-  //     const id = taskComponent.dataset.taskId;
-  //     if(id == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred deleting a task.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         throw new Error('Unable to delete task when task\'s data-task-id attribute is not available.');
-  //     }
-  //     await channel.delete(id);
-  //     const entry = await this.#addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Task, { id });
-  //     if(entry != null)
-  //     {
-  //         this.#addUndoNotification("A task was just deleted", entry.getAttribute('data-entry-id')!);
-  //     }
-  // }
-  // async #updateTaskRecordsAfterMove(target: TaskCardElement, parent: TaskListElement)
-  // {
-  //     await this.#updateTaskRecord(target, parent);
-  //     if(this.#data.tasks == null)
-  //     {
-  //         MessageCardElement.notify(`An error occurred moving a task.`, 
-  //         this.getElement('notifications'), { type: MessageCardType.Error });
-  //         console.warn(`An error occurred accessing task data. Unable to save task order.`);
-  //         return;
-  //     }
-  //     const toSave = await this.#getOrderedTasks(parent);
-  //     await this.#data.tasks.saveItems(toSave); 
-  // }
-  // //utils
-  // #getIdFromRoute()
-  // {
-  //     const pathAttribute = this.findElement('app-router').getAttribute('path') ?? "";
-  //     if(pathAttribute == null)
-  //     {
-  //         throw new Error('Unable to edit board data when path data is unavailable');
-  //     }
-  //     const attributeArray = pathAttribute.split('#');
-  //     const path = attributeArray[0];
-  //     const pathArray = path.split('/');
-  //     const id = pathArray[pathArray.length-1];
-  //     return id;
-  // }
-  // #getConfirmation(message: string, type: 'info'|'warn'|'danger' = 'info')
-  // {
-  //     this.getElement('confirmation-dialog').querySelector(`route-page[path="${type}"]`)!.innerHTML = message;
-  //     this.getElement<HTMLDialogElement>('confirmation-dialog').showModal();
-  //     this.getElement<PathRouterElement>('confirmation-router').navigate(type);
-  //     return new Promise<boolean>((resolve) => 
-  //     {
-  //         this.getElement<HTMLDialogElement>('confirmation-dialog-form').addEventListener('submit', (event) =>
-  //         {
-  //             if((event as SubmitEvent).submitter == this.getElement('confirmation-confirm-button'))
-  //             {
-  //                 resolve(true);
-  //                 return;
-  //             }
-  //             resolve(false);
-  //         }, { once: true });
-  //     });
-  // }
-  // #showMessageDialog(message: string, type: 'info'|'warn'|'danger' = 'info')
-  // {
-  //     const dialog = this.getElement<HTMLDialogElement>('confirmation-dialog');
-  //     dialog.querySelector(`path-route[path="${type}"]`)!.innerHTML = message;
-  //     dialog.show();
-  //     dialog.classList.add('message');
-  //     this.getElement<PathRouterElement>('confirmation-router').navigate(type);
-  //     return new Promise<void>((resolve) => 
-  //     {
-  //         this.getElement<HTMLDialogElement>('confirmation-dialog-form').addEventListener('submit', (event) =>
-  //         {
-  //             dialog.classList.remove('message');
-  //             resolve();
-  //         }, { once: true });
-  //     });
-  // }
 };
 if (customElements.get(COMPONENT_TAG_NAME28) == null) {
   customElements.define(COMPONENT_TAG_NAME28, TaskboardManagerElement);
 }
 export {
-  SHAREDACCESSKEY,
   TaskboardManagerElement
 };

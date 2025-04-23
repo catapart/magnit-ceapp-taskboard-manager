@@ -464,8 +464,6 @@ export class BoardSettingsElement extends HTMLElement
             return parts;
         }).flat().filter(item => item.length > 0));
 
-        console.log(tasklistExportParts);
-
         taskListElement.setAttribute('exportparts', `${Array.from(tasklistExportParts).join(",\n")}`);
         
         const handle = taskListElement.findElement('tasklist-settings-handle');
