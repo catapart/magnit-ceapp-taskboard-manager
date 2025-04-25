@@ -67,9 +67,16 @@ task-card::part(is-finished)
     align-self: center;
 }
 
-.hide-task-color task-card::part(color)
+.hide-task-color task-card::part(color-container)
 {
     display: none;
+}
+
+.task-color-border task-card
+{
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    grid-template-rows: auto 1fr;
 }
 
 .task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card
@@ -96,20 +103,46 @@ task-card::part(is-finished)
 {
     background-color: var(--task-color);
 }
+
+.task-color-border task-card::part(is-finished)
+{
+    grid-row: 2;
+    grid-column: 2;
+    margin-block-end: 7px;
+    margin-block-start: 0;
+}
+
 .task-color-border task-card::part(color-container)
 {
     display: block;
-    margin-block: 1em;
-    margin-inline-start: 1em;
-    width: 16px;
-    height: 16px;
+    margin: 7px;
+    width: 14px;
+    height: 6px;
     background-color: var(--task-color);
-    border-radius: 50%;
+    border-radius: 5px;
     align-self: center;
+
+    grid-row: 1;
+    grid-column: 2;
+    margin-block-start: 7px;
+    margin-block-end: 0;
+    justify-self: center;
 }
 .task-color-border task-card::part(color)
 {
     display: none;
+}
+
+.task-color-border task-card::part(description)
+{
+    width: auto;
+    grid-row: span 2;
+    margin-block: 7px;
+}
+
+.task-color-border task-card::part(remove-button)
+{
+    grid-row: span 2;
 }
 
 /* .task-color-border task-card

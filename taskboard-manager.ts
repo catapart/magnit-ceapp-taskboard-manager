@@ -390,6 +390,8 @@ export class TaskboardManagerElement extends HTMLElement
         addKeyHandlers.call(this);
         this.#addRouteHandlers();
 
+        this.addEventListener('click', this.#onClick.bind(this));
+
         await this.#handleInitialNavigation(boardsPromise);
 
         DataService.removeExpiredData();
@@ -472,15 +474,15 @@ export class TaskboardManagerElement extends HTMLElement
 
     #initTaskCard(card: TaskCardElement, task: TaskRecord)
     {
+        const description = card.findElement('description')
         card.dataset.taskId = task.id;
         card.setAttribute('color', task.color)
         card.setAttribute('is-finished', task.isFinished.toString());
-        card.setAttribute('description', task.description);
+        description.innerHTML = task.description;
         card.setAttribute('draggable', "true");
         card.setAttribute('part', 'task-card');
         card.setAttribute('exportparts', "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator, button, input, finished");
         card.style.setProperty('--task-color', task.color);
-        const description = card.findElement('description')
         description.addEventListener('keyup', this.#taskDescription_onKeyUp.bind(this));
         description.focus();
     }
@@ -685,7 +687,7 @@ export class TaskboardManagerElement extends HTMLElement
         task.listId = listId;
         task.color = taskComponent.findElement<HTMLInputElement>('color').value;
         task.isFinished = taskComponent.findElement<HTMLInputElement>('is-finished').checked;
-        task.description = taskComponent.value ?? "";
+        task.description = taskComponent.findElement('description').innerHTML;
         
         const tasks = [...parentList.querySelectorAll('task-card')] as TaskCardElement[];
         task.order = tasks.indexOf(taskComponent);
@@ -1230,15 +1232,12 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
 
-        // todo: move to config?
         const importOkButton = composedPath.find(item => item.id == 'import-ok');
         if(importOkButton != null)
         {
             this.#importDialog_import_onClick();
             return;
         }
-
-        console.log(event.target);
     }
 
     #router_onPathChange(event: Event|CustomEvent)
@@ -1393,7 +1392,9 @@ export class TaskboardManagerElement extends HTMLElement
     }
     #taskBoard_onListCollapse(this: TaskboardManagerElement, event: Event|CustomEvent)
     {
-        console.log(event.target);
+        const target =  (event.target as HTMLElement);
+        const isCollapsed = target.getAttribute('collapsed') != null;
+        target.part.toggle('collapsed-list', isCollapsed);
     }
     #taskBoard_onTaskChange(this: TaskboardManagerElement, event: Event|CustomEvent)
     {

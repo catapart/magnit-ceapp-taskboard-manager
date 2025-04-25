@@ -134,6 +134,11 @@ form-field .label input
     flex: 1;
 } */
 
+form-field .field-label .enabled-checkbox
+{
+    margin-right: 5px;
+}
+
 fileimage-input::part(label)
 {
     grid-column: span 2;

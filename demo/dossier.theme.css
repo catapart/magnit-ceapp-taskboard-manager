@@ -4,17 +4,17 @@
 {
     taskboard-manager[data-theme="dossier"] 
     {
-        --text: rgb(8, 7, 2);
+        /* --text: rgb(8, 7, 2);
         --background: rgb(253, 252, 247);
         --primary: rgb(91, 76, 73);
         --secondary: rgb(132, 201, 235);
         --accent: rgb(232, 181, 100);
         --highlight: rgba(0, 0, 0, 0.05);
         --panel: rgba(0, 0, 0, 0.03);
-        --page: #F2F2F2;
+        --page: #F2F2F2; */
     }
 
-    taskboard-manager[data-theme="dossier"]::part(header)
+    /* taskboard-manager[data-theme="dossier"]::part(header)
     {
         background: var(--accent);
 
@@ -24,12 +24,12 @@
     taskboard-manager[data-theme="dossier"]::part(board-menu-item)
     {
         --selected-shadow: 0 0 15px -8px rgb(0 0 0 / .4);
-    }
+    } */
 }
 @media (prefers-color-scheme: dark) {
     taskboard-manager[data-theme="dossier"] 
     {
-        --shade-0: #1F1F22;
+        /* --shade-0: #1F1F22;
         --shade-1: #23262d;
         --shade-2: #2e313b;
         --shade-3: #3a3c44;
@@ -49,7 +49,27 @@
         /* --panel: rgba(255, 255, 255, 0.03); */
         /* --page: #222222; */
 
-        --selected-shadow: 1px 1px 3px -1px rgb(0 0 0 / .4);
+        /* --selected-shadow: 1px 1px 3px -1px rgb(0 0 0 / .4); */
+
+
+        --background-1: #161616;
+        --background-2: #191919;
+        --background-3: #1C1C1C;
+        --background-4: #222;
+        --background-5: #292929;
+
+        --font-1: #666;
+        --font-2: #999;
+        --font-3: #DDD;
+        --font-disabled: #555;
+        --font-highlight: highlight;
+        --font-hover: highlight;
+        --font-accent: #333;
+
+        --accent: #c29046;
+
+        background-color: var(--background-3);
+        color: var(--font-1);
     }
 
     taskboard-manager[data-theme="dossier"]::part(header)
@@ -119,7 +139,7 @@ taskboard-manager[data-theme="dossier"]
 taskboard-manager[data-theme="dossier"]::part(button)
 {
     background: transparent;
-    border: solid 1px var(--highlight);
+    border: solid 1px var(--accent);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -128,7 +148,8 @@ taskboard-manager[data-theme="dossier"]::part(button)
 }
 taskboard-manager[data-theme="dossier"]::part(button):hover
 {
-    background: var(--highlight);
+    background: var(--accent);
+    color: var(--font-accent);
 }
 taskboard-manager[data-theme="dossier"]::part(preferred-button)
 {
@@ -167,7 +188,7 @@ taskboard-manager[data-theme="dossier"]::part(board-edit-button):hover
 
 taskboard-manager[data-theme="dossier"]::part(menu)
 {
-    background: none;
+    background: var(--background-2);
     border: none;
 }
 
@@ -200,7 +221,7 @@ taskboard-manager[data-theme="dossier"]::part(dialog)
     border: solid 1px;
     border-radius: 3px;
     border: none;
-    background-color: var(--background);
+    background-color: var(--background-3);
     box-shadow: 0 0 7px 1px rgb(0 0 0 / .7);
 }
 
@@ -573,6 +594,12 @@ taskboard-manager[data-theme="dossier"]::part(menu-item-handle)
     /* transform: skewX(var(--skew)); */
 }
 
+taskboard-manager[data-theme="dossier"]::part(tasklist-settings)
+{
+    /* background-color: var(--background-2);
+    color: var(--font-1); */
+}
+
 
 taskboard-manager[data-theme="dossier"]::part(app-router)
 {
@@ -630,7 +657,7 @@ taskboard-manager[data-theme="dossier"]::part(list-collapse):hover
 
 taskboard-manager[data-theme="dossier"]::part(task-card)
 {
-    background-color: var(--task-background-color, var(--shade-3));
+    background-color: var(--task-background-color, var(--background-4));
     border: solid 1px transparent;
 }
 

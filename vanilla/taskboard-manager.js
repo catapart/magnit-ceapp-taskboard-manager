@@ -8,7 +8,7 @@ var board_item_global_default = '\na.board\n{\n    margin: 0;\n    flex-shrink: 
 var browser_item_global_default = "captioned-thumbnail\n{\n    height: auto;\n}\n\ncaptioned-thumbnail::part(figure)\n{\n    padding: 3px;\n}\n\ncaptioned-thumbnail svg\n{\n    width: 36px;\n    height: 36px;\n}\n\ncaptioned-thumbnail.match\n{\n    border: solid 1px highlight;\n    order: 0;\n}\nboard-browser:has(captioned-thumbnail.match) captioned-thumbnail:not(.match)\n{\n    order: 1;\n}";
 
 // styles/settings.css?raw
-var settings_default = 'task-board\n{\n    background-color: var(--board-background-color, transparent);\n    color: var(--board-font-color);\n}\ntask-board[style*="--board-background-source"]\n{\n    background:  var(--board-background-source), var(--board-background-color, transparent);\n    background-size: var(--background-image-display);\n    background-position: var(--background-image-position, var(--background-image-offset));\n    background-repeat: var(--background-image-repeat);\n}\n\ntask-list\n{\n    background: var(--list-background-color);\n    color: var(--list-font-color);\n    border-color: var(--list-border-color, transparent);\n}\ntask-list::part(header)\n{\n    top: 0;\n    margin-bottom: 14px;\n}\ntask-list::part(name)\n{\n    color: inherit;\n}\ntask-list.hide-color::part(color)\n{\n    display: none;\n}\ntask-list.hide-color::part(header)\n{\n    grid-template-columns: 1fr auto;\n}\n\ntask-card\n{\n    background-color: var(--task-background-color, canvas);\n    width: var(--task-width, 300px);\n    overflow: hidden;\n    font-family: sans-serif;\n    color: var(--task-font-color, currentcolor);\n    font-size: var(--task-font-size, 12px);\n    border-color: var(--task-border-color, var(--input-border-color));\n    border-radius: var(--task-border-radius, 2px);\n    border-top-width: var(--task-border-top, 1px);\n    border-right-width: var(--task-border-right, 1px);\n    border-bottom-width: var(--task-border-bottom, 1px);\n    border-left-width: var(--task-border-left, 1px);\n}\ntask-card::part(description)\n{\n    font: inherit;\n}\n.center-remove task-card::part(remove-button)\n{\n    align-self: center;\n}\ntask-card::part(is-finished)\n{\n    align-self: flex-start;\n}\n.center-checkbox task-card::part(is-finished)\n{\n    align-self: center;\n}\n\n.hide-task-color task-card::part(color)\n{\n    display: none;\n}\n\n.task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card\n{\n    border-color: var(--task-color);\n}\n.task-color-border.color-border-top task-card\n{\n    border-top-color: var(--task-color);\n}\n.task-color-border.color-border-right task-card\n{\n    border-right-color: var(--task-color);\n}\n.task-color-border.color-border-bottom task-card\n{\n    border-bottom-color: var(--task-color);\n}\n.task-color-border.color-border-left task-card\n{\n    border-left-color: var(--task-color);\n}\n.task-color-background task-card\n{\n    background-color: var(--task-color);\n}\n.task-color-border task-card::part(color-container)\n{\n    display: block;\n    margin-block: 1em;\n    margin-inline-start: 1em;\n    width: 16px;\n    height: 16px;\n    background-color: var(--task-color);\n    border-radius: 50%;\n    align-self: center;\n}\n.task-color-border task-card::part(color)\n{\n    display: none;\n}\n\n/* .task-color-border task-card\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n.task-color-border task-card::part(color-container)\n,.task-color-border task-card::part(color)\n{\n    grid-row: 2;\n    grid-column: 2;\n    width: 14px;\n    height: 14px;\n    margin-block-end: 7px;\n    margin-block-start: 0;\n    border-radius: 3px;\n    align-self: center;\n    justify-self: center;\n}\n\n.task-color-border task-card::part(handle)\n{\n    grid-row: span 2;\n    grid-column: 1;\n}\n\n.task-color-border task-card::part(is-finished)\n,.task-color-border task-card::part(finished-indicator)\n{\n    grid-row: 1;\n    grid-column: 2;\n    margin-block-start: 7px;\n    margin-block-end: 0;\n}\n\n.task-color-border task-card::part(description)\n,.task-color-border task-card::part(remove-button)\n{\n    grid-row: span 2;\n} */\n\n@media (min-width: 665px) \n{\n    task-list\n    {\n        width: var(--list-width);\n    } \n}';
+var settings_default = 'task-board\n{\n    background-color: var(--board-background-color, transparent);\n    color: var(--board-font-color);\n}\ntask-board[style*="--board-background-source"]\n{\n    background:  var(--board-background-source), var(--board-background-color, transparent);\n    background-size: var(--background-image-display);\n    background-position: var(--background-image-position, var(--background-image-offset));\n    background-repeat: var(--background-image-repeat);\n}\n\ntask-list\n{\n    background: var(--list-background-color);\n    color: var(--list-font-color);\n    border-color: var(--list-border-color, transparent);\n}\ntask-list::part(header)\n{\n    top: 0;\n    margin-bottom: 14px;\n}\ntask-list::part(name)\n{\n    color: inherit;\n}\ntask-list.hide-color::part(color)\n{\n    display: none;\n}\ntask-list.hide-color::part(header)\n{\n    grid-template-columns: 1fr auto;\n}\n\ntask-card\n{\n    background-color: var(--task-background-color, canvas);\n    width: var(--task-width, 300px);\n    overflow: hidden;\n    font-family: sans-serif;\n    color: var(--task-font-color, currentcolor);\n    font-size: var(--task-font-size, 12px);\n    border-color: var(--task-border-color, var(--input-border-color));\n    border-radius: var(--task-border-radius, 2px);\n    border-top-width: var(--task-border-top, 1px);\n    border-right-width: var(--task-border-right, 1px);\n    border-bottom-width: var(--task-border-bottom, 1px);\n    border-left-width: var(--task-border-left, 1px);\n}\ntask-card::part(description)\n{\n    font: inherit;\n}\n.center-remove task-card::part(remove-button)\n{\n    align-self: center;\n}\ntask-card::part(is-finished)\n{\n    align-self: flex-start;\n}\n.center-checkbox task-card::part(is-finished)\n{\n    align-self: center;\n}\n\n.hide-task-color task-card::part(color-container)\n{\n    display: none;\n}\n\n.task-color-border task-card\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n.task-color-border:not(.color-border-top,.color-border-right,.color-border-bottom,.color-border-left) task-card\n{\n    border-color: var(--task-color);\n}\n.task-color-border.color-border-top task-card\n{\n    border-top-color: var(--task-color);\n}\n.task-color-border.color-border-right task-card\n{\n    border-right-color: var(--task-color);\n}\n.task-color-border.color-border-bottom task-card\n{\n    border-bottom-color: var(--task-color);\n}\n.task-color-border.color-border-left task-card\n{\n    border-left-color: var(--task-color);\n}\n.task-color-background task-card\n{\n    background-color: var(--task-color);\n}\n\n.task-color-border task-card::part(is-finished)\n{\n    grid-row: 2;\n    grid-column: 2;\n    margin-block-end: 7px;\n    margin-block-start: 0;\n}\n\n.task-color-border task-card::part(color-container)\n{\n    display: block;\n    margin: 7px;\n    width: 14px;\n    height: 6px;\n    background-color: var(--task-color);\n    border-radius: 5px;\n    align-self: center;\n\n    grid-row: 1;\n    grid-column: 2;\n    margin-block-start: 7px;\n    margin-block-end: 0;\n    justify-self: center;\n}\n.task-color-border task-card::part(color)\n{\n    display: none;\n}\n\n.task-color-border task-card::part(description)\n{\n    width: auto;\n    grid-row: span 2;\n    margin-block: 7px;\n}\n\n.task-color-border task-card::part(remove-button)\n{\n    grid-row: span 2;\n}\n\n/* .task-color-border task-card\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n.task-color-border task-card::part(color-container)\n,.task-color-border task-card::part(color)\n{\n    grid-row: 2;\n    grid-column: 2;\n    width: 14px;\n    height: 14px;\n    margin-block-end: 7px;\n    margin-block-start: 0;\n    border-radius: 3px;\n    align-self: center;\n    justify-self: center;\n}\n\n.task-color-border task-card::part(handle)\n{\n    grid-row: span 2;\n    grid-column: 1;\n}\n\n.task-color-border task-card::part(is-finished)\n,.task-color-border task-card::part(finished-indicator)\n{\n    grid-row: 1;\n    grid-column: 2;\n    margin-block-start: 7px;\n    margin-block-end: 0;\n}\n\n.task-color-border task-card::part(description)\n,.task-color-border task-card::part(remove-button)\n{\n    grid-row: span 2;\n} */\n\n@media (min-width: 665px) \n{\n    task-list\n    {\n        width: var(--list-width);\n    } \n}';
 
 // taskboard-manager.css?raw
 var taskboard_manager_default = `*
@@ -958,7 +958,7 @@ ${value}`
 }
 
 // components/import-manager/import-manager.component.css?raw
-var import_manager_component_default = ":host { display: contents; }\n\n#import-header\n{\n    display: flex;\n    align-items: center;\n    gap: 7px;\n    padding: 7px 0;\n    font-weight: bold;\n}\n\n#import-title\n{\n    font-weight: bold;\n}\n\n.header-icon\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n}\n\n.value\n{\n    display: flex;\n    align-items: center;\n}\n\n.old\n{\n    text-decoration: line-through;\n    opacity: .8;\n    padding-inline: .5em;\n    display: inline-block;\n    width: 100px;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    overflow: hidden;\n}\n\n.value\n{\n    max-width: 500px;\n    overflow: hidden;\n    word-break: break-word;\n}\n.value:has(.display)\n{\n    display: flex;\n    flex-direction: column;\n}\n.value .view-link\n{\n    align-self: flex-end;\n}\n\n.removed\n{\n    text-decoration: line-through;\n}\n\n.value img.preview\n{\n    max-height: 200px;\n}\n\n#content\n{\n    overflow: hidden;\n    display: grid;\n}\n\n#import-board-data-fieldset\n{\n    overflow: hidden;\n    flex: 1;\n    display: flex;\n    flex-direction: column;\n}\n\n#preview\n{\n    overflow: auto;\n}\n\n.actions\n{\n    display: flex;\n    align-items: center;\n    justify-content: flex-end;\n    gap: 14px;\n    padding: 7px 0;\n}\n\n@media (max-width: 665px) \n{\n    #preview\n    {\n        --indent: 5px;\n        --property-name-width: 75px;\n    }\n    #preview .property .name\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n    }\n    #preview .property .value\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n        word-break: break-all;\n    }\n}";
+var import_manager_component_default = ":host { display: contents; user-select: none; }\n\n#import-header\n{\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    gap: 7px;\n    align-items: center;\n    font-weight: bold;\n    padding-bottom: 1em;\n}\n\n#import-title\n{\n    font-weight: bold;\n}\n\n.header-icon\n{\n    width: var(--dialog-header-icon-size);\n    height: var(--dialog-header-icon-size);\n}\n\n.value\n{\n    display: flex;\n    align-items: center;\n}\n\n.old\n{\n    text-decoration: line-through;\n    opacity: .8;\n    padding-inline: .5em;\n    display: inline-block;\n    width: 100px;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    overflow: hidden;\n}\n\n.value\n{\n    max-width: 500px;\n    overflow: hidden;\n    word-break: break-word;\n}\n.value:has(.display)\n{\n    display: flex;\n    flex-direction: column;\n}\n.value .view-link\n{\n    align-self: flex-end;\n}\n\n.removed\n{\n    text-decoration: line-through;\n}\n\n.value img.preview\n{\n    max-height: 200px;\n}\n\n#content\n{\n    overflow: hidden;\n    display: grid;\n}\n\n#import-board-data-fieldset\n{\n    overflow: hidden;\n    flex: 1;\n    display: flex;\n    flex-direction: column;\n}\n\n#preview\n{\n    overflow: auto;\n}\n\n.actions\n{\n    display: flex;\n    align-items: center;\n    justify-content: flex-end;\n    gap: 14px;\n    padding-top: 1em;\n}\n\n@media (max-width: 665px) \n{\n    #preview\n    {\n        --indent: 5px;\n        --property-name-width: 75px;\n    }\n    #preview .property .name\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n    }\n    #preview .property .value\n    {\n        overflow: hidden;\n        text-overflow: ellipsis;\n        word-break: break-all;\n    }\n}";
 
 // components/import-manager/import-manager.component.html?raw
 var import_manager_component_default2 = '<header id="import-header" class="header dialog-header">\n    <svg id="import-icon" class="icon header-icon">\n        <use href="#icon-definition_import"></use>\n    </svg>\n    <span id="import-title" class="title dialog-title">Import</span>\n</header>\n<div id="content">\n    <fieldset id="import-board-data-fieldset" class="fieldset import-fieldset">\n        <legend id="import-board-data-legend" class="legend import-legend">Board Data</legend>\n        <p id="description">The following Taskboard, Tasklists, and Tasks will be imported with their settings. Make final adjustments and select "Import" to complete the import.</p>\n        <record-tree id="preview" removed-class parent-name="Board"></record-tree>\n    </fieldset>\n</div>\n<footer id="import-footer" class="footer dialog-footer">\n    <form id="import-actions" class="actions" method="dialog">\n        <button type="submit" id="import-cancel" class="button action-button cancel" title="Cancel import">Cancel</button>\n        <button type="submit" id="import-ok" class="button action-button preferred-button ok" title="Confirm import">Import</button>\n    </form>\n</footer>\n\n';
@@ -2463,6 +2463,11 @@ form-field input[type="color"]
     height: auto;
 }
 
+.enabled-checkbox
+{
+    margin-right: 7px;
+}
+
 #tasklist-color
 {
     width: 15px;
@@ -3347,7 +3352,6 @@ var BoardChannel = class extends DataChannel {
     const taskSettings = this.channels.taskSettings.create("board");
     board.taskSettingsId = taskSettings.id;
     const value = [board, taskSettings, lists];
-    console.log(value);
     return value;
   }
   async getTaskLists(boardId) {
@@ -5964,6 +5968,11 @@ form-field .label input
     flex: 1;
 } */
 
+form-field .field-label .enabled-checkbox
+{
+    margin-right: 5px;
+}
+
 fileimage-input::part(label)
 {
     grid-column: span 2;
@@ -6651,7 +6660,6 @@ var BoardSettingsElement = class extends HTMLElement {
       ];
       return parts;
     }).flat().filter((item) => item.length > 0));
-    console.log(tasklistExportParts);
     taskListElement.setAttribute("exportparts", `${Array.from(tasklistExportParts).join(",\n")}`);
     const handle = taskListElement.findElement("tasklist-settings-handle");
     handle.addEventListener("mousedown", (_event) => {
@@ -10382,6 +10390,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     this.#addBoardHandlers();
     addKeyHandlers.call(this);
     this.#addRouteHandlers();
+    this.addEventListener("click", this.#onClick.bind(this));
     await this.#handleInitialNavigation(boardsPromise);
     DataService.removeExpiredData();
     setInterval(() => {
@@ -10441,15 +10450,15 @@ var TaskboardManagerElement = class extends HTMLElement {
   }
   //#region Management
   #initTaskCard(card, task) {
+    const description = card.findElement("description");
     card.dataset.taskId = task.id;
     card.setAttribute("color", task.color);
     card.setAttribute("is-finished", task.isFinished.toString());
-    card.setAttribute("description", task.description);
+    description.innerHTML = task.description;
     card.setAttribute("draggable", "true");
     card.setAttribute("part", "task-card");
     card.setAttribute("exportparts", "description: task-description, is-finished:task-checkbox, color-container:task-color-container, color:task-color, remove-button:task-remove-button, handle:task-handle, finished-indicator:task-finished-indicator, button, input, finished");
     card.style.setProperty("--task-color", task.color);
-    const description = card.findElement("description");
     description.addEventListener("keyup", this.#taskDescription_onKeyUp.bind(this));
     description.focus();
   }
@@ -10606,7 +10615,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     task.listId = listId;
     task.color = taskComponent.findElement("color").value;
     task.isFinished = taskComponent.findElement("is-finished").checked;
-    task.description = taskComponent.value ?? "";
+    task.description = taskComponent.findElement("description").innerHTML;
     const tasks = [...parentList.querySelectorAll("task-card")];
     task.order = tasks.indexOf(taskComponent);
     if (task.order == -1) {
@@ -10994,7 +11003,6 @@ var TaskboardManagerElement = class extends HTMLElement {
       this.#importDialog_import_onClick();
       return;
     }
-    console.log(event.target);
   }
   #router_onPathChange(event) {
     if (this.#historyIsUpdating == true) {
@@ -11099,7 +11107,9 @@ var TaskboardManagerElement = class extends HTMLElement {
     this.#updateListRecord(event.target);
   }
   #taskBoard_onListCollapse(event) {
-    console.log(event.target);
+    const target = event.target;
+    const isCollapsed = target.getAttribute("collapsed") != null;
+    target.part.toggle("collapsed-list", isCollapsed);
   }
   #taskBoard_onTaskChange(event) {
     const cardElement = event.target;

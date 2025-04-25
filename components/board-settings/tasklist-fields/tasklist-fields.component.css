@@ -134,6 +134,11 @@ form-field input[type="color"]
     height: auto;
 }
 
+.enabled-checkbox
+{
+    margin-right: 7px;
+}
+
 #tasklist-color
 {
     width: 15px;
