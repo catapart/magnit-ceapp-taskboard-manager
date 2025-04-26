@@ -11,7 +11,11 @@
         --accent: rgb(232, 181, 100);
         --highlight: rgba(0, 0, 0, 0.05);
         --panel: rgba(0, 0, 0, 0.03);
-        --page: #F2F2F2; */
+        --page: #F2F2F2; */    
+
+        --brand-1: oklch(74.61% 0.171 253.56); /* primary */
+        --brand-2: oklch(52.49% 0.113 253.98); /* dark */
+        --brand-3: oklch(88.37% 0.07258208750520016 253.803287); /* light */
     }
 
     /* taskboard-manager[data-theme="dossier"]::part(header)
@@ -64,9 +68,15 @@
         --font-disabled: #555;
         --font-highlight: highlight;
         --font-hover: highlight;
-        --font-accent: #333;
+        --font-accent: #000;
 
-        --accent: #c29046;
+        --brand-1: oklch(74.61% 0.171 253.56); /* primary */
+        --brand-2: oklch(52.49% 0.113 253.98); /* dark */
+        --brand-3: oklch(88.37% 0.07258208750520016 253.803287); /* light */
+
+        /* --accent-1: var(--brand-1);
+        --accent-2: var(--brand-2);
+        --accent-3: var(--brand-3); */
 
         background-color: var(--background-3);
         color: var(--font-1);
@@ -77,7 +87,7 @@
         /* background: var(--secondary); */
         background: var(--primary);
 
-        --icon-primary-color: var(--accent);
+        --icon-primary-color: var(--accent-3);
         box-shadow: var(--selected-shadow);
     }
 
@@ -139,16 +149,20 @@ taskboard-manager[data-theme="dossier"]
 taskboard-manager[data-theme="dossier"]::part(button)
 {
     background: transparent;
-    border: solid 1px var(--accent);
+    border: solid 1px var(--font-1);
+    color: var(--font-2);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 30px;
+    font-weight: bold;
+    border-radius: 2px;
     padding: 5px 10px;
+    transition: background 200ms ease-out, color 200ms ease-out, border-color 200ms linear;
 }
 taskboard-manager[data-theme="dossier"]::part(button):hover
 {
-    background: var(--accent);
+    border-color: var(--accent-3);
+    background: var(--accent-3);
     color: var(--font-accent);
 }
 taskboard-manager[data-theme="dossier"]::part(preferred-button)
@@ -190,6 +204,7 @@ taskboard-manager[data-theme="dossier"]::part(menu)
 {
     background: var(--background-2);
     border: none;
+    color: var(--font-2);
 }
 
 taskboard-manager[data-theme="dossier"]::part(menu-header)
@@ -239,6 +254,19 @@ taskboard-manager[data-theme="dossier"]::part(input)
     border-radius: 3px;
 }
 
+
+taskboard-manager[data-theme="dossier"]::part(app-menu-header)
+{
+    align-items: center;
+}
+taskboard-manager[data-theme="dossier"]::part(find-board-button)
+{
+    padding: 5px 10px;
+}
+taskboard-manager[data-theme="dossier"]::part(open-settings-button)
+{
+    padding: 8px 10px;
+}
 
 
 taskboard-manager[data-theme="dossier"]::part(browser-filter-input)
@@ -294,13 +322,13 @@ taskboard-manager[data-theme="dossier"]::part(config-navigation)
 
 taskboard-manager[data-theme="dossier"]::part(nav-item)
 {
-    border-right: solid 2px var(--primary);
+    border-right: solid 2px var(--font-1);
 }
 
 taskboard-manager[data-theme="dossier"]::part(nav-item):hover
 ,taskboard-manager[data-theme="dossier"]::part(nav-item selected)
 {
-    background-color: var(--primary);
+    background-color: var(--accent-3);
 }
 
 taskboard-manager[data-theme="dossier"]::part(page-header)
@@ -552,13 +580,13 @@ taskboard-manager[data-theme="dossier"]::part(board-items)
 
 taskboard-manager[data-theme="dossier"]::part(board)
 {
-    --grip-color: var(--text);
+    --grip-color: var(--font-1);
     border: solid 1px transparent;
     /* opacity: .6; */
     /* margin-inline: 10px;
     padding-block: 5px; */
     /* border-radius: 30px; */
-    border-radius: 3px;
+    border-radius: 2px;
     padding: 5px;
     font-size: 13px;
     font-weight: 700;
@@ -570,21 +598,20 @@ taskboard-manager[data-theme="dossier"]::part(board):hover
 {
     opacity: 1;
     background: none;
-    color: var(--highlight-text);
-    border-color: var(--secondary)
+    border-color: var(--font-1);
 }
 taskboard-manager[data-theme="dossier"]::part(board selected)
 {
-    --grip-color: var(--accent);
-    color: var(--highlight-text);
+    --grip-color: var(--font-accent);
+    color: var(--font-accent);
     opacity: 1;
     box-shadow: var(--selected-shadow);
-    background-color: var(--secondary) !important; /* prevent hover from overriding */
+    background-color: var(--accent-3) !important; /* prevent hover from overriding */
 }
 
 taskboard-manager[data-theme="dossier"]::part(menu-item-handle):hover
 {
-    --grip-color: var(--accent);
+    --grip-color: var(--font-3);
 }
 
 taskboard-manager[data-theme="dossier"]::part(menu-item-handle)
