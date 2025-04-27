@@ -5,7 +5,7 @@ export const LogoMark = `<svg id="icon-definition_logo-mark" viewBox="0 0 39.072
      transform="translate(-32.699748,-93.890704)"
      id="g2214">
     <rect
-       style="fill:var(--brand-3, #90e0ef);fill-opacity:1;stroke:var(--brand-2, #03045e);stroke-width:3.29545;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;stop-color:#000000"
+       style="fill:var(--brand-3, #b8dcff);fill-opacity:1;stroke:var(--brand-2, #386caa);stroke-width:3.29545;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;stop-color:#000000"
        width="35.777416"
        height="29.807568"
        x="34.347473"
@@ -13,7 +13,7 @@ export const LogoMark = `<svg id="icon-definition_logo-mark" viewBox="0 0 39.072
        ry="0.37767497"
        id="rect2206" />
     <rect
-       style="fill:var(--brand-1, #0077b6);fill-opacity:1;stroke:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;stop-color:#000000"
+       style="fill:var(--brand-1, #60b0ff);fill-opacity:1;stroke:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;stop-color:#000000"
        width="9.2341394"
        height="23.481096"
        x="47.61911"
@@ -21,7 +21,7 @@ export const LogoMark = `<svg id="icon-definition_logo-mark" viewBox="0 0 39.072
        ry="0.37767494"
        id="rect2208" />
     <rect
-       style="fill:var(--brand-1, #0077b6);fill-opacity:1;stroke:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;stop-color:#000000"
+       style="fill:var(--brand-1, #60b0ff);fill-opacity:1;stroke:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;stop-color:#000000"
        width="9.2341394"
        height="23.481096"
        x="58.202446"
@@ -29,7 +29,7 @@ export const LogoMark = `<svg id="icon-definition_logo-mark" viewBox="0 0 39.072
        ry="0.37767494"
        id="rect2210" />
     <rect
-       style="fill:var(--brand-1, #0077b6);fill-opacity:1;stroke:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;stop-color:#000000"
+       style="fill:var(--brand-1, #60b0ff);fill-opacity:1;stroke:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;stop-color:#000000"
        width="9.2341394"
        height="23.481096"
        x="37.035774"

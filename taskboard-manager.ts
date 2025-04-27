@@ -166,7 +166,7 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const boardRecords = await DataService.getAllBoardRecords();
         
-        this.findElement<AppMenuElement>('app-menu').updateBoards(boardRecords);
+        this.findElement<AppMenuElement>('app-menu-container').updateBoards(boardRecords);
         this.findElement<BoardBrowserElement>('board-browser').updateBoards(boardRecords);
     }
     async openBoard(id: string)
@@ -192,17 +192,25 @@ export class TaskboardManagerElement extends HTMLElement
     async closeBoard()
     {
         await this.findElement<PathRouterElement>('app-router').navigate('/' + window.location.hash);
-        this.getElement('task-board').innerHTML = "";        
+        this.getElement('task-board').innerHTML = "";
+        
+        const selectedMenuItems = [...this.findElement('app-menu-container').querySelectorAll(`[aria-current]`)] as HTMLElement[];
+        for(let i = 0; i < selectedMenuItems.length; i++)
+        {
+            selectedMenuItems[i].removeAttribute('aria-current');
+            selectedMenuItems[i].classList.remove('selected');
+            selectedMenuItems[i].part.remove('selected');
+        }
     }
     async addBoard()
     {
-        const order = this.findElement('app-menu').querySelectorAll('a').length;
+        const order = this.findElement('app-menu-container').querySelectorAll('a').length;
         const board = await DataService.createBoard(order);
 
         await this.findElement<ConfigPanelElement>('config-panel')
         .addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Board, { id: board.id });
 
-        this.findElement<AppMenuElement>('app-menu').refresh();
+        this.findElement<AppMenuElement>('app-menu-container').refresh();
         this.findElement<WelcomePanelElement>('welcome-panel').refresh();
     }
     editBoard(boardId: string)
@@ -246,7 +254,7 @@ export class TaskboardManagerElement extends HTMLElement
     }
     async importBoard(boardData: BoardExport, errorMessage?: string)
     {
-        const order = this.findElement('app-menu').querySelectorAll('a').length;
+        const order = this.findElement('app-menu-container').querySelectorAll('a').length;
         return DataService.importBoard(boardData, order, errorMessage);
     }
     async removeBoard(boardId: string, confirm: boolean = true)
@@ -332,7 +340,7 @@ export class TaskboardManagerElement extends HTMLElement
         const boardsPromise = this.refreshBoardCollections();
 
         // app menu
-        this.findElement<AppMenuElement>('app-menu').init({
+        this.findElement<AppMenuElement>('app-menu-container').init({
             addBoard: this.addBoard.bind(this),
             editBoard: this.editBoard.bind(this),
         });
@@ -448,10 +456,11 @@ export class TaskboardManagerElement extends HTMLElement
         let boardIdIndex = windowPath.indexOf('board/');
         if(boardIdIndex > -1)
         {
-            const currentMenuItem = this.findElement('app-menu').querySelector(`[data-route="${windowPath}"]`);
+            const currentMenuItem = this.findElement('app-menu-container').querySelector(`[data-route="${windowPath}"]`) as HTMLElement;
             if(currentMenuItem != null)
             {
                 currentMenuItem.setAttribute('aria-current', 'page');
+                currentMenuItem.classList.add('selected');
                 currentMenuItem.part.add('selected');
             }
         }
@@ -503,7 +512,7 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const settingsTarget = this.findElement<BoardSettingsElement>('board-settings');
         const settingsTargetId = settingsTarget.getAttribute('record-id');
-        const boardItem = this.findElement<AppMenuElement>('app-menu').querySelector(`a[data-route*="${settingsTargetId}"]`) as HTMLAnchorElement;
+        const boardItem = this.findElement<AppMenuElement>('app-menu-container').querySelector(`a[data-route*="${settingsTargetId}"]`) as HTMLAnchorElement;
         if(boardItem == null)
         {
             FeedbackService.showErrorMessageCard(`An error occurred saving a task board.`);
@@ -1285,7 +1294,7 @@ export class TaskboardManagerElement extends HTMLElement
         // const item = event.composedPath().find(item => item instanceof HTMLElement ? item.part.contains('board-menu-item') : false) as HTMLElement;
         // if(item == null) { return; }
     
-        const items = [...this.findElement('app-menu').querySelectorAll('a')];
+        const items = [...this.findElement('app-menu-container').querySelectorAll('a')];
         for(let i = 0; i < items.length; i++)
         {
             items[i].part.remove('selected');
@@ -1293,10 +1302,11 @@ export class TaskboardManagerElement extends HTMLElement
     
         if(pageRoute != null)
         {
-            const currentMenuItem = this.findElement('app-menu').querySelector(`[data-route="${pageRoute}"]`);
+            const currentMenuItem = this.findElement('app-menu-container').querySelector(`[data-route="${pageRoute}"]`);
             if(currentMenuItem != null)
             {
                 currentMenuItem.setAttribute('aria-current', 'page');
+                currentMenuItem.classList.add('selected');
                 currentMenuItem.part.add('selected');
             }
         }

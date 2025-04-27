@@ -4,6 +4,14 @@ input, button, textarea, select
     font: inherit; 
 }
 
+button
+{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
 button svg
 {
     width: var(--button-icon-size);
