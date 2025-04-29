@@ -1,22 +1,29 @@
-<fieldset id="panel-fieldset" class="fieldset">
-    <legend id="panel-legend" class="legend">Welcome</legend>
-    <svg id="welcome-logo" class="logo" >
-        <use href="#icon-definition_logo"></use>
-    </svg>
+<fieldset id="welcome-fieldset" class="fieldset">
+    <legend id="welcome-legend" class="legend">Welcome</legend>
+    <header id="welcome-header" class="panel-header">
+        <svg id="welcome-logo" class="logo" >
+            <use href="#icon-definition_logo"></use>
+        </svg>
+    </header>
     <div id="welcome-description" class="description">
         <p id="welcome-text" clas="text">Welcome to your Taskboard Manager!</p>
         <p id="create-text" clas="text">Create a <a id="new-board-link" class="link">new board</a>, or select a recently-opened board below.</p>
     </div>
     <fieldset id="recent-fieldset" class="fieldset">
         <legend id="recent-legend" class="legend">Recent Boards</legend>
-        <editable-list id="recent-boards" class="editable-list" exportparts="edit:edit-button, handle: edit-handle, button">
+        <editable-list id="recent-boards" class="editable-list" remove-class="button recent-board-remove-button icon-button" exportparts="edit:edit-button, handle: edit-handle, button, remove:remove-button">
             <slot></slot>
-            <button type="button" slot="add" id="new-board-button" class="button new-board-button" title="New Board">
+            <button type="button" slot="add" id="new-board-button" class="button new-board-button label-button" title="New Board">
                 <svg class="icon plus" >
                     <use href="#icon-definition_plus"></use>
                 </svg>
                 <span class="label">New Board</span>
             </button>
+            <template part="remove-button">
+                <svg class="icon button-icon remove">
+                    <use href="#icon-definition_close-cross"></use>
+                </svg>
+            </template>
         </editable-list>
     </fieldset>
 </fieldset>

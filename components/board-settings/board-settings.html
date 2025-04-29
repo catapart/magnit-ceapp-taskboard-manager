@@ -74,13 +74,13 @@
             <div class="details-content">
                 <div id="board-lists"><slot><em id="board-list-placeholder">No Lists</em></slot></div>
                 <div id="board-list-actions">
-                    <button class="button" id="clear-lists-button" type="button" title="Clear All Lists">
+                    <button class="button label-button" id="clear-lists-button" type="button" title="Clear All Lists">
                         <svg class="icon button-icon" id="clear-lists-button-icon">
                             <use href="#icon-definition_trash"></use>
                         </svg>
                         <span class="label button-label" id="clear-lists-button-label">Clear</span>
                     </button>
-                    <button class="button" id="add-list-button" type="button">
+                    <button class="button label-button" id="add-list-button" type="button">
                         <svg class="icon button-icon" id="add-list-button-icon">
                             <use href="#icon-definition_plus"></use>
                         </svg>
@@ -107,6 +107,8 @@
                              option,
                              first,
                              last,
+                             label-button,
+                             icon-button,
                              container,
                              field-container,
                              label,
@@ -162,7 +164,7 @@
         <fieldset class="fieldset board-settings-fieldset" id="delete-fieldset">
             <legend class="legend board-settings-legend" id="delete-legend">Delete</legend>
             <p class="field-question">Delete this board?</p>
-            <button class="button" id="remove-board-button" type="submit">
+            <button class="button label-button" id="remove-board-button" type="submit">
                 <svg class="icon button-icon" id="remove-board-icon">
                     <use href="#icon-definition_trash"></use>
                 </svg>
@@ -175,7 +177,7 @@
             <form-field class="field" id="duplicate-board-name-field" label="New Board Name">
                 <input class="input" id="duplicate-board-name" type="text" />
             </form-field>
-            <button class="button" id="duplicate-board-button" type="button">
+            <button class="button label-button" id="duplicate-board-button" type="button">
                 <svg class="icon copy" id="duplicate-board-icon">
                     <use href="#icon-definition_copy"></use>
                 </svg>
@@ -193,7 +195,7 @@
                     <input class="input" id="export-background-image" type="checkbox" checked="true">
                 </form-field>
             </div>
-            <button class="button" id="export-button" type="button">
+            <button class="button label-button" id="export-button" type="button">
                 <svg class="icon" id="export-button-icon">
                     <use href="#icon-definition_export"></use>
                 </svg>
@@ -202,13 +204,13 @@
         </fieldset>
     </div>
     <footer class="footer dialog-footer" id="board-settings-footer">
-        <button class="button" id="close-board-button" type="submit" title="Close Board">
+        <button class="button label-button" id="close-board-button" type="submit" title="Close Board">
             <svg class="icon" id="close-board-icon">
                 <use href="#icon-definition_close-cross"></use>
             </svg>
             <span class="label button-label" id="close-board-button-label" title="Close the board and return to the Welcome page">Close</span>
         </button>
-        <button class="button action-button cancel" id="board-settings-cancel" type="submit"title="Cancel changes">Cancel</button>
-        <button class="button action-button ok preferred-button"  id="board-settings-save" type="submit" title="Save settings">Save</button>
+        <button class="button action-button cancel label-button" id="board-settings-cancel" type="submit"title="Cancel changes">Cancel</button>
+        <button class="button action-button ok preferred-button label-button"  id="board-settings-save" type="submit" title="Save settings">Save</button>
     </footer>
 </form>

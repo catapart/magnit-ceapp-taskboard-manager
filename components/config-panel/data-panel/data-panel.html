@@ -9,7 +9,7 @@
             </svg>
         </fileimage-input>
     </form-field>
-    <button id="import-button" class="button">
+    <button id="import-button" class="button label-button">
         <svg id="import-button-icon" class="icon">
             <use href="#icon-definition_import"></use>
         </svg>
@@ -26,7 +26,7 @@
         <input type="range" id="data-persist-days" class="input range" max="30" list="data-persist-days-values" />
         <datalist id="data-persist-days-values"></datalist>
         <span slot="postfix" id="data-persist-days-value"></span>
-        <button slot="postfix" id="apply-data-persist-days-button" class="button">
+        <button slot="postfix" id="apply-data-persist-days-button" class="button label-button">
             <svg id="apply-data-persist-days-icon" class="icon">
                 <use href="#icon-definition_confirm-check"></use>
             </svg>
@@ -39,14 +39,14 @@
     <div id="data-pending-description">
         <p class="text">The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>
     </div>
-    <editable-list id="deleted-items" class="cache-list" remove-class="restore-button button" exportparts="remove:restore-item-button">
+    <editable-list id="deleted-items" class="cache-list" remove-class="restore-button button icon-button" exportparts="remove:restore-item-button">
         <template part="remove-button">
             <svg class="icon restore-icon restore-item-icon" class="icon" title="Restore">
                 <use href="#icon-definition_restore"></use>
             </svg>
         </template>
     </editable-list>
-    <button id="clear-deleted-button" class="button">
+    <button id="clear-deleted-button" class="button label-button">
         <svg id="clear-deleted-icon" class="icon" title="Clear">
             <use href="#icon-definition_trash"></use>
         </svg>
@@ -59,14 +59,14 @@
         <p class="text">Caching some image files provides undo and redo support.</p>
         <p class="text">The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>
     </div>
-    <editable-list id="deleted-images" remove-class="button" class="cache-list" exportparts="button, remove:delete-cached-image-button">
+    <editable-list id="deleted-images" remove-class="button icon-button" class="cache-list" exportparts="button, remove:delete-cached-image-button">
         <template part="remove-button">
             <svg class="icon delete-image-icon trash-icon" title="Clear">
                 <use href="#icon-definition_trash"></use>
             </svg>
         </template>
     </editable-list>
-    <button id="clear-image-cache-button" class="button">
+    <button id="clear-image-cache-button" class="button label-button">
         <svg id="clear-images-icon" title="Clear">
             <use href="#icon-definition_trash"></use>
         </svg>
@@ -78,7 +78,7 @@
     <div id="data-clear-description">
         <p class="text">Delete all data, including app settings and history.</p>
     </div>
-    <button id="clear-data-button" class="button">
+    <button id="clear-data-button" class="button label-button">
         <svg id="clear-data-icon" class="icon" title="Clear">
             <use href="#icon-definition_trash"></use>
         </svg>

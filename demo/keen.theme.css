@@ -12,23 +12,24 @@
 @media (prefers-color-scheme: dark) {
     taskboard-manager[data-theme="keen"] 
     {
-        --background-1: #1C1C1C;
-        --background-2: #222222;
-        --background-3: #2E2E2E;
-        --background-4: #3D3D3D;
-        --background-5: #464646;
-
-        --font-1: #666;
-        --font-2: #999;
-        --font-3: #DDD;
-        --font-disabled: #555;
-        --font-highlight: highlight;
-        --font-hover: highlight;
 
         --accent-1: oklch(74.61% 0.171 253.56); /* primary */
         --accent-2: oklch(52.49% 0.113 253.98); /* dark */
         --accent-3: oklch(88.37% 0.07258208750520016 253.803287); /* light */
         --font-accent: #EEE;
+
+        --background-1: #161616;
+        --background-2: #1F1F1F;
+        --background-3: #2E2E2E;
+        --background-4: #3D3D3D;
+        --background-5: #464646;
+
+        --font-disabled: #555;
+        --font-1: #666;
+        --font-2: #999;
+        --font-3: #CFCFCF;
+        --font-highlight: highlight;
+        --font-hover: #DDD;
 
         --input-background: var(--background-1);
 
@@ -54,8 +55,8 @@ taskboard-manager[data-theme="keen"]
 
     --small-font-size: 0.889rem;
 
-    --icon-primary-color: var(--accent-1);
-    --icon-secondary-color: var(--accent-2);
+    --icon-primary-color: var(--font-1);
+    --icon-secondary-color: rgb(0 0 0 / .4);
 
     --button-hover-background: var(--background-4);
     --button-hover-color: var(--font-2);
@@ -76,21 +77,6 @@ taskboard-manager[data-theme="keen"]
     margin: 3em;
 }
 
-taskboard-manager[data-theme="keen"]::part(button)
-{
-    background: none;
-    border: none;
-    color: var(--font-1);
-
-    --icon-primary-color: var(--font-1);
-    --icon-secondary-color: var(--background-3);
-}
-taskboard-manager[data-theme="keen"]::part(button):hover
-{
-    background: var(--button-hover-background);
-    color: var(--button-hover-color);
-}
-
 taskboard-manager[data-theme="keen"]::part(app-menu)
 {
     background: var(--background-2);
@@ -100,16 +86,18 @@ taskboard-manager[data-theme="keen"]::part(app-menu)
 
 taskboard-manager[data-theme="keen"]::part(app-menu-header)
 {
-    background: var(--background-3);
+    box-shadow: 0 3px 7px 0 rgb(0 0 0 / .4);
+    /* border-bottom: solid 1px var(--background-5); */
     gap: 0;
+    padding: 10px 7px;
 }
 
 taskboard-manager[data-theme="keen"]::part(find-board-button)
 {
     background-color: var(--input-background);
-    border: solid 1px var(--font-disabled);
-    color: var(--font-disabled);
-    border-radius: 2px;
+    border: solid 1px var(--background-4);
+    color: var(--font-1);
+    border-radius: 3px;
     display: grid;
     align-items: center;
     text-align: left;
@@ -124,28 +112,15 @@ taskboard-manager[data-theme="keen"]::part(find-board-button)
 }
 taskboard-manager[data-theme="keen"]::part(find-board-button):hover
 {
-    background: var(--background-3);
-    --icon-primary-color: var(--accent-1);
-}
-
-taskboard-manager[data-theme="keen"]::part(open-settings-button)
-{
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    padding: 3px;
-
-    --button-icon-size: 24px;
-}
-taskboard-manager[data-theme="keen"]::part(open-settings-button):hover
-{
-    background-color: var(--background-1);
+    /* background: var(--background-3); */
+    color: var(--font-hover);
+    --icon-primary-color: var(--font-hover);
 }
 
 taskboard-manager[data-theme="keen"]::part(board-items)
 {
     display: grid;
-    gap: 3px;
+    gap: 7px;
     padding: 7px;
 }
 
@@ -158,6 +133,7 @@ taskboard-manager[data-theme="keen"]::part(board)
     margin: 0;
     gap: 7px;
     align-items: center;
+    border-radius: 2px;
 }
 taskboard-manager[data-theme="keen"]::part(board):hover
 {
@@ -178,18 +154,115 @@ taskboard-manager[data-theme="keen"]::part(menu-item-handle):hover
     --grip-color: var(--font-accent);
 }
 
-taskboard-manager[data-theme="keen"]::part(board-edit-button)
+taskboard-manager[data-theme="keen"]::part(icon-button)
 {
-    --button-icon-size: 18px;
-    width: 20px;
-    height: 20px;
+    --label-color: var(--font-2);
+    --background-color: transparent;
+
+    color: var(--label-color);
+    --icon-primary-color: var(--label-color);
+    background: var(--background-color);
+    --icon-secondary-color: rgb(0 0 0 / .6);
+    border: none;
+
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    padding: 3px;
-    --icon-primary-color: var(--font-accent);
+    padding: 5px;
+    align-self: center;
+
+    --button-icon-size: 24px;
 }
-taskboard-manager[data-theme="keen"]::part(board-edit-button):hover
+taskboard-manager[data-theme="keen"]::part(icon-button):hover
 {
-    background-color: var(--background-1);
+    /* background-color: rgb(0 0 0 / .6); */
+    --label-color: var(--font-hover);
+}
+
+taskboard-manager[data-theme="keen"]::part(label-button)
+{
+    padding: 5px 14px;
+    border-radius: 5px;
+    border: solid 1px var(--background-4);
+    color: var(--font-2);
+
+    --background-color: var(--background-3);
+
+    --icon-primary-color: var(--font-2);
+    --icon-secondary-color: var(--background-color);
+
+    background: var(--background-color) 
+    linear-gradient(to top, rgb(0 0 0 / .3), rgb(0 0 0 / 0) 30%);
+    /* background: var(--background-color); */
+}
+taskboard-manager[data-theme="keen"]::part(label-button):hover
+{
+    --background-color: var(--background-4);
+    color: var(--font-hover);
+    --icon-primary-color: var(--font-hover);
+    border-color: var(--background-5);
+}
+taskboard-manager[data-theme="keen"]::part(label-button):active
+{
+    color: var(--font-2);
+    background: var(--background-color) 
+    linear-gradient(to bottom, rgb(0 0 0 / .3), rgb(0 0 0 / 0) 30%);
+    /* --background-color: var(--background-4); */
+    --icon-primary-color: var(--font-2);
+}
+
+taskboard-manager[data-theme="keen"]::part(welcome-panel)
+{
+    width: 550px;
+}
+
+taskboard-manager[data-theme="keen"]::part(welcome-fieldset)
+{
+    display: grid;
+    padding: 0;
+    border: none;
+    background-color: var(--background-2);
+    color: var(--font-2);
+}
+taskboard-manager[data-theme="keen"]::part(welcome-header)
+{
+    background-color: #D5F5D9;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%23D5F5D9' cx='50' cy='0' r='50'/%3E%3Cg fill='%23ccefd0' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%23c4e9c8' cx='50' cy='100' r='50'/%3E%3Cg fill='%23bbe3bf' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23b2ddb7' cx='50' cy='200' r='50'/%3E%3Cg fill='%23aad7ae' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%23a2d1a6' cx='50' cy='300' r='50'/%3E%3Cg fill='%2399cb9e' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%2391c595' cx='50' cy='400' r='50'/%3E%3Cg fill='%2388bf8d' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%2380b985' cx='50' cy='500' r='50'/%3E%3Cg fill='%2378b37d' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%2370ad74' cx='50' cy='600' r='50'/%3E%3Cg fill='%2367a86c' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%235fa264' cx='50' cy='700' r='50'/%3E%3Cg fill='%23579c5c' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%234e9654' cx='50' cy='800' r='50'/%3E%3Cg fill='%2345904c' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%233d8b44' cx='50' cy='900' r='50'/%3E%3Cg fill='%2333853c' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%23297F34' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: contain;
+}
+
+taskboard-manager[data-theme="keen"]::part(welcome-legend)
+{
+    display: none;
+}
+
+taskboard-manager[data-theme="keen"]::part(welcome-logo)
+{
+    padding: 14px;
+}
+
+taskboard-manager[data-theme="keen"]::part(welcome-description)
+{
+    padding: 7px 14px;
+    margin: 0;
+}
+
+taskboard-manager[data-theme="keen"]::part(recent-fieldset)
+{
+    margin: 0;
+    padding: 7px;
+    border: none;
+}
+
+taskboard-manager[data-theme="keen"]::part(recent-legend)
+{
+    display: none;
+}
+
+taskboard-manager[data-theme="keen"]::part(recent-board-remove-button)
+{
+    --button-icon-size: 12px;
 }
 
 @media (min-width: 665px) 
@@ -199,5 +272,14 @@ taskboard-manager[data-theme="keen"]::part(board-edit-button):hover
 
 @media (max-width: 665px)
 {
-    
+
+    taskboard-manager[data-theme="keen"]::part(welcome-panel)
+    {
+        width: auto;
+    }
+
+    taskboard-manager[data-theme="keen"]::part(welcome-logo)
+    {
+        padding: 7px;
+    }
 }

@@ -82,6 +82,7 @@ ${defineIcons(
     IconType.Stylus,
     IconType.TaskBoard,
     IconType.UndoRedo,
+    IconType.CloseCross,
 )}`;
 
 const COMPONENT_TAG_NAME = 'taskboard-manager';

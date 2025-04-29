@@ -30,7 +30,6 @@ ${defineIcons(
     IconType.LogoType,
     IconType.Logo,
     IconType.PlusIcon,
-    IconType.CancelCross,
 )}`;
 
 const COMPONENT_TAG_NAME = 'welcome-panel';
