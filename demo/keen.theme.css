@@ -20,16 +20,18 @@
 
         --background-1: #161616;
         --background-2: #1F1F1F;
-        --background-3: #2E2E2E;
-        --background-4: #3D3D3D;
-        --background-5: #464646;
+        --background-3: #252525;
+        --background-4: #2E2E2E;
+        --background-5: #3D3D3D;
+        --background-6: #464646;
 
         --font-disabled: #555;
         --font-1: #666;
         --font-2: #999;
         --font-3: #CFCFCF;
-        --font-highlight: highlight;
+        --font-highlight: var(--accent-1);
         --font-hover: #DDD;
+        --font-active: #E2E2E2;
 
         --input-background: var(--background-1);
 
@@ -147,11 +149,11 @@ taskboard-manager[data-theme="keen"]::part(board selected)
     --grip-color: var(--font-accent) !important;
 
     background-color: var(--accent-2) !important;
-    color: var(--font-accent) !important;
+    color: var(--font-active) !important;
 }
 taskboard-manager[data-theme="keen"]::part(menu-item-handle):hover
 {
-    --grip-color: var(--font-accent);
+    --grip-color: var(--font-active);
 }
 
 taskboard-manager[data-theme="keen"]::part(icon-button)
@@ -183,7 +185,7 @@ taskboard-manager[data-theme="keen"]::part(label-button)
 {
     padding: 5px 14px;
     border-radius: 5px;
-    border: solid 1px var(--background-4);
+    border: solid 1px var(--background-3);
     color: var(--font-2);
 
     --background-color: var(--background-3);
@@ -192,7 +194,7 @@ taskboard-manager[data-theme="keen"]::part(label-button)
     --icon-secondary-color: var(--background-color);
 
     background: var(--background-color) 
-    linear-gradient(to top, rgb(0 0 0 / .3), rgb(0 0 0 / 0) 30%);
+    linear-gradient(to top, rgb(0 0 0 / .2), rgb(0 0 0 / 0));
     /* background: var(--background-color); */
 }
 taskboard-manager[data-theme="keen"]::part(label-button):hover
@@ -206,7 +208,7 @@ taskboard-manager[data-theme="keen"]::part(label-button):active
 {
     color: var(--font-2);
     background: var(--background-color) 
-    linear-gradient(to bottom, rgb(0 0 0 / .3), rgb(0 0 0 / 0) 30%);
+    linear-gradient(to bottom, rgb(0 0 0 / .2), rgb(0 0 0 / 0));
     /* --background-color: var(--background-4); */
     --icon-primary-color: var(--font-2);
 }
@@ -246,6 +248,8 @@ taskboard-manager[data-theme="keen"]::part(welcome-description)
 {
     padding: 7px 14px;
     margin: 0;
+    color: var(--font-active);
+    text-align: center;
 }
 
 taskboard-manager[data-theme="keen"]::part(recent-fieldset)
@@ -263,6 +267,120 @@ taskboard-manager[data-theme="keen"]::part(recent-legend)
 taskboard-manager[data-theme="keen"]::part(recent-board-remove-button)
 {
     --button-icon-size: 12px;
+}
+
+taskboard-manager[data-theme="keen"]::part(task-board)
+{
+    
+}
+
+taskboard-manager[data-theme="keen"]::part(list-header)
+{
+    margin: 7px;
+    padding: 0;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+taskboard-manager[data-theme="keen"]::part(list-color-container)
+{
+    grid-row: 2;
+    grid-column: span 2;
+    display: flex;
+}
+
+taskboard-manager[data-theme="keen"]::part(list-color)
+{
+    flex: 1;
+    height: 3px;
+    border-radius: 2px;
+}
+
+taskboard-manager[data-theme="keen"]::part(list-name)
+{
+    background: transparent;
+    border: none;
+    color: var(--font-active);
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 7px;
+    text-transform: uppercase;
+}
+
+taskboard-manager[data-theme="keen"]::part(list-collapse)
+{
+    border: none;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: transparent;
+}
+taskboard-manager[data-theme="keen"]::part(list-collapse):hover
+{
+    color: var(--font-active);
+}
+
+taskboard-manager[data-theme="keen"]::part(task-card)
+{
+    background-color: var(--task-background-color, var(--background-3));
+    border: solid 1px transparent;
+    --task-focus-outline: solid medium var(--font-active);
+    box-shadow: 0 0 7px 2px rgb(0 0 0 / .3);
+}
+
+taskboard-manager[data-theme="keen"]::part(task-checkbox)
+{
+    display: none;
+}
+
+taskboard-manager[data-theme="keen"]::part(task-finished-indicator)
+{
+    --size: 20px;
+    width: var(--size);
+    height: var(--size);
+    background-color: rgb(0 0 0 / .3);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+taskboard-manager[data-theme="keen"]::part(task-finished-indicator finished)::before
+{
+    margin-top: 3px;
+    /* green: 749d23*/
+    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="%23fbf9fe" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>');
+}
+
+taskboard-manager[data-theme="keen"]::part(task-remove-button)
+{
+    border: none;
+    background: transparent;
+    color: var(--font-2);
+    height: auto;
+    padding: 7px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+taskboard-manager[data-theme="keen"]::part(task-remove-button):hover
+{
+    --icon-primary-color: var(--font-active);
+    /* background: rgb(0 0 0 / .2); */
+}
+
+taskboard-manager[data-theme="keen"]::part(task-description)
+{
+    background-color: transparent;
+    border: none;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    outline: none;
 }
 
 @media (min-width: 665px) 

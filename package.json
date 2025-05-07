@@ -54,7 +54,7 @@
     "@magnit-ce/path-router": "^0.2.8",
     "@magnit-ce/record-tree": "^0.0.4",
     "@magnit-ce/task-board": "^0.0.4",
-    "@magnit-ce/task-card": "^0.0.22",
+    "@magnit-ce/task-card": "^0.0.24",
     "@magnit-ce/task-list": "^0.0.15",
     "record-setter": "^1.0.6"
   }
