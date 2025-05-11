@@ -2,7 +2,7 @@
 var shared_default = "\ninput, button, textarea, select \n{\n    font: inherit; \n}\n\nbutton\n{\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    gap: 7px;\n}\n\nbutton svg\n{\n    width: var(--button-icon-size);\n    height: var(--button-icon-size);\n}\n";
 
 // components/app-menu/board-item.global.css?raw
-var board_item_global_default = '\na.board\n{\n    margin: 0;\n    flex-shrink: 0;\n    display: flex;\n    align-items: center;\n    gap: .25em;\n    padding: .25em 1em;\n}\na.board .name\n{\n    flex: 1;\n}\na.board:hover\n{\n    background: highlight;\n    color: highlighttext;\n}\na.board[aria-current="page"]\n{\n    background: highlight;\n    color: highlighttext;\n}\n\n@media (max-width: 665px) \n{\n\n    a.board [part="edit"]\n    {\n        display: none;\n    }\n}\n@media (max-width: 800px) \n{\n    \n}\n\n/* only desktop */\n@media (min-width: 665px) \n{\n\n    a.board\n    {\n        overflow: hidden;\n    }\n\n    .menu-item-handle\n    ,a.board [part="edit"]\n    {\n        opacity: 0;\n        transition: opacity 200ms ease;\n    }\n    .menu-item-handle\n    ,a.board:hover [part="edit"]\n    {\n        opacity: 1;\n    }\n\n    a.board [part="edit"]:hover\n    {\n        opacity: 1;\n    }\n\n    a.board .board-item-name\n    {\n        flex: 1;\n        white-space: nowrap;\n        overflow: hidden;\n        text-overflow: ellipsis;\n    }\n\n    \n    .menu-item-handle\n    {\n        display: flex;\n        width: 10px;\n        align-self: stretch;\n        cursor: grab;\n        /* border-radius: 3px; */\n        transform: translateY(-1px);\n        \n        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);\n        background-size: 5px 6px;\n        background-position: 0 0, 2px 4px;\n    }\n    .menu-item-handle:active\n    {\n        cursor: grabbing;\n    }\n}\n@media (min-width: 800px) \n{\n\n}';
+var board_item_global_default = '\na.board\n{\n    margin: 0;\n    flex-shrink: 0;\n    display: flex;\n    align-items: center;\n    gap: .25em;\n    padding: .25em 1em;\n}\na.board .name\n{\n    flex: 1;\n}\na.board:hover\n{\n    background: highlight;\n    color: highlighttext;\n}\na.board[aria-current="page"]\n{\n    background: highlight;\n    color: highlighttext;\n}\n\n@media (max-width: 665px) \n{\n\n    a.board [part="edit"]\n    {\n        display: none;\n    }\n}\n@media (max-width: 800px) \n{\n    \n}\n\n/* only desktop */\n@media (min-width: 665px) \n{\n\n    /* a.board\n    {\n        overflow: hidden;\n    } */\n\n    .menu-item-handle\n    ,a.board [part="edit"]\n    {\n        opacity: 0;\n        transition: opacity 200ms ease;\n    }\n    .menu-item-handle\n    ,a.board:hover [part="edit"]\n    {\n        opacity: 1;\n    }\n\n    a.board [part="edit"]:hover\n    {\n        opacity: 1;\n    }\n\n    a.board .board-item-name\n    {\n        flex: 1;\n        white-space: nowrap;\n        overflow: hidden;\n        text-overflow: ellipsis;\n    }\n\n    \n    .menu-item-handle\n    {\n        display: flex;\n        width: 10px;\n        align-self: stretch;\n        cursor: grab;\n        /* border-radius: 3px; */\n        transform: translateY(-1px);\n        \n        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);\n        background-size: 5px 6px;\n        background-position: 0 0, 2px 4px;\n    }\n    .menu-item-handle:active\n    {\n        cursor: grabbing;\n    }\n}\n@media (min-width: 800px) \n{\n\n}';
 
 // components/board-browser/browser-item.global.css?raw
 var browser_item_global_default = "captioned-thumbnail\n{\n    height: auto;\n}\n\ncaptioned-thumbnail::part(figure)\n{\n    padding: 3px;\n}\n\ncaptioned-thumbnail svg\n{\n    width: 36px;\n    height: 36px;\n}\n\ncaptioned-thumbnail.match\n{\n    border: solid 1px highlight;\n    order: 0;\n}\nboard-browser:has(captioned-thumbnail.match) captioned-thumbnail:not(.match)\n{\n    order: 1;\n}";
@@ -137,6 +137,12 @@ task-card[data-drag-id]
     padding: 10px;
     scale: .9;
     border: dashed 1px graytext;
+}
+
+.add-task-button
+{
+    margin: 14px auto;
+    display: flex;
 }
 
 captioned-thumbnail::part(selected)
@@ -10344,6 +10350,12 @@ var TaskboardManagerElement = class extends HTMLElement {
   // {
   //     this.findElement<ConfigPanelElement>('config-panel').history_clear();
   // }
+  addTask(list, order) {
+    const listId = list.dataset.tasklistId;
+    const card = new TaskCardElement();
+    list.append(card);
+    this.#registerTaskCard(card, listId, order);
+  }
   //#endregion API
   //#region Internal
   async #init() {
@@ -10812,6 +10824,13 @@ var TaskboardManagerElement = class extends HTMLElement {
       element.style.setProperty("--list-color", list.color);
       element.setAttribute("exportparts", "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, tasks:list-tasks, add-button:list-add-button, button, input, finished:task-finished");
       element.dragAndDropQueryParent = board;
+      element.innerHTML = `
+            <button type="button" slot="add-button" class="button add-task-button label-button" part="add-button add-task-button button label-button" title="Add">
+                <svg id="add-icon" class="icon button-icon add">
+                    <use href="#icon-definition_plus"></use>
+                </svg>
+                <span id="add-label">Add Task</span>
+            </button>`;
       if (list.useCustomWidth == true) {
         element.style.setProperty("--list-width", `${list.width}px`);
         element.style.setProperty("flex-grow", "0");
@@ -11001,6 +11020,11 @@ var TaskboardManagerElement = class extends HTMLElement {
       this.#importDialog_import_onClick();
       return;
     }
+    const addTaskButton = composedPath.find((item) => item.classList.contains("add-task-button"));
+    if (addTaskButton != null) {
+      const order = addTaskButton.parentElement.querySelectorAll(`task-card`).length;
+      this.addTask(addTaskButton.parentElement, order);
+    }
   }
   #router_onPathChange(event) {
     if (this.#historyIsUpdating == true) {
@@ -11123,11 +11147,8 @@ var TaskboardManagerElement = class extends HTMLElement {
   }
   #taskBoard_onTaskAdd(event) {
     const list = event.target;
-    const listId = list.dataset.tasklistId;
-    const card = new TaskCardElement();
-    list.append(card);
     const data = event.detail;
-    this.#registerTaskCard(card, listId, data.order);
+    this.addTask(list, data.order);
   }
   #taskBoard_onTaskRemove(event) {
     const card = event.target.closest("task-card");

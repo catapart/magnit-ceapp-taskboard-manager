@@ -7,6 +7,36 @@
         --accent-1: oklch(74.61% 0.171 253.56); /* primary */
         --accent-2: oklch(52.49% 0.113 253.98); /* dark */
         --accent-3: oklch(88.37% 0.07258208750520016 253.803287); /* light */
+
+
+
+        /** Base colors */
+        --clr-dark-a0: #000000;
+        --clr-light-a0: #ffffff;
+
+        /** Theme primary colors */
+        --clr-primary-a0: #07ba9c;
+        --clr-primary-a10: #31b499;
+        --clr-primary-a20: #44ad96;
+        --clr-primary-a30: #52a793;
+        --clr-primary-a40: #5da18f;
+        --clr-primary-a50: #669a8c;
+
+        /** Theme surface colors */
+        --clr-surface-a0: #faf5f2;
+        --clr-surface-a10: #ece7e5;
+        --clr-surface-a20: #dedad8;
+        --clr-surface-a30: #d0cccb;
+        --clr-surface-a40: #c2bfbe;
+        --clr-surface-a50: #b4b2b1;
+
+        /** Theme tonal surface colors */
+        --clr-surface-tonal-a0: #e8f0e9;
+        --clr-surface-tonal-a10: #dce3dd;
+        --clr-surface-tonal-a20: #d0d6d1;
+        --clr-surface-tonal-a30: #c4c9c5;
+        --clr-surface-tonal-a40: #b8bdb9;
+        --clr-surface-tonal-a50: #adb0ad;
     }
 }
 @media (prefers-color-scheme: dark) {
@@ -37,15 +67,43 @@
 
         --background: var(--background-1);
         color: var(--font-1);
+
+        /** Base colors */
+        --clr-dark-a0: #000000;
+        --clr-light-a0: #ffffff;
+
+        /** Theme primary colors */
+        --clr-primary-a0: #68bdba;
+        --clr-primary-a10: #7bc4c1;
+        --clr-primary-a20: #8cccc9;
+        --clr-primary-a30: #9ed3d1;
+        --clr-primary-a40: #aedad8;
+        --clr-primary-a50: #bfe2e0;
+
+        /** Theme surface colors */
+        --clr-surface-a0: #121212;
+        --clr-surface-a10: #282828;
+        --clr-surface-a20: #3f3f3f;
+        --clr-surface-a30: #575757;
+        --clr-surface-a40: #717171;
+        --clr-surface-a50: #8b8b8b;
+
+        /** Theme tonal surface colors */
+        --clr-surface-tonal-a0: #1b2120;
+        --clr-surface-tonal-a10: #303635;
+        --clr-surface-tonal-a20: #464c4b;
+        --clr-surface-tonal-a30: #5e6362;
+        --clr-surface-tonal-a40: #777b7a;
+        --clr-surface-tonal-a50: #909493;
     }
 }
 
 taskboard-manager[data-theme="keen"]
 {
 
-    --brand-1: var(--accent-1);; /* primary */
-    --brand-2: var(--accent-2);; /* dark */
-    --brand-3: var(--accent-3);; /* light */
+    --brand-1: var(--accent-5);; /* primary */
+    --brand-2: var(--accent-8);; /* dark */
+    --brand-3: var(--accent-1);; /* light */
 
     --header-font-family: 'Assistant';
     --header-font-weight: 700;
@@ -78,20 +136,38 @@ taskboard-manager[data-theme="keen"]
 {
     margin: 3em;
 }
+taskboard-manager[data-theme="keen"]
+{
+    --accent-0: #f4f9f4;
+    --accent-1: #e7f2e6;
+    --accent-2: #d0e5cd;
+    --accent-3: #aacfa6;
+    --accent-4: #7cb177;
+    --accent-5: #599453;
+    --accent-6: #467841;
+    --accent-7: #396035;
+    --accent-8: #304d2e;
+    --accent-9: #284027;
+    --accent-10: #1b321a;
+}
 
 taskboard-manager[data-theme="keen"]::part(app-menu)
 {
-    background: var(--background-2);
     border: none;
     color: inherit;
+    padding: 0 7px;
+    background: var(--background-1);
 }
 
 taskboard-manager[data-theme="keen"]::part(app-menu-header)
 {
-    box-shadow: 0 3px 7px 0 rgb(0 0 0 / .4);
+    /* box-shadow: 0 3px 7px 0 rgb(0 0 0 / .4); */
     /* border-bottom: solid 1px var(--background-5); */
     gap: 0;
     padding: 10px 7px;
+    border: solid 1px #37373a;
+    border-radius: 5px;
+    background: #1c1c1f;
 }
 
 taskboard-manager[data-theme="keen"]::part(find-board-button)
@@ -131,26 +207,58 @@ taskboard-manager[data-theme="keen"]::part(board)
 {
     --grip-color: var(--font-1);
 
-    padding: 7px;
+    padding: 5px 7px;
     margin: 0;
     gap: 7px;
     align-items: center;
-    border-radius: 2px;
+    border-radius: 3px;
+    position: relative;
+    border: solid 1px transparent;
 }
 taskboard-manager[data-theme="keen"]::part(board):hover
 {
     --grip-color: var(--font-2);
 
-    background-color: var(--background-3);
+    /* background-color: var(--background-3); */
+    background-color: transparent;
+    border-color: var(--background-5);
     color: var(--font-2);
+}
+taskboard-manager[data-theme="keen"]::part(board):hover::before
+{
+    background-color: var(--board-color, var(--font-2, currentcolor));
+    content: '';
+    width: 4px;
+    height: 26px;
+    border-radius: 3px;
+    position: absolute;
+    left: -2px;
+    top: 50%;
+    translate: 0 -50%;
 }
 taskboard-manager[data-theme="keen"]::part(board selected)
 {
     --grip-color: var(--font-accent) !important;
-
-    background-color: var(--accent-2) !important;
+    /* background: linear-gradient(to left, transparent, var(--accent-10) 50%) !important; */
+    background: var(--accent-10) !important;
     color: var(--font-active) !important;
+    color: #f4f4f5;
+    border-color: var(--accent-7) !important;
 }
+taskboard-manager[data-theme="keen"]::part(board selected)::before
+{
+    background-color: var(--board-color, var(--font-active, currentcolor)) !important;
+    content: '';
+    width: 4px;
+    height: 26px;
+    border-radius: 3px;
+    position: absolute;
+    left: -2px;
+    top: 50%;
+    translate: 0 -50%;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
 taskboard-manager[data-theme="keen"]::part(menu-item-handle):hover
 {
     --grip-color: var(--font-active);
@@ -327,7 +435,20 @@ taskboard-manager[data-theme="keen"]::part(task-card)
     background-color: var(--task-background-color, var(--background-3));
     border: solid 1px transparent;
     --task-focus-outline: solid medium var(--font-active);
-    box-shadow: 0 0 7px 2px rgb(0 0 0 / .3);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    position: relative;
+    overflow: initial;
+}
+
+taskboard-manager[data-theme="keen"]::part(task-color)
+{
+    position: absolute;
+    top: 10%;
+    width: 5px;
+    left: -3px;
+    height: 80%;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
 taskboard-manager[data-theme="keen"]::part(task-checkbox)
@@ -340,13 +461,16 @@ taskboard-manager[data-theme="keen"]::part(task-finished-indicator)
     --size: 20px;
     width: var(--size);
     height: var(--size);
-    background-color: rgb(0 0 0 / .3);
+    background-color: var(--background-1);
+    opacity: .8;
     border: none;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     align-self: center;
+    grid-row: 2;
+    grid-column: 2;
 }
 taskboard-manager[data-theme="keen"]::part(task-finished-indicator finished)::before
 {
@@ -381,6 +505,11 @@ taskboard-manager[data-theme="keen"]::part(task-description)
     margin-top: 7px;
     margin-bottom: 7px;
     outline: none;
+}
+
+taskboard-manager[data-theme="keen"]::part(notification)
+{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 @media (min-width: 665px) 

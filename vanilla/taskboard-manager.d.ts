@@ -1,5 +1,6 @@
 import { DataRecord } from 'record-setter';
 import { RoutePageElement } from '@magnit-ce/path-router';
+import { TaskListElement } from '@magnit-ce/task-list';
 
 declare class CustomImageRecord extends DataRecord {
     boardId: string;
@@ -155,6 +156,7 @@ declare class TaskboardManagerElement extends HTMLElement {
     duplicateBoard(id: string): Promise<void>;
     closeBoardSettings(): Promise<unknown>;
     clearData(): Promise<void>;
+    addTask(list: TaskListElement, order: number): void;
 }
 
 export { TaskboardManagerElement };

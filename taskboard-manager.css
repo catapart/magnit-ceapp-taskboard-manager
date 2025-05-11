@@ -126,6 +126,12 @@ task-card[data-drag-id]
     border: dashed 1px graytext;
 }
 
+.add-task-button
+{
+    margin: 14px auto;
+    display: flex;
+}
+
 captioned-thumbnail::part(selected)
 {
     display: none;

@@ -325,6 +325,14 @@ export class TaskboardManagerElement extends HTMLElement
     // {
     //     this.findElement<ConfigPanelElement>('config-panel').history_clear();
     // }
+
+    addTask(list: TaskListElement, order: number)
+    {
+        const listId = list.dataset.tasklistId!;
+        const card = new TaskCardElement();
+        list.append(card);
+        this.#registerTaskCard(card, listId, order);
+    }
     //#endregion API
 
     //#region Internal
@@ -964,6 +972,13 @@ export class TaskboardManagerElement extends HTMLElement
             element.style.setProperty('--list-color', list.color);
             element.setAttribute('exportparts', "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, tasks:list-tasks, add-button:list-add-button, button, input, finished:task-finished");
             element.dragAndDropQueryParent = board;
+            element.innerHTML = `
+            <button type="button" slot="add-button" class="button add-task-button label-button" part="add-button add-task-button button label-button" title="Add">
+                <svg id="add-icon" class="icon button-icon add">
+                    <use href="#icon-definition_plus"></use>
+                </svg>
+                <span id="add-label">Add Task</span>
+            </button>`
 
             if(list.useCustomWidth == true)
             {
@@ -1248,6 +1263,14 @@ export class TaskboardManagerElement extends HTMLElement
             this.#importDialog_import_onClick();
             return;
         }
+
+
+        const addTaskButton = composedPath.find(item => item.classList.contains('add-task-button'));
+        if(addTaskButton != null)
+        {
+            const order = addTaskButton.parentElement!.querySelectorAll(`task-card`).length;
+            this.addTask(addTaskButton.parentElement! as TaskListElement, order);
+        }
     }
 
     #router_onPathChange(event: Event|CustomEvent)
@@ -1423,11 +1446,12 @@ export class TaskboardManagerElement extends HTMLElement
     #taskBoard_onTaskAdd(this: TaskboardManagerElement, event: Event|CustomEvent)
     {
         const list = event.target as TaskListElement;
-        const listId = list.dataset.tasklistId!;
-        const card = new TaskCardElement();
-        list.append(card);
+        // const listId = list.dataset.tasklistId!;
+        // const card = new TaskCardElement();
+        // list.append(card);
         const data = (event as CustomEvent).detail;
-        this.#registerTaskCard(card, listId, data.order);
+        // this.#registerTaskCard(card, listId, data.order);
+        this.addTask(list, data.order)
     }
 
     #taskBoard_onTaskRemove(this: TaskboardManagerElement, event: Event|CustomEvent)

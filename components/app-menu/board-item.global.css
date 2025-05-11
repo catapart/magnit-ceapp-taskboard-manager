@@ -40,10 +40,10 @@ a.board[aria-current="page"]
 @media (min-width: 665px) 
 {
 
-    a.board
+    /* a.board
     {
         overflow: hidden;
-    }
+    } */
 
     .menu-item-handle
     ,a.board [part="edit"]
