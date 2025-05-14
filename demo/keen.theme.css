@@ -37,6 +37,27 @@
         --clr-surface-tonal-a30: #c4c9c5;
         --clr-surface-tonal-a40: #b8bdb9;
         --clr-surface-tonal-a50: #adb0ad;
+
+        --color-base-100: oklch(97% 0.0035 67.78);
+        --color-base-200: oklch(95% 0.0081 61.42);
+        --color-base-300: oklch(90% 0.0081 61.42);
+        --color-base-content: oklch(40% 0.0081 61.42);
+        --color-primary: oklch(23.27% 0.0249 284.3);
+        --color-primary-content: oklch(94.22% 0.2505 117.44);
+        --color-secondary: oklch(23.27% 0.0249 284.3);
+        --color-secondary-content: oklch(73.92% 0.2135 50.94);
+        --color-accent: oklch(23.27% 0.0249 284.3);
+        --color-accent-content: oklch(88.92% 0.2061 189.9);
+        --color-neutral: oklch(20% 0 0);
+        --color-neutral-content: oklch(80% 0.0081 61.42);
+        --color-info: oklch(80.39% 0.1148 241.68);
+        --color-info-content: oklch(30.39% 0.1148 241.68);
+        --color-success: oklch(73.92% 0.0901 136.87);
+        --color-success-content: oklch(23.92% 0.0901 136.87);
+        --color-warning: oklch(82% 0.189 84.429);
+        --color-warning-content: oklch(43.92% 0.1085 80);
+        --color-error: oklch(63% 0.237 25.331);
+        --color-error-content: oklch(25% 0.092 26.042);
     }
 }
 @media (prefers-color-scheme: dark) {
@@ -95,15 +116,38 @@
         --clr-surface-tonal-a30: #5e6362;
         --clr-surface-tonal-a40: #777b7a;
         --clr-surface-tonal-a50: #909493;
+
+
+
+         --color-base-100: oklch(14% 0.004 49.25);
+        --color-base-200: oklch(21% 0.006 56.043);
+        --color-base-300: oklch(26% 0.007 34.298);
+        --color-base-content: oklch(97% 0.001 106.424);
+        --color-primary: oklch(86% 0.005 56.366);
+        --color-primary-content: oklch(14% 0.004 49.25);
+        --color-secondary: oklch(87% 0.169 91.605);
+        --color-secondary-content: oklch(27% 0.077 45.635);
+        --color-accent: oklch(89% 0.196 126.665);
+        --color-accent-content: oklch(27% 0.072 132.109);
+        --color-neutral: oklch(37% 0.01 67.558);
+        --color-neutral-content: oklch(98% 0.001 106.423);
+        --color-info: oklch(71% 0.143 215.221);
+        --color-info-content: oklch(98% 0.019 200.873);
+        --color-success: oklch(64% 0.2 131.684);
+        --color-success-content: oklch(98% 0.031 120.757);
+        --color-warning: oklch(79% 0.184 86.047);
+        --color-warning-content: oklch(98% 0.026 102.212);
+        --color-error: oklch(63% 0.237 25.331);
+        --color-error-content: oklch(97% 0.014 343.198);
     }
 }
 
 taskboard-manager[data-theme="keen"]
 {
 
-    --brand-1: var(--accent-5);; /* primary */
-    --brand-2: var(--accent-8);; /* dark */
-    --brand-3: var(--accent-1);; /* light */
+    --brand-1: var(--accent-1);; /* primary */
+    --brand-2: var(--accent-2);; /* dark */
+    --brand-3: var(--accent-3);; /* light */
 
     --header-font-family: 'Assistant';
     --header-font-weight: 700;
@@ -138,7 +182,7 @@ taskboard-manager[data-theme="keen"]
 }
 taskboard-manager[data-theme="keen"]
 {
-    --accent-0: #f4f9f4;
+    /* --accent-0: #f4f9f4;
     --accent-1: #e7f2e6;
     --accent-2: #d0e5cd;
     --accent-3: #aacfa6;
@@ -148,7 +192,9 @@ taskboard-manager[data-theme="keen"]
     --accent-7: #396035;
     --accent-8: #304d2e;
     --accent-9: #284027;
-    --accent-10: #1b321a;
+    --accent-10: #1b321a; */
+
+    
 }
 
 taskboard-manager[data-theme="keen"]::part(app-menu)
