@@ -117,6 +117,28 @@
         --clr-surface-tonal-a40: #777b7a;
         --clr-surface-tonal-a50: #909493;
 
+        --surface-0: #121212;
+        --surface-1: #282828;
+        --surface-3: #3f3f3f;
+        --surface-4: #575757;
+        --surface-5: #717171;
+
+        --text-0: #ffffff;
+        --text-1: #8b8b8b;
+
+        --tone-0: #68bdba;
+        --tone-1: #7bc4c1;
+        --tone-2: #8cccc9;
+        --tone-3: #9ed3d1;
+        --tone-4: #aedad8;
+        --tone-5: #bfe2e0;
+
+        --tone-surface-0: #1b2120;
+        --tone-surface-1: #303635;
+        --tone-surface-2: #394a48;
+        --tone-surface-3: #5e6362;
+        --tone-surface-4: #777b7a;
+        --tone-surface-5: #909493;
 
 
          --color-base-100: oklch(14% 0.004 49.25);
@@ -167,8 +189,8 @@ taskboard-manager[data-theme="keen"]
 
     
     border: none;
-    background-color: var(--background);
-    color: var(--font-1);
+    background-color: var(--surface-0);
+    color: var(--text-1);
     font-family: 'Karla';
     font-weight: 400;
     font-size: 14px;
@@ -201,8 +223,7 @@ taskboard-manager[data-theme="keen"]::part(app-menu)
 {
     border: none;
     color: inherit;
-    padding: 0 7px;
-    background: var(--background-1);
+    background-color: transparent;
 }
 
 taskboard-manager[data-theme="keen"]::part(app-menu-header)
@@ -211,9 +232,9 @@ taskboard-manager[data-theme="keen"]::part(app-menu-header)
     /* border-bottom: solid 1px var(--background-5); */
     gap: 0;
     padding: 10px 7px;
-    border: solid 1px #37373a;
+    margin-bottom: 7px;
     border-radius: 5px;
-    background: #1c1c1f;
+    background-color: var(--surface-1);
 }
 
 taskboard-manager[data-theme="keen"]::part(find-board-button)
@@ -248,6 +269,12 @@ taskboard-manager[data-theme="keen"]::part(board-items)
     padding: 7px;
 }
 
+taskboard-manager[data-theme="keen"]::part(boards)
+{
+    background-color: var(--surface-1);
+    border-radius: 5px;
+}
+
 
 taskboard-manager[data-theme="keen"]::part(board)
 {
@@ -267,7 +294,7 @@ taskboard-manager[data-theme="keen"]::part(board):hover
 
     /* background-color: var(--background-3); */
     background-color: transparent;
-    border-color: var(--background-5);
+    background-color: var(--surface-3);
     color: var(--font-2);
 }
 taskboard-manager[data-theme="keen"]::part(board):hover::before
@@ -284,12 +311,9 @@ taskboard-manager[data-theme="keen"]::part(board):hover::before
 }
 taskboard-manager[data-theme="keen"]::part(board selected)
 {
-    --grip-color: var(--font-accent) !important;
-    /* background: linear-gradient(to left, transparent, var(--accent-10) 50%) !important; */
-    background: var(--accent-10) !important;
-    color: var(--font-active) !important;
-    color: #f4f4f5;
-    border-color: var(--accent-7) !important;
+    background-color: var(--tone-surface-2) !important;
+    color: var(--tone-2) !important;
+    --icon-primary-color: var(--tone-2) !important;
 }
 taskboard-manager[data-theme="keen"]::part(board selected)::before
 {
@@ -316,7 +340,7 @@ taskboard-manager[data-theme="keen"]::part(icon-button)
     --background-color: transparent;
 
     color: var(--label-color);
-    --icon-primary-color: var(--label-color);
+    --icon-primary-color: var(--tone-2);
     background: var(--background-color);
     --icon-secondary-color: rgb(0 0 0 / .6);
     border: none;
@@ -339,32 +363,34 @@ taskboard-manager[data-theme="keen"]::part(label-button)
 {
     padding: 5px 14px;
     border-radius: 5px;
-    border: solid 1px var(--background-3);
+    border: solid 1px var(--surface-4);
     color: var(--font-2);
 
-    --background-color: var(--background-3);
+    /* --background-color: var(--background-3); */
 
-    --icon-primary-color: var(--font-2);
+    --icon-primary-color: var(--tone-0);
     --icon-secondary-color: var(--background-color);
 
-    background: var(--background-color) 
-    linear-gradient(to top, rgb(0 0 0 / .2), rgb(0 0 0 / 0));
-    /* background: var(--background-color); */
+    /* background: var(--background-color) 
+    linear-gradient(to top, rgb(0 0 0 / .2), rgb(0 0 0 / 0)); */
+    background: none;
 }
 taskboard-manager[data-theme="keen"]::part(label-button):hover
 {
-    --background-color: var(--background-4);
-    color: var(--font-hover);
-    --icon-primary-color: var(--font-hover);
-    border-color: var(--background-5);
+    /* --background-color: var(--background-4); */
+    color: var(--text-0);
+    /* --icon-primary-color: var(--font-hover); */
+    border-color: var(--text-1);
 }
 taskboard-manager[data-theme="keen"]::part(label-button):active
 {
-    color: var(--font-2);
+    scale: .95;
+    color: var(--text-0);
+    /* color: var(--font-2);
     background: var(--background-color) 
     linear-gradient(to bottom, rgb(0 0 0 / .2), rgb(0 0 0 / 0));
     /* --background-color: var(--background-4); */
-    --icon-primary-color: var(--font-2);
+    /* --icon-primary-color: var(--accent-1); */
 }
 
 taskboard-manager[data-theme="keen"]::part(welcome-panel)
@@ -478,7 +504,7 @@ taskboard-manager[data-theme="keen"]::part(list-collapse):hover
 
 taskboard-manager[data-theme="keen"]::part(task-card)
 {
-    background-color: var(--task-background-color, var(--background-3));
+    background-color: var(--task-background-color, var(--surface-1));
     border: solid 1px transparent;
     --task-focus-outline: solid medium var(--font-active);
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
