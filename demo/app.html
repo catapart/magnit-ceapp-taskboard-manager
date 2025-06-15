@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taskboard Manager App Demo</title>
     <link rel="stylesheet" href="./app.css">
-    <link rel="stylesheet" href="./keen.theme.css">
+    <link rel="stylesheet" href="./themes/course/course.theme.css">
     <style>
         taskboard-manager::part(custom-settings-fieldset)
         {
@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-    <taskboard-manager id="app" data-theme="keen">
+    <taskboard-manager id="app" data-theme="course">
         <span slot="custom-settings-legend">Display</span>
         <div slot="custom-settings">
             <form-field label="Theme">
@@ -34,7 +34,7 @@
         const stylesheets = {};
         const themes = [
             // { id: 'compact', label: "Compact", description: "The Compact theme..." },
-            { id: 'keen', label: "Keen", description: "The Keen theme..." },
+            { id: 'course', label: "Course", description: "The Course theme..." },
             { id: 'creative', label: "Creative", description: "The Creative theme..." },
             { id: 'web-gothic', label: "Web Gothic", description: "The Web Gothic theme..." },
         ]
@@ -56,7 +56,7 @@
             requestAnimationFrame(() =>
             {
                 themeSelect.append(...themeOptions);
-                themeSelect.value = 'keen';
+                themeSelect.value = 'course';
                 // themeSelect.value = 'web-gothic';
                 themeSelect.dispatchEvent(new Event('change'));
             });

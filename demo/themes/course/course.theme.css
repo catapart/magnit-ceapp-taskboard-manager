@@ -1,45 +1,27 @@
 @import url('https://fonts.googleapis.com/css?family=Assistant:700|Karla:400');
 
+@import url('./taskboard.course.css');
+@import url('./app-menu.course.css');
+
 @media (prefers-color-scheme: light) 
 {
-    null
-    {
-        /** Base colors */
-        --clr-dark-a0: #000000;
-        --clr-light-a0: #ffffff;
-
-        /** Theme primary colors */
-        --clr-primary-a0: #07ba9c;
-        --clr-primary-a10: #31b499;
-        --clr-primary-a20: #44ad96;
-        --clr-primary-a30: #52a793;
-        --clr-primary-a40: #5da18f;
-        --clr-primary-a50: #669a8c;
-
-        /** Theme surface colors */
-        --clr-surface-a0: #faf5f2;
-        --clr-surface-a10: #ece7e5;
-        --clr-surface-a20: #dedad8;
-        --clr-surface-a30: #d0cccb;
-        --clr-surface-a40: #c2bfbe;
-        --clr-surface-a50: #b4b2b1;
-
-        /** Theme tonal surface colors */
-        --clr-surface-tonal-a0: #e8f0e9;
-        --clr-surface-tonal-a10: #dce3dd;
-        --clr-surface-tonal-a20: #d0d6d1;
-        --clr-surface-tonal-a30: #c4c9c5;
-        --clr-surface-tonal-a40: #b8bdb9;
-        --clr-surface-tonal-a50: #adb0ad;
-    }
-    taskboard-manager[data-theme="keen"] 
+    taskboard-manager[data-theme="course"] 
     {
         --accent-1: oklch(74.61% 0.171 253.56); /* primary */
         --accent-2: oklch(52.49% 0.113 253.98); /* dark */
         --accent-3: oklch(88.37% 0.07258208750520016 253.803287); /* light */
 
 
+        /* --text-disabled: #555;
+        --text-1: #666;
+        --text-2: #999;
+        --text-3: #CFCFCF;
+        --text-highlight: var(--accent-1);
+        --text-hover: #DDD;
+        --text-active: #E2E2E2;
+        --text-accent: #EEE; */
 
+        /* Imported theme colors */
 
         /** Base colors */
         --clr-dark-a0: #000000;
@@ -69,7 +51,13 @@
         --clr-surface-tonal-a40: #c5bcb5;
         --clr-surface-tonal-a50: #b7afaa;
 
-        --color-base-100: oklch(97% 0.0035 67.78);
+        /* End imported theme colors */
+
+        /* Custom theme colors */
+        --text-surface: var(--clr-dark-a0);
+        --text-primary: var(--clr-dark-a0);
+
+        /* --color-base-100: oklch(97% 0.0035 67.78);
         --color-base-200: oklch(95% 0.0081 61.42);
         --color-base-300: oklch(90% 0.0081 61.42);
         --color-base-content: oklch(40% 0.0081 61.42);
@@ -88,68 +76,36 @@
         --color-warning: oklch(82% 0.189 84.429);
         --color-warning-content: oklch(43.92% 0.1085 80);
         --color-error: oklch(63% 0.237 25.331);
-        --color-error-content: oklch(25% 0.092 26.042);
+        --color-error-content: oklch(25% 0.092 26.042); */
     }
 }
 @media (prefers-color-scheme: dark) {
-    null
-    {
-
-        /** Base colors */
-        --clr-dark-a0: #000000;
-        --clr-light-a0: #ffffff;
-
-        /** Theme primary colors */
-        --clr-primary-a0: #68bdba;
-        --clr-primary-a10: #7bc4c1;
-        --clr-primary-a20: #8cccc9;
-        --clr-primary-a30: #9ed3d1;
-        --clr-primary-a40: #aedad8;
-        --clr-primary-a50: #bfe2e0;
-
-        /** Theme surface colors */
-        --clr-surface-a0: #121212;
-        --clr-surface-a10: #282828;
-        --clr-surface-a20: #3f3f3f;
-        --clr-surface-a30: #575757;
-        --clr-surface-a40: #717171;
-        --clr-surface-a50: #8b8b8b;
-
-        /** Theme tonal surface colors */
-        --clr-surface-tonal-a0: #1b2120;
-        --clr-surface-tonal-a10: #303635;
-        --clr-surface-tonal-a20: #464c4b;
-        --clr-surface-tonal-a30: #5e6362;
-        --clr-surface-tonal-a40: #777b7a;
-        --clr-surface-tonal-a50: #909493;
-    }
-    taskboard-manager[data-theme="keen"] 
+    
+    taskboard-manager[data-theme="course"] 
     {
 
         --accent-1: oklch(74.61% 0.171 253.56); /* primary */
         --accent-2: oklch(52.49% 0.113 253.98); /* dark */
         --accent-3: oklch(88.37% 0.07258208750520016 253.803287); /* light */
-        --font-accent: #EEE;
+        
 
-        --background-1: #161616;
+        /* --background-1: #161616;
         --background-2: #1F1F1F;
         --background-3: #252525;
         --background-4: #2E2E2E;
         --background-5: #3D3D3D;
-        --background-6: #464646;
+        --background-6: #464646; */
 
-        --font-disabled: #555;
-        --font-1: #666;
-        --font-2: #999;
-        --font-3: #CFCFCF;
-        --font-highlight: var(--accent-1);
-        --font-hover: #DDD;
-        --font-active: #E2E2E2;
+        /* --text-disabled: #555;
+        --text-1: #666;
+        --text-2: #999;
+        --text-3: #CFCFCF;
+        --text-highlight: var(--accent-1);
+        --text-hover: #DDD;
+        --text-active: #E2E2E2;
+        --text-accent: #EEE; */
 
-        --input-background: var(--background-1);
-
-        --background: var(--background-1);
-        color: var(--font-1);
+        /* Imported theme colors */
 
         /** Base colors */
         --clr-dark-a0: #000000;
@@ -179,7 +135,29 @@
         --clr-surface-tonal-a40: #7d7973;
         --clr-surface-tonal-a50: #96928d;
 
-        --surface-0: #121212;
+        /* End imported theme colors */
+
+        /* Custom theme colors */
+        --text-surface: var(--clr-light-a0);
+        --text-button: var(--clr-dark-a0);
+        --text-icon-button: var(--clr-primary-a20);
+        --text-menu-highlight: var(--clr-primary-a20);
+
+        --surface-0: var(--clr-surface-a0);
+        --surface-input: var(--clr-surface-a10);
+        --surface-button: var(--clr-primary-a20);
+        --surface-icon-button: transparent;
+        --surface-menu: var(--clr-surface-a10);
+        --surface-menu-item-highlight: var(--clr-surface-a30);
+        --surface-menu-item-highlight-selected: var(--clr-primary-a0);
+
+        --border-icon-button: solid 1px var(--clr-surface-a30);
+        --border-menu: none;
+        
+        --border-radius-button: 8px;
+        --border-radius-card: 12px;
+
+        /* --surface-0: #121212;
         --surface-1: #282828;
         --surface-3: #3f3f3f;
         --surface-4: #575757;
@@ -222,37 +200,40 @@
         --color-warning: oklch(79% 0.184 86.047);
         --color-warning-content: oklch(98% 0.026 102.212);
         --color-error: oklch(63% 0.237 25.331);
-        --color-error-content: oklch(97% 0.014 343.198);
+        --color-error-content: oklch(97% 0.014 343.198); */
     }
 }
 
-taskboard-manager[data-theme="keen"]
+taskboard-manager[data-theme="course"]
 {
 
     --brand-1: var(--accent-1);; /* primary */
     --brand-2: var(--accent-2);; /* dark */
     --brand-3: var(--accent-3);; /* light */
 
-    --header-font-family: 'Assistant';
-    --header-font-weight: 700;
-    --header-font-size-1: 1.802rem;
-    --header-font-size-2: 1.602rem;
-    --header-font-size-3: 1.424rem;
-    --header-font-size-4: 1.266rem;
-    --header-font-size-5: 1.125rem;
+    --header-text-family: 'Assistant';
+    --header-text-weight: 700;
+    --header-text-size-1: 1.802rem;
+    --header-text-size-2: 1.602rem;
+    --header-text-size-3: 1.424rem;
+    --header-text-size-4: 1.266rem;
+    --header-text-size-5: 1.125rem;
 
-    --small-font-size: 0.889rem;
+    --small-text-size: 0.889rem;
 
-    --icon-primary-color: var(--font-1);
+    --input-background: var(--background-1);
+    --background: var(--background-1);
+
+    --icon-primary-color: var(--text-1);
     --icon-secondary-color: rgb(0 0 0 / .4);
 
     --button-hover-background: var(--background-4);
-    --button-hover-color: var(--font-2);
+    --button-hover-color: var(--text-2);
 
     
     border: none;
     background-color: var(--surface-0);
-    color: var(--text-1);
+    color: var(--text-surface);
     font-family: 'Karla';
     font-weight: 400;
     font-size: 14px;
@@ -260,11 +241,11 @@ taskboard-manager[data-theme="keen"]
 
 }
 /* debug */
-taskboard-manager[data-theme="keen"]
+taskboard-manager[data-theme="course"]
 {
     margin: 3em;
 }
-taskboard-manager[data-theme="keen"]
+taskboard-manager[data-theme="course"]
 {
     /* --accent-0: #f4f9f4;
     --accent-1: #e7f2e6;
@@ -281,25 +262,125 @@ taskboard-manager[data-theme="keen"]
     
 }
 
-taskboard-manager[data-theme="keen"]::part(app-menu)
+/** Elements */
+taskboard-manager[data-theme="course"]::part(input)
 {
+    background: var(--surface-input);
+}
+taskboard-manager[data-theme="course"]::part(button)
+{
+    background: var(--surface-button);
+    color: var(--text-button);
     border: none;
-    color: inherit;
-    background-color: transparent;
-}
+    border-radius: var(--border-radius-button);
+    padding: .375rem .75rem;
+    font-size: 12px;
 
-taskboard-manager[data-theme="keen"]::part(app-menu-header)
+    --icon-primary-color: var(--text-button);
+    --icon-secondary-color: var(--surface-button);
+
+}
+taskboard-manager[data-theme="course"]::part(button)[disabled]
 {
-    /* box-shadow: 0 3px 7px 0 rgb(0 0 0 / .4); */
-    /* border-bottom: solid 1px var(--background-5); */
-    gap: 0;
-    padding: 10px 7px;
-    margin-bottom: 7px;
-    border-radius: 5px;
-    background-color: var(--surface-1);
+    /* background: var(--surface-button);
+    color: var(--text-button);
+    border: none;
+    border-radius: var(--border-radius-button);
+    padding: .375rem .75rem;
+    font-size: 12px;
+
+    --icon-primary-color: var(--text-button);
+    --icon-secondary-color: var(--surface-button); */
+
+}
+taskboard-manager[data-theme="course"]::part(icon-button)
+{
+    background: var(--surface-icon-button);
+    color: var(--text-icon-button);
+    border: var(--border-icon-button);
+    padding: .375rem;
+
+    --icon-primary-color: var(--text-icon-button);
+    --icon-secondary-color: var(--surface-0);
 }
 
-taskboard-manager[data-theme="keen"]::part(find-board-button)
+/** Specific assignments */
+taskboard-manager[data-theme="course"]::part(app-menu)
+{
+    background: var(--surface-menu);
+    border: var(--border-menu);
+    padding: 20px 10px;
+}
+taskboard-manager[data-theme="course"]::part(boards)
+{
+    display: grid;
+    gap: calc(1rem - 6px);
+}
+taskboard-manager[data-theme="course"]::part(board)
+{
+    border-radius: var(--border-radius-button);
+    font-weight: bold;
+    padding: .375rem .75rem;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 1fr;
+    gap: calc(1rem - 6px);
+}
+taskboard-manager[data-theme="course"]::part(board):hover
+{
+    background: transparent;
+}
+taskboard-manager[data-theme="course"]::part(board):hover:before
+{
+    content: '';
+    width: 100%;
+    height: 100%;
+    grid-column: 1 / 4;
+    grid-row: 1;
+
+    background: var(--surface-menu-item-highlight);
+    padding: .375rem .75rem;
+    border-radius: var(--border-radius-button);
+    translate: -.75rem 0;
+    z-index: 0;
+    opacity: .5;
+}
+taskboard-manager[data-theme="course"]::part(menu-item-handle)
+{
+    grid-row: 1;
+    grid-column: 1;
+    z-index: 1;
+}
+taskboard-manager[data-theme="course"]::part(board-item-name)
+{
+    grid-row: 1;
+    grid-column: 2;
+    z-index: 1;
+}
+taskboard-manager[data-theme="course"]::part(board-edit-button)
+{
+    grid-row: 1;
+    grid-column: 3;
+    z-index: 1;
+}
+taskboard-manager[data-theme="course"]::part(board selected)
+{
+    background-color: transparent;
+    color: var(--text-menu-highlight);
+    --grip-color: var(--text-menu-highlight);
+}
+taskboard-manager[data-theme="course"]::part(board selected):hover:before
+{
+    background-color: var(--surface-menu-item-highlight-selected);
+}
+
+
+
+
+/* 
+
+taskboard-manager[data-theme="course"]::part(find-board-button)
 {
     background-color: var(--input-background);
     border: solid 1px var(--background-4);
@@ -317,28 +398,27 @@ taskboard-manager[data-theme="keen"]::part(find-board-button)
     --icon-primary-color: var(--font-disabled);
     --icon-secondary-color: var(--input-background);
 }
-taskboard-manager[data-theme="keen"]::part(find-board-button):hover
+taskboard-manager[data-theme="course"]::part(find-board-button):hover
 {
-    /* background: var(--background-3); */
     color: var(--font-hover);
     --icon-primary-color: var(--font-hover);
 }
 
-taskboard-manager[data-theme="keen"]::part(board-items)
+taskboard-manager[data-theme="course"]::part(board-items)
 {
     display: grid;
     gap: 7px;
     padding: 7px;
 }
 
-taskboard-manager[data-theme="keen"]::part(boards)
+taskboard-manager[data-theme="course"]::part(boards)
 {
     background-color: var(--surface-1);
     border-radius: 5px;
 }
 
 
-taskboard-manager[data-theme="keen"]::part(board)
+taskboard-manager[data-theme="course"]::part(board)
 {
     --grip-color: var(--font-1);
 
@@ -350,16 +430,13 @@ taskboard-manager[data-theme="keen"]::part(board)
     position: relative;
     border: solid 1px transparent;
 }
-taskboard-manager[data-theme="keen"]::part(board):hover
+taskboard-manager[data-theme="course"]::part(board):hover
 {
-    --grip-color: var(--font-2);
-
-    /* background-color: var(--background-3); */
     background-color: transparent;
     background-color: var(--surface-3);
     color: var(--font-2);
 }
-taskboard-manager[data-theme="keen"]::part(board):hover::before
+taskboard-manager[data-theme="course"]::part(board):hover::before
 {
     background-color: var(--board-color, var(--font-2, currentcolor));
     content: '';
@@ -371,13 +448,13 @@ taskboard-manager[data-theme="keen"]::part(board):hover::before
     top: 50%;
     translate: 0 -50%;
 }
-taskboard-manager[data-theme="keen"]::part(board selected)
+taskboard-manager[data-theme="course"]::part(board selected)
 {
     background-color: var(--tone-surface-2) !important;
     color: var(--tone-2) !important;
     --icon-primary-color: var(--tone-2) !important;
 }
-taskboard-manager[data-theme="keen"]::part(board selected)::before
+taskboard-manager[data-theme="course"]::part(board selected)::before
 {
     background-color: var(--board-color, var(--font-active, currentcolor)) !important;
     content: '';
@@ -391,12 +468,12 @@ taskboard-manager[data-theme="keen"]::part(board selected)::before
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
-taskboard-manager[data-theme="keen"]::part(menu-item-handle):hover
+taskboard-manager[data-theme="course"]::part(menu-item-handle):hover
 {
     --grip-color: var(--font-active);
 }
 
-taskboard-manager[data-theme="keen"]::part(icon-button)
+taskboard-manager[data-theme="course"]::part(icon-button)
 {
     --label-color: var(--font-2);
     --background-color: transparent;
@@ -415,52 +492,41 @@ taskboard-manager[data-theme="keen"]::part(icon-button)
 
     --button-icon-size: 24px;
 }
-taskboard-manager[data-theme="keen"]::part(icon-button):hover
+taskboard-manager[data-theme="course"]::part(icon-button):hover
 {
-    /* background-color: rgb(0 0 0 / .6); */
     --label-color: var(--font-hover);
 }
 
-taskboard-manager[data-theme="keen"]::part(label-button)
+taskboard-manager[data-theme="course"]::part(label-button)
 {
     padding: 5px 14px;
     border-radius: 5px;
     border: solid 1px var(--surface-4);
     color: var(--font-2);
 
-    /* --background-color: var(--background-3); */
 
     --icon-primary-color: var(--tone-0);
     --icon-secondary-color: var(--background-color);
 
-    /* background: var(--background-color) 
-    linear-gradient(to top, rgb(0 0 0 / .2), rgb(0 0 0 / 0)); */
     background: none;
 }
-taskboard-manager[data-theme="keen"]::part(label-button):hover
+taskboard-manager[data-theme="course"]::part(label-button):hover
 {
-    /* --background-color: var(--background-4); */
     color: var(--text-0);
-    /* --icon-primary-color: var(--font-hover); */
     border-color: var(--text-1);
 }
-taskboard-manager[data-theme="keen"]::part(label-button):active
+taskboard-manager[data-theme="course"]::part(label-button):active
 {
     scale: .95;
     color: var(--text-0);
-    /* color: var(--font-2);
-    background: var(--background-color) 
-    linear-gradient(to bottom, rgb(0 0 0 / .2), rgb(0 0 0 / 0));
-    /* --background-color: var(--background-4); */
-    /* --icon-primary-color: var(--accent-1); */
 }
 
-taskboard-manager[data-theme="keen"]::part(welcome-panel)
+taskboard-manager[data-theme="course"]::part(welcome-panel)
 {
     width: 550px;
 }
 
-taskboard-manager[data-theme="keen"]::part(welcome-fieldset)
+taskboard-manager[data-theme="course"]::part(welcome-fieldset)
 {
     display: grid;
     padding: 0;
@@ -468,7 +534,7 @@ taskboard-manager[data-theme="keen"]::part(welcome-fieldset)
     background-color: var(--background-2);
     color: var(--font-2);
 }
-taskboard-manager[data-theme="keen"]::part(welcome-header)
+taskboard-manager[data-theme="course"]::part(welcome-header)
 {
     background-color: #D5F5D9;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%23D5F5D9' cx='50' cy='0' r='50'/%3E%3Cg fill='%23ccefd0' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%23c4e9c8' cx='50' cy='100' r='50'/%3E%3Cg fill='%23bbe3bf' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23b2ddb7' cx='50' cy='200' r='50'/%3E%3Cg fill='%23aad7ae' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%23a2d1a6' cx='50' cy='300' r='50'/%3E%3Cg fill='%2399cb9e' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%2391c595' cx='50' cy='400' r='50'/%3E%3Cg fill='%2388bf8d' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%2380b985' cx='50' cy='500' r='50'/%3E%3Cg fill='%2378b37d' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%2370ad74' cx='50' cy='600' r='50'/%3E%3Cg fill='%2367a86c' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%235fa264' cx='50' cy='700' r='50'/%3E%3Cg fill='%23579c5c' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%234e9654' cx='50' cy='800' r='50'/%3E%3Cg fill='%2345904c' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%233d8b44' cx='50' cy='900' r='50'/%3E%3Cg fill='%2333853c' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%23297F34' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
@@ -476,17 +542,17 @@ taskboard-manager[data-theme="keen"]::part(welcome-header)
     background-size: contain;
 }
 
-taskboard-manager[data-theme="keen"]::part(welcome-legend)
+taskboard-manager[data-theme="course"]::part(welcome-legend)
 {
     display: none;
 }
 
-taskboard-manager[data-theme="keen"]::part(welcome-logo)
+taskboard-manager[data-theme="course"]::part(welcome-logo)
 {
     padding: 14px;
 }
 
-taskboard-manager[data-theme="keen"]::part(welcome-description)
+taskboard-manager[data-theme="course"]::part(welcome-description)
 {
     padding: 7px 14px;
     margin: 0;
@@ -494,29 +560,29 @@ taskboard-manager[data-theme="keen"]::part(welcome-description)
     text-align: center;
 }
 
-taskboard-manager[data-theme="keen"]::part(recent-fieldset)
+taskboard-manager[data-theme="course"]::part(recent-fieldset)
 {
     margin: 0;
     padding: 7px;
     border: none;
 }
 
-taskboard-manager[data-theme="keen"]::part(recent-legend)
+taskboard-manager[data-theme="course"]::part(recent-legend)
 {
     display: none;
 }
 
-taskboard-manager[data-theme="keen"]::part(recent-board-remove-button)
+taskboard-manager[data-theme="course"]::part(recent-board-remove-button)
 {
     --button-icon-size: 12px;
 }
 
-taskboard-manager[data-theme="keen"]::part(task-board)
+taskboard-manager[data-theme="course"]::part(task-board)
 {
     
 }
 
-taskboard-manager[data-theme="keen"]::part(list-header)
+taskboard-manager[data-theme="course"]::part(list-header)
 {
     margin: 7px;
     padding: 0;
@@ -525,21 +591,21 @@ taskboard-manager[data-theme="keen"]::part(list-header)
     grid-template-columns: 1fr auto;
 }
 
-taskboard-manager[data-theme="keen"]::part(list-color-container)
+taskboard-manager[data-theme="course"]::part(list-color-container)
 {
     grid-row: 2;
     grid-column: span 2;
     display: flex;
 }
 
-taskboard-manager[data-theme="keen"]::part(list-color)
+taskboard-manager[data-theme="course"]::part(list-color)
 {
     flex: 1;
     height: 3px;
     border-radius: 2px;
 }
 
-taskboard-manager[data-theme="keen"]::part(list-name)
+taskboard-manager[data-theme="course"]::part(list-name)
 {
     background: transparent;
     border: none;
@@ -550,7 +616,7 @@ taskboard-manager[data-theme="keen"]::part(list-name)
     text-transform: uppercase;
 }
 
-taskboard-manager[data-theme="keen"]::part(list-collapse)
+taskboard-manager[data-theme="course"]::part(list-collapse)
 {
     border: none;
     color: var(--text);
@@ -559,12 +625,12 @@ taskboard-manager[data-theme="keen"]::part(list-collapse)
     text-transform: uppercase;
     background: transparent;
 }
-taskboard-manager[data-theme="keen"]::part(list-collapse):hover
+taskboard-manager[data-theme="course"]::part(list-collapse):hover
 {
     color: var(--font-active);
 }
 
-taskboard-manager[data-theme="keen"]::part(task-card)
+taskboard-manager[data-theme="course"]::part(task-card)
 {
     background-color: var(--task-background-color, var(--surface-1));
     border: solid 1px transparent;
@@ -574,7 +640,7 @@ taskboard-manager[data-theme="keen"]::part(task-card)
     overflow: initial;
 }
 
-taskboard-manager[data-theme="keen"]::part(task-color)
+taskboard-manager[data-theme="course"]::part(task-color)
 {
     position: absolute;
     top: 10%;
@@ -585,12 +651,12 @@ taskboard-manager[data-theme="keen"]::part(task-color)
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
-taskboard-manager[data-theme="keen"]::part(task-checkbox)
+taskboard-manager[data-theme="course"]::part(task-checkbox)
 {
     display: none;
 }
 
-taskboard-manager[data-theme="keen"]::part(task-finished-indicator)
+taskboard-manager[data-theme="course"]::part(task-finished-indicator)
 {
     --size: 20px;
     width: var(--size);
@@ -606,14 +672,13 @@ taskboard-manager[data-theme="keen"]::part(task-finished-indicator)
     grid-row: 2;
     grid-column: 2;
 }
-taskboard-manager[data-theme="keen"]::part(task-finished-indicator finished)::before
+taskboard-manager[data-theme="course"]::part(task-finished-indicator finished)::before
 {
     margin-top: 3px;
-    /* green: 749d23*/
     content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="%23fbf9fe" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>');
 }
 
-taskboard-manager[data-theme="keen"]::part(task-remove-button)
+taskboard-manager[data-theme="course"]::part(task-remove-button)
 {
     border: none;
     background: transparent;
@@ -626,13 +691,12 @@ taskboard-manager[data-theme="keen"]::part(task-remove-button)
     width: 30px;
     height: 30px;
 }
-taskboard-manager[data-theme="keen"]::part(task-remove-button):hover
+taskboard-manager[data-theme="course"]::part(task-remove-button):hover
 {
     --icon-primary-color: var(--font-active);
-    /* background: rgb(0 0 0 / .2); */
 }
 
-taskboard-manager[data-theme="keen"]::part(task-description)
+taskboard-manager[data-theme="course"]::part(task-description)
 {
     background-color: transparent;
     border: none;
@@ -641,7 +705,7 @@ taskboard-manager[data-theme="keen"]::part(task-description)
     outline: none;
 }
 
-taskboard-manager[data-theme="keen"]::part(notification)
+taskboard-manager[data-theme="course"]::part(notification)
 {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
@@ -654,13 +718,13 @@ taskboard-manager[data-theme="keen"]::part(notification)
 @media (max-width: 665px)
 {
 
-    taskboard-manager[data-theme="keen"]::part(welcome-panel)
+    taskboard-manager[data-theme="course"]::part(welcome-panel)
     {
         width: auto;
     }
 
-    taskboard-manager[data-theme="keen"]::part(welcome-logo)
+    taskboard-manager[data-theme="course"]::part(welcome-logo)
     {
         padding: 7px;
     }
-}
+} */

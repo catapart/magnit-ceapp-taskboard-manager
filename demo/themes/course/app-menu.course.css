@@ -1,0 +1,21 @@
+taskboard-manager[data-theme="course"]::part(app-menu)
+{
+    border: none;
+    color: inherit;
+    background-color: transparent;
+}
+
+taskboard-manager[data-theme="course"]::part(app-menu-header)
+{
+    
+    gap: 0;
+    padding: 10px 7px;
+    margin-bottom: 7px;
+    border-radius: 5px;
+    
+}
+
+taskboard-manager[data-theme="course"]
+{
+    
+}
