@@ -1,21 +1,157 @@
+
 taskboard-manager[data-theme="course"]::part(app-menu)
 {
-    border: none;
-    color: inherit;
-    background-color: transparent;
+    background: var(--surface-menu);
+    border: var(--border-menu);
 }
-
 taskboard-manager[data-theme="course"]::part(app-menu-header)
 {
-    
-    gap: 0;
-    padding: 10px 7px;
-    margin-bottom: 7px;
-    border-radius: 5px;
-    
+    gap: var(--small-gap);
+}
+taskboard-manager[data-theme="course"]::part(board-items)
+{
+    gap: var(--small-gap);
+}
+taskboard-manager[data-theme="course"]::part(board)
+{
+    border-radius: var(--border-radius-button);
+    font-weight: bold;
+    padding: .375rem .75rem;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 1fr;
+    gap: var(--small-gap);
+    --grip-color: var(--border-outline);
+}
+taskboard-manager[data-theme="course"]::part(board):hover
+{
+    background: transparent;
+}
+taskboard-manager[data-theme="course"]::part(board):hover:before
+{
+    content: '';
+    width: 100%;
+    height: 100%;
+    grid-column: 1 / 4;
+    grid-row: 1;
+
+    background: var(--surface-menu-item-highlight);
+    padding: .375rem .75rem;
+    border-radius: var(--border-radius-button);
+    translate: -.75rem 0;
+    z-index: 0;
+    opacity: .5;
+}
+taskboard-manager[data-theme="course"]::part(menu-item-handle)
+{
+    grid-row: 1;
+    grid-column: 1;
+    z-index: 1;
+}
+taskboard-manager[data-theme="course"]::part(board-item-name)
+{
+    grid-row: 1;
+    grid-column: 2;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+}
+taskboard-manager[data-theme="course"]::part(board-item-name):before
+{
+    content: '';
+    --size: 8px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background-color: var(--board-color, var(--icon-option));
+    margin-right: 7px;
+}
+taskboard-manager[data-theme="course"]::part(board-edit-button)
+{
+    grid-row: 1;
+    grid-column: 3;
+    z-index: 1;
+}
+taskboard-manager[data-theme="course"]::part(board selected)
+{
+    background-color: transparent;
+    color: var(--text-menu-highlight);
+}
+taskboard-manager[data-theme="course"]::part(board selected):hover:before
+{
+    background-color: var(--surface-menu-item-highlight-selected);
+    opacity: .1;
 }
 
-taskboard-manager[data-theme="course"]
+taskboard-manager[data-theme="course"]::part(app-menu-branding)
 {
-    
+    grid-column: span 2;
+}
+
+@media (min-width: 665px) 
+{
+    taskboard-manager[data-theme="course"]::part(app-menu)
+    {
+        padding: 20px 10px;
+        /* border-top: var(--border-menu); */
+    }
+
+    taskboard-manager[data-theme="course"]::part(app-menu-header)
+    {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: 60px auto;
+    }
+
+    taskboard-manager[data-theme="course"]::part(app-menu-branding)
+    {
+        grid-column: span 2;
+        grid-row: 1;
+    }
+
+    taskboard-manager[data-theme="course"]::part(icon logo mark)
+    {
+        --icon-size: 60px;
+        width: var(--icon-size);
+        height: var(--icon-size);
+    }
+    taskboard-manager[data-theme="course"]::part(open-settings-button)
+    {
+        
+    }
+    taskboard-manager[data-theme="course"]::part(boards)
+    {
+        display: grid;
+    }
+
+}
+
+@media (max-width: 665px)
+{
+    /* taskboard-manager[data-theme="course"]::part(app-menu)
+    {
+        border: var(--border-menu);
+    } */
+    taskboard-manager[data-theme="course"]::part(app-menu-header)
+    {
+        gap: var(--small-gap);
+        background-color: transparent;
+    }
+    taskboard-manager[data-theme="course"]::part(boards)
+    {
+        border: var(--border-menu);
+        background-color: transparent;
+    }
+    taskboard-manager[data-theme="course"]::part(board-items)
+    {
+        display: flex;
+        padding: var(--small-gap);
+    }
+    taskboard-manager[data-theme="course"]::part(board)
+    {
+        background: var(--surface-option);
+        padding: 5px 10px;
+    }
 }
