@@ -150,10 +150,14 @@
         --surface-menu-item-highlight: var(--clr-surface-a30);
         --surface-menu-item-highlight-selected: var(--clr-primary-a0);
         --surface-option: var(--clr-surface-a20);
+        --surface-card: var(--clr-surface-a10);
+        --surface-list-header: var(--clr-surface-a20);
 
         --border-outline: var(--clr-surface-a30);
         --border-icon-button: solid 1px var(--border-outline);
         --border-menu: none;
+        /* --border-card: solid 1px var(--border-outline); */
+        --border-card: none;
         
         --border-radius-button: 8px;
         --border-radius-card: 12px;

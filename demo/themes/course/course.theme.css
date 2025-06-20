@@ -1,83 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Assistant:700|Karla:400');
 
 @import url('./properties.course.css');
-@import url('./taskboard.course.css');
+
+@import url('./elements.course.css');
+
 @import url('./app-menu.course.css');
-
-taskboard-manager[data-theme="course"]
-{
-    border: none;
-    background-color: var(--surface-0);
-    color: var(--text-surface);
-    font-family: 'Karla';
-    font-weight: 400;
-    font-size: 14px;
-}
-/* debug */
-taskboard-manager[data-theme="course"]
-{
-    margin: 3em;
-}
-taskboard-manager[data-theme="course"]
-{
-    /* --accent-0: #f4f9f4;
-    --accent-1: #e7f2e6;
-    --accent-2: #d0e5cd;
-    --accent-3: #aacfa6;
-    --accent-4: #7cb177;
-    --accent-5: #599453;
-    --accent-6: #467841;
-    --accent-7: #396035;
-    --accent-8: #304d2e;
-    --accent-9: #284027;
-    --accent-10: #1b321a; */
-
-    
-}
-
-/** Elements */
-taskboard-manager[data-theme="course"]::part(input)
-{
-    background: var(--surface-input);
-}
-taskboard-manager[data-theme="course"]::part(button)
-{
-    background: var(--surface-button);
-    color: var(--text-button);
-    border: none;
-    border-radius: var(--border-radius-button);
-    padding: .375rem .75rem;
-    font-size: 12px;
-
-    --icon-primary-color: var(--text-button);
-    --icon-secondary-color: var(--surface-button);
-
-}
-taskboard-manager[data-theme="course"]::part(button)[disabled]
-{
-    /* background: var(--surface-button);
-    color: var(--text-button);
-    border: none;
-    border-radius: var(--border-radius-button);
-    padding: .375rem .75rem;
-    font-size: 12px;
-
-    --icon-primary-color: var(--text-button);
-    --icon-secondary-color: var(--surface-button); */
-
-}
-taskboard-manager[data-theme="course"]::part(icon-button)
-{
-    background: var(--surface-icon-button);
-    color: var(--text-icon-button);
-    border: var(--border-icon-button);
-    padding: .375rem;
-
-    --icon-primary-color: var(--text-icon-button);
-    --icon-secondary-color: var(--surface-0);
-}
-
-/** Specific assignments */
+@import url('./taskboard.course.css');
 
 
 /* 

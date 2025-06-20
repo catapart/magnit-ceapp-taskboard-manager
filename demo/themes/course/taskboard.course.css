@@ -1,0 +1,164 @@
+
+
+taskboard-manager[data-theme="course"]::part(list-header)
+{
+    border: var(--border-card);
+    background: var(--surface-list-header);
+    border-radius: var(--border-radius-card);
+    padding: var(--small-gap);
+    gap: var(--small-gap);
+    --list-name-focus-outline: double 2px var(--text-surface);
+    /* todo: update task-list package */
+    
+    /* margin: 7px;
+    padding: 0;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr auto; */
+}
+
+
+taskboard-manager[data-theme="course"]::part(list-color-container)
+{
+    /* grid-row: 2;
+    grid-column: span 2;
+    display: flex; */
+}
+
+taskboard-manager[data-theme="course"]::part(list-color)
+{
+    --size: 12px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    align-self: center;
+    /* margin: var(--small-gap) var(--small-gap) var(--small-gap) 0; */
+    /* flex: 1;
+    height: 3px;
+    border-radius: 2px; */
+}
+
+taskboard-manager[data-theme="course"]::part(list-name)
+{
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    /* color: var(--font-active);
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 7px; */
+}
+taskboard-manager[data-theme="course"]::part(list-name):focus
+{
+    outline: none;
+}
+
+taskboard-manager[data-theme="course"]::part(list-collapse)
+{
+    background: var(--surface-icon-button);
+    color: var(--list-color);
+    border: var(--border-icon-button);
+    padding: .375rem;
+}
+
+/* 
+
+taskboard-manager[data-theme="course"]::part(list-collapse)
+{
+    border: none;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: transparent;
+}
+taskboard-manager[data-theme="course"]::part(list-collapse):hover
+{
+    color: var(--font-active);
+} */
+
+taskboard-manager[data-theme="course"]::part(task-card)
+{
+    background: var(--surface-card);
+    border-radius: var(--border-radius-card);
+    border: var(--border-card);
+
+    --task-focus-outline: double 2px var(--text-surface);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    position: relative;
+    overflow: initial;
+}
+
+taskboard-manager[data-theme="course"]::part(task-color)
+{
+    --size: 12px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background-color: var(--task-color, var(--icon-option));
+    margin-right: 7px;
+    align-self: center;
+    margin: var(--small-gap) 0 var(--small-gap) var(--small-gap);
+}
+
+taskboard-manager[data-theme="course"]::part(task-checkbox)
+{
+    display: none;
+}
+
+taskboard-manager[data-theme="course"]::part(task-finished-indicator)
+{
+    --size: 20px;
+    width: var(--size);
+    height: var(--size);
+    background-color: var(--surface-input);
+    /* opacity: .8; */
+    border: var(--border-icon-button);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    grid-row: 2;
+    grid-column: 2;
+}
+taskboard-manager[data-theme="course"]::part(task-finished-indicator finished)::before
+{
+    margin-top: 3px;
+    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="%23fbf9fe" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>');
+}
+
+
+taskboard-manager[data-theme="course"]::part(task-description)
+{
+    border: none;
+    background-color: transparent;
+}
+taskboard-manager[data-theme="course"]::part(task-description):focus
+{
+    outline: none;
+}
+
+taskboard-manager[data-theme="course"]::part(task-remove-button)
+{
+    background: var(--surface-icon-button);
+    color: var(--text-icon-button);
+    border: var(--border-icon-button);
+    padding: .375rem;
+
+    --icon-primary-color: var(--text-icon-button);
+    --icon-secondary-color: var(--surface-0);
+}
+
+@media (min-width: 665px) 
+{
+    
+
+}
+
+@media (max-width: 665px)
+{
+
+}
