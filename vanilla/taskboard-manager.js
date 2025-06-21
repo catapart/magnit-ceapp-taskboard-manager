@@ -324,6 +324,7 @@ message-card::part(message)
     }
     task-list::part(collapse-icon)
     {
+        display: inline-block;
         rotate: -90deg;
         transition: color 200ms linear;
     }
@@ -335,12 +336,16 @@ message-card::part(message)
     }
     task-list[collapsed]::part(collapse-icon)
     {
-        font-size: 24px;
+        font-size: 18px;
         color: var(--list-color);
+    }
+    task-list[collapsed]::part(header)
+    {
+        grid-template-columns: 1fr;
     }
     task-list[collapsed]::part(color-container)
     ,task-list[collapsed]::part(name)
-    ,task-list[collapsed]::part(add-button)
+    ,task-list[collapsed] .list-add-button-label
     {
         display: none !important;
     }
@@ -8180,8 +8185,8 @@ if (customElements.get(COMPONENT_TAG_NAME18) == null) {
   customElements.define(COMPONENT_TAG_NAME18, TaskBoardElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+task-list@0.0.15/node_modules/@magnit-ce/task-list/dist/task-list.js
-var task_list_default = ":host\n{\n    --border-color: rgb(95, 95, 95);\n    display: inline-block;\n    border: solid 1px var(--border-color);\n    border-radius: 3px;\n    padding: .5em;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(71, 71, 71);\n    }\n}\n\n\n#header\n{\n    display: grid;\n    grid-template-columns: auto minmax(0, 1fr) auto;\n    align-items: center;\n    position: sticky;\n}\n\n#color-container\n{\n    display: contents;\n}\n\n#color\n{\n    padding: 0;\n    width: 12px;\n    min-height: 0;\n    height: auto;\n    border: solid 1px transparent;\n    align-self: stretch;\n}\n#color::-moz-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n#color::-webkit-color-swatch-wrapper \n{\n    padding: 0;\n    margin: 0;\n}\n\n#color::-webkit-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n#tasks\n{\n    list-style: none;\n    margin: 0;\n    padding: 0;\n    display: flex;\n    flex-direction: column;\n}\n\n#add-button\n{\n    margin-top: 1rem;\n    margin-inline: auto;\n    min-width: 100px;\n    align-self: center;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 5px;\n}\n\n:host([collapsed]) > #tasks\n{\n    overflow: hidden;\n    height: min-content;\n    height: 0;\n    opacity: 0;\n    padding: 0;\n    margin: 0;\n    border: none;\n    pointer-events: none;\n    user-select: none;\n}\n\n::slotted([data-drag-id])\n{\n    opacity: .7;\n    scale: .97;\n    transition: opacity 100ms ease, scale 100ms ease;\n}\n\n::slotted(task-list)\n{\n    margin-block: 7px;\n}";
+// node_modules/.pnpm/@magnit-ce+task-list@0.0.17/node_modules/@magnit-ce/task-list/dist/task-list.js
+var task_list_default = ":host\n{\n    --border-color: rgb(95, 95, 95);\n    display: inline-block;\n    border: solid 1px var(--border-color);\n    border-radius: 3px;\n    padding: .5em;\n    overflow-y: scroll;\n}\n#header:has(#name:focus)\n{\n    outline: var(--list-name-focus-outline);\n}\n\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(71, 71, 71);\n    }\n}\n\n\n#header\n{\n    display: grid;\n    grid-template-columns: auto minmax(0, 1fr) auto;\n    align-items: center;\n    position: sticky;\n    top: 0;\n}\n\n#color-container\n{\n    display: contents;\n}\n\n#color\n{\n    padding: 0;\n    width: 12px;\n    min-height: 0;\n    height: auto;\n    border: solid 1px transparent;\n    align-self: stretch;\n}\n#color::-moz-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n#color::-webkit-color-swatch-wrapper \n{\n    padding: 0;\n    margin: 0;\n}\n\n#color::-webkit-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n#tasks\n{\n    list-style: none;\n    margin: 0;\n    padding: 0;\n    display: flex;\n    flex-direction: column;\n}\n\n#add-button\n{\n    margin-top: 1rem;\n    margin-inline: auto;\n    min-width: 100px;\n    align-self: center;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 5px;\n}\n\n:host([collapsed]) > #tasks\n{\n    overflow: hidden;\n    height: min-content;\n    height: 0;\n    opacity: 0;\n    padding: 0;\n    margin: 0;\n    border: none;\n    pointer-events: none;\n    user-select: none;\n}\n\n::slotted([data-drag-id])\n{\n    opacity: .7;\n    scale: .97;\n    transition: opacity 100ms ease, scale 100ms ease;\n}\n\n::slotted(task-list)\n{\n    margin-block: 7px;\n}";
 var task_list_default2 = '<slot name="header">\n    <header id="header">\n        <label id="color-container" title="Color">\n            <input type="color" id="color" class="input" value="#919191" />\n        </label>\n        <input type="text" id="name" class="input" placeholder="List Name" />\n        <button type="button" id="collapse-button" class="button field-button" title="Collapse">\n            <span id="collapse-icon" class="icon">\u25B2</span>\n        </button>\n    </header>\n</slot>\n<ul id="tasks">\n    <slot></slot>\n</ul>\n<slot name="add-button">\n<button type="button" id="add-button" class="button" title="Add">\n    <span id="add-icon" class="icon">&plus;</span>\n    <span id="add-label">Add Task</span>\n</button>\n</slot>\n<slot name="footer"></slot>';
 var COMPONENT_STYLESHEET18 = new CSSStyleSheet();
 COMPONENT_STYLESHEET18.replaceSync(task_list_default);
@@ -10822,14 +10827,14 @@ var TaskboardManagerElement = class extends HTMLElement {
       element.toggleAttribute("drag-drop", true);
       element.setAttribute("part", "task-list");
       element.style.setProperty("--list-color", list.color);
-      element.setAttribute("exportparts", "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, tasks:list-tasks, add-button:list-add-button, button, input, finished:task-finished");
+      element.setAttribute("exportparts", "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, collapse-icon:list-collapse-icon, tasks:list-tasks, add-button:list-add-button, add-label:list-add-label, button, input, finished:task-finished");
       element.dragAndDropQueryParent = board;
       element.innerHTML = `
             <button type="button" slot="add-button" class="button add-task-button label-button" part="add-button add-task-button button label-button" title="Add">
-                <svg id="add-icon" class="icon button-icon add">
+                <svg id="add-icon" class="icon button-icon add" part="list-add-button-icon icon button-icon add">
                     <use href="#icon-definition_plus"></use>
                 </svg>
-                <span id="add-label">Add Task</span>
+                <span class="list-add-button-label button-label" part="list-add-button-label button-label">Add Task</span>
             </button>`;
       if (list.useCustomWidth == true) {
         element.style.setProperty("--list-width", `${list.width}px`);

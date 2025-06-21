@@ -970,14 +970,14 @@ export class TaskboardManagerElement extends HTMLElement
             element.toggleAttribute('drag-drop', true);
             element.setAttribute('part', 'task-list');
             element.style.setProperty('--list-color', list.color);
-            element.setAttribute('exportparts', "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, tasks:list-tasks, add-button:list-add-button, button, input, finished:task-finished");
+            element.setAttribute('exportparts', "header:list-header, color-container:list-color-container, color:list-color, name:list-name, collapse-button:list-collapse, collapse-icon:list-collapse-icon, tasks:list-tasks, add-button:list-add-button, add-label:list-add-label, button, input, finished:task-finished");
             element.dragAndDropQueryParent = board;
             element.innerHTML = `
             <button type="button" slot="add-button" class="button add-task-button label-button" part="add-button add-task-button button label-button" title="Add">
-                <svg id="add-icon" class="icon button-icon add">
+                <svg id="add-icon" class="icon button-icon add" part="list-add-button-icon icon button-icon add">
                     <use href="#icon-definition_plus"></use>
                 </svg>
-                <span id="add-label">Add Task</span>
+                <span class="list-add-button-label button-label" part="list-add-button-label button-label">Add Task</span>
             </button>`
 
             if(list.useCustomWidth == true)

@@ -311,6 +311,7 @@ message-card::part(message)
     }
     task-list::part(collapse-icon)
     {
+        display: inline-block;
         rotate: -90deg;
         transition: color 200ms linear;
     }
@@ -322,12 +323,16 @@ message-card::part(message)
     }
     task-list[collapsed]::part(collapse-icon)
     {
-        font-size: 24px;
+        font-size: 18px;
         color: var(--list-color);
+    }
+    task-list[collapsed]::part(header)
+    {
+        grid-template-columns: 1fr;
     }
     task-list[collapsed]::part(color-container)
     ,task-list[collapsed]::part(name)
-    ,task-list[collapsed]::part(add-button)
+    ,task-list[collapsed] .list-add-button-label
     {
         display: none !important;
     }

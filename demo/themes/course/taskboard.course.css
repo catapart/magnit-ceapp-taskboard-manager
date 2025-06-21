@@ -1,4 +1,8 @@
 
+taskboard-manager[data-theme="course"]::part(task-list)
+{
+    --collapsed-list-width: 68px;
+}
 
 taskboard-manager[data-theme="course"]::part(list-header)
 {
@@ -7,7 +11,8 @@ taskboard-manager[data-theme="course"]::part(list-header)
     border-radius: var(--border-radius-card);
     padding: var(--small-gap);
     gap: var(--small-gap);
-    --list-name-focus-outline: double 2px var(--text-surface);
+    --list-name-focus-outline: solid 2px var(--text-surface);
+    z-index: 2;
     /* todo: update task-list package */
     
     /* margin: 7px;
@@ -58,9 +63,14 @@ taskboard-manager[data-theme="course"]::part(list-name):focus
 taskboard-manager[data-theme="course"]::part(list-collapse)
 {
     background: var(--surface-icon-button);
-    color: var(--list-color);
+    color: var(--text-icon-button);
     border: var(--border-icon-button);
     padding: .375rem;
+}
+
+taskboard-manager[data-theme="course"]::part(list-collapse-icon)
+{
+    transition: rotate 500ms linear;
 }
 
 /* 
@@ -79,6 +89,11 @@ taskboard-manager[data-theme="course"]::part(list-collapse):hover
     color: var(--font-active);
 } */
 
+taskboard-manager[data-theme="course"]::part(list-tasks)
+{
+    gap: 7px;
+}
+
 taskboard-manager[data-theme="course"]::part(task-card)
 {
     background: var(--surface-card);
@@ -88,7 +103,7 @@ taskboard-manager[data-theme="course"]::part(task-card)
     --task-focus-outline: double 2px var(--text-surface);
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     position: relative;
-    overflow: initial;
+    /* overflow: initial; */
 }
 
 taskboard-manager[data-theme="course"]::part(task-color)
@@ -143,13 +158,17 @@ taskboard-manager[data-theme="course"]::part(task-description):focus
 
 taskboard-manager[data-theme="course"]::part(task-remove-button)
 {
-    background: var(--surface-icon-button);
-    color: var(--text-icon-button);
-    border: var(--border-icon-button);
+    background: var(--surface-card);
+    color: var(--text-remove-button);
+    border: var(--border-remove-button);
     padding: .375rem;
 
-    --icon-primary-color: var(--text-icon-button);
-    --icon-secondary-color: var(--surface-0);
+    --icon-primary-color: var(--text-remove-button);
+    --icon-secondary-color: var(--surface-card);
+}
+taskboard-manager[data-theme="course"]::part(task-remove-button):hover
+{
+    --icon-primary-color: var(--text-remove-button-highlight);
 }
 
 @media (min-width: 665px) 
