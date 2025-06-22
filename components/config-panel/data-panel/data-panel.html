@@ -26,7 +26,7 @@
         <input type="range" id="data-persist-days" class="input range" max="30" list="data-persist-days-values" />
         <datalist id="data-persist-days-values"></datalist>
         <span slot="postfix" id="data-persist-days-value"></span>
-        <button slot="postfix" id="apply-data-persist-days-button" class="button label-button">
+        <button slot="postfix" id="apply-data-persist-days-button" class="button label-button data-button">
             <svg id="apply-data-persist-days-icon" class="icon">
                 <use href="#icon-definition_confirm-check"></use>
             </svg>
@@ -46,7 +46,7 @@
             </svg>
         </template>
     </editable-list>
-    <button id="clear-deleted-button" class="button label-button">
+    <button id="clear-deleted-button" class="button label-button data-button">
         <svg id="clear-deleted-icon" class="icon" title="Clear">
             <use href="#icon-definition_trash"></use>
         </svg>
@@ -66,7 +66,7 @@
             </svg>
         </template>
     </editable-list>
-    <button id="clear-image-cache-button" class="button label-button">
+    <button id="clear-image-cache-button" class="button label-button data-button">
         <svg id="clear-images-icon" title="Clear">
             <use href="#icon-definition_trash"></use>
         </svg>
@@ -78,7 +78,7 @@
     <div id="data-clear-description">
         <p class="text">Delete all data, including app settings and history.</p>
     </div>
-    <button id="clear-data-button" class="button label-button">
+    <button id="clear-data-button" class="button label-button danger-button">
         <svg id="clear-data-icon" class="icon" title="Clear">
             <use href="#icon-definition_trash"></use>
         </svg>

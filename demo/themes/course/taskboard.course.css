@@ -49,7 +49,7 @@ taskboard-manager[data-theme="course"]::part(list-name)
     border: none;
     font-weight: bold;
     font-size: 13px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     /* color: var(--font-active);
     font-size: 12px;
     font-weight: bold;

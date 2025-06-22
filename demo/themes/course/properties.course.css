@@ -141,8 +141,13 @@
         --text-menu-highlight: var(--clr-primary-a20);
         --text-remove-button: var(--clr-surface-a30);
         --text-remove-button-highlight: var(--text-surface);
+        --text-tab: var(--text-suface);
+        --text-page-header: var(--clr-primary-a40);
+        --text-select: var(--clr-light-a0);
+        --text-input: var(--clr-light-a0);
 
         --icon-option: var(--clr-primary-a40);
+        --icon-tab: var(--clr-primary-a40);
 
         --surface-0: var(--clr-surface-a0);
         --surface-input: var(--clr-surface-a10);
@@ -152,8 +157,18 @@
         --surface-menu-item-highlight: var(--clr-surface-a30);
         --surface-menu-item-highlight-selected: var(--clr-primary-a0);
         --surface-option: var(--clr-surface-a20);
+        --surface-group-button: var(--clr-surface-a10);
+        --surface-group-button-highlight: var(--clr-surface-a20);
         --surface-card: var(--clr-surface-a10);
         --surface-list-header: var(--clr-surface-a20);
+        --surface-dialog: var(--clr-surface-a10);
+        --surface-panel: var(--clr-surface-a0);
+        --surface-tab: var(--clr-surface-a20);
+        --surface-fieldset: var(--clr-surface-a0);
+        --surface-select: var(--clr-surface-a10);
+        --surface-shortcut: var(--clr-surface-a10);
+        --surface-shortcut-2: var(--clr-surface-a20);
+        --surface-key: var(--clr-surface-a10);
 
         --border-outline: var(--clr-surface-a30);
         --border-icon-button: solid 1px var(--border-outline);
@@ -161,9 +176,21 @@
         /* --border-card: solid 1px var(--border-outline); */
         --border-card: none;
         --border-remove-button: none;
+        --border-dialog: solid 1px var(--border-outline);
+        --border-fieldset: solid 1px var(--clr-surface-a30);
+        --border-select: solid 1px var(--clr-surface-a30);
+        --border-input: none;
         
         --border-radius-button: 8px;
         --border-radius-card: 12px;
+        --border-radius-dialog: 8px;
+        --border-radius-panel: 8px;
+        --border-radius-tab: 8px;
+        --border-radius-input: 30px;
+        --border-radius-select: 8px;
+
+        --padding-dialog: 1rem;
+        --padding-input: 5px 10px;
 
         /* --surface-0: #121212;
         --surface-1: #282828;
