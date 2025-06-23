@@ -136,6 +136,56 @@ taskboard-manager[data-theme="course"]::part(image-cache-fieldset)
     gap: var(--small-gap);
 }
 
+taskboard-manager[data-theme="course"]::part(cache-list)
+{
+    height: 180px;
+}
+
+taskboard-manager[data-theme="course"]::part(cache-list)
+,taskboard-manager[data-theme="course"]::part(action-history)
+{
+    background: var(--surface-menu);
+    border: var(--border-menu);
+    gap: var(--small-gap);
+    padding: var(--small-gap);
+}
+taskboard-manager[data-theme="course"]::part(deleted-item)
+{
+    border-radius: var(--border-radius-button);
+    font-weight: bold;
+    padding: .375rem .75rem;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1f;
+
+    display: grid;
+    gap: var(--small-gap);
+}
+taskboard-manager[data-theme="course"]::part(action-history-entry)
+{
+    border-radius: var(--border-radius-button);
+    font-weight: bold;
+    padding: .375rem .75rem;
+    border: solid 1px transparent;
+
+    /* display: grid; */
+    gap: var(--small-gap);
+}
+taskboard-manager[data-theme="course"]::part(deleted-item):hover
+{
+    background: rgb(0 0 0 / .3);
+}
+taskboard-manager[data-theme="course"]::part(action-history-entry):hover
+{
+    background: var(--surface-0);
+    border: var(--border-icon-button);
+    color: var(--text-surface);
+}
+taskboard-manager[data-theme="course"]::part(action-history-entry active)
+{
+    background-color: var(--surface-button) !important;
+    color: var(--text-button) !important;
+}
+
 taskboard-manager[data-theme="course"]::part(data-button)
 {
     background: var(--surface-icon-button);
@@ -156,3 +206,23 @@ taskboard-manager[data-theme="course"]::part(danger-button)
     --icon-primary-color: red;
     --icon-secondary-color: var(--surface-0);
 }
+
+taskboard-manager[data-theme="course"]::part(cc0-link)
+{
+    color: var(--text-anchor);
+    text-decoration: var(--text-decoration-anchor);
+}
+taskboard-manager[data-theme="course"]::part(cc0-link):hover
+{
+    text-decoration: var(--text-decoration-anchor-highlight);
+}
+
+/* todo: import button should be disabled
+ style disabled button
+ pending items styles
+ import dialog
+ confirm dialog
+ find board dialog
+ board settings dialog
+ message card
+  */

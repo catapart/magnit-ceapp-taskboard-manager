@@ -85,8 +85,8 @@ taskboard-manager[data-theme="course"]::part(dialog-header)
     /* color: var(--text-dialog-header); */
     /* --icon-primary-color: var(--text-dialog-header); */
     --icon-secondary-color: var(--surface-dialog); 
-    --dialog-header-icon-size: 36px;
-    font-size: 2.5em;
+    --dialog-header-icon-size: 32px;
+    font-size: 2.25em;
     padding-bottom: .75em;
 }
 
@@ -160,6 +160,15 @@ taskboard-manager[data-theme="course"]::part(group-button last)
 {
     border-top-right-radius: var(--border-radius-button);
     border-bottom-right-radius: var(--border-radius-button);
+}
+
+taskboard-manager[data-theme="course"]::part(input)
+{
+    background: var(--surface-input);
+    color: var(--text-input);
+    border: var(--border-input);
+    border-radius: var(--border-radius-input);
+    padding: var(--padding-input);
 }
 
 taskboard-manager[data-theme="course"] select

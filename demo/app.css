@@ -51,3 +51,14 @@ taskboard-manager[data-theme="course"] .field-label
 {
     text-align: right;
 }
+
+
+taskboard-manager[data-theme="course"] a
+{
+    color: var(--text-anchor);
+    text-decoration: var(--text-decoration-anchor);
+}
+taskboard-manager[data-theme="course"] a:hover
+{
+    text-decoration: var(--text-decoration-anchor-highlight);
+}

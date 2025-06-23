@@ -37,6 +37,7 @@ taskboard-manager[data-theme="course"]::part(list-color)
     height: var(--size);
     border-radius: 50%;
     align-self: center;
+    padding: 0;
     /* margin: var(--small-gap) var(--small-gap) var(--small-gap) 0; */
     /* flex: 1;
     height: 3px;
@@ -114,6 +115,7 @@ taskboard-manager[data-theme="course"]::part(task-color)
     border-radius: 50%;
     background-color: var(--task-color, var(--icon-option));
     margin-right: 7px;
+    padding: 0;
     align-self: center;
     margin: var(--small-gap) 0 var(--small-gap) var(--small-gap);
 }

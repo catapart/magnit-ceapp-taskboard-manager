@@ -145,6 +145,10 @@
         --text-page-header: var(--clr-primary-a40);
         --text-select: var(--clr-light-a0);
         --text-input: var(--clr-light-a0);
+        --text-anchor: var(--clr-primary-a20);
+
+        --text-decoration-anchor: none;
+        --text-decoration-anchor-highlight: underline;
 
         --icon-option: var(--clr-primary-a40);
         --icon-tab: var(--clr-primary-a40);
