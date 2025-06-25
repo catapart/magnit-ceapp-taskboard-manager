@@ -89,6 +89,24 @@ export class DataPanelElement extends HTMLElement
         this.#refreshActionHistory = options.refreshActionHistory;
         this.#refreshBoards = options.refreshBoards;
         this.#addActionHistoryEntry = options.addActionHistoryEntry;
+
+        const importFileInput = this.getElement('import-board-file');
+        importFileInput.addEventListener('change', () =>
+        {
+            //@ts-ignore
+            const value = importFileInput.value;
+            
+            if(value != null)
+            {
+                this.getElement('import-button').toggleAttribute('disabled', false);
+            }
+            else
+            {
+                this.getElement('import-button').toggleAttribute('disabled', true);
+            }
+            // console.log(importFileInput.value);
+        })
+
         const daysToPersistData = (await DataService.getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
         this.#prepareDaysToPersistOptions(daysToPersistData);
         this.refreshCache();

@@ -47,9 +47,12 @@ taskboard-manager[data-theme="course"]::part(button)
     --icon-secondary-color: var(--surface-button);
 
 }
-taskboard-manager[data-theme="course"]::part(button)[disabled]
+taskboard-manager[data-theme="course"]::part(button):disabled
 {
-    /* background: var(--surface-button);
+    background: var(--surface-button-disabled);
+    opacity: .7;
+    --icon-secondary-color: var(--surface-button-disabled);
+    /* 
     color: var(--text-button);
     border: none;
     border-radius: var(--border-radius-button);

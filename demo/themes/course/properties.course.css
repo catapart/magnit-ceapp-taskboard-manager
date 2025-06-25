@@ -156,6 +156,7 @@
         --surface-0: var(--clr-surface-a0);
         --surface-input: var(--clr-surface-a10);
         --surface-button: var(--clr-primary-a20);
+        --surface-button-disabled: var(--clr-surface-a50);
         --surface-icon-button: transparent;
         --surface-menu: var(--clr-surface-a10);
         --surface-menu-item-highlight: var(--clr-surface-a30);

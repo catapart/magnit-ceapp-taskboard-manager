@@ -129,9 +129,9 @@ export class WelcomePanelElement extends HTMLElement
     #createBoardMenuItem(board: RecentBoardData)
     {
         const element = document.createElement('a');
-        element.innerHTML = `<span part="board-item-name" class="board-item-name">${board.description}<span>`;
-        element.setAttribute('part', 'board');
-        element.classList.add('board');
+        element.innerHTML = `<span part="board-item-name recent" class="board-item-name recent">${board.description}<span>`;
+        element.setAttribute('part', 'board recent');
+        element.classList.add('board', 'recent');
         element.dataset.route = `board/${board.id}`;
 
         return element;

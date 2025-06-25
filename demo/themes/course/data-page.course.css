@@ -146,6 +146,7 @@ taskboard-manager[data-theme="course"]::part(cache-list)
 {
     background: var(--surface-menu);
     border: var(--border-menu);
+    border-radius: var(--border-radius-card);
     gap: var(--small-gap);
     padding: var(--small-gap);
 }
@@ -217,9 +218,10 @@ taskboard-manager[data-theme="course"]::part(cc0-link):hover
     text-decoration: var(--text-decoration-anchor-highlight);
 }
 
-/* todo: import button should be disabled
- style disabled button
- pending items styles
+/* todo: 
+ welcome panel header
+ welcome panel "no items" placeholder
+ welcome panel list gap
  import dialog
  confirm dialog
  find board dialog
