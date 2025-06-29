@@ -222,9 +222,8 @@ taskboard-manager[data-theme="course"]::part(cc0-link):hover
  welcome panel header
  welcome panel "no items" placeholder
  welcome panel list gap
- import dialog
- confirm dialog
- find board dialog
+ import dialog - remove=icon-button
+ find board dialog - filter-select and regex-select parts
  board settings dialog
  message card
   */

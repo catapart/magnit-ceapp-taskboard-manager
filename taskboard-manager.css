@@ -289,8 +289,7 @@ message-card::part(message)
     }
     dialog
     {
-        min-width: 500px;
-        max-width: 850px;
+        width: 750px;
         top: 50px;
     }
 

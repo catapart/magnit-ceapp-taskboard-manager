@@ -39,10 +39,12 @@ collection-browser::part(items)
     overflow: hidden auto;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     /* margin: 0 auto; */
     justify-content: center;
     justify-items: center;
+    min-height: 250px;
+    grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
 }
 
 collection-browser::part(add-button)
