@@ -8,6 +8,7 @@ import { defineIcons, IconType } from '../../assets/icons/icons.asset';
 import { TaskBoardRecord } from '../../data/records/task-board.record';
 import { RecentBoardData } from '../../data/types/recent-board-data.type';
 import { AppSettingKey, DataService } from '../../data/data.service';
+import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../libs/ce-part-utils/ce-part-utils';
 
 export enum WelcomePanelAttributes
 {
@@ -58,7 +59,16 @@ export class WelcomePanelElement extends HTMLElement
         this.attachShadow({ mode: "open" });
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
-        this.#applyPartAttributes();
+
+        assignTagToPart(this.shadowRoot!);
+        assignClassAndIdToPart(this.shadowRoot!);
+
+        assignPartsAsExportPartsAttribute(this.shadowRoot!, false, 
+        {
+            'edit-button':'recent-edit-button',
+            'handle':'recent-edit-handle',
+            'new-board-button':'recent-new-board-button',
+        });
         
         this.findElement('recent-boards').addEventListener("remove", this.#recentBoard_onRemove.bind(this));
     }
@@ -142,19 +152,6 @@ export class WelcomePanelElement extends HTMLElement
         const route = boardItem.dataset.route!;
         const id = route.substring(route.lastIndexOf('/') + 1);
         this.removeBoardFromRecentBoards(id)
-    }
-    #applyPartAttributes()
-    {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            classedElements[i].part.add(...classedElements[i].classList);
-        }
     }
 }
 
