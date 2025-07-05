@@ -1,0 +1,34 @@
+
+taskboard-manager[data-theme="course"]::part(board-settings-fields)
+{
+    background: var(--surface-panel);
+    border: var(--border-panel);
+    border-radius: var(--border-radius-panel);
+
+    padding: var(--small-gap);
+    gap: var(--small-gap);
+}
+
+
+taskboard-manager[data-theme="course"]::part(remove-board-button)
+{
+    background: var(--surface-icon-button);
+    border: var(--border-icon-button);
+    color: var(--text-surface);
+    font-weight: bold;
+
+    --icon-primary-color: red;
+    --icon-secondary-color: var(--surface-0);
+}
+
+taskboard-manager[data-theme="course"]::part(duplicate-board-button)
+,taskboard-manager[data-theme="course"]::part(clear-lists-button)
+{
+    background: var(--surface-icon-button);
+    color: var(--text-icon-button);
+    border: var(--border-icon-button);
+    /* padding: .375rem; */
+
+    --icon-primary-color: var(--text-icon-button);
+    --icon-secondary-color: var(--surface-0);
+}
