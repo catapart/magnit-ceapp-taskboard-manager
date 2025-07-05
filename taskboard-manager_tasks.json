@@ -1,8 +1,8 @@
  {
-  "id": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
+  "id": "3IVSTSSmP-vpIThwmWIJDoUToRs",
   "name": "taskboard-manager",
   "color": "#531ce8",
-  "order": 0,
+  "order": 1,
   "backgroundImageId": "",
   "backgroundDisplay": "stretch",
   "backgroundOffsetX": 0,
@@ -11,9 +11,9 @@
   "backgroundColor": "#f9faf5",
   "useCustomFontColor": false,
   "fontColor": "#060703",
-  "taskSettingsId": "mSVHVkf0Xft1rGkZA3sj80Rbu5M",
+  "taskSettingsId": "mdFF1UrG__aLRYzbhq9PFcySWE4",
   "taskSettings": {
-    "id": "mSVHVkf0Xft1rGkZA3sj80Rbu5M",
+    "id": "mdFF1UrG__aLRYzbhq9PFcySWE4",
     "parentRecordType": "board",
     "centerCheckbox": true,
     "colorDisplay": "element",
@@ -42,9 +42,9 @@
   },
   "lists": [
     {
-      "id": "tAYsnpj7sCQeCykZaE__7AAxwa8",
-      "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-      "taskSettingsId": "C3gs-ZpwzUhQPsFwh3CTycTU158",
+      "id": "RZoi2lUq3T1DGsBFetIJRcPhK44",
+      "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+      "taskSettingsId": "P6SggMi3ZWJcwhNBLT49E1iGs70",
       "category": "",
       "order": 0,
       "color": "#837fd0",
@@ -59,7 +59,7 @@
       "width": 500,
       "isCollapsed": false,
       "taskSettings": {
-        "id": "C3gs-ZpwzUhQPsFwh3CTycTU158",
+        "id": "P6SggMi3ZWJcwhNBLT49E1iGs70",
         "parentRecordType": "list",
         "centerCheckbox": true,
         "colorDisplay": "element",
@@ -88,92 +88,119 @@
       },
       "tasks": [
         {
-          "id": "GXn0tKkMRZO8Y8wk2quH7P9Pc54",
-          "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-          "listId": "tAYsnpj7sCQeCykZaE__7AAxwa8",
+          "id": "-UIhRBIHC-2ovAJJQpKZ57gdum0",
+          "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+          "listId": "RZoi2lUq3T1DGsBFetIJRcPhK44",
           "order": 0,
           "color": "#858585",
           "description": "opened board item is not selected on page load.",
           "isFinished": false
         },
         {
-          "id": "oqB7LYKMJbQtaK1dGCOAVULrDqU",
-          "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-          "listId": "tAYsnpj7sCQeCykZaE__7AAxwa8",
+          "id": "sc32gqDWS8b0SpXyRA0Y_3JvRdg",
+          "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+          "listId": "RZoi2lUq3T1DGsBFetIJRcPhK44",
           "order": 1,
           "color": "#858585",
           "description": "board selection doesn't work right when the longpress is dispatched",
           "isFinished": false
         },
         {
-          "id": "XcyTG0jnww_EKDBgFwJUew8i554",
-          "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-          "listId": "tAYsnpj7sCQeCykZaE__7AAxwa8",
+          "id": "CAW_4Kui45JpvBqJIlVKWc4Y07Y",
+          "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+          "listId": "RZoi2lUq3T1DGsBFetIJRcPhK44",
           "order": 2,
           "color": "#858585",
           "description": "implement collapsed class/part",
           "isFinished": false
         },
         {
-          "id": "wWSvEhEp8BFCAr4M3bNlpuNxjbo",
-          "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-          "listId": "tAYsnpj7sCQeCykZaE__7AAxwa8",
+          "id": "bQE1FCYxyzXYAAbjFpHYOTLLfZ0",
+          "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+          "listId": "RZoi2lUq3T1DGsBFetIJRcPhK44",
           "order": 3,
           "color": "#858585",
           "description": "move import board into data page",
           "isFinished": false
         },
         {
-          "id": "-BLWlTXtF_LATLnL0-1m2m-uDfg",
-          "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-          "listId": "tAYsnpj7sCQeCykZaE__7AAxwa8",
+          "id": "h1q1kjrYpstiemiHSVPtvSdULps",
+          "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+          "listId": "RZoi2lUq3T1DGsBFetIJRcPhK44",
           "order": 4,
           "color": "#858585",
           "description": "web gothic style for import dialog",
           "isFinished": false
         },
         {
-          "id": "2nw7pigjAwBYlmwyjqyS-FIZ6oQ",
-          "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-          "listId": "tAYsnpj7sCQeCykZaE__7AAxwa8",
+          "id": "rRrmreRiOnDprhotlnTsBmxeHfU",
+          "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+          "listId": "RZoi2lUq3T1DGsBFetIJRcPhK44",
           "order": 5,
           "color": "#858585",
           "description": "board settings field header checkbox gap",
           "isFinished": false
         },
         {
-          "id": "KfzE_B7lDDVegRy-NJFP-uHGNU4",
-          "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-          "listId": "tAYsnpj7sCQeCykZaE__7AAxwa8",
+          "id": "ED2zlbirXSSHFtjX_m5N_zIK_PY",
+          "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+          "listId": "RZoi2lUq3T1DGsBFetIJRcPhK44",
           "order": 6,
           "color": "#858585",
           "description": "import user-select should be set to none",
           "isFinished": false
         },
         {
-          "id": "4t5YDpfoBDMQg30epEJocdpazJw",
-          "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-          "listId": "tAYsnpj7sCQeCykZaE__7AAxwa8",
+          "id": "spKeoVn_ocJaVFZYtzs5ae2UyaE",
+          "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+          "listId": "RZoi2lUq3T1DGsBFetIJRcPhK44",
           "order": 7,
           "color": "#858585",
           "description": "linux shortcuts?",
           "isFinished": false
         },
         {
-          "id": "baoV8bVYOUVw5it3G2XKf7mX7wA",
-          "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-          "listId": "tAYsnpj7sCQeCykZaE__7AAxwa8",
+          "id": "EkqjhbmRZoc49xIynLJeeTzvFHI",
+          "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+          "listId": "RZoi2lUq3T1DGsBFetIJRcPhK44",
           "order": 8,
           "color": "#858585",
           "description": "key handlers previousList != null",
+          "isFinished": false
+        },
+        {
+          "id": "AEW4hM5gquxUYjndZQoUvBKuHIA",
+          "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+          "listId": "RZoi2lUq3T1DGsBFetIJRcPhK44",
+          "order": 9,
+          "color": "#858585",
+          "description": "No task outline on chrome windows",
+          "isFinished": false
+        },
+        {
+          "id": "UpcVBGeXSsNXYuRuxwPJgUYkLx8",
+          "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+          "listId": "RZoi2lUq3T1DGsBFetIJRcPhK44",
+          "order": 10,
+          "color": "#858585",
+          "description": "update components to use parts utility",
+          "isFinished": false
+        },
+        {
+          "id": "S3ouVsdhwXw-17ct7TLQtvwzZTc",
+          "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+          "listId": "RZoi2lUq3T1DGsBFetIJRcPhK44",
+          "order": 11,
+          "color": "#858585",
+          "description": "checkbox tab index",
           "isFinished": false
         }
       ]
     },
     {
-      "id": "lOd0YRNqrOcfducx7r0BJRfeNkU",
-      "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-      "taskSettingsId": "NEAzR9HYmjHOsWpvroVUKr-0wSg",
+      "id": "2GY6RJBpyjFR47Y1LuOELau_o2E",
+      "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+      "taskSettingsId": "MqdIZZpQVdTFz6JwpDTE984oZA8",
       "category": "",
       "order": 1,
       "color": "#55c1c4",
@@ -188,7 +215,7 @@
       "width": 500,
       "isCollapsed": false,
       "taskSettings": {
-        "id": "NEAzR9HYmjHOsWpvroVUKr-0wSg",
+        "id": "MqdIZZpQVdTFz6JwpDTE984oZA8",
         "parentRecordType": "list",
         "centerCheckbox": true,
         "colorDisplay": "element",
@@ -218,9 +245,9 @@
       "tasks": []
     },
     {
-      "id": "Lqt0GsauGH5ihhYZCtg2Z1q_-1c",
-      "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-      "taskSettingsId": "sGfu_GBF3kQDDtUieC5rE-Ucb1Q",
+      "id": "q-pqbNa1ivoEFvjekU0_FFB36Fw",
+      "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+      "taskSettingsId": "DE5wb1L9id8v9Bvt3IVEgqt6TMY",
       "category": "",
       "order": 2,
       "color": "#e45f60",
@@ -235,7 +262,7 @@
       "width": 500,
       "isCollapsed": false,
       "taskSettings": {
-        "id": "sGfu_GBF3kQDDtUieC5rE-Ucb1Q",
+        "id": "DE5wb1L9id8v9Bvt3IVEgqt6TMY",
         "parentRecordType": "list",
         "centerCheckbox": true,
         "colorDisplay": "element",
@@ -265,9 +292,9 @@
       "tasks": []
     },
     {
-      "id": "W3g5pzuLXnX-O5W3nuilkVPiQS4",
-      "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-      "taskSettingsId": "82bKsUE6K9x0mH945PR_u6MxwSU",
+      "id": "XGBj-2oQjCoRSAZ46Y6C-F-mYR0",
+      "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+      "taskSettingsId": "zLmdWI4gVCTi1yM085gu-1-nUmY",
       "category": "",
       "order": 3,
       "color": "#d68e3c",
@@ -282,7 +309,7 @@
       "width": 500,
       "isCollapsed": false,
       "taskSettings": {
-        "id": "82bKsUE6K9x0mH945PR_u6MxwSU",
+        "id": "zLmdWI4gVCTi1yM085gu-1-nUmY",
         "parentRecordType": "list",
         "centerCheckbox": true,
         "colorDisplay": "element",
@@ -312,9 +339,9 @@
       "tasks": []
     },
     {
-      "id": "jBZ5Y-mBVhlAWm_0bLgep8wx0Ko",
-      "boardId": "kW8LfhmslJ-yomtbrhIAUH2OtEs",
-      "taskSettingsId": "WG4jd7ZibrNh18dvz7nV2JjGJnE",
+      "id": "uZ-bNVUwHB6oS2vTGo3RYxNm6Dw",
+      "boardId": "3IVSTSSmP-vpIThwmWIJDoUToRs",
+      "taskSettingsId": "HEvqYHkNqVCRwYZeEa83aWHQH3s",
       "category": "",
       "order": 4,
       "color": "#5de467",
@@ -329,7 +356,7 @@
       "width": 500,
       "isCollapsed": false,
       "taskSettings": {
-        "id": "WG4jd7ZibrNh18dvz7nV2JjGJnE",
+        "id": "HEvqYHkNqVCRwYZeEa83aWHQH3s",
         "parentRecordType": "list",
         "centerCheckbox": true,
         "colorDisplay": "element",
