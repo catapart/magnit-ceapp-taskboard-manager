@@ -33,6 +33,32 @@ taskboard-manager[data-theme="course"]
 taskboard-manager[data-theme="course"]::part(input)
 {
     background: var(--surface-input);
+    color: var(--text-input);
+    border: var(--border-input);
+    border-radius: var(--border-radius-input);
+    padding: var(--padding-input);
+}
+
+taskboard-manager[data-theme="course"] select
+,taskboard-manager[data-theme="course"]::part(select)
+{
+    appearance: none;
+    background: var(--surface-select)
+    url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%2020%2020'%20width%3D'12px'%20height%3D'12px'%20fill%3D'none'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cg%20stroke-width%3D'0'%3E%3C%2Fg%3E%3Cg%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fg%3E%3Cg%3E%3Cpath%20d%3D'M8.72798%2015.795L3.72798%207.795C3.10356%206.79593%203.82183%205.5%204.99998%205.5L15%205.5C16.1781%205.5%2016.8964%206.79593%2016.272%207.795L11.272%2015.795C10.6845%2016.735%209.31549%2016.735%208.72798%2015.795Z'%20fill%3D'%23fff'%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E")
+    calc(100% - 10px) center no-repeat !important;
+    color: var(--text-select);
+    border: var(--border-select);
+    border-radius: var(--border-radius-select);
+    padding: var(--padding-input);
+}
+taskboard-manager[data-theme="course"]::part(input color)
+{
+    /* background: var(--surface-input); */
+    background: red;
+}
+taskboard-manager[data-theme="course"]::part(input image)
+{
+    border-radius: 4px;
 }
 taskboard-manager[data-theme="course"]::part(button)
 {
@@ -163,28 +189,6 @@ taskboard-manager[data-theme="course"]::part(group-button last)
 {
     border-top-right-radius: var(--border-radius-button);
     border-bottom-right-radius: var(--border-radius-button);
-}
-
-taskboard-manager[data-theme="course"]::part(input)
-{
-    background: var(--surface-input);
-    color: var(--text-input);
-    border: var(--border-input);
-    border-radius: var(--border-radius-input);
-    padding: var(--padding-input);
-}
-
-taskboard-manager[data-theme="course"] select
-,taskboard-manager[data-theme="course"]::part(select)
-{
-    appearance: none;
-    background: var(--surface-select)
-    url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%2020%2020'%20width%3D'12px'%20height%3D'12px'%20fill%3D'none'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cg%20stroke-width%3D'0'%3E%3C%2Fg%3E%3Cg%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3C%2Fg%3E%3Cg%3E%3Cpath%20d%3D'M8.72798%2015.795L3.72798%207.795C3.10356%206.79593%203.82183%205.5%204.99998%205.5L15%205.5C16.1781%205.5%2016.8964%206.79593%2016.272%207.795L11.272%2015.795C10.6845%2016.735%209.31549%2016.735%208.72798%2015.795Z'%20fill%3D'%23fff'%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E")
-    calc(100% - 10px) center no-repeat !important;
-    color: var(--text-select);
-    border: var(--border-select);
-    border-radius: var(--border-radius-select);
-    padding: var(--padding-input);
 }
 
 

@@ -8,13 +8,13 @@
     <div id="board-fields">
         <div id="board-properties">
             <form-field class="field" id="board-color-field" label="Color">
-                <input class="input" id="board-color" name="board-color" type="color" value="#000000" />
+                <input class="input color" id="board-color" name="board-color" type="color" value="#000000" />
             </form-field>
             <form-field class="field" id="board-name-field" label="Name">
-                <input class="input" id="board-name" name="board-name" type="text" value="New Board" />
+                <input class="input text" id="board-name" name="board-name" type="text" value="New Board" />
             </form-field>
             <form-field class="field" id="order-field" label="Order">
-                <input class="input" id="board-order" name="board-order" type="text" inputmode="numeric" disabled />
+                <input class="input number" id="board-order" name="board-order" type="text" inputmode="numeric" disabled />
             </form-field>
         </div>
         <fieldset class="fieldset board-settings-fieldset" id="board-appearance-fieldset">
@@ -25,10 +25,10 @@
                 <span class="label legend-label" id="board-settings-appearance-label">Appearance</span>
             </legend>
             <form-field class="field" id="board-background-color-field" label="Background Color" optional optional-title="Override Background Color?">
-                <input class="input" id="board-background-color" name="board-background-color" type="color" value="#f9faf5" />
+                <input class="input color" id="board-background-color" name="board-background-color" type="color" value="#f9faf5" />
             </form-field>
             <form-field class="field" id="board-font-color-field" label="Font Color" optional optional-title="Override Font Color?">
-                <input class="input" id="board-font-color" name="board-font-color" type="color" value="#060703" />
+                <input class="input color" id="board-font-color" name="board-font-color" type="color" value="#060703" />
             </form-field>
         </fieldset>
         <fieldset class="fieldset board-settings-fieldset" id="board-image-fieldset">
@@ -39,7 +39,7 @@
                 <span class="label legend-label" id="image-label">Background Image</span>
             </legend>
             <form-field class="field" id="board-background-image-field" label="Background Image" input-selector="fileimage-input">
-                <fileimage-input class="input" id="board-background-image" name="board-background-image" placeholder="Select an image...">
+                <fileimage-input class="input image" id="board-background-image" name="board-background-image" placeholder="Select an image...">
                     <svg class="icon" id="background-image-icon" slot="placeholder-icon">
                         <use href="#icon-definition_image"></use>
                     </svg>
@@ -57,10 +57,10 @@
                     <span id="offset-label">Offset</span>
                 </div>
                 <form-field class="field" id="board-background-image-offset-x-field" label="X">
-                    <input class="input" type="text" inputmode="numeric" id="board-background-image-offset-x" name="background-image-offset-x" />
+                    <input class="input number" type="text" inputmode="numeric" id="board-background-image-offset-x" name="background-image-offset-x" />
                 </form-field>
                 <form-field class="field" id="board-background-image-offset-y-field" label="Y">
-                    <input class="input"type="text" inputmode="numeric" id="board-background-image-offset-y" name="background-image-offset-y" />
+                    <input class="input number"type="text" inputmode="numeric" id="board-background-image-offset-y" name="background-image-offset-y" />
                 </form-field>
             </div>
         </fieldset>
@@ -103,6 +103,7 @@
                              legend,
                              field,
                              input,
+                             color,
                              select,
                              option,
                              first,

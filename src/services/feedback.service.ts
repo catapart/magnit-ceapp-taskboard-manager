@@ -1,5 +1,5 @@
 import { PathRouterElement } from "@magnit-ce/path-router";
-import { TaskboardManagerElement } from "./taskboard-manager";
+import { TaskboardManagerElement } from "../taskboard-manager";
 import { MessageCardElement, MessageCardType } from "@magnit-ce/message-card";
 
 const DATA_ERROR_MESSAGE = `<p>An error occurred trying to access the [subject] data.</p>

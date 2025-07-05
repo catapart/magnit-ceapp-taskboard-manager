@@ -57,7 +57,7 @@ import { BoardBrowserElement } from './components/board-browser/board-browser';
 import { BoardSettingsElement } from './components/board-settings/board-settings';
 import { ConfigPanelElement } from './components/config-panel/config-panel';
 import { AppSettingKey, DataService, MILLISECONDSINDAY } from './data/data.service';
-import { FeedbackService } from './feedback.service';
+import { FeedbackService } from './services/feedback.service';
 import { ColorScheme } from './components/config-panel/settings-panel/settings-panel';
 
 

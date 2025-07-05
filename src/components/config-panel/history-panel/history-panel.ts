@@ -9,7 +9,7 @@ import { ActionHistoryElement, ATTRIBUTENAME_ACTIVE, ATTRIBUTENAME_REVERSED, His
 import { createOptionElement, snapToStep } from '../../../resources/utils';
 import { AppSettingKey, DataService } from '../../../data/data.service';
 import { HistoryEntryRecord } from '../../../data/records/history-entry.record';
-import { FeedbackService } from '../../../feedback.service';
+import { FeedbackService } from '../../../services/feedback.service';
 import { HistoryEntryData, HistoryEntryTargetType, PropertiesType } from '../../../data/history/history-entry-data';
 
 export const HistoryLengthValues = [0, 30, 50, 100, 150];

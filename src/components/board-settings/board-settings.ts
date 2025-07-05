@@ -13,7 +13,7 @@ import { TaskFieldsComponent } from './task-fields/task-fields.component';
 import { FileImageInputElement } from '@magnit-ce/fileimage-input';
 import { CustomImageRecord } from '../../data/records/custom-image.record';
 import { DataService } from '../../data/data.service';
-import { FeedbackService } from '../../feedback.service';
+import { FeedbackService } from '../../services/feedback.service';
 import { MessageCardType } from '@magnit-ce/message-card';
 import { CustomImageActionProperties } from '../../data/history/custom-image-action-properties';
 
@@ -437,6 +437,7 @@ export class BoardSettingsElement extends HTMLElement
         const list = this.#createList(taskList, taskSettings);
         this.append(list);
     }
+    #listExportParts?: string;
     #createList(taskList: TaskListRecord, taskSettings: TaskSettingsRecord)
     {
         const taskListElement = new TaskListFieldsComponent();
@@ -451,20 +452,23 @@ export class BoardSettingsElement extends HTMLElement
         taskListElement.part.add('tasklist-settings');
         taskListElement.style.setProperty('color-scheme', this.style.getPropertyValue('color-scheme'));
 
-        // todo: stop composing this unchanging value
-        const tasklistExportParts = new Set(([...taskListElement.shadowRoot!.querySelectorAll('[id],[class]')] as HTMLElement[]).map(item =>
+        if(this.#listExportParts == null)
         {
-            if(item instanceof TaskFieldsComponent)
+            const tasklistExportParts = new Set(([...taskListElement.shadowRoot!.querySelectorAll('[id],[class]')] as HTMLElement[]).map(item =>
             {
-                const taskFieldsParts = item.getAttribute('exportparts')!.replaceAll(/[\s\n]/g, '').split(',');
-                return taskFieldsParts;
-            }
-            const parts = [item.id,
-            ...item.classList.values()];
-            return parts;
-        }).flat().filter(item => item.length > 0));
+                if(item instanceof TaskFieldsComponent)
+                {
+                    const taskFieldsParts = item.getAttribute('exportparts')!.replaceAll(/[\s\n]/g, '').split(',');
+                    return taskFieldsParts;
+                }
+                const parts = [item.id,
+                ...item.classList.values()];
+                return parts;
+            }).flat().filter(item => item.length > 0));
+            this.#listExportParts = Array.from(tasklistExportParts).join(",\n");
+        }
 
-        taskListElement.setAttribute('exportparts', `${Array.from(tasklistExportParts).join(",\n")}`);
+        taskListElement.setAttribute('exportparts', `${this.#listExportParts}`);
         
         const handle = taskListElement.findElement('tasklist-settings-handle');
         handle.addEventListener('mousedown', (_event) =>

@@ -1,6 +1,6 @@
 import { DataRecord } from "record-setter";
 import { BoardSettingsElement } from "../components/board-settings/board-settings";
-import { FeedbackService, ErrorMessageType } from "../feedback.service";
+import { FeedbackService, ErrorMessageType } from "../services/feedback.service";
 import { TaskboardManagerElement } from "../taskboard-manager";
 import { BoardChannel } from "./channels/board.channel";
 import { CustomImageChannel } from "./channels/custom-image.channel";

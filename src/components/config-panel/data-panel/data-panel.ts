@@ -13,7 +13,7 @@ import { TaskBoardRecord } from '../../../data/records/task-board.record';
 import { TaskListRecord } from '../../../data/records/task-list.record';
 import { TaskRecord } from '../../../data/records/task.record';
 import { CustomImageRecord } from '../../../data/records/custom-image.record';
-import { FeedbackService } from '../../../feedback.service';
+import { FeedbackService } from '../../../services/feedback.service';
 import { HistoryEntryType } from '@magnit-ce/action-history';
 import { HistoryEntryRecord } from '../../../data/records/history-entry.record';
 

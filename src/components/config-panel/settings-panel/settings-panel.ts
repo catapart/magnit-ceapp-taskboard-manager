@@ -6,7 +6,7 @@ import html from './settings-panel.html?raw';
 // icons
 import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
 import { AppSettingKey, DataService } from '../../../data/data.service';
-import { FeedbackService } from '../../../feedback.service';
+import { FeedbackService } from '../../../services/feedback.service';
 
 export type ColorScheme = 'inherit'|'browser'|'light'|'dark';
 
