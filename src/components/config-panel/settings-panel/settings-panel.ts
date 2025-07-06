@@ -7,6 +7,7 @@ import html from './settings-panel.html?raw';
 import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
 import { AppSettingKey, DataService } from '../../../data/data.service';
 import { FeedbackService } from '../../../services/feedback.service';
+import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../../libs/ce-part-utils/ce-part-utils';
 
 export type ColorScheme = 'inherit'|'browser'|'light'|'dark';
 
@@ -53,7 +54,9 @@ export class SettingsPanelElement extends HTMLElement
 
         this.addEventListener('click', this.#onClick.bind(this));
 
-        this.#applyPartAttributes();
+        assignTagToPart(this.shadowRoot!);
+        assignClassAndIdToPart(this.shadowRoot!);
+        assignPartsAsExportPartsAttribute(this.shadowRoot!);
 
     }
 
@@ -102,20 +105,6 @@ export class SettingsPanelElement extends HTMLElement
             return;
         }
         this.#scheme_onChange(scheme);
-    }
-
-    #applyPartAttributes()
-    {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            classedElements[i].part.add(...classedElements[i].classList);
-        }
     }
 }
 

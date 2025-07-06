@@ -16,6 +16,7 @@ import { DataService } from '../../data/data.service';
 import { FeedbackService } from '../../services/feedback.service';
 import { MessageCardType } from '@magnit-ce/message-card';
 import { CustomImageActionProperties } from '../../data/history/custom-image-action-properties';
+import { assignClassAndIdToPart, assignFormFieldPartAttributes, assignInputTypeToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../libs/ce-part-utils/ce-part-utils';
 
 export type BoardSettingsProperties = 
 {
@@ -74,7 +75,6 @@ export class BoardSettingsElement extends HTMLElement
         this.attachShadow({ mode: "open" });
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
-        this.#applyPartAttributes();
         this.addEventListener('click', this.#onClick.bind(this));
 
         this.addEventListener('dragover', (event) =>
@@ -109,6 +109,21 @@ export class BoardSettingsElement extends HTMLElement
         });
 
         
+    }
+    connectedCallback()
+    {
+        // wait until form fields have established
+        // both field inputs and option checkboxes
+        requestAnimationFrame(() =>
+        {
+            assignTagToPart(this.shadowRoot!);
+            assignClassAndIdToPart(this.shadowRoot!);
+            assignInputTypeToPart(this.shadowRoot!);
+            assignFormFieldPartAttributes(this.shadowRoot!);
+            
+            assignPartsAsExportPartsAttribute(this.shadowRoot!);
+            this.dispatchEvent(new CustomEvent('ready', { bubbles: true }));
+        });
     }
 
     //#region API
@@ -437,7 +452,6 @@ export class BoardSettingsElement extends HTMLElement
         const list = this.#createList(taskList, taskSettings);
         this.append(list);
     }
-    #listExportParts?: string;
     #createList(taskList: TaskListRecord, taskSettings: TaskSettingsRecord)
     {
         const taskListElement = new TaskListFieldsComponent();
@@ -451,24 +465,6 @@ export class BoardSettingsElement extends HTMLElement
         taskListElement.classList.add('tasklist-settings');
         taskListElement.part.add('tasklist-settings');
         taskListElement.style.setProperty('color-scheme', this.style.getPropertyValue('color-scheme'));
-
-        if(this.#listExportParts == null)
-        {
-            const tasklistExportParts = new Set(([...taskListElement.shadowRoot!.querySelectorAll('[id],[class]')] as HTMLElement[]).map(item =>
-            {
-                if(item instanceof TaskFieldsComponent)
-                {
-                    const taskFieldsParts = item.getAttribute('exportparts')!.replaceAll(/[\s\n]/g, '').split(',');
-                    return taskFieldsParts;
-                }
-                const parts = [item.id,
-                ...item.classList.values()];
-                return parts;
-            }).flat().filter(item => item.length > 0));
-            this.#listExportParts = Array.from(tasklistExportParts).join(",\n");
-        }
-
-        taskListElement.setAttribute('exportparts', `${this.#listExportParts}`);
         
         const handle = taskListElement.findElement('tasklist-settings-handle');
         handle.addEventListener('mousedown', (_event) =>

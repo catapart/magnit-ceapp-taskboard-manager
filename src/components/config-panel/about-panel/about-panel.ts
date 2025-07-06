@@ -5,6 +5,7 @@ import sharedStyles from '../../../styles/shared.css?raw';
 import html from './about-panel.html?raw';
 // icons
 import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
+import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../../libs/ce-part-utils/ce-part-utils';
 
 
 export type AboutPanelProperties = 
@@ -46,7 +47,10 @@ export class AboutPanelElement extends HTMLElement
         this.attachShadow({ mode: "open" });
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
-        this.#applyPartAttributes();
+        
+        assignTagToPart(this.shadowRoot!);
+        assignClassAndIdToPart(this.shadowRoot!);
+        assignPartsAsExportPartsAttribute(this.shadowRoot!);
     }
 
     init(options: AboutPanelProperties)
@@ -57,20 +61,6 @@ export class AboutPanelElement extends HTMLElement
     setVersion(version: string)
     {
         this.findElement('version-value').textContent = version;
-    }
-
-    #applyPartAttributes()
-    {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            classedElements[i].part.add(...classedElements[i].classList);
-        }
     }
 }
 

@@ -7,6 +7,7 @@ import html from './app-menu.html?raw';
 import { defineIcons, IconType } from '../../assets/icons/icons.asset';
 import { TaskBoardRecord } from '../../data/records/task-board.record';
 import { DataService } from '../../data/data.service';
+import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../libs/ce-part-utils/ce-part-utils';
 
 export type AppMenuProperties =
 {
@@ -39,21 +40,11 @@ export class AppMenuElement extends HTMLElement
         this.attachShadow({ mode: "open" });
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
-        this.#applyPartAttributes();
         this.#addDragHandlers();
-    }
-    #applyPartAttributes()
-    {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            classedElements[i].part.add(...classedElements[i].classList);
-        }
+
+        assignTagToPart(this.shadowRoot!);
+        assignClassAndIdToPart(this.shadowRoot!);
+        assignPartsAsExportPartsAttribute(this.shadowRoot!);
     }
 
     //#region API
@@ -134,7 +125,7 @@ export class AppMenuElement extends HTMLElement
     {
         const element = document.createElement('a');
         element.tabIndex = 0;
-        element.innerHTML = `<span part="menu-item-handle" class="menu-item-handle"></span>
+        element.innerHTML = `<span part="handle menu-item-handle" class="handle menu-item-handle"></span>
         <span part="board-item-name" class="board-item-name">${board.name}<span>`;
         element.setAttribute('part', 'board');
         element.classList.add('board');

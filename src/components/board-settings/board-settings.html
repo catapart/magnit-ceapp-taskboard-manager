@@ -5,7 +5,7 @@
         </svg>
         <span class="title dialog-title" id="board-settings-title">Board</span>
     </header>
-    <div id="board-fields">
+    <div id="board-fields" class="page">
         <div id="board-properties">
             <form-field class="field" id="board-color-field" label="Color">
                 <input class="input color" id="board-color" name="board-color" type="color" value="#000000" />
@@ -39,7 +39,7 @@
                 <span class="label legend-label" id="image-label">Background Image</span>
             </legend>
             <form-field class="field" id="board-background-image-field" label="Background Image" input-selector="fileimage-input">
-                <fileimage-input class="input image" id="board-background-image" name="board-background-image" placeholder="Select an image...">
+                <fileimage-input class="input image" id="board-background-image" exportparts="field:image-input" name="board-background-image" placeholder="Select an image...">
                     <svg class="icon" id="background-image-icon" slot="placeholder-icon">
                         <use href="#icon-definition_image"></use>
                     </svg>
@@ -98,69 +98,7 @@
             </summary>
             <task-fields
                 class="task-fields details-content"
-                id="board-task-settings"
-                exportparts="fieldset,
-                             legend,
-                             field,
-                             input,
-                             color,
-                             select,
-                             option,
-                             first,
-                             last,
-                             label-button,
-                             icon-button,
-                             container,
-                             field-container,
-                             label,
-                             field-label,
-                             enabled-checkbox,
-                             field-enabled-checkbox,
-                             prefix,
-                             field-prefix,
-                             postfix,
-                             field-postfix,
-                             task-appearance-fieldset,
-                             task-appearance-legend,
-                             task-font-size-field,
-                             task-font-size,
-                             font-size-unit,
-                             task-background-color-field,
-                             task-background-color,
-                             task-border-radius-field,
-                             task-border-radius,
-                             task-border-bottom-unit,
-                             task-font-color-field,
-                             task-font-color,
-                             task-color-display-field,
-                             task-color-display,
-                             task-border-color-field,
-                             task-border-color,
-                             task-layout-fieldset,
-                             task-layout-fields-legend,
-                             task-center-checkbox-field,
-                             task-center-checkbox,
-                             task-center-remove-button-field,
-                             task-center-remove-button,
-                             task-card-width-field,
-                             task-card-width,
-                             task-card-width-unit,
-                             task-border-weights-fieldset,
-                             task-border-weights-legend,
-                             task-border-top-field,
-                             task-border-top,
-                             task-border-top-unit,
-                             task-border-right-field,
-                             task-border-right,
-                             task-border-right-unit,
-                             task-border-botom-field,
-                             task-border-botom,
-                             task-border-botom-unit,
-                             task-border-left-field,
-                             task-border-left,
-                             task-border-left-unit
-                            "
-            ></task-fields>
+                id="board-task-settings"></task-fields>
         </details>
         <fieldset class="fieldset board-settings-fieldset" id="delete-fieldset">
             <legend class="legend board-settings-legend" id="delete-legend">Delete</legend>

@@ -193,7 +193,7 @@ fileimage-input::part(view-link)
 {
     border-color: rgb(170 170 170);
 }
-#board-color::-webkit-color-swatch
+/* #board-color::-webkit-color-swatch
 {
     padding: 0;
     border: none;
@@ -202,7 +202,7 @@ fileimage-input::part(view-link)
 {
     padding: 0;
     border: none;
-}
+} */
 
 #board-name-field .container
 {

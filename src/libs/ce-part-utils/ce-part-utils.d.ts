@@ -1,3 +1,4 @@
+declare const DEFAULT_ELEMENT_SELECTOR = ":not(slot,defs,g,rect,path,circle,ellipse,line,polygon,text,tspan,use,svg image,svg title,desc,template,template *)";
 declare function assignClassAndIdToPart(shadowRoot: ShadowRoot): void;
 type TagPartMap = Partial<{
     [key in keyof HTMLElementTagNameMap]: string;
@@ -36,4 +37,4 @@ type PartExportPartMap = {
 declare function getExportPartsFromParts(shadowRoot: ShadowRoot, addNewlines?: boolean, replacements?: PartExportPartMap): string;
 declare function assignPartsAsExportPartsAttribute(shadowRoot: ShadowRoot, addNewlines?: boolean, replacements?: PartExportPartMap): void;
 
-export { InputTypePartMap, type PartExportPartMap, type TagPartMap, assignClassAndIdToPart, assignFormFieldPartAttributes, assignInputTypeToPart, assignPartsAsExportPartsAttribute, assignTagToPart, getExportPartsFromParts };
+export { DEFAULT_ELEMENT_SELECTOR, InputTypePartMap, type PartExportPartMap, type TagPartMap, assignClassAndIdToPart, assignFormFieldPartAttributes, assignInputTypeToPart, assignPartsAsExportPartsAttribute, assignTagToPart, getExportPartsFromParts };

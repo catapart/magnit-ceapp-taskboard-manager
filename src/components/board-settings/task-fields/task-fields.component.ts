@@ -1,10 +1,13 @@
 import { TaskBorderRadiusUnit, TaskColorDisplay, TaskSettingsRecord } from '../../../data/records/task-settings.record';
+import { assignClassAndIdToPart, assignFormFieldPartAttributes, assignInputTypeToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../../libs/ce-part-utils/ce-part-utils';
+import sharedStyles from '../../../styles/shared.css?raw';
 import formFieldStyle from '../form-field.css?raw';
 import style from './task-fields.component.css?raw';
 import html from './task-fields.component.html?raw';
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
-COMPONENT_STYLESHEET.replaceSync(`${formFieldStyle}
+COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
+${formFieldStyle}
 ${style}
 `);
 
@@ -44,9 +47,17 @@ export class TaskFieldsComponent extends HTMLElement
     }
     connectedCallback()
     {
+        // wait until form fields have established
+        // both field inputs and option checkboxes
         requestAnimationFrame(() =>
         {
-            this.#applyPartAttributes();
+            assignTagToPart(this.shadowRoot!);
+            assignClassAndIdToPart(this.shadowRoot!);
+            assignInputTypeToPart(this.shadowRoot!);
+            assignFormFieldPartAttributes(this.shadowRoot!);
+
+            assignPartsAsExportPartsAttribute(this.shadowRoot!);
+            this.dispatchEvent(new CustomEvent('ready', { bubbles: true }));
         });
     }
 

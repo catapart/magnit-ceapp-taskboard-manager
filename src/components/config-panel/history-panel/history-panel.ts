@@ -11,6 +11,7 @@ import { AppSettingKey, DataService } from '../../../data/data.service';
 import { HistoryEntryRecord } from '../../../data/records/history-entry.record';
 import { FeedbackService } from '../../../services/feedback.service';
 import { HistoryEntryData, HistoryEntryTargetType, PropertiesType } from '../../../data/history/history-entry-data';
+import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../../libs/ce-part-utils/ce-part-utils';
 
 export const HistoryLengthValues = [0, 30, 50, 100, 150];
 
@@ -58,7 +59,6 @@ export class HistoryPanelElement extends HTMLElement
         this.attachShadow({ mode: "open" });
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
-        this.#applyPartAttributes();
         this.addEventListener('click', this.#onClick.bind(this));
 
         this.findElement('action-history-length').addEventListener("change", this.#historyLength_onChange.bind(this));
@@ -66,6 +66,10 @@ export class HistoryPanelElement extends HTMLElement
         const actionHistory = this.getElement<ActionHistoryElement>('action-history');
         actionHistory.onBack = this.#actionHistory_onBack.bind(this);
         actionHistory.onForward = this.#actionHistory_onForward.bind(this);
+
+        assignTagToPart(this.shadowRoot!);
+        assignClassAndIdToPart(this.shadowRoot!);
+        assignPartsAsExportPartsAttribute(this.shadowRoot!);
     }
     
     #refreshBoards!: () => void;

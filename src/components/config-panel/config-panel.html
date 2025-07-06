@@ -1,4 +1,4 @@
-<header id="config-header" class="header dialog-header">
+<header id="config-header" class="dialog-header">
     <svg id="config-icon" class="icon gear-icon header-icon">
         <use href="#icon-definition_gear"></use>
     </svg>
@@ -9,7 +9,7 @@
         <svg id="settings-route-icon" class="icon nav-item-icon">
             <use href="#icon-definition_gear"></use>
         </svg>
-        <span class="nav-item-label">Settings</span>
+        <span class="label nav-item-label">Settings</span>
     </a>
     <a data-route="#config/data" id="data-nav-item"  class="nav-item">
         <svg id="data-route-icon" class="icon nav-item-icon">
@@ -21,150 +21,27 @@
         <svg id="history-route-icon" class="icon nav-item-icon">
             <use href="#icon-definition_clock"></use>
         </svg>
-        <span class="nav-item-label">History</span>
+        <span class="label nav-item-label">History</span>
     </a>
     <a data-route="#config/about" id="about-nav-item"  class="nav-item last">
         <svg id="about-route-icon" class="icon nav-item-icon">
             <use href="#icon-definition_info"></use>
         </svg>
-        <span class="nav-item-label">About</span>
+        <span class="label nav-item-label">About</span>
     </a>
 </menu>
 <path-router id="config-router" class="router" path="settings">
     <route-page path="settings" id="settings-page" class="page config-page">
         <settings-panel
             id="settings-panel"
-            class="config-page-panel"
-            exportparts="settings-header,
-                         header,
-                         page-header,
-                         fieldset,
-                         config-fieldset,
-                         legend,
-                         config-legend,
-                         color-scheme-fieldset,
-                         color-scheme-legend,
-                         scheme-options,
-                         button-group,
-                         label-button,
-                         icon-button,
-                         group-button,
-                         button,
-                         scheme,
-                         selected,
-                         first,
-                         last,
-                         inherit-button,
-                         browser-button,
-                         light-button,
-                         dark-button,
-                         custom-settings-fieldset,
-                         custom-settings-legend,
-                         shortcuts-fieldset,
-                         shortcuts-legend,
-                         shortcuts,
-                         shortcut,
-                         word,
-                         line,
-                         hightlight,
-                         task,
-                         list,
-                         key,
-                         shortcut-title,
-                         shortcut-description,
-                         previous-word,
-                         next-word,
-                         previous-line,
-                         next-line,
-                         highlight-previous-word,
-                         highlight-next-word,
-                         previous-line,
-                         next-line,
-                         previous-task,
-                         next-task,
-                         previous-list,
-                         next-list
-                         ">
+            class="config-page-panel">
             <slot name="custom-settings" slot="custom-settings"></slot>
         </settings-panel>
     </route-page>
     <route-page path="data" id="data-page" class="page config-page">
         <data-panel
             id="data-panel"
-            class="config-page-panel"
-            exportparts="data-header,
-                         header,
-                         page-header,
-                         fieldset,
-                         config-fieldset,
-                         config-legend,
-                         legend,
-                         import-fieldset,
-                         import-legend,
-                         import-field,
-                         field-container,
-                         field-label,
-                         field-prefix,
-                         field-postfix,
-                         import-board-file,
-                         import-field-container,
-                         import-field-label,
-                         import-field-prefix,
-                         import-field-postfix,
-                         import-board-file,
-                         field,
-                         input,
-                         config-field,
-                         data-field,
-                         icon,
-                         import-file-icon,
-                         button,
-                         label-button,
-                         icon-button,
-                         import-button,
-                         import-button-icon,
-                         import-button-label,
-                         config-data-caches,
-                         data-cleanup-fieldset,
-                         data-cleanup-legend,
-                         data-cleanup-description,
-                         text,
-                         data-cleanup-range,
-                         data-persist-days,
-                         data-persist-days-values,
-                         data-persist-days-value,
-                         data-button,
-                         danger-button,
-                         apply-data-persist-days-button,
-                         apply-data-persist-days-icon,
-                         apply-data-persist-days-label,
-                         data-pending-fieldset,
-                         data-pending-legend,
-                         data-pending-description,
-                         pending-item,
-                         deleted-items,
-                         deleted-item,
-                         restore-item-icon,
-                         clear-deleted-button,
-                         clear-deleted-icon,
-                         clear-deleted-label,
-                         image-cache-fieldset,
-                         image-cache-legend,
-                         image-cache-description,
-                         deleted-images,
-                         clear-image-cache-button,
-                         clear-images-icon,
-                         clear-images-label,
-                         data-clear-fieldset,
-                         data-clear-legend,
-                         data-clear-description,
-                         clear-data-button,
-                         clear-data-icon,
-                         clear-data-label,
-                         cache-list,
-                         range
-                        "
-            >
+            class="config-page-panel">
             <slot name="deleted-images" slot="deleted-images"></slot>
             <slot name="deleted-items" slot="deleted-items"></slot>
         </data-panel>
@@ -172,50 +49,7 @@
     <route-page path="history" id="history-page" class="page config-page">
         <history-panel
             id="history-panel"
-            class="config-page-panel"
-            exportparts="header,
-                         page-header,
-                         history-header,
-                         history-navigation-fieldset,
-                         fieldset,
-                         config-fieldset,
-                         legend,
-                         config-legend,
-                         history-navigation-legend,
-                         undo,
-                         button,
-                         restore-item-icon,
-                         icon,
-                         undo-label,
-                         redo,
-                         button,
-                         data-button,
-                         label-button,
-                         icon-button,
-                         redo-label,
-                         clear-history-button,
-                         clear-history-icon,
-                         clear-history-label,
-                         action-history,
-                         action-history-entry,
-                         action-history-entry-type,
-                         action-history-entry-data,
-                         action-history-target-type,
-                         action-history-target-id,
-                         active,
-                         history-length-fieldset,
-                         history-length-legend,
-                         history-length-field,
-                         field,
-                         field-container,
-                         field-label,
-                         field-prefix,
-                         field-postfix,
-                         action-history-length,
-                         action-history-length-values,
-                         apply-history-length-button,
-                         apply-history-length-label
-                         " >
+            class="config-page-panel">
             <slot name="action-history" slot="action-history"></slot>
         </history-panel>
     </route-page>
@@ -223,32 +57,6 @@
         <about-panel
             id="about-panel"
             class="config-page-panel"
-            exportparts="header,
-                         page-header,
-                         about-header,
-                         about-app-fieldset,
-                         fieldset,
-                         config-fieldset,
-                         about-app-legend,
-                         legend,
-                         config-legend,
-                         text,
-                         emphasis,
-                         code,
-                         version-fieldset,
-                         version-legend,
-                         version-value,
-                         copyright-fieldset,
-                         copyright-legend,
-                         copyright-text,
-                         cc0-link,
-                         link,
-                         copyright-link,
-                         cc-icon,
-                         zero-icon,
-                         icon,
-                         raster
-            "
             ></about-panel>
     </route-page>
 </path-router>

@@ -30,7 +30,12 @@ taskboard-manager[data-theme="course"]
 }
 
 /** Elements */
-taskboard-manager[data-theme="course"]::part(input)
+taskboard-manager[data-theme="course"]::part(input):disabled
+{
+    background: var(--surface-input-disabled);
+    color: var(--text-input-disabled);
+}
+taskboard-manager[data-theme="course"]::part(input text)
 {
     background: var(--surface-input);
     color: var(--text-input);
@@ -53,12 +58,24 @@ taskboard-manager[data-theme="course"] select
 }
 taskboard-manager[data-theme="course"]::part(input color)
 {
-    /* background: var(--surface-input); */
-    background: red;
+    background: var(--text-surface);
+    /* background: red; */
+    padding: 0;
+    margin: 0;
+    border-radius: 30px;
+    --color-size: 30px;
+    /* width: var(--color-size); */
+    height: var(--color-size);
+    border: var(--border-icon-button);
 }
-taskboard-manager[data-theme="course"]::part(input image)
+taskboard-manager[data-theme="course"]::part(image-input)
 {
     border-radius: 4px;
+    background: var(--surface-input);
+    color: var(--text-select);
+    border: var(--border-select);
+    border-radius: var(--border-radius-select);
+    padding: var(--padding-input);
 }
 taskboard-manager[data-theme="course"]::part(button)
 {
@@ -120,7 +137,7 @@ taskboard-manager[data-theme="course"]::part(dialog-header)
 }
 
 
-taskboard-manager[data-theme="course"]::part(config-page-panel)
+taskboard-manager[data-theme="course"]::part(page)
 {
     background: var(--surface-panel);
     border: var(--border-panel);
@@ -150,8 +167,31 @@ taskboard-manager[data-theme="course"]::part(fieldset)
 taskboard-manager[data-theme="course"]::part(legend)
 {
     padding: 0 var(--small-gap);
+    gap: var(--small-gap);
 }
 
+taskboard-manager[data-theme="course"]::part(enabled-checkbox)
+{
+    appearance: none;
+    --size: 20px;
+    width: var(--size);
+    height: var(--size);
+    background-color: var(--surface-input);
+    /* opacity: .8; */
+    border: var(--border-icon-button);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    grid-row: 2;
+    grid-column: 2;
+}
+taskboard-manager[data-theme="course"]::part(enabled-checkbox option-true)::before
+{
+    margin-top: 3px;
+    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="%23fbf9fe" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>');
+}
 
 
 taskboard-manager[data-theme="course"]::part(button-group)
@@ -206,4 +246,11 @@ taskboard-manager[data-theme="course"]::part(cancel)
 taskboard-manager[data-theme="course"]::part(confirmation-page)
 {
     margin-bottom: 1em;
+}
+
+
+taskboard-manager[data-theme="course"]::part(handle)
+{
+    height: 24px;
+    translate: 0 2px;
 }

@@ -11,6 +11,7 @@ import { CollectionBrowserElement } from '@magnit-ce/collection-browser';
 import { CollectionFilterElement } from '@magnit-ce/collection-filter';
 import { MessageCardElement, MessageCardType } from '@magnit-ce/message-card';
 import { PathRouterElement } from '@magnit-ce/path-router';
+import { assignClassAndIdToPart, assignInputTypeToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../libs/ce-part-utils/ce-part-utils';
 
 export enum BoardBrowserAttributes
 {
@@ -60,25 +61,16 @@ export class BoardBrowserElement extends HTMLElement
         this.attachShadow({ mode: "open" });
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
-        this.#applyPartAttributes();
 
         
         this.findElement<HTMLButtonElement>('board-browser-ok').addEventListener('click', this.boardBrowserOkButton_onClick.bind(this));
         this.findElement<CollectionBrowserElement>('collection-browser').addEventListener('change', this.boardBrowserSelection_onChange.bind(this));
         this.findElement<CollectionFilterElement>('filter').addEventListener('change', this.boardBrowserFilter_onChange.bind(this));
-    }
-    #applyPartAttributes()
-    {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            classedElements[i].part.add(...classedElements[i].classList);
-        }
+
+        assignTagToPart(this.shadowRoot!);
+        assignClassAndIdToPart(this.shadowRoot!);
+        assignInputTypeToPart(this.shadowRoot!);
+        assignPartsAsExportPartsAttribute(this.shadowRoot!);
     }
 
     

@@ -1,13 +1,16 @@
 import { defineIcons, Icons, IconType } from '../../../assets/icons/icons.asset';
 import { TaskListColorDisplay, TaskListRecord } from '../../../data/records/task-list.record';
 import { TaskSettingsRecord } from '../../../data/records/task-settings.record';
-import formFieldStyle from '../form-field.css?raw';
+import { assignClassAndIdToPart, assignFormFieldPartAttributes, assignInputTypeToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../../libs/ce-part-utils/ce-part-utils';
 import { TaskFieldsComponent } from '../task-fields/task-fields.component';
+import sharedStyles from '../../../styles/shared.css?raw';
+import formFieldStyle from '../form-field.css?raw';
 import style from './tasklist-fields.component.css?raw';
 import html from './tasklist-fields.component.html?raw';
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
-COMPONENT_STYLESHEET.replaceSync(`${formFieldStyle}
+COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
+${formFieldStyle}
 ${style}
 `);
 
@@ -56,12 +59,23 @@ export class TaskListFieldsComponent extends HTMLElement
             if(event.code == "Space") { event.preventDefault(); }
         });
 
+        // wait for one task fields element
+        // before assigning export parts
+        this.shadowRoot!.addEventListener('ready', () =>
+        {
+            assignPartsAsExportPartsAttribute(this.shadowRoot!);
+        }, { once: true });
     }
     connectedCallback()
     {
+        // wait until form fields have established
+        // both field inputs and option checkboxes
         requestAnimationFrame(() =>
         {
-            this.#applyPartAttributes();
+            assignTagToPart(this.shadowRoot!);
+            assignClassAndIdToPart(this.shadowRoot!);
+            assignInputTypeToPart(this.shadowRoot!);
+            assignFormFieldPartAttributes(this.shadowRoot!);
         });
     }
 

@@ -154,7 +154,7 @@ form-field input[type="color"]
 {
     border-color: rgb(170 170 170);
 }
-#tasklist-color::-webkit-color-swatch
+/* #tasklist-color::-webkit-color-swatch
 {
     padding: 0;
     border: none;
@@ -163,7 +163,7 @@ form-field input[type="color"]
 {
     padding: 0;
     border: none;
-}
+} */
 
 #tasklist-name
 {

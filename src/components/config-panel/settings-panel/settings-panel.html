@@ -1,20 +1,20 @@
 
-<header id="settings-header" class="header page-header">App Settings</header>
-<fieldset id="color-scheme-fieldset" class="fieldset config-fieldset">
-    <legend id="color-scheme-legend" class="legend config-legend">Color Scheme</legend>
+<header id="settings-header" class="page-header">App Settings</header>
+<fieldset id="color-scheme-fieldset" class="config-fieldset">
+    <legend id="color-scheme-legend" class="config-legend">Color Scheme</legend>
     <div class="button-group" id="scheme-options">
-        <button class="button scheme group-button first" id="inherit-button" data-value="inherit">Inherit</button>
-        <button class="button scheme group-button" id="browser-button" data-value="browser">Browser</button>
-        <button class="button scheme group-button" id="light-button" data-value="light">Light</button>
-        <button class="button scheme group-button last" id="dark-button" data-value="dark">Dark</button>
+        <button class="scheme group-button first" id="inherit-button" data-value="inherit">Inherit</button>
+        <button class="scheme group-button" id="browser-button" data-value="browser">Browser</button>
+        <button class="scheme group-button" id="light-button" data-value="light">Light</button>
+        <button class="scheme group-button last" id="dark-button" data-value="dark">Dark</button>
     </div>
 </fieldset>
-<fieldset id="custom-settings-fieldset" class="fieldset config-fieldset">
-    <legend id="custom-settings-legend" class="legend config-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>
+<fieldset id="custom-settings-fieldset" class="config-fieldset">
+    <legend id="custom-settings-legend" class="config-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>
     <slot name="custom-settings">[ No Custom Settings ]</slot>
 </fieldset>
-<fieldset id="shortcuts-fieldset" class="fieldset config-fieldset">
-    <legend id="shortcuts-legend" class="legend config-legend">Shortcuts</legend>
+<fieldset id="shortcuts-fieldset" class="config-fieldset">
+    <legend id="shortcuts-legend" class="config-legend">Shortcuts</legend>
     <div id="shortcuts">
         <div id="previous-word" class="shortcut word">
             <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Left</kbd></div>

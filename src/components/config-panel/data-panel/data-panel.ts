@@ -16,6 +16,7 @@ import { CustomImageRecord } from '../../../data/records/custom-image.record';
 import { FeedbackService } from '../../../services/feedback.service';
 import { HistoryEntryType } from '@magnit-ce/action-history';
 import { HistoryEntryRecord } from '../../../data/records/history-entry.record';
+import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../../libs/ce-part-utils/ce-part-utils';
 
 export const DaysToPersistValues = [0, 7, 30];
 export const DEFAULT_PERSIST_DAYS = "7";
@@ -67,11 +68,14 @@ export class DataPanelElement extends HTMLElement
         this.attachShadow({ mode: "open" });
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
-        this.#applyPartAttributes();
         this.addEventListener('click', this.#onClick.bind(this));
         this.findElement('data-persist-days').addEventListener("change", this.#daysToPersist_onChange.bind(this));
         this.findElement<EditableListElement>('deleted-items').addEventListener('remove', this.#deletedItems_onRemove.bind(this));
         this.findElement<EditableListElement>('deleted-images').addEventListener('remove', this.#deletedImages_onRemove.bind(this));
+
+        assignTagToPart(this.shadowRoot!);
+        assignClassAndIdToPart(this.shadowRoot!);
+        assignPartsAsExportPartsAttribute(this.shadowRoot!);
     }
     //#endregion Housekeeping
 

@@ -1,17 +1,17 @@
 // src/ce-part-utils.ts
-var htmlElementsSelector = ":not(slot,defs,g,rect,path,circle,ellipse,line,polygon,text,tspan,use,svg image,svg title,desc)";
+var DEFAULT_ELEMENT_SELECTOR = ":not(slot,defs,g,rect,path,circle,ellipse,line,polygon,text,tspan,use,svg image,svg title,desc,template,template *)";
 function assignClassAndIdToPart(shadowRoot) {
-  const identifiedElements = [...shadowRoot.querySelectorAll(`${htmlElementsSelector}[id]`)];
+  const identifiedElements = [...shadowRoot.querySelectorAll(`${DEFAULT_ELEMENT_SELECTOR}[id]`)];
   for (let i = 0; i < identifiedElements.length; i++) {
     identifiedElements[i].part.add(identifiedElements[i].id);
   }
-  const classedElements = [...shadowRoot.querySelectorAll(`${htmlElementsSelector}[class]`)];
+  const classedElements = [...shadowRoot.querySelectorAll(`${DEFAULT_ELEMENT_SELECTOR}[class]`)];
   for (let i = 0; i < classedElements.length; i++) {
     classedElements[i].part.add(...classedElements[i].classList);
   }
 }
 function assignTagToPart(shadowRoot, config) {
-  const elements = [...shadowRoot.querySelectorAll(`${htmlElementsSelector}`)];
+  const elements = [...shadowRoot.querySelectorAll(`${DEFAULT_ELEMENT_SELECTOR}`)];
   for (let i = 0; i < elements.length; i++) {
     const tagName = elements[i].tagName.toLowerCase();
     elements[i].part.add(config?.[tagName] ?? tagName);
@@ -73,14 +73,14 @@ function assignFormFieldPartAttributes(shadowRoot) {
 }
 function getExportPartsFromParts(shadowRoot, addNewlines = false, replacements) {
   const exportPartsSet = new Set([...shadowRoot.querySelectorAll("[part]")].map((item) => {
-    const parts = [...item.part.values()].map((part) => {
+    let parts = [...item.part.values()].filter((item2) => item2 != null).map((part) => {
       const replacement = replacements?.[part];
       return replacement != null ? `${part}:${replacement}` : part;
     });
     const childExports = item.getAttribute("exportparts");
     if (childExports != null) {
-      const childParts = childExports.replaceAll(/[\s\n]/g, "").split(",");
-      parts.concat(...childParts);
+      const childParts = childExports.replaceAll(/[\s\n]/g, "").split(",").map((item2) => item2.indexOf(":") == -1 ? item2 : item2.split(":")[1]);
+      parts = parts.concat(...childParts);
     }
     return parts;
   }).flat().filter((item) => item.length > 0));
@@ -93,6 +93,7 @@ function assignPartsAsExportPartsAttribute(shadowRoot, addNewlines = false, repl
   shadowRoot.host.setAttribute("exportparts", `${existingExports == null ? "" : `${existingExports},`}${exportParts}`);
 }
 export {
+  DEFAULT_ELEMENT_SELECTOR,
   InputTypePartMap,
   assignClassAndIdToPart,
   assignFormFieldPartAttributes,
