@@ -35,6 +35,7 @@ form-field .field-label
     display: flex;
     gap: 5px;
     margin-bottom: 7px;
+    align-items: center;
 }
 
 #task-appearance-fieldset

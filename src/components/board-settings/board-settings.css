@@ -300,6 +300,11 @@ fileimage-input::part(view-link)
     justify-content: center;
 }
 
+#duplicate-board-name-field .field-label
+{
+    margin-bottom: 7px;
+}
+
 #export-fieldset
 {
     grid-column: span 2;

@@ -106,7 +106,8 @@ taskboard-manager[data-theme="course"]::part(tasklist-settings-remove-button):ho
 
 taskboard-manager[data-theme="course"]::part(tasklist-color)
 {
-    --color-size: 15px;
+    --color-size: 18px;
+    width: var(--color-size);
     align-self: center;
 }
 
@@ -131,4 +132,37 @@ taskboard-manager[data-theme="course"]::part(duplicate-board-button)
 
     --icon-primary-color: var(--text-icon-button);
     --icon-secondary-color: var(--surface-0);
+}
+
+
+@media (min-width: 665px) 
+{
+    
+    taskboard-manager[data-theme="course"]::part(tasklist-settings-fieldset)
+    {
+        grid-template-columns: auto 1fr;
+    }
+    taskboard-manager[data-theme="course"]::part(tasklist-settings-fieldset-column first)
+    {
+        grid-template-columns: 1fr 1fr;
+    }
+    taskboard-manager[data-theme="course"]::part(tasklist-settings-fieldset-column second)
+    {
+        grid-template-columns: 70px 125px 1fr;
+        align-items: flex-end;
+    }
+    taskboard-manager[data-theme="course"]::part(tasklist-order-field-label)
+    {
+        justify-self: center;
+        margin-bottom: 4px;
+    }
+    taskboard-manager[data-theme="course"]::part(tasklist-order)
+    {
+        text-align: center;
+    }
+    taskboard-manager[data-theme="course"]::part(tasklist-color-display-field-label)
+    {
+        margin-bottom: 4px;
+    }
+
 }

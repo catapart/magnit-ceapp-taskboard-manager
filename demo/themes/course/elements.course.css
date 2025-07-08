@@ -62,8 +62,8 @@ taskboard-manager[data-theme="course"]::part(input color)
     /* background: red; */
     padding: 0;
     margin: 0;
-    border-radius: 30px;
-    --color-size: 30px;
+    border-radius: 14px;
+    --color-size: 27px;
     /* width: var(--color-size); */
     height: var(--color-size);
     border: var(--border-icon-button);

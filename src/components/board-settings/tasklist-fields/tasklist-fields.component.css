@@ -127,6 +127,12 @@ form-field .container
     grid-template-rows: auto 1fr;
     gap: 7px;
 }
+form-field .field-label
+{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
 
 form-field input[type="color"]
 {
@@ -194,6 +200,12 @@ input[type="text"]
 #tasklist-width-field .container
 {
     column-gap: .25em !important;
+}
+
+#tasklist-width
+,#tasklist-width-unit
+{
+    grid-row: 2;
 }
 
 #tasklist-width-field [slot="postfix"]
