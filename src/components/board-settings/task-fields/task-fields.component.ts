@@ -55,8 +55,24 @@ export class TaskFieldsComponent extends HTMLElement
             assignClassAndIdToPart(this.shadowRoot!);
             assignInputTypeToPart(this.shadowRoot!);
             assignFormFieldPartAttributes(this.shadowRoot!);
-
+            
+            this.setAttribute('exportparts', 'option-true');
             assignPartsAsExportPartsAttribute(this.shadowRoot!);
+
+
+
+            const taskCenterRemoveButton = this.getElement<HTMLInputElement>("task-center-remove-button");
+            if(taskCenterRemoveButton != null)
+            {
+                taskCenterRemoveButton.part.toggle('option-true', taskCenterRemoveButton.checked);
+            }
+
+            const taskCenterCheckbox = this.getElement<HTMLInputElement>("task-center-checkbox");
+            if(taskCenterCheckbox != null)
+            {
+                taskCenterCheckbox.part.toggle('option-true', taskCenterCheckbox.checked);
+            }
+
             this.dispatchEvent(new CustomEvent('ready', { bubbles: true }));
         });
     }

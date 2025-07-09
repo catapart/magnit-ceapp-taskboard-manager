@@ -23,14 +23,29 @@ taskboard-manager[data-theme="course"]::part(board-background-color-field-contai
 
 taskboard-manager[data-theme="course"]::part(board-background-color)
 ,taskboard-manager[data-theme="course"]::part(board-font-color)
+,taskboard-manager[data-theme="course"]::part(tasklist-background-color)
+,taskboard-manager[data-theme="course"]::part(tasklist-font-color)
 {
     width: auto;
     border-radius: 30px;
     margin: .5em 0;
     opacity: .5;
 }
+taskboard-manager[data-theme="course"]::part(task-background-color)
+,taskboard-manager[data-theme="course"]::part(task-font-color)
+,taskboard-manager[data-theme="course"]::part(task-border-color)
+{
+    border-radius: 30px;
+    margin: .5em 0;
+    opacity: .5;
+}
 taskboard-manager[data-theme="course"]::part(board-background-color option-true)
 ,taskboard-manager[data-theme="course"]::part(board-font-color option-true)
+,taskboard-manager[data-theme="course"]::part(tasklist-background-color option-true)
+,taskboard-manager[data-theme="course"]::part(tasklist-font-color option-true)
+,taskboard-manager[data-theme="course"]::part(task-background-color option-true)
+,taskboard-manager[data-theme="course"]::part(task-font-color option-true)
+,taskboard-manager[data-theme="course"]::part(task-border-color option-true)
 {
     opacity: 1;
 }
@@ -132,6 +147,40 @@ taskboard-manager[data-theme="course"]::part(duplicate-board-button)
 
     --icon-primary-color: var(--text-icon-button);
     --icon-secondary-color: var(--surface-0);
+}
+
+
+taskboard-manager[data-theme="course"]::part(task-center-checkbox)
+,taskboard-manager[data-theme="course"]::part(task-center-remove-button)
+,taskboard-manager[data-theme="course"]::part(export-background-image)
+{
+    appearance: none;
+    --size: 20px;
+    width: var(--size);
+    height: var(--size);
+    background-color: var(--surface-input);
+    /* opacity: .8; */
+    border: var(--border-icon-button);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    grid-row: 2;
+    grid-column: 2;
+}
+
+taskboard-manager[data-theme="course"]::part(task-center-checkbox option-true)::before
+,taskboard-manager[data-theme="course"]::part(task-center-remove-button option-true)::before
+,taskboard-manager[data-theme="course"]::part(export-background-image option-true)::before
+{
+    margin-top: 3px;
+    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="%23fbf9fe" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>');
+}
+
+taskboard-manager[data-theme="course"]::part(export-images-field-container)
+{
+    gap: var(--small-gap);
 }
 
 

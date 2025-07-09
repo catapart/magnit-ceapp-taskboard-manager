@@ -143,6 +143,14 @@ export class BoardSettingsElement extends HTMLElement
         this.#closeBoard = options.closeBoard;
         this.#closeBoardSettings = options.closeBoardSettings;
         this.#saveSettingsTarget = options.saveSettingsTarget;
+
+
+        const taskCenterRemoveButton = this.getElement<HTMLInputElement>("task-center-remove-button");
+        if(taskCenterRemoveButton != null)
+        {
+            taskCenterRemoveButton.part.toggle('option-true', taskCenterRemoveButton.checked);
+            return;
+        }
     }
     setValues(board: TaskBoardRecord, taskSettings: TaskSettingsRecord, backgroundImage: CustomImageRecord|null = null)
     {
@@ -437,10 +445,28 @@ export class BoardSettingsElement extends HTMLElement
         const saveBoardButton = composedPath.find(item => item.id == "board-settings-save");
         if(saveBoardButton != null)
         {
-            new Promise<void>(async (resolve) =>
-            {
-                this.#saveSettingsTarget();
-            });
+            this.#saveSettingsTarget();
+            return;
+        }
+
+        const taskCenterRemoveButton = composedPath.find(item => item.id == "task-center-remove-button") as HTMLInputElement;
+        if(taskCenterRemoveButton != null)
+        {
+            taskCenterRemoveButton.part.toggle('option-true', taskCenterRemoveButton.checked);
+            return;
+        }
+
+        const taskCenterCheckbox = composedPath.find(item => item.id == "task-center-checkbox") as HTMLInputElement;
+        if(taskCenterCheckbox != null)
+        {
+            taskCenterCheckbox.part.toggle('option-true', taskCenterCheckbox.checked);
+            return;
+        }
+
+        const exportBackgroundImage = composedPath.find(item => item.id == "export-background-image") as HTMLInputElement;
+        if(exportBackgroundImage != null)
+        {
+            exportBackgroundImage.part.toggle('option-true', exportBackgroundImage.checked);
             return;
         }
     }
