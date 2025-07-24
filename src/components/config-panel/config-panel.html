@@ -34,14 +34,16 @@
     <route-page path="settings" id="settings-page" class="page config-page">
         <settings-panel
             id="settings-panel"
-            class="config-page-panel">
+            class="config-page-panel"
+            exportparts="selected">
             <slot name="custom-settings" slot="custom-settings"></slot>
         </settings-panel>
     </route-page>
     <route-page path="data" id="data-page" class="page config-page">
         <data-panel
             id="data-panel"
-            class="config-page-panel">
+            class="config-page-panel"
+            exportparts="selected,deleted-item,deleted-item-remove-button,restore-button">
             <slot name="deleted-images" slot="deleted-images"></slot>
             <slot name="deleted-items" slot="deleted-items"></slot>
         </data-panel>
@@ -49,7 +51,8 @@
     <route-page path="history" id="history-page" class="page config-page">
         <history-panel
             id="history-panel"
-            class="config-page-panel">
+            class="config-page-panel"
+            exportparts="selected,action-history,action-history-entry,active">
             <slot name="action-history" slot="action-history"></slot>
         </history-panel>
     </route-page>

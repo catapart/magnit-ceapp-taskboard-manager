@@ -7,21 +7,23 @@ taskboard-manager[data-theme="course"]::part(config-navigation)
 
 taskboard-manager[data-theme="course"]::part(nav-item)
 {
-    background: var(--surface-tab);
-    color: var(--text-tab);
-    /* font-weight: bold; */
+    background: transparent;
+    font-weight: bold;
     border-radius: var(--border-radius-tab);
-
-    --icon-primary-color: var(--icon-tab);
-    --icon-secondary-color: var(--surface-tab);
 }
 taskboard-manager[data-theme="course"]::part(nav-item selected)
 {
-    background: var(--surface-button);
-    color: var(--text-button);
+    color: var(--icon-tab);
+    --icon-primary-color: var(--icon-tab);
+    --icon-secondary-color: var(--surface-tab);
+}
+taskboard-manager[data-theme="course"]::part(nav-item):hover
+{
+    background: var(--surface-tab);
+    color: var(--text-tab);
 
-    --icon-primary-color: var(--text-button);
-    --icon-secondary-color: var(--surface-button);
+    --icon-primary-color: var(--icon-tab);
+    --icon-secondary-color: var(--surface-tab);
 }
 taskboard-manager[data-theme="course"]::part(nav-item-icon)
 {
@@ -110,6 +112,21 @@ taskboard-manager[data-theme="course"]::part(import-field-container)
     gap: var(--small-gap);
 }
 
+taskboard-manager[data-theme="course"]::part(import-clear)
+,taskboard-manager[data-theme="course"]::part(import-view-link)
+,taskboard-manager[data-theme="course"]::part(import-clear):active
+,taskboard-manager[data-theme="course"]::part(import-view-link):active
+{
+    color: var(--text-surface);
+    text-decoration: none;
+}
+taskboard-manager[data-theme="course"]::part(import-clear):hover
+,taskboard-manager[data-theme="course"]::part(import-view-link):hover
+{
+    color: var(--surface-button);
+    border-bottom: solid 1px var(--surface-button);
+}
+
 taskboard-manager[data-theme="course"]::part(import-button)
 {
     grid-row: 2;
@@ -161,6 +178,27 @@ taskboard-manager[data-theme="course"]::part(deleted-item)
     display: grid;
     gap: var(--small-gap);
 }
+taskboard-manager[data-theme="course"]::part(deleted-item):hover
+{
+    background: rgb(0 0 0 / .3);
+}
+taskboard-manager[data-theme="course"]::part(restore-button)
+,taskboard-manager[data-theme="course"]::part(deleted-item-remove-button)
+{
+    margin: 0;
+    padding: var(--smaller-gap) var(--small-gap);
+    background: transparent;
+    border: solid 1px transparent;
+    --icon-primary-color: var(--text-surface);
+    --icon-secondary-color: var(--surface-0);
+}
+taskboard-manager[data-theme="course"]::part(restore-button):hover
+,taskboard-manager[data-theme="course"]::part(deleted-item-remove-button):hover
+{
+    background: solid 1px var(--icon-tab);
+    border: solid 1px var(--icon-tab);
+    --icon-primary-color: var(--icon-tab);
+}
 taskboard-manager[data-theme="course"]::part(action-history-entry)
 {
     border-radius: var(--border-radius-button);
@@ -170,10 +208,6 @@ taskboard-manager[data-theme="course"]::part(action-history-entry)
 
     /* display: grid; */
     gap: var(--small-gap);
-}
-taskboard-manager[data-theme="course"]::part(deleted-item):hover
-{
-    background: rgb(0 0 0 / .3);
 }
 taskboard-manager[data-theme="course"]::part(action-history-entry):hover
 {
@@ -185,6 +219,7 @@ taskboard-manager[data-theme="course"]::part(action-history-entry active)
 {
     background-color: var(--surface-button) !important;
     color: var(--text-button) !important;
+    text-decoration: none;
 }
 
 taskboard-manager[data-theme="course"]::part(data-button)

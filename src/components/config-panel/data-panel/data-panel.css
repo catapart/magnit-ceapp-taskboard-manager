@@ -34,7 +34,7 @@
     gap: 7px;
 }
 
-#import-field .container
+#import-field
 {
     flex: 1;
     display: flex;
@@ -42,49 +42,16 @@
     gap: 7px;
 }
 
+#import-field .container
+{
+    display: contents;
+}
+
 #import-board-file
 {
     flex: 1;
 }
 
-/* #import-content
-{
-    overflow: hidden;
-    padding: 1em;
-    display: flex;
-} */
-
-/* #import-manager
-{
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-#import-actions
-{
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    gap: 7px;
-}
-
-#import-cancel
-{
-    grid-column: 2;
-}
-
-#import-ok
-{
-    grid-column: 3;
-} */
-
-/* #config-data-caches
-{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 7px;
-} */
 
 #data-cleanup-fieldset
 {
