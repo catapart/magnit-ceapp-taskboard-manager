@@ -6,6 +6,7 @@ import { BoardExport } from '../../data/foreign/exported-board';
 import { RecordSetter } from 'record-setter';
 import { RecordTreeElement } from '@magnit-ce/record-tree';
 import { defineIcons, IconType } from '../../assets/icons/icons.asset';
+import { assignClassAndIdToPart, assignInputTypeToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../libs/ce-part-utils/ce-part-utils';
 
 const ID_PROPERTIES = new Set(['id', 'listId', 'taskSettingsId', 'backgroundImageId', 'boardId']);
 
@@ -112,21 +113,11 @@ export class ImportManagerComponent extends HTMLElement
 
             return valueSpan;
         });
-
-        this.#applyPartAttributes();
-    }
-    #applyPartAttributes()
-    {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            classedElements[i].part.add(...classedElements[i].classList);
-        }
+        
+        assignTagToPart(this.shadowRoot!);
+        assignClassAndIdToPart(this.shadowRoot!);
+        assignInputTypeToPart(this.shadowRoot!);
+        assignPartsAsExportPartsAttribute(this.shadowRoot!);
     }
 
     setData(boardData: BoardExport)
@@ -135,7 +126,9 @@ export class ImportManagerComponent extends HTMLElement
         const modifiedData = this.prepareData(boardData);
 
         this.findElement<RecordTreeElement>('preview').setData(modifiedData);
-        this.#applyPartAttributes();
+        // assignTagToPart(this.shadowRoot!);
+        // assignClassAndIdToPart(this.shadowRoot!);
+        // assignInputTypeToPart(this.shadowRoot!);
     }
     prepareData(boardData: BoardExport)
     {

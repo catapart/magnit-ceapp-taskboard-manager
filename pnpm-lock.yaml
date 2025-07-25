@@ -36,8 +36,8 @@ importers:
         specifier: ^0.2.8
         version: 0.2.8
       '@magnit-ce/record-tree':
-        specifier: ^0.0.4
-        version: 0.0.4
+        specifier: ^0.0.14
+        version: 0.0.14
       '@magnit-ce/task-board':
         specifier: ^0.0.4
         version: 0.0.4
@@ -321,8 +321,8 @@ packages:
   '@magnit-ce/path-router@0.2.8':
     resolution: {integrity: sha512-g9VsyBpEqbxYB3IJG+HVE/JKR9yBMiYwMpglsuAsJk8fXq1fPeNjEPZXIdp+bTsuWlR4PCk+phhK2oGq54w6lw==}
 
-  '@magnit-ce/record-tree@0.0.4':
-    resolution: {integrity: sha512-RmRT+6/K23Hif4Vd2GRbCpEO2XrF02JGmKxV+J4UQg2YXMg7rltOqXr3awcAefJKd3JlfMi9feN7JSWoJqFqnA==}
+  '@magnit-ce/record-tree@0.0.14':
+    resolution: {integrity: sha512-TBqEtrO/bgXDDgXuzRvmGeH09x4KQOFb+kEkcCKAPsm7SW1yDcBt++CpAW4y8vp+P5UPRNQTaC+PXLovSGpNEg==}
 
   '@magnit-ce/selectable-items@0.1.4':
     resolution: {integrity: sha512-lP4lKa94km4SELgd28o7oepI5Y8iI2auuXmXcwo8uuviLDiLGObQIdRM1AXEobDo90RVu8QMp2d6nVklfvFaUg==}
@@ -1687,7 +1687,7 @@ snapshots:
 
   '@magnit-ce/path-router@0.2.8': {}
 
-  '@magnit-ce/record-tree@0.0.4': {}
+  '@magnit-ce/record-tree@0.0.14': {}
 
   '@magnit-ce/selectable-items@0.1.4': {}
 

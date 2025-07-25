@@ -100,8 +100,6 @@
         --text-active: #E2E2E2;
         --text-accent: #EEE; */
 
-        --smaller-gap: calc(.5rem - 3px);
-        --small-gap: calc(1rem - 6px);
 
         /* Imported theme colors */
 
@@ -136,6 +134,17 @@
         /* End imported theme colors */
 
         /* Custom theme colors */
+        --accent-0: var(--clr-primary-a40);
+        /* --accent-1: var(--clr-primary-a20); */
+
+        --gap-large: 32px;
+        --gap: 14px;
+        --gap-small: calc(1rem - 6px);
+        --gap-smaller: calc(.5rem - 3px);
+        
+        --smaller-gap: calc(.5rem - 3px);
+        --small-gap: calc(1rem - 6px);
+
         --text-surface: var(--clr-light-a0);
         --text-button: var(--clr-dark-a0);
         --text-icon-button: var(--clr-primary-a20);

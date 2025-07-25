@@ -1,0 +1,96 @@
+taskboard-manager[data-theme="course"]::part(import-board-data-fieldset)
+{
+    grid-template-columns: 1fr;
+    gap: var(--gap-small);
+    overflow-y: auto;
+    --size: 12px;
+}
+
+taskboard-manager[data-theme="course"]::part(import-target-collection)
+{
+    color: var(--text-surface);
+}
+taskboard-manager[data-theme="course"]::part(import-target-summary top)
+{
+    /* color: var(--accent-0); */
+    /* font-size: 16px; */
+}
+
+
+taskboard-manager[data-theme="course"]::part(import-target-details)
+{
+    margin: var(--small-gap) 0 0 var(--small-gap);
+}
+
+taskboard-manager[data-theme="course"]::part(import-target-details import-target-collection)
+{
+    --surface-import-target: rgb(255 255 255 / .05);
+    background: var(--surface-import-target);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+taskboard-manager[data-theme="course"]::part(import-target-collection):hover
+,taskboard-manager[data-theme="course"]::part(import-target-property):hover
+{
+    border-color: transparent;
+}
+
+taskboard-manager[data-theme="course"]::part(properties-list)
+{
+    display: grid;
+    gap: var(--gap-small);
+}
+
+taskboard-manager[data-theme="course"]::part(import-target-property)
+{
+    transition: box-shadow 200ms ease-out;
+    border-radius: var(--border-radius-button);
+}
+taskboard-manager[data-theme="course"]::part(import-target-property):hover
+{
+    background: var(--surface-import-target);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+taskboard-manager[data-theme="course"]::part(import-target-summary)
+{
+    display: flex;
+    gap: var(--gap-small);
+}
+taskboard-manager[data-theme="course"]::part(import-target-collection removed)
+{
+    color: var(--text-remove-button);
+}
+taskboard-manager[data-theme="course"]::part(import-target-remove)
+{
+    padding: 3px 7px;
+    --icon-primary-color: var(--text-remove-button);
+}
+taskboard-manager[data-theme="course"]::part(undo-redo)
+{
+    --icon-primary-color: var(--text-surface);
+}
+
+taskboard-manager[data-theme="course"]::part(import-target-details import-target-properties)
+{
+    margin-top: var(--gap-large);
+}
+
+taskboard-manager[data-theme="course"]::part(import-target-details import-target-properties)
+,taskboard-manager[data-theme="course"]::part(import-target-details import-target-properties):hover
+{
+    border-top: solid 2px var(--accent-0);
+}
+
+taskboard-manager[data-theme="course"]::part(import-target-name)
+{
+    font-size: 14px;
+    font-weight: normal;
+
+    display: flex;
+    align-items: center;
+}
+
+taskboard-manager[data-theme="course"]::part(import-target-collection import-target-name)
+{
+    font-size: 14px;
+}

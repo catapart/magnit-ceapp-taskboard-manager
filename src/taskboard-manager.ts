@@ -59,6 +59,7 @@ import { ConfigPanelElement } from './components/config-panel/config-panel';
 import { AppSettingKey, DataService, MILLISECONDSINDAY } from './data/data.service';
 import { FeedbackService } from './services/feedback.service';
 import { ColorScheme } from './components/config-panel/settings-panel/settings-panel';
+import { assignPartsAsExportPartsAttribute } from './libs/ce-part-utils/ce-part-utils';
 
 
 const DEFAULT_APP_VERSION = "--.--.--";
@@ -514,7 +515,25 @@ export class TaskboardManagerElement extends HTMLElement
         currentPathArray[1] = 'import';
         const importPath = currentPathArray.join('#');
         router.navigate(importPath);
-        this.findElement<ImportManagerComponent>('import-manager').setData(boardData);
+
+        const importManager = this.findElement<ImportManagerComponent>('import-manager')
+        importManager.setData(boardData);
+
+        requestAnimationFrame(() =>
+        {
+            assignPartsAsExportPartsAttribute(importManager.shadowRoot!, false, {
+                'description':'import-target-description',
+                'preview':'import-target-preview',
+                'details':'import-target-details',
+                'collection': 'import-target-collection',
+                'property': 'import-target-property',
+                'name':'import-target-name',
+                'remove':'import-target-remove',
+                'properties':'import-target-properties',
+                'footer':'import-target-footer',
+                'summary': 'import-target-summary',
+            });
+        });
     }
     
     async #saveSettingsTarget()
