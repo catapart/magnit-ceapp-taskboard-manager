@@ -1,0 +1,56 @@
+<app-menu id="app-menu-container"></app-menu>
+<path-router id="app-router" path="">
+    <route-page id="welcome-page" class="page" path="">
+        <welcome-panel
+            id="welcome-panel"
+            exportparts="edit-button:recent-edit-button,handle:recent-edit-handle">
+        </welcome-panel>
+    </route-page>
+    <route-page id="board-page" class="page" path="board/:id" >
+        <task-board id="task-board" exportparts="lists:task-board-lists"></task-board>
+    </route-page>
+    <dialog id="board-browser-dialog" class="dialog" is="route-dialog" path="boards">
+        <board-browser
+            id="board-browser"
+            exportparts="regex,active">
+        </board-browser>
+    </dialog>
+    <dialog id="config-dialog" class="dialog" is="route-dialog" path="config">
+        <config-panel id="config-panel" exportparts="selected,deleted-item,action-history-entry,active">
+            <slot name="custom-settings" slot="custom-settings"></slot>
+        </config-panel>
+    </dialog>
+    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">
+        <board-settings id="board-settings" exportparts="option-true"></board-settings>
+    </dialog>
+    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">
+        <import-manager
+            id="import-manager"
+            exportparts="preview: import-preview,
+                         content: import-dialog-content,
+                         removed,
+                         undo:import-target-undo"
+            ></import-manager>
+    </dialog>
+</path-router>
+<dialog id="confirmation-dialog" class="dialog">
+    <header id="confirmation-dialog-header" class="header dialog-header">
+        <svg id="confirmation-dialog-icon" class="icon">
+            <use href="#icon-definition_logo-mark"></use>
+        </svg>
+        <span id="confirmation-dialog-title" class="title">Confirmation</span>
+    </header>
+    <path-router id="confirmation-router" class="router">
+        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>
+        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>
+        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>
+    </path-router>
+    <footer id="confirmation-dialog-footer" class="footer dialog-footer">
+        <form id="confirmation-dialog-form" method="dialog">
+            <button type="submit" id="confirmation-cancel-button" class="button action-button cancel">Cancel</button>
+            <button type="submit" id="confirmation-confirm-button" class="button action-button ok preferred-button">Confirm</button>
+        </form>
+    </footer>
+</dialog>
+<div id="notifications"></div>
+<div id="loading"></div>

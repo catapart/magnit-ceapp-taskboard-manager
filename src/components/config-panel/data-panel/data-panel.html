@@ -1,0 +1,87 @@
+
+<header id="data-header" class="page-header">Data</header>
+<fieldset id="import-fieldset" class="config-fieldset">
+    <legend id="import-legend" class="config-legend">Import</legend>
+    <form-field id="import-field" class="field config-field data-field" label="Taskboard Data File" input-selector="fileimage-input">
+        <fileimage-input id="import-board-file" exportparts="field:input,text,clear:import-clear,view-link:import-view-link">
+            <svg slot="icon" id="import-file-icon" class="icon">
+                <use href="#icon-definition_file"></use>
+            </svg>
+        </fileimage-input>
+    </form-field>
+    <button id="import-button" class="label-button" disabled>
+        <svg id="import-button-icon" class="icon">
+            <use href="#icon-definition_import"></use>
+        </svg>
+        <span id="import-button-label" class="label">Import Board</span>
+    </button>
+</fieldset>
+<fieldset id="data-cleanup-fieldset" class="config-fieldset">
+    <legend id="data-cleanup-legend" class="config-legend">Data Cleanup</legend>
+    <div id="data-cleanup-description">
+        <p class="text">Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>
+        <p class="text">Set how many days deleted item should perisist using the slider below.</p>
+    </div>
+    <form-field label="Days" id="data-cleanup-range" class="field config-field data-field">
+        <input type="range" id="data-persist-days" class="input range" max="30" list="data-persist-days-values" />
+        <datalist id="data-persist-days-values"></datalist>
+        <span slot="postfix" id="data-persist-days-value"></span>
+        <button slot="postfix" id="apply-data-persist-days-button" class="button label-button data-button">
+            <svg id="apply-data-persist-days-icon" class="icon">
+                <use href="#icon-definition_confirm-check"></use>
+            </svg>
+            <span id="apply-data-persist-days-label">Apply</span>
+        </button>
+    </form-field>
+</fieldset>
+<fieldset id="data-pending-fieldset" class="config-fieldset">
+    <legend id="data-pending-legend" class="config-legend">Pending Cleanup</legend>
+    <div id="data-pending-description">
+        <p class="text">The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>
+    </div>
+    <editable-list id="deleted-items" class="cache-list" remove-class="restore-button button icon-button" exportparts="remove:restore-item-button">
+        <template part="remove-button">
+            <svg class="icon restore-icon restore-item-icon" class="icon" title="Restore">
+                <use href="#icon-definition_restore"></use>
+            </svg>
+        </template>
+    </editable-list>
+    <button id="clear-deleted-button" class="label-button data-button">
+        <svg id="clear-deleted-icon" class="icon" title="Clear">
+            <use href="#icon-definition_trash"></use>
+        </svg>
+        <span id="clear-deleted-label" class="label">Clear Pending Items</span>
+    </button>
+</fieldset>
+<fieldset id="image-cache-fieldset" class="config-fieldset">
+    <legend id="image-cache-legend" class="config-legend">Image Cache</legend>
+    <div id="image-cache-description">
+        <p class="text">Caching some image files provides undo and redo support.</p>
+        <p class="text">The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>
+    </div>
+    <editable-list id="deleted-images" remove-class="button icon-button deleted-item-remove-button" class="cache-list" exportparts="button, remove:delete-cached-image-button">
+        <template part="remove-button">
+            <svg class="icon delete-image-icon trash-icon" title="Clear">
+                <use href="#icon-definition_trash"></use>
+            </svg>
+        </template>
+    </editable-list>
+    <button id="clear-image-cache-button" class="label-button data-button">
+        <svg id="clear-images-icon" title="Clear">
+            <use href="#icon-definition_trash"></use>
+        </svg>
+        <span id="clear-images-label" class="label">Clear Image Cache</span>
+    </button>
+</fieldset>
+<fieldset id="data-clear-fieldset" class="config-fieldset">
+    <legend id="data-clear-legend" class="config-legend">Clear Data</legend>
+    <div id="data-clear-description">
+        <p class="text">Delete all data, including app settings and history.</p>
+    </div>
+    <button id="clear-data-button" class="label-button danger-button">
+        <svg id="clear-data-icon" class="icon" title="Clear">
+            <use href="#icon-definition_trash"></use>
+        </svg>
+        <span id="clear-data-label" class="label">Clear All Data</span>
+    </button>
+</fieldset>

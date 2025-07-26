@@ -1,0 +1,40 @@
+<header id="board-browser-header" class="dialog-header">
+    <svg id="board-browser-icon" class="icon board-icon header-icon">
+        <use href="#icon-definition_task-board"></use>
+    </svg>
+    <span id="board-browser-title" class="title">Boards</span>
+    <collection-filter 
+        id="filter"
+        exportparts="search:filter-search,
+                     form:filter-form,
+                     query:filter-query,
+                     input:filter-input,
+                     button,
+                     field-button,
+                     regex-button:filter-regex-button,
+                     search-button:filter-search-button,
+                     icon,
+                     regex-icon:filter-regex-icon,
+                     active,
+                     search-icon:filter-search-icon">
+    </collection-filter>
+</header>
+<collection-browser
+    id="collection-browser"
+    exportparts="gallery,
+                 gallery-header,
+                 header,
+                 items,
+                 add-button,
+                 button,
+                 icon,
+                 add-button-icon,
+                 add-button-label">
+    <slot></slot>
+</collection-browser>
+<footer id="board-browser-footer" class="dialog-footer">
+    <form id="board-browser-actions" class="actions" method="dialog">
+        <button type="submit" id="board-browser-cancel" class="action-button cancel label-button">Cancel</button>
+        <button type="submit" id="board-browser-ok" class="action-button ok preferred-button label-button">Open</button>
+    </form>
+</footer>

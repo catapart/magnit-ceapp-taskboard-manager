@@ -1,0 +1,156 @@
+<form method="dialog" id="board-settings-form" class="form">
+    <header class="header dialog-header" id="board-settings-header">
+        <svg class="icon dialog-header-icon" id="board-settings-icon">
+            <use href="#icon-definition_task-board"></use>
+        </svg>
+        <span class="title dialog-title" id="board-settings-title">Board</span>
+    </header>
+    <div id="board-fields" class="page">
+        <div id="board-properties">
+            <form-field class="field" id="board-color-field" label="Color">
+                <input class="input color" id="board-color" name="board-color" type="color" value="#000000" />
+            </form-field>
+            <form-field class="field" id="board-name-field" label="Name">
+                <input class="input text" id="board-name" name="board-name" type="text" value="New Board" />
+            </form-field>
+            <form-field class="field" id="order-field" label="Order">
+                <input class="input number" id="board-order" name="board-order" type="text" inputmode="numeric" disabled />
+            </form-field>
+        </div>
+        <fieldset class="fieldset board-settings-fieldset" id="board-appearance-fieldset">
+            <legend class="legend board-settings-legend" id="board-appearance-legend">
+                <svg class="icon legend-icon" id="board-settings-color-icon">
+                    <use href="#icon-definition_color"></use>
+                </svg>
+                <span class="label legend-label" id="board-settings-appearance-label">Appearance</span>
+            </legend>
+            <form-field class="field" id="board-background-color-field" label="Background Color" optional optional-title="Override Background Color?">
+                <input class="input color" id="board-background-color" name="board-background-color" type="color" value="#f9faf5" />
+            </form-field>
+            <form-field class="field" id="board-font-color-field" label="Font Color" optional optional-title="Override Font Color?">
+                <input class="input color" id="board-font-color" name="board-font-color" type="color" value="#060703" />
+            </form-field>
+        </fieldset>
+        <fieldset class="fieldset board-settings-fieldset" id="board-image-fieldset">
+            <legend class="legend board-settings-legend" id="board-image-legend">
+                <svg class="icon" id="image-icon">
+                    <use href="#icon-definition_image"></use>
+                </svg>
+                <span class="label legend-label" id="image-label">Background Image</span>
+            </legend>
+            <form-field class="field" id="board-background-image-field" label="Background Image" input-selector="fileimage-input">
+                <fileimage-input class="input image" id="board-background-image" exportparts="field:image-input" name="board-background-image" placeholder="Select an image...">
+                    <svg class="icon" id="background-image-icon" slot="placeholder-icon">
+                        <use href="#icon-definition_image"></use>
+                    </svg>
+                </fileimage-input>
+            </form-field>
+            <form-field class="field" id="board-background-image-display-field" label="Display">
+                <select class="select" id="board-background-image-display" name="board-background-image-display">
+                    <option class="option first" value="stretch">Stretch</option>
+                    <option class="option" value="center">Center</option>
+                    <option class="option last" value="tile">Tile</option>
+                </select>
+            </form-field>
+            <div id="background-image-offset">
+                <div id="offset-header">
+                    <span id="offset-label">Offset</span>
+                </div>
+                <form-field class="field" id="board-background-image-offset-x-field" label="X">
+                    <input class="input number" type="text" inputmode="numeric" id="board-background-image-offset-x" name="background-image-offset-x" />
+                </form-field>
+                <form-field class="field" id="board-background-image-offset-y-field" label="Y">
+                    <input class="input number"type="text" inputmode="numeric" id="board-background-image-offset-y" name="background-image-offset-y" />
+                </form-field>
+            </div>
+        </fieldset>
+        <details class="settings-details board-settings-details" id="board-list-details" open>
+            <summary class="settings-summary board-settings-summary" id="board-list-summary">
+                <svg class="icon summary-icon" id="board-list-icon">
+                    <use href="#icon-definition_task-list"></use>
+                </svg>
+                <span class="summary-label" id="board-list-label">Lists<span>
+            </summary>
+            <div class="details-content">
+                <div id="board-lists"><slot><em id="board-list-placeholder">No Lists</em></slot></div>
+                <div id="board-list-actions">
+                    <button class="button label-button" id="clear-lists-button" type="button" title="Clear All Lists">
+                        <svg class="icon button-icon" id="clear-lists-button-icon">
+                            <use href="#icon-definition_trash"></use>
+                        </svg>
+                        <span class="label button-label" id="clear-lists-button-label">Clear</span>
+                    </button>
+                    <button class="button label-button" id="add-list-button" type="button">
+                        <svg class="icon button-icon" id="add-list-button-icon">
+                            <use href="#icon-definition_plus"></use>
+                        </svg>
+                        <span class="label button-label" id="add-list-button-label">Add List</span>
+                    </button>
+                </div>
+            </div>
+        </details>
+        <details class="settings-details board-settings-details" id="board-task-details" open>
+            <summary class="settings-summary board-settings-summary" id="board-task-summary">
+                <svg class="icon summary-icon" id="board-task-icon">
+                    <use href="#icon-definition_task"></use>
+                </svg>
+                <span class="label" id="boardtasks-label">Task Settings</span>
+            </summary>
+            <task-fields
+                class="task-fields details-content"
+                id="board-task-settings"
+                exportparts="option-true"></task-fields>
+        </details>
+        <fieldset class="fieldset board-settings-fieldset" id="delete-fieldset">
+            <legend class="legend board-settings-legend" id="delete-legend">Delete</legend>
+            <p class="field-question">Delete this board?</p>
+            <button class="button label-button" id="remove-board-button" type="submit">
+                <svg class="icon button-icon" id="remove-board-icon">
+                    <use href="#icon-definition_trash"></use>
+                </svg>
+                <span class="label button-label" id="remove-board-label">Delete</span>
+            </button>
+        </fieldset>
+        <fieldset class="fieldset board-settings-fieldset" id="duplicate-fieldset">
+            <legend class="legend board-settings-legend" id="duplicate-legend">Duplicate</legend>
+            <p class="field-question">Duplicate this board?</p>
+            <form-field class="field" id="duplicate-board-name-field" label="New Board Name">
+                <input class="input" id="duplicate-board-name" type="text" />
+            </form-field>
+            <button class="button label-button" id="duplicate-board-button" type="button">
+                <svg class="icon copy" id="duplicate-board-icon">
+                    <use href="#icon-definition_copy"></use>
+                </svg>
+                <span class="label button-label" id="duplicate-board-label">Duplicate</span>
+            </button>
+        </fieldset>
+        <fieldset class="fieldset board-settings-fieldset" id="export-fieldset">
+            <legend class="legend board-settings-legend" id="export-legend">Export</legend>
+            <div id="export-options">
+                <header class="field-header" id="export-options-header">Options</header>
+                <form-field class="field" id="export-images-field" label="Export Background Image?">
+                    <svg class="icon" id="export-images-icon" slot="prefix">
+                        <use href="#icon-definition_image"></use>
+                    </svg>
+                    <input class="input" id="export-background-image" type="checkbox" checked="true">
+                </form-field>
+            </div>
+            <button class="button label-button" id="export-button" type="button">
+                <svg class="icon" id="export-button-icon">
+                    <use href="#icon-definition_export"></use>
+                </svg>
+                <span class="label button-label" id="export-button-label">Export Board</span>
+            </button>
+        </fieldset>
+    </div>
+    <footer class="footer dialog-footer" id="board-settings-footer">
+        <button class="button label-button" id="close-board-button" type="submit" title="Close Board">
+            <svg class="icon" id="close-board-icon">
+                <use href="#icon-definition_close-cross"></use>
+            </svg>
+            <span class="label button-label" id="close-board-button-label" title="Close the board and return to the Welcome page">Close</span>
+        </button>
+        <button class="button action-button cancel label-button" id="board-settings-cancel" type="submit"title="Cancel changes">Cancel</button>
+        <button class="button action-button ok preferred-button label-button"  id="board-settings-save" type="submit" title="Save settings">Save</button>
+    </footer>
+</form>

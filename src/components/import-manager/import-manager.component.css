@@ -1,0 +1,114 @@
+:host { display: contents; user-select: none; }
+
+#import-header
+{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 7px;
+    align-items: center;
+    font-weight: bold;
+    padding-bottom: 1em;
+}
+
+#import-title
+{
+    font-weight: bold;
+}
+
+.header-icon
+{
+    width: var(--dialog-header-icon-size);
+    height: var(--dialog-header-icon-size);
+}
+
+.value
+{
+    display: flex;
+    align-items: center;
+}
+
+.old
+{
+    text-decoration: line-through;
+    opacity: .8;
+    padding-inline: .5em;
+    display: inline-block;
+    width: 100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.value
+{
+    max-width: 500px;
+    overflow: hidden;
+    word-break: break-word;
+}
+.value:has(.display)
+{
+    display: flex;
+    flex-direction: column;
+}
+.value .view-link
+{
+    align-self: flex-end;
+}
+
+.removed
+{
+    text-decoration: line-through;
+}
+
+.value img.preview
+{
+    max-height: 200px;
+}
+
+#content
+{
+    overflow: hidden;
+    display: grid;
+}
+
+#import-board-data-fieldset
+{
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#preview
+{
+    overflow: auto;
+}
+
+.actions
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    padding-top: 1em;
+}
+
+@media (max-width: 665px) 
+{
+    #preview
+    {
+        --indent: 5px;
+        --property-name-width: 75px;
+    }
+    #preview .property .name
+    {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    #preview .property .value
+    {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+    }
+}

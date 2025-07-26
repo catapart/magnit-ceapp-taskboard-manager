@@ -1,0 +1,60 @@
+<fieldset class="fieldset" id="task-appearance-fieldset">
+    <legend class="legend" id="task-appearance-legend">Appearance</legend>
+    <form-field class="field" id="task-font-size-field" label="Font Size" optional optional-title="Override Font Size?">
+        <input class="input"  id="task-font-size" name="task-font-size" type="text" inputmode="numeric" />
+        <span class="postfix" id="font-size-unit" slot="postfix">px</span>
+    </form-field>
+    <form-field class="field" id="task-background-color-field" label="Background Color" optional optional-title="Override Background Color?">
+        <input class="input color" id="task-background-color" name="task-background-color" type="color" value="#f9faf5" />
+    </form-field>
+    <form-field class="field" id="task-border-radius-field" label="Border Radius" optional optional-title="Override Border Radius?">
+        <input class="input" id="task-border-radius" name="task-border-radius" type="text" inputmode="numeric" />
+        <select class="select postfix" id="task-border-radius-unit" slot="postfix">
+            <option class="option first" value="px">px</option>
+            <option class="option last" value="%">%</option>
+        </select>
+    </form-field>
+    <form-field class="field" id="task-font-color-field" label="Font Color" optional optional-title="Override Font Color?">
+        <input class="input color" id="task-font-color" name="task-font-color" type="color" value="#060703" />
+    </form-field>
+    <form-field class="field" id="task-color-display-field" label="Color Display">
+        <select class="select" id="task-color-display" name="task-color-display"></select>
+    </form-field>
+    <form-field class="field" id="task-border-color-field" label="Border Color" optional optional-title="Override Border Color?">
+        <input class="input color" id="task-border-color" name="task-border-color" type="color"value="#060703" />
+    </form-field>
+</fieldset>  
+
+<fieldset class="fieldset" id="task-layout-fieldset">
+    <legend class="legend" id="task-layout-fields-legend">Layout</legend>
+    <form-field class="field" id="task-center-checkbox-field" label="Center Checkbox">
+        <input class="input" id="task-center-checkbox"  name="task-center-checkbox" type="checkbox"title="Center the checkbox?" />
+    </form-field>
+    <form-field class="field" id="task-center-remove-button-field" label="Center Remove Button">
+        <input class="input" id="task-center-remove-button" name="task-center-remove-button" type="checkbox" title="Center the remove button?" />
+    </form-field>
+    <form-field class="field" id="task-card-width-field" label="Card Width" optional option-title="Override Task Card Width?">
+        <input class="input" id="task-card-width" name="task-card-width" type="text" inputmode="numeric" value="" />
+        <span class="postfix" id="task-card-width-unit" slot="postfix">px</span>
+    </form-field>
+</fieldset>      
+
+<fieldset class="fieldset" id="task-border-weights-fieldset">
+    <legend class="legend" id="task-border-weights-legend">Border Weights</legend>
+    <form-field class="field" id="task-border-top-field" label="Top" optional optional-title="Use a custom top border size?">
+        <input class="input" id="task-border-top" name="task-border-top" type="text" inputmode="numeric"/>
+        <span class="postfix" id="task-border-top-unit" slot="postfix">px</span>
+    </form-field>
+    <form-field class="field" id="task-border-right-field" label="Right" optional optional-title="Use a custom right border size?">
+        <input class="input" id="task-border-right" name="task-border-right" type="text" inputmode="numeric" />
+        <span class="postfix" id="task-border-right-unit" slot="postfix">px</span>
+    </form-field>
+    <form-field class="field" id="task-border-bottom-field" label="Bottom" optional optional-title="Use a custom bottom border size?">
+        <input class="input" id="task-border-bottom" name="task-border-bottom" type="text" inputmode="numeric"/>
+        <span class="postfix" id="task-border-bottom-unit" slot="postfix">px</span>
+    </form-field>
+    <form-field class="field" id="task-border-left-field" label="Left" optional optional-title="Use a custom left border size?">
+        <input class="input" id="task-border-left" name="task-border-left" type="text" inputmode="numeric" />
+        <span class="postfix" id="task-border-left-unit" slot="postfix">px</span>
+    </form-field>
+</fieldset>

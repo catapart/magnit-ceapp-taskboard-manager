@@ -1,0 +1,95 @@
+
+a.board
+{
+    margin: 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: .25em;
+    padding: .25em 1em;
+}
+a.board .name
+{
+    flex: 1;
+}
+a.board:hover
+{
+    background: highlight;
+    color: highlighttext;
+}
+a.board[aria-current="page"]
+{
+    background: highlight;
+    color: highlighttext;
+}
+
+@media (max-width: 665px) 
+{
+
+    a.board [part="edit"]
+    {
+        display: none;
+    }
+}
+@media (max-width: 800px) 
+{
+    
+}
+
+/* only desktop */
+@media (min-width: 665px) 
+{
+
+    /* a.board
+    {
+        overflow: hidden;
+    } */
+
+    .menu-item-handle
+    ,a.board [part="edit"]
+    {
+        opacity: 0;
+        transition: opacity 200ms ease;
+    }
+    .menu-item-handle
+    ,a.board:hover [part="edit"]
+    {
+        opacity: 1;
+    }
+
+    a.board [part="edit"]:hover
+    {
+        opacity: 1;
+    }
+
+    a.board .board-item-name
+    {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    
+    .menu-item-handle
+    {
+        display: flex;
+        width: 10px;
+        align-self: stretch;
+        cursor: grab;
+        /* border-radius: 3px; */
+        transform: translateY(-1px);
+        
+        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);
+        background-size: 5px 6px;
+        background-position: 0 0, 2px 4px;
+    }
+    .menu-item-handle:active
+    {
+        cursor: grabbing;
+    }
+}
+@media (min-width: 800px) 
+{
+
+}

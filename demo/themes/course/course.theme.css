@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Assistant:700|Karla:400');
+
+@import url('./properties.course.css');
+
+@import url('./elements.course.css');
+
+@import url('./app-menu.course.css');
+@import url('./taskboard.course.css');
+@import url('./data-page.course.css');
+@import url('./welcome-panel.course.css');
+@import url('./board-browser.course.css');
+@import url('./board-settings.course.css');
+@import url('./import-manager.course.css');

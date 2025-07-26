@@ -1,0 +1,1 @@
+export type RecentBoardData = {id: string, description: string, timestamp: number};

@@ -2,15 +2,21 @@
   "name": "@magnit-ceapp/taskboard-manager",
   "version": "0.0.1",
   "description": "An app to manage kanban-style task boards built as a custom html element",
+  "type": "module",
   "main": "index.js",
   "module": "dist/taskboard-manager.mjs",
   "types": "dist/taskboard-manager.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsup taskboard-manager.ts --format cjs,esm --dts --clean",
-    "minify": "minify ./dist/taskboard-manager.js > ./dist/taskboard-manager.min.js",
-    "lint": "tsc",
-    "package": "tsup taskboard-manager.ts --format cjs,esm --dts --clean",
-    "release": "tsup taskboard-manager.ts --format cjs,esm --dts && changeset publish"
+    "build": "tsup src/taskboard-manager.ts --format cjs,esm --dts --clean",
+    "copyToDemo": "node -e \"const fs = require('fs'); fs.cpSync('dist', 'demo/dist', {recursive: true});\"",
+    "dev": "npm run build && node -e \"const fs = require('fs'); fs.cpSync('dist', '../magnit-ceapp-taskboard-manager-tests/libs', {recursive: true});\"",
+    "minify": "tsup src/taskboard-manager.ts --format esm --config ./tsup.config.min.ts --outDir ./dist --minify",
+    "lint": "tsup src/taskboard-manager.ts --format esm --tsconfig ./tsconfig.lint.json",
+    "package": "npm run build && npm run minify && npm run copyToDemo",
+    "release": "npm run package && changeset publish"
   },
   "keywords": [
     "custom",
@@ -38,6 +44,19 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
+    "@magnit-ce/action-history": "^0.0.7",
+    "@magnit-ce/captioned-thumbnail": "^0.0.5",
+    "@magnit-ce/collection-browser": "^0.0.5",
+    "@magnit-ce/collection-filter": "^0.0.9",
+    "@magnit-ce/editable-list": "^0.0.11",
+    "@magnit-ce/fileimage-input": "^0.0.4",
+    "@magnit-ce/form-field": "^0.0.7",
+    "@magnit-ce/message-card": "^0.0.3",
+    "@magnit-ce/path-router": "^0.2.8",
+    "@magnit-ce/record-tree": "^0.0.15",
+    "@magnit-ce/task-board": "^0.0.4",
+    "@magnit-ce/task-card": "^0.0.24",
+    "@magnit-ce/task-list": "^0.0.17",
     "record-setter": "^1.0.6"
   }
 }

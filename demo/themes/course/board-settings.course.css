@@ -1,0 +1,217 @@
+/* 
+taskboard-manager[data-theme="course"]::part(board-settings-fields)
+{
+    background: var(--surface-panel);
+    border: var(--border-panel);
+    border-radius: var(--border-radius-panel);
+
+    padding: var(--small-gap);
+    gap: var(--small-gap);
+} */
+
+taskboard-manager[data-theme="course"]::part(board-fields)
+{
+    grid-template-columns: 210px auto;
+    row-gap: 2em;
+}
+
+taskboard-manager[data-theme="course"]::part(board-background-color-field-container)
+,taskboard-manager[data-theme="course"]::part(board-font-color-field-container)
+{
+    display: grid;
+}
+
+taskboard-manager[data-theme="course"]::part(board-background-color)
+,taskboard-manager[data-theme="course"]::part(board-font-color)
+,taskboard-manager[data-theme="course"]::part(tasklist-background-color)
+,taskboard-manager[data-theme="course"]::part(tasklist-font-color)
+{
+    width: auto;
+    border-radius: 30px;
+    margin: .5em 0;
+    opacity: .5;
+}
+taskboard-manager[data-theme="course"]::part(task-background-color)
+,taskboard-manager[data-theme="course"]::part(task-font-color)
+,taskboard-manager[data-theme="course"]::part(task-border-color)
+{
+    border-radius: 30px;
+    margin: .5em 0;
+    opacity: .5;
+}
+taskboard-manager[data-theme="course"]::part(board-background-color option-true)
+,taskboard-manager[data-theme="course"]::part(board-font-color option-true)
+,taskboard-manager[data-theme="course"]::part(tasklist-background-color option-true)
+,taskboard-manager[data-theme="course"]::part(tasklist-font-color option-true)
+,taskboard-manager[data-theme="course"]::part(task-background-color option-true)
+,taskboard-manager[data-theme="course"]::part(task-font-color option-true)
+,taskboard-manager[data-theme="course"]::part(task-border-color option-true)
+{
+    opacity: 1;
+}
+taskboard-manager[data-theme="course"]::part(order-field-label)
+{
+    text-align: center;
+    align-self: center;
+}
+taskboard-manager[data-theme="course"]::part(board-order)
+{
+    text-align: center;
+}
+
+taskboard-manager[data-theme="course"]::part(board-list-details)
+{
+    background: var(--surface-menu);
+    --grip-color: var(--clr-surface-a40);
+}
+
+taskboard-manager[data-theme="course"]::part(board-settings-summary)
+{
+    padding: var(--small-gap);
+    gap: var(--small-gap);
+    align-items: center;
+
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--text-page-header);
+    text-transform: uppercase;
+    --icon-primary-color: var(--text-page-header);
+}
+
+taskboard-manager[data-theme="course"]::part(tasklist-settings-details)
+{
+    background: var(--surface-list-item);
+}
+taskboard-manager[data-theme="course"]::part(tasklist-settings-summary)
+{
+    padding: var(--smaller-gap);
+    gap: var(--small-gap);
+}
+taskboard-manager[data-theme="course"]::part(tasklist-settings-summary)::before
+{
+    color: var(--grip-color);
+}
+taskboard-manager[data-theme="course"]::part(task-fields-content)
+{
+    background: var(--surface-list-item-content);
+    border-radius: var(--border-radius-card);
+    padding: var(--smaller-gap);
+}
+
+taskboard-manager[data-theme="course"]::part(tasklist-settings-duplicate-button)
+,taskboard-manager[data-theme="course"]::part(tasklist-settings-remove-button)
+{
+    --icon-size: 18px;
+    border: none;
+    padding: 0;
+    margin: 0;
+    --icon-primary-color: var(--grip-color);
+    --icon-secondary-color: var(--surface-0);
+}
+taskboard-manager[data-theme="course"]::part(tasklist-settings-duplicate-button):hover
+{
+    --icon-primary-color: var(--text-surface);
+    --icon-secondary-color: var(--surface-input);
+}
+taskboard-manager[data-theme="course"]::part(tasklist-settings-remove-button):hover
+{
+    --icon-primary-color: red;
+    --icon-secondary-color: var(--surface-input);
+}
+
+taskboard-manager[data-theme="course"]::part(tasklist-color)
+{
+    --color-size: 18px;
+    width: var(--color-size);
+    align-self: center;
+}
+
+taskboard-manager[data-theme="course"]::part(remove-board-button)
+{
+    background: var(--surface-icon-button);
+    border: var(--border-icon-button);
+    color: var(--text-surface);
+    font-weight: bold;
+
+    --icon-primary-color: red;
+    --icon-secondary-color: var(--surface-0);
+}
+
+taskboard-manager[data-theme="course"]::part(duplicate-board-button)
+,taskboard-manager[data-theme="course"]::part(clear-lists-button)
+{
+    background: var(--surface-icon-button);
+    color: var(--text-icon-button);
+    border: var(--border-icon-button);
+    /* padding: .375rem; */
+
+    --icon-primary-color: var(--text-icon-button);
+    --icon-secondary-color: var(--surface-0);
+}
+
+
+taskboard-manager[data-theme="course"]::part(task-center-checkbox)
+,taskboard-manager[data-theme="course"]::part(task-center-remove-button)
+,taskboard-manager[data-theme="course"]::part(export-background-image)
+{
+    appearance: none;
+    --size: 20px;
+    width: var(--size);
+    height: var(--size);
+    background-color: var(--surface-input);
+    /* opacity: .8; */
+    border: var(--border-icon-button);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    grid-row: 2;
+    grid-column: 2;
+}
+
+taskboard-manager[data-theme="course"]::part(task-center-checkbox option-true)::before
+,taskboard-manager[data-theme="course"]::part(task-center-remove-button option-true)::before
+,taskboard-manager[data-theme="course"]::part(export-background-image option-true)::before
+{
+    margin-top: 3px;
+    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="%23fbf9fe" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>');
+}
+
+taskboard-manager[data-theme="course"]::part(export-images-field-container)
+{
+    gap: var(--small-gap);
+}
+
+
+@media (min-width: 665px) 
+{
+    
+    taskboard-manager[data-theme="course"]::part(tasklist-settings-fieldset)
+    {
+        grid-template-columns: auto 1fr;
+    }
+    taskboard-manager[data-theme="course"]::part(tasklist-settings-fieldset-column first)
+    {
+        grid-template-columns: 1fr 1fr;
+    }
+    taskboard-manager[data-theme="course"]::part(tasklist-settings-fieldset-column second)
+    {
+        grid-template-columns: 70px 125px 1fr;
+        align-items: flex-end;
+    }
+    taskboard-manager[data-theme="course"]::part(tasklist-order-field-label)
+    {
+        justify-self: center;
+        margin-bottom: 4px;
+    }
+    taskboard-manager[data-theme="course"]::part(tasklist-order)
+    {
+        text-align: center;
+    }
+    taskboard-manager[data-theme="course"]::part(tasklist-color-display-field-label)
+    {
+        margin-bottom: 4px;
+    }
+
+}

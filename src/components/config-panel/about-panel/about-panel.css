@@ -1,0 +1,39 @@
+:host
+{
+    display: grid;
+    gap: 7px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr auto;
+}
+
+#about-header
+{
+    font-size: 14px;
+    font-weight: bold;
+    grid-column: span 2;
+}
+
+#about-app-fieldset
+{
+    grid-column: span 2;
+}
+#about-app-fieldset .text
+{
+    text-align: center;
+}
+
+#version-fieldset
+{
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#copyright-fieldset
+{
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

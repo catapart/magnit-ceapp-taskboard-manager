@@ -1,0 +1,49 @@
+<details class="details" id="tasklist-settings-details">
+    <summary class="summary" id="tasklist-settings-summary">
+        <div class="handle" id="tasklist-settings-handle"></div>
+        <input class="input color" id="tasklist-color" name="tasklist-color" type="color" />
+        <input class="input name" id="tasklist-name" name="tasklist-name" type="text" />
+        <button class="duplicate-button icon-button" id="tasklist-settings-duplicate-button" type="button">
+            <svg class="icon copy" id="tasklist-settings-duplicate-icon">
+                <use href="#icon-definition_copy"></use>
+            </svg>
+        </button>
+        <button class="button icon-button" id="tasklist-settings-remove-button" type="button">
+            <svg class="icon" id="tasklist-settings-remove-icon">
+                <use href="#icon-definition_cancel-cross"></use>
+            </svg>
+            <svg class="icon" id="tasklist-settings-undo-icon">
+                <use href="#icon-definition_undo-redo"></use>
+            </svg>
+        </button>
+    </summary>
+    <div class="details-content" id="task-fields-content">
+        <fieldset class="fieldset" id="tasklist-settings-fieldset">
+            <legend class="legend" id="tasklist-settings-legend">List</legend>
+            <div class="fieldset-column first tasklist-settings-fieldset-column">
+                <form-field class="field"  id="tasklist-background-color-field"label="Background Color" optional optional-title="Override Background Color?">
+                    <input class="input color" id="tasklist-background-color" type="color" name="background-color" value="#f9faf5" />
+                </form-field>
+                <form-field class="field" id="tasklist-font-color-field" label="Font Color" optional optional-title="Override Font Color?">
+                    <input class="input color" id="tasklist-font-color" type="color" name="font-color" value="#060703" />
+                </form-field>
+            </div>
+            <div class="fieldset-column second tasklist-settings-fieldset-column">
+                <form-field class="field" id="tasklist-order-field" label="Order" >
+                    <input class="input" id="tasklist-order" type="text" name="order" inputmode="numeric" disabled />
+                </form-field>
+                <form-field class="field" id="tasklist-width-field" label="List Width" optional optional-title="Use a custom list width?">
+                    <input class="input" id="tasklist-width" type="text" inputmode="numeric" name="list-width" value="" />
+                    <span class="postfix" id="tasklist-width-unit" slot="postfix">px</span>
+                </form-field>
+                <form-field class="field" id="tasklist-color-display-field" label="Color Display">
+                    <select class="select" id="tasklist-color-display" name="color-display"></select>
+                </form-field>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset" id="task-settings-fieldset">
+            <legend class="legend" id="task-settings-legend">List Tasks</legend>
+            <task-fields id="task-settings"></task-fields>
+        </fieldset>
+    </div>
+</details>

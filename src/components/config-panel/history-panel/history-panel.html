@@ -1,0 +1,38 @@
+
+<header id="history-header" class="page-header">History</header>
+<fieldset id="history-navigation-fieldset" class="config-fieldset">
+    <legend id="history-navigation-legend" class="config-legend">Navigation</legend>
+    <button id="undo-button" class="data-button">
+        <svg id="undo-icon" class="icon" title="Undo">
+            <use href="#icon-definition_undo-redo"></use>
+        </svg>
+        <span part="undo-label">Undo</span>
+    </button>
+    <button id="redo-button" class="data-button">
+        <svg id="redo-icon" class="icon" title="Redo" style="transform: scaleX(-1);">
+            <use href="#icon-definition_undo-redo"></use>
+        </svg>
+        <span id="redo-label">Redo</span>
+    </button>
+    <button id="clear-history-button" class="label-button data-button">
+        <svg id="clear-history-icon" class="icon" title="Clear">
+            <use href="#icon-definition_trash"></use>
+        </svg>
+        <span id="clear-history-label">Clear History</span>
+    </button>
+    <action-history id="action-history" reverse></action-history>
+</fieldset>
+<fieldset id="history-length-fieldset" class="config-fieldset">
+    <legend id="history-length-legend" class="config-legend">History Length</legend>
+    <form-field id="history-length-field" class="field">
+        <input type="range" id="action-history-length" class="input" max="150" list="action-history-length-values" />
+        <datalist id="action-history-length-values"></datalist>
+        <span slot="postfix" id="action-history-length-value" part="field-postfix"></span>
+        <button slot="postfix" id="apply-history-length-button" part="button field-postfix label-button data-button">
+            <svg id="apply-history-length-icon" class="icon">
+                <use href="#icon-definition_confirm-check"></use>
+            </svg>
+            <span id="apply-history-length-label">Apply</span>
+        </button>
+    </form-field>
+</fieldset>

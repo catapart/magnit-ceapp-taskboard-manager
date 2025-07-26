@@ -1,0 +1,64 @@
+html
+{
+    color-scheme: light dark;
+    height: 100%;
+    width: 100%;
+}
+
+html
+,body
+{
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+}
+
+taskboard-manager
+{
+    flex: 1;
+    overflow: hidden;
+}
+
+taskboard-manager[data-theme="course"] .custom-settings
+{
+    display: grid;
+    gap: var(--small-gap);
+}
+
+taskboard-manager[data-theme="course"] .field .container
+{
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: var(--small-gap);
+    align-items: center;
+}
+
+taskboard-manager[data-theme="course"] #theme-description
+{
+    margin-left: calc(90px + (var(--small-gap) * 2));
+}
+
+taskboard-manager[data-theme="course"] .field-label
+{
+    text-align: right;
+}
+
+
+taskboard-manager[data-theme="course"] a
+{
+    color: var(--text-anchor);
+    text-decoration: var(--text-decoration-anchor);
+}
+taskboard-manager[data-theme="course"] a:hover
+{
+    text-decoration: var(--text-decoration-anchor-highlight);
+}

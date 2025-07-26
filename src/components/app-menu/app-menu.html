@@ -1,0 +1,34 @@
+<menu id="app-menu" class="menu">
+    <header id="app-menu-header" class="header">
+        <div id="app-menu-branding" class="branding" title="Manager Icon">
+            <svg class="icon logo mark" alt="Manager Brand Mark">
+                <use href="#icon-definition_logo-mark"></use>
+            </svg>
+        </div>
+        <button id="find-board-button" class="button" type="button" data-route="#boards" title="Find Board">
+            <svg class="icon button-icon magnifying-glass">
+                <use href="#icon-definition_magnifying-glass"></use>
+            </svg>
+            <span class="button-label">Find Board</span>
+        </button>
+        <button id="open-settings-button" class="button icon-button" type="button" data-route="#config/settings" title="App Administration">
+            <svg class="icon button-icon gear">
+                <use href="#icon-definition_gear"></use>
+            </svg>
+        </button>
+    </header>
+    <editable-list id="boards" remove="false" edit="true" edit-class="button board-edit-button icon-button" exportparts="items: board-items">
+        <slot></slot>
+        <button id="new-board-button" class="button new-board-button label-button" type="button" slot="add" title="New Board">
+            <svg class="icon button-icon plus" >
+                <use href="#icon-definition_plus"></use>
+            </svg>
+            <span class="label button-label">New Board</span>
+        </button>
+        <template part="edit-button">
+            <svg class="icon button-icon expand">
+                <use href="#icon-definition_stylus"></use>
+            </svg>
+        </template>
+    </editable-list>
+</menu>

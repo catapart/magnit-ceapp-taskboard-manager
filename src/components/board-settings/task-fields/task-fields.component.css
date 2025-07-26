@@ -1,0 +1,132 @@
+:host
+{
+    display: grid;
+    grid-template-columns: auto minmax(160px, 1fr) auto;
+}
+
+fieldset
+{
+    display: grid;
+    gap: 1em;
+    min-width: 0;
+    width: auto;
+}
+input,select,textarea
+{
+    font: inherit;
+    min-width: 0;
+    width: auto;
+}
+
+input[type="color"]
+{
+    width: 100%;
+}
+input[type="text"][inputmode="numeric"]
+{
+    width: 5ch;
+}
+
+form-field .container
+{
+}
+form-field .field-label
+{
+    display: flex;
+    gap: 5px;
+    margin-bottom: 7px;
+    align-items: center;
+}
+
+#task-appearance-fieldset
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#task-appearance-fieldset .container > input
+{
+    flex: 1;
+    min-height: 2ch;
+}
+
+#task-border-radius-field .option
+{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px;
+}
+
+#task-border-weights-fieldset
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: min-content min-content;
+}
+
+#task-font-size-field .container
+,#task-card-width-field .container
+,#task-border-weights-fieldset .container
+{
+    align-items: flex-start;
+    column-gap: .25em !important;
+}
+
+#task-font-size-field .postfix
+,#task-card-width-field .container
+,#task-card-width-field .postfix
+,#task-card-width-field input[type="text"]
+,#task-border-weights-fieldset .postfix
+{
+    align-self: flex-end;
+}
+
+#task-card-width-field .container
+{
+    grid-template-columns: auto 1fr;
+}
+
+#task-card-width-field .postfix
+{
+    justify-self: flex-start;
+}
+
+#task-center-checkbox-field input
+,#task-center-remove-button-field input
+{
+    justify-self: flex-start;
+    margin: 0;
+}
+
+
+@media (max-width: 785px) 
+{
+    :host
+    {
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr auto;
+    }
+    #task-appearance-fieldset
+    {
+        grid-template-columns: 1fr;
+        grid-row: span 2;
+    }
+}
+@media (max-width: 560px) 
+{
+    :host
+    {
+        grid-template-columns: 1fr;
+    }
+    /* #task-border-weights-fieldset
+    {
+        grid-template-columns: 1fr;
+    } */
+}
+/* @media (max-width: 450px) 
+{
+    #task-border-radius-field .container
+    {
+        grid-template-columns: 1fr;
+    }
+} */

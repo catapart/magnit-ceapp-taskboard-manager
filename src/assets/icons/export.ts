@@ -1,0 +1,8 @@
+export const Export = `<svg id="icon-definition_export" class="icon export" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+<path
+style="fill:var(--icon-primary-color,InfoText);stroke:var(--icon-secondary-color,InfoBackground);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+d="M 1.4836068,2.5301415 H 21.329107 c 0.2559,0 0.4618,0.20586 0.4618,0.46157 V 19.822941 c 0,0.25571 -0.2059,0.46158 -0.4618,0.46158 H 1.4836068 c -0.2559,0 -0.4618,-0.20587 -0.4618,-0.46158 V 2.9917115 c 0,-0.25571 0.2059,-0.46157 0.4618,-0.46157 z" />
+<path
+style="color:#000000;fill:var(--icon-secondary-color,InfoBackground);stroke:var(--icon-secondary-color,InfoBackground);stroke-width:1;stroke-miterlimit:6.3;stroke-dashoffset:29.2913;stroke-opacity:1;-inkscape-stroke:none"
+d="m 11.406307,3.5941715 c -0.5307,9e-5 -1.0159,0.16025 -1.253,0.41372 l -4.5001002,4.80389 c -0.5756,0.61476 0.2618,1.3380295 1.5493,1.3380395 h 0.868 v 4.77458 c -0.958,0.18943 -1.8327,0.45786 -2.5896,0.79458 -1.5866,0.70582 -2.7631,0.25992 -2.7631,1.60646 v 1.20148 H 20.241207 v -1.20148 c 0,-1.34654 -1.1764,-0.90064 -2.763,-1.60646 -0.7953,-0.35379 -1.7195,-0.633 -2.7349,-0.8235 v -4.74566 h 0.8669 c 1.2875,-10e-6 2.125,-0.7232795 1.5493,-1.3380395 l -4.5,-4.80389 c -0.2371,-0.25349 -0.7223,-0.41365 -1.2532,-0.41372 z" />
+</svg>`;

@@ -1,0 +1,251 @@
+:host([removed])
+{
+    opacity: .6;
+    scale: .98 .9;
+    user-select: none;
+}
+
+input,select,textarea
+{
+    font: inherit;
+    min-width: 0;
+    width: auto;
+}
+
+#icon-definitions
+{
+    display: none;
+}
+
+/* #tasklist-settings-handle
+{
+    display: flex;
+    width: 15px;
+    align-self: stretch;
+    cursor: grab;
+    border-radius: 3px;
+    
+    background-image: radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%),
+    radial-gradient(var(--grip-color, canvastext) 15%, transparent 16%);
+    background-size: 5px 5px;
+    background-position: 0 0, 2px 2px;
+}
+#tasklist-settings-handle:active
+{
+    cursor: grabbing;
+} */
+#tasklist-settings-handle
+{
+    display: flex;
+    width: 10px;
+    align-self: stretch;
+    cursor: grab;
+    /* border-radius: 3px; */
+    transform: translateY(-1px);
+    
+    background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);
+    background-size: 5px 6px;
+    background-position: 0 0, 2px 4px;
+}
+#tasklist-settings-handle:active
+{
+    cursor: grabbing;
+}
+
+.icon
+{
+    width: var(--icon-size, 12px);
+    height: var(--icon-size, 12px);
+}
+
+#tasklist-settings-undo-icon
+{
+    display: none;
+}
+:host([removed]) #tasklist-settings-remove-icon
+{
+    display: none;
+}
+:host([removed]) #tasklist-settings-undo-icon
+{
+    display: flex;
+}
+
+details
+{
+    --board-details-background: rgb(0 0 0 / .085);
+    background-color: var(--board-details-background);
+    border-radius: 3px;
+    padding: 7px 3px;
+}
+
+details summary
+{
+    user-select: none;
+    display: flex;
+    gap: .25em;
+}
+summary:before
+{
+    content: '▶';
+    transform-origin: 45% 50%;
+    transition: transform 100ms ease-out;
+    font-size: .78em;
+    align-self: center;
+    margin-right: .25em;
+}
+details[open] summary:before
+{
+    transform: rotate(90deg);
+}
+
+.details-content
+{
+    padding: 7px 3px;
+    display: grid;
+    gap: 7px;
+}
+
+summary button
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+fieldset
+{
+    display: grid;
+    gap: 1em;
+    min-width: 0;
+    width: auto;
+}
+
+form-field .container
+{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 7px;
+}
+form-field .field-label
+{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+form-field input[type="color"]
+{
+    width: 100%;
+    height: auto;
+}
+
+.enabled-checkbox
+{
+    margin-right: 7px;
+}
+
+#tasklist-color
+{
+    width: 15px;
+    height: auto;
+    padding: 0;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(170 170 170 / .75);
+    background-color: transparent;
+    border-radius: 3px;
+}
+#tasklist-color:hover
+{
+    border-color: rgb(170 170 170);
+}
+/* #tasklist-color::-webkit-color-swatch
+{
+    padding: 0;
+    border: none;
+}
+#tasklist-color::-webkit-color-swatch-wrapper
+{
+    padding: 0;
+    border: none;
+} */
+
+#tasklist-name
+{
+    flex: 1;
+}
+
+#tasklist-settings-fieldset
+{
+    grid-template-columns: 1fr minmax(min-content, 18ch);
+}
+
+#tasklist-settings-fieldset .fieldset-column
+{
+    display: grid;
+    gap: .5em;
+}
+
+#tasklist-settings-fieldset .column input[type="color"]
+{
+    height: auto;
+}
+
+input[type="text"]
+{
+    min-width: 5ch;
+}
+
+#tasklist-width-field .container
+{
+    column-gap: .25em !important;
+}
+
+#tasklist-width
+,#tasklist-width-unit
+{
+    grid-row: 2;
+}
+
+#tasklist-width-field [slot="postfix"]
+{
+    align-self: flex-end;
+}
+
+:host([style*="color-scheme: light;"]) svg.copy
+{
+    --icon-primary-color: canvas;
+    --icon-secondary-color: canvastext;
+}
+
+@media (max-width: 450px) 
+{
+    #tasklist-name
+    {
+        width: 0;
+    }
+    #tasklist-settings-fieldset
+    {
+        grid-template-columns: 1fr;
+    }
+    form-field input[type="color"]
+    {
+        min-height: 30px;
+    }
+}
+@media (prefers-color-scheme: light) 
+{
+    :host(:not([style*="color-scheme: dark;"])) svg.copy
+    {
+        --icon-primary-color: canvas;
+        --icon-secondary-color: canvastext;
+    }
+}
+@media (prefers-color-scheme: dark) 
+{
+    :host(:not([style*="color-scheme: light;"])) details
+    {
+        --board-details-background: rgb(255 255 255 / .085);
+    }
+}
