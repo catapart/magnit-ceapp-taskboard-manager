@@ -104,6 +104,8 @@ export class TaskboardManagerElement extends HTMLElement
 
     #customImageUrls: Map<string,string> = new Map();
 
+    #rootPath: string = "";
+
     constructor()
     {
         super();
@@ -457,7 +459,7 @@ export class TaskboardManagerElement extends HTMLElement
             // if the last session ended with a dialog open that
             // was not one allowed to be open on startup (like the 
             // import dialog), we update the url, as well as the router's path
-            const newHistoryState =  `${window.origin}/demo/app.html?path=${windowPath}${(filteredWindowHash != "") ? `#${filteredWindowHash}` : ''}`;
+            const newHistoryState =  `${window.origin}${this.#rootPath}?path=${windowPath}${(filteredWindowHash != "") ? `#${filteredWindowHash}` : ''}`;
             window.history.replaceState(null, '', newHistoryState);
         }
         
@@ -1318,7 +1320,7 @@ export class TaskboardManagerElement extends HTMLElement
         const { hasChanged, isReplacementChange } = router.compareLocations(currentLocation as unknown as URL, updatedLocation);
         if(hasChanged)
         {
-            const newHistoryState =  `${updatedLocation.origin}/demo/app.html?path=${updatedLocation.pathname}${updatedLocation.hash}`;
+            const newHistoryState =  `${updatedLocation.origin}${this.#rootPath}?path=${updatedLocation.pathname}${updatedLocation.hash}`;
             if(isReplacementChange)
             {
                 window.history.replaceState(null, '', newHistoryState);
@@ -1540,8 +1542,7 @@ export class TaskboardManagerElement extends HTMLElement
         const pathArray = window.location.search.substring(1).split('=');
         let windowPath = pathArray[1] ?? "";
         if(windowPath.startsWith('/')) { windowPath = windowPath.substring(1); }
-        if(windowPath.startsWith('demo/app/')) { windowPath = windowPath.substring(10); }
-        else if(windowPath.startsWith('demo/app.html')) { windowPath = windowPath.substring(14); }
+        if(this.#rootPath != "" && windowPath.startsWith(this.#rootPath)) { windowPath = windowPath.substring(this.#rootPath.length + 1); }
         windowPath = windowPath.trim();
 
         let windowHash = window.location.hash;
@@ -1556,15 +1557,12 @@ export class TaskboardManagerElement extends HTMLElement
     {    
         let windowPath = window.location.pathname;
         if(windowPath.startsWith('/')) { windowPath = windowPath.substring(1); }
-        if(windowPath.startsWith('demo/app/')) { windowPath = windowPath.substring(10); }
-        else if(windowPath.startsWith('demo/app.html')) { windowPath = windowPath.substring(14); }
+        if(this.#rootPath != "" && windowPath.startsWith(this.#rootPath)) { windowPath = windowPath.substring(this.#rootPath.length + 1); }
         windowPath = windowPath.trim();
 
         let windowHash = window.location.hash;
         if(windowHash.startsWith('#')) { windowHash = windowHash.substring(1); }
         windowHash = windowHash.trim();
-
-        
 
         return { windowPath, windowHash }
     }
@@ -1586,6 +1584,14 @@ export class TaskboardManagerElement extends HTMLElement
 
     //#endregion Utilities
 
+    
+    static observedAttributes = ["root-path"];
+    attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) {
+        if (attributeName == "root-path")
+        {
+            this.#rootPath = newValue.trim();
+        }
+    }
     //#endregion Internal
 
 }

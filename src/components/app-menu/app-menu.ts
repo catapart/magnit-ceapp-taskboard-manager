@@ -310,7 +310,6 @@ export class AppMenuElement extends HTMLElement
         return orderedBoards;
     }
     //#endregion
-    
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)

@@ -157,6 +157,8 @@ declare class TaskboardManagerElement extends HTMLElement {
     closeBoardSettings(): Promise<unknown>;
     clearData(): Promise<void>;
     addTask(list: TaskListElement, order: number): void;
+    static observedAttributes: string[];
+    attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string): void;
 }
 
 export { TaskboardManagerElement };
