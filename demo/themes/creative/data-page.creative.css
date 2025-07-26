@@ -1,0 +1,264 @@
+taskboard-manager[data-theme="creative"]::part(config-navigation)
+{
+    background: transparent;
+    border: none;
+    gap: var(--small-gap);
+}
+
+taskboard-manager[data-theme="creative"]::part(nav-item)
+{
+    background: transparent;
+    font-weight: bold;
+    border-radius: var(--border-radius-tab);
+}
+taskboard-manager[data-theme="creative"]::part(nav-item selected)
+{
+    color: var(--icon-tab);
+    --icon-primary-color: var(--icon-tab);
+    --icon-secondary-color: var(--surface-tab);
+}
+taskboard-manager[data-theme="creative"]::part(nav-item):hover
+{
+    background: var(--surface-tab);
+    color: var(--text-tab);
+
+    --icon-primary-color: var(--icon-tab);
+    --icon-secondary-color: var(--surface-tab);
+}
+taskboard-manager[data-theme="creative"]::part(nav-item-icon)
+{
+    --tab-icon-size: 16px;
+}
+
+taskboard-manager[data-theme="creative"]::part(shortcuts)
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: minmax(150px, auto);
+    gap: var(--small-gap);
+    padding: 1rem;
+}
+
+taskboard-manager[data-theme="creative"]::part(shortcut)
+{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    /* justify-content: center; */
+    border-radius: var(--border-radius-card);
+    gap: 0;
+    background-color: var(--surface-shortcut);
+}
+
+taskboard-manager[data-theme="creative"]::part(shortcut-title)
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    gap: var(--small-gap);
+    padding: var(--small-gap) 5px;
+    border-top-left-radius: var(--border-radius-card);
+    border-top-right-radius: var(--border-radius-card);
+    background-color: var(--surface-shortcut-2);
+}
+
+taskboard-manager[data-theme="creative"]::part(shortcut-description)
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    padding: var(--small-gap);
+    border-bottom-left-radius: var(--border-radius-card);
+    border-bottom-right-radius: var(--border-radius-card);
+}
+
+taskboard-manager[data-theme="creative"]::part(key)
+{
+    background-color: var(--surface-key);
+}
+
+
+taskboard-manager[data-theme="creative"]::part(data-panel)
+{
+    grid-template-rows: auto 1fr auto;
+    gap: var(--small-gap);
+}
+
+taskboard-manager[data-theme="creative"]::part(import-fieldset)
+{
+    margin-right: 0;
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto max-content;
+    gap: var(--small-gap);
+}
+
+taskboard-manager[data-theme="creative"]::part(import-field)
+{
+    margin-right: 0;
+    grid-column: 1;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-column: span 2;
+}
+
+taskboard-manager[data-theme="creative"]::part(import-field-container)
+{
+    display: grid;
+    gap: var(--small-gap);
+}
+
+taskboard-manager[data-theme="creative"]::part(import-clear)
+,taskboard-manager[data-theme="creative"]::part(import-view-link)
+,taskboard-manager[data-theme="creative"]::part(import-clear):active
+,taskboard-manager[data-theme="creative"]::part(import-view-link):active
+{
+    color: var(--text-surface);
+    text-decoration: none;
+}
+taskboard-manager[data-theme="creative"]::part(import-clear):hover
+,taskboard-manager[data-theme="creative"]::part(import-view-link):hover
+{
+    color: var(--surface-button);
+    border-bottom: solid 1px var(--surface-button);
+}
+
+taskboard-manager[data-theme="creative"]::part(import-button)
+{
+    grid-row: 2;
+    grid-column: 2;
+}
+
+taskboard-manager[data-theme="creative"]::part(data-cleanup-fieldset)
+{
+    margin-right: 0;
+    grid-column: 1;
+    gap: var(--small-gap);
+}
+taskboard-manager[data-theme="creative"]::part(data-pending-fieldset)
+{
+    grid-column: 2;
+    grid-row: 2 / 4;
+    gap: var(--small-gap);
+}
+taskboard-manager[data-theme="creative"]::part(image-cache-fieldset)
+{
+    margin-left: 0;
+    grid-column: 3;
+    grid-row: 2 / 4;
+    gap: var(--small-gap);
+}
+
+taskboard-manager[data-theme="creative"]::part(cache-list)
+{
+    height: 180px;
+}
+
+taskboard-manager[data-theme="creative"]::part(cache-list)
+,taskboard-manager[data-theme="creative"]::part(action-history)
+{
+    background: var(--surface-menu);
+    border: var(--border-menu);
+    border-radius: var(--border-radius-card);
+    gap: var(--small-gap);
+    padding: var(--small-gap);
+}
+taskboard-manager[data-theme="creative"]::part(deleted-item)
+{
+    border-radius: var(--border-radius-button);
+    font-weight: bold;
+    padding: .375rem .75rem;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1f;
+
+    display: grid;
+    gap: var(--small-gap);
+}
+taskboard-manager[data-theme="creative"]::part(deleted-item):hover
+{
+    background: rgb(0 0 0 / .3);
+}
+taskboard-manager[data-theme="creative"]::part(restore-button)
+,taskboard-manager[data-theme="creative"]::part(deleted-item-remove-button)
+{
+    margin: 0;
+    padding: var(--smaller-gap) var(--small-gap);
+    background: transparent;
+    border: solid 1px transparent;
+    --icon-primary-color: var(--text-surface);
+    --icon-secondary-color: var(--surface-0);
+}
+taskboard-manager[data-theme="creative"]::part(restore-button):hover
+,taskboard-manager[data-theme="creative"]::part(deleted-item-remove-button):hover
+{
+    background: solid 1px var(--icon-tab);
+    border: solid 1px var(--icon-tab);
+    --icon-primary-color: var(--icon-tab);
+}
+taskboard-manager[data-theme="creative"]::part(action-history-entry)
+{
+    border-radius: var(--border-radius-button);
+    font-weight: bold;
+    padding: .375rem .75rem;
+    border: solid 1px transparent;
+
+    /* display: grid; */
+    gap: var(--small-gap);
+}
+taskboard-manager[data-theme="creative"]::part(action-history-entry):hover
+{
+    background: var(--surface-0);
+    border: var(--border-icon-button);
+    color: var(--text-surface);
+}
+taskboard-manager[data-theme="creative"]::part(action-history-entry active)
+{
+    background-color: var(--surface-button) !important;
+    color: var(--text-button) !important;
+    text-decoration: none;
+}
+
+taskboard-manager[data-theme="creative"]::part(data-button)
+{
+    background: var(--surface-icon-button);
+    border: var(--border-icon-button);
+    color: var(--text-surface);
+    font-weight: bold;
+
+    --icon-primary-color: var(--text-icon-button);
+    --icon-secondary-color: var(--surface-0);
+}
+taskboard-manager[data-theme="creative"]::part(danger-button)
+{
+    background: var(--surface-icon-button);
+    border: var(--border-icon-button);
+    color: var(--text-surface);
+    font-weight: bold;
+
+    --icon-primary-color: red;
+    --icon-secondary-color: var(--surface-0);
+}
+
+taskboard-manager[data-theme="creative"]::part(cc0-link)
+{
+    color: var(--text-anchor);
+    text-decoration: var(--text-decoration-anchor);
+}
+taskboard-manager[data-theme="creative"]::part(cc0-link):hover
+{
+    text-decoration: var(--text-decoration-anchor-highlight);
+}
+
+/* todo: 
+ welcome panel header
+ welcome panel "no items" placeholder
+ welcome panel list gap
+ import dialog - remove=icon-button
+ find board dialog - filter-select and regex-select parts
+ board settings dialog
+ message card
+  */

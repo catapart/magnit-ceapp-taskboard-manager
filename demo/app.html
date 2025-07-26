@@ -29,7 +29,7 @@
             </form-field> -->
         </div>
     </taskboard-manager>
-    <script type="module" src="../dist/taskboard-manager.js"></script>
+    <script type="module" src="./dist/taskboard-manager.js"></script>
     <script type="module">
         const stylesheets = {};
         const themes = [
@@ -81,12 +81,12 @@
                     taskboardManager.classList.remove('button-vars');
                 }
 
-                if(themeSelect.value == 'creative' && document.head.querySelector('link[href="./creative.theme.css"]') == null)
+                if(themeSelect.value == 'creative' && document.head.querySelector('link[href="./themes/creative/creative.theme.css"]') == null)
                 {
                     const link = document.createElement('link');
                     link.rel = 'stylesheet';
                     link.type = 'text/css';
-                    link.href = './creative.theme.css';
+                    link.href = './themes/creative/creative.theme.css';
 
                     document.head.appendChild(link);
                 }

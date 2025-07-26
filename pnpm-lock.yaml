@@ -18,8 +18,8 @@ importers:
         specifier: ^0.0.5
         version: 0.0.5
       '@magnit-ce/collection-filter':
-        specifier: ^0.0.7
-        version: 0.0.7
+        specifier: ^0.0.9
+        version: 0.0.9
       '@magnit-ce/editable-list':
         specifier: ^0.0.11
         version: 0.0.11
@@ -36,8 +36,8 @@ importers:
         specifier: ^0.2.8
         version: 0.2.8
       '@magnit-ce/record-tree':
-        specifier: ^0.0.14
-        version: 0.0.14
+        specifier: ^0.0.15
+        version: 0.0.15
       '@magnit-ce/task-board':
         specifier: ^0.0.4
         version: 0.0.4
@@ -303,8 +303,8 @@ packages:
   '@magnit-ce/collection-browser@0.0.5':
     resolution: {integrity: sha512-Ya223eVNQJ1rCIYcmqj9wd9Ukwwg370xJs2RbWTn9Cey6PYtSxSkgVzYHjx86owjBDBuLlsvO1zFiq1Qxswn7Q==}
 
-  '@magnit-ce/collection-filter@0.0.7':
-    resolution: {integrity: sha512-oNiwCS74IPOTnbvor7PBkLJXeVkJewM9bKr8ajwFvJeS9CC1wJtQd5TGExIF/ciKdsrR9/XuqkWZ9mXvSdsGcw==}
+  '@magnit-ce/collection-filter@0.0.9':
+    resolution: {integrity: sha512-zrZkys9wCJyBiJCs8UAvIgp15wfEJjBtKTDvNocg1/+GBYijcr9PdjbU1q7fDEdpH0AKxrrAz8XrNht8dtWzdg==}
 
   '@magnit-ce/editable-list@0.0.11':
     resolution: {integrity: sha512-MMlsV+atevlflb3cE79L3WAFxS7H/j2BKZEHS93Z7I+qNNzW3DYEh9QFDmTBxLH+ebq/XZxu/jOvDHeQf0o/9A==}
@@ -321,8 +321,8 @@ packages:
   '@magnit-ce/path-router@0.2.8':
     resolution: {integrity: sha512-g9VsyBpEqbxYB3IJG+HVE/JKR9yBMiYwMpglsuAsJk8fXq1fPeNjEPZXIdp+bTsuWlR4PCk+phhK2oGq54w6lw==}
 
-  '@magnit-ce/record-tree@0.0.14':
-    resolution: {integrity: sha512-TBqEtrO/bgXDDgXuzRvmGeH09x4KQOFb+kEkcCKAPsm7SW1yDcBt++CpAW4y8vp+P5UPRNQTaC+PXLovSGpNEg==}
+  '@magnit-ce/record-tree@0.0.15':
+    resolution: {integrity: sha512-bjXW/Fa+geKZVVkBFkbAqHg4cJ36qc+jrGp2Ig876welS1SZgZYdFRevFAwse42ATg/dZZ+yPfMvTukXLoBlXA==}
 
   '@magnit-ce/selectable-items@0.1.4':
     resolution: {integrity: sha512-lP4lKa94km4SELgd28o7oepI5Y8iI2auuXmXcwo8uuviLDiLGObQIdRM1AXEobDo90RVu8QMp2d6nVklfvFaUg==}
@@ -1675,7 +1675,7 @@ snapshots:
     dependencies:
       '@magnit-ce/selectable-items': 0.1.4
 
-  '@magnit-ce/collection-filter@0.0.7': {}
+  '@magnit-ce/collection-filter@0.0.9': {}
 
   '@magnit-ce/editable-list@0.0.11': {}
 
@@ -1687,7 +1687,7 @@ snapshots:
 
   '@magnit-ce/path-router@0.2.8': {}
 
-  '@magnit-ce/record-tree@0.0.14': {}
+  '@magnit-ce/record-tree@0.0.15': {}
 
   '@magnit-ce/selectable-items@0.1.4': {}
 

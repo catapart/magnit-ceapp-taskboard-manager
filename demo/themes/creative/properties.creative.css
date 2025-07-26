@@ -1,6 +1,6 @@
 @media (prefers-color-scheme: light) 
 {
-    taskboard-manager[data-theme="course"] 
+    taskboard-manager[data-theme="creative"] 
     {
         --accent-1: oklch(74.61% 0.171 253.56); /* primary */
         --accent-2: oklch(52.49% 0.113 253.98); /* dark */
@@ -76,7 +76,7 @@
 }
 @media (prefers-color-scheme: dark) {
     
-    taskboard-manager[data-theme="course"] 
+    taskboard-manager[data-theme="creative"] 
     {
 
         --accent-1: oklch(74.61% 0.171 253.56); /* primary */
@@ -259,7 +259,7 @@
     }
 }
 
-taskboard-manager[data-theme="course"]
+taskboard-manager[data-theme="creative"]
 {
 
     --brand-1: var(--accent-1);; /* primary */

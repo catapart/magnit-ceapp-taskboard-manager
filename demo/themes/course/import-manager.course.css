@@ -4,11 +4,18 @@ taskboard-manager[data-theme="course"]::part(import-board-data-fieldset)
     gap: var(--gap-small);
     overflow-y: auto;
     --size: 12px;
+
+    color: var(--text-surface);
+    --properties-highlight: var(--accent-0);
 }
 
-taskboard-manager[data-theme="course"]::part(import-target-collection)
+taskboard-manager[data-theme="course"]::part(import-target-details)
 {
-    color: var(--text-surface);
+}
+taskboard-manager[data-theme="course"]::part(removed)
+{
+    --properties-highlight: var(--text-import-remove-button);
+    color: var(--text-import-remove-button);
 }
 taskboard-manager[data-theme="course"]::part(import-target-summary top)
 {
@@ -56,16 +63,12 @@ taskboard-manager[data-theme="course"]::part(import-target-summary)
     display: flex;
     gap: var(--gap-small);
 }
-taskboard-manager[data-theme="course"]::part(import-target-collection removed)
-{
-    color: var(--text-remove-button);
-}
 taskboard-manager[data-theme="course"]::part(import-target-remove)
 {
     padding: 3px 7px;
-    --icon-primary-color: var(--text-remove-button);
+    --icon-primary-color: var(--text-import-remove-button);
 }
-taskboard-manager[data-theme="course"]::part(undo-redo)
+taskboard-manager[data-theme="course"]::part(import-target-undo)
 {
     --icon-primary-color: var(--text-surface);
 }
@@ -78,7 +81,7 @@ taskboard-manager[data-theme="course"]::part(import-target-details import-target
 taskboard-manager[data-theme="course"]::part(import-target-details import-target-properties)
 ,taskboard-manager[data-theme="course"]::part(import-target-details import-target-properties):hover
 {
-    border-top: solid 2px var(--accent-0);
+    border-top: solid 2px var(--properties-highlight);
 }
 
 taskboard-manager[data-theme="course"]::part(import-target-name)

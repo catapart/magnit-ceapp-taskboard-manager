@@ -1,0 +1,26 @@
+taskboard-manager[data-theme="creative"]::part(welcome-fieldset)
+{
+    padding: 2rem;
+}
+
+taskboard-manager[data-theme="creative"]::part(board recent)
+{
+    grid-template-columns: 1fr auto;
+}
+
+taskboard-manager[data-theme="creative"]::part(board recent):hover::before
+{
+    grid-column: 1 / 2;
+    /* translate: 0; */
+    width: calc(100% + (.375em * 2) + (var(--small-gap) * 2));
+}
+
+taskboard-manager[data-theme="creative"]::part(board-item-name recent)
+{
+    grid-column: 1;
+}
+
+taskboard-manager[data-theme="creative"]::part(recent-board-remove-button)
+{
+    grid-row: 1;
+}
