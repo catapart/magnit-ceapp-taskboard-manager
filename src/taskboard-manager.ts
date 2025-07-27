@@ -322,7 +322,7 @@ export class TaskboardManagerElement extends HTMLElement
 
     async clearData()
     {
-        this.findElement<ConfigPanelElement>('config-panel').clearData();
+        return this.findElement<ConfigPanelElement>('config-panel').clearData();
     }
     // async clearHistory()
     // {

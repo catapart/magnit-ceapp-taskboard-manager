@@ -105,7 +105,7 @@ export class ConfigPanelElement extends HTMLElement
     }
     async clearData()
     {
-        this.findElement<DataPanelElement>('data-panel').clearData();
+        return this.findElement<DataPanelElement>('data-panel').clearData();
     }
 }
 
