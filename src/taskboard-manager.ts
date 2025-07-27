@@ -648,7 +648,8 @@ export class TaskboardManagerElement extends HTMLElement
 
         content.append(messageText, messageButton);
         const notification = MessageCardElement.prepare(content, this.findElement('notifications'), { type: MessageCardType.Success, heading: "Success!" });
-        notification.part.add('notification');
+        notification.part.add('message-card', 'notification');
+        notification.setAttribute('exportparts', 'message-icon,header:message-header,heading:message-heading,message,close-button:message-close-button,close-icon:message-close-icon,duration:message-duration');
         notification.classList.add('notification');
         messageButton.addEventListener('click', () =>
         {

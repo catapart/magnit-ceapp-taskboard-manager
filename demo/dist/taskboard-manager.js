@@ -60,6 +60,7 @@ button svg\r
     --button-icon-size: var(--icon-size);\r
     --dialog-margin: 10px;\r
     --dialog-header-icon-size: 16px;\r
+    --placeholder-color: #757575;\r
 \r
     --task-width: auto;\r
 }\r
@@ -2962,7 +2963,7 @@ var app_menu_default = `#app-menu\r
 }`;
 
 // src/components/app-menu/app-menu.html?raw
-var app_menu_default2 = '<menu id="app-menu" class="menu">\r\n    <header id="app-menu-header" class="header">\r\n        <div id="app-menu-branding" class="branding" title="Manager Icon">\r\n            <svg class="icon logo mark" alt="Manager Brand Mark">\r\n                <use href="#icon-definition_logo-mark"></use>\r\n            </svg>\r\n        </div>\r\n        <button id="find-board-button" class="button" type="button" data-route="#boards" title="Find Board">\r\n            <svg class="icon button-icon magnifying-glass">\r\n                <use href="#icon-definition_magnifying-glass"></use>\r\n            </svg>\r\n            <span class="button-label">Find Board</span>\r\n        </button>\r\n        <button id="open-settings-button" class="button icon-button" type="button" data-route="#config/settings" title="App Administration">\r\n            <svg class="icon button-icon gear">\r\n                <use href="#icon-definition_gear"></use>\r\n            </svg>\r\n        </button>\r\n    </header>\r\n    <editable-list id="boards" remove="false" edit="true" edit-class="button board-edit-button icon-button" exportparts="items: board-items">\r\n        <slot></slot>\r\n        <button id="new-board-button" class="button new-board-button label-button" type="button" slot="add" title="New Board">\r\n            <svg class="icon button-icon plus" >\r\n                <use href="#icon-definition_plus"></use>\r\n            </svg>\r\n            <span class="label button-label">New Board</span>\r\n        </button>\r\n        <template part="edit-button">\r\n            <svg class="icon button-icon expand">\r\n                <use href="#icon-definition_stylus"></use>\r\n            </svg>\r\n        </template>\r\n    </editable-list>\r\n</menu>\r\n';
+var app_menu_default2 = '<menu id="app-menu" class="menu">\r\n    <header id="app-menu-header" class="header">\r\n        <div id="app-menu-branding" class="branding" title="Manager Icon">\r\n            <svg class="icon logo mark" alt="Manager Brand Mark">\r\n                <use href="#icon-definition_logo-mark"></use>\r\n            </svg>\r\n        </div>\r\n        <button id="find-board-button" class="button" type="button" data-route="#boards" title="Find Board">\r\n            <svg class="icon button-icon magnifying-glass">\r\n                <use href="#icon-definition_magnifying-glass"></use>\r\n            </svg>\r\n            <span class="button-label">Find Board</span>\r\n        </button>\r\n        <button id="open-settings-button" class="button icon-button" type="button" data-route="#config/settings" title="App Administration">\r\n            <svg class="icon button-icon gear">\r\n                <use href="#icon-definition_gear"></use>\r\n            </svg>\r\n        </button>\r\n    </header>\r\n    <editable-list id="boards" placeholder="[No boards found]" remove="false" edit="true" edit-class="button board-edit-button icon-button" exportparts="items: board-items">\r\n        <slot></slot>\r\n        <button id="new-board-button" class="button new-board-button label-button" type="button" slot="add" title="New Board">\r\n            <svg class="icon button-icon plus" >\r\n                <use href="#icon-definition_plus"></use>\r\n            </svg>\r\n            <span class="label button-label">New Board</span>\r\n        </button>\r\n        <template part="edit-button">\r\n            <svg class="icon button-icon expand">\r\n                <use href="#icon-definition_stylus"></use>\r\n            </svg>\r\n        </template>\r\n    </editable-list>\r\n</menu>\r\n';
 
 // node_modules/.pnpm/@magnit-ce+message-card@0.0.3/node_modules/@magnit-ce/message-card/dist/message-card.js
 var message_card_default = '\n:host([type="info"])    { --primary-color:#0184db; }\n:host([type="success"]) { --primary-color:#20a453; }\n:host([type="warning"]) { --primary-color:#f0cb52; }\n:host([type="error"])   { --primary-color:#db283b; }\n:host([type="aside"])   { --primary-color:#1f3cd0; }\n:host([type="note"])    { --primary-color:#db8630; }\n:host([type="report"])  { --primary-color:#4d5168; }\n\n@media (prefers-color-scheme: dark) \n{\n    :host([type="info"])    { --primary-color:#3baee9; }\n    :host([type="success"]) { --primary-color:#4fc872; }\n    :host([type="warning"]) { --primary-color:#f0cb52; }\n    :host([type="error"])   { --primary-color:#e95a5c; }\n    :host([type="aside"])   { --primary-color:#3760ff; }\n    :host([type="note"])    { --primary-color:#e9ac60; }\n    :host([type="report"])  { --primary-color:#707177; }\n}\n\n:host\n{\n    --primary-color: graytext;\n    --font-color: fieldtext;\n    background-color: var(--background-color, field);\n    color: var(--font-color);\n    border: solid 1px var(--primary-color);\n    border-radius: 3px;\n    padding: .5em;\n    display: none;\n    font-family: sans-serif;\n    font-size: 12px;\n    position: relative;\n\n    grid-template-columns: auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n:host([open])\n{\n    display: grid;\n}\n\n[part="message-icon"]\n,::slotted([slot="message-icon"])\n{\n    align-self: center;\n    grid-row: span 2;\n    margin-right: 1em;\n}\n\n[part="heading"]\n,::slotted([slot="heading"])\n{\n    color: var(--primary-color);\n    font-weight: bold;\n    font-size: 13px;\n    align-self: center;\n    display: inline-block;\n}\n\n[part="message"]\n{\n    grid-row: 2;\n    grid-column: 2;\n    margin-top: .3em;\n}\n\nsvg path { fill: var(--primary-color); }\n\n:host([prevent-close]) [part="close-button"]\n{\n    display: none;\n}\n[part="close-button"]\n{\n    align-self: center;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n    background: none;\n    padding: 2px 5px;\n    margin: 0;\n    border: solid 1px transparent;\n    border-radius: 3px;\n}\n[part="close-button"]:hover\n{\n    background-color: rgb(0 0 0 / .05);\n    border-color: rgb(0 0 0 / .1);\n}\n@media (prefers-color-scheme: dark) \n{\n    [part="close-button"]:hover\n    {\n        background-color: rgb(0 0 0 / .4);\n        border-color: rgb(0 0 0 / .7);\n    }\n}\n[part="close-icon"]\n,::slotted([slot="close-icon"])\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}\n\n[part="duration"]\n{\n    width: 100%;\n    position: absolute;\n    bottom: 0;\n    appearance: none;\n    height: 2px;\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n    border: none;\n    transition: all 50ms ease;\n    accent-color: var(--primary-color);\n}\n\n[part="duration"]::-webkit-progress-value\n{\n    background-color: var(--primary-color, canvastext);\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n}\n\n[part="duration"]::-webkit-progress-bar\n{\n    background: none;\n}\n[part="duration"]::-moz-progress-bar\n{\n    background-color: var(--primary-color, canvastext);\n}\n\n:host(:not([duration])) [part="duration"]\n{\n    display: none;\n}\n\n/* progress {\n}\nprogress::-webkit-progress-bar {\n}\nprogress::-webkit-progress-value {\n}\nprogress::-moz-progress-bar {\n} */';
@@ -3301,13 +3302,17 @@ var FeedbackService = class _FeedbackService {
     });
   }
   static showMessageCard(message, type) {
-    MessageCardElement.notify(message, _FeedbackService.#manager.getElement("notifications"), { type });
+    const card = MessageCardElement.notify(message, _FeedbackService.#manager.getElement("notifications"), { type });
+    card.part.add("message-card");
+    card.setAttribute("exportparts", "message-icon,header:message-header,heading:message-heading,message,close-button:message-close-button,close-icon:message-close-icon,duration:message-duration");
   }
   static showErrorMessageCard(message) {
     _FeedbackService.showMessageCard(message, MessageCardType.Error);
   }
   static showMessageCard_customTitle(message, type, title) {
-    MessageCardElement.notify(message, _FeedbackService.#manager.getElement("notifications"), { type, heading: title });
+    const card = MessageCardElement.notify(message, _FeedbackService.#manager.getElement("notifications"), { type, heading: title });
+    card.part.add("message-card");
+    card.setAttribute("exportparts", "message-icon,header:message-header,heading:message-heading,message,close-button:message-close-button,close-icon:message-close-icon,duration:message-duration");
   }
 };
 
@@ -5520,7 +5525,7 @@ if (customElements.get(COMPONENT_TAG_NAME7) == null) {
 var welcome_panel_default = ":host\r\n{\r\n    align-self: center;\r\n    justify-self: center;\r\n    padding: 1em;\r\n}\r\n\r\n#recent-boards\r\n{\r\n    display: grid;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n#recent-boards::part(items)\r\n{\r\n    display: grid;\r\n    \r\n}\r\n#recent-boards a\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 3px 7px;\r\n}\r\n#recent-boards a:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n#new-board-button\r\n{\r\n    text-align: center;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    margin: 10px;\r\n}\r\n\r\n#logo\r\n{\r\n    width: 100%;\r\n    height: 80px;\r\n}";
 
 // src/components/welcome-panel/welcome-panel.html?raw
-var welcome_panel_default2 = '<fieldset id="welcome-fieldset">\r\n    <legend id="welcome-legend">Welcome</legend>\r\n    <header id="welcome-header" class="panel-header">\r\n        <svg id="welcome-logo" class="logo">\r\n            <use href="#icon-definition_logo"></use>\r\n        </svg>\r\n    </header>\r\n    <div id="welcome-description" class="description">\r\n        <p id="welcome-text" class="text">Welcome to your Taskboard Manager!</p>\r\n        <p id="create-text" class="text">Create a <a id="new-board-link" class="link">new board</a>, or select a recently-opened board below.</p>\r\n    </div>\r\n    <fieldset id="recent-fieldset">\r\n        <legend id="recent-legend">Recent Boards</legend>\r\n        <editable-list id="recent-boards" remove-class="button recent-board-remove-button icon-button" exportparts="edit:edit-button, handle: edit-handle, button, remove:remove-button">\r\n            <slot></slot>\r\n            <button type="button" slot="add" id="new-board-button" class="new-board-button label-button" title="New Board">\r\n                <svg class="icon plus" >\r\n                    <use href="#icon-definition_plus"></use>\r\n                </svg>\r\n                <span class="label">New Board</span>\r\n            </button>\r\n            <template part="remove-button">\r\n                <svg class="icon button-icon remove">\r\n                    <use href="#icon-definition_close-cross"></use>\r\n                </svg>\r\n            </template>\r\n        </editable-list>\r\n    </fieldset>\r\n</fieldset>';
+var welcome_panel_default2 = '<fieldset id="welcome-fieldset">\r\n    <legend id="welcome-legend">Welcome</legend>\r\n    <header id="welcome-header" class="panel-header">\r\n        <svg id="welcome-logo" class="logo">\r\n            <use href="#icon-definition_logo"></use>\r\n        </svg>\r\n    </header>\r\n    <div id="welcome-description" class="description">\r\n        <p id="welcome-text" class="text">Welcome to your Taskboard Manager!</p>\r\n        <p id="create-text" class="text">Create a <a id="new-board-link" class="link">new board</a>, or select a recently-opened board below.</p>\r\n    </div>\r\n    <fieldset id="recent-fieldset">\r\n        <legend id="recent-legend">Recent Boards</legend>\r\n        <editable-list id="recent-boards" placeholder="[No recently opened boards found]" remove-class="button recent-board-remove-button icon-button" exportparts="edit:edit-button, handle: edit-handle, button, remove:remove-button, items:recent-board-items">\r\n            <slot></slot>\r\n            <button type="button" slot="add" id="new-board-button" class="new-board-button label-button recent" title="New Board">\r\n                <svg class="icon plus recent" >\r\n                    <use href="#icon-definition_plus"></use>\r\n                </svg>\r\n                <span class="label">New Board</span>\r\n            </button>\r\n            <template part="remove-button">\r\n                <svg class="icon button-icon remove recent">\r\n                    <use href="#icon-definition_close-cross"></use>\r\n                </svg>\r\n            </template>\r\n        </editable-list>\r\n    </fieldset>\r\n</fieldset>';
 
 // src/components/welcome-panel/welcome-panel.ts
 var WelcomePanelAttributes = /* @__PURE__ */ ((WelcomePanelAttributes2) => {
@@ -7453,20 +7458,23 @@ var ConfigPanelElement = class extends HTMLElement {
     return this.findElement("history-panel").addActionHistoryEntry(action, type, properties);
   }
   async clearData() {
-    this.findElement("data-panel").clearData();
+    return this.findElement("data-panel").clearData();
   }
 };
 if (customElements.get(COMPONENT_TAG_NAME15) == null) {
   customElements.define(COMPONENT_TAG_NAME15, ConfigPanelElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+editable-list@0.0.11/node_modules/@magnit-ce/editable-list/dist/editable-list.mjs
+// node_modules/.pnpm/@magnit-ce+editable-list@0.1.1/node_modules/@magnit-ce/editable-list/dist/editable-list.js
 var IGNORED_TAGS = /* @__PURE__ */ new Set([
   "style",
   "template"
 ]);
-var HTML = `<div id="${"items"}"><slot id="${"items-slot"}"></slot></div>
-<slot name="add"><button id="${"add"}" class="button" type="button">&plus;</button></slot>`;
+var HTML = `<div id="${"items"}" part="${"items"}">
+    <div id="${"placeholder"}" part="${"placeholder"}"></div>
+    <slot id="${"items-slot"}" part="${"items-slot"}"></slot>
+</div>
+<slot name="add"><button id="${"add"}" part="${"add"}" type="button">&plus;</button></slot>`;
 var STYLE = `
 * { box-sizing: border-box; }
 :host
@@ -7480,7 +7488,12 @@ var STYLE = `
     margin-inline-end: 0px;
     padding-inline-start: 40px;
     /* end default ul styles */
-}`;
+}
+:host(:not(.empty)) #${"placeholder"}
+{
+    display: none;
+}
+`;
 var COMPONENT_STYLESHEET15 = new CSSStyleSheet();
 COMPONENT_STYLESHEET15.replaceSync(STYLE);
 var COMPONENT_TAG_NAME16 = "editable-list";
@@ -7492,16 +7505,6 @@ var EditableListElement = class extends HTMLElement {
   #boundEventHandlers = /* @__PURE__ */ new Map([
     ["add", this.#addButton_onClick.bind(this)]
   ]);
-  componentParts = /* @__PURE__ */ new Map();
-  getElement(id) {
-    if (this.componentParts.get(id) == null) {
-      const part = this.findElement(id);
-      if (part != null) {
-        this.componentParts.set(id, part);
-      }
-    }
-    return this.componentParts.get(id);
-  }
   findElement(id) {
     return this.shadowRoot.getElementById(id);
   }
@@ -7537,11 +7540,21 @@ var EditableListElement = class extends HTMLElement {
       "add"
       /* AddButton */
     )?.addEventListener("click", this.#boundEventHandlers.get("add"));
-    this.getElement(
+    this.findElement(
       "items-slot"
       /* ItemsSlot */
     ).addEventListener("slotchange", this.#updateItemButtons.bind(this));
-    this.#applyPartAttributes();
+    const children = this.findElement(
+      "items-slot"
+      /* ItemsSlot */
+    ).assignedElements();
+    if (children.length == 0) {
+      this.classList.add("empty");
+      this.part.add("empty");
+    } else {
+      this.classList.remove("empty");
+      this.part.remove("empty");
+    }
   }
   #applyPartAttributes() {
     const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
@@ -7585,10 +7598,17 @@ var EditableListElement = class extends HTMLElement {
    * Iterate through slot children to add buttons and listeners where applicable.
    */
   #updateItemButtons() {
-    const children = this.getElement(
+    const children = this.findElement(
       "items-slot"
       /* ItemsSlot */
     ).assignedElements();
+    if (children.length == 0) {
+      this.classList.add("empty");
+      this.part.add("empty");
+    } else {
+      this.classList.remove("empty");
+      this.part.remove("empty");
+    }
     for (let i = 0; i < children.length; i++) {
       const target = children[i];
       if (IGNORED_TAGS.has(target.tagName.toLowerCase())) {
@@ -7652,7 +7672,8 @@ var EditableListElement = class extends HTMLElement {
   }
   static observedAttributes = [
     "remove",
-    "edit"
+    "edit",
+    "placeholder"
   ];
   /**
    * Update items to new configuration when attributes change
@@ -7675,6 +7696,8 @@ var EditableListElement = class extends HTMLElement {
         this.canEdit = true;
       }
       this.#updateItemButtons();
+    } else if (attributeName == "placeholder") {
+      this.findElement("placeholder").textContent = newValue;
     }
   }
 };
@@ -10523,7 +10546,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     });
   }
   async clearData() {
-    this.findElement("config-panel").clearData();
+    return this.findElement("config-panel").clearData();
   }
   // async clearHistory()
   // {
@@ -10763,7 +10786,8 @@ var TaskboardManagerElement = class extends HTMLElement {
     messageButton.type = "button";
     content.append(messageText, messageButton);
     const notification = MessageCardElement.prepare(content, this.findElement("notifications"), { type: MessageCardType.Success, heading: "Success!" });
-    notification.part.add("notification");
+    notification.part.add("message-card", "notification");
+    notification.setAttribute("exportparts", "message-icon,header:message-header,heading:message-heading,message,close-button:message-close-button,close-icon:message-close-icon,duration:message-duration");
     notification.classList.add("notification");
     messageButton.addEventListener("click", () => {
       const entry = this.getElement("action-history").querySelector(`[data-entry-id="${entryId}"]`);

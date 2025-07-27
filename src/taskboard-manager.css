@@ -47,6 +47,7 @@ button svg
     --button-icon-size: var(--icon-size);
     --dialog-margin: 10px;
     --dialog-header-icon-size: 16px;
+    --placeholder-color: #757575;
 
     --task-width: auto;
 }

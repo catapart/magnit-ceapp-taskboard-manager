@@ -1,3 +1,7 @@
+taskboard-manager[data-theme="course"]::part(welcome-page)
+{
+    padding: var(--small-gap);
+}
 taskboard-manager[data-theme="course"]::part(welcome-fieldset)
 {
     padding: 2rem;

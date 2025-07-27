@@ -7,11 +7,6 @@ taskboard-manager[data-theme="course"]
     font-weight: 400;
     font-size: 14px;
 }
-/* debug */
-taskboard-manager[data-theme="course"]
-{
-    margin: 3em;
-}
 taskboard-manager[data-theme="course"]
 {
     /* --accent-0: #f4f9f4;
@@ -143,7 +138,6 @@ taskboard-manager[data-theme="course"]::part(page)
     border: var(--border-panel);
     border-radius: var(--border-radius-panel);
 
-    padding: var(--small-gap);
     gap: var(--small-gap);
 }
 

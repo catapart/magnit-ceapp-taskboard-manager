@@ -1,7 +1,7 @@
 lockfileVersion: '9.0'
 
 settings:
-  autoInstallPeers: true
+  autoInstallPeers: false
   excludeLinksFromLockfile: false
 
 importers:
@@ -21,8 +21,8 @@ importers:
         specifier: ^0.0.9
         version: 0.0.9
       '@magnit-ce/editable-list':
-        specifier: ^0.0.11
-        version: 0.0.11
+        specifier: ^0.1.1
+        version: 0.1.1
       '@magnit-ce/fileimage-input':
         specifier: ^0.0.4
         version: 0.0.4
@@ -306,8 +306,8 @@ packages:
   '@magnit-ce/collection-filter@0.0.9':
     resolution: {integrity: sha512-zrZkys9wCJyBiJCs8UAvIgp15wfEJjBtKTDvNocg1/+GBYijcr9PdjbU1q7fDEdpH0AKxrrAz8XrNht8dtWzdg==}
 
-  '@magnit-ce/editable-list@0.0.11':
-    resolution: {integrity: sha512-MMlsV+atevlflb3cE79L3WAFxS7H/j2BKZEHS93Z7I+qNNzW3DYEh9QFDmTBxLH+ebq/XZxu/jOvDHeQf0o/9A==}
+  '@magnit-ce/editable-list@0.1.1':
+    resolution: {integrity: sha512-Y3vDrTa2FGb+rRS/e15G04Ky356z5t/XbnlqmvBbkLnLn7deDpuiIWSyN2B5BXwEtd74x9x2XQPnYyjM085Vmw==}
 
   '@magnit-ce/fileimage-input@0.0.4':
     resolution: {integrity: sha512-WrpuOlEzIeG84Y3+Z0iZGLkl/CJQAKGr61JqQ2t4knz5kUX6FFl/Zgvo8ltaM4T6mZkiizYESYjLPvQdCW2Bzg==}
@@ -1605,7 +1605,7 @@ snapshots:
 
   '@magnit-ce/collection-filter@0.0.9': {}
 
-  '@magnit-ce/editable-list@0.0.11': {}
+  '@magnit-ce/editable-list@0.1.1': {}
 
   '@magnit-ce/fileimage-input@0.0.4': {}
 
