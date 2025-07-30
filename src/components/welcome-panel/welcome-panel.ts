@@ -31,6 +31,7 @@ ${defineIcons(
     IconType.LogoType,
     IconType.Logo,
     IconType.PlusIcon,
+    IconType.CloseCross,
 )}`;
 
 const COMPONENT_TAG_NAME = 'welcome-panel';
@@ -84,7 +85,7 @@ export class WelcomePanelElement extends HTMLElement
         const menuItems: HTMLAnchorElement[] = boards
         .map(item => this.#createBoardMenuItem(item));
         this.innerHTML = "";
-        this.append(...menuItems);
+        this.findElement('recent-boards').append(...menuItems);
     }
 
     async addBoardToRecentBoards(id: string, description: string)

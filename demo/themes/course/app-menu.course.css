@@ -23,6 +23,7 @@ taskboard-manager[data-theme="course"]::part(board)
     grid-template-rows: 1fr;
     gap: var(--small-gap);
     --grip-color: var(--border-outline);
+    align-items: center;
 }
 taskboard-manager[data-theme="course"]::part(board):hover
 {

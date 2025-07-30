@@ -11,8 +11,7 @@
     </div>
     <fieldset id="recent-fieldset">
         <legend id="recent-legend">Recent Boards</legend>
-        <editable-list id="recent-boards" placeholder="[No recently opened boards found]" remove-class="button recent-board-remove-button icon-button" exportparts="edit:edit-button, handle: edit-handle, button, remove:remove-button, items:recent-board-items">
-            <slot></slot>
+        <editable-list id="recent-boards" placeholder="[No recently opened boards found]" remove-class="button recent-board-remove-button icon-button" exportparts="edit:edit-button, handle: edit-handle, button, remove:remove-button, items:recent-board-items, placeholder">
             <button type="button" slot="add" id="new-board-button" class="new-board-button label-button recent" title="New Board">
                 <svg class="icon plus recent" >
                     <use href="#icon-definition_plus"></use>

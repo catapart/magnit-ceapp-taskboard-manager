@@ -248,3 +248,8 @@ taskboard-manager[data-theme="course"]::part(handle)
     height: 24px;
     translate: 0 2px;
 }
+
+taskboard-manager[data-theme="course"]::part(placeholder)
+{
+    padding: var(--small-gap);
+}

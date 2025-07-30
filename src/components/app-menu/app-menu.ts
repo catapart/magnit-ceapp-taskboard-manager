@@ -24,7 +24,8 @@ ${defineIcons(
     IconType.LogoMark,
     IconType.MagnifyingGlass,
     IconType.Gear,
-    IconType.PlusIcon
+    IconType.PlusIcon,
+    IconType.Stylus
 )}`;
 
 const COMPONENT_TAG_NAME = 'app-menu';
@@ -76,7 +77,7 @@ export class AppMenuElement extends HTMLElement
 
         // menu items
         this.innerHTML = '';
-        this.append(...menuItems);
+        this.findElement('boards').append(...menuItems);
     }
     //#endregion
     
@@ -183,7 +184,7 @@ export class AppMenuElement extends HTMLElement
                     cancel();
 
                     
-                    const boards = [...this.querySelectorAll('a')] as HTMLElement[];
+                    const boards = [...this.shadowRoot!.querySelectorAll('a')] as HTMLElement[];
                     for(let i = 0; i < boards.length; i++)
                     {
                         boards[i].classList.remove('selected');
@@ -264,7 +265,7 @@ export class AppMenuElement extends HTMLElement
     }
     #getNextBoardItem(mouseY: number)
     {
-        const lists = [...this.querySelectorAll('a:not(.dragging)')] as HTMLElement[];
+        const lists = [...this.shadowRoot!.querySelectorAll('a:not(.dragging)')] as HTMLElement[];
         return lists.reduce((closest: { offset: number, boardElement?:HTMLElement }, item: HTMLElement) =>
         {
             const boundingRect = item.getBoundingClientRect();
@@ -287,7 +288,7 @@ export class AppMenuElement extends HTMLElement
     async #getOrderedBoards()
     {
         const orderedIds: string[] = [];
-        const boardItems = [...this.querySelectorAll('a.board')] as HTMLElement[];
+        const boardItems = [...this.shadowRoot!.querySelectorAll('a.board')] as HTMLElement[];
         for(let i = 0; i < boardItems.length; i++)
         {
             const boardItem = boardItems[i];

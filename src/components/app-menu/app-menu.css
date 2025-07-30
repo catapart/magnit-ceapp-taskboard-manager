@@ -43,6 +43,52 @@
     margin: 0;
     padding: 0;
 }
+#boards::part(placeholder)
+{
+    color: var(--placeholder-color);
+    text-align: center;
+}
+
+
+.board
+{
+    user-select: none;
+}
+a.board
+{
+    margin: 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: .25em;
+    padding: .25em 1em;
+}
+a.board .name
+{
+    flex: 1;
+}
+a.board:hover
+{
+    background: highlight;
+    color: highlighttext;
+}
+a.board[aria-current="page"]
+{
+    background: highlight;
+    color: highlighttext;
+}
+
+
+.edit
+{
+    opacity: 0;
+}
+.board:hover .edit
+,.board[aria-current="page"] .edit
+,.board .edit:focus
+{
+    opacity: 1;
+}
 
 @media (max-width: 665px) 
 {
@@ -89,6 +135,35 @@
         box-shadow: inset -10px 0 10px -10px rgb(0 0 0 / .8);
     }
 
+    a.board [part="edit"]
+    {
+        display: none;
+    }
+
+    
+    .menu-item-handle
+    {
+        display: flex;
+        width: 10px;
+        align-self: stretch;
+        cursor: grab;
+        /* border-radius: 3px; */
+        transform: translateY(-1px);
+        
+        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);
+        background-size: 5px 6px;
+        background-position: 0 0, 2px 4px;
+    }
+    .menu-item-handle:active
+    {
+        cursor: grabbing;
+    }
+
+    .board .edit
+    {
+        display: none;
+    }
+
     #new-board-button
     {
         display: flex;
@@ -133,6 +208,31 @@
         overflow-y: auto;
         overflow-x: hidden;
         grid-auto-rows: max-content;
+    }
+
+    .menu-item-handle
+    ,a.board [part="edit"]
+    {
+        opacity: 0;
+        transition: opacity 200ms ease;
+    }
+    .menu-item-handle
+    ,a.board:hover [part="edit"]
+    {
+        opacity: 1;
+    }
+
+    a.board [part="edit"]:hover
+    {
+        opacity: 1;
+    }
+
+    a.board .board-item-name
+    {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     #new-board-button

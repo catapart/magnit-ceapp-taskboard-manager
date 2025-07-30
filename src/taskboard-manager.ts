@@ -1,6 +1,5 @@
 // styles
 import sharedStyles from './styles/shared.css?raw';
-import boardItemStyles from './components/app-menu/board-item.global.css?raw';
 import browserItemStyles from './components/board-browser/browser-item.global.css?raw';
 
 import settingsStyle from './styles/settings.css?raw';
@@ -67,7 +66,6 @@ const DEFAULT_APP_VERSION = "--.--.--";
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
-${boardItemStyles}
 ${browserItemStyles}
 ${settingsStyle}
 ${componentStyle}`);
