@@ -140,24 +140,6 @@ a.board[aria-current="page"]
         display: none;
     }
 
-    
-    .menu-item-handle
-    {
-        display: flex;
-        width: 10px;
-        align-self: stretch;
-        cursor: grab;
-        /* border-radius: 3px; */
-        transform: translateY(-1px);
-        
-        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);
-        background-size: 5px 6px;
-        background-position: 0 0, 2px 4px;
-    }
-    .menu-item-handle:active
-    {
-        cursor: grabbing;
-    }
 
     .board .edit
     {
@@ -208,6 +190,24 @@ a.board[aria-current="page"]
         overflow-y: auto;
         overflow-x: hidden;
         grid-auto-rows: max-content;
+    }
+    
+    .menu-item-handle
+    {
+        display: flex;
+        width: 10px;
+        align-self: stretch;
+        cursor: grab;
+        /* border-radius: 3px; */
+        transform: translateY(-1px);
+        
+        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);
+        background-size: 5px 6px;
+        background-position: 0 0, 2px 4px;
+    }
+    .menu-item-handle:active
+    {
+        cursor: grabbing;
     }
 
     .menu-item-handle

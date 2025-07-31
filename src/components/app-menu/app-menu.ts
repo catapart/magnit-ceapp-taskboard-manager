@@ -256,11 +256,11 @@ export class AppMenuElement extends HTMLElement
 
         if(nextElement == null)
         {
-            this.append(this.#draggingBoard);
+            this.findElement('boards').append(this.#draggingBoard);
         }
         else
         {
-            this.insertBefore(this.#draggingBoard, nextElement);
+            this.findElement('boards').insertBefore(this.#draggingBoard, nextElement);
         }
     }
     #getNextBoardItem(mouseY: number)

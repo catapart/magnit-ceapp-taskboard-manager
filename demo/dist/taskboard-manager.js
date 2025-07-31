@@ -399,7 +399,7 @@ dialog[open]
 }`;
 
 // src/taskboard-manager.html?raw
-var taskboard_manager_default2 = '<app-menu id="app-menu-container" exportparts="board,handle,menu-item-handle,board-item-name,edit,button,board-edit-button,icon-button,icon,button-icon-expand"></app-menu>\n<path-router id="app-router" path="">\n    <route-page id="welcome-page" class="page" path="">\n        <welcome-panel\n            id="welcome-panel"\n            exportparts="edit-button:recent-edit-button,handle:recent-edit-handle,board,recent,handle,menu-item-handle,board-item-name,edit,button,board-edit-button,icon-button,icon,button-icon-expand">\n        </welcome-panel>\n    </route-page>\n    <route-page id="board-page" class="page" path="board/:id" >\n        <task-board id="task-board" exportparts="lists:task-board-lists"></task-board>\n    </route-page>\n    <dialog id="board-browser-dialog" class="dialog" is="route-dialog" path="boards">\n        <board-browser\n            id="board-browser"\n            exportparts="regex,active">\n        </board-browser>\n    </dialog>\n    <dialog id="config-dialog" class="dialog" is="route-dialog" path="config">\n        <config-panel id="config-panel" exportparts="selected,deleted-item,action-history-entry,active">\n            <slot name="custom-settings" slot="custom-settings"></slot>\n        </config-panel>\n    </dialog>\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\n        <board-settings id="board-settings" exportparts="option-true"></board-settings>\n    </dialog>\n    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">\n        <import-manager\n            id="import-manager"\n            exportparts="preview: import-preview,\n                         content: import-dialog-content,\n                         removed,\n                         undo:import-target-undo"\n            ></import-manager>\n    </dialog>\n</path-router>\n<dialog id="confirmation-dialog" class="dialog">\n    <header id="confirmation-dialog-header" class="header dialog-header">\n        <svg id="confirmation-dialog-icon" class="icon">\n            <use href="#icon-definition_logo-mark"></use>\n        </svg>\n        <span id="confirmation-dialog-title" class="title">Confirmation</span>\n    </header>\n    <path-router id="confirmation-router" class="router">\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\n    </path-router>\n    <footer id="confirmation-dialog-footer" class="footer dialog-footer">\n        <form id="confirmation-dialog-form" method="dialog">\n            <button type="submit" id="confirmation-cancel-button" class="button action-button cancel">Cancel</button>\n            <button type="submit" id="confirmation-confirm-button" class="button action-button ok preferred-button">Confirm</button>\n        </form>\n    </footer>\n</dialog>\n<div id="notifications"></div>\n<div id="loading"></div>';
+var taskboard_manager_default2 = '<app-menu id="app-menu-container" exportparts="board,handle,menu-item-handle,board-item-name,edit,button,board-edit-button,icon-button,icon,button-icon-expand,longpress,selected"></app-menu>\n<path-router id="app-router" path="">\n    <route-page id="welcome-page" class="page" path="">\n        <welcome-panel\n            id="welcome-panel"\n            exportparts="edit-button:recent-edit-button,handle:recent-edit-handle,board,recent,handle,menu-item-handle,board-item-name,edit,add,button,board-edit-button,icon-button,icon,button-icon-expand">\n        </welcome-panel>\n    </route-page>\n    <route-page id="board-page" class="page" path="board/:id" >\n        <task-board id="task-board" exportparts="lists:task-board-lists"></task-board>\n    </route-page>\n    <dialog id="board-browser-dialog" class="dialog" is="route-dialog" path="boards">\n        <board-browser\n            id="board-browser"\n            exportparts="regex,active">\n        </board-browser>\n    </dialog>\n    <dialog id="config-dialog" class="dialog" is="route-dialog" path="config">\n        <config-panel id="config-panel" exportparts="selected,deleted-item,action-history-entry,active">\n            <slot name="custom-settings" slot="custom-settings"></slot>\n        </config-panel>\n    </dialog>\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\n        <board-settings id="board-settings" exportparts="option-true"></board-settings>\n    </dialog>\n    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">\n        <import-manager\n            id="import-manager"\n            exportparts="preview: import-preview,\n                         content: import-dialog-content,\n                         removed,\n                         undo:import-target-undo"\n            ></import-manager>\n    </dialog>\n</path-router>\n<dialog id="confirmation-dialog" class="dialog">\n    <header id="confirmation-dialog-header" class="header dialog-header">\n        <svg id="confirmation-dialog-icon" class="icon">\n            <use href="#icon-definition_logo-mark"></use>\n        </svg>\n        <span id="confirmation-dialog-title" class="title">Confirmation</span>\n    </header>\n    <path-router id="confirmation-router" class="router">\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\n    </path-router>\n    <footer id="confirmation-dialog-footer" class="footer dialog-footer">\n        <form id="confirmation-dialog-form" method="dialog">\n            <button type="submit" id="confirmation-cancel-button" class="button action-button cancel">Cancel</button>\n            <button type="submit" id="confirmation-confirm-button" class="button action-button ok preferred-button">Confirm</button>\n        </form>\n    </footer>\n</dialog>\n<div id="notifications"></div>\n<div id="loading"></div>';
 
 // src/assets/icons/cancel-cross.ts
 var CancelCross = `<svg id="icon-definition_cancel-cross" class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -2931,24 +2931,6 @@ a.board[aria-current="page"]
         display: none;
     }
 
-    
-    .menu-item-handle
-    {
-        display: flex;
-        width: 10px;
-        align-self: stretch;
-        cursor: grab;
-        /* border-radius: 3px; */
-        transform: translateY(-1px);
-        
-        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);
-        background-size: 5px 6px;
-        background-position: 0 0, 2px 4px;
-    }
-    .menu-item-handle:active
-    {
-        cursor: grabbing;
-    }
 
     .board .edit
     {
@@ -2999,6 +2981,24 @@ a.board[aria-current="page"]
         overflow-y: auto;
         overflow-x: hidden;
         grid-auto-rows: max-content;
+    }
+    
+    .menu-item-handle
+    {
+        display: flex;
+        width: 10px;
+        align-self: stretch;
+        cursor: grab;
+        /* border-radius: 3px; */
+        transform: translateY(-1px);
+        
+        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);
+        background-size: 5px 6px;
+        background-position: 0 0, 2px 4px;
+    }
+    .menu-item-handle:active
+    {
+        cursor: grabbing;
     }
 
     .menu-item-handle
@@ -5549,9 +5549,9 @@ var AppMenuElement = class extends HTMLElement {
       return;
     }
     if (nextElement == null) {
-      this.append(this.#draggingBoard);
+      this.findElement("boards").append(this.#draggingBoard);
     } else {
-      this.insertBefore(this.#draggingBoard, nextElement);
+      this.findElement("boards").insertBefore(this.#draggingBoard, nextElement);
     }
   }
   #getNextBoardItem(mouseY) {
@@ -5662,8 +5662,12 @@ var WelcomePanelElement = class extends HTMLElement {
   }
   updateBoards(boards) {
     const menuItems = boards.map((item) => this.#createBoardMenuItem(item));
-    this.innerHTML = "";
-    this.findElement("recent-boards").append(...menuItems);
+    const recentBoards = this.findElement("recent-boards");
+    const items = [...recentBoards.querySelectorAll("a")];
+    for (let i = 0; i < items.length; i++) {
+      items[i].remove();
+    }
+    recentBoards.append(...menuItems);
   }
   async addBoardToRecentBoards(id, description) {
     const boards = await this.#getRecentBoards();
@@ -10512,6 +10516,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     this.findElement("board-browser").updateBoards(boardRecords);
   }
   async openBoard(id) {
+    console.log(id);
     await this.closeBoard();
     await this.getElement("app-router").navigate(`board/${id}`);
   }
@@ -10528,7 +10533,7 @@ var TaskboardManagerElement = class extends HTMLElement {
   async closeBoard() {
     await this.findElement("app-router").navigate("/" + window.location.hash);
     this.getElement("task-board").innerHTML = "";
-    const selectedMenuItems = [...this.findElement("app-menu-container").querySelectorAll(`[aria-current]`)];
+    const selectedMenuItems = [...this.findElement("app-menu-container").shadowRoot.querySelectorAll(`[aria-current]`)];
     for (let i = 0; i < selectedMenuItems.length; i++) {
       selectedMenuItems[i].removeAttribute("aria-current");
       selectedMenuItems[i].classList.remove("selected");
@@ -10536,7 +10541,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     }
   }
   async addBoard() {
-    const order = this.findElement("app-menu-container").querySelectorAll("a").length;
+    const order = this.findElement("app-menu-container").shadowRoot.querySelectorAll("a").length;
     const board = await DataService.createBoard(order);
     await this.findElement("config-panel").addActionHistoryEntry(HistoryEntryType.Create, "board" /* Board */, { id: board.id });
     this.findElement("app-menu-container").refresh();
@@ -10571,7 +10576,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     return DataService.exportBoard(this, id);
   }
   async importBoard(boardData, errorMessage) {
-    const order = this.findElement("app-menu-container").querySelectorAll("a").length;
+    const order = this.findElement("app-menu-container").shadowRoot.querySelectorAll("a").length;
     return DataService.importBoard(boardData, order, errorMessage);
   }
   async removeBoard(boardId, confirm = true) {
@@ -10709,7 +10714,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     await boardsPromise;
     let boardIdIndex = windowPath.indexOf("board/");
     if (boardIdIndex > -1) {
-      const currentMenuItem = this.findElement("app-menu-container").querySelector(`[data-route="${windowPath}"]`);
+      const currentMenuItem = this.findElement("app-menu-container").shadowRoot.querySelector(`[data-route="${windowPath}"]`);
       if (currentMenuItem != null) {
         currentMenuItem.setAttribute("aria-current", "page");
         currentMenuItem.classList.add("selected");
@@ -10769,13 +10774,13 @@ var TaskboardManagerElement = class extends HTMLElement {
   async #saveSettingsTarget() {
     const settingsTarget = this.findElement("board-settings");
     const settingsTargetId = settingsTarget.getAttribute("record-id");
-    const boardItem = this.findElement("app-menu-container").querySelector(`a[data-route*="${settingsTargetId}"]`);
+    const boardItem = this.findElement("app-menu-container").shadowRoot.querySelector(`a[data-route*="${settingsTargetId}"]`);
     if (boardItem == null) {
       FeedbackService.showErrorMessageCard(`An error occurred saving a task board.`);
       console.error(`An error occurred finding the board's menu item.`);
       return;
     }
-    const order = [...this.shadowRoot.querySelectorAll("a")].indexOf(boardItem);
+    const order = [...this.findElement("app-menu-container").shadowRoot.querySelectorAll("a")].indexOf(boardItem);
     const [
       existingBoard,
       existingTaskLists,
@@ -11037,7 +11042,6 @@ var TaskboardManagerElement = class extends HTMLElement {
     const tasks = await DataService.getBoardTasks(id);
     await this.#renderBoardLists(taskBoard, tasks);
     const welcomePanel = this.findElement("welcome-panel");
-    await welcomePanel.addBoardToRecentBoards(id, board.name);
     welcomePanel.refresh();
   }
   async #renderBoardBackground(board) {
@@ -11334,12 +11338,14 @@ var TaskboardManagerElement = class extends HTMLElement {
     const currentPathArray = updatedPath.split("#");
     const pageRoute = currentPathArray[0];
     const hashRoute = currentPathArray[1];
-    const items = [...this.findElement("app-menu-container").querySelectorAll("a")];
+    const items = [...this.findElement("app-menu-container").shadowRoot.querySelectorAll("a")];
     for (let i = 0; i < items.length; i++) {
       items[i].part.remove("selected");
+      items[i].classList.remove("selected");
+      items[i].toggleAttribute("aria-current", false);
     }
     if (pageRoute != null) {
-      const currentMenuItem = this.findElement("app-menu-container").querySelector(`[data-route="${pageRoute}"]`);
+      const currentMenuItem = this.findElement("app-menu-container").shadowRoot.querySelector(`[data-route="${pageRoute}"]`);
       if (currentMenuItem != null) {
         currentMenuItem.setAttribute("aria-current", "page");
         currentMenuItem.classList.add("selected");

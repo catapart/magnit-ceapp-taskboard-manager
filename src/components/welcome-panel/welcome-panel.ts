@@ -84,8 +84,13 @@ export class WelcomePanelElement extends HTMLElement
     {
         const menuItems: HTMLAnchorElement[] = boards
         .map(item => this.#createBoardMenuItem(item));
-        this.innerHTML = "";
-        this.findElement('recent-boards').append(...menuItems);
+        const recentBoards = this.findElement('recent-boards');
+        const items = [...recentBoards.querySelectorAll<HTMLElement>('a')];
+        for(let i = 0; i < items.length; i++)
+        {
+            items[i].remove();
+        }
+        recentBoards.append(...menuItems);
     }
 
     async addBoardToRecentBoards(id: string, description: string)
