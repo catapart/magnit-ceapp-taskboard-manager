@@ -110,11 +110,14 @@ export class WelcomePanelElement extends HTMLElement
     async updateRecentBoardEntry(id: string, description?: string)
     {
         const boards = await this.#getRecentBoards();
-        const existingEntry = boards.find(item => item.id == id);
+        const existingEntryIndex = boards.findIndex(item => item.id == id);
+        const existingEntry = boards[existingEntryIndex];
         if(existingEntry == null) { return; }
 
         existingEntry.description = description ?? existingEntry.description;
         existingEntry.timestamp = Date.now();
+
+        boards.splice(existingEntryIndex, 1, existingEntry);
 
         const boardsString = JSON.stringify(boards);
         DataService.saveAppSetting(AppSettingKey.RecentBoards, boardsString);

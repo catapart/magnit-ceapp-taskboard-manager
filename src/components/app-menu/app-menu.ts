@@ -76,8 +76,13 @@ export class AppMenuElement extends HTMLElement
         }
 
         // menu items
-        this.innerHTML = '';
-        this.findElement('boards').append(...menuItems);
+        const boardsList = this.findElement('boards');
+        const items = [...boardsList.querySelectorAll<HTMLElement>('a')];
+        for(let i = 0; i < items.length; i++)
+        {
+            items[i].remove();
+        }
+        boardsList.append(...menuItems);
     }
     //#endregion
     

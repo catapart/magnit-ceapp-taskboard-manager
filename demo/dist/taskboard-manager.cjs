@@ -5446,8 +5446,12 @@ var AppMenuElement = class extends HTMLElement {
       const menuItem = this.#createBoardMenuItem(boardRecord);
       menuItems.push(menuItem);
     }
-    this.innerHTML = "";
-    this.findElement("boards").append(...menuItems);
+    const boardsList = this.findElement("boards");
+    const items = [...boardsList.querySelectorAll("a")];
+    for (let i = 0; i < items.length; i++) {
+      items[i].remove();
+    }
+    boardsList.append(...menuItems);
   }
   //#endregion
   //#region Handlers
@@ -5710,12 +5714,14 @@ var WelcomePanelElement = class extends HTMLElement {
   }
   async updateRecentBoardEntry(id, description) {
     const boards = await this.#getRecentBoards();
-    const existingEntry = boards.find((item) => item.id == id);
+    const existingEntryIndex = boards.findIndex((item) => item.id == id);
+    const existingEntry = boards[existingEntryIndex];
     if (existingEntry == null) {
       return;
     }
     existingEntry.description = description ?? existingEntry.description;
     existingEntry.timestamp = Date.now();
+    boards.splice(existingEntryIndex, 1, existingEntry);
     const boardsString = JSON.stringify(boards);
     DataService.saveAppSetting("recentBoards" /* RecentBoards */, boardsString);
     this.refresh();
@@ -11408,7 +11414,9 @@ var TaskboardManagerElement = class extends HTMLElement {
       throw new Error("Unable to open board route with unknown id");
     }
     this.#renderBoard(boardId);
-    this.findElement("welcome-panel").updateRecentBoardEntry(boardId);
+    requestAnimationFrame(() => {
+      this.findElement("welcome-panel").updateRecentBoardEntry(boardId);
+    });
   }
   async #boardSettingsRoute_beforeOpen(_event) {
     const router = this.findElement("app-router");

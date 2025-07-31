@@ -1393,7 +1393,12 @@ export class TaskboardManagerElement extends HTMLElement
             throw new Error('Unable to open board route with unknown id');
         }
         this.#renderBoard(boardId);
-        this.findElement<WelcomePanelElement>('welcome-panel').updateRecentBoardEntry(boardId);
+        // wait a frame, to allow the last saved recentBoards value
+        // to be available when the update function is called
+        requestAnimationFrame(() =>
+        {
+            this.findElement<WelcomePanelElement>('welcome-panel').updateRecentBoardEntry(boardId);
+        });
     }
     async #boardSettingsRoute_beforeOpen(_event: Event|CustomEvent)
     {
