@@ -11333,8 +11333,14 @@ var TaskboardManagerElement = class extends HTMLElement {
     const origin = window.location.origin;
     const updatedLocation = new URL(`${origin}/${updatedPath}`);
     const { hasChanged, isReplacementChange } = router.compareLocations(currentLocation, updatedLocation);
-    if (hasChanged) {
-      const newHistoryState = `${updatedLocation.origin}${this.#rootPath}?path=${updatedLocation.pathname}${updatedLocation.hash}`;
+    const updateUrl = this.getAttribute("update-url");
+    if (hasChanged && updateUrl != null) {
+      const urlPath = this.getAttribute("path-override") ?? window.location.pathname;
+      let newHistoryState;
+      if (updateUrl == "" || updateUrl == "query") {
+        newHistoryState = `${window.location.origin}${urlPath}?path=${updatedLocation.pathname}${updatedLocation.hash}`;
+      } else if (updateUrl == "pathname") {
+      }
       if (isReplacementChange) {
         window.history.replaceState(null, "", newHistoryState);
       } else {
