@@ -160,7 +160,7 @@ export class WelcomePanelElement extends HTMLElement
         const boardItem = (event as CustomEvent).detail as HTMLElement;
         const route = boardItem.dataset.route!;
         const id = route.substring(route.lastIndexOf('/') + 1);
-        this.removeBoardFromRecentBoards(id)
+        this.removeBoardFromRecentBoards(id);
     }
 }
 

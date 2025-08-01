@@ -405,11 +405,12 @@ export class TaskboardManagerElement extends HTMLElement
 
         // loading
 
+        this.addEventListener('click', this.#onClick.bind(this));
+
         this.#addBoardHandlers();
         addKeyHandlers.call(this);
         this.#addRouteHandlers();
 
-        this.addEventListener('click', this.#onClick.bind(this));
 
         await this.#handleInitialNavigation(boardsPromise);
 
@@ -1277,6 +1278,17 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
 
+
+        const removeRecentBoardButton = composedPath.find(item => item.classList.contains('recent-board-remove-button'));
+        if(removeRecentBoardButton != null)
+        {
+            // todo:
+            // implement in path router
+            // update library
+            this.findElement<PathRouterElement>('app-router').toggleAttribute('cancel', true);
+            return;
+        }
+
         const importOkButton = composedPath.find(item => item.id == 'import-ok');
         if(importOkButton != null)
         {
@@ -1331,7 +1343,7 @@ export class TaskboardManagerElement extends HTMLElement
             {
 
             }
-            
+
             if(isReplacementChange)
             {
                 window.history.replaceState(null, '', newHistoryState);

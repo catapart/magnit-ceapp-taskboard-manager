@@ -17,6 +17,7 @@ taskboard-manager[data-theme="course"]::part(board recent):hover::before
     grid-column: 1 / 2;
     /* translate: 0; */
     width: calc(100% + (.375em * 2) + (var(--small-gap) * 2));
+    z-index: 0;
 }
 
 taskboard-manager[data-theme="course"]::part(board-item-name recent)
@@ -27,4 +28,5 @@ taskboard-manager[data-theme="course"]::part(board-item-name recent)
 taskboard-manager[data-theme="course"]::part(recent-board-remove-button)
 {
     grid-row: 1;
+    z-index: 1;
 }
