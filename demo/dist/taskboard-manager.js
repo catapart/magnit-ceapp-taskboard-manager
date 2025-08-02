@@ -5410,6 +5410,7 @@ var AppMenuElement = class extends HTMLElement {
     this.#editBoard = options.editBoard;
     this.#openBoard = options.openBoard;
     this.addEventListener("click", this.#onClick.bind(this));
+    this.addEventListener("keydown", this.#onKeyDown.bind(this));
   }
   async refresh() {
     const boardRecords = await DataService.getAllBoardRecords();
@@ -5451,6 +5452,15 @@ var AppMenuElement = class extends HTMLElement {
       const board = await this.#addBoard();
       this.#openBoard(board.id);
       return;
+    }
+  }
+  async #onKeyDown(event) {
+    if (event.code == "Space") {
+      const board = this.shadowRoot.querySelector(".board:focus");
+      if (board == null) {
+        return;
+      }
+      this.#openBoard(board.dataset.route.substring(6));
     }
   }
   boardsList_onDragover(event) {
@@ -5668,6 +5678,7 @@ var WelcomePanelElement = class extends HTMLElement {
     );
     this.findElement("recent-boards").addEventListener("remove", this.#recentBoard_onRemove.bind(this));
     this.findElement("recent-boards").addEventListener("click", this.#onClick.bind(this));
+    this.findElement("recent-boards").addEventListener("keydown", this.#onKeyDown.bind(this));
     this.#addBoard = options.addBoard;
     this.#openBoard = options.openBoard;
     this.refresh();
@@ -5739,6 +5750,7 @@ var WelcomePanelElement = class extends HTMLElement {
   }
   #createBoardMenuItem(board) {
     const element = document.createElement("a");
+    element.tabIndex = 0;
     element.innerHTML = `<span part="board-item-name recent" class="board-item-name recent">${board.description}<span>`;
     element.setAttribute("part", "board recent");
     element.classList.add("board", "recent");
@@ -5762,6 +5774,15 @@ var WelcomePanelElement = class extends HTMLElement {
     if (newBoardButton != null) {
       const board = await this.#addBoard();
       this.#openBoard(board.id);
+    }
+  }
+  async #onKeyDown(event) {
+    if (event.code == "Space") {
+      const board = this.shadowRoot.querySelector(".board:focus");
+      if (board == null) {
+        return;
+      }
+      this.#openBoard(board.dataset.route.substring(6));
     }
   }
 };

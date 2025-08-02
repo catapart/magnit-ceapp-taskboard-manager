@@ -79,6 +79,7 @@ export class WelcomePanelElement extends HTMLElement
         
         this.findElement('recent-boards').addEventListener("remove", this.#recentBoard_onRemove.bind(this));
         this.findElement('recent-boards').addEventListener("click", this.#onClick.bind(this));
+        this.findElement('recent-boards').addEventListener("keydown", this.#onKeyDown.bind(this));
 
         this.#addBoard = options.addBoard;
         this.#openBoard = options.openBoard;
@@ -171,6 +172,7 @@ export class WelcomePanelElement extends HTMLElement
     #createBoardMenuItem(board: RecentBoardData)
     {
         const element = document.createElement('a');
+        element.tabIndex = 0;
         element.innerHTML = `<span part="board-item-name recent" class="board-item-name recent">${board.description}<span>`;
         element.setAttribute('part', 'board recent');
         element.classList.add('board', 'recent');
@@ -201,6 +203,15 @@ export class WelcomePanelElement extends HTMLElement
         {
             const board = await this.#addBoard();
             this.#openBoard(board.id);
+        }
+    }
+    async #onKeyDown(event: KeyboardEvent)
+    {
+        if(event.code == "Space")
+        {
+            const board = this.shadowRoot!.querySelector('.board:focus')!;
+            if(board == null) { return; }
+            this.#openBoard((board as HTMLElement).dataset.route!.substring(6));
         }
     }
 }

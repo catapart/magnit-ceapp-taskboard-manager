@@ -59,7 +59,8 @@ export class AppMenuElement extends HTMLElement
         this.#editBoard = options.editBoard;
         this.#openBoard = options.openBoard;
 
-        this.addEventListener('click', this.#onClick.bind(this));        
+        this.addEventListener('click', this.#onClick.bind(this));
+        this.addEventListener('keydown', this.#onKeyDown.bind(this));
     }
 
     async refresh()
@@ -117,6 +118,15 @@ export class AppMenuElement extends HTMLElement
             const board = await this.#addBoard();
             this.#openBoard(board.id);
             return;
+        }
+    }
+    async #onKeyDown(event: KeyboardEvent)
+    {
+        if(event.code == "Space")
+        {
+            const board = this.shadowRoot!.querySelector('.board:focus')!;
+            if(board == null) { return; }
+            this.#openBoard((board as HTMLElement).dataset.route!.substring(6));
         }
     }
     boardsList_onDragover(event: DragEvent)
