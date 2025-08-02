@@ -115,7 +115,7 @@ export class AppMenuElement extends HTMLElement
         if(newBoardButton != null)
         {
             const board = await this.#addBoard();
-            this.#openBoard(board.id)
+            this.#openBoard(board.id);
             return;
         }
     }

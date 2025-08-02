@@ -212,8 +212,8 @@ export class TaskboardManagerElement extends HTMLElement
         await this.findElement<ConfigPanelElement>('config-panel')
         .addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Board, { id: board.id });
 
-        this.findElement<AppMenuElement>('app-menu-container').refresh();
-        this.findElement<WelcomePanelElement>('welcome-panel').refresh();
+        await this.findElement<AppMenuElement>('app-menu-container').refresh();
+        await this.findElement<WelcomePanelElement>('welcome-panel').refresh();
 
         return board;
     }

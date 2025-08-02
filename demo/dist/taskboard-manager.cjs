@@ -10614,8 +10614,8 @@ var TaskboardManagerElement = class extends HTMLElement {
     const order = this.findElement("app-menu-container").shadowRoot.querySelectorAll("a").length;
     const board = await DataService.createBoard(order);
     await this.findElement("config-panel").addActionHistoryEntry(HistoryEntryType.Create, "board" /* Board */, { id: board.id });
-    this.findElement("app-menu-container").refresh();
-    this.findElement("welcome-panel").refresh();
+    await this.findElement("app-menu-container").refresh();
+    await this.findElement("welcome-panel").refresh();
     return board;
   }
   editBoard(boardId) {
