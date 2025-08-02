@@ -173,7 +173,6 @@ export class TaskboardManagerElement extends HTMLElement
     }
     async openBoard(id: string)
     {
-        console.log(id);
         await this.closeBoard();
         await this.getElement<PathRouterElement>('app-router').navigate(`board/${id}`);
     }
@@ -900,9 +899,16 @@ export class TaskboardManagerElement extends HTMLElement
 
         const tasks = await DataService.getBoardTasks(id);
         await this.#renderBoardLists(taskBoard, tasks);
+
+        // wait a frame, to allow the last saved recentBoards value
+        // to be available when the update function is called
+        requestAnimationFrame(() =>
+        {
+            this.findElement<WelcomePanelElement>('welcome-panel').updateRecentBoardEntry(board.id, board.name);
+            const welcomePanel = this.findElement<WelcomePanelElement>('welcome-panel');
+            welcomePanel.refresh();
+        });
         
-        const welcomePanel = this.findElement<WelcomePanelElement>('welcome-panel');
-        welcomePanel.refresh();
     }
     async #renderBoardBackground(board: TaskBoardRecord)
     {
@@ -1409,12 +1415,6 @@ export class TaskboardManagerElement extends HTMLElement
             throw new Error('Unable to open board route with unknown id');
         }
         this.#renderBoard(boardId);
-        // wait a frame, to allow the last saved recentBoards value
-        // to be available when the update function is called
-        requestAnimationFrame(() =>
-        {
-            this.findElement<WelcomePanelElement>('welcome-panel').updateRecentBoardEntry(boardId);
-        });
     }
     async #boardSettingsRoute_beforeOpen(_event: Event|CustomEvent)
     {

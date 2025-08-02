@@ -74,9 +74,13 @@ export class WelcomePanelElement extends HTMLElement
         this.findElement('recent-boards').addEventListener("remove", this.#recentBoard_onRemove.bind(this));
         this.findElement('recent-boards').addEventListener("click", (event: Event) =>
         {
-            event.stopPropagation();
-            event.preventDefault();
-            return false;
+            const composedPath = event.composedPath();
+            if(composedPath.find(item => item instanceof HTMLButtonElement && item.classList.contains('remove')))
+            {
+                event.stopPropagation();
+                event.preventDefault();
+                return false;
+            }
         });
     }
 
@@ -115,15 +119,28 @@ export class WelcomePanelElement extends HTMLElement
     }
     async updateRecentBoardEntry(id: string, description?: string)
     {
+        const maxRecentBoards = await DataService.getAppSetting<number>(AppSettingKey.RecentBoardsMax) ?? 10;
         const boards = await this.#getRecentBoards();
         const existingEntryIndex = boards.findIndex(item => item.id == id);
         const existingEntry = boards[existingEntryIndex];
-        if(existingEntry == null) { return; }
+        
+        if(existingEntry == null)
+        {
+            const newEntry = { id, description: description ?? "", timestamp: Date.now() };
+            if(boards.length == maxRecentBoards)
+            {
+                boards.pop();
+            }
+            boards.push(newEntry);
+        }
+        else
+        {
+            existingEntry.description = description ?? existingEntry.description;
+            existingEntry.timestamp = Date.now();
+            boards.splice(existingEntryIndex, 1, existingEntry);
+        }
 
-        existingEntry.description = description ?? existingEntry.description;
-        existingEntry.timestamp = Date.now();
 
-        boards.splice(existingEntryIndex, 1, existingEntry);
 
         const boardsString = JSON.stringify(boards);
         DataService.saveAppSetting(AppSettingKey.RecentBoards, boardsString);
