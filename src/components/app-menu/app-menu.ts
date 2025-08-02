@@ -11,8 +11,9 @@ import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToP
 
 export type AppMenuProperties =
 {
-    addBoard: () => void,
+    addBoard: () => Promise<TaskBoardRecord>,
     editBoard: (boardId: string) => void,
+    openBoard: (id: string) => void,
 }
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -49,12 +50,14 @@ export class AppMenuElement extends HTMLElement
     }
 
     //#region API
-    #addBoard!: () => void;
+    #addBoard!: () => Promise<TaskBoardRecord>;
     #editBoard!: (boardId: string) => void;
+    #openBoard!: (id: string) => void;
     init(options: AppMenuProperties)
     {
         this.#addBoard = options.addBoard;
         this.#editBoard = options.editBoard;
+        this.#openBoard = options.openBoard;
 
         this.addEventListener('click', this.#onClick.bind(this));        
     }
@@ -87,7 +90,7 @@ export class AppMenuElement extends HTMLElement
     //#endregion
     
     //#region Handlers
-    #onClick(event: Event)
+    async #onClick(event: Event)
     {
         const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
 
@@ -110,7 +113,8 @@ export class AppMenuElement extends HTMLElement
         const newBoardButton = composedPath.find(item => item.classList.contains('new-board-button'));
         if(newBoardButton != null)
         {
-            this.#addBoard();
+            const board = await this.#addBoard();
+            this.#openBoard(board.id)
             return;
         }
     }

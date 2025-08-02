@@ -147,7 +147,7 @@ declare class TaskboardManagerElement extends HTMLElement {
     openBoard(id: string): Promise<void>;
     refreshBoard(): Promise<void>;
     closeBoard(): Promise<void>;
-    addBoard(): Promise<void>;
+    addBoard(): Promise<TaskBoardRecord>;
     editBoard(boardId: string): void;
     openBoardSettings(id: string): Promise<void>;
     exportBoard(id: string): Promise<void>;

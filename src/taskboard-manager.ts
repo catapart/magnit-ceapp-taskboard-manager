@@ -214,6 +214,8 @@ export class TaskboardManagerElement extends HTMLElement
 
         this.findElement<AppMenuElement>('app-menu-container').refresh();
         this.findElement<WelcomePanelElement>('welcome-panel').refresh();
+
+        return board;
     }
     editBoard(boardId: string)
     {        
@@ -353,10 +355,14 @@ export class TaskboardManagerElement extends HTMLElement
         this.findElement<AppMenuElement>('app-menu-container').init({
             addBoard: this.addBoard.bind(this),
             editBoard: this.editBoard.bind(this),
+            openBoard: this.openBoard.bind(this),
         });
 
         // welcome page
-        this.findElement<WelcomePanelElement>('welcome-panel').refresh();
+        this.findElement<WelcomePanelElement>('welcome-panel').init({
+            addBoard: this.addBoard.bind(this),
+            openBoard: this.openBoard.bind(this),
+        });
 
         // task board
 

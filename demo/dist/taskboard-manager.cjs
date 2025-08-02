@@ -5430,9 +5430,11 @@ var AppMenuElement = class extends HTMLElement {
   //#region API
   #addBoard;
   #editBoard;
+  #openBoard;
   init(options) {
     this.#addBoard = options.addBoard;
     this.#editBoard = options.editBoard;
+    this.#openBoard = options.openBoard;
     this.addEventListener("click", this.#onClick.bind(this));
   }
   async refresh() {
@@ -5455,7 +5457,7 @@ var AppMenuElement = class extends HTMLElement {
   }
   //#endregion
   //#region Handlers
-  #onClick(event) {
+  async #onClick(event) {
     const composedPath = event.composedPath().filter((item) => item instanceof HTMLElement);
     const longpress = composedPath.find((item) => item.classList.contains("longpress"));
     if (longpress != null) {
@@ -5471,7 +5473,8 @@ var AppMenuElement = class extends HTMLElement {
     }
     const newBoardButton = composedPath.find((item) => item.classList.contains("new-board-button"));
     if (newBoardButton != null) {
-      this.#addBoard();
+      const board = await this.#addBoard();
+      this.#openBoard(board.id);
       return;
     }
   }
@@ -5673,6 +5676,10 @@ var WelcomePanelElement = class extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = COMPONENT_TEMPLATE5;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET7);
+  }
+  #addBoard;
+  #openBoard;
+  init(options) {
     assignTagToPart(this.shadowRoot);
     assignClassAndIdToPart(this.shadowRoot);
     assignPartsAsExportPartsAttribute(
@@ -5685,14 +5692,10 @@ var WelcomePanelElement = class extends HTMLElement {
       }
     );
     this.findElement("recent-boards").addEventListener("remove", this.#recentBoard_onRemove.bind(this));
-    this.findElement("recent-boards").addEventListener("click", (event) => {
-      const composedPath = event.composedPath();
-      if (composedPath.find((item) => item instanceof HTMLButtonElement && item.classList.contains("remove"))) {
-        event.stopPropagation();
-        event.preventDefault();
-        return false;
-      }
-    });
+    this.findElement("recent-boards").addEventListener("click", this.#onClick.bind(this));
+    this.#addBoard = options.addBoard;
+    this.#openBoard = options.openBoard;
+    this.refresh();
   }
   async refresh() {
     const recentBoards = await this.#getRecentBoards();
@@ -5772,6 +5775,19 @@ var WelcomePanelElement = class extends HTMLElement {
     const route = boardItem.dataset.route;
     const id = route.substring(route.lastIndexOf("/") + 1);
     this.removeBoardFromRecentBoards(id);
+  }
+  async #onClick(event) {
+    const composedPath = event.composedPath();
+    if (composedPath.find((item) => item instanceof HTMLButtonElement && item.classList.contains("remove"))) {
+      event.stopPropagation();
+      event.preventDefault();
+      return false;
+    }
+    const newBoardButton = composedPath.find((item) => item instanceof HTMLButtonElement && item.id == "new-board-button");
+    if (newBoardButton != null) {
+      const board = await this.#addBoard();
+      this.#openBoard(board.id);
+    }
   }
 };
 if (customElements.get(COMPONENT_TAG_NAME8) == null) {
@@ -10599,6 +10615,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     await this.findElement("config-panel").addActionHistoryEntry(HistoryEntryType.Create, "board" /* Board */, { id: board.id });
     this.findElement("app-menu-container").refresh();
     this.findElement("welcome-panel").refresh();
+    return board;
   }
   editBoard(boardId) {
     this.findElement("app-router").navigate(`board/${boardId}#board-settings`);
@@ -10693,9 +10710,13 @@ var TaskboardManagerElement = class extends HTMLElement {
     const boardsPromise = this.refreshBoardCollections();
     this.findElement("app-menu-container").init({
       addBoard: this.addBoard.bind(this),
-      editBoard: this.editBoard.bind(this)
+      editBoard: this.editBoard.bind(this),
+      openBoard: this.openBoard.bind(this)
     });
-    this.findElement("welcome-panel").refresh();
+    this.findElement("welcome-panel").init({
+      addBoard: this.addBoard.bind(this),
+      openBoard: this.openBoard.bind(this)
+    });
     this.findElement("board-browser").addEventListener("select", async (event) => {
       const { boardId } = event.detail;
       if (boardId == null) {

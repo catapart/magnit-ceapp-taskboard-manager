@@ -15,10 +15,10 @@ export enum WelcomePanelAttributes
     pathId = 'path-id',
 }
 
-export type WelcomePanelProperties = { [key in WelcomePanelAttributes]: string } &
+export type WelcomePanelProperties = Partial<{ [key in WelcomePanelAttributes]: string }> &
 {
-    onRemoveBoard: (boards: HTMLElement[]) => void;
-    onNew: () => void;
+    addBoard: () => Promise<TaskBoardRecord>,
+    openBoard: (id: string) => void,
 };
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -60,6 +60,12 @@ export class WelcomePanelElement extends HTMLElement
         this.attachShadow({ mode: "open" });
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
+    }
+
+    #addBoard!: () => Promise<TaskBoardRecord>;
+    #openBoard!: (id: string) => void;
+    init(options: WelcomePanelProperties)
+    {
 
         assignTagToPart(this.shadowRoot!);
         assignClassAndIdToPart(this.shadowRoot!);
@@ -72,18 +78,12 @@ export class WelcomePanelElement extends HTMLElement
         });
         
         this.findElement('recent-boards').addEventListener("remove", this.#recentBoard_onRemove.bind(this));
-        this.findElement('recent-boards').addEventListener("click", (event: Event) =>
-        {
-            const composedPath = event.composedPath();
-            if(composedPath.find(item => item instanceof HTMLButtonElement && item.classList.contains('remove')))
-            {
-                event.stopPropagation();
-                event.preventDefault();
-                return false;
-            }
-        });
-    }
+        this.findElement('recent-boards').addEventListener("click", this.#onClick.bind(this));
 
+        this.#addBoard = options.addBoard;
+        this.#openBoard = options.openBoard;
+        this.refresh();
+    }
     async refresh()
     {
         const recentBoards = await this.#getRecentBoards();
@@ -184,6 +184,24 @@ export class WelcomePanelElement extends HTMLElement
         const route = boardItem.dataset.route!;
         const id = route.substring(route.lastIndexOf('/') + 1);
         this.removeBoardFromRecentBoards(id);
+    }
+
+    async #onClick(event: Event)
+    {
+        const composedPath = event.composedPath();
+        if(composedPath.find(item => item instanceof HTMLButtonElement && item.classList.contains('remove')))
+        {
+            event.stopPropagation();
+            event.preventDefault();
+            return false;
+        }
+    
+        const newBoardButton = composedPath.find(item => item instanceof HTMLButtonElement && item.id == "new-board-button");
+        if(newBoardButton != null)
+        {
+            const board = await this.#addBoard();
+            this.#openBoard(board.id);
+        }
     }
 }
 
