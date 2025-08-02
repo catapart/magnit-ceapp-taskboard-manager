@@ -107,6 +107,7 @@ export class AppMenuElement extends HTMLElement
             const boardId = editButton.parentElement!.dataset.route!.split('/')[1]
             this.#editBoard(boardId);
             event.stopPropagation();
+            event.preventDefault();
             return;
         }
 

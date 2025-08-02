@@ -5469,6 +5469,7 @@ var AppMenuElement = class extends HTMLElement {
       const boardId = editButton.parentElement.dataset.route.split("/")[1];
       this.#editBoard(boardId);
       event.stopPropagation();
+      event.preventDefault();
       return;
     }
     const newBoardButton = composedPath.find((item) => item.classList.contains("new-board-button"));
@@ -10766,7 +10767,8 @@ var TaskboardManagerElement = class extends HTMLElement {
   #addRouteHandlers() {
     const appRouter = this.findElement("app-router");
     appRouter.addRouteLinkClickHandlers([
-      this.findElement("app-menu-container").shadowRoot.querySelector("#boards"),
+      this.findElement("app-menu-container"),
+      this.findElement("config-panel"),
       this.findElement("welcome-panel").shadowRoot.querySelector("#recent-boards")
     ]);
     this.findElement("app-router").addEventListener("pathchange", this.#router_onPathChange.bind(this));

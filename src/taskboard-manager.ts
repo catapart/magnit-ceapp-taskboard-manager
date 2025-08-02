@@ -440,7 +440,8 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const appRouter = this.findElement<PathRouterElement>('app-router');
         appRouter.addRouteLinkClickHandlers([
-            this.findElement('app-menu-container').shadowRoot!.querySelector<HTMLElement>('#boards')!,
+            this.findElement<HTMLElement>('app-menu-container'),
+            this.findElement<HTMLElement>('config-panel'),
             this.findElement('welcome-panel').shadowRoot!.querySelector<HTMLElement>('#recent-boards')!
         ]);
         this.findElement<PathRouterElement>('app-router').addEventListener('pathchange', this.#router_onPathChange.bind(this));
