@@ -52,7 +52,7 @@
     "@magnit-ce/fileimage-input": "^0.0.4",
     "@magnit-ce/form-field": "^0.0.7",
     "@magnit-ce/message-card": "^0.0.3",
-    "@magnit-ce/path-router": "^0.2.8",
+    "@magnit-ce/path-router": "^0.3.2",
     "@magnit-ce/record-tree": "^0.0.15",
     "@magnit-ce/task-board": "^0.0.4",
     "@magnit-ce/task-card": "^0.0.24",

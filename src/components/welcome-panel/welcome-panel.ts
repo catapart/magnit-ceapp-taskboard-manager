@@ -72,6 +72,12 @@ export class WelcomePanelElement extends HTMLElement
         });
         
         this.findElement('recent-boards').addEventListener("remove", this.#recentBoard_onRemove.bind(this));
+        this.findElement('recent-boards').addEventListener("click", (event: Event) =>
+        {
+            event.stopPropagation();
+            event.preventDefault();
+            return false;
+        });
     }
 
     async refresh()

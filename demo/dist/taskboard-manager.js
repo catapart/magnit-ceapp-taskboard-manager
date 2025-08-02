@@ -5659,6 +5659,11 @@ var WelcomePanelElement = class extends HTMLElement {
       }
     );
     this.findElement("recent-boards").addEventListener("remove", this.#recentBoard_onRemove.bind(this));
+    this.findElement("recent-boards").addEventListener("click", (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      return false;
+    });
   }
   async refresh() {
     const recentBoards = await this.#getRecentBoards();
@@ -7783,7 +7788,7 @@ if (customElements.get(COMPONENT_TAG_NAME16) == null) {
   customElements.define(COMPONENT_TAG_NAME16, EditableListElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+path-router@0.2.8/node_modules/@magnit-ce/path-router/dist/path-router.js
+// node_modules/.pnpm/@magnit-ce+path-router@0.3.2/node_modules/@magnit-ce/path-router/dist/path-router.js
 var path_router_default = "/* \n   Animations will not be awaitable in code if they have a display of none.\n   Instead, the routes are stacked in a grid.\n */\npath-router\n,.route-view\n{ \n    display: var(--router-display, grid);\n    grid-template-columns: 1fr;\n    grid-template-rows: 1fr;\n}\n\nroute-page\n{\n    display: var(--route-display, block);\n    visibility: hidden;\n    grid-row: 1;\n    grid-column: 1;\n}\n/* \n   Visibility is visible during the entering and exiting phases\n   to allow for animations to be awaited.\n */\nroute-page[open]\n,route-page[data-entering]\n,route-page[data-exiting]\n{\n    visibility: visible;\n}\n\n/* sub routes should respect the visibility of the parent routes */\nroute-page:not([open],[data-entering],[data-exiting]) route-page[open]\n{\n    visibility: inherit;\n}";
 var RouteType = (elementType = HTMLElement) => {
   return class extends elementType {
@@ -7969,9 +7974,17 @@ var PathRouterElement = class extends HTMLElement {
    */
   addRouteLinkClickHandlers(parent, linkQuery = "a[data-route],button[data-route]") {
     parent = parent ?? document.body;
-    parent.addEventListener("click", (event) => this.routeLink_onClick(parent, event, linkQuery));
+    if (!Array.isArray(parent)) {
+      parent = [parent];
+    }
+    for (let i = 0; i < parent.length; i++) {
+      parent[i].addEventListener("click", (event) => this.routeLink_onClick(parent[i], event, linkQuery));
+    }
   }
   routeLink_onClick(parent, event, linkQuery = "a[data-route],button[data-route]") {
+    if (event.defaultPrevented == true) {
+      return;
+    }
     let targetLink = event.composedPath().find((item) => item.dataset?.route != null);
     if (targetLink != null) {
       const links = [...parent.querySelectorAll(linkQuery)];
@@ -10697,7 +10710,10 @@ var TaskboardManagerElement = class extends HTMLElement {
   #historyIsUpdating = false;
   #addRouteHandlers() {
     const appRouter = this.findElement("app-router");
-    appRouter.addRouteLinkClickHandlers(this.shadowRoot);
+    appRouter.addRouteLinkClickHandlers([
+      this.findElement("app-menu-container").shadowRoot.querySelector("#boards"),
+      this.findElement("welcome-panel").shadowRoot.querySelector("#recent-boards")
+    ]);
     this.findElement("app-router").addEventListener("pathchange", this.#router_onPathChange.bind(this));
     window.addEventListener("popstate", async (event) => {
       this.#historyIsUpdating = true;
@@ -11310,13 +11326,6 @@ var TaskboardManagerElement = class extends HTMLElement {
   //#region Handlers
   #onClick(event) {
     const composedPath = event.composedPath().filter((item) => item instanceof HTMLElement);
-    console.log(event);
-    const removeRecentBoardButton = composedPath.find((item) => item.classList.contains("recent-board-remove-button"));
-    if (removeRecentBoardButton != null) {
-      event.preventDefault();
-      event.stopPropagation();
-      return;
-    }
     const importOkButton = composedPath.find((item) => item.id == "import-ok");
     if (importOkButton != null) {
       this.#importDialog_import_onClick();

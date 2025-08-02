@@ -434,7 +434,10 @@ export class TaskboardManagerElement extends HTMLElement
     #addRouteHandlers()
     {
         const appRouter = this.findElement<PathRouterElement>('app-router');
-        appRouter.addRouteLinkClickHandlers(this.shadowRoot!);
+        appRouter.addRouteLinkClickHandlers([
+            this.findElement('app-menu-container').shadowRoot!.querySelector<HTMLElement>('#boards')!,
+            this.findElement('welcome-panel').shadowRoot!.querySelector<HTMLElement>('#recent-boards')!
+        ]);
         this.findElement<PathRouterElement>('app-router').addEventListener('pathchange', this.#router_onPathChange.bind(this));
         window.addEventListener('popstate', async (event) =>
         {
@@ -1277,17 +1280,6 @@ export class TaskboardManagerElement extends HTMLElement
     #onClick(event: Event)
     {
         const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
-
-
-        const removeRecentBoardButton = composedPath.find(item => item.classList.contains('recent-board-remove-button'));
-        if(removeRecentBoardButton != null)
-        {
-            // todo:
-            // implement in path router
-            // update library
-            this.findElement<PathRouterElement>('app-router').toggleAttribute('cancel', true);
-            return;
-        }
 
         const importOkButton = composedPath.find(item => item.id == 'import-ok');
         if(importOkButton != null)
