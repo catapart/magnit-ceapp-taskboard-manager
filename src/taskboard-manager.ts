@@ -411,6 +411,7 @@ export class TaskboardManagerElement extends HTMLElement
         // loading
 
         this.addEventListener('click', this.#onClick.bind(this));
+        this.addEventListener("keydown", this.#onKeyDown.bind(this));
 
         this.#addBoardHandlers();
         addKeyHandlers.call(this);
@@ -1307,6 +1308,18 @@ export class TaskboardManagerElement extends HTMLElement
         {
             const order = addTaskButton.parentElement!.querySelectorAll(`task-card`).length;
             this.addTask(addTaskButton.parentElement! as TaskListElement, order);
+        }
+    }
+    async #onKeyDown(event: KeyboardEvent)
+    {
+        if(event.code == "Space" || event.code == "Enter")
+        {
+            const taskCard = this.shadowRoot!.activeElement as HTMLElement;
+            if(taskCard == null || (taskCard instanceof TaskCardElement) == false) { return; }
+            const finishedIndicator = taskCard.shadowRoot!.activeElement as HTMLElement;
+            if(finishedIndicator == null || finishedIndicator.id != "finished-indicator") { return; }
+
+            finishedIndicator.click();
         }
     }
 

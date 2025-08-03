@@ -207,7 +207,7 @@ export class WelcomePanelElement extends HTMLElement
     }
     async #onKeyDown(event: KeyboardEvent)
     {
-        if(event.code == "Space")
+        if(event.code == "Space" || event.code == "Enter")
         {
             const board = this.shadowRoot!.activeElement as HTMLElement;
             if(board == null || board.classList.contains('board') == false) { return; }

@@ -5455,7 +5455,7 @@ var AppMenuElement = class extends HTMLElement {
     }
   }
   async #onKeyDown(event) {
-    if (event.code == "Space") {
+    if (event.code == "Space" || event.code == "Enter") {
       const board = this.shadowRoot.activeElement;
       if (board == null || board.classList.contains("board") == false) {
         return;
@@ -5777,7 +5777,7 @@ var WelcomePanelElement = class extends HTMLElement {
     }
   }
   async #onKeyDown(event) {
-    if (event.code == "Space") {
+    if (event.code == "Space" || event.code == "Enter") {
       const board = this.shadowRoot.activeElement;
       if (board == null || board.classList.contains("board") == false) {
         return;
@@ -7602,8 +7602,7 @@ var ConfigPanelElement = class extends HTMLElement {
     return this.findElement("data-panel").clearData();
   }
   async #onKeyDown(event) {
-    console.log(event);
-    if (event.code == "Space") {
+    if (event.code == "Space" || event.code == "Enter") {
       const link = this.shadowRoot.activeElement;
       if (link == null || link.hasAttribute("data-route") == false) {
         return;
@@ -10752,6 +10751,7 @@ var TaskboardManagerElement = class extends HTMLElement {
       saveSettingsTarget: this.#saveSettingsTarget.bind(this)
     });
     this.addEventListener("click", this.#onClick.bind(this));
+    this.addEventListener("keydown", this.#onKeyDown.bind(this));
     this.#addBoardHandlers();
     addKeyHandlers.call(this);
     this.#addRouteHandlers();
@@ -11401,6 +11401,19 @@ var TaskboardManagerElement = class extends HTMLElement {
     if (addTaskButton != null) {
       const order = addTaskButton.parentElement.querySelectorAll(`task-card`).length;
       this.addTask(addTaskButton.parentElement, order);
+    }
+  }
+  async #onKeyDown(event) {
+    if (event.code == "Space" || event.code == "Enter") {
+      const taskCard = this.shadowRoot.activeElement;
+      if (taskCard == null || taskCard instanceof TaskCardElement == false) {
+        return;
+      }
+      const finishedIndicator = taskCard.shadowRoot.activeElement;
+      if (finishedIndicator == null || finishedIndicator.id != "finished-indicator") {
+        return;
+      }
+      finishedIndicator.click();
     }
   }
   #router_onPathChange(event) {

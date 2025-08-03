@@ -111,13 +111,11 @@ export class ConfigPanelElement extends HTMLElement
     }
     async #onKeyDown(event: KeyboardEvent)
     {
-        console.log(event);
-        if(event.code == "Space")
+        if(event.code == "Space" || event.code == "Enter")
         {
             const link = this.shadowRoot!.activeElement as HTMLElement;
             if(link == null || link.hasAttribute('data-route') == false) { return; }
             link.click();
-            // this.findElement<PathRouterElement>('config-router').navigate(link.dataset.route!)
         }
     }
 }
