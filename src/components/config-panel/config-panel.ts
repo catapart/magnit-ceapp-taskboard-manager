@@ -18,6 +18,7 @@ import { HistoryEntryType } from '@magnit-ce/action-history';
 import { ColorScheme, SettingsPanelElement } from './settings-panel/settings-panel';
 import { HistoryEntryTargetType, PropertiesType } from '../../data/history/history-entry-data';
 import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../libs/ce-part-utils/ce-part-utils';
+import { PathRouterElement } from '@magnit-ce/path-router';
 
 
 export type ConfigPanelProperties = 
@@ -71,6 +72,7 @@ export class ConfigPanelElement extends HTMLElement
 
     async init(options: ConfigPanelProperties)
     {
+        this.addEventListener('keydown', this.#onKeyDown.bind(this));
         this.findElement<SettingsPanelElement>('settings-panel').init({ scheme_onChange: options.scheme_onChange });
         this.findElement<DataPanelElement>('data-panel').init({ 
             openImportManager: options.openImportManager,
@@ -106,6 +108,17 @@ export class ConfigPanelElement extends HTMLElement
     async clearData()
     {
         return this.findElement<DataPanelElement>('data-panel').clearData();
+    }
+    async #onKeyDown(event: KeyboardEvent)
+    {
+        console.log(event);
+        if(event.code == "Space")
+        {
+            const link = this.shadowRoot!.activeElement as HTMLElement;
+            if(link == null || link.hasAttribute('data-route') == false) { return; }
+            link.click();
+            // this.findElement<PathRouterElement>('config-router').navigate(link.dataset.route!)
+        }
     }
 }
 

@@ -124,8 +124,8 @@ export class AppMenuElement extends HTMLElement
     {
         if(event.code == "Space")
         {
-            const board = this.shadowRoot!.querySelector('.board:focus')!;
-            if(board == null) { return; }
+            const board = this.shadowRoot!.activeElement as HTMLElement;
+            if(board == null || board.classList.contains('board') == false) { return; }
             this.#openBoard((board as HTMLElement).dataset.route!.substring(6));
         }
     }
