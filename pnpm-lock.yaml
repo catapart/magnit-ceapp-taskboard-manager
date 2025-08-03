@@ -21,8 +21,8 @@ importers:
         specifier: ^0.0.9
         version: 0.0.9
       '@magnit-ce/editable-list':
-        specifier: ^0.0.11
-        version: 0.0.11
+        specifier: ^0.1.2
+        version: 0.1.2
       '@magnit-ce/fileimage-input':
         specifier: ^0.0.4
         version: 0.0.4
@@ -33,8 +33,8 @@ importers:
         specifier: ^0.0.3
         version: 0.0.3
       '@magnit-ce/path-router':
-        specifier: ^0.2.8
-        version: 0.2.8
+        specifier: ^0.3.2
+        version: 0.3.2
       '@magnit-ce/record-tree':
         specifier: ^0.0.15
         version: 0.0.15
@@ -306,8 +306,8 @@ packages:
   '@magnit-ce/collection-filter@0.0.9':
     resolution: {integrity: sha512-zrZkys9wCJyBiJCs8UAvIgp15wfEJjBtKTDvNocg1/+GBYijcr9PdjbU1q7fDEdpH0AKxrrAz8XrNht8dtWzdg==}
 
-  '@magnit-ce/editable-list@0.0.11':
-    resolution: {integrity: sha512-MMlsV+atevlflb3cE79L3WAFxS7H/j2BKZEHS93Z7I+qNNzW3DYEh9QFDmTBxLH+ebq/XZxu/jOvDHeQf0o/9A==}
+  '@magnit-ce/editable-list@0.1.2':
+    resolution: {integrity: sha512-6A6wP4nqHmkSjD10Z3zMcZAv3S9jS0y+dFOLtBOL7gm4vW8YKdW/YPzlCadPnfLPc6JUdBUzdEY/ZbAE0EfXPQ==}
 
   '@magnit-ce/fileimage-input@0.0.4':
     resolution: {integrity: sha512-WrpuOlEzIeG84Y3+Z0iZGLkl/CJQAKGr61JqQ2t4knz5kUX6FFl/Zgvo8ltaM4T6mZkiizYESYjLPvQdCW2Bzg==}
@@ -318,8 +318,8 @@ packages:
   '@magnit-ce/message-card@0.0.3':
     resolution: {integrity: sha512-GBk7OgmziSzDxkv4oxZOEmjHHQERFedMyJUbK0T+yli6weZBCpkB1+xhQVrYky0kgcACBLhlZS1MsbrWmaV8eQ==}
 
-  '@magnit-ce/path-router@0.2.8':
-    resolution: {integrity: sha512-g9VsyBpEqbxYB3IJG+HVE/JKR9yBMiYwMpglsuAsJk8fXq1fPeNjEPZXIdp+bTsuWlR4PCk+phhK2oGq54w6lw==}
+  '@magnit-ce/path-router@0.3.2':
+    resolution: {integrity: sha512-x607ShwPI8lKba3HQ+TmVq88k8GdXaEuV+gbjEvszLQ5uSD89Awc2YWeZ8oeIxGzbCEJVu2VWT3lioMQhMUxVw==}
 
   '@magnit-ce/record-tree@0.0.15':
     resolution: {integrity: sha512-bjXW/Fa+geKZVVkBFkbAqHg4cJ36qc+jrGp2Ig876welS1SZgZYdFRevFAwse42ATg/dZZ+yPfMvTukXLoBlXA==}
@@ -1605,7 +1605,7 @@ snapshots:
 
   '@magnit-ce/collection-filter@0.0.9': {}
 
-  '@magnit-ce/editable-list@0.0.11': {}
+  '@magnit-ce/editable-list@0.1.2': {}
 
   '@magnit-ce/fileimage-input@0.0.4': {}
 
@@ -1613,7 +1613,7 @@ snapshots:
 
   '@magnit-ce/message-card@0.0.3': {}
 
-  '@magnit-ce/path-router@0.2.8': {}
+  '@magnit-ce/path-router@0.3.2': {}
 
   '@magnit-ce/record-tree@0.0.15': {}
 

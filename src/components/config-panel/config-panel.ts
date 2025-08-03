@@ -18,6 +18,7 @@ import { HistoryEntryType } from '@magnit-ce/action-history';
 import { ColorScheme, SettingsPanelElement } from './settings-panel/settings-panel';
 import { HistoryEntryTargetType, PropertiesType } from '../../data/history/history-entry-data';
 import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../libs/ce-part-utils/ce-part-utils';
+import { PathRouterElement } from '@magnit-ce/path-router';
 
 
 export type ConfigPanelProperties = 
@@ -26,7 +27,9 @@ export type ConfigPanelProperties =
     scheme_onChange: (scheme: ColorScheme) => void;
     openImportManager: (data: any) => void;
     openBoard: (id: string) => void;
-    refreshBoards: () => void;
+    closeBoard: () => void;
+    refreshBoardCollections: () => void;
+    refreshRecentBoards: () => void;
 }
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -71,15 +74,18 @@ export class ConfigPanelElement extends HTMLElement
 
     async init(options: ConfigPanelProperties)
     {
+        this.addEventListener('keydown', this.#onKeyDown.bind(this));
         this.findElement<SettingsPanelElement>('settings-panel').init({ scheme_onChange: options.scheme_onChange });
         this.findElement<DataPanelElement>('data-panel').init({ 
             openImportManager: options.openImportManager,
             openBoard: options.openBoard,
             refreshActionHistory: this.refreshHistory.bind(this),
-            refreshBoards: options.refreshBoards,
+            refreshBoardCollections: options.refreshBoardCollections,
+            refreshRecentBoards: options.refreshRecentBoards,
+            closeBoard: options.closeBoard.bind(this),
             addActionHistoryEntry: this.addActionHistoryEntry.bind(this),
         });
-        this.findElement<HistoryPanelElement>('history-panel').init({ refreshBoards: options.refreshBoards, refreshCache: this.refreshCache.bind(this) });
+        this.findElement<HistoryPanelElement>('history-panel').init({ refreshBoardCollections: options.refreshBoardCollections, refreshCache: this.refreshCache.bind(this) });
         this.findElement<AboutPanelElement>('about-panel').init({ appVersion: options.appVersion });
     }
 
@@ -105,7 +111,16 @@ export class ConfigPanelElement extends HTMLElement
     }
     async clearData()
     {
-        this.findElement<DataPanelElement>('data-panel').clearData();
+        return this.findElement<DataPanelElement>('data-panel').clearData();
+    }
+    async #onKeyDown(event: KeyboardEvent)
+    {
+        if(event.code == "Space" || event.code == "Enter")
+        {
+            const link = this.shadowRoot!.activeElement as HTMLElement;
+            if(link == null || link.hasAttribute('data-route') == false) { return; }
+            link.click();
+        }
     }
 }
 

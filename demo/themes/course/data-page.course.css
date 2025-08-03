@@ -30,6 +30,11 @@ taskboard-manager[data-theme="course"]::part(nav-item-icon)
     --tab-icon-size: 16px;
 }
 
+taskboard-manager[data-theme="course"]::part(config-page)
+{
+    padding: var(--small-gap);
+}
+
 taskboard-manager[data-theme="course"]::part(shortcuts)
 {
     display: grid;

@@ -1,6 +1,5 @@
 // styles
 import sharedStyles from './styles/shared.css?raw';
-import boardItemStyles from './components/app-menu/board-item.global.css?raw';
 import browserItemStyles from './components/board-browser/browser-item.global.css?raw';
 
 import settingsStyle from './styles/settings.css?raw';
@@ -67,7 +66,6 @@ const DEFAULT_APP_VERSION = "--.--.--";
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
 COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
-${boardItemStyles}
 ${browserItemStyles}
 ${settingsStyle}
 ${componentStyle}`);
@@ -198,7 +196,7 @@ export class TaskboardManagerElement extends HTMLElement
         await this.findElement<PathRouterElement>('app-router').navigate('/' + window.location.hash);
         this.getElement('task-board').innerHTML = "";
         
-        const selectedMenuItems = [...this.findElement('app-menu-container').querySelectorAll(`[aria-current]`)] as HTMLElement[];
+        const selectedMenuItems = [...this.findElement('app-menu-container').shadowRoot!.querySelectorAll(`[aria-current]`)] as HTMLElement[];
         for(let i = 0; i < selectedMenuItems.length; i++)
         {
             selectedMenuItems[i].removeAttribute('aria-current');
@@ -208,14 +206,17 @@ export class TaskboardManagerElement extends HTMLElement
     }
     async addBoard()
     {
-        const order = this.findElement('app-menu-container').querySelectorAll('a').length;
+        const order = this.findElement('app-menu-container').shadowRoot!.querySelectorAll('a').length;
         const board = await DataService.createBoard(order);
 
         await this.findElement<ConfigPanelElement>('config-panel')
         .addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Board, { id: board.id });
 
-        this.findElement<AppMenuElement>('app-menu-container').refresh();
-        this.findElement<WelcomePanelElement>('welcome-panel').refresh();
+        this.refreshBoardCollections();
+        // await this.findElement<AppMenuElement>('app-menu-container').refresh();
+        await this.findElement<WelcomePanelElement>('welcome-panel').refresh();
+
+        return board;
     }
     editBoard(boardId: string)
     {        
@@ -258,7 +259,7 @@ export class TaskboardManagerElement extends HTMLElement
     }
     async importBoard(boardData: BoardExport, errorMessage?: string)
     {
-        const order = this.findElement('app-menu-container').querySelectorAll('a').length;
+        const order = this.findElement('app-menu-container').shadowRoot!.querySelectorAll('a').length;
         return DataService.importBoard(boardData, order, errorMessage);
     }
     async removeBoard(boardId: string, confirm: boolean = true)
@@ -280,10 +281,10 @@ export class TaskboardManagerElement extends HTMLElement
         const configPanel = this.findElement<ConfigPanelElement>('config-panel');
         const welcomePanel = this.findElement<WelcomePanelElement>('welcome-panel');
         const entry = await configPanel.addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Board, { id: boardId });
-        this.refreshBoards();
+        this.refreshBoardCollections();
         configPanel.refreshCache();
         await welcomePanel.removeBoardFromRecentBoards(boardId);
-        welcomePanel.refresh();
+        await welcomePanel.refresh();
 
         if(entry != null)
         {
@@ -322,7 +323,7 @@ export class TaskboardManagerElement extends HTMLElement
 
     async clearData()
     {
-        this.findElement<ConfigPanelElement>('config-panel').clearData();
+        return this.findElement<ConfigPanelElement>('config-panel').clearData();
     }
     // async clearHistory()
     // {
@@ -355,10 +356,15 @@ export class TaskboardManagerElement extends HTMLElement
         this.findElement<AppMenuElement>('app-menu-container').init({
             addBoard: this.addBoard.bind(this),
             editBoard: this.editBoard.bind(this),
+            openBoard: this.openBoard.bind(this),
         });
 
-        // welcome page
-        this.findElement<WelcomePanelElement>('welcome-panel').refresh();
+        // welcome panel
+        const welcomePanel = this.findElement<WelcomePanelElement>('welcome-panel');
+        welcomePanel.init({
+            addBoard: this.addBoard.bind(this),
+            openBoard: this.openBoard.bind(this),
+        });
 
         // task board
 
@@ -382,7 +388,9 @@ export class TaskboardManagerElement extends HTMLElement
             scheme_onChange: this.setColorScheme.bind(this),
             openImportManager: this.#openImportManager.bind(this),
             openBoard: this.openBoard.bind(this),
-            refreshBoards: this.refreshBoards.bind(this),
+            refreshBoardCollections: this.refreshBoardCollections.bind(this),
+            refreshRecentBoards: welcomePanel.refresh.bind(welcomePanel),
+            closeBoard: this.closeBoard.bind(this),
         });
 
         // board-settings
@@ -406,11 +414,13 @@ export class TaskboardManagerElement extends HTMLElement
 
         // loading
 
+        this.addEventListener('click', this.#onClick.bind(this));
+        this.addEventListener("keydown", this.#onKeyDown.bind(this));
+
         this.#addBoardHandlers();
         addKeyHandlers.call(this);
         this.#addRouteHandlers();
 
-        this.addEventListener('click', this.#onClick.bind(this));
 
         await this.#handleInitialNavigation(boardsPromise);
 
@@ -434,7 +444,11 @@ export class TaskboardManagerElement extends HTMLElement
     #addRouteHandlers()
     {
         const appRouter = this.findElement<PathRouterElement>('app-router');
-        appRouter.addRouteLinkClickHandlers(this.shadowRoot!);
+        appRouter.addRouteLinkClickHandlers([
+            this.findElement<HTMLElement>('app-menu-container'),
+            this.findElement<HTMLElement>('config-panel'),
+            this.findElement('welcome-panel').shadowRoot!.querySelector<HTMLElement>('#recent-boards')!
+        ]);
         this.findElement<PathRouterElement>('app-router').addEventListener('pathchange', this.#router_onPathChange.bind(this));
         window.addEventListener('popstate', async (event) =>
         {
@@ -468,7 +482,7 @@ export class TaskboardManagerElement extends HTMLElement
         let boardIdIndex = windowPath.indexOf('board/');
         if(boardIdIndex > -1)
         {
-            const currentMenuItem = this.findElement('app-menu-container').querySelector(`[data-route="${windowPath}"]`) as HTMLElement;
+            const currentMenuItem = this.findElement('app-menu-container').shadowRoot!.querySelector(`[data-route="${windowPath}"]`) as HTMLElement;
             if(currentMenuItem != null)
             {
                 currentMenuItem.setAttribute('aria-current', 'page');
@@ -542,7 +556,7 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const settingsTarget = this.findElement<BoardSettingsElement>('board-settings');
         const settingsTargetId = settingsTarget.getAttribute('record-id');
-        const boardItem = this.findElement<AppMenuElement>('app-menu-container').querySelector(`a[data-route*="${settingsTargetId}"]`) as HTMLAnchorElement;
+        const boardItem = this.findElement<AppMenuElement>('app-menu-container').shadowRoot!.querySelector(`a[data-route*="${settingsTargetId}"]`) as HTMLAnchorElement;
         if(boardItem == null)
         {
             FeedbackService.showErrorMessageCard(`An error occurred saving a task board.`);
@@ -550,7 +564,7 @@ export class TaskboardManagerElement extends HTMLElement
             return;
         }
 
-        const order = [...this.shadowRoot!.querySelectorAll('a')].indexOf(boardItem);
+        const order = [...this.findElement<AppMenuElement>('app-menu-container').shadowRoot!.querySelectorAll('a')].indexOf(boardItem);
         const [ existingBoard,
             existingTaskLists,
             existingTaskSettings,
@@ -648,7 +662,8 @@ export class TaskboardManagerElement extends HTMLElement
 
         content.append(messageText, messageButton);
         const notification = MessageCardElement.prepare(content, this.findElement('notifications'), { type: MessageCardType.Success, heading: "Success!" });
-        notification.part.add('notification');
+        notification.part.add('message-card', 'notification');
+        notification.setAttribute('exportparts', 'message-icon,header:message-header,heading:message-heading,message,close-button:message-close-button,close-icon:message-close-icon,duration:message-duration');
         notification.classList.add('notification');
         messageButton.addEventListener('click', () =>
         {
@@ -867,7 +882,7 @@ export class TaskboardManagerElement extends HTMLElement
     async #renderBoard(id: string)
     {
         const board = await DataService.getBoardRecord(id);
-        if(board == null)
+        if(board == null || board.deletedTimestamp != null)
         {
             this.findElement<PathRouterElement>('app-router').navigate('/');
             FeedbackService.showMessageCard(`No board found with the target id (${id}). Navigated back to Welcome page.`, MessageCardType.Warn);
@@ -896,10 +911,16 @@ export class TaskboardManagerElement extends HTMLElement
 
         const tasks = await DataService.getBoardTasks(id);
         await this.#renderBoardLists(taskBoard, tasks);
+
+        // wait a frame, to allow the last saved recentBoards value
+        // to be available when the update function is called
+        requestAnimationFrame(() =>
+        {
+            this.findElement<WelcomePanelElement>('welcome-panel').updateRecentBoardEntry(board.id, board.name);
+            const welcomePanel = this.findElement<WelcomePanelElement>('welcome-panel');
+            welcomePanel.refresh();
+        });
         
-        const welcomePanel = this.findElement<WelcomePanelElement>('welcome-panel');
-        await welcomePanel.addBoardToRecentBoards(id, board.name);
-        welcomePanel.refresh();
     }
     async #renderBoardBackground(board: TaskBoardRecord)
     {
@@ -1293,6 +1314,18 @@ export class TaskboardManagerElement extends HTMLElement
             this.addTask(addTaskButton.parentElement! as TaskListElement, order);
         }
     }
+    async #onKeyDown(event: KeyboardEvent)
+    {
+        if(event.code == "Space" || event.code == "Enter")
+        {
+            const taskCard = this.shadowRoot!.activeElement as HTMLElement;
+            if(taskCard == null || (taskCard instanceof TaskCardElement) == false) { return; }
+            const finishedIndicator = taskCard.shadowRoot!.activeElement as HTMLElement;
+            if(finishedIndicator == null || finishedIndicator.id != "finished-indicator") { return; }
+
+            finishedIndicator.click();
+        }
+    }
 
     #router_onPathChange(event: Event|CustomEvent)
     {
@@ -1315,12 +1348,24 @@ export class TaskboardManagerElement extends HTMLElement
         let updatedPath = router.getAttribute('path');
         const origin = window.location.origin;
         const updatedLocation = new URL(`${origin}/${updatedPath}`);
-        // console.log(window.location);
+        // console.log(updatedLocation, updatedLocation.pathname);
     
         const { hasChanged, isReplacementChange } = router.compareLocations(currentLocation as unknown as URL, updatedLocation);
-        if(hasChanged)
+        const updateUrl = this.getAttribute('update-url');
+        if(hasChanged && updateUrl != null)
         {
-            const newHistoryState =  `${updatedLocation.origin}${this.#rootPath}?path=${updatedLocation.pathname}${updatedLocation.hash}`;
+            const urlPath = this.getAttribute('path-override') ?? window.location.pathname;
+            
+            let newHistoryState;
+            if(updateUrl == '' || updateUrl == 'query')
+            {
+                newHistoryState =  `${window.location.origin}${urlPath}?path=${updatedLocation.pathname}${updatedLocation.hash}`;
+            }
+            else if(updateUrl == 'pathname')
+            {
+
+            }
+
             if(isReplacementChange)
             {
                 window.history.replaceState(null, '', newHistoryState);
@@ -1339,15 +1384,17 @@ export class TaskboardManagerElement extends HTMLElement
         // const item = event.composedPath().find(item => item instanceof HTMLElement ? item.part.contains('board-menu-item') : false) as HTMLElement;
         // if(item == null) { return; }
     
-        const items = [...this.findElement('app-menu-container').querySelectorAll('a')];
+        const items = [...this.findElement('app-menu-container').shadowRoot!.querySelectorAll('a')];
         for(let i = 0; i < items.length; i++)
         {
             items[i].part.remove('selected');
+            items[i].classList.remove('selected');
+            items[i].toggleAttribute('aria-current', false);
         }
     
         if(pageRoute != null)
         {
-            const currentMenuItem = this.findElement('app-menu-container').querySelector(`[data-route="${pageRoute}"]`);
+            const currentMenuItem = this.findElement('app-menu-container').shadowRoot!.querySelector(`[data-route="${pageRoute}"]`);
             if(currentMenuItem != null)
             {
                 currentMenuItem.setAttribute('aria-current', 'page');
@@ -1392,7 +1439,6 @@ export class TaskboardManagerElement extends HTMLElement
             throw new Error('Unable to open board route with unknown id');
         }
         this.#renderBoard(boardId);
-        this.findElement<WelcomePanelElement>('welcome-panel').updateRecentBoardEntry(boardId);
     }
     async #boardSettingsRoute_beforeOpen(_event: Event|CustomEvent)
     {

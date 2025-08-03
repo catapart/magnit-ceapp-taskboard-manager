@@ -47,6 +47,7 @@ button svg
     --button-icon-size: var(--icon-size);
     --dialog-margin: 10px;
     --dialog-header-icon-size: 16px;
+    --placeholder-color: #757575;
 
     --task-width: auto;
 }
@@ -84,22 +85,6 @@ button svg
 app-menu
 {
     display: contents;
-}
-
-.board
-{
-    user-select: none;
-}
-
-.edit
-{
-    opacity: 0;
-}
-.board:hover .edit
-,.board[aria-current="page"] .edit
-,.board .edit:focus
-{
-    opacity: 1;
 }
 
 #app-router
@@ -225,11 +210,6 @@ message-card::part(message)
         grid-template-columns: 1fr;
         /* grid-template-areas: 'menu'
         'taskboard'; */
-    }
-
-    .board .edit
-    {
-        display: none;
     }
 
     #app-router route-page

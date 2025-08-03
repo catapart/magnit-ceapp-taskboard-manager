@@ -95,7 +95,9 @@ export abstract class FeedbackService
 
     static showMessageCard(message: string, type: MessageCardType)
     {
-        MessageCardElement.notify(message, FeedbackService.#manager.getElement('notifications'), { type });
+        const card = MessageCardElement.notify(message, FeedbackService.#manager.getElement('notifications'), { type });
+        card.part.add('message-card');
+        card.setAttribute('exportparts', 'message-icon,header:message-header,heading:message-heading,message,close-button:message-close-button,close-icon:message-close-icon,duration:message-duration');
     }
     static showErrorMessageCard(message: string)
     {
@@ -103,6 +105,8 @@ export abstract class FeedbackService
     }
     static showMessageCard_customTitle(message: string, type: MessageCardType, title: string)
     {
-        MessageCardElement.notify(message, FeedbackService.#manager.getElement('notifications'), { type, heading: title });
+        const card = MessageCardElement.notify(message, FeedbackService.#manager.getElement('notifications'), { type, heading: title });
+        card.part.add('message-card');
+        card.setAttribute('exportparts', 'message-icon,header:message-header,heading:message-heading,message,close-button:message-close-button,close-icon:message-close-icon,duration:message-duration');
     }
 }

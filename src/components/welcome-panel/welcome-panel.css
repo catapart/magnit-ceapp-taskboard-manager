@@ -28,6 +28,28 @@
     background-color: highlight;
     color: highlighttext;
 }
+#recent-boards::part(placeholder)
+{
+    color: var(--placeholder-color);
+    text-align: center;
+}
+
+.board
+{
+    user-select: none;
+}
+
+.edit
+{
+    opacity: 0;
+}
+.board:hover .edit
+,.board[aria-current="page"] .edit
+,.board .edit:focus
+{
+    opacity: 1;
+}
+
 #new-board-button
 {
     text-align: center;

@@ -27,9 +27,6 @@ module.exports = __toCommonJS(taskboard_manager_exports);
 // src/styles/shared.css?raw
 var shared_default = '\r\ninput, button, textarea, select \r\n{\r\n    font: inherit; \r\n}\r\ninput[type="color"]::-webkit-color-swatch\r\n{\r\n    border: none;\r\n    padding: 0;\r\n}\r\ninput[type="color"]::-webkit-color-swatch-wrapper\r\n{\r\n    padding: 0;\r\n    border: none;\r\n}\r\n\r\nbutton\r\n{\r\n    display: inline-flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    gap: 7px;\r\n}\r\n\r\nbutton svg\r\n{\r\n    width: var(--button-icon-size);\r\n    height: var(--button-icon-size);\r\n}\r\n';
 
-// src/components/app-menu/board-item.global.css?raw
-var board_item_global_default = '\r\na.board\r\n{\r\n    margin: 0;\r\n    flex-shrink: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: .25em;\r\n    padding: .25em 1em;\r\n}\r\na.board .name\r\n{\r\n    flex: 1;\r\n}\r\na.board:hover\r\n{\r\n    background: highlight;\r\n    color: highlighttext;\r\n}\r\na.board[aria-current="page"]\r\n{\r\n    background: highlight;\r\n    color: highlighttext;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n\r\n    a.board [part="edit"]\r\n    {\r\n        display: none;\r\n    }\r\n}\r\n@media (max-width: 800px) \r\n{\r\n    \r\n}\r\n\r\n/* only desktop */\r\n@media (min-width: 665px) \r\n{\r\n\r\n    /* a.board\r\n    {\r\n        overflow: hidden;\r\n    } */\r\n\r\n    .menu-item-handle\r\n    ,a.board [part="edit"]\r\n    {\r\n        opacity: 0;\r\n        transition: opacity 200ms ease;\r\n    }\r\n    .menu-item-handle\r\n    ,a.board:hover [part="edit"]\r\n    {\r\n        opacity: 1;\r\n    }\r\n\r\n    a.board [part="edit"]:hover\r\n    {\r\n        opacity: 1;\r\n    }\r\n\r\n    a.board .board-item-name\r\n    {\r\n        flex: 1;\r\n        white-space: nowrap;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n    }\r\n\r\n    \r\n    .menu-item-handle\r\n    {\r\n        display: flex;\r\n        width: 10px;\r\n        align-self: stretch;\r\n        cursor: grab;\r\n        /* border-radius: 3px; */\r\n        transform: translateY(-1px);\r\n        \r\n        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);\r\n        background-size: 5px 6px;\r\n        background-position: 0 0, 2px 4px;\r\n    }\r\n    .menu-item-handle:active\r\n    {\r\n        cursor: grabbing;\r\n    }\r\n}\r\n@media (min-width: 800px) \r\n{\r\n\r\n}';
-
 // src/components/board-browser/browser-item.global.css?raw
 var browser_item_global_default = "captioned-thumbnail\r\n{\r\n    height: auto;\r\n}\r\n\r\ncaptioned-thumbnail::part(figure)\r\n{\r\n    padding: 3px;\r\n}\r\n\r\ncaptioned-thumbnail svg\r\n{\r\n    width: 36px;\r\n    height: 36px;\r\n}\r\n\r\ncaptioned-thumbnail.match\r\n{\r\n    border: solid 1px highlight;\r\n    order: 0;\r\n}\r\nboard-browser:has(captioned-thumbnail.match) captioned-thumbnail:not(.match)\r\n{\r\n    order: 1;\r\n}";
 
@@ -86,6 +83,7 @@ button svg\r
     --button-icon-size: var(--icon-size);\r
     --dialog-margin: 10px;\r
     --dialog-header-icon-size: 16px;\r
+    --placeholder-color: #757575;\r
 \r
     --task-width: auto;\r
 }\r
@@ -123,22 +121,6 @@ button svg\r
 app-menu\r
 {\r
     display: contents;\r
-}\r
-\r
-.board\r
-{\r
-    user-select: none;\r
-}\r
-\r
-.edit\r
-{\r
-    opacity: 0;\r
-}\r
-.board:hover .edit\r
-,.board[aria-current="page"] .edit\r
-,.board .edit:focus\r
-{\r
-    opacity: 1;\r
 }\r
 \r
 #app-router\r
@@ -264,11 +246,6 @@ message-card::part(message)\r
         grid-template-columns: 1fr;\r
         /* grid-template-areas: 'menu'\r
         'taskboard'; */\r
-    }\r
-\r
-    .board .edit\r
-    {\r
-        display: none;\r
     }\r
 \r
     #app-router route-page\r
@@ -448,7 +425,7 @@ dialog[open]\r
 }`;
 
 // src/taskboard-manager.html?raw
-var taskboard_manager_default2 = '<app-menu id="app-menu-container"></app-menu>\r\n<path-router id="app-router" path="">\r\n    <route-page id="welcome-page" class="page" path="">\r\n        <welcome-panel\r\n            id="welcome-panel"\r\n            exportparts="edit-button:recent-edit-button,handle:recent-edit-handle">\r\n        </welcome-panel>\r\n    </route-page>\r\n    <route-page id="board-page" class="page" path="board/:id" >\r\n        <task-board id="task-board" exportparts="lists:task-board-lists"></task-board>\r\n    </route-page>\r\n    <dialog id="board-browser-dialog" class="dialog" is="route-dialog" path="boards">\r\n        <board-browser\r\n            id="board-browser"\r\n            exportparts="regex,active">\r\n        </board-browser>\r\n    </dialog>\r\n    <dialog id="config-dialog" class="dialog" is="route-dialog" path="config">\r\n        <config-panel id="config-panel" exportparts="selected,deleted-item,action-history-entry,active">\r\n            <slot name="custom-settings" slot="custom-settings"></slot>\r\n        </config-panel>\r\n    </dialog>\r\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\r\n        <board-settings id="board-settings" exportparts="option-true"></board-settings>\r\n    </dialog>\r\n    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">\r\n        <import-manager\r\n            id="import-manager"\r\n            exportparts="preview: import-preview,\r\n                         content: import-dialog-content,\r\n                         removed,\r\n                         undo:import-target-undo"\r\n            ></import-manager>\r\n    </dialog>\r\n</path-router>\r\n<dialog id="confirmation-dialog" class="dialog">\r\n    <header id="confirmation-dialog-header" class="header dialog-header">\r\n        <svg id="confirmation-dialog-icon" class="icon">\r\n            <use href="#icon-definition_logo-mark"></use>\r\n        </svg>\r\n        <span id="confirmation-dialog-title" class="title">Confirmation</span>\r\n    </header>\r\n    <path-router id="confirmation-router" class="router">\r\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\r\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\r\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\r\n    </path-router>\r\n    <footer id="confirmation-dialog-footer" class="footer dialog-footer">\r\n        <form id="confirmation-dialog-form" method="dialog">\r\n            <button type="submit" id="confirmation-cancel-button" class="button action-button cancel">Cancel</button>\r\n            <button type="submit" id="confirmation-confirm-button" class="button action-button ok preferred-button">Confirm</button>\r\n        </form>\r\n    </footer>\r\n</dialog>\r\n<div id="notifications"></div>\r\n<div id="loading"></div>';
+var taskboard_manager_default2 = '<app-menu id="app-menu-container" exportparts="board,handle,menu-item-handle,board-item-name,edit,button,board-edit-button,icon-button,icon,button-icon-expand,longpress,selected"></app-menu>\r\n<path-router id="app-router" path="">\r\n    <route-page id="welcome-page" class="page" path="">\r\n        <welcome-panel\r\n            id="welcome-panel"\r\n            exportparts="edit-button:recent-edit-button,handle:recent-edit-handle,board,recent,recent-board-remove-button,handle,menu-item-handle,board-item-name,edit,add,button,board-edit-button,icon-button,icon,button-icon-expand">\r\n        </welcome-panel>\r\n    </route-page>\r\n    <route-page id="board-page" class="page" path="board/:id" >\r\n        <task-board id="task-board" exportparts="lists:task-board-lists"></task-board>\r\n    </route-page>\r\n    <dialog id="board-browser-dialog" class="dialog" is="route-dialog" path="boards">\r\n        <board-browser\r\n            id="board-browser"\r\n            exportparts="regex,active">\r\n        </board-browser>\r\n    </dialog>\r\n    <dialog id="config-dialog" class="dialog" is="route-dialog" path="config">\r\n        <config-panel id="config-panel" exportparts="selected,deleted-item,action-history-entry,active">\r\n            <slot name="custom-settings" slot="custom-settings"></slot>\r\n        </config-panel>\r\n    </dialog>\r\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\r\n        <board-settings id="board-settings" exportparts="option-true"></board-settings>\r\n    </dialog>\r\n    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">\r\n        <import-manager\r\n            id="import-manager"\r\n            exportparts="preview: import-preview,\r\n                         content: import-dialog-content,\r\n                         removed,\r\n                         undo:import-target-undo"\r\n            ></import-manager>\r\n    </dialog>\r\n</path-router>\r\n<dialog id="confirmation-dialog" class="dialog">\r\n    <header id="confirmation-dialog-header" class="header dialog-header">\r\n        <svg id="confirmation-dialog-icon" class="icon">\r\n            <use href="#icon-definition_logo-mark"></use>\r\n        </svg>\r\n        <span id="confirmation-dialog-title" class="title">Confirmation</span>\r\n    </header>\r\n    <path-router id="confirmation-router" class="router">\r\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\r\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\r\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\r\n    </path-router>\r\n    <footer id="confirmation-dialog-footer" class="footer dialog-footer">\r\n        <form id="confirmation-dialog-form" method="dialog">\r\n            <button type="submit" id="confirmation-cancel-button" class="button action-button cancel">Cancel</button>\r\n            <button type="submit" id="confirmation-confirm-button" class="button action-button ok preferred-button">Confirm</button>\r\n        </form>\r\n    </footer>\r\n</dialog>\r\n<div id="notifications"></div>\r\n<div id="loading"></div>';
 
 // src/assets/icons/cancel-cross.ts
 var CancelCross = `<svg id="icon-definition_cancel-cross" class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -2883,6 +2860,52 @@ var app_menu_default = `#app-menu\r
     margin: 0;\r
     padding: 0;\r
 }\r
+#boards::part(placeholder)\r
+{\r
+    color: var(--placeholder-color);\r
+    text-align: center;\r
+}\r
+\r
+\r
+.board\r
+{\r
+    user-select: none;\r
+}\r
+a.board\r
+{\r
+    margin: 0;\r
+    flex-shrink: 0;\r
+    display: flex;\r
+    align-items: center;\r
+    gap: .25em;\r
+    padding: .25em 1em;\r
+}\r
+a.board .name\r
+{\r
+    flex: 1;\r
+}\r
+a.board:hover\r
+{\r
+    background: highlight;\r
+    color: highlighttext;\r
+}\r
+a.board[aria-current="page"]\r
+{\r
+    background: highlight;\r
+    color: highlighttext;\r
+}\r
+\r
+\r
+.edit\r
+{\r
+    opacity: 0;\r
+}\r
+.board:hover .edit\r
+,.board[aria-current="page"] .edit\r
+,.board .edit:focus\r
+{\r
+    opacity: 1;\r
+}\r
 \r
 @media (max-width: 665px) \r
 {\r
@@ -2927,6 +2950,17 @@ var app_menu_default = `#app-menu\r
         gap: var(--menu-gap);\r
         padding: var(--menu-padding);\r
         box-shadow: inset -10px 0 10px -10px rgb(0 0 0 / .8);\r
+    }\r
+\r
+    a.board [part="edit"]\r
+    {\r
+        display: none;\r
+    }\r
+\r
+\r
+    .board .edit\r
+    {\r
+        display: none;\r
     }\r
 \r
     #new-board-button\r
@@ -2974,6 +3008,49 @@ var app_menu_default = `#app-menu\r
         overflow-x: hidden;\r
         grid-auto-rows: max-content;\r
     }\r
+    \r
+    .menu-item-handle\r
+    {\r
+        display: flex;\r
+        width: 10px;\r
+        align-self: stretch;\r
+        cursor: grab;\r
+        /* border-radius: 3px; */\r
+        transform: translateY(-1px);\r
+        \r
+        background-image: radial-gradient(var(--grip-color, canvastext) 40%, transparent 41%);\r
+        background-size: 5px 6px;\r
+        background-position: 0 0, 2px 4px;\r
+    }\r
+    .menu-item-handle:active\r
+    {\r
+        cursor: grabbing;\r
+    }\r
+\r
+    .menu-item-handle\r
+    ,a.board [part="edit"]\r
+    {\r
+        opacity: 0;\r
+        transition: opacity 200ms ease;\r
+    }\r
+    .menu-item-handle\r
+    ,a.board:hover [part="edit"]\r
+    {\r
+        opacity: 1;\r
+    }\r
+\r
+    a.board [part="edit"]:hover\r
+    {\r
+        opacity: 1;\r
+    }\r
+\r
+    a.board .board-item-name\r
+    {\r
+        flex: 1;\r
+        white-space: nowrap;\r
+        overflow: hidden;\r
+        text-overflow: ellipsis;\r
+    }\r
 \r
     #new-board-button\r
     {\r
@@ -2988,7 +3065,7 @@ var app_menu_default = `#app-menu\r
 }`;
 
 // src/components/app-menu/app-menu.html?raw
-var app_menu_default2 = '<menu id="app-menu" class="menu">\r\n    <header id="app-menu-header" class="header">\r\n        <div id="app-menu-branding" class="branding" title="Manager Icon">\r\n            <svg class="icon logo mark" alt="Manager Brand Mark">\r\n                <use href="#icon-definition_logo-mark"></use>\r\n            </svg>\r\n        </div>\r\n        <button id="find-board-button" class="button" type="button" data-route="#boards" title="Find Board">\r\n            <svg class="icon button-icon magnifying-glass">\r\n                <use href="#icon-definition_magnifying-glass"></use>\r\n            </svg>\r\n            <span class="button-label">Find Board</span>\r\n        </button>\r\n        <button id="open-settings-button" class="button icon-button" type="button" data-route="#config/settings" title="App Administration">\r\n            <svg class="icon button-icon gear">\r\n                <use href="#icon-definition_gear"></use>\r\n            </svg>\r\n        </button>\r\n    </header>\r\n    <editable-list id="boards" remove="false" edit="true" edit-class="button board-edit-button icon-button" exportparts="items: board-items">\r\n        <slot></slot>\r\n        <button id="new-board-button" class="button new-board-button label-button" type="button" slot="add" title="New Board">\r\n            <svg class="icon button-icon plus" >\r\n                <use href="#icon-definition_plus"></use>\r\n            </svg>\r\n            <span class="label button-label">New Board</span>\r\n        </button>\r\n        <template part="edit-button">\r\n            <svg class="icon button-icon expand">\r\n                <use href="#icon-definition_stylus"></use>\r\n            </svg>\r\n        </template>\r\n    </editable-list>\r\n</menu>\r\n';
+var app_menu_default2 = '<menu id="app-menu" class="menu">\r\n    <header id="app-menu-header" class="header">\r\n        <div id="app-menu-branding" class="branding" title="Manager Icon">\r\n            <svg class="icon logo mark" alt="Manager Brand Mark">\r\n                <use href="#icon-definition_logo-mark"></use>\r\n            </svg>\r\n        </div>\r\n        <button id="find-board-button" class="button" type="button" data-route="#boards" title="Find Board">\r\n            <svg class="icon button-icon magnifying-glass">\r\n                <use href="#icon-definition_magnifying-glass"></use>\r\n            </svg>\r\n            <span class="button-label">Find Board</span>\r\n        </button>\r\n        <button id="open-settings-button" class="button icon-button" type="button" data-route="#config/settings" title="App Administration">\r\n            <svg class="icon button-icon gear">\r\n                <use href="#icon-definition_gear"></use>\r\n            </svg>\r\n        </button>\r\n    </header>\r\n    <editable-list id="boards" placeholder="[No boards found]" remove="false" edit="true" edit-class="button board-edit-button icon-button" exportparts="items: board-items, placeholder">\r\n        <button id="new-board-button" class="button new-board-button label-button" type="button" slot="add" title="New Board">\r\n            <svg class="icon button-icon plus" >\r\n                <use href="#icon-definition_plus"></use>\r\n            </svg>\r\n            <span class="label button-label">New Board</span>\r\n        </button>\r\n        <template part="edit-button">\r\n            <svg class="icon button-icon expand">\r\n                <use href="#icon-definition_stylus"></use>\r\n            </svg>\r\n        </template>\r\n    </editable-list>\r\n</menu>\r\n';
 
 // node_modules/.pnpm/@magnit-ce+message-card@0.0.3/node_modules/@magnit-ce/message-card/dist/message-card.js
 var message_card_default = '\n:host([type="info"])    { --primary-color:#0184db; }\n:host([type="success"]) { --primary-color:#20a453; }\n:host([type="warning"]) { --primary-color:#f0cb52; }\n:host([type="error"])   { --primary-color:#db283b; }\n:host([type="aside"])   { --primary-color:#1f3cd0; }\n:host([type="note"])    { --primary-color:#db8630; }\n:host([type="report"])  { --primary-color:#4d5168; }\n\n@media (prefers-color-scheme: dark) \n{\n    :host([type="info"])    { --primary-color:#3baee9; }\n    :host([type="success"]) { --primary-color:#4fc872; }\n    :host([type="warning"]) { --primary-color:#f0cb52; }\n    :host([type="error"])   { --primary-color:#e95a5c; }\n    :host([type="aside"])   { --primary-color:#3760ff; }\n    :host([type="note"])    { --primary-color:#e9ac60; }\n    :host([type="report"])  { --primary-color:#707177; }\n}\n\n:host\n{\n    --primary-color: graytext;\n    --font-color: fieldtext;\n    background-color: var(--background-color, field);\n    color: var(--font-color);\n    border: solid 1px var(--primary-color);\n    border-radius: 3px;\n    padding: .5em;\n    display: none;\n    font-family: sans-serif;\n    font-size: 12px;\n    position: relative;\n\n    grid-template-columns: auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n:host([open])\n{\n    display: grid;\n}\n\n[part="message-icon"]\n,::slotted([slot="message-icon"])\n{\n    align-self: center;\n    grid-row: span 2;\n    margin-right: 1em;\n}\n\n[part="heading"]\n,::slotted([slot="heading"])\n{\n    color: var(--primary-color);\n    font-weight: bold;\n    font-size: 13px;\n    align-self: center;\n    display: inline-block;\n}\n\n[part="message"]\n{\n    grid-row: 2;\n    grid-column: 2;\n    margin-top: .3em;\n}\n\nsvg path { fill: var(--primary-color); }\n\n:host([prevent-close]) [part="close-button"]\n{\n    display: none;\n}\n[part="close-button"]\n{\n    align-self: center;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n    background: none;\n    padding: 2px 5px;\n    margin: 0;\n    border: solid 1px transparent;\n    border-radius: 3px;\n}\n[part="close-button"]:hover\n{\n    background-color: rgb(0 0 0 / .05);\n    border-color: rgb(0 0 0 / .1);\n}\n@media (prefers-color-scheme: dark) \n{\n    [part="close-button"]:hover\n    {\n        background-color: rgb(0 0 0 / .4);\n        border-color: rgb(0 0 0 / .7);\n    }\n}\n[part="close-icon"]\n,::slotted([slot="close-icon"])\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}\n\n[part="duration"]\n{\n    width: 100%;\n    position: absolute;\n    bottom: 0;\n    appearance: none;\n    height: 2px;\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n    border: none;\n    transition: all 50ms ease;\n    accent-color: var(--primary-color);\n}\n\n[part="duration"]::-webkit-progress-value\n{\n    background-color: var(--primary-color, canvastext);\n    border-bottom-left-radius: 3px;\n    border-bottom-right-radius: 3px;\n}\n\n[part="duration"]::-webkit-progress-bar\n{\n    background: none;\n}\n[part="duration"]::-moz-progress-bar\n{\n    background-color: var(--primary-color, canvastext);\n}\n\n:host(:not([duration])) [part="duration"]\n{\n    display: none;\n}\n\n/* progress {\n}\nprogress::-webkit-progress-bar {\n}\nprogress::-webkit-progress-value {\n}\nprogress::-moz-progress-bar {\n} */';
@@ -3327,13 +3404,17 @@ var FeedbackService = class _FeedbackService {
     });
   }
   static showMessageCard(message, type) {
-    MessageCardElement.notify(message, _FeedbackService.#manager.getElement("notifications"), { type });
+    const card = MessageCardElement.notify(message, _FeedbackService.#manager.getElement("notifications"), { type });
+    card.part.add("message-card");
+    card.setAttribute("exportparts", "message-icon,header:message-header,heading:message-heading,message,close-button:message-close-button,close-icon:message-close-icon,duration:message-duration");
   }
   static showErrorMessageCard(message) {
     _FeedbackService.showMessageCard(message, MessageCardType.Error);
   }
   static showMessageCard_customTitle(message, type, title) {
-    MessageCardElement.notify(message, _FeedbackService.#manager.getElement("notifications"), { type, heading: title });
+    const card = MessageCardElement.notify(message, _FeedbackService.#manager.getElement("notifications"), { type, heading: title });
+    card.part.add("message-card");
+    card.setAttribute("exportparts", "message-icon,header:message-header,heading:message-heading,message,close-button:message-close-button,close-icon:message-close-icon,duration:message-duration");
   }
 };
 
@@ -4538,14 +4619,18 @@ var DataPanelElement = class extends HTMLElement {
   //#region API
   #openImportManager;
   #openBoard;
+  #closeBoard;
   #refreshActionHistory;
-  #refreshBoards;
+  #refreshBoardCollections;
+  #refreshRecentBoards;
   #addActionHistoryEntry;
   async init(options) {
     this.#openImportManager = options.openImportManager;
     this.#openBoard = options.openBoard;
     this.#refreshActionHistory = options.refreshActionHistory;
-    this.#refreshBoards = options.refreshBoards;
+    this.#refreshBoardCollections = options.refreshBoardCollections;
+    this.#refreshRecentBoards = options.refreshRecentBoards;
+    this.#closeBoard = options.closeBoard;
     this.#addActionHistoryEntry = options.addActionHistoryEntry;
     const importFileInput = this.getElement("import-board-file");
     importFileInput.addEventListener("change", () => {
@@ -4606,8 +4691,10 @@ var DataPanelElement = class extends HTMLElement {
     if (confirmed == false) {
       return;
     }
+    this.#closeBoard();
     await DataService.clearAllData();
-    this.#refreshBoards();
+    this.#refreshBoardCollections();
+    this.#refreshRecentBoards();
     this.#refreshActionHistory();
     this.refreshCache();
   }
@@ -4728,7 +4815,7 @@ var DataPanelElement = class extends HTMLElement {
     await this.#addActionHistoryEntry(HistoryEntryType.Update, targetType, properties);
     if (targetType == "board" /* Board */) {
       this.#openBoard(recordId);
-      this.#refreshBoards();
+      this.#refreshBoardCollections();
     }
     this.refreshCache();
   }
@@ -4818,34 +4905,6 @@ var DataPanelElement = class extends HTMLElement {
     return this.#deleteImage(item);
   }
   //#endregion Handlers
-  //#region Internal
-  #applyPartAttributes() {
-    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
-    for (let i = 0; i < identifiedElements.length; i++) {
-      identifiedElements[i].part.add(identifiedElements[i].id);
-    }
-    const classedElements = [...this.shadowRoot.querySelectorAll(":not(form-field,.postfix,.prefix,.container, .field-label)[class]")];
-    for (let i = 0; i < classedElements.length; i++) {
-      const classedElement = classedElements[i];
-      classedElement.part.add(...classedElements[i].classList);
-    }
-    const formFieldElements = [...this.shadowRoot.querySelectorAll("form-field")];
-    for (let i = 0; i < formFieldElements.length; i++) {
-      const formFieldElement = formFieldElements[i];
-      const fieldId = formFieldElement.id;
-      const container = formFieldElement.querySelector(".container");
-      container.part.add("container", "field-container", `${fieldId}-container`);
-      const label = formFieldElement.querySelector(".field-label");
-      label.part.add("label", "field-label", `${fieldId}-label`);
-      const prefix = formFieldElement.querySelector(".prefix");
-      prefix.part.add("prefix", "field-prefix", `${fieldId}-prefix`);
-      const postfix = formFieldElement.querySelector(".postfix");
-      postfix.part.add("postfix", "field-postfix", `${fieldId}-postfix`);
-      const enabledCheckbox = formFieldElement.querySelector(".enabled-checkbox");
-      enabledCheckbox?.part.add("enabled-checkbox", "field-enabled-checkbox", `${fieldId}-enabled-checkbox`);
-    }
-  }
-  //#endregion Internal
 };
 if (customElements.get(COMPONENT_TAG_NAME6) == null) {
   customElements.define(COMPONENT_TAG_NAME6, DataPanelElement);
@@ -5327,7 +5386,8 @@ ${defineIcons(
   "LogoMark" /* LogoMark */,
   "MagnifyingGlass" /* MagnifyingGlass */,
   "Gear" /* Gear */,
-  "PlusIcon" /* PlusIcon */
+  "PlusIcon" /* PlusIcon */,
+  "Stylus" /* Stylus */
 )}`;
 var COMPONENT_TAG_NAME7 = "app-menu";
 var AppMenuElement = class extends HTMLElement {
@@ -5348,10 +5408,13 @@ var AppMenuElement = class extends HTMLElement {
   //#region API
   #addBoard;
   #editBoard;
+  #openBoard;
   init(options) {
     this.#addBoard = options.addBoard;
     this.#editBoard = options.editBoard;
+    this.#openBoard = options.openBoard;
     this.addEventListener("click", this.#onClick.bind(this));
+    this.addEventListener("keydown", this.#onKeyDown.bind(this));
   }
   async refresh() {
     const boardRecords = await DataService.getAllBoardRecords();
@@ -5364,12 +5427,16 @@ var AppMenuElement = class extends HTMLElement {
       const menuItem = this.#createBoardMenuItem(boardRecord);
       menuItems.push(menuItem);
     }
-    this.innerHTML = "";
-    this.append(...menuItems);
+    const boardsList = this.findElement("boards");
+    const items = [...boardsList.querySelectorAll("a")];
+    for (let i = 0; i < items.length; i++) {
+      items[i].remove();
+    }
+    boardsList.append(...menuItems);
   }
   //#endregion
   //#region Handlers
-  #onClick(event) {
+  async #onClick(event) {
     const composedPath = event.composedPath().filter((item) => item instanceof HTMLElement);
     const longpress = composedPath.find((item) => item.classList.contains("longpress"));
     if (longpress != null) {
@@ -5381,12 +5448,23 @@ var AppMenuElement = class extends HTMLElement {
       const boardId = editButton.parentElement.dataset.route.split("/")[1];
       this.#editBoard(boardId);
       event.stopPropagation();
+      event.preventDefault();
       return;
     }
     const newBoardButton = composedPath.find((item) => item.classList.contains("new-board-button"));
     if (newBoardButton != null) {
-      this.#addBoard();
+      const board = await this.#addBoard();
+      this.#openBoard(board.id);
       return;
+    }
+  }
+  async #onKeyDown(event) {
+    if (event.code == "Space" || event.code == "Enter") {
+      const board = this.shadowRoot.activeElement;
+      if (board == null || board.classList.contains("board") == false) {
+        return;
+      }
+      this.#openBoard(board.dataset.route.substring(6));
     }
   }
   boardsList_onDragover(event) {
@@ -5442,7 +5520,7 @@ var AppMenuElement = class extends HTMLElement {
           element.part.add("longpress");
           this.#editBoard(board.id);
           cancel();
-          const boards = [...this.querySelectorAll("a")];
+          const boards = [...this.shadowRoot.querySelectorAll("a")];
           for (let i = 0; i < boards.length; i++) {
             boards[i].classList.remove("selected");
             boards[i].part.remove("selected");
@@ -5493,13 +5571,13 @@ var AppMenuElement = class extends HTMLElement {
       return;
     }
     if (nextElement == null) {
-      this.append(this.#draggingBoard);
+      this.findElement("boards").append(this.#draggingBoard);
     } else {
-      this.insertBefore(this.#draggingBoard, nextElement);
+      this.findElement("boards").insertBefore(this.#draggingBoard, nextElement);
     }
   }
   #getNextBoardItem(mouseY) {
-    const lists = [...this.querySelectorAll("a:not(.dragging)")];
+    const lists = [...this.shadowRoot.querySelectorAll("a:not(.dragging)")];
     return lists.reduce((closest, item) => {
       const boundingRect = item.getBoundingClientRect();
       const offset = mouseY - boundingRect.top - boundingRect.height / 2;
@@ -5515,7 +5593,7 @@ var AppMenuElement = class extends HTMLElement {
   }
   async #getOrderedBoards() {
     const orderedIds = [];
-    const boardItems = [...this.querySelectorAll("a.board")];
+    const boardItems = [...this.shadowRoot.querySelectorAll("a.board")];
     for (let i = 0; i < boardItems.length; i++) {
       const boardItem = boardItems[i];
       const boardId = boardItem.dataset.route.split("/")[1];
@@ -5543,10 +5621,10 @@ if (customElements.get(COMPONENT_TAG_NAME7) == null) {
 }
 
 // src/components/welcome-panel/welcome-panel.css?raw
-var welcome_panel_default = ":host\r\n{\r\n    align-self: center;\r\n    justify-self: center;\r\n    padding: 1em;\r\n}\r\n\r\n#recent-boards\r\n{\r\n    display: grid;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n#recent-boards::part(items)\r\n{\r\n    display: grid;\r\n    \r\n}\r\n#recent-boards a\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 3px 7px;\r\n}\r\n#recent-boards a:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n#new-board-button\r\n{\r\n    text-align: center;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    margin: 10px;\r\n}\r\n\r\n#logo\r\n{\r\n    width: 100%;\r\n    height: 80px;\r\n}";
+var welcome_panel_default = ':host\r\n{\r\n    align-self: center;\r\n    justify-self: center;\r\n    padding: 1em;\r\n}\r\n\r\n#recent-boards\r\n{\r\n    display: grid;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n#recent-boards::part(items)\r\n{\r\n    display: grid;\r\n    \r\n}\r\n#recent-boards a\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 3px 7px;\r\n}\r\n#recent-boards a:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n#recent-boards::part(placeholder)\r\n{\r\n    color: var(--placeholder-color);\r\n    text-align: center;\r\n}\r\n\r\n.board\r\n{\r\n    user-select: none;\r\n}\r\n\r\n.edit\r\n{\r\n    opacity: 0;\r\n}\r\n.board:hover .edit\r\n,.board[aria-current="page"] .edit\r\n,.board .edit:focus\r\n{\r\n    opacity: 1;\r\n}\r\n\r\n#new-board-button\r\n{\r\n    text-align: center;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    margin: 10px;\r\n}\r\n\r\n#logo\r\n{\r\n    width: 100%;\r\n    height: 80px;\r\n}';
 
 // src/components/welcome-panel/welcome-panel.html?raw
-var welcome_panel_default2 = '<fieldset id="welcome-fieldset">\r\n    <legend id="welcome-legend">Welcome</legend>\r\n    <header id="welcome-header" class="panel-header">\r\n        <svg id="welcome-logo" class="logo">\r\n            <use href="#icon-definition_logo"></use>\r\n        </svg>\r\n    </header>\r\n    <div id="welcome-description" class="description">\r\n        <p id="welcome-text" class="text">Welcome to your Taskboard Manager!</p>\r\n        <p id="create-text" class="text">Create a <a id="new-board-link" class="link">new board</a>, or select a recently-opened board below.</p>\r\n    </div>\r\n    <fieldset id="recent-fieldset">\r\n        <legend id="recent-legend">Recent Boards</legend>\r\n        <editable-list id="recent-boards" remove-class="button recent-board-remove-button icon-button" exportparts="edit:edit-button, handle: edit-handle, button, remove:remove-button">\r\n            <slot></slot>\r\n            <button type="button" slot="add" id="new-board-button" class="new-board-button label-button" title="New Board">\r\n                <svg class="icon plus" >\r\n                    <use href="#icon-definition_plus"></use>\r\n                </svg>\r\n                <span class="label">New Board</span>\r\n            </button>\r\n            <template part="remove-button">\r\n                <svg class="icon button-icon remove">\r\n                    <use href="#icon-definition_close-cross"></use>\r\n                </svg>\r\n            </template>\r\n        </editable-list>\r\n    </fieldset>\r\n</fieldset>';
+var welcome_panel_default2 = '<fieldset id="welcome-fieldset">\r\n    <legend id="welcome-legend">Welcome</legend>\r\n    <header id="welcome-header" class="panel-header">\r\n        <svg id="welcome-logo" class="logo">\r\n            <use href="#icon-definition_logo"></use>\r\n        </svg>\r\n    </header>\r\n    <div id="welcome-description" class="description">\r\n        <p id="welcome-text" class="text">Welcome to your Taskboard Manager!</p>\r\n        <p id="create-text" class="text">Create a <a id="new-board-link" class="link">new board</a>, or select a recently-opened board below.</p>\r\n    </div>\r\n    <fieldset id="recent-fieldset">\r\n        <legend id="recent-legend">Recent Boards</legend>\r\n        <editable-list id="recent-boards" placeholder="[No recently opened boards found]" remove-class="button recent-board-remove-button icon-button" exportparts="edit:edit-button, handle: edit-handle, button, remove:remove-button, items:recent-board-items, placeholder">\r\n            <button type="button" slot="add" id="new-board-button" class="new-board-button label-button recent" title="New Board">\r\n                <svg class="icon plus recent" >\r\n                    <use href="#icon-definition_plus"></use>\r\n                </svg>\r\n                <span class="label">New Board</span>\r\n            </button>\r\n            <template part="remove-button">\r\n                <svg class="icon button-icon remove recent">\r\n                    <use href="#icon-definition_close-cross"></use>\r\n                </svg>\r\n            </template>\r\n        </editable-list>\r\n    </fieldset>\r\n</fieldset>';
 
 // src/components/welcome-panel/welcome-panel.ts
 var WelcomePanelAttributes = /* @__PURE__ */ ((WelcomePanelAttributes2) => {
@@ -5561,7 +5639,8 @@ ${defineIcons(
   "LogoMark" /* LogoMark */,
   "LogoType" /* LogoType */,
   "Logo" /* Logo */,
-  "PlusIcon" /* PlusIcon */
+  "PlusIcon" /* PlusIcon */,
+  "CloseCross" /* CloseCross */
 )}`;
 var COMPONENT_TAG_NAME8 = "welcome-panel";
 var WelcomePanelElement = class extends HTMLElement {
@@ -5586,6 +5665,10 @@ var WelcomePanelElement = class extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = COMPONENT_TEMPLATE5;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET7);
+  }
+  #addBoard;
+  #openBoard;
+  init(options) {
     assignTagToPart(this.shadowRoot);
     assignClassAndIdToPart(this.shadowRoot);
     assignPartsAsExportPartsAttribute(
@@ -5598,6 +5681,11 @@ var WelcomePanelElement = class extends HTMLElement {
       }
     );
     this.findElement("recent-boards").addEventListener("remove", this.#recentBoard_onRemove.bind(this));
+    this.findElement("recent-boards").addEventListener("click", this.#onClick.bind(this));
+    this.findElement("recent-boards").addEventListener("keydown", this.#onKeyDown.bind(this));
+    this.#addBoard = options.addBoard;
+    this.#openBoard = options.openBoard;
+    this.refresh();
   }
   async refresh() {
     const recentBoards = await this.#getRecentBoards();
@@ -5605,8 +5693,12 @@ var WelcomePanelElement = class extends HTMLElement {
   }
   updateBoards(boards) {
     const menuItems = boards.map((item) => this.#createBoardMenuItem(item));
-    this.innerHTML = "";
-    this.append(...menuItems);
+    const recentBoards = this.findElement("recent-boards");
+    const items = [...recentBoards.querySelectorAll("a")];
+    for (let i = 0; i < items.length; i++) {
+      items[i].remove();
+    }
+    recentBoards.append(...menuItems);
   }
   async addBoardToRecentBoards(id, description) {
     const boards = await this.#getRecentBoards();
@@ -5622,13 +5714,21 @@ var WelcomePanelElement = class extends HTMLElement {
     DataService.saveAppSetting("recentBoards" /* RecentBoards */, boardsString);
   }
   async updateRecentBoardEntry(id, description) {
+    const maxRecentBoards = await DataService.getAppSetting("recentBoardsMax" /* RecentBoardsMax */) ?? 10;
     const boards = await this.#getRecentBoards();
-    const existingEntry = boards.find((item) => item.id == id);
+    const existingEntryIndex = boards.findIndex((item) => item.id == id);
+    const existingEntry = boards[existingEntryIndex];
     if (existingEntry == null) {
-      return;
+      const newEntry = { id, description: description ?? "", timestamp: Date.now() };
+      if (boards.length == maxRecentBoards) {
+        boards.pop();
+      }
+      boards.push(newEntry);
+    } else {
+      existingEntry.description = description ?? existingEntry.description;
+      existingEntry.timestamp = Date.now();
+      boards.splice(existingEntryIndex, 1, existingEntry);
     }
-    existingEntry.description = description ?? existingEntry.description;
-    existingEntry.timestamp = Date.now();
     const boardsString = JSON.stringify(boards);
     DataService.saveAppSetting("recentBoards" /* RecentBoards */, boardsString);
     this.refresh();
@@ -5641,7 +5741,7 @@ var WelcomePanelElement = class extends HTMLElement {
     }
     boards.splice(boards.indexOf(existingEntry), 1);
     const boardsString = JSON.stringify(boards);
-    DataService.saveAppSetting("recentBoards" /* RecentBoards */, boardsString);
+    await DataService.saveAppSetting("recentBoards" /* RecentBoards */, boardsString);
   }
   async #getRecentBoards() {
     let boardsString = await DataService.getAppSetting("recentBoards" /* RecentBoards */);
@@ -5654,6 +5754,7 @@ var WelcomePanelElement = class extends HTMLElement {
   }
   #createBoardMenuItem(board) {
     const element = document.createElement("a");
+    element.tabIndex = 0;
     element.innerHTML = `<span part="board-item-name recent" class="board-item-name recent">${board.description}<span>`;
     element.setAttribute("part", "board recent");
     element.classList.add("board", "recent");
@@ -5665,6 +5766,28 @@ var WelcomePanelElement = class extends HTMLElement {
     const route = boardItem.dataset.route;
     const id = route.substring(route.lastIndexOf("/") + 1);
     this.removeBoardFromRecentBoards(id);
+  }
+  async #onClick(event) {
+    const composedPath = event.composedPath();
+    if (composedPath.find((item) => item instanceof HTMLButtonElement && item.classList.contains("remove"))) {
+      event.stopPropagation();
+      event.preventDefault();
+      return false;
+    }
+    const newBoardButton = composedPath.find((item) => item instanceof HTMLButtonElement && item.id == "new-board-button");
+    if (newBoardButton != null) {
+      const board = await this.#addBoard();
+      this.#openBoard(board.id);
+    }
+  }
+  async #onKeyDown(event) {
+    if (event.code == "Space" || event.code == "Enter") {
+      const board = this.shadowRoot.activeElement;
+      if (board == null || board.classList.contains("board") == false) {
+        return;
+      }
+      this.#openBoard(board.dataset.route.substring(6));
+    }
   }
 };
 if (customElements.get(COMPONENT_TAG_NAME8) == null) {
@@ -6890,10 +7013,10 @@ if (customElements.get(COMPONENT_TAG_NAME11) == null) {
 }
 
 // src/components/config-panel/config-panel.css?raw
-var config_panel_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto auto 1fr auto;\r\n    overflow: hidden;\r\n}\r\n\r\n.icon\r\n{\r\n    width: var(--tab-icon-size);\r\n    height: var(--tab-icon-size);\r\n}\r\n\r\n#config-header\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto 1fr auto;\r\n    gap: 7px;\r\n    align-items: center;\r\n    font-weight: bold;\r\n    padding-bottom: 1em;\r\n}\r\n\r\n#config-title\r\n{\r\n    font-weight: bold;\r\n}\r\n\r\n.header-icon\r\n{\r\n    width: var(--dialog-header-icon-size);\r\n    height: var(--dialog-header-icon-size);\r\n}\r\n\r\n#config-navigation\r\n{\r\n    margin: 0;\r\n    margin-bottom: 14px;\r\n    padding: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: field;\r\n    color: fieldtext;\r\n    border: solid 1px graytext;\r\n    border-radius: 2px;\r\n    user-select: none;\r\n}\r\n\r\n.nav-item\r\n{\r\n    --tab-icon-size: 14px;\r\n    padding: 7px 12px;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n    #config-navigation\r\n    {\r\n        display: grid;\r\n        grid-template-columns: 1fr 1fr;\r\n        grid-template-rows: 1fr 1fr;\r\n    }\r\n\r\n    .nav-item\r\n    {\r\n        justify-content: center;\r\n    }\r\n}\r\n\r\n.nav-item[aria-current="page"]\r\n,.nav-item:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n\r\n#config-router\r\n{\r\n    overflow: hidden;\r\n}\r\n.page\r\n{\r\n    overflow-y: auto;\r\n    display: grid;\r\n}\r\n\r\n\r\n#board-settings-footer\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    gap: 14px;\r\n    padding-top: 1em;\r\n}\r\n\r\n#config-actions\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    gap: 14px;\r\n    padding-top: 1em;\r\n}\r\n\r\n.button\r\n{\r\n    width: 75px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n#config-cancel\r\n{\r\n    grid-column: 2;\r\n}\r\n#config-ok\r\n{\r\n    grid-column: 3;\r\n}';
+var config_panel_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto auto 1fr auto;\r\n    overflow: hidden;\r\n}\r\n\r\n.icon\r\n{\r\n    width: var(--tab-icon-size);\r\n    height: var(--tab-icon-size);\r\n}\r\n\r\n#config-header\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto 1fr auto;\r\n    gap: 7px;\r\n    align-items: center;\r\n    font-weight: bold;\r\n    padding-bottom: 1em;\r\n}\r\n\r\n#config-title\r\n{\r\n    font-weight: bold;\r\n}\r\n\r\n.header-icon\r\n{\r\n    width: var(--dialog-header-icon-size);\r\n    height: var(--dialog-header-icon-size);\r\n}\r\n\r\n#config-navigation\r\n{\r\n    margin: 0;\r\n    margin-bottom: 14px;\r\n    padding: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: field;\r\n    color: fieldtext;\r\n    border: solid 1px graytext;\r\n    border-radius: 2px;\r\n    user-select: none;\r\n}\r\n\r\n.nav-item\r\n{\r\n    --tab-icon-size: 14px;\r\n    padding: 7px 12px;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n    #config-navigation\r\n    {\r\n        display: grid;\r\n        grid-template-columns: 1fr 1fr;\r\n        grid-template-rows: 1fr 1fr;\r\n    }\r\n\r\n    .nav-item\r\n    {\r\n        justify-content: center;\r\n    }\r\n}\r\n\r\n.nav-item[aria-current="page"]\r\n,.nav-item:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n\r\n#config-router\r\n{\r\n    overflow: hidden;\r\n}\r\n.page\r\n{\r\n    overflow-y: auto;\r\n    display: grid;\r\n    padding: 7px;\r\n}\r\n\r\n\r\n#board-settings-footer\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    gap: 14px;\r\n    padding-top: 1em;\r\n}\r\n\r\n#config-actions\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    gap: 14px;\r\n    padding-top: 1em;\r\n}\r\n\r\n.button\r\n{\r\n    width: 75px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n#config-cancel\r\n{\r\n    grid-column: 2;\r\n}\r\n#config-ok\r\n{\r\n    grid-column: 3;\r\n}';
 
 // src/components/config-panel/config-panel.html?raw
-var config_panel_default2 = '<header id="config-header" class="dialog-header">\r\n    <svg id="config-icon" class="icon gear-icon header-icon">\r\n        <use href="#icon-definition_gear"></use>\r\n    </svg>\r\n    <span id="config-title" class="title">Configuration</span>\r\n</header>\r\n<menu id="config-navigation" class="navigation">\r\n    <a data-route="#config/settings" id="settings-nav-item" class="nav-item first">\r\n        <svg id="settings-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_gear"></use>\r\n        </svg>\r\n        <span class="label nav-item-label">Settings</span>\r\n    </a>\r\n    <a data-route="#config/data" id="data-nav-item"  class="nav-item">\r\n        <svg id="data-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_data"></use>\r\n        </svg>\r\n        <span class="nav-item-label">Data</span>\r\n    </a>\r\n    <a data-route="#config/history" id="history-nav-item"  class="nav-item">\r\n        <svg id="history-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_clock"></use>\r\n        </svg>\r\n        <span class="label nav-item-label">History</span>\r\n    </a>\r\n    <a data-route="#config/about" id="about-nav-item"  class="nav-item last">\r\n        <svg id="about-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_info"></use>\r\n        </svg>\r\n        <span class="label nav-item-label">About</span>\r\n    </a>\r\n</menu>\r\n<path-router id="config-router" class="router" path="settings">\r\n    <route-page path="settings" id="settings-page" class="page config-page">\r\n        <settings-panel\r\n            id="settings-panel"\r\n            class="config-page-panel"\r\n            exportparts="selected">\r\n            <slot name="custom-settings" slot="custom-settings"></slot>\r\n        </settings-panel>\r\n    </route-page>\r\n    <route-page path="data" id="data-page" class="page config-page">\r\n        <data-panel\r\n            id="data-panel"\r\n            class="config-page-panel"\r\n            exportparts="selected,deleted-item,deleted-item-remove-button,restore-button">\r\n            <slot name="deleted-images" slot="deleted-images"></slot>\r\n            <slot name="deleted-items" slot="deleted-items"></slot>\r\n        </data-panel>\r\n    </route-page>\r\n    <route-page path="history" id="history-page" class="page config-page">\r\n        <history-panel\r\n            id="history-panel"\r\n            class="config-page-panel"\r\n            exportparts="selected,action-history,action-history-entry,active">\r\n            <slot name="action-history" slot="action-history"></slot>\r\n        </history-panel>\r\n    </route-page>\r\n    <route-page path="about" id="about-page" class="page config-page">\r\n        <about-panel\r\n            id="about-panel"\r\n            class="config-page-panel"\r\n            ></about-panel>\r\n    </route-page>\r\n</path-router>\r\n<footer id="config-footer" class="footer dialog-footer">\r\n    <form id="config-actions" class="actions" method="dialog">\r\n        <button type="submit" id="config-cancel" class="button action-button close preferred-button label-button">Close</button>\r\n    </form>\r\n</footer>';
+var config_panel_default2 = '<header id="config-header" class="dialog-header">\r\n    <svg id="config-icon" class="icon gear-icon header-icon">\r\n        <use href="#icon-definition_gear"></use>\r\n    </svg>\r\n    <span id="config-title" class="title">Configuration</span>\r\n</header>\r\n<menu id="config-navigation" class="navigation">\r\n    <a data-route="#config/settings" id="settings-nav-item" class="nav-item first" tabindex="0">\r\n        <svg id="settings-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_gear"></use>\r\n        </svg>\r\n        <span class="label nav-item-label">Settings</span>\r\n    </a>\r\n    <a data-route="#config/data" id="data-nav-item"  class="nav-item" tabindex="0">\r\n        <svg id="data-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_data"></use>\r\n        </svg>\r\n        <span class="nav-item-label">Data</span>\r\n    </a>\r\n    <a data-route="#config/history" id="history-nav-item"  class="nav-item" tabindex="0">\r\n        <svg id="history-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_clock"></use>\r\n        </svg>\r\n        <span class="label nav-item-label">History</span>\r\n    </a>\r\n    <a data-route="#config/about" id="about-nav-item"  class="nav-item last" tabindex="0">\r\n        <svg id="about-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_info"></use>\r\n        </svg>\r\n        <span class="label nav-item-label">About</span>\r\n    </a>\r\n</menu>\r\n<path-router id="config-router" class="router" path="settings">\r\n    <route-page path="settings" id="settings-page" class="page config-page">\r\n        <settings-panel\r\n            id="settings-panel"\r\n            class="config-page-panel"\r\n            exportparts="selected">\r\n            <slot name="custom-settings" slot="custom-settings"></slot>\r\n        </settings-panel>\r\n    </route-page>\r\n    <route-page path="data" id="data-page" class="page config-page">\r\n        <data-panel\r\n            id="data-panel"\r\n            class="config-page-panel"\r\n            exportparts="selected,deleted-item,deleted-item-remove-button,restore-button">\r\n            <slot name="deleted-images" slot="deleted-images"></slot>\r\n            <slot name="deleted-items" slot="deleted-items"></slot>\r\n        </data-panel>\r\n    </route-page>\r\n    <route-page path="history" id="history-page" class="page config-page">\r\n        <history-panel\r\n            id="history-panel"\r\n            class="config-page-panel"\r\n            exportparts="selected,action-history,action-history-entry,active">\r\n            <slot name="action-history" slot="action-history"></slot>\r\n        </history-panel>\r\n    </route-page>\r\n    <route-page path="about" id="about-page" class="page config-page">\r\n        <about-panel\r\n            id="about-panel"\r\n            class="config-page-panel"\r\n            ></about-panel>\r\n    </route-page>\r\n</path-router>\r\n<footer id="config-footer" class="footer dialog-footer">\r\n    <form id="config-actions" class="actions" method="dialog">\r\n        <button type="submit" id="config-cancel" class="button action-button close preferred-button label-button">Close</button>\r\n    </form>\r\n</footer>';
 
 // src/components/config-panel/settings-panel/settings-panel.css?raw
 var settings_panel_default = "\r\n\r\n:host\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto auto 1fr;\r\n    gap: 7px;\r\n    flex: 1;\r\n}\r\n.header\r\n{\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n}\r\n\r\n#custom-settings-fieldset\r\n{\r\n    color: graytext;\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n#shortcuts\r\n{\r\n    display: grid;\r\n    gap: 14px;\r\n}\r\n\r\n.shortcut\r\n{\r\n    display: grid;\r\n    gap: 7px;\r\n}\r\n\r\n.shortcut-description\r\n{\r\n    margin-left: 7px;\r\n}\r\n\r\n.key\r\n{\r\n    background-color: #eee;\r\n    border-radius: 3px;\r\n    border: 1px solid #b4b4b4;\r\n    box-shadow:\r\n    0 1px 1px rgba(0, 0, 0, 0.2),\r\n    0 2px 0 0 rgba(255, 255, 255, 0.7) inset;\r\n    color: #333;\r\n    display: inline-block;\r\n    font-size: 0.85em;\r\n    font-weight: 700;\r\n    line-height: 1;\r\n    padding: 2px 4px;\r\n    white-space: nowrap;\r\n    padding-block: 5px;\r\n    margin-block: 3px;\r\n}";
@@ -7028,10 +7151,10 @@ var HistoryPanelElement = class extends HTMLElement {
     assignClassAndIdToPart(this.shadowRoot);
     assignPartsAsExportPartsAttribute(this.shadowRoot);
   }
-  #refreshBoards;
+  #refreshBoardCollections;
   #refreshCache;
   async init(options) {
-    this.#refreshBoards = options.refreshBoards;
+    this.#refreshBoardCollections = options.refreshBoardCollections;
     this.#refreshCache = options.refreshCache;
     const historyLength = await DataService.getAppSetting("historyLength" /* HistoryLength */) ?? DEFAULT_HISTORY_LENGTH;
     this.#prepareHistoryLength(historyLength);
@@ -7308,7 +7431,7 @@ var HistoryPanelElement = class extends HTMLElement {
     }
     await this.#handleActionEntryReverse(target, previous, targetIndex, previousActiveEntryIndex);
     if (refreshBoards == true) {
-      this.#refreshBoards();
+      this.#refreshBoardCollections();
     }
     if (refreshDeletedItems == true) {
       this.#refreshCache();
@@ -7327,7 +7450,7 @@ var HistoryPanelElement = class extends HTMLElement {
     }
     await this.#handleActionEntryActivate(target, previous, targetIndex, previousActiveEntryIndex);
     if (refreshBoards == true) {
-      this.#refreshBoards();
+      this.#refreshBoardCollections();
     }
     if (refreshDeletedItems == true) {
       this.#refreshCache();
@@ -7452,15 +7575,18 @@ var ConfigPanelElement = class extends HTMLElement {
     assignPartsAsExportPartsAttribute(this.shadowRoot);
   }
   async init(options) {
+    this.addEventListener("keydown", this.#onKeyDown.bind(this));
     this.findElement("settings-panel").init({ scheme_onChange: options.scheme_onChange });
     this.findElement("data-panel").init({
       openImportManager: options.openImportManager,
       openBoard: options.openBoard,
       refreshActionHistory: this.refreshHistory.bind(this),
-      refreshBoards: options.refreshBoards,
+      refreshBoardCollections: options.refreshBoardCollections,
+      refreshRecentBoards: options.refreshRecentBoards,
+      closeBoard: options.closeBoard.bind(this),
       addActionHistoryEntry: this.addActionHistoryEntry.bind(this)
     });
-    this.findElement("history-panel").init({ refreshBoards: options.refreshBoards, refreshCache: this.refreshCache.bind(this) });
+    this.findElement("history-panel").init({ refreshBoardCollections: options.refreshBoardCollections, refreshCache: this.refreshCache.bind(this) });
     this.findElement("about-panel").init({ appVersion: options.appVersion });
   }
   refreshCache() {
@@ -7479,20 +7605,32 @@ var ConfigPanelElement = class extends HTMLElement {
     return this.findElement("history-panel").addActionHistoryEntry(action, type, properties);
   }
   async clearData() {
-    this.findElement("data-panel").clearData();
+    return this.findElement("data-panel").clearData();
+  }
+  async #onKeyDown(event) {
+    if (event.code == "Space" || event.code == "Enter") {
+      const link = this.shadowRoot.activeElement;
+      if (link == null || link.hasAttribute("data-route") == false) {
+        return;
+      }
+      link.click();
+    }
   }
 };
 if (customElements.get(COMPONENT_TAG_NAME15) == null) {
   customElements.define(COMPONENT_TAG_NAME15, ConfigPanelElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+editable-list@0.0.11/node_modules/@magnit-ce/editable-list/dist/editable-list.mjs
+// node_modules/.pnpm/@magnit-ce+editable-list@0.1.2/node_modules/@magnit-ce/editable-list/dist/editable-list.js
 var IGNORED_TAGS = /* @__PURE__ */ new Set([
   "style",
   "template"
 ]);
-var HTML = `<div id="${"items"}"><slot id="${"items-slot"}"></slot></div>
-<slot name="add"><button id="${"add"}" class="button" type="button">&plus;</button></slot>`;
+var HTML = `<div id="${"items"}" part="${"items"}">
+    <div id="${"placeholder"}" part="${"placeholder"}"></div>
+    <slot id="${"items-slot"}" part="${"items-slot"}"></slot>
+</div>
+<slot name="add"><button id="${"add"}" part="${"add"}" type="button">&plus;</button></slot>`;
 var STYLE = `
 * { box-sizing: border-box; }
 :host
@@ -7506,7 +7644,12 @@ var STYLE = `
     margin-inline-end: 0px;
     padding-inline-start: 40px;
     /* end default ul styles */
-}`;
+}
+:host(:not(.empty)) #${"placeholder"}
+{
+    display: none;
+}
+`;
 var COMPONENT_STYLESHEET15 = new CSSStyleSheet();
 COMPONENT_STYLESHEET15.replaceSync(STYLE);
 var COMPONENT_TAG_NAME16 = "editable-list";
@@ -7518,16 +7661,6 @@ var EditableListElement = class extends HTMLElement {
   #boundEventHandlers = /* @__PURE__ */ new Map([
     ["add", this.#addButton_onClick.bind(this)]
   ]);
-  componentParts = /* @__PURE__ */ new Map();
-  getElement(id) {
-    if (this.componentParts.get(id) == null) {
-      const part = this.findElement(id);
-      if (part != null) {
-        this.componentParts.set(id, part);
-      }
-    }
-    return this.componentParts.get(id);
-  }
   findElement(id) {
     return this.shadowRoot.getElementById(id);
   }
@@ -7563,20 +7696,20 @@ var EditableListElement = class extends HTMLElement {
       "add"
       /* AddButton */
     )?.addEventListener("click", this.#boundEventHandlers.get("add"));
-    this.getElement(
+    this.findElement(
       "items-slot"
       /* ItemsSlot */
     ).addEventListener("slotchange", this.#updateItemButtons.bind(this));
-    this.#applyPartAttributes();
-  }
-  #applyPartAttributes() {
-    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
-    for (let i = 0; i < identifiedElements.length; i++) {
-      identifiedElements[i].part.add(identifiedElements[i].id);
-    }
-    const classedElements = [...this.shadowRoot.querySelectorAll("[class]")];
-    for (let i = 0; i < classedElements.length; i++) {
-      classedElements[i].part.add(...classedElements[i].classList);
+    const children = this.findElement(
+      "items-slot"
+      /* ItemsSlot */
+    ).assignedElements();
+    if (children.length == 0) {
+      this.classList.add("empty");
+      this.part.add("empty");
+    } else {
+      this.classList.remove("empty");
+      this.part.remove("empty");
     }
   }
   /**
@@ -7611,10 +7744,17 @@ var EditableListElement = class extends HTMLElement {
    * Iterate through slot children to add buttons and listeners where applicable.
    */
   #updateItemButtons() {
-    const children = this.getElement(
+    const children = this.findElement(
       "items-slot"
       /* ItemsSlot */
     ).assignedElements();
+    if (children.length == 0 || children.every((item) => item instanceof HTMLTemplateElement)) {
+      this.classList.add("empty");
+      this.part.add("empty");
+    } else {
+      this.classList.remove("empty");
+      this.part.remove("empty");
+    }
     for (let i = 0; i < children.length; i++) {
       const target = children[i];
       if (IGNORED_TAGS.has(target.tagName.toLowerCase())) {
@@ -7678,7 +7818,8 @@ var EditableListElement = class extends HTMLElement {
   }
   static observedAttributes = [
     "remove",
-    "edit"
+    "edit",
+    "placeholder"
   ];
   /**
    * Update items to new configuration when attributes change
@@ -7701,6 +7842,8 @@ var EditableListElement = class extends HTMLElement {
         this.canEdit = true;
       }
       this.#updateItemButtons();
+    } else if (attributeName == "placeholder") {
+      this.findElement("placeholder").textContent = newValue;
     }
   }
 };
@@ -7708,7 +7851,7 @@ if (customElements.get(COMPONENT_TAG_NAME16) == null) {
   customElements.define(COMPONENT_TAG_NAME16, EditableListElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+path-router@0.2.8/node_modules/@magnit-ce/path-router/dist/path-router.js
+// node_modules/.pnpm/@magnit-ce+path-router@0.3.2/node_modules/@magnit-ce/path-router/dist/path-router.js
 var path_router_default = "/* \n   Animations will not be awaitable in code if they have a display of none.\n   Instead, the routes are stacked in a grid.\n */\npath-router\n,.route-view\n{ \n    display: var(--router-display, grid);\n    grid-template-columns: 1fr;\n    grid-template-rows: 1fr;\n}\n\nroute-page\n{\n    display: var(--route-display, block);\n    visibility: hidden;\n    grid-row: 1;\n    grid-column: 1;\n}\n/* \n   Visibility is visible during the entering and exiting phases\n   to allow for animations to be awaited.\n */\nroute-page[open]\n,route-page[data-entering]\n,route-page[data-exiting]\n{\n    visibility: visible;\n}\n\n/* sub routes should respect the visibility of the parent routes */\nroute-page:not([open],[data-entering],[data-exiting]) route-page[open]\n{\n    visibility: inherit;\n}";
 var RouteType = (elementType = HTMLElement) => {
   return class extends elementType {
@@ -7894,9 +8037,17 @@ var PathRouterElement = class extends HTMLElement {
    */
   addRouteLinkClickHandlers(parent, linkQuery = "a[data-route],button[data-route]") {
     parent = parent ?? document.body;
-    parent.addEventListener("click", (event) => this.routeLink_onClick(parent, event, linkQuery));
+    if (!Array.isArray(parent)) {
+      parent = [parent];
+    }
+    for (let i = 0; i < parent.length; i++) {
+      parent[i].addEventListener("click", (event) => this.routeLink_onClick(parent[i], event, linkQuery));
+    }
   }
   routeLink_onClick(parent, event, linkQuery = "a[data-route],button[data-route]") {
+    if (event.defaultPrevented == true) {
+      return;
+    }
     let targetLink = event.composedPath().find((item) => item.dataset?.route != null);
     if (targetLink != null) {
       const links = [...parent.querySelectorAll(linkQuery)];
@@ -10365,7 +10516,6 @@ function findLastTask(target) {
 var DEFAULT_APP_VERSION = "--.--.--";
 var COMPONENT_STYLESHEET26 = new CSSStyleSheet();
 COMPONENT_STYLESHEET26.replaceSync(`${shared_default}
-${board_item_global_default}
 ${browser_item_global_default}
 ${settings_default}
 ${taskboard_manager_default}`);
@@ -10464,7 +10614,7 @@ var TaskboardManagerElement = class extends HTMLElement {
   async closeBoard() {
     await this.findElement("app-router").navigate("/" + window.location.hash);
     this.getElement("task-board").innerHTML = "";
-    const selectedMenuItems = [...this.findElement("app-menu-container").querySelectorAll(`[aria-current]`)];
+    const selectedMenuItems = [...this.findElement("app-menu-container").shadowRoot.querySelectorAll(`[aria-current]`)];
     for (let i = 0; i < selectedMenuItems.length; i++) {
       selectedMenuItems[i].removeAttribute("aria-current");
       selectedMenuItems[i].classList.remove("selected");
@@ -10472,11 +10622,12 @@ var TaskboardManagerElement = class extends HTMLElement {
     }
   }
   async addBoard() {
-    const order = this.findElement("app-menu-container").querySelectorAll("a").length;
+    const order = this.findElement("app-menu-container").shadowRoot.querySelectorAll("a").length;
     const board = await DataService.createBoard(order);
     await this.findElement("config-panel").addActionHistoryEntry(HistoryEntryType.Create, "board" /* Board */, { id: board.id });
-    this.findElement("app-menu-container").refresh();
-    this.findElement("welcome-panel").refresh();
+    this.refreshBoardCollections();
+    await this.findElement("welcome-panel").refresh();
+    return board;
   }
   editBoard(boardId) {
     this.findElement("app-router").navigate(`board/${boardId}#board-settings`);
@@ -10507,7 +10658,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     return DataService.exportBoard(this, id);
   }
   async importBoard(boardData, errorMessage) {
-    const order = this.findElement("app-menu-container").querySelectorAll("a").length;
+    const order = this.findElement("app-menu-container").shadowRoot.querySelectorAll("a").length;
     return DataService.importBoard(boardData, order, errorMessage);
   }
   async removeBoard(boardId, confirm = true) {
@@ -10523,10 +10674,10 @@ var TaskboardManagerElement = class extends HTMLElement {
     const configPanel = this.findElement("config-panel");
     const welcomePanel = this.findElement("welcome-panel");
     const entry = await configPanel.addActionHistoryEntry(HistoryEntryType.Delete, "board" /* Board */, { id: boardId });
-    this.refreshBoards();
+    this.refreshBoardCollections();
     configPanel.refreshCache();
     await welcomePanel.removeBoardFromRecentBoards(boardId);
-    welcomePanel.refresh();
+    await welcomePanel.refresh();
     if (entry != null) {
       this.#addUndoNotification("A board was just deleted", entry.getAttribute("data-entry-id"));
     }
@@ -10549,7 +10700,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     });
   }
   async clearData() {
-    this.findElement("config-panel").clearData();
+    return this.findElement("config-panel").clearData();
   }
   // async clearHistory()
   // {
@@ -10571,9 +10722,14 @@ var TaskboardManagerElement = class extends HTMLElement {
     const boardsPromise = this.refreshBoardCollections();
     this.findElement("app-menu-container").init({
       addBoard: this.addBoard.bind(this),
-      editBoard: this.editBoard.bind(this)
+      editBoard: this.editBoard.bind(this),
+      openBoard: this.openBoard.bind(this)
     });
-    this.findElement("welcome-panel").refresh();
+    const welcomePanel = this.findElement("welcome-panel");
+    welcomePanel.init({
+      addBoard: this.addBoard.bind(this),
+      openBoard: this.openBoard.bind(this)
+    });
     this.findElement("board-browser").addEventListener("select", async (event) => {
       const { boardId } = event.detail;
       if (boardId == null) {
@@ -10589,7 +10745,9 @@ var TaskboardManagerElement = class extends HTMLElement {
       scheme_onChange: this.setColorScheme.bind(this),
       openImportManager: this.#openImportManager.bind(this),
       openBoard: this.openBoard.bind(this),
-      refreshBoards: this.refreshBoards.bind(this)
+      refreshBoardCollections: this.refreshBoardCollections.bind(this),
+      refreshRecentBoards: welcomePanel.refresh.bind(welcomePanel),
+      closeBoard: this.closeBoard.bind(this)
     });
     const boardSettings = this.findElement("board-settings");
     boardSettings.init({
@@ -10601,10 +10759,11 @@ var TaskboardManagerElement = class extends HTMLElement {
       closeBoardSettings: this.closeBoardSettings.bind(this),
       saveSettingsTarget: this.#saveSettingsTarget.bind(this)
     });
+    this.addEventListener("click", this.#onClick.bind(this));
+    this.addEventListener("keydown", this.#onKeyDown.bind(this));
     this.#addBoardHandlers();
     addKeyHandlers.call(this);
     this.#addRouteHandlers();
-    this.addEventListener("click", this.#onClick.bind(this));
     await this.#handleInitialNavigation(boardsPromise);
     DataService.removeExpiredData();
     setInterval(() => {
@@ -10622,7 +10781,11 @@ var TaskboardManagerElement = class extends HTMLElement {
   #historyIsUpdating = false;
   #addRouteHandlers() {
     const appRouter = this.findElement("app-router");
-    appRouter.addRouteLinkClickHandlers(this.shadowRoot);
+    appRouter.addRouteLinkClickHandlers([
+      this.findElement("app-menu-container"),
+      this.findElement("config-panel"),
+      this.findElement("welcome-panel").shadowRoot.querySelector("#recent-boards")
+    ]);
     this.findElement("app-router").addEventListener("pathchange", this.#router_onPathChange.bind(this));
     window.addEventListener("popstate", async (event) => {
       this.#historyIsUpdating = true;
@@ -10645,7 +10808,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     await boardsPromise;
     let boardIdIndex = windowPath.indexOf("board/");
     if (boardIdIndex > -1) {
-      const currentMenuItem = this.findElement("app-menu-container").querySelector(`[data-route="${windowPath}"]`);
+      const currentMenuItem = this.findElement("app-menu-container").shadowRoot.querySelector(`[data-route="${windowPath}"]`);
       if (currentMenuItem != null) {
         currentMenuItem.setAttribute("aria-current", "page");
         currentMenuItem.classList.add("selected");
@@ -10705,13 +10868,13 @@ var TaskboardManagerElement = class extends HTMLElement {
   async #saveSettingsTarget() {
     const settingsTarget = this.findElement("board-settings");
     const settingsTargetId = settingsTarget.getAttribute("record-id");
-    const boardItem = this.findElement("app-menu-container").querySelector(`a[data-route*="${settingsTargetId}"]`);
+    const boardItem = this.findElement("app-menu-container").shadowRoot.querySelector(`a[data-route*="${settingsTargetId}"]`);
     if (boardItem == null) {
       FeedbackService.showErrorMessageCard(`An error occurred saving a task board.`);
       console.error(`An error occurred finding the board's menu item.`);
       return;
     }
-    const order = [...this.shadowRoot.querySelectorAll("a")].indexOf(boardItem);
+    const order = [...this.findElement("app-menu-container").shadowRoot.querySelectorAll("a")].indexOf(boardItem);
     const [
       existingBoard,
       existingTaskLists,
@@ -10789,7 +10952,8 @@ var TaskboardManagerElement = class extends HTMLElement {
     messageButton.type = "button";
     content.append(messageText, messageButton);
     const notification = MessageCardElement.prepare(content, this.findElement("notifications"), { type: MessageCardType.Success, heading: "Success!" });
-    notification.part.add("notification");
+    notification.part.add("message-card", "notification");
+    notification.setAttribute("exportparts", "message-icon,header:message-header,heading:message-heading,message,close-button:message-close-button,close-icon:message-close-icon,duration:message-duration");
     notification.classList.add("notification");
     messageButton.addEventListener("click", () => {
       const entry = this.getElement("action-history").querySelector(`[data-entry-id="${entryId}"]`);
@@ -10950,7 +11114,7 @@ var TaskboardManagerElement = class extends HTMLElement {
   //#region Rendering
   async #renderBoard(id) {
     const board = await DataService.getBoardRecord(id);
-    if (board == null) {
+    if (board == null || board.deletedTimestamp != null) {
       this.findElement("app-router").navigate("/");
       FeedbackService.showMessageCard(`No board found with the target id (${id}). Navigated back to Welcome page.`, MessageCardType.Warn);
       console.warn(`No board found with the target id (${id}). Navigated back to Welcome page.`);
@@ -10971,9 +11135,11 @@ var TaskboardManagerElement = class extends HTMLElement {
     }
     const tasks = await DataService.getBoardTasks(id);
     await this.#renderBoardLists(taskBoard, tasks);
-    const welcomePanel = this.findElement("welcome-panel");
-    await welcomePanel.addBoardToRecentBoards(id, board.name);
-    welcomePanel.refresh();
+    requestAnimationFrame(() => {
+      this.findElement("welcome-panel").updateRecentBoardEntry(board.id, board.name);
+      const welcomePanel = this.findElement("welcome-panel");
+      welcomePanel.refresh();
+    });
   }
   async #renderBoardBackground(board) {
     const taskBoard = this.findElement("task-board");
@@ -11246,6 +11412,19 @@ var TaskboardManagerElement = class extends HTMLElement {
       this.addTask(addTaskButton.parentElement, order);
     }
   }
+  async #onKeyDown(event) {
+    if (event.code == "Space" || event.code == "Enter") {
+      const taskCard = this.shadowRoot.activeElement;
+      if (taskCard == null || taskCard instanceof TaskCardElement == false) {
+        return;
+      }
+      const finishedIndicator = taskCard.shadowRoot.activeElement;
+      if (finishedIndicator == null || finishedIndicator.id != "finished-indicator") {
+        return;
+      }
+      finishedIndicator.click();
+    }
+  }
   #router_onPathChange(event) {
     if (this.#historyIsUpdating == true) {
       return;
@@ -11258,8 +11437,14 @@ var TaskboardManagerElement = class extends HTMLElement {
     const origin = window.location.origin;
     const updatedLocation = new URL(`${origin}/${updatedPath}`);
     const { hasChanged, isReplacementChange } = router.compareLocations(currentLocation, updatedLocation);
-    if (hasChanged) {
-      const newHistoryState = `${updatedLocation.origin}${this.#rootPath}?path=${updatedLocation.pathname}${updatedLocation.hash}`;
+    const updateUrl = this.getAttribute("update-url");
+    if (hasChanged && updateUrl != null) {
+      const urlPath = this.getAttribute("path-override") ?? window.location.pathname;
+      let newHistoryState;
+      if (updateUrl == "" || updateUrl == "query") {
+        newHistoryState = `${window.location.origin}${urlPath}?path=${updatedLocation.pathname}${updatedLocation.hash}`;
+      } else if (updateUrl == "pathname") {
+      }
       if (isReplacementChange) {
         window.history.replaceState(null, "", newHistoryState);
       } else {
@@ -11269,12 +11454,14 @@ var TaskboardManagerElement = class extends HTMLElement {
     const currentPathArray = updatedPath.split("#");
     const pageRoute = currentPathArray[0];
     const hashRoute = currentPathArray[1];
-    const items = [...this.findElement("app-menu-container").querySelectorAll("a")];
+    const items = [...this.findElement("app-menu-container").shadowRoot.querySelectorAll("a")];
     for (let i = 0; i < items.length; i++) {
       items[i].part.remove("selected");
+      items[i].classList.remove("selected");
+      items[i].toggleAttribute("aria-current", false);
     }
     if (pageRoute != null) {
-      const currentMenuItem = this.findElement("app-menu-container").querySelector(`[data-route="${pageRoute}"]`);
+      const currentMenuItem = this.findElement("app-menu-container").shadowRoot.querySelector(`[data-route="${pageRoute}"]`);
       if (currentMenuItem != null) {
         currentMenuItem.setAttribute("aria-current", "page");
         currentMenuItem.classList.add("selected");
@@ -11311,7 +11498,6 @@ var TaskboardManagerElement = class extends HTMLElement {
       throw new Error("Unable to open board route with unknown id");
     }
     this.#renderBoard(boardId);
-    this.findElement("welcome-panel").updateRecentBoardEntry(boardId);
   }
   async #boardSettingsRoute_beforeOpen(_event) {
     const router = this.findElement("app-router");

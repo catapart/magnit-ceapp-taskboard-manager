@@ -30,6 +30,7 @@ export enum AppSettingKey
     HistoryLength = 'historyLength',
     DaysToPersistData = 'daysToPersistData',
     RecentBoards = 'recentBoards',
+    RecentBoardsMax = 'recentBoardsMax',
     ColorScheme = 'color-scheme',
     Language = 'language',
 }

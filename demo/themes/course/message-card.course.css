@@ -1,0 +1,39 @@
+taskboard-manager[data-theme="course"]::part(notifications)
+{
+    z-index: 10;
+}
+taskboard-manager[data-theme="course"]::part(message-card)
+{
+    background-color: var(--surface-card);
+    border-radius: var(--border-radius-card);
+    padding: var(--padding-card);
+    color: var(--primary-color);
+    border-color: var(--text-import-remove-button);
+    font-family: inherit;
+}
+taskboard-manager[data-theme="course"]::part(message)
+{
+    margin-bottom: 5px;
+}
+
+taskboard-manager[data-theme="course"]::part(notification-undo-button)
+{
+    background-color: var(--surface-icon-button);
+    border: var(--border-icon-button);
+    border-radius: var(--border-radius-button);
+    padding: var(--padding-button);
+}
+
+taskboard-manager[data-theme="course"]::part(message-close-icon)
+{
+    --primary-color: var(--text-import-remove-button);
+}
+
+taskboard-manager[data-theme="course"]::part(message-duration)
+{
+    width: calc(100% - 20px);
+    left: 10px;
+    bottom: 5px;
+    height: 3px;
+    border-radius: 50%;
+}

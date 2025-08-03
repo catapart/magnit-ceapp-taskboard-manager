@@ -11,8 +11,9 @@ import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToP
 
 export type AppMenuProperties =
 {
-    addBoard: () => void,
+    addBoard: () => Promise<TaskBoardRecord>,
     editBoard: (boardId: string) => void,
+    openBoard: (id: string) => void,
 }
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -24,7 +25,8 @@ ${defineIcons(
     IconType.LogoMark,
     IconType.MagnifyingGlass,
     IconType.Gear,
-    IconType.PlusIcon
+    IconType.PlusIcon,
+    IconType.Stylus
 )}`;
 
 const COMPONENT_TAG_NAME = 'app-menu';
@@ -48,14 +50,17 @@ export class AppMenuElement extends HTMLElement
     }
 
     //#region API
-    #addBoard!: () => void;
+    #addBoard!: () => Promise<TaskBoardRecord>;
     #editBoard!: (boardId: string) => void;
+    #openBoard!: (id: string) => void;
     init(options: AppMenuProperties)
     {
         this.#addBoard = options.addBoard;
         this.#editBoard = options.editBoard;
+        this.#openBoard = options.openBoard;
 
-        this.addEventListener('click', this.#onClick.bind(this));        
+        this.addEventListener('click', this.#onClick.bind(this));
+        this.addEventListener('keydown', this.#onKeyDown.bind(this));
     }
 
     async refresh()
@@ -75,13 +80,18 @@ export class AppMenuElement extends HTMLElement
         }
 
         // menu items
-        this.innerHTML = '';
-        this.append(...menuItems);
+        const boardsList = this.findElement('boards');
+        const items = [...boardsList.querySelectorAll<HTMLElement>('a')];
+        for(let i = 0; i < items.length; i++)
+        {
+            items[i].remove();
+        }
+        boardsList.append(...menuItems);
     }
     //#endregion
     
     //#region Handlers
-    #onClick(event: Event)
+    async #onClick(event: Event)
     {
         const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
 
@@ -98,14 +108,25 @@ export class AppMenuElement extends HTMLElement
             const boardId = editButton.parentElement!.dataset.route!.split('/')[1]
             this.#editBoard(boardId);
             event.stopPropagation();
+            event.preventDefault();
             return;
         }
 
         const newBoardButton = composedPath.find(item => item.classList.contains('new-board-button'));
         if(newBoardButton != null)
         {
-            this.#addBoard();
+            const board = await this.#addBoard();
+            this.#openBoard(board.id);
             return;
+        }
+    }
+    async #onKeyDown(event: KeyboardEvent)
+    {
+        if(event.code == "Space" || event.code == "Enter")
+        {
+            const board = this.shadowRoot!.activeElement as HTMLElement;
+            if(board == null || board.classList.contains('board') == false) { return; }
+            this.#openBoard((board as HTMLElement).dataset.route!.substring(6));
         }
     }
     boardsList_onDragover(event: DragEvent)
@@ -183,7 +204,7 @@ export class AppMenuElement extends HTMLElement
                     cancel();
 
                     
-                    const boards = [...this.querySelectorAll('a')] as HTMLElement[];
+                    const boards = [...this.shadowRoot!.querySelectorAll('a')] as HTMLElement[];
                     for(let i = 0; i < boards.length; i++)
                     {
                         boards[i].classList.remove('selected');
@@ -255,16 +276,16 @@ export class AppMenuElement extends HTMLElement
 
         if(nextElement == null)
         {
-            this.append(this.#draggingBoard);
+            this.findElement('boards').append(this.#draggingBoard);
         }
         else
         {
-            this.insertBefore(this.#draggingBoard, nextElement);
+            this.findElement('boards').insertBefore(this.#draggingBoard, nextElement);
         }
     }
     #getNextBoardItem(mouseY: number)
     {
-        const lists = [...this.querySelectorAll('a:not(.dragging)')] as HTMLElement[];
+        const lists = [...this.shadowRoot!.querySelectorAll('a:not(.dragging)')] as HTMLElement[];
         return lists.reduce((closest: { offset: number, boardElement?:HTMLElement }, item: HTMLElement) =>
         {
             const boundingRect = item.getBoundingClientRect();
@@ -287,7 +308,7 @@ export class AppMenuElement extends HTMLElement
     async #getOrderedBoards()
     {
         const orderedIds: string[] = [];
-        const boardItems = [...this.querySelectorAll('a.board')] as HTMLElement[];
+        const boardItems = [...this.shadowRoot!.querySelectorAll('a.board')] as HTMLElement[];
         for(let i = 0; i < boardItems.length; i++)
         {
             const boardItem = boardItems[i];

@@ -85,6 +85,7 @@
 {
     overflow-y: auto;
     display: grid;
+    padding: 7px;
 }
 
 
