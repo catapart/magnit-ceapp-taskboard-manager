@@ -212,7 +212,8 @@ export class TaskboardManagerElement extends HTMLElement
         await this.findElement<ConfigPanelElement>('config-panel')
         .addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Board, { id: board.id });
 
-        await this.findElement<AppMenuElement>('app-menu-container').refresh();
+        this.refreshBoardCollections();
+        // await this.findElement<AppMenuElement>('app-menu-container').refresh();
         await this.findElement<WelcomePanelElement>('welcome-panel').refresh();
 
         return board;
@@ -280,10 +281,10 @@ export class TaskboardManagerElement extends HTMLElement
         const configPanel = this.findElement<ConfigPanelElement>('config-panel');
         const welcomePanel = this.findElement<WelcomePanelElement>('welcome-panel');
         const entry = await configPanel.addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Board, { id: boardId });
-        this.refreshBoards();
+        this.refreshBoardCollections();
         configPanel.refreshCache();
         await welcomePanel.removeBoardFromRecentBoards(boardId);
-        welcomePanel.refresh();
+        await welcomePanel.refresh();
 
         if(entry != null)
         {
@@ -358,8 +359,9 @@ export class TaskboardManagerElement extends HTMLElement
             openBoard: this.openBoard.bind(this),
         });
 
-        // welcome page
-        this.findElement<WelcomePanelElement>('welcome-panel').init({
+        // welcome panel
+        const welcomePanel = this.findElement<WelcomePanelElement>('welcome-panel');
+        welcomePanel.init({
             addBoard: this.addBoard.bind(this),
             openBoard: this.openBoard.bind(this),
         });
@@ -386,7 +388,9 @@ export class TaskboardManagerElement extends HTMLElement
             scheme_onChange: this.setColorScheme.bind(this),
             openImportManager: this.#openImportManager.bind(this),
             openBoard: this.openBoard.bind(this),
-            refreshBoards: this.refreshBoards.bind(this),
+            refreshBoardCollections: this.refreshBoardCollections.bind(this),
+            refreshRecentBoards: welcomePanel.refresh.bind(welcomePanel),
+            closeBoard: this.closeBoard.bind(this),
         });
 
         // board-settings
@@ -878,7 +882,7 @@ export class TaskboardManagerElement extends HTMLElement
     async #renderBoard(id: string)
     {
         const board = await DataService.getBoardRecord(id);
-        if(board == null)
+        if(board == null || board.deletedTimestamp != null)
         {
             this.findElement<PathRouterElement>('app-router').navigate('/');
             FeedbackService.showMessageCard(`No board found with the target id (${id}). Navigated back to Welcome page.`, MessageCardType.Warn);

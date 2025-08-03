@@ -27,7 +27,9 @@ export type ConfigPanelProperties =
     scheme_onChange: (scheme: ColorScheme) => void;
     openImportManager: (data: any) => void;
     openBoard: (id: string) => void;
-    refreshBoards: () => void;
+    closeBoard: () => void;
+    refreshBoardCollections: () => void;
+    refreshRecentBoards: () => void;
 }
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -78,10 +80,12 @@ export class ConfigPanelElement extends HTMLElement
             openImportManager: options.openImportManager,
             openBoard: options.openBoard,
             refreshActionHistory: this.refreshHistory.bind(this),
-            refreshBoards: options.refreshBoards,
+            refreshBoardCollections: options.refreshBoardCollections,
+            refreshRecentBoards: options.refreshRecentBoards,
+            closeBoard: options.closeBoard.bind(this),
             addActionHistoryEntry: this.addActionHistoryEntry.bind(this),
         });
-        this.findElement<HistoryPanelElement>('history-panel').init({ refreshBoards: options.refreshBoards, refreshCache: this.refreshCache.bind(this) });
+        this.findElement<HistoryPanelElement>('history-panel').init({ refreshBoardCollections: options.refreshBoardCollections, refreshCache: this.refreshCache.bind(this) });
         this.findElement<AboutPanelElement>('about-panel').init({ appVersion: options.appVersion });
     }
 

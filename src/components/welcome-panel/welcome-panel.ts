@@ -154,7 +154,7 @@ export class WelcomePanelElement extends HTMLElement
         if(existingEntry == null) { return; }
         boards.splice(boards.indexOf(existingEntry), 1);
         const boardsString = JSON.stringify(boards);
-        DataService.saveAppSetting(AppSettingKey.RecentBoards, boardsString);
+        await DataService.saveAppSetting(AppSettingKey.RecentBoards, boardsString);
     }
 
     async #getRecentBoards()

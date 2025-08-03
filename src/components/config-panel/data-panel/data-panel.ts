@@ -26,7 +26,9 @@ export type DataPanelProperties =
     openImportManager: (data: any) => void;
     openBoard: (id: string) => void;
     refreshActionHistory: () => void;
-    refreshBoards: () => void;
+    refreshBoardCollections: () => void;
+    refreshRecentBoards: () => void;
+    closeBoard: () => void;
     addActionHistoryEntry: <T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>) => void;
 }
 
@@ -83,15 +85,19 @@ export class DataPanelElement extends HTMLElement
 
     #openImportManager!: (data: any) => void;
     #openBoard!: (data: any) => void;
+    #closeBoard!: () => void;
     #refreshActionHistory!: () => void;
-    #refreshBoards!: () => void;
+    #refreshBoardCollections!: () => void;
+    #refreshRecentBoards!: () => void;
     #addActionHistoryEntry!: <T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>) => void;
     async init(options: DataPanelProperties)
     {
         this.#openImportManager = options.openImportManager;
         this.#openBoard = options.openBoard;
         this.#refreshActionHistory = options.refreshActionHistory;
-        this.#refreshBoards = options.refreshBoards;
+        this.#refreshBoardCollections = options.refreshBoardCollections;
+        this.#refreshRecentBoards = options.refreshRecentBoards;
+        this.#closeBoard = options.closeBoard;
         this.#addActionHistoryEntry = options.addActionHistoryEntry;
 
         const importFileInput = this.getElement('import-board-file');
@@ -163,8 +169,10 @@ export class DataPanelElement extends HTMLElement
     {
         const confirmed = await FeedbackService.getConfirmation('Are you sure you want to delete all data associated with the app? This CAN NOT be undone.', 'danger');
         if(confirmed == false) { return; }
+        this.#closeBoard();
         await DataService.clearAllData();
-        this.#refreshBoards();
+        this.#refreshBoardCollections();
+        this.#refreshRecentBoards();
         this.#refreshActionHistory();
         this.refreshCache();
     }
@@ -345,7 +353,7 @@ export class DataPanelElement extends HTMLElement
         if(targetType == HistoryEntryTargetType.Board)
         {
             this.#openBoard(recordId);
-            this.#refreshBoards();
+            this.#refreshBoardCollections();
         }
         this.refreshCache();
     }
@@ -466,40 +474,6 @@ export class DataPanelElement extends HTMLElement
         return this.#deleteImage(item);
     }
     //#endregion Handlers
-
-    //#region Internal
-    #applyPartAttributes()
-    {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll(':not(form-field,.postfix,.prefix,.container, .field-label)[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            const classedElement = classedElements[i];
-            classedElement.part.add(...classedElements[i].classList);
-        }
-        const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
-        for(let i = 0; i < formFieldElements.length; i++)
-        {
-            const formFieldElement = formFieldElements[i];
-            const fieldId = formFieldElement.id;
-            
-            const container = formFieldElement.querySelector('.container')!;
-            container.part.add('container', 'field-container', `${fieldId}-container`);
-            const label = formFieldElement.querySelector('.field-label')!;
-            label.part.add('label', 'field-label', `${fieldId}-label`);
-            const prefix = formFieldElement.querySelector('.prefix')!;
-            prefix.part.add('prefix', 'field-prefix', `${fieldId}-prefix`);
-            const postfix = formFieldElement.querySelector('.postfix')!;
-            postfix.part.add('postfix', 'field-postfix', `${fieldId}-postfix`);
-            const enabledCheckbox = formFieldElement.querySelector('.enabled-checkbox');
-            enabledCheckbox?.part.add('enabled-checkbox', 'field-enabled-checkbox', `${fieldId}-enabled-checkbox`);
-        }
-    }
-    //#endregion Internal
 }
 
 if(customElements.get(COMPONENT_TAG_NAME) == null)

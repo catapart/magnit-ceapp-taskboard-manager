@@ -4619,14 +4619,18 @@ var DataPanelElement = class extends HTMLElement {
   //#region API
   #openImportManager;
   #openBoard;
+  #closeBoard;
   #refreshActionHistory;
-  #refreshBoards;
+  #refreshBoardCollections;
+  #refreshRecentBoards;
   #addActionHistoryEntry;
   async init(options) {
     this.#openImportManager = options.openImportManager;
     this.#openBoard = options.openBoard;
     this.#refreshActionHistory = options.refreshActionHistory;
-    this.#refreshBoards = options.refreshBoards;
+    this.#refreshBoardCollections = options.refreshBoardCollections;
+    this.#refreshRecentBoards = options.refreshRecentBoards;
+    this.#closeBoard = options.closeBoard;
     this.#addActionHistoryEntry = options.addActionHistoryEntry;
     const importFileInput = this.getElement("import-board-file");
     importFileInput.addEventListener("change", () => {
@@ -4687,8 +4691,10 @@ var DataPanelElement = class extends HTMLElement {
     if (confirmed == false) {
       return;
     }
+    this.#closeBoard();
     await DataService.clearAllData();
-    this.#refreshBoards();
+    this.#refreshBoardCollections();
+    this.#refreshRecentBoards();
     this.#refreshActionHistory();
     this.refreshCache();
   }
@@ -4809,7 +4815,7 @@ var DataPanelElement = class extends HTMLElement {
     await this.#addActionHistoryEntry(HistoryEntryType.Update, targetType, properties);
     if (targetType == "board" /* Board */) {
       this.#openBoard(recordId);
-      this.#refreshBoards();
+      this.#refreshBoardCollections();
     }
     this.refreshCache();
   }
@@ -4899,34 +4905,6 @@ var DataPanelElement = class extends HTMLElement {
     return this.#deleteImage(item);
   }
   //#endregion Handlers
-  //#region Internal
-  #applyPartAttributes() {
-    const identifiedElements = [...this.shadowRoot.querySelectorAll("[id]")];
-    for (let i = 0; i < identifiedElements.length; i++) {
-      identifiedElements[i].part.add(identifiedElements[i].id);
-    }
-    const classedElements = [...this.shadowRoot.querySelectorAll(":not(form-field,.postfix,.prefix,.container, .field-label)[class]")];
-    for (let i = 0; i < classedElements.length; i++) {
-      const classedElement = classedElements[i];
-      classedElement.part.add(...classedElements[i].classList);
-    }
-    const formFieldElements = [...this.shadowRoot.querySelectorAll("form-field")];
-    for (let i = 0; i < formFieldElements.length; i++) {
-      const formFieldElement = formFieldElements[i];
-      const fieldId = formFieldElement.id;
-      const container = formFieldElement.querySelector(".container");
-      container.part.add("container", "field-container", `${fieldId}-container`);
-      const label = formFieldElement.querySelector(".field-label");
-      label.part.add("label", "field-label", `${fieldId}-label`);
-      const prefix = formFieldElement.querySelector(".prefix");
-      prefix.part.add("prefix", "field-prefix", `${fieldId}-prefix`);
-      const postfix = formFieldElement.querySelector(".postfix");
-      postfix.part.add("postfix", "field-postfix", `${fieldId}-postfix`);
-      const enabledCheckbox = formFieldElement.querySelector(".enabled-checkbox");
-      enabledCheckbox?.part.add("enabled-checkbox", "field-enabled-checkbox", `${fieldId}-enabled-checkbox`);
-    }
-  }
-  //#endregion Internal
 };
 if (customElements.get(COMPONENT_TAG_NAME6) == null) {
   customElements.define(COMPONENT_TAG_NAME6, DataPanelElement);
@@ -5763,7 +5741,7 @@ var WelcomePanelElement = class extends HTMLElement {
     }
     boards.splice(boards.indexOf(existingEntry), 1);
     const boardsString = JSON.stringify(boards);
-    DataService.saveAppSetting("recentBoards" /* RecentBoards */, boardsString);
+    await DataService.saveAppSetting("recentBoards" /* RecentBoards */, boardsString);
   }
   async #getRecentBoards() {
     let boardsString = await DataService.getAppSetting("recentBoards" /* RecentBoards */);
@@ -7035,7 +7013,7 @@ if (customElements.get(COMPONENT_TAG_NAME11) == null) {
 }
 
 // src/components/config-panel/config-panel.css?raw
-var config_panel_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto auto 1fr auto;\r\n    overflow: hidden;\r\n}\r\n\r\n.icon\r\n{\r\n    width: var(--tab-icon-size);\r\n    height: var(--tab-icon-size);\r\n}\r\n\r\n#config-header\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto 1fr auto;\r\n    gap: 7px;\r\n    align-items: center;\r\n    font-weight: bold;\r\n    padding-bottom: 1em;\r\n}\r\n\r\n#config-title\r\n{\r\n    font-weight: bold;\r\n}\r\n\r\n.header-icon\r\n{\r\n    width: var(--dialog-header-icon-size);\r\n    height: var(--dialog-header-icon-size);\r\n}\r\n\r\n#config-navigation\r\n{\r\n    margin: 0;\r\n    margin-bottom: 14px;\r\n    padding: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: field;\r\n    color: fieldtext;\r\n    border: solid 1px graytext;\r\n    border-radius: 2px;\r\n    user-select: none;\r\n}\r\n\r\n.nav-item\r\n{\r\n    --tab-icon-size: 14px;\r\n    padding: 7px 12px;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n    #config-navigation\r\n    {\r\n        display: grid;\r\n        grid-template-columns: 1fr 1fr;\r\n        grid-template-rows: 1fr 1fr;\r\n    }\r\n\r\n    .nav-item\r\n    {\r\n        justify-content: center;\r\n    }\r\n}\r\n\r\n.nav-item[aria-current="page"]\r\n,.nav-item:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n\r\n#config-router\r\n{\r\n    overflow: hidden;\r\n}\r\n.page\r\n{\r\n    overflow-y: auto;\r\n    display: grid;\r\n}\r\n\r\n\r\n#board-settings-footer\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    gap: 14px;\r\n    padding-top: 1em;\r\n}\r\n\r\n#config-actions\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    gap: 14px;\r\n    padding-top: 1em;\r\n}\r\n\r\n.button\r\n{\r\n    width: 75px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n#config-cancel\r\n{\r\n    grid-column: 2;\r\n}\r\n#config-ok\r\n{\r\n    grid-column: 3;\r\n}';
+var config_panel_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto auto 1fr auto;\r\n    overflow: hidden;\r\n}\r\n\r\n.icon\r\n{\r\n    width: var(--tab-icon-size);\r\n    height: var(--tab-icon-size);\r\n}\r\n\r\n#config-header\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto 1fr auto;\r\n    gap: 7px;\r\n    align-items: center;\r\n    font-weight: bold;\r\n    padding-bottom: 1em;\r\n}\r\n\r\n#config-title\r\n{\r\n    font-weight: bold;\r\n}\r\n\r\n.header-icon\r\n{\r\n    width: var(--dialog-header-icon-size);\r\n    height: var(--dialog-header-icon-size);\r\n}\r\n\r\n#config-navigation\r\n{\r\n    margin: 0;\r\n    margin-bottom: 14px;\r\n    padding: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: field;\r\n    color: fieldtext;\r\n    border: solid 1px graytext;\r\n    border-radius: 2px;\r\n    user-select: none;\r\n}\r\n\r\n.nav-item\r\n{\r\n    --tab-icon-size: 14px;\r\n    padding: 7px 12px;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n    #config-navigation\r\n    {\r\n        display: grid;\r\n        grid-template-columns: 1fr 1fr;\r\n        grid-template-rows: 1fr 1fr;\r\n    }\r\n\r\n    .nav-item\r\n    {\r\n        justify-content: center;\r\n    }\r\n}\r\n\r\n.nav-item[aria-current="page"]\r\n,.nav-item:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n\r\n#config-router\r\n{\r\n    overflow: hidden;\r\n}\r\n.page\r\n{\r\n    overflow-y: auto;\r\n    display: grid;\r\n    padding: 7px;\r\n}\r\n\r\n\r\n#board-settings-footer\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    gap: 14px;\r\n    padding-top: 1em;\r\n}\r\n\r\n#config-actions\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-end;\r\n    gap: 14px;\r\n    padding-top: 1em;\r\n}\r\n\r\n.button\r\n{\r\n    width: 75px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n#config-cancel\r\n{\r\n    grid-column: 2;\r\n}\r\n#config-ok\r\n{\r\n    grid-column: 3;\r\n}';
 
 // src/components/config-panel/config-panel.html?raw
 var config_panel_default2 = '<header id="config-header" class="dialog-header">\r\n    <svg id="config-icon" class="icon gear-icon header-icon">\r\n        <use href="#icon-definition_gear"></use>\r\n    </svg>\r\n    <span id="config-title" class="title">Configuration</span>\r\n</header>\r\n<menu id="config-navigation" class="navigation">\r\n    <a data-route="#config/settings" id="settings-nav-item" class="nav-item first" tabindex="0">\r\n        <svg id="settings-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_gear"></use>\r\n        </svg>\r\n        <span class="label nav-item-label">Settings</span>\r\n    </a>\r\n    <a data-route="#config/data" id="data-nav-item"  class="nav-item" tabindex="0">\r\n        <svg id="data-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_data"></use>\r\n        </svg>\r\n        <span class="nav-item-label">Data</span>\r\n    </a>\r\n    <a data-route="#config/history" id="history-nav-item"  class="nav-item" tabindex="0">\r\n        <svg id="history-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_clock"></use>\r\n        </svg>\r\n        <span class="label nav-item-label">History</span>\r\n    </a>\r\n    <a data-route="#config/about" id="about-nav-item"  class="nav-item last" tabindex="0">\r\n        <svg id="about-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_info"></use>\r\n        </svg>\r\n        <span class="label nav-item-label">About</span>\r\n    </a>\r\n</menu>\r\n<path-router id="config-router" class="router" path="settings">\r\n    <route-page path="settings" id="settings-page" class="page config-page">\r\n        <settings-panel\r\n            id="settings-panel"\r\n            class="config-page-panel"\r\n            exportparts="selected">\r\n            <slot name="custom-settings" slot="custom-settings"></slot>\r\n        </settings-panel>\r\n    </route-page>\r\n    <route-page path="data" id="data-page" class="page config-page">\r\n        <data-panel\r\n            id="data-panel"\r\n            class="config-page-panel"\r\n            exportparts="selected,deleted-item,deleted-item-remove-button,restore-button">\r\n            <slot name="deleted-images" slot="deleted-images"></slot>\r\n            <slot name="deleted-items" slot="deleted-items"></slot>\r\n        </data-panel>\r\n    </route-page>\r\n    <route-page path="history" id="history-page" class="page config-page">\r\n        <history-panel\r\n            id="history-panel"\r\n            class="config-page-panel"\r\n            exportparts="selected,action-history,action-history-entry,active">\r\n            <slot name="action-history" slot="action-history"></slot>\r\n        </history-panel>\r\n    </route-page>\r\n    <route-page path="about" id="about-page" class="page config-page">\r\n        <about-panel\r\n            id="about-panel"\r\n            class="config-page-panel"\r\n            ></about-panel>\r\n    </route-page>\r\n</path-router>\r\n<footer id="config-footer" class="footer dialog-footer">\r\n    <form id="config-actions" class="actions" method="dialog">\r\n        <button type="submit" id="config-cancel" class="button action-button close preferred-button label-button">Close</button>\r\n    </form>\r\n</footer>';
@@ -7173,10 +7151,10 @@ var HistoryPanelElement = class extends HTMLElement {
     assignClassAndIdToPart(this.shadowRoot);
     assignPartsAsExportPartsAttribute(this.shadowRoot);
   }
-  #refreshBoards;
+  #refreshBoardCollections;
   #refreshCache;
   async init(options) {
-    this.#refreshBoards = options.refreshBoards;
+    this.#refreshBoardCollections = options.refreshBoardCollections;
     this.#refreshCache = options.refreshCache;
     const historyLength = await DataService.getAppSetting("historyLength" /* HistoryLength */) ?? DEFAULT_HISTORY_LENGTH;
     this.#prepareHistoryLength(historyLength);
@@ -7453,7 +7431,7 @@ var HistoryPanelElement = class extends HTMLElement {
     }
     await this.#handleActionEntryReverse(target, previous, targetIndex, previousActiveEntryIndex);
     if (refreshBoards == true) {
-      this.#refreshBoards();
+      this.#refreshBoardCollections();
     }
     if (refreshDeletedItems == true) {
       this.#refreshCache();
@@ -7472,7 +7450,7 @@ var HistoryPanelElement = class extends HTMLElement {
     }
     await this.#handleActionEntryActivate(target, previous, targetIndex, previousActiveEntryIndex);
     if (refreshBoards == true) {
-      this.#refreshBoards();
+      this.#refreshBoardCollections();
     }
     if (refreshDeletedItems == true) {
       this.#refreshCache();
@@ -7603,10 +7581,12 @@ var ConfigPanelElement = class extends HTMLElement {
       openImportManager: options.openImportManager,
       openBoard: options.openBoard,
       refreshActionHistory: this.refreshHistory.bind(this),
-      refreshBoards: options.refreshBoards,
+      refreshBoardCollections: options.refreshBoardCollections,
+      refreshRecentBoards: options.refreshRecentBoards,
+      closeBoard: options.closeBoard.bind(this),
       addActionHistoryEntry: this.addActionHistoryEntry.bind(this)
     });
-    this.findElement("history-panel").init({ refreshBoards: options.refreshBoards, refreshCache: this.refreshCache.bind(this) });
+    this.findElement("history-panel").init({ refreshBoardCollections: options.refreshBoardCollections, refreshCache: this.refreshCache.bind(this) });
     this.findElement("about-panel").init({ appVersion: options.appVersion });
   }
   refreshCache() {
@@ -10645,7 +10625,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     const order = this.findElement("app-menu-container").shadowRoot.querySelectorAll("a").length;
     const board = await DataService.createBoard(order);
     await this.findElement("config-panel").addActionHistoryEntry(HistoryEntryType.Create, "board" /* Board */, { id: board.id });
-    await this.findElement("app-menu-container").refresh();
+    this.refreshBoardCollections();
     await this.findElement("welcome-panel").refresh();
     return board;
   }
@@ -10694,10 +10674,10 @@ var TaskboardManagerElement = class extends HTMLElement {
     const configPanel = this.findElement("config-panel");
     const welcomePanel = this.findElement("welcome-panel");
     const entry = await configPanel.addActionHistoryEntry(HistoryEntryType.Delete, "board" /* Board */, { id: boardId });
-    this.refreshBoards();
+    this.refreshBoardCollections();
     configPanel.refreshCache();
     await welcomePanel.removeBoardFromRecentBoards(boardId);
-    welcomePanel.refresh();
+    await welcomePanel.refresh();
     if (entry != null) {
       this.#addUndoNotification("A board was just deleted", entry.getAttribute("data-entry-id"));
     }
@@ -10745,7 +10725,8 @@ var TaskboardManagerElement = class extends HTMLElement {
       editBoard: this.editBoard.bind(this),
       openBoard: this.openBoard.bind(this)
     });
-    this.findElement("welcome-panel").init({
+    const welcomePanel = this.findElement("welcome-panel");
+    welcomePanel.init({
       addBoard: this.addBoard.bind(this),
       openBoard: this.openBoard.bind(this)
     });
@@ -10764,7 +10745,9 @@ var TaskboardManagerElement = class extends HTMLElement {
       scheme_onChange: this.setColorScheme.bind(this),
       openImportManager: this.#openImportManager.bind(this),
       openBoard: this.openBoard.bind(this),
-      refreshBoards: this.refreshBoards.bind(this)
+      refreshBoardCollections: this.refreshBoardCollections.bind(this),
+      refreshRecentBoards: welcomePanel.refresh.bind(welcomePanel),
+      closeBoard: this.closeBoard.bind(this)
     });
     const boardSettings = this.findElement("board-settings");
     boardSettings.init({
@@ -11131,7 +11114,7 @@ var TaskboardManagerElement = class extends HTMLElement {
   //#region Rendering
   async #renderBoard(id) {
     const board = await DataService.getBoardRecord(id);
-    if (board == null) {
+    if (board == null || board.deletedTimestamp != null) {
       this.findElement("app-router").navigate("/");
       FeedbackService.showMessageCard(`No board found with the target id (${id}). Navigated back to Welcome page.`, MessageCardType.Warn);
       console.warn(`No board found with the target id (${id}). Navigated back to Welcome page.`);

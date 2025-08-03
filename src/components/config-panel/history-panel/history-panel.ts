@@ -21,7 +21,7 @@ const ATTRIBUTE_PREPARED_FOR_DELETE = "to-delete";
 
 export type HistoryPanelProperties = 
 {
-    refreshBoards: () => void;
+    refreshBoardCollections: () => void;
     refreshCache: () => void;
 }
 
@@ -72,11 +72,11 @@ export class HistoryPanelElement extends HTMLElement
         assignPartsAsExportPartsAttribute(this.shadowRoot!);
     }
     
-    #refreshBoards!: () => void;
+    #refreshBoardCollections!: () => void;
     #refreshCache!: () => void;
     async init(options: HistoryPanelProperties)
     {
-        this.#refreshBoards = options.refreshBoards;
+        this.#refreshBoardCollections = options.refreshBoardCollections;
         this.#refreshCache = options.refreshCache;
         const historyLength = (await DataService.getAppSetting(AppSettingKey.HistoryLength)) ?? DEFAULT_HISTORY_LENGTH;
         this.#prepareHistoryLength(historyLength);
@@ -446,7 +446,7 @@ export class HistoryPanelElement extends HTMLElement
         await this.#handleActionEntryReverse(target, previous, targetIndex, previousActiveEntryIndex);
         if(refreshBoards == true)
         {
-            this.#refreshBoards();
+            this.#refreshBoardCollections();
         }
         if(refreshDeletedItems == true)
         {
@@ -471,7 +471,7 @@ export class HistoryPanelElement extends HTMLElement
         await this.#handleActionEntryActivate(target, previous, targetIndex, previousActiveEntryIndex);
         if(refreshBoards == true)
         {
-            this.#refreshBoards();
+            this.#refreshBoardCollections();
         }
         if(refreshDeletedItems == true)
         {
