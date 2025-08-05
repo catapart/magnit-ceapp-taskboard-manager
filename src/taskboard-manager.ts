@@ -583,7 +583,7 @@ export class TaskboardManagerElement extends HTMLElement
             taskSettings,
             imageUpdates);
 
-        this.findElement<WelcomePanelElement>('welcome-panel').updateRecentBoardEntry(board.id, board.name);
+        this.findElement<WelcomePanelElement>('welcome-panel').updateRecentBoardEntry(board.id, board.name, board.color);
 
         this.refreshBoard();
     }
@@ -916,7 +916,7 @@ export class TaskboardManagerElement extends HTMLElement
         // to be available when the update function is called
         requestAnimationFrame(() =>
         {
-            this.findElement<WelcomePanelElement>('welcome-panel').updateRecentBoardEntry(board.id, board.name);
+            this.findElement<WelcomePanelElement>('welcome-panel').updateRecentBoardEntry(board.id, board.name, board.color);
             const welcomePanel = this.findElement<WelcomePanelElement>('welcome-panel');
             welcomePanel.refresh();
         });

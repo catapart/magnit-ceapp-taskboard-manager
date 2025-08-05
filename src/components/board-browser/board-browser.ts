@@ -167,6 +167,7 @@ export class BoardBrowserElement extends HTMLElement
         element.setAttribute('data-board-id', boardRecord.id);
         element.toggleAttribute('select', true);
         element.part.add('board-gallery-item');
+        element.style.setProperty('--board-color', boardRecord.color);
         return element;
     }
     

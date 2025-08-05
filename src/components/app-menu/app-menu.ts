@@ -151,6 +151,7 @@ export class AppMenuElement extends HTMLElement
         element.setAttribute('part', 'board');
         element.classList.add('board');
         element.dataset.route = `board/${board.id}`;
+        element.style.setProperty('--board-color', board.color);
 
         let timeout: ReturnType<typeof setTimeout>|null;
         const cancel = () =>
