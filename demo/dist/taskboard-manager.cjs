@@ -10350,18 +10350,16 @@ function key_onDown(event) {
           const lastTask = findLastTask(activeButton);
           if (lastTask != null) {
             lastTask.findElement("description").focus();
-            event.preventDefault();
-            event.stopPropagation();
             return;
           }
         }
       }
       if (event.code == "ArrowDown") {
         activeList.querySelector("task-card")?.findElement("description").focus();
-        event.preventDefault();
-        event.stopPropagation();
         return;
       }
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
   const activeCard = taskboard.shadowRoot?.activeElement;

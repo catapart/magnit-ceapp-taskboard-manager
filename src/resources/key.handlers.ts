@@ -29,9 +29,6 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
                     if(lastTask != null)
                     {
                         lastTask.findElement("description").focus();
-
-                        event.preventDefault();
-                        event.stopPropagation();
                         return;
                     }
                 }
@@ -39,11 +36,11 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
             if(event.code == 'ArrowDown')
             {
                 (activeList.querySelector('task-card') as TaskCardElement)?.findElement('description').focus();
-
-                event.preventDefault();
-                event.stopPropagation();
                 return;
             }
+
+            event.preventDefault();
+            event.stopPropagation();
 
         }
     }
