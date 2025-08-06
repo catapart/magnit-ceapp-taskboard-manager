@@ -10350,12 +10350,16 @@ function key_onDown(event) {
           const lastTask = findLastTask(activeButton);
           if (lastTask != null) {
             lastTask.findElement("description").focus();
+            event.preventDefault();
+            event.stopPropagation();
             return;
           }
         }
       }
       if (event.code == "ArrowDown") {
         activeList.querySelector("task-card")?.findElement("description").focus();
+        event.preventDefault();
+        event.stopPropagation();
         return;
       }
     }
@@ -10379,6 +10383,8 @@ function key_onDown(event) {
           activeCard.parentElement.findElement("name").focus();
         }
       }
+      event.preventDefault();
+      event.stopPropagation();
     } else if (event.code == "ArrowDown") {
       if (event.shiftKey == true) {
         const lastTask = findLastTask(activeCard);
@@ -10393,6 +10399,8 @@ function key_onDown(event) {
           activeCard.parentElement.findElement("add-button").focus();
         }
       }
+      event.preventDefault();
+      event.stopPropagation();
     } else if (event.code == "ArrowLeft") {
       if (event.shiftKey == false) {
         const previousListTask = findPreviousListTask(activeCard);
@@ -10400,6 +10408,8 @@ function key_onDown(event) {
           previousListTask.findElement("description").focus();
         }
       }
+      event.preventDefault();
+      event.stopPropagation();
     } else if (event.code == "ArrowRight") {
       if (event.shiftKey == false) {
         const nextListTask = findNextListTask(activeCard);
@@ -10407,6 +10417,8 @@ function key_onDown(event) {
           nextListTask.findElement("description").focus();
         }
       }
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 }
