@@ -63,7 +63,7 @@ export class TaskListFieldsComponent extends HTMLElement
         // before assigning export parts
         this.shadowRoot!.addEventListener('ready', () =>
         {
-            this.setAttribute('exportparts', 'option-true');
+            this.setAttribute('exportparts', 'option-true,removed');
             assignPartsAsExportPartsAttribute(this.shadowRoot!);
         }, { once: true });
     }
