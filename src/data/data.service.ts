@@ -179,7 +179,8 @@ export abstract class DataService
         if(ids.length == 0) { return []; }
 
         const channel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageType.BOARD);
-        return (await channel.getItems(ids)).filter(item => item.deletedTimestamp == null);
+        const items = (await channel.getItems(ids));
+        return items.filter(item => item != null && item.deletedTimestamp == null);
     }
     static async getTaskSettingsRecord(id: string)
     {

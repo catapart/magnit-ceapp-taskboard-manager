@@ -5001,7 +5001,8 @@ var DataService = class _DataService {
       return [];
     }
     const channel = _DataService.#getChannel(_DataService.data.taskSettings, "BOARD" /* BOARD */);
-    return (await channel.getItems(ids)).filter((item) => item.deletedTimestamp == null);
+    const items = await channel.getItems(ids);
+    return items.filter((item) => item != null && item.deletedTimestamp == null);
   }
   static async getTaskSettingsRecord(id) {
     const channel = _DataService.#getChannel(_DataService.data.taskSettings, "BOARD" /* BOARD */);
@@ -10561,7 +10562,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     this.findElement("config-panel").history_redo();
   }
   async refreshBoards() {
-    this.refreshBoardCollections();
+    await this.refreshBoardCollections();
     this.refreshCurrentBoard();
   }
   refreshCurrentBoard() {
@@ -10580,14 +10581,13 @@ var TaskboardManagerElement = class extends HTMLElement {
     await this.getElement("app-router").navigate(`board/${id}`);
   }
   async refreshBoard() {
-    this.refreshBoards();
+    await this.refreshBoards();
     this.findElement("config-panel").refreshCache();
     const id = this.findElement("board-settings").getAttribute("record-id");
     if (id == null) {
       FeedbackService.showErrorMessageCard(`An error occurred saving the board settings.`);
       throw new Error("Unable to determine the target board's id");
     }
-    this.openBoard(id);
   }
   async closeBoard() {
     await this.findElement("app-router").navigate("/" + window.location.hash);

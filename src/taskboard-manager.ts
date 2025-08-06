@@ -153,7 +153,7 @@ export class TaskboardManagerElement extends HTMLElement
 
     async refreshBoards()
     {
-        this.refreshBoardCollections();
+        await this.refreshBoardCollections();
         this.refreshCurrentBoard();
     }
     refreshCurrentBoard()
@@ -179,7 +179,7 @@ export class TaskboardManagerElement extends HTMLElement
     async refreshBoard()
     {
         // refresh items that reference the board's properties (name, description, etc)
-        this.refreshBoards();
+        await this.refreshBoards();
         this.findElement<ConfigPanelElement>('config-panel').refreshCache();
 
         // refresh board
@@ -189,7 +189,6 @@ export class TaskboardManagerElement extends HTMLElement
             FeedbackService.showErrorMessageCard(`An error occurred saving the board settings.`);
             throw new Error('Unable to determine the target board\'s id');
         }
-        this.openBoard(id);
     }
     async closeBoard()
     {
