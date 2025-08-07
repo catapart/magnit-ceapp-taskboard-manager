@@ -5413,9 +5413,9 @@ var AppMenuElement = class extends HTMLElement {
   //#region Handlers
   async #onClick(event) {
     const composedPath = event.composedPath().filter((item) => item instanceof HTMLElement);
-    const longpress = composedPath.find((item) => item.classList.contains("longpress"));
-    if (longpress != null) {
-      event.stopPropagation();
+    const pathAttribute = this.getRootNode().host.getAttribute("path");
+    if (pathAttribute != null && pathAttribute.includes("board-settings")) {
+      event.preventDefault();
       return;
     }
     const editButton = composedPath.find((item) => item.classList.contains("board-edit-button"));
@@ -10790,21 +10790,38 @@ var TaskboardManagerElement = class extends HTMLElement {
     this.findElement("board-settings-dialog").applyEventListener("beforeopen", this.#boardSettingsRoute_beforeOpen.bind(this));
   }
   async #handleInitialNavigation(boardsPromise) {
-    const { windowPath, windowHash } = this.#parseWindowPath();
-    const filteredWindowHash = windowHash.replace("import", "");
-    await this.getElement("app-router").navigate(`${windowPath}#${filteredWindowHash}`);
-    if (filteredWindowHash != windowHash) {
-      const newHistoryState = `${window.origin}${this.#rootPath}?path=${windowPath}${filteredWindowHash != "" ? `#${filteredWindowHash}` : ""}`;
-      window.history.replaceState(null, "", newHistoryState);
-    }
-    await boardsPromise;
-    let boardIdIndex = windowPath.indexOf("board/");
-    if (boardIdIndex > -1) {
-      const currentMenuItem = this.findElement("app-menu-container").shadowRoot.querySelector(`[data-route="${windowPath}"]`);
-      if (currentMenuItem != null) {
-        currentMenuItem.setAttribute("aria-current", "page");
-        currentMenuItem.classList.add("selected");
-        currentMenuItem.part.add("selected");
+    const updateUrl = this.getAttribute("update-url");
+    if (updateUrl != null) {
+      const { windowPath, windowHash } = this.#parseWindowPath();
+      const filteredWindowHash = windowHash.replace("import", "");
+      await this.getElement("app-router").navigate(`${windowPath}#${filteredWindowHash}`);
+      if (filteredWindowHash != windowHash) {
+        const newHistoryState = `${window.origin}${this.#rootPath}?path=${windowPath}${filteredWindowHash != "" ? `#${filteredWindowHash}` : ""}`;
+        window.history.replaceState(null, "", newHistoryState);
+      }
+      await boardsPromise;
+      let boardIdIndex = windowPath.indexOf("board/");
+      if (boardIdIndex > -1) {
+        const currentMenuItem = this.findElement("app-menu-container").shadowRoot.querySelector(`[data-route="${windowPath}"]`);
+        if (currentMenuItem != null) {
+          currentMenuItem.setAttribute("aria-current", "page");
+          currentMenuItem.classList.add("selected");
+          currentMenuItem.part.add("selected");
+        }
+      }
+    } else {
+      const lastPath = await DataService.getAppSetting("last-path");
+      if (lastPath != null) {
+        this.findElement("app-router").navigate(lastPath);
+        let boardIdIndex = lastPath.indexOf("board/");
+        if (boardIdIndex > -1) {
+          const currentMenuItem = this.findElement("app-menu-container").shadowRoot.querySelector(`[data-route="${lastPath}"]`);
+          if (currentMenuItem != null) {
+            currentMenuItem.setAttribute("aria-current", "page");
+            currentMenuItem.classList.add("selected");
+            currentMenuItem.part.add("selected");
+          }
+        }
       }
     }
   }
@@ -11429,19 +11446,23 @@ var TaskboardManagerElement = class extends HTMLElement {
     const origin = window.location.origin;
     const updatedLocation = new URL(`${origin}/${updatedPath}`);
     const { hasChanged, isReplacementChange } = router.compareLocations(currentLocation, updatedLocation);
-    const updateUrl = this.getAttribute("update-url");
-    if (hasChanged && updateUrl != null) {
-      const urlPath = this.getAttribute("path-override") ?? window.location.pathname;
-      let newHistoryState;
-      if (updateUrl == "" || updateUrl == "query") {
-        newHistoryState = `${window.location.origin}${urlPath}?path=${updatedLocation.pathname}${updatedLocation.hash}`;
-      } else if (updateUrl == "pathname") {
+    if (hasChanged) {
+      const updateUrl = this.getAttribute("update-url");
+      if (updateUrl != null) {
+        const urlPath = this.getAttribute("path-override") ?? window.location.pathname;
+        let newHistoryState;
+        if (updateUrl == "" || updateUrl == "query") {
+          newHistoryState = `${window.location.origin}${urlPath}?path=${updatedLocation.pathname}${updatedLocation.hash}`;
+        } else if (updateUrl == "pathname") {
+        }
+        if (isReplacementChange) {
+          window.history.replaceState(null, "", newHistoryState);
+        } else {
+          window.history.pushState(null, "", newHistoryState);
+        }
       }
-      if (isReplacementChange) {
-        window.history.replaceState(null, "", newHistoryState);
-      } else {
-        window.history.pushState(null, "", newHistoryState);
-      }
+      this.setAttribute("path", `${updatedLocation.pathname}${updatedLocation.hash}`);
+      DataService.saveAppSetting("last-path", `${updatedLocation.pathname}${updatedLocation.hash}`);
     }
     const currentPathArray = updatedPath.split("#");
     const pageRoute = currentPathArray[0];
