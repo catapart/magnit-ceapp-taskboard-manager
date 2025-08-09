@@ -559,6 +559,7 @@ export class TaskboardManagerElement extends HTMLElement
         card.style.setProperty('--task-color', task.color);
         description.addEventListener('keyup', this.#taskDescription_onKeyUp.bind(this));
         description.focus();
+        
     }
 
     async #openImportManager(data: any)
