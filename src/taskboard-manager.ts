@@ -1337,7 +1337,6 @@ export class TaskboardManagerElement extends HTMLElement
     #onClick(event: Event)
     {
         const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
-        console.log(composedPath);
 
         const importOkButton = composedPath.find(item => item.id == 'import-ok');
         if(importOkButton != null)
