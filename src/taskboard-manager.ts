@@ -379,6 +379,10 @@ export class TaskboardManagerElement extends HTMLElement
             }
             this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}`)
         });
+        this.findElement<BoardBrowserElement>('board-browser').addEventListener('close', () =>
+        {
+            this.findElement<HTMLDialogElement>('board-browser-dialog').close();
+        });
 
         // config-panel
         const appVersion = await this.#getAppVersion();
@@ -390,6 +394,10 @@ export class TaskboardManagerElement extends HTMLElement
             refreshBoardCollections: this.refreshBoardCollections.bind(this),
             refreshRecentBoards: welcomePanel.refresh.bind(welcomePanel),
             closeBoard: this.closeBoard.bind(this),
+        });
+        this.findElement<ConfigPanelElement>('config-panel').addEventListener('close', () =>
+        {
+            this.findElement<HTMLDialogElement>('config-dialog').close();
         });
 
         // board-settings
@@ -403,8 +411,16 @@ export class TaskboardManagerElement extends HTMLElement
             closeBoardSettings: this.closeBoardSettings.bind(this),
             saveSettingsTarget: this.#saveSettingsTarget.bind(this)
         });
+        this.findElement<BoardSettingsElement>('board-settings').addEventListener('close', () =>
+        {
+            this.findElement<HTMLDialogElement>('board-settings-dialog').close();
+        });
 
         // import-dialog
+        this.findElement<BoardBrowserElement>('import-manager').addEventListener('close', () =>
+        {
+            this.findElement<HTMLDialogElement>('import-dialog').close();
+        });
         
 
         // confirmation-dialog
@@ -1321,6 +1337,7 @@ export class TaskboardManagerElement extends HTMLElement
     #onClick(event: Event)
     {
         const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
+        console.log(composedPath);
 
         const importOkButton = composedPath.find(item => item.id == 'import-ok');
         if(importOkButton != null)

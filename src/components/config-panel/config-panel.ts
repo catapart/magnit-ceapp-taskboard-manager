@@ -70,6 +70,12 @@ export class ConfigPanelElement extends HTMLElement
         assignTagToPart(this.shadowRoot!);
         assignClassAndIdToPart(this.shadowRoot!);
         assignPartsAsExportPartsAttribute(this.shadowRoot!);
+
+        // duplicated functionality for firefox; dialog submit does not close the dialogs for some reason
+        this.findElement<HTMLFormElement>('config-actions').addEventListener('submit', () =>
+        {
+            this.dispatchEvent(new CustomEvent('close'));
+        });
     }
 
     async init(options: ConfigPanelProperties)

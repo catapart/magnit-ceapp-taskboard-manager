@@ -62,7 +62,11 @@ export class BoardBrowserElement extends HTMLElement
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
 
-        
+        // duplicated functionality for firefox; dialog submit does not close the dialogs for some reason
+        this.findElement<HTMLFormElement>('board-browser-actions').addEventListener('submit', () =>
+        {
+            this.dispatchEvent(new CustomEvent('close'));
+        });
         this.findElement<HTMLButtonElement>('board-browser-ok').addEventListener('click', this.boardBrowserOkButton_onClick.bind(this));
         this.findElement<CollectionBrowserElement>('collection-browser').addEventListener('change', this.boardBrowserSelection_onChange.bind(this));
         this.findElement<CollectionFilterElement>('filter').addEventListener('change', this.boardBrowserFilter_onChange.bind(this));

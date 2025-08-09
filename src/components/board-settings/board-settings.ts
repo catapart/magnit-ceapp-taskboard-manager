@@ -151,6 +151,12 @@ export class BoardSettingsElement extends HTMLElement
             taskCenterRemoveButton.part.toggle('option-true', taskCenterRemoveButton.checked);
             return;
         }
+
+        // duplicated functionality for firefox; dialog submit does not close the dialogs for some reason
+        this.findElement<HTMLFormElement>('board-settings-form').addEventListener('submit', () =>
+        {
+            this.dispatchEvent(new CustomEvent('close'));
+        });
     }
     setValues(board: TaskBoardRecord, taskSettings: TaskSettingsRecord, backgroundImage: CustomImageRecord|null = null)
     {
