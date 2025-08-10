@@ -1,5 +1,16 @@
 # @magnit-ceapp/taskboard-manager
 
+## 0.0.4
+
+### Patch Changes
+
+- 484c09a: updated task card dependency
+- b974c14: fixed issues with saving task lists
+- 45b8893: prevented tasklist from being duplicated if it has been removed
+- 34df4d0: fixed issues with board item longpress and last path settings
+- dc58b2a: fixed config panel styles for low screen widths
+- 3f4d764: updated dialogs to dispatch events so that firefox can close the dialogs even though the form submissions are in the shadow dom
+
 ## 0.0.3
 
 ### Patch Changes
