@@ -75,4 +75,14 @@
     {
         width: 50px;
     }
+    #history-navigation-fieldset
+    {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto 1fr;
+    }
+    #clear-history-button
+    ,#action-history
+    {
+        grid-column: span 2;
+    }
 }

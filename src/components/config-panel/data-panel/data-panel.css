@@ -156,10 +156,16 @@
     {
         flex-direction: column;
     }
-    #import-field .container
+    #import-field
     {
         flex-direction: column;
         align-items: stretch;
+    }
+    #import-field .container
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
     }
     #import-button
     {

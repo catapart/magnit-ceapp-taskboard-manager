@@ -28,26 +28,26 @@ taskboard-manager
     overflow: hidden;
 }
 
-taskboard-manager[data-theme="course"] .custom-settings
+taskboard-manager .custom-settings
 {
     display: grid;
-    gap: var(--small-gap);
+    gap: var(--small-gap, 7px);
 }
 
-taskboard-manager[data-theme="course"] .field .container
+taskboard-manager .field .container
 {
     display: grid;
     grid-template-columns: 90px 1fr;
-    gap: var(--small-gap);
+    gap: var(--small-gap, 7px);
     align-items: center;
 }
 
-taskboard-manager[data-theme="course"] #theme-description
+taskboard-manager #theme-description
 {
-    margin-left: calc(90px + (var(--small-gap) * 2));
+    margin-left: calc(90px + (var(--small-gap, 7px) * 2));
 }
 
-taskboard-manager[data-theme="course"] .field-label
+taskboard-manager .field-label
 {
     text-align: right;
 }
@@ -61,4 +61,22 @@ taskboard-manager[data-theme="course"] a
 taskboard-manager[data-theme="course"] a:hover
 {
     text-decoration: var(--text-decoration-anchor-highlight);
+}
+
+@media (max-width: 665px) 
+{
+
+    taskboard-manager .field-label
+    {
+        text-align: left;
+    }
+    taskboard-manager .field .container
+    {
+        grid-template-columns: 1fr;
+    }
+    taskboard-manager #theme-description
+    {
+        margin-left: 0;
+        text-align: center;
+    }
 }
