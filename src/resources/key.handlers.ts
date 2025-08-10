@@ -39,6 +39,9 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
                 return;
             }
 
+            event.preventDefault();
+            event.stopPropagation();
+
         }
     }
 
@@ -69,6 +72,9 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
                     (activeCard.parentElement as TaskListElement).findElement('name').focus();
                 }
             }
+
+            event.preventDefault();
+            event.stopPropagation();
         }
         else if(event.code == 'ArrowDown')
         {
@@ -92,6 +98,9 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
                     (activeCard.parentElement as TaskListElement).findElement('add-button').focus();
                 }
             }
+
+            event.preventDefault();
+            event.stopPropagation();
         }
         else if(event.code == 'ArrowLeft')
         {
@@ -103,6 +112,9 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
                     previousListTask.findElement("description").focus();
                 }
             }
+
+            event.preventDefault();
+            event.stopPropagation();
         }
         else if(event.code == 'ArrowRight')
         {
@@ -114,6 +126,9 @@ function key_onDown(this: TaskboardManagerElement, event: KeyboardEvent)
                     nextListTask.findElement("description").focus();
                 }
             }
+
+            event.preventDefault();
+            event.stopPropagation();
         }
     }
     

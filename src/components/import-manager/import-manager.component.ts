@@ -46,6 +46,12 @@ export class ImportManagerComponent extends HTMLElement
         this.shadowRoot!.innerHTML = COMPONENT_TEMPLATE;
         this.shadowRoot!.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
 
+        // duplicated functionality for firefox; dialog submit does not close the dialogs for some reason
+        this.findElement<HTMLFormElement>('import-actions').addEventListener('submit', () =>
+        {
+            this.dispatchEvent(new CustomEvent('close'));
+        });
+
         this.findElement<RecordTreeElement>('preview').addCustomPropertyValueGenerator((title: string) =>
         {
             return ID_PROPERTIES.has(title);

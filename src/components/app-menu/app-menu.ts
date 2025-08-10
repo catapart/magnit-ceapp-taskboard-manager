@@ -95,10 +95,10 @@ export class AppMenuElement extends HTMLElement
     {
         const composedPath = event.composedPath().filter(item => item instanceof HTMLElement);
 
-        const longpress = composedPath.find(item => item.classList.contains('longpress'));
-        if(longpress != null)
+        const pathAttribute = (this.getRootNode() as any).host!.getAttribute('path');
+        if(pathAttribute != null && pathAttribute.includes('board-settings'))
         {
-            event.stopPropagation();
+            event.preventDefault();
             return;
         }
 
@@ -151,6 +151,7 @@ export class AppMenuElement extends HTMLElement
         element.setAttribute('part', 'board');
         element.classList.add('board');
         element.dataset.route = `board/${board.id}`;
+        element.style.setProperty('--board-color', board.color);
 
         let timeout: ReturnType<typeof setTimeout>|null;
         const cancel = () =>

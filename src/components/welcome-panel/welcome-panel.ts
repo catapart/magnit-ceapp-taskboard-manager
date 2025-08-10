@@ -104,13 +104,13 @@ export class WelcomePanelElement extends HTMLElement
         recentBoards.append(...menuItems);
     }
 
-    async addBoardToRecentBoards(id: string, description: string)
+    async addBoardToRecentBoards(id: string, description: string, color: string)
     {
         const boards = await this.#getRecentBoards();
         const existingEntry = boards.find(item => item.id == id);
         if(existingEntry != null) { return; }
 
-        boards.unshift({id, description, timestamp: Date.now() });
+        boards.unshift({id, description, timestamp: Date.now(), color });
         if(boards.length > 10)
         {
             boards.pop();
@@ -118,7 +118,7 @@ export class WelcomePanelElement extends HTMLElement
         const boardsString = JSON.stringify(boards);
         DataService.saveAppSetting(AppSettingKey.RecentBoards, boardsString);
     }
-    async updateRecentBoardEntry(id: string, description?: string)
+    async updateRecentBoardEntry(id: string, description?: string, color?: string)
     {
         const maxRecentBoards = await DataService.getAppSetting<number>(AppSettingKey.RecentBoardsMax) ?? 10;
         const boards = await this.#getRecentBoards();
@@ -127,7 +127,7 @@ export class WelcomePanelElement extends HTMLElement
         
         if(existingEntry == null)
         {
-            const newEntry = { id, description: description ?? "", timestamp: Date.now() };
+            const newEntry = { id, description: description ?? "", timestamp: Date.now(), color: color ?? '' };
             if(boards.length == maxRecentBoards)
             {
                 boards.pop();
@@ -138,6 +138,7 @@ export class WelcomePanelElement extends HTMLElement
         {
             existingEntry.description = description ?? existingEntry.description;
             existingEntry.timestamp = Date.now();
+            existingEntry.color = color ?? existingEntry.color;
             boards.splice(existingEntryIndex, 1, existingEntry);
         }
 
@@ -177,6 +178,7 @@ export class WelcomePanelElement extends HTMLElement
         element.setAttribute('part', 'board recent');
         element.classList.add('board', 'recent');
         element.dataset.route = `board/${board.id}`;
+        element.style.setProperty('--board-color', board.color);
 
         return element;
     }

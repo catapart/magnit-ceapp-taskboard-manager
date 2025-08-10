@@ -13,6 +13,11 @@
     font-weight: bold;
 }
 
+.scheme
+{
+    margin: 3px 0;
+}
+
 #custom-settings-fieldset
 {
     color: graytext;

@@ -118,6 +118,10 @@ taskboard-manager[data-theme="course"]::part(tasklist-settings-remove-button):ho
     --icon-primary-color: red;
     --icon-secondary-color: var(--surface-input);
 }
+taskboard-manager[data-theme="course"]::part(tasklist-settings-remove-button removed):hover
+{
+    --icon-primary-color: var(--text-surface);
+}
 
 taskboard-manager[data-theme="course"]::part(tasklist-color)
 {

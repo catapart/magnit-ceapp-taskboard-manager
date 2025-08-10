@@ -42,8 +42,8 @@ importers:
         specifier: ^0.0.4
         version: 0.0.4
       '@magnit-ce/task-card':
-        specifier: ^0.0.24
-        version: 0.0.24
+        specifier: ^0.0.25
+        version: 0.0.25
       '@magnit-ce/task-list':
         specifier: ^0.0.17
         version: 0.0.17
@@ -330,8 +330,8 @@ packages:
   '@magnit-ce/task-board@0.0.4':
     resolution: {integrity: sha512-bhkYedPVVkz0dWB6Dz13Xz7cad5rwlAmvQU//uaS6z2nR5gF4tCjpu2Gdhmyy+aJaR1Bp8kS/Gkh5s7XZnTLyA==}
 
-  '@magnit-ce/task-card@0.0.24':
-    resolution: {integrity: sha512-QnOymrVtVW7DNnw4Jnqw7ZjOxAp2EiPkOBumRXBYDUOeGB5dJNh6zxLnFkZgNMHknjJVo4PWQm3rNTnvypcYlQ==}
+  '@magnit-ce/task-card@0.0.25':
+    resolution: {integrity: sha512-85jPVtGFsneEaR8g1aE2JN/Frvj7NOY9TgPQeOeD7sPeYy2JovT9U4GoAMzNmJm6amaNSseIFDrk/u9t+mk/1w==}
 
   '@magnit-ce/task-list@0.0.17':
     resolution: {integrity: sha512-sIPfP+S3jqpT8SLQEr4xRpehJUWfL2/bhEhQM5JwU8NAy2/1lQzwPVo6yXIRL19JpEmj2NmSh6gUnKQMu+acRg==}
@@ -1621,7 +1621,7 @@ snapshots:
 
   '@magnit-ce/task-board@0.0.4': {}
 
-  '@magnit-ce/task-card@0.0.24': {}
+  '@magnit-ce/task-card@0.0.25': {}
 
   '@magnit-ce/task-list@0.0.17': {}
 

@@ -425,7 +425,7 @@ dialog[open]\r
 }`;
 
 // src/taskboard-manager.html?raw
-var taskboard_manager_default2 = '<app-menu id="app-menu-container" exportparts="board,handle,menu-item-handle,board-item-name,edit,button,board-edit-button,icon-button,icon,button-icon-expand,longpress,selected"></app-menu>\r\n<path-router id="app-router" path="">\r\n    <route-page id="welcome-page" class="page" path="">\r\n        <welcome-panel\r\n            id="welcome-panel"\r\n            exportparts="edit-button:recent-edit-button,handle:recent-edit-handle,board,recent,recent-board-remove-button,handle,menu-item-handle,board-item-name,edit,add,button,board-edit-button,icon-button,icon,button-icon-expand">\r\n        </welcome-panel>\r\n    </route-page>\r\n    <route-page id="board-page" class="page" path="board/:id" >\r\n        <task-board id="task-board" exportparts="lists:task-board-lists"></task-board>\r\n    </route-page>\r\n    <dialog id="board-browser-dialog" class="dialog" is="route-dialog" path="boards">\r\n        <board-browser\r\n            id="board-browser"\r\n            exportparts="regex,active">\r\n        </board-browser>\r\n    </dialog>\r\n    <dialog id="config-dialog" class="dialog" is="route-dialog" path="config">\r\n        <config-panel id="config-panel" exportparts="selected,deleted-item,action-history-entry,active">\r\n            <slot name="custom-settings" slot="custom-settings"></slot>\r\n        </config-panel>\r\n    </dialog>\r\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\r\n        <board-settings id="board-settings" exportparts="option-true"></board-settings>\r\n    </dialog>\r\n    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">\r\n        <import-manager\r\n            id="import-manager"\r\n            exportparts="preview: import-preview,\r\n                         content: import-dialog-content,\r\n                         removed,\r\n                         undo:import-target-undo"\r\n            ></import-manager>\r\n    </dialog>\r\n</path-router>\r\n<dialog id="confirmation-dialog" class="dialog">\r\n    <header id="confirmation-dialog-header" class="header dialog-header">\r\n        <svg id="confirmation-dialog-icon" class="icon">\r\n            <use href="#icon-definition_logo-mark"></use>\r\n        </svg>\r\n        <span id="confirmation-dialog-title" class="title">Confirmation</span>\r\n    </header>\r\n    <path-router id="confirmation-router" class="router">\r\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\r\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\r\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\r\n    </path-router>\r\n    <footer id="confirmation-dialog-footer" class="footer dialog-footer">\r\n        <form id="confirmation-dialog-form" method="dialog">\r\n            <button type="submit" id="confirmation-cancel-button" class="button action-button cancel">Cancel</button>\r\n            <button type="submit" id="confirmation-confirm-button" class="button action-button ok preferred-button">Confirm</button>\r\n        </form>\r\n    </footer>\r\n</dialog>\r\n<div id="notifications"></div>\r\n<div id="loading"></div>';
+var taskboard_manager_default2 = '<app-menu id="app-menu-container" exportparts="board,handle,menu-item-handle,board-item-name,edit,button,board-edit-button,icon-button,icon,button-icon-expand,longpress,selected"></app-menu>\r\n<path-router id="app-router" path="">\r\n    <route-page id="welcome-page" class="page" path="">\r\n        <welcome-panel\r\n            id="welcome-panel"\r\n            exportparts="edit-button:recent-edit-button,handle:recent-edit-handle,board,recent,recent-board-remove-button,handle,menu-item-handle,board-item-name,edit,add,button,board-edit-button,icon-button,icon,button-icon-expand">\r\n        </welcome-panel>\r\n    </route-page>\r\n    <route-page id="board-page" class="page" path="board/:id" >\r\n        <task-board id="task-board" exportparts="lists:task-board-lists"></task-board>\r\n    </route-page>\r\n    <dialog id="board-browser-dialog" class="dialog" is="route-dialog" path="boards">\r\n        <board-browser\r\n            id="board-browser"\r\n            exportparts="regex,active">\r\n        </board-browser>\r\n    </dialog>\r\n    <dialog id="config-dialog" class="dialog" is="route-dialog" path="config">\r\n        <config-panel id="config-panel" exportparts="selected,deleted-item,action-history-entry,active">\r\n            <slot name="custom-settings" slot="custom-settings"></slot>\r\n        </config-panel>\r\n    </dialog>\r\n    <dialog id="board-settings-dialog" class="dialog" is="route-dialog" path="board-settings">\r\n        <board-settings id="board-settings" exportparts="option-true,removed"></board-settings>\r\n    </dialog>\r\n    <dialog id="import-dialog" class="dialog" is="route-dialog" path="import">\r\n        <import-manager\r\n            id="import-manager"\r\n            exportparts="preview: import-preview,\r\n                         content: import-dialog-content,\r\n                         removed,\r\n                         undo:import-target-undo"\r\n            ></import-manager>\r\n    </dialog>\r\n</path-router>\r\n<dialog id="confirmation-dialog" class="dialog">\r\n    <header id="confirmation-dialog-header" class="header dialog-header">\r\n        <svg id="confirmation-dialog-icon" class="icon">\r\n            <use href="#icon-definition_logo-mark"></use>\r\n        </svg>\r\n        <span id="confirmation-dialog-title" class="title">Confirmation</span>\r\n    </header>\r\n    <path-router id="confirmation-router" class="router">\r\n        <route-page id="confirmation-info" class="confirmation-page" path="info"></route-page>\r\n        <route-page id="confirmation-warn" class="confirmation-page" path="warn"></route-page>\r\n        <route-page id="confirmation-danger" class="confirmation-page" path="danger"></route-page>\r\n    </path-router>\r\n    <footer id="confirmation-dialog-footer" class="footer dialog-footer">\r\n        <form id="confirmation-dialog-form" method="dialog">\r\n            <button type="submit" id="confirmation-cancel-button" class="button action-button cancel">Cancel</button>\r\n            <button type="submit" id="confirmation-confirm-button" class="button action-button ok preferred-button">Confirm</button>\r\n        </form>\r\n    </footer>\r\n</dialog>\r\n<div id="notifications"></div>\r\n<div id="loading"></div>';
 
 // src/assets/icons/cancel-cross.ts
 var CancelCross = `<svg id="icon-definition_cancel-cross" class="icon cancel-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -2091,6 +2091,9 @@ var ImportManagerComponent = class extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = COMPONENT_TEMPLATE;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET);
+    this.findElement("import-actions").addEventListener("submit", () => {
+      this.dispatchEvent(new CustomEvent("close"));
+    });
     this.findElement("preview").addCustomPropertyValueGenerator((title) => {
       return ID_PROPERTIES.has(title);
     }, (_title, value) => {
@@ -2734,7 +2737,7 @@ var TaskListFieldsComponent = class extends HTMLElement {
       }
     });
     this.shadowRoot.addEventListener("ready", () => {
-      this.setAttribute("exportparts", "option-true");
+      this.setAttribute("exportparts", "option-true,removed");
       assignPartsAsExportPartsAttribute(this.shadowRoot);
     }, { once: true });
   }
@@ -4532,7 +4535,7 @@ var ListExport = class extends extendableType() {
 };
 
 // src/components/config-panel/data-panel/data-panel.css?raw
-var data_panel_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr 1fr;\r\n    gap: 7px;\r\n}\r\n\r\n\r\n#data-header\r\n{\r\n    grid-column: span 3;\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n}\r\n\r\n\r\n#deleted-items [data-restore="false"]\r\n{\r\n    scale: .98 .9;\r\n    opacity: .5;\r\n    pointer-events: none;\r\n}\r\n\r\n[to-delete]\r\n{\r\n    text-decoration: line-through;\r\n    color: #444;\r\n}\r\n\r\n#import-fieldset\r\n{\r\n    grid-column: span 3;\r\n    display: flex;\r\n    gap: 7px;\r\n}\r\n\r\n#import-field\r\n{\r\n    flex: 1;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n}\r\n\r\n#import-field .container\r\n{\r\n    display: contents;\r\n}\r\n\r\n#import-board-file\r\n{\r\n    flex: 1;\r\n}\r\n\r\n\r\n#data-cleanup-fieldset\r\n{\r\n    display: grid;\r\n    grid-template-rows: max-content 1fr max-content;\r\n    gap: 7px;\r\n}\r\n\r\n#data-cleanup-range .container\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 5px;\r\n    align-self: flex-end;\r\n}\r\n#data-persist-days\r\n{\r\n    flex: 1;\r\n}\r\n\r\n#apply-data-persist-days-button\r\n{\r\n    justify-self: flex-end;\r\n}\r\n\r\n#data-pending-fieldset\r\n,#image-cache-fieldset\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto 1fr auto;\r\n    gap: 7px;\r\n}\r\n\r\n#deleted-items\r\n,#deleted-images\r\n{\r\n    display: flex;\r\n    flex-direction: column;\r\n    background: field;\r\n    border-radius: 2px;\r\n    border: 1px solid graytext;\r\n    color: fieldtext;\r\n    height: 130px;\r\n    overflow-x: hidden;\r\n    overflow-y: auto;\r\n    margin: 0;\r\n    padding: 0;\r\n    align-self: flex-end;\r\n}\r\n\r\n#deleted-items::part(add)\r\n,#deleted-images::part(add)\r\n{\r\n    display: none !important;\r\n}\r\n\r\n.deleted-item\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto;\r\n    padding: 7px;\r\n    align-items: center;\r\n}\r\n\r\n.deleted-item-label\r\n{\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    overflow: hidden;\r\n}\r\n\r\n#clear-deleted-button\r\n,#clear-image-cache-button\r\n{\r\n    justify-self: flex-end;\r\n}\r\n\r\n#data-clear-fieldset\r\n{\r\n    display: grid;\r\n    gap: 7px;\r\n    grid-column: span 3;\r\n}\r\n\r\n#clear-data-button\r\n{\r\n    justify-self: flex-end;\r\n}\r\n@media (max-width: 665px) \r\n{\r\n    :host\r\n    {\r\n        grid-template-columns: 1fr;\r\n        column-gap: 0;\r\n    }\r\n    :host > *\r\n    {\r\n        grid-column: 1;\r\n    }\r\n\r\n    #import-fieldset\r\n    {\r\n        flex-direction: column;\r\n    }\r\n    #import-field .container\r\n    {\r\n        flex-direction: column;\r\n        align-items: stretch;\r\n    }\r\n    #import-button\r\n    {\r\n        align-self: flex-end;\r\n    }\r\n    #config-data-caches\r\n    {\r\n        display: grid;\r\n        grid-template-columns: 1fr;\r\n        gap: 7px;\r\n    }\r\n}';
+var data_panel_default = ':host\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr 1fr;\r\n    gap: 7px;\r\n}\r\n\r\n\r\n#data-header\r\n{\r\n    grid-column: span 3;\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n}\r\n\r\n\r\n#deleted-items [data-restore="false"]\r\n{\r\n    scale: .98 .9;\r\n    opacity: .5;\r\n    pointer-events: none;\r\n}\r\n\r\n[to-delete]\r\n{\r\n    text-decoration: line-through;\r\n    color: #444;\r\n}\r\n\r\n#import-fieldset\r\n{\r\n    grid-column: span 3;\r\n    display: flex;\r\n    gap: 7px;\r\n}\r\n\r\n#import-field\r\n{\r\n    flex: 1;\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 7px;\r\n}\r\n\r\n#import-field .container\r\n{\r\n    display: contents;\r\n}\r\n\r\n#import-board-file\r\n{\r\n    flex: 1;\r\n}\r\n\r\n\r\n#data-cleanup-fieldset\r\n{\r\n    display: grid;\r\n    grid-template-rows: max-content 1fr max-content;\r\n    gap: 7px;\r\n}\r\n\r\n#data-cleanup-range .container\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 5px;\r\n    align-self: flex-end;\r\n}\r\n#data-persist-days\r\n{\r\n    flex: 1;\r\n}\r\n\r\n#apply-data-persist-days-button\r\n{\r\n    justify-self: flex-end;\r\n}\r\n\r\n#data-pending-fieldset\r\n,#image-cache-fieldset\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto 1fr auto;\r\n    gap: 7px;\r\n}\r\n\r\n#deleted-items\r\n,#deleted-images\r\n{\r\n    display: flex;\r\n    flex-direction: column;\r\n    background: field;\r\n    border-radius: 2px;\r\n    border: 1px solid graytext;\r\n    color: fieldtext;\r\n    height: 130px;\r\n    overflow-x: hidden;\r\n    overflow-y: auto;\r\n    margin: 0;\r\n    padding: 0;\r\n    align-self: flex-end;\r\n}\r\n\r\n#deleted-items::part(add)\r\n,#deleted-images::part(add)\r\n{\r\n    display: none !important;\r\n}\r\n\r\n.deleted-item\r\n{\r\n    display: grid;\r\n    grid-template-columns: 1fr auto;\r\n    padding: 7px;\r\n    align-items: center;\r\n}\r\n\r\n.deleted-item-label\r\n{\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    overflow: hidden;\r\n}\r\n\r\n#clear-deleted-button\r\n,#clear-image-cache-button\r\n{\r\n    justify-self: flex-end;\r\n}\r\n\r\n#data-clear-fieldset\r\n{\r\n    display: grid;\r\n    gap: 7px;\r\n    grid-column: span 3;\r\n}\r\n\r\n#clear-data-button\r\n{\r\n    justify-self: flex-end;\r\n}\r\n@media (max-width: 665px) \r\n{\r\n    :host\r\n    {\r\n        grid-template-columns: 1fr;\r\n        column-gap: 0;\r\n    }\r\n    :host > *\r\n    {\r\n        grid-column: 1;\r\n    }\r\n\r\n    #import-fieldset\r\n    {\r\n        flex-direction: column;\r\n    }\r\n    #import-field\r\n    {\r\n        flex-direction: column;\r\n        align-items: stretch;\r\n    }\r\n    #import-field .container\r\n    {\r\n        display: flex;\r\n        flex-direction: column;\r\n        gap: 7px;\r\n    }\r\n    #import-button\r\n    {\r\n        align-self: flex-end;\r\n    }\r\n    #config-data-caches\r\n    {\r\n        display: grid;\r\n        grid-template-columns: 1fr;\r\n        gap: 7px;\r\n    }\r\n}';
 
 // src/components/config-panel/data-panel/data-panel.html?raw
 var data_panel_default2 = '\r\n<header id="data-header" class="page-header">Data</header>\r\n<fieldset id="import-fieldset" class="config-fieldset">\r\n    <legend id="import-legend" class="config-legend">Import</legend>\r\n    <form-field id="import-field" class="field config-field data-field" label="Taskboard Data File" input-selector="fileimage-input">\r\n        <fileimage-input id="import-board-file" exportparts="field:input,text,clear:import-clear,view-link:import-view-link">\r\n            <svg slot="icon" id="import-file-icon" class="icon">\r\n                <use href="#icon-definition_file"></use>\r\n            </svg>\r\n        </fileimage-input>\r\n    </form-field>\r\n    <button id="import-button" class="label-button" disabled>\r\n        <svg id="import-button-icon" class="icon">\r\n            <use href="#icon-definition_import"></use>\r\n        </svg>\r\n        <span id="import-button-label" class="label">Import Board</span>\r\n    </button>\r\n</fieldset>\r\n<fieldset id="data-cleanup-fieldset" class="config-fieldset">\r\n    <legend id="data-cleanup-legend" class="config-legend">Data Cleanup</legend>\r\n    <div id="data-cleanup-description">\r\n        <p class="text">Deleted items persist in the data store in order to enable Undo and Redo functionality.</p>\r\n        <p class="text">Set how many days deleted item should perisist using the slider below.</p>\r\n    </div>\r\n    <form-field label="Days" id="data-cleanup-range" class="field config-field data-field">\r\n        <input type="range" id="data-persist-days" class="input range" max="30" list="data-persist-days-values" />\r\n        <datalist id="data-persist-days-values"></datalist>\r\n        <span slot="postfix" id="data-persist-days-value"></span>\r\n        <button slot="postfix" id="apply-data-persist-days-button" class="button label-button data-button">\r\n            <svg id="apply-data-persist-days-icon" class="icon">\r\n                <use href="#icon-definition_confirm-check"></use>\r\n            </svg>\r\n            <span id="apply-data-persist-days-label">Apply</span>\r\n        </button>\r\n    </form-field>\r\n</fieldset>\r\n<fieldset id="data-pending-fieldset" class="config-fieldset">\r\n    <legend id="data-pending-legend" class="config-legend">Pending Cleanup</legend>\r\n    <div id="data-pending-description">\r\n        <p class="text">The following items have been deleted and will be purged from the data store after the configured cleanup days.</p>\r\n    </div>\r\n    <editable-list id="deleted-items" class="cache-list" remove-class="restore-button button icon-button" exportparts="remove:restore-item-button">\r\n        <template part="remove-button">\r\n            <svg class="icon restore-icon restore-item-icon" class="icon" title="Restore">\r\n                <use href="#icon-definition_restore"></use>\r\n            </svg>\r\n        </template>\r\n    </editable-list>\r\n    <button id="clear-deleted-button" class="label-button data-button">\r\n        <svg id="clear-deleted-icon" class="icon" title="Clear">\r\n            <use href="#icon-definition_trash"></use>\r\n        </svg>\r\n        <span id="clear-deleted-label" class="label">Clear Pending Items</span>\r\n    </button>\r\n</fieldset>\r\n<fieldset id="image-cache-fieldset" class="config-fieldset">\r\n    <legend id="image-cache-legend" class="config-legend">Image Cache</legend>\r\n    <div id="image-cache-description">\r\n        <p class="text">Caching some image files provides undo and redo support.</p>\r\n        <p class="text">The images below have been deleted, but will not be automatically removed until they reach the expiration limit.</p>\r\n    </div>\r\n    <editable-list id="deleted-images" remove-class="button icon-button deleted-item-remove-button" class="cache-list" exportparts="button, remove:delete-cached-image-button">\r\n        <template part="remove-button">\r\n            <svg class="icon delete-image-icon trash-icon" title="Clear">\r\n                <use href="#icon-definition_trash"></use>\r\n            </svg>\r\n        </template>\r\n    </editable-list>\r\n    <button id="clear-image-cache-button" class="label-button data-button">\r\n        <svg id="clear-images-icon" title="Clear">\r\n            <use href="#icon-definition_trash"></use>\r\n        </svg>\r\n        <span id="clear-images-label" class="label">Clear Image Cache</span>\r\n    </button>\r\n</fieldset>\r\n<fieldset id="data-clear-fieldset" class="config-fieldset">\r\n    <legend id="data-clear-legend" class="config-legend">Clear Data</legend>\r\n    <div id="data-clear-description">\r\n        <p class="text">Delete all data, including app settings and history.</p>\r\n    </div>\r\n    <button id="clear-data-button" class="label-button danger-button">\r\n        <svg id="clear-data-icon" class="icon" title="Clear">\r\n            <use href="#icon-definition_trash"></use>\r\n        </svg>\r\n        <span id="clear-data-label" class="label">Clear All Data</span>\r\n    </button>\r\n</fieldset>';
@@ -5027,7 +5030,8 @@ var DataService = class _DataService {
       return [];
     }
     const channel = _DataService.#getChannel(_DataService.data.taskSettings, "BOARD" /* BOARD */);
-    return (await channel.getItems(ids)).filter((item) => item.deletedTimestamp == null);
+    const items = await channel.getItems(ids);
+    return items.filter((item) => item != null && item.deletedTimestamp == null);
   }
   static async getTaskSettingsRecord(id) {
     const channel = _DataService.#getChannel(_DataService.data.taskSettings, "BOARD" /* BOARD */);
@@ -5438,9 +5442,9 @@ var AppMenuElement = class extends HTMLElement {
   //#region Handlers
   async #onClick(event) {
     const composedPath = event.composedPath().filter((item) => item instanceof HTMLElement);
-    const longpress = composedPath.find((item) => item.classList.contains("longpress"));
-    if (longpress != null) {
-      event.stopPropagation();
+    const pathAttribute = this.getRootNode().host.getAttribute("path");
+    if (pathAttribute != null && pathAttribute.includes("board-settings")) {
+      event.preventDefault();
       return;
     }
     const editButton = composedPath.find((item) => item.classList.contains("board-edit-button"));
@@ -5485,6 +5489,7 @@ var AppMenuElement = class extends HTMLElement {
     element.setAttribute("part", "board");
     element.classList.add("board");
     element.dataset.route = `board/${board.id}`;
+    element.style.setProperty("--board-color", board.color);
     let timeout;
     const cancel = () => {
       if (timeout != null) {
@@ -5700,26 +5705,26 @@ var WelcomePanelElement = class extends HTMLElement {
     }
     recentBoards.append(...menuItems);
   }
-  async addBoardToRecentBoards(id, description) {
+  async addBoardToRecentBoards(id, description, color) {
     const boards = await this.#getRecentBoards();
     const existingEntry = boards.find((item) => item.id == id);
     if (existingEntry != null) {
       return;
     }
-    boards.unshift({ id, description, timestamp: Date.now() });
+    boards.unshift({ id, description, timestamp: Date.now(), color });
     if (boards.length > 10) {
       boards.pop();
     }
     const boardsString = JSON.stringify(boards);
     DataService.saveAppSetting("recentBoards" /* RecentBoards */, boardsString);
   }
-  async updateRecentBoardEntry(id, description) {
+  async updateRecentBoardEntry(id, description, color) {
     const maxRecentBoards = await DataService.getAppSetting("recentBoardsMax" /* RecentBoardsMax */) ?? 10;
     const boards = await this.#getRecentBoards();
     const existingEntryIndex = boards.findIndex((item) => item.id == id);
     const existingEntry = boards[existingEntryIndex];
     if (existingEntry == null) {
-      const newEntry = { id, description: description ?? "", timestamp: Date.now() };
+      const newEntry = { id, description: description ?? "", timestamp: Date.now(), color: color ?? "" };
       if (boards.length == maxRecentBoards) {
         boards.pop();
       }
@@ -5727,6 +5732,7 @@ var WelcomePanelElement = class extends HTMLElement {
     } else {
       existingEntry.description = description ?? existingEntry.description;
       existingEntry.timestamp = Date.now();
+      existingEntry.color = color ?? existingEntry.color;
       boards.splice(existingEntryIndex, 1, existingEntry);
     }
     const boardsString = JSON.stringify(boards);
@@ -5759,6 +5765,7 @@ var WelcomePanelElement = class extends HTMLElement {
     element.setAttribute("part", "board recent");
     element.classList.add("board", "recent");
     element.dataset.route = `board/${board.id}`;
+    element.style.setProperty("--board-color", board.color);
     return element;
   }
   #recentBoard_onRemove(event) {
@@ -6019,6 +6026,9 @@ var BoardBrowserElement = class extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = COMPONENT_TEMPLATE6;
     this.shadowRoot.adoptedStyleSheets.push(COMPONENT_STYLESHEET9);
+    this.findElement("board-browser-actions").addEventListener("submit", () => {
+      this.dispatchEvent(new CustomEvent("close"));
+    });
     this.findElement("board-browser-ok").addEventListener("click", this.boardBrowserOkButton_onClick.bind(this));
     this.findElement("collection-browser").addEventListener("change", this.boardBrowserSelection_onChange.bind(this));
     this.findElement("filter").addEventListener("change", this.boardBrowserFilter_onChange.bind(this));
@@ -6091,6 +6101,7 @@ var BoardBrowserElement = class extends HTMLElement {
     element.setAttribute("data-board-id", boardRecord.id);
     element.toggleAttribute("select", true);
     element.part.add("board-gallery-item");
+    element.style.setProperty("--board-color", boardRecord.color);
     return element;
   }
 };
@@ -6689,6 +6700,9 @@ var BoardSettingsElement = class extends HTMLElement {
       taskCenterRemoveButton.part.toggle("option-true", taskCenterRemoveButton.checked);
       return;
     }
+    this.findElement("board-settings-form").addEventListener("submit", () => {
+      this.dispatchEvent(new CustomEvent("close"));
+    });
   }
   setValues(board, taskSettings, backgroundImage = null) {
     this.setAttribute("record-id", board.id);
@@ -6864,11 +6878,15 @@ var BoardSettingsElement = class extends HTMLElement {
     }
     const removeListButton = composedPath.find((item) => item.id == "tasklist-settings-remove-button");
     if (removeListButton != null) {
+      removeListButton.classList.toggle("removed");
+      removeListButton.part.toggle("removed");
       removeListButton.getRootNode().host.toggleAttribute("removed");
+      removeListButton.getRootNode().host.classList.toggle("removed");
+      removeListButton.getRootNode().host.part.toggle("removed");
       return;
     }
     const duplicateButton = composedPath.find((item) => item.id == "tasklist-settings-duplicate-button");
-    if (duplicateButton != null) {
+    if (duplicateButton != null && duplicateButton.getRootNode().host.hasAttribute("removed") == false) {
       const listElement = duplicateButton.getRootNode().host;
       const [listRecord, settingsRecord] = listElement.getRecords();
       this.duplicateList(listElement, listRecord, settingsRecord);
@@ -7019,10 +7037,10 @@ var config_panel_default = ':host\r\n{\r\n    display: grid;\r\n    grid-templat
 var config_panel_default2 = '<header id="config-header" class="dialog-header">\r\n    <svg id="config-icon" class="icon gear-icon header-icon">\r\n        <use href="#icon-definition_gear"></use>\r\n    </svg>\r\n    <span id="config-title" class="title">Configuration</span>\r\n</header>\r\n<menu id="config-navigation" class="navigation">\r\n    <a data-route="#config/settings" id="settings-nav-item" class="nav-item first" tabindex="0">\r\n        <svg id="settings-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_gear"></use>\r\n        </svg>\r\n        <span class="label nav-item-label">Settings</span>\r\n    </a>\r\n    <a data-route="#config/data" id="data-nav-item"  class="nav-item" tabindex="0">\r\n        <svg id="data-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_data"></use>\r\n        </svg>\r\n        <span class="nav-item-label">Data</span>\r\n    </a>\r\n    <a data-route="#config/history" id="history-nav-item"  class="nav-item" tabindex="0">\r\n        <svg id="history-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_clock"></use>\r\n        </svg>\r\n        <span class="label nav-item-label">History</span>\r\n    </a>\r\n    <a data-route="#config/about" id="about-nav-item"  class="nav-item last" tabindex="0">\r\n        <svg id="about-route-icon" class="icon nav-item-icon">\r\n            <use href="#icon-definition_info"></use>\r\n        </svg>\r\n        <span class="label nav-item-label">About</span>\r\n    </a>\r\n</menu>\r\n<path-router id="config-router" class="router" path="settings">\r\n    <route-page path="settings" id="settings-page" class="page config-page">\r\n        <settings-panel\r\n            id="settings-panel"\r\n            class="config-page-panel"\r\n            exportparts="selected">\r\n            <slot name="custom-settings" slot="custom-settings"></slot>\r\n        </settings-panel>\r\n    </route-page>\r\n    <route-page path="data" id="data-page" class="page config-page">\r\n        <data-panel\r\n            id="data-panel"\r\n            class="config-page-panel"\r\n            exportparts="selected,deleted-item,deleted-item-remove-button,restore-button">\r\n            <slot name="deleted-images" slot="deleted-images"></slot>\r\n            <slot name="deleted-items" slot="deleted-items"></slot>\r\n        </data-panel>\r\n    </route-page>\r\n    <route-page path="history" id="history-page" class="page config-page">\r\n        <history-panel\r\n            id="history-panel"\r\n            class="config-page-panel"\r\n            exportparts="selected,action-history,action-history-entry,active">\r\n            <slot name="action-history" slot="action-history"></slot>\r\n        </history-panel>\r\n    </route-page>\r\n    <route-page path="about" id="about-page" class="page config-page">\r\n        <about-panel\r\n            id="about-panel"\r\n            class="config-page-panel"\r\n            ></about-panel>\r\n    </route-page>\r\n</path-router>\r\n<footer id="config-footer" class="footer dialog-footer">\r\n    <form id="config-actions" class="actions" method="dialog">\r\n        <button type="submit" id="config-cancel" class="button action-button close preferred-button label-button">Close</button>\r\n    </form>\r\n</footer>';
 
 // src/components/config-panel/settings-panel/settings-panel.css?raw
-var settings_panel_default = "\r\n\r\n:host\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto auto 1fr;\r\n    gap: 7px;\r\n    flex: 1;\r\n}\r\n.header\r\n{\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n}\r\n\r\n#custom-settings-fieldset\r\n{\r\n    color: graytext;\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n#shortcuts\r\n{\r\n    display: grid;\r\n    gap: 14px;\r\n}\r\n\r\n.shortcut\r\n{\r\n    display: grid;\r\n    gap: 7px;\r\n}\r\n\r\n.shortcut-description\r\n{\r\n    margin-left: 7px;\r\n}\r\n\r\n.key\r\n{\r\n    background-color: #eee;\r\n    border-radius: 3px;\r\n    border: 1px solid #b4b4b4;\r\n    box-shadow:\r\n    0 1px 1px rgba(0, 0, 0, 0.2),\r\n    0 2px 0 0 rgba(255, 255, 255, 0.7) inset;\r\n    color: #333;\r\n    display: inline-block;\r\n    font-size: 0.85em;\r\n    font-weight: 700;\r\n    line-height: 1;\r\n    padding: 2px 4px;\r\n    white-space: nowrap;\r\n    padding-block: 5px;\r\n    margin-block: 3px;\r\n}";
+var settings_panel_default = "\r\n\r\n:host\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto auto 1fr;\r\n    gap: 7px;\r\n    flex: 1;\r\n}\r\n.header\r\n{\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n}\r\n\r\n.scheme\r\n{\r\n    margin: 3px 0;\r\n}\r\n\r\n#custom-settings-fieldset\r\n{\r\n    color: graytext;\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n#shortcuts\r\n{\r\n    display: grid;\r\n    gap: 14px;\r\n}\r\n\r\n.shortcut\r\n{\r\n    display: grid;\r\n    gap: 7px;\r\n}\r\n\r\n.shortcut-description\r\n{\r\n    margin-left: 7px;\r\n}\r\n\r\n.key\r\n{\r\n    background-color: #eee;\r\n    border-radius: 3px;\r\n    border: 1px solid #b4b4b4;\r\n    box-shadow:\r\n    0 1px 1px rgba(0, 0, 0, 0.2),\r\n    0 2px 0 0 rgba(255, 255, 255, 0.7) inset;\r\n    color: #333;\r\n    display: inline-block;\r\n    font-size: 0.85em;\r\n    font-weight: 700;\r\n    line-height: 1;\r\n    padding: 2px 4px;\r\n    white-space: nowrap;\r\n    padding-block: 5px;\r\n    margin-block: 3px;\r\n}";
 
 // src/components/config-panel/settings-panel/settings-panel.html?raw
-var settings_panel_default2 = '\r\n<header id="settings-header" class="page-header">App Settings</header>\r\n<fieldset id="color-scheme-fieldset" class="config-fieldset">\r\n    <legend id="color-scheme-legend" class="config-legend">Color Scheme</legend>\r\n    <div class="button-group" id="scheme-options">\r\n        <button class="scheme group-button first" id="inherit-button" data-value="inherit">Inherit</button>\r\n        <button class="scheme group-button" id="browser-button" data-value="browser">Browser</button>\r\n        <button class="scheme group-button" id="light-button" data-value="light">Light</button>\r\n        <button class="scheme group-button last" id="dark-button" data-value="dark">Dark</button>\r\n    </div>\r\n</fieldset>\r\n<fieldset id="custom-settings-fieldset" class="config-fieldset">\r\n    <legend id="custom-settings-legend" class="config-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>\r\n    <slot name="custom-settings">[ No Custom Settings ]</slot>\r\n</fieldset>\r\n<fieldset id="shortcuts-fieldset" class="config-fieldset">\r\n    <legend id="shortcuts-legend" class="config-legend">Shortcuts</legend>\r\n    <div id="shortcuts">\r\n        <div id="previous-word" class="shortcut word">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Left</kbd></div>\r\n            <div class="shortcut-description">Move text cursor to previous word.</div>\r\n        </div>\r\n        <div id="next-word" class="shortcut word">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Right</kbd></div>\r\n            <div class="shortcut-description">Move text cursor to next word.</div>\r\n        </div>\r\n        <div id="previous-line" class="shortcut line">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Up</kbd></div>\r\n            <div class="shortcut-description">Move text cursor to closest word in previous line.</div>\r\n        </div>\r\n        <div id="next-line" class="shortcut line">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Down</kbd></div>\r\n            <div class="shortcut-description">Move text cursor to closest word in next line.</div>\r\n        </div>\r\n        <div id="highlight-previous-word" class="shortcut highlight word">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Left</kbd></div>\r\n            <div class="shortcut-description">Highlight from the current cursor position to the start of the previous word.</div>\r\n        </div>\r\n        <div id="highlight-next-word" class="shortcut highlight word">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Right</kbd></div>\r\n            <div class="shortcut-description">Highlight from the current cursor position to the end of the next word.</div>\r\n        </div>\r\n        <div id="previous-line" class="shortcut highlight line">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Up</kbd></div>\r\n            <div class="shortcut-description">Highlight from the current cursor position to the closest position in the previous line.</div>\r\n        </div>\r\n        <div id="next-line" class="shortcut highlight line">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Down</kbd></div>\r\n            <div class="shortcut-description">Highlight from the current cursor position to the closest position in the next line.</div>\r\n        </div>\r\n        <div id="previous-task" class="shortcut task">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Left</kbd></div>\r\n            <div class="shortcut-description">Move to the task in the previous list</div>\r\n        </div>\r\n        <div id="next-task" class="shortcut task">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Right</kbd></div>\r\n            <div class="shortcut-description">Move to the task in the next list.</div>\r\n        </div>\r\n        <div id="next-list" class="shortcut task list">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Up</kbd></div>\r\n            <div class="shortcut-description">Move to the task in the previous list.</div>\r\n        </div>\r\n        <div id="previous-list" class="shortcut task list">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Alt</kbd> + <kbd class="key">Arrow Down</kbd></div>\r\n            <div class="shortcut-description">Move to the task in the previous list.</div>\r\n        </div>\r\n    </div>\r\n</fieldset>';
+var settings_panel_default2 = '\r\n<header id="settings-header" class="page-header">App Settings</header>\r\n<fieldset id="color-scheme-fieldset" class="config-fieldset">\r\n    <legend id="color-scheme-legend" class="config-legend">Color Scheme</legend>\r\n    <div class="button-group" id="scheme-options">\r\n        <button class="scheme group-button first" id="inherit-button" data-value="inherit">Inherit</button>\r\n        <button class="scheme group-button" id="browser-button" data-value="browser">Browser</button>\r\n        <button class="scheme group-button" id="light-button" data-value="light">Light</button>\r\n        <button class="scheme group-button last" id="dark-button" data-value="dark">Dark</button>\r\n    </div>\r\n</fieldset>\r\n<fieldset id="custom-settings-fieldset" class="config-fieldset">\r\n    <legend id="custom-settings-legend" class="config-legend"><slot name="custom-settings-legend">Custom Settings</slot></legend>\r\n    <slot name="custom-settings">[ No Custom Settings ]</slot>\r\n</fieldset>\r\n<fieldset id="shortcuts-fieldset" class="config-fieldset">\r\n    <legend id="shortcuts-legend" class="config-legend">Shortcuts</legend>\r\n    <div id="shortcuts">\r\n        <div id="previous-word" class="shortcut word">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Left</kbd></div>\r\n            <div class="shortcut-description">Move text cursor to previous word.</div>\r\n        </div>\r\n        <div id="next-word" class="shortcut word">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Right</kbd></div>\r\n            <div class="shortcut-description">Move text cursor to next word.</div>\r\n        </div>\r\n        <div id="previous-line" class="shortcut line">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Up</kbd></div>\r\n            <div class="shortcut-description">Move text cursor to closest word in previous line.</div>\r\n        </div>\r\n        <div id="next-line" class="shortcut line">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Arrow Down</kbd></div>\r\n            <div class="shortcut-description">Move text cursor to closest word in next line.</div>\r\n        </div>\r\n        <div id="highlight-previous-word" class="shortcut highlight word">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Left</kbd></div>\r\n            <div class="shortcut-description">Highlight from the current cursor position to the start of the previous word.</div>\r\n        </div>\r\n        <div id="highlight-next-word" class="shortcut highlight word">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Right</kbd></div>\r\n            <div class="shortcut-description">Highlight from the current cursor position to the end of the next word.</div>\r\n        </div>\r\n        <div id="previous-line" class="shortcut highlight line">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Up</kbd></div>\r\n            <div class="shortcut-description">Highlight from the current cursor position to the closest position in the previous line.</div>\r\n        </div>\r\n        <div id="next-line" class="shortcut highlight line">\r\n            <div class="shortcut-title"><kbd class="key">Ctrl</kbd> + <kbd class="key">Shift</kbd> + <kbd class="key">Arrow Down</kbd></div>\r\n            <div class="shortcut-description">Highlight from the current cursor position to the closest position in the next line.</div>\r\n        </div>\r\n        <div id="previous-task" class="shortcut task">\r\n            <div class="shortcut-title"><kbd class="key">Alt</kbd> + <kbd class="key">Arrow Left</kbd></div>\r\n            <div class="shortcut-description">Move to the task in the previous list</div>\r\n        </div>\r\n        <div id="next-task" class="shortcut task">\r\n            <div class="shortcut-title"><kbd class="key">Alt</kbd> + <kbd class="key">Arrow Right</kbd></div>\r\n            <div class="shortcut-description">Move to the task in the next list.</div>\r\n        </div>\r\n        <div id="next-list" class="shortcut task list">\r\n            <div class="shortcut-title"><kbd class="key">Alt</kbd> + <kbd class="key">Arrow Up</kbd></div>\r\n            <div class="shortcut-description">Move to the task in the previous list.</div>\r\n        </div>\r\n        <div id="previous-list" class="shortcut task list">\r\n            <div class="shortcut-title"><kbd class="key">Alt</kbd> + <kbd class="key">Arrow Down</kbd></div>\r\n            <div class="shortcut-description">Move to the task in the previous list.</div>\r\n        </div>\r\n    </div>\r\n</fieldset>';
 
 // src/components/config-panel/settings-panel/settings-panel.ts
 var COMPONENT_STYLESHEET11 = new CSSStyleSheet();
@@ -7103,7 +7121,7 @@ if (customElements.get(COMPONENT_TAG_NAME12) == null) {
 }
 
 // src/components/config-panel/history-panel/history-panel.css?raw
-var history_panel_default = ":host\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto 1fr auto;\r\n    gap: 7px;\r\n    overflow: hidden;\r\n}\r\n\r\n#history-header\r\n{\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n}\r\n\r\n#history-length-fieldset\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 10px;\r\n    flex: 1;\r\n}\r\n\r\n#history-length-field .container\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 5px;\r\n    flex: 1;\r\n}\r\n\r\n#action-history-length\r\n{\r\n    flex: 1;\r\n}\r\n\r\n#history-navigation-fieldset\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto auto 1fr auto;\r\n    grid-template-rows: auto 1fr;\r\n    gap: 7px;\r\n    overflow: hidden;\r\n}\r\n#clear-history-button\r\n{\r\n    grid-column: 4;\r\n    white-space: nowrap;\r\n}\r\n#action-history\r\n{\r\n    grid-column: span 4;\r\n    background: field;\r\n    border-radius: 2px;\r\n    border: 1px solid graytext;\r\n    color: fieldtext;\r\n    overflow: auto;\r\n    flex: 1;\r\n}\r\n\r\n\r\n.action-history-entry\r\n{\r\n    padding: 7px;\r\n    border-radius: 2px;\r\n}\r\n.action-history-entry:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n    #action-history-length\r\n    {\r\n        width: 50px;\r\n    }\r\n}";
+var history_panel_default = ":host\r\n{\r\n    display: grid;\r\n    grid-template-rows: auto 1fr auto;\r\n    gap: 7px;\r\n    overflow: hidden;\r\n}\r\n\r\n#history-header\r\n{\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n}\r\n\r\n#history-length-fieldset\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 10px;\r\n    flex: 1;\r\n}\r\n\r\n#history-length-field .container\r\n{\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 5px;\r\n    flex: 1;\r\n}\r\n\r\n#action-history-length\r\n{\r\n    flex: 1;\r\n}\r\n\r\n#history-navigation-fieldset\r\n{\r\n    display: grid;\r\n    grid-template-columns: auto auto 1fr auto;\r\n    grid-template-rows: auto 1fr;\r\n    gap: 7px;\r\n    overflow: hidden;\r\n}\r\n#clear-history-button\r\n{\r\n    grid-column: 4;\r\n    white-space: nowrap;\r\n}\r\n#action-history\r\n{\r\n    grid-column: span 4;\r\n    background: field;\r\n    border-radius: 2px;\r\n    border: 1px solid graytext;\r\n    color: fieldtext;\r\n    overflow: auto;\r\n    flex: 1;\r\n}\r\n\r\n\r\n.action-history-entry\r\n{\r\n    padding: 7px;\r\n    border-radius: 2px;\r\n}\r\n.action-history-entry:hover\r\n{\r\n    background-color: highlight;\r\n    color: highlighttext;\r\n}\r\n\r\n@media (max-width: 665px) \r\n{\r\n    #action-history-length\r\n    {\r\n        width: 50px;\r\n    }\r\n    #history-navigation-fieldset\r\n    {\r\n        grid-template-columns: 1fr 1fr;\r\n        grid-template-rows: auto auto 1fr;\r\n    }\r\n    #clear-history-button\r\n    ,#action-history\r\n    {\r\n        grid-column: span 2;\r\n    }\r\n}";
 
 // src/components/config-panel/history-panel/history-panel.html?raw
 var history_panel_default2 = '\r\n<header id="history-header" class="page-header">History</header>\r\n<fieldset id="history-navigation-fieldset" class="config-fieldset">\r\n    <legend id="history-navigation-legend" class="config-legend">Navigation</legend>\r\n    <button id="undo-button" class="data-button">\r\n        <svg id="undo-icon" class="icon" title="Undo">\r\n            <use href="#icon-definition_undo-redo"></use>\r\n        </svg>\r\n        <span part="undo-label">Undo</span>\r\n    </button>\r\n    <button id="redo-button" class="data-button">\r\n        <svg id="redo-icon" class="icon" title="Redo" style="transform: scaleX(-1);">\r\n            <use href="#icon-definition_undo-redo"></use>\r\n        </svg>\r\n        <span id="redo-label">Redo</span>\r\n    </button>\r\n    <button id="clear-history-button" class="label-button data-button">\r\n        <svg id="clear-history-icon" class="icon" title="Clear">\r\n            <use href="#icon-definition_trash"></use>\r\n        </svg>\r\n        <span id="clear-history-label">Clear History</span>\r\n    </button>\r\n    <action-history id="action-history" reverse></action-history>\r\n</fieldset>\r\n<fieldset id="history-length-fieldset" class="config-fieldset">\r\n    <legend id="history-length-legend" class="config-legend">History Length</legend>\r\n    <form-field id="history-length-field" class="field">\r\n        <input type="range" id="action-history-length" class="input" max="150" list="action-history-length-values" />\r\n        <datalist id="action-history-length-values"></datalist>\r\n        <span slot="postfix" id="action-history-length-value" part="field-postfix"></span>\r\n        <button slot="postfix" id="apply-history-length-button" part="button field-postfix label-button data-button">\r\n            <svg id="apply-history-length-icon" class="icon">\r\n                <use href="#icon-definition_confirm-check"></use>\r\n            </svg>\r\n            <span id="apply-history-length-label">Apply</span>\r\n        </button>\r\n    </form-field>\r\n</fieldset>';
@@ -7491,7 +7509,37 @@ if (customElements.get(COMPONENT_TAG_NAME13) == null) {
 var about_panel_default = ":host\r\n{\r\n    display: grid;\r\n    gap: 7px;\r\n    grid-template-columns: 1fr 1fr;\r\n    grid-template-rows: auto 1fr auto;\r\n}\r\n\r\n#about-header\r\n{\r\n    font-size: 14px;\r\n    font-weight: bold;\r\n    grid-column: span 2;\r\n}\r\n\r\n#about-app-fieldset\r\n{\r\n    grid-column: span 2;\r\n}\r\n#about-app-fieldset .text\r\n{\r\n    text-align: center;\r\n}\r\n\r\n#version-fieldset\r\n{\r\n    grid-column: 1;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n#copyright-fieldset\r\n{\r\n    grid-column: 2;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    text-align: center;\r\n}";
 
 // src/components/config-panel/about-panel/about-panel.html?raw
-var about_panel_default2 = '<header id="about-header" class="page-header">About</header>\r\n<fieldset id="about-app-fieldset" class="config-fieldset">\r\n    <legend id="about-app-legend" class="config-legend">App</legend>\r\n    <p class="text">The <em class="emphasis">My Boards</em> app is a Single Page App (SPA) implementation of the <code class="code">taskboard-manager</code> custom element.</p>\r\n    <p class="text">To see a Progressive Web App implementation of the <code class="code">taskboard-manager</code> custom element, see the </p>\r\n</fieldset>\r\n<fieldset id="version-fieldset" class="config-fieldset">\r\n    <legend id="version-legend" class="config-legend">Version</legend>\r\n    <div id="version-value">--.--.--</div>\r\n</fieldset>\r\n<fieldset id="copyright-fieldset" class="config-fieldset">\r\n    <legend id="copyright-legend" class="config-legend">Copyright</legend>\r\n    <div id="copyright-description">\r\n        <!-- For derivative work, replace this license with your own copyright -->\r\n        <p class="text copyright-text" xmlns:cc="http://creativecommons.org/ns#" >\r\n            Both are released with \r\n            <a id="cc0-link" class="link copyright-link" href="https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1" \r\n            target="_blank" \r\n            rel="license noopener noreferrer" \r\n            style="display:inline-block;">\r\n                CC0 1.0\r\n                <img id="cc-icon" class="icon raster" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt="Creative Commons Icon">\r\n                <img id="zero-icon" class="icon raster" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1" alt="Zero Icon">\r\n            </a>\r\n        </p>\r\n        <!-- End of CC0 License -->\r\n    </div>\r\n</fieldset>';
+var about_panel_default2 = `<header id="about-header" class="page-header">About</header>\r
+<fieldset id="about-app-fieldset" class="config-fieldset">\r
+    <legend id="about-app-legend" class="config-legend">App</legend>\r
+    <p class="text">This custom element is a full implementation of a taskboard manager app using the example name <em class="emphasis">MyBoards</em>.</p>\r
+    <p class="text">The element, itself, is a full application that can be hosted in any html page in an environment that supports javascript (like your browser!).</p>\r
+    <p class="text">If you would like to see an example of this element used as a Single Page App (SPA) using url query routing, see the <a href=""><em class="emphasis">DemBoards</em></a> example. This implementation updates the browser's url, but does not update the path; only the query string (everything after a question mark).</p>\r
+    <p class="text">If you would like to see an example of this element used as a Progressive Web App (PWA), see the <a href=""><em class="emphasis">DozeBoards</em></a> example. This implementation updates the browser's url and uses the current path for routing.</p>\r
+    <p class="text">To find out more about the application, and the project that created it, visit <a href="">taskboard-manager.com</a></p>\r
+</fieldset>\r
+<fieldset id="version-fieldset" class="config-fieldset">\r
+    <legend id="version-legend" class="config-legend">Version</legend>\r
+    <div id="version-value">--.--.--</div> <!-- This is the version of your implementation, not the taskboard-manager custom element's version. -->\r
+</fieldset>\r
+<fieldset id="copyright-fieldset" class="config-fieldset">\r
+    <legend id="copyright-legend" class="config-legend">Copyright</legend>\r
+    <div id="copyright-description">\r
+        <!-- For derivative work, replace this license with your own copyright -->\r
+        <p class="text copyright-text" xmlns:cc="http://creativecommons.org/ns#" >\r
+            This custom element and all of the custom elments that make it up are licensed with \r
+            <a id="cc0-link" class="link copyright-link" href="https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1" \r
+            target="_blank" \r
+            rel="license noopener noreferrer" \r
+            style="display:inline-block;">\r
+                CC0 1.0\r
+                <img id="cc-icon" class="icon raster" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt="Creative Commons Icon">\r
+                <img id="zero-icon" class="icon raster" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1" alt="Zero Icon">\r
+            </a>\r
+        </p>\r
+        <!-- End of CC0 License -->\r
+    </div>\r
+</fieldset>`;
 
 // src/components/config-panel/about-panel/about-panel.ts
 var COMPONENT_STYLESHEET13 = new CSSStyleSheet();
@@ -7573,6 +7621,9 @@ var ConfigPanelElement = class extends HTMLElement {
     assignTagToPart(this.shadowRoot);
     assignClassAndIdToPart(this.shadowRoot);
     assignPartsAsExportPartsAttribute(this.shadowRoot);
+    this.findElement("config-actions").addEventListener("submit", () => {
+      this.dispatchEvent(new CustomEvent("close"));
+    });
   }
   async init(options) {
     this.addEventListener("keydown", this.#onKeyDown.bind(this));
@@ -8673,8 +8724,8 @@ if (customElements.get(COMPONENT_TAG_NAME19) == null) {
   customElements.define(COMPONENT_TAG_NAME19, TaskListElement);
 }
 
-// node_modules/.pnpm/@magnit-ce+task-card@0.0.24/node_modules/@magnit-ce/task-card/dist/task-card.js
-var task_card_default = ':host\n{\n    --border-color: rgb(95, 95, 95);\n    border: solid 1px var(--border-color);\n    border-radius: 3px;\n    padding: 0;\n    margin: .25em;\n    display: inline-flex;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(71, 71, 71);\n    }\n}\n\n:host:has(#description:focus)\n{\n    outline: var(--task-focus-outline);\n}\n\n#color-container\n{\n    display: contents;\n}\n\n#color\n{\n    margin: 0;\n    padding: 0;\n    width: 7.5px;\n    min-height: 0;\n    height: auto;\n    border: none;\n}\n#color::-moz-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n#color::-webkit-color-swatch-wrapper \n{\n    padding: 0;\n    margin: 0;\n}\n\n#color::-webkit-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n#is-finished\n{\n    margin: 1em .5em;\n}\n\n:host(.custom-checkbox) #is-finished\n{\n    display: none;\n}\n\n#finished-indicator\n{\n    margin-block: var(--margin-block, var(--margin, .5em));\n    margin-inline: var(--margin-inline, var(--margin, .5em));\n    background: var(--background);\n    background-color: var(--background-color, field);\n    background-image: var(--background-image, none);\n    border: var(--border, solid 1px fieldtext);\n    color: var(--color);\n    min-width: 13px;\n    min-height: 13px;\n    border-radius: 3px;\n    padding: 1px 2px;\n    box-sizing: border-box;\n    user-select: none;\n}\n:host(:not(.custom-checkbox)) #finished-indicator\n{\n    display: none;\n}\n\n\n#is-finished:checked ~ slot #description\n,#is-finished:checked ~ ::slotted([slot="description"])\n{\n    text-decoration: line-through;\n}\n\n::slotted([slot="custom-check"])\n{\n    visibility: hidden;\n}\n#is-finished:checked ~ #finished-indicator\n{\n    background: var(--finished-background);\n    background-color: var(--finished-background-color, transparent);\n    background-image: var(--finished-background-image, none);\n    border: var(--finished-border, solid 1px fieldtext);\n    color: var(--finished-color);\n}\n#is-finished:checked ~ #finished-indicator ::slotted([slot="custom-check"])\n{\n    visibility: var(--custom-check-visibility, visible);\n    display: var(--custom-check-display, block);\n}\n\n#description\n{\n    /* user-agent input defaults */\n    --input-border-color: rgb(118, 118, 118);\n\n    min-height: 1.2em;\n    min-width: 24px;\n    resize: both;\n    background-color: field;\n    color: fieldtext;\n    border: solid 1px var(--input-border-color, fieldtext);\n    padding: 3px 15px 3px 5px;\n    font-size: 12px;\n    font-family: sans-serif;\n    display: block;\n    border-radius: 2px;\n    overflow: auto;\n    overflow-wrap: normal;\n\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        /* user-agent input defaults */\n        --input-border-color: rgb(133, 133, 133);\n    }\n}\n\n#description\n,::slotted([slot="description"])\n{\n    margin: 1em .5em 1em 0;\n    flex: 1;\n}\n\n#remove-button\n{\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n}\n#remove-icon\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}\n\n\n:host(.stacked)\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n:host(.stacked) #color-container\n,:host(.stacked) #color\n{\n    grid-row: 2;\n    grid-column: 2;\n    width: 14px;\n    height: 14px;\n    margin-block-end: 7px;\n    margin-block-start: 0;\n    border-radius: 3px;\n    align-self: center;\n    justify-self: center;\n}\n\n:host(.stacked) #handle\n{\n    grid-row: span 2;\n    grid-column: 1;\n}\n\n:host(.stacked) #is-finished\n{\n    grid-row: 1;\n    grid-column: 2;\n    margin-block-start: 7px;\n    margin-block-end: 0;\n}\n\n:host(.stacked) #description\n,:host(.stacked) #remove-button\n{\n    grid-row: span 2;\n    margin-top: 7px;\n    margin-bottom: 7px;\n}';
+// node_modules/.pnpm/@magnit-ce+task-card@0.0.25/node_modules/@magnit-ce/task-card/dist/task-card.js
+var task_card_default = ':host\n{\n    --border-color: rgb(95, 95, 95);\n    border: solid 1px var(--border-color);\n    border-radius: 3px;\n    padding: 0;\n    margin: .25em;\n    display: inline-flex;\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        --border-color: rgb(71, 71, 71);\n    }\n}\n\n:host(.focus)\n{\n    outline: var(--task-focus-outline);\n}\n\n#color-container\n{\n    display: contents;\n}\n\n#color\n{\n    margin: 0;\n    padding: 0;\n    width: 7.5px;\n    min-height: 0;\n    height: auto;\n    border: none;\n}\n#color::-moz-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n#color::-webkit-color-swatch-wrapper \n{\n    padding: 0;\n    margin: 0;\n}\n\n#color::-webkit-color-swatch \n{\n    border: none;\n    padding: 0;\n    margin: 0;\n}\n\n#is-finished\n{\n    margin: 1em .5em;\n}\n\n:host(.custom-checkbox) #is-finished\n{\n    display: none;\n}\n\n#finished-indicator\n{\n    margin-block: var(--margin-block, var(--margin, .5em));\n    margin-inline: var(--margin-inline, var(--margin, .5em));\n    background: var(--background);\n    background-color: var(--background-color, field);\n    background-image: var(--background-image, none);\n    border: var(--border, solid 1px fieldtext);\n    color: var(--color);\n    min-width: 13px;\n    min-height: 13px;\n    border-radius: 3px;\n    padding: 1px 2px;\n    box-sizing: border-box;\n    user-select: none;\n}\n:host(:not(.custom-checkbox)) #finished-indicator\n{\n    display: none;\n}\n\n\n#is-finished:checked ~ slot #description\n,#is-finished:checked ~ ::slotted([slot="description"])\n{\n    text-decoration: line-through;\n}\n\n::slotted([slot="custom-check"])\n{\n    visibility: hidden;\n}\n#is-finished:checked ~ #finished-indicator\n{\n    background: var(--finished-background);\n    background-color: var(--finished-background-color, transparent);\n    background-image: var(--finished-background-image, none);\n    border: var(--finished-border, solid 1px fieldtext);\n    color: var(--finished-color);\n}\n#is-finished:checked ~ #finished-indicator ::slotted([slot="custom-check"])\n{\n    visibility: var(--custom-check-visibility, visible);\n    display: var(--custom-check-display, block);\n}\n\n#description\n{\n    /* user-agent input defaults */\n    --input-border-color: rgb(118, 118, 118);\n\n    min-height: 1.2em;\n    min-width: 24px;\n    resize: both;\n    background-color: field;\n    color: fieldtext;\n    border: solid 1px var(--input-border-color, fieldtext);\n    padding: 3px 15px 3px 5px;\n    font-size: 12px;\n    font-family: sans-serif;\n    display: block;\n    border-radius: 2px;\n    overflow: auto;\n    overflow-wrap: normal;\n\n}\n@media (prefers-color-scheme: dark) \n{\n    :host\n    {\n        /* user-agent input defaults */\n        --input-border-color: rgb(133, 133, 133);\n    }\n}\n\n#description\n,::slotted([slot="description"])\n{\n    margin: 1em .5em 1em 0;\n    flex: 1;\n}\n\n#remove-button\n{\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin:1em .5em 1em 0;\n}\n#remove-icon\n{\n    width: var(--icon-width, var(--icon-size, 12px));\n    height: var(--icon-height, var(--icon-size, 12px));\n}\n\n\n:host(.stacked)\n{\n    display: grid;\n    grid-template-columns: auto auto 1fr auto;\n    grid-template-rows: auto 1fr;\n}\n\n:host(.stacked) #color-container\n,:host(.stacked) #color\n{\n    grid-row: 2;\n    grid-column: 2;\n    width: 14px;\n    height: 14px;\n    margin-block-end: 7px;\n    margin-block-start: 0;\n    border-radius: 3px;\n    align-self: center;\n    justify-self: center;\n}\n\n:host(.stacked) #handle\n{\n    grid-row: span 2;\n    grid-column: 1;\n}\n\n:host(.stacked) #is-finished\n{\n    grid-row: 1;\n    grid-column: 2;\n    margin-block-start: 7px;\n    margin-block-end: 0;\n}\n\n:host(.stacked) #description\n,:host(.stacked) #remove-button\n{\n    grid-row: span 2;\n    margin-top: 7px;\n    margin-bottom: 7px;\n}';
 var task_card_default2 = '<slot name="handle">\n    <span id="handle"></span>\n</slot>\n<label id="color-container">\n    <input type="color" id="color" class="input" value="#919191" />\n</label>\n<input type="checkbox" id="is-finished" class="input checkbox" title="Finished?" />\n<label id="finished-indicator" for="is-finished" tabindex="0">\n    <slot id="custom-check" name="custom-check"></slot>\n</label>\n<slot name="description"><div id="description" contenteditable="true"></div></slot>\n<button type="button" id="remove-button" class="button" title="Delete">\n    <slot name="remove-button-label">\n        <svg id="remove-icon" class="icon close-cross" viewBox="0 0 22.812714 22.814663" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">\n            <path\n            style="display:inline;fill:var(--icon-primary-color,InfoText);fill-opacity:1;stroke:var(--icon-secondary-color,InfoBackground);stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"\n            d="m 3.8656768,2.2287478 a 1.6392814,1.6392814 0 0 0 -1.15929,0.48032 1.6392814,1.6392814 0 0 0 0,2.31816 l 6.38181,6.3818002 -6.38181,6.38182 a 1.6392814,1.6392814 0 0 0 0,2.31814 1.6392814,1.6392814 0 0 0 2.31816,0 l 6.3818102,-6.3818 6.38181,6.3818 a 1.6392814,1.6392814 0 0 0 2.31816,0 1.6392814,1.6392814 0 0 0 0,-2.31814 l -6.38182,-6.38182 6.38182,-6.3818002 a 1.6392814,1.6392814 0 0 0 0,-2.31816 1.6392814,1.6392814 0 0 0 -1.15929,-0.48032 1.6392814,1.6392814 0 0 0 -1.15887,0.48032 l -6.38181,6.38181 -6.3818102,-6.38181 a 1.6392814,1.6392814 0 0 0 -1.15887,-0.48032 z" />\n        </svg>\n    </slot>\n</button>';
 var COMPONENT_STYLESHEET19 = new CSSStyleSheet();
 COMPONENT_STYLESHEET19.replaceSync(task_card_default);
@@ -8721,11 +8772,18 @@ var TaskCardElement = class extends HTMLElement {
       indicator.classList.toggle("finished", finished);
       indicator.part.toggle("finished", finished);
     });
-    this.findElement("description").addEventListener("blur", (event) => {
+    const description = this.findElement("description");
+    description.addEventListener("focus", (event) => {
+      this.classList.add("focus");
+      this.part.add("focus");
+    });
+    description.addEventListener("blur", (event) => {
       if (this.value != this.#previousValue) {
         this.dispatchEvent(new CustomEvent("change", { bubbles: true, cancelable: true, composed: true, detail: this.#getCardData("description") }));
       }
       this.#previousValue = this.value;
+      this.classList.remove("focus");
+      this.part.remove("focus");
     });
     this.findElement("remove-button").addEventListener("click", (event) => {
       this.dispatchEvent(new CustomEvent("remove", { bubbles: true, cancelable: true, composed: true }));
@@ -10349,6 +10407,8 @@ function key_onDown(event) {
         activeList.querySelector("task-card")?.findElement("description").focus();
         return;
       }
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
   const activeCard = taskboard.shadowRoot?.activeElement;
@@ -10370,6 +10430,8 @@ function key_onDown(event) {
           activeCard.parentElement.findElement("name").focus();
         }
       }
+      event.preventDefault();
+      event.stopPropagation();
     } else if (event.code == "ArrowDown") {
       if (event.shiftKey == true) {
         const lastTask = findLastTask(activeCard);
@@ -10384,6 +10446,8 @@ function key_onDown(event) {
           activeCard.parentElement.findElement("add-button").focus();
         }
       }
+      event.preventDefault();
+      event.stopPropagation();
     } else if (event.code == "ArrowLeft") {
       if (event.shiftKey == false) {
         const previousListTask = findPreviousListTask(activeCard);
@@ -10391,6 +10455,8 @@ function key_onDown(event) {
           previousListTask.findElement("description").focus();
         }
       }
+      event.preventDefault();
+      event.stopPropagation();
     } else if (event.code == "ArrowRight") {
       if (event.shiftKey == false) {
         const nextListTask = findNextListTask(activeCard);
@@ -10398,6 +10464,8 @@ function key_onDown(event) {
           nextListTask.findElement("description").focus();
         }
       }
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 }
@@ -10583,7 +10651,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     this.findElement("config-panel").history_redo();
   }
   async refreshBoards() {
-    this.refreshBoardCollections();
+    await this.refreshBoardCollections();
     this.refreshCurrentBoard();
   }
   refreshCurrentBoard() {
@@ -10602,14 +10670,13 @@ var TaskboardManagerElement = class extends HTMLElement {
     await this.getElement("app-router").navigate(`board/${id}`);
   }
   async refreshBoard() {
-    this.refreshBoards();
+    await this.refreshBoards();
     this.findElement("config-panel").refreshCache();
     const id = this.findElement("board-settings").getAttribute("record-id");
     if (id == null) {
       FeedbackService.showErrorMessageCard(`An error occurred saving the board settings.`);
       throw new Error("Unable to determine the target board's id");
     }
-    this.openBoard(id);
   }
   async closeBoard() {
     await this.findElement("app-router").navigate("/" + window.location.hash);
@@ -10739,6 +10806,9 @@ var TaskboardManagerElement = class extends HTMLElement {
       }
       this.findElement("app-router").navigate(`board/${boardId}`);
     });
+    this.findElement("board-browser").addEventListener("close", () => {
+      this.findElement("board-browser-dialog").close();
+    });
     const appVersion = await this.#getAppVersion();
     this.findElement("config-panel").init({
       appVersion,
@@ -10749,6 +10819,9 @@ var TaskboardManagerElement = class extends HTMLElement {
       refreshRecentBoards: welcomePanel.refresh.bind(welcomePanel),
       closeBoard: this.closeBoard.bind(this)
     });
+    this.findElement("config-panel").addEventListener("close", () => {
+      this.findElement("config-dialog").close();
+    });
     const boardSettings = this.findElement("board-settings");
     boardSettings.init({
       canAddList: this.#canAddList.bind(this),
@@ -10758,6 +10831,12 @@ var TaskboardManagerElement = class extends HTMLElement {
       closeBoard: this.closeBoard.bind(this),
       closeBoardSettings: this.closeBoardSettings.bind(this),
       saveSettingsTarget: this.#saveSettingsTarget.bind(this)
+    });
+    this.findElement("board-settings").addEventListener("close", () => {
+      this.findElement("board-settings-dialog").close();
+    });
+    this.findElement("import-manager").addEventListener("close", () => {
+      this.findElement("import-dialog").close();
     });
     this.addEventListener("click", this.#onClick.bind(this));
     this.addEventListener("keydown", this.#onKeyDown.bind(this));
@@ -10798,21 +10877,38 @@ var TaskboardManagerElement = class extends HTMLElement {
     this.findElement("board-settings-dialog").applyEventListener("beforeopen", this.#boardSettingsRoute_beforeOpen.bind(this));
   }
   async #handleInitialNavigation(boardsPromise) {
-    const { windowPath, windowHash } = this.#parseWindowPath();
-    const filteredWindowHash = windowHash.replace("import", "");
-    await this.getElement("app-router").navigate(`${windowPath}#${filteredWindowHash}`);
-    if (filteredWindowHash != windowHash) {
-      const newHistoryState = `${window.origin}${this.#rootPath}?path=${windowPath}${filteredWindowHash != "" ? `#${filteredWindowHash}` : ""}`;
-      window.history.replaceState(null, "", newHistoryState);
-    }
-    await boardsPromise;
-    let boardIdIndex = windowPath.indexOf("board/");
-    if (boardIdIndex > -1) {
-      const currentMenuItem = this.findElement("app-menu-container").shadowRoot.querySelector(`[data-route="${windowPath}"]`);
-      if (currentMenuItem != null) {
-        currentMenuItem.setAttribute("aria-current", "page");
-        currentMenuItem.classList.add("selected");
-        currentMenuItem.part.add("selected");
+    const updateUrl = this.getAttribute("update-url");
+    if (updateUrl != null) {
+      const { windowPath, windowHash } = this.#parseWindowPath();
+      const filteredWindowHash = windowHash.replace("import", "");
+      await this.getElement("app-router").navigate(`${windowPath}#${filteredWindowHash}`);
+      if (filteredWindowHash != windowHash) {
+        const newHistoryState = `${window.origin}${this.#rootPath}?path=${windowPath}${filteredWindowHash != "" ? `#${filteredWindowHash}` : ""}`;
+        window.history.replaceState(null, "", newHistoryState);
+      }
+      await boardsPromise;
+      let boardIdIndex = windowPath.indexOf("board/");
+      if (boardIdIndex > -1) {
+        const currentMenuItem = this.findElement("app-menu-container").shadowRoot.querySelector(`[data-route="${windowPath}"]`);
+        if (currentMenuItem != null) {
+          currentMenuItem.setAttribute("aria-current", "page");
+          currentMenuItem.classList.add("selected");
+          currentMenuItem.part.add("selected");
+        }
+      }
+    } else {
+      const lastPath = await DataService.getAppSetting("last-path");
+      if (lastPath != null) {
+        this.findElement("app-router").navigate(lastPath);
+        let boardIdIndex = lastPath.indexOf("board/");
+        if (boardIdIndex > -1) {
+          const currentMenuItem = this.findElement("app-menu-container").shadowRoot.querySelector(`[data-route="${lastPath}"]`);
+          if (currentMenuItem != null) {
+            currentMenuItem.setAttribute("aria-current", "page");
+            currentMenuItem.classList.add("selected");
+            currentMenuItem.part.add("selected");
+          }
+        }
       }
     }
   }
@@ -10896,7 +10992,7 @@ var TaskboardManagerElement = class extends HTMLElement {
       taskSettings,
       imageUpdates
     );
-    this.findElement("welcome-panel").updateRecentBoardEntry(board.id, board.name);
+    this.findElement("welcome-panel").updateRecentBoardEntry(board.id, board.name, board.color);
     this.refreshBoard();
   }
   async #updateActionHistory(existingBoard, existingTaskLists, existingTaskSettings, board, taskLists, taskSettings, imageUpdates) {
@@ -11136,7 +11232,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     const tasks = await DataService.getBoardTasks(id);
     await this.#renderBoardLists(taskBoard, tasks);
     requestAnimationFrame(() => {
-      this.findElement("welcome-panel").updateRecentBoardEntry(board.id, board.name);
+      this.findElement("welcome-panel").updateRecentBoardEntry(board.id, board.name, board.color);
       const welcomePanel = this.findElement("welcome-panel");
       welcomePanel.refresh();
     });
@@ -11437,19 +11533,23 @@ var TaskboardManagerElement = class extends HTMLElement {
     const origin = window.location.origin;
     const updatedLocation = new URL(`${origin}/${updatedPath}`);
     const { hasChanged, isReplacementChange } = router.compareLocations(currentLocation, updatedLocation);
-    const updateUrl = this.getAttribute("update-url");
-    if (hasChanged && updateUrl != null) {
-      const urlPath = this.getAttribute("path-override") ?? window.location.pathname;
-      let newHistoryState;
-      if (updateUrl == "" || updateUrl == "query") {
-        newHistoryState = `${window.location.origin}${urlPath}?path=${updatedLocation.pathname}${updatedLocation.hash}`;
-      } else if (updateUrl == "pathname") {
+    if (hasChanged) {
+      const updateUrl = this.getAttribute("update-url");
+      if (updateUrl != null) {
+        const urlPath = this.getAttribute("path-override") ?? window.location.pathname;
+        let newHistoryState;
+        if (updateUrl == "" || updateUrl == "query") {
+          newHistoryState = `${window.location.origin}${urlPath}?path=${updatedLocation.pathname}${updatedLocation.hash}`;
+        } else if (updateUrl == "pathname") {
+        }
+        if (isReplacementChange) {
+          window.history.replaceState(null, "", newHistoryState);
+        } else {
+          window.history.pushState(null, "", newHistoryState);
+        }
       }
-      if (isReplacementChange) {
-        window.history.replaceState(null, "", newHistoryState);
-      } else {
-        window.history.pushState(null, "", newHistoryState);
-      }
+      this.setAttribute("path", `${updatedLocation.pathname}${updatedLocation.hash}`);
+      DataService.saveAppSetting("last-path", `${updatedLocation.pathname}${updatedLocation.hash}`);
     }
     const currentPathArray = updatedPath.split("#");
     const pageRoute = currentPathArray[0];

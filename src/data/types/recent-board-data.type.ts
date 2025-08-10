@@ -1,1 +1,1 @@
-export type RecentBoardData = {id: string, description: string, timestamp: number};
+export type RecentBoardData = { id: string, description: string, color: string, timestamp: number };

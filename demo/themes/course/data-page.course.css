@@ -258,12 +258,25 @@ taskboard-manager[data-theme="course"]::part(cc0-link):hover
     text-decoration: var(--text-decoration-anchor-highlight);
 }
 
-/* todo: 
- welcome panel header
- welcome panel "no items" placeholder
- welcome panel list gap
- import dialog - remove=icon-button
- find board dialog - filter-select and regex-select parts
- board settings dialog
- message card
-  */
+
+@media (max-width: 665px) 
+{
+    taskboard-manager[data-theme="course"]::part(data-header)
+    {
+        grid-column: 1;
+    }
+    taskboard-manager[data-theme="course"]::part(data-pending-fieldset)
+    {
+        grid-column: 1;
+        grid-row: unset;
+    }
+    taskboard-manager[data-theme="course"]::part(image-cache-fieldset)
+    {
+        grid-column: 1;
+        grid-row: unset;
+    }
+    taskboard-manager[data-theme="course"]::part(data-clear-fieldset)
+    {
+        grid-column: 1;
+    }
+}

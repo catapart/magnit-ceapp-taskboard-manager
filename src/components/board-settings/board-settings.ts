@@ -151,6 +151,12 @@ export class BoardSettingsElement extends HTMLElement
             taskCenterRemoveButton.part.toggle('option-true', taskCenterRemoveButton.checked);
             return;
         }
+
+        // duplicated functionality for firefox; dialog submit does not close the dialogs for some reason
+        this.findElement<HTMLFormElement>('board-settings-form').addEventListener('submit', () =>
+        {
+            this.dispatchEvent(new CustomEvent('close'));
+        });
     }
     setValues(board: TaskBoardRecord, taskSettings: TaskSettingsRecord, backgroundImage: CustomImageRecord|null = null)
     {
@@ -379,11 +385,15 @@ export class BoardSettingsElement extends HTMLElement
         const removeListButton = composedPath.find(item => item.id == "tasklist-settings-remove-button");
         if(removeListButton != null)
         {
+            removeListButton.classList.toggle('removed');
+            removeListButton.part.toggle('removed');
             (removeListButton.getRootNode() as ShadowRoot).host.toggleAttribute('removed');
+            (removeListButton.getRootNode() as ShadowRoot).host.classList.toggle('removed');
+            (removeListButton.getRootNode() as ShadowRoot).host.part.toggle('removed');
             return;
         }
         const duplicateButton = composedPath.find(item => item.id == "tasklist-settings-duplicate-button");
-        if(duplicateButton != null)
+        if(duplicateButton != null && (duplicateButton.getRootNode() as ShadowRoot).host.hasAttribute('removed') == false)
         {
             const listElement = (duplicateButton.getRootNode() as ShadowRoot).host as TaskListFieldsComponent;
             const [listRecord, settingsRecord] = listElement.getRecords();
