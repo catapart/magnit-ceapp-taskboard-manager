@@ -15,6 +15,8 @@ taskboard-manager[data-theme="course"]::part(board-browser-items)
 taskboard-manager[data-theme="course"]::part(board-gallery-item)
 {
     border-radius: var(--border-radius-button);
+    --icon-primary-color: var(--text-surface);
+    --icon-secondary-color: var(--surface-fieldset);
 }
 taskboard-manager[data-theme="course"]::part(board-gallery-item):focus
 {
@@ -23,20 +25,53 @@ taskboard-manager[data-theme="course"]::part(board-gallery-item):focus
 taskboard-manager[data-theme="course"]::part(selected-board-gallery-item)
 {
     /* background-color: rgb(212 147 6 / .1); */
-    background-color: rgb(87 87 87 / .5);
-    color: var(--clr-primary-a30);
-    --icon-primary-color: var(--clr-primary-a30);
+    background-color: rgb(87 87 87 / .2);
+    color: var(--text-surface);
+    --icon-primary-color: var(--clr-primary-a10);
+    --icon-secondary-color: rgb(87 87 87 / .2);
 }
 taskboard-manager[data-theme="course"]::part(board-gallery-item):hover
 {
-    background-color: rgb(87 87 87 / .5);
+    background-color: rgb(87 87 87 / .2);
 }
 taskboard-manager[data-theme="course"]::part(board-gallery-item filter-select)
 {
-    border-color: var(--clr-primary-a30);
+    border-color: var(--clr-primary-a40);
 }
 
 
+@media (prefers-color-scheme: dark) 
+{
+    taskboard-manager[data-theme="course"]::part(board-gallery-item):hover
+    {
+        background-color: rgb(87 87 87 / .5);
+        --icon-secondary-color: rgb(87 87 87 / .5);
+    }
+    taskboard-manager[data-theme="course"]::part(selected-board-gallery-item)
+    {
+        background-color: rgb(87 87 87 / .5);
+        color: var(--clr-primary-a10);
+    }
+}
+taskboard-manager[data-theme="course"].scheme-light::part(board-gallery-item):hover
+{
+    background-color: rgb(87 87 87 / .2);
+    --icon-secondary-color: rgb(87 87 87 / .2);
+}
+taskboard-manager[data-theme="course"].scheme-light::part(selected-board-gallery-item)
+{
+    background-color: rgb(87 87 87 / .2);
+    color: var(--text-surface);
+}
+taskboard-manager[data-theme="course"].scheme-dark::part(board-gallery-item):hover
+{
+    background-color: rgb(87 87 87 / .5);
+}
+taskboard-manager[data-theme="course"].scheme-dark::part(selected-board-gallery-item)
+{
+    background-color: rgb(87 87 87 / .5);
+    color: var(--clr-primary-a30);
+}
 
 taskboard-manager[data-theme="course"]::part(filter-input)
 {

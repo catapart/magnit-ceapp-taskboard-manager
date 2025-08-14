@@ -1,6 +1,6 @@
 @media (prefers-color-scheme: light) 
 {
-    taskboard-manager[data-theme="course"].scheme
+    taskboard-manager[data-theme="course"]
     {
 
         /* Imported theme colors */
@@ -120,7 +120,7 @@
 @media (prefers-color-scheme: dark) 
 {
     
-    taskboard-manager[data-theme="course"].scheme
+    taskboard-manager[data-theme="course"]
     {
 
         /* Imported theme colors */
@@ -235,7 +235,8 @@
     }
 }
 
-taskboard-manager[data-theme="course"]
+
+taskboard-manager[data-theme="course"].debug
 {
 
     /* Imported theme colors */
@@ -269,6 +270,10 @@ taskboard-manager[data-theme="course"]
     --clr-surface-tonal-a50: light-dark(#b7afaa, #96928d);
 
     /* End imported theme colors */
+}
+taskboard-manager[data-theme="course"]
+{
+
 
 
     --brand-1: var(--accent-1);; /* primary */
@@ -316,6 +321,38 @@ taskboard-manager[data-theme="course"].scheme-light
 
 
 
+    /* Imported theme colors */
+
+    /** Base colors */
+    --clr-dark-a0: #000000;
+    --clr-light-a0: #ffffff;
+
+    /** Theme primary colors */
+    --clr-primary-a0: #fa9e3c;
+    --clr-primary-a10: #ed9b46;
+    --clr-primary-a20: #e0984f;
+    --clr-primary-a30: #d49457;
+    --clr-primary-a40: #c7915f;
+    --clr-primary-a50: #b98e66;
+
+    /** Theme surface colors */
+    --clr-surface-a0: #fff7f5;
+    --clr-surface-a10: #f0e9e7;
+    --clr-surface-a20: #e1dbda;
+    --clr-surface-a30: #d3cecc;
+    --clr-surface-a40: #c5c0bf;
+    --clr-surface-a50: #b6b3b2;
+
+    /** Theme tonal surface colors */
+    --clr-surface-tonal-a0: #ffeee2;
+    --clr-surface-tonal-a10: #f0e1d7;
+    --clr-surface-tonal-a20: #e2d5cb;
+    --clr-surface-tonal-a30: #d3c8c0;
+    --clr-surface-tonal-a40: #c5bcb5;
+    --clr-surface-tonal-a50: #b7afaa;
+
+
+    /* End imported theme colors */
     
 
     /* Custom theme colors */
@@ -396,6 +433,37 @@ taskboard-manager[data-theme="course"].scheme-dark
     --accent-3: oklch(88.37% 0.07258208750520016 253.803287); /* light */
 
 
+    /* Imported theme colors */
+
+    /** Base colors */
+    --clr-dark-a0: #000000;
+    --clr-light-a0: #ffffff;
+
+    /** Theme primary colors */
+    --clr-primary-a0: #d49306;
+    --clr-primary-a10: #db9e32;
+    --clr-primary-a20: #e2aa4f;
+    --clr-primary-a30: #e8b668;
+    --clr-primary-a40: #eec281;
+    --clr-primary-a50: #f3ce9a;
+
+    /** Theme surface colors */
+    --clr-surface-a0: #121212;
+    --clr-surface-a10: #282828;
+    --clr-surface-a20: #3f3f3f;
+    --clr-surface-a30: #575757;
+    --clr-surface-a40: #717171;
+    --clr-surface-a50: #8b8b8b;
+
+    /** Theme tonal surface colors */
+    --clr-surface-tonal-a0: #241e15;
+    --clr-surface-tonal-a10: #39332a;
+    --clr-surface-tonal-a20: #4f4941;
+    --clr-surface-tonal-a30: #666059;
+    --clr-surface-tonal-a40: #7d7973;
+    --clr-surface-tonal-a50: #96928d;
+
+    /* End imported theme colors */
 
     /* Custom theme colors */
     --accent-0: var(--clr-primary-a40);
