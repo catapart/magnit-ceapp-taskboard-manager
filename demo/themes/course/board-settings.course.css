@@ -62,7 +62,14 @@ taskboard-manager[data-theme="course"]::part(board-order)
 taskboard-manager[data-theme="course"]::part(board-list-details)
 {
     background: var(--surface-menu);
-    --grip-color: var(--clr-surface-a40);
+    --grip-color: var(--text-surface);
+}
+@media (prefers-color-scheme: dark) 
+{
+    taskboard-manager[data-theme="course"]::part(board-list-details)
+    {
+        --grip-color: var(--clr-surface-a40);
+    }
 }
 
 taskboard-manager[data-theme="course"]::part(board-settings-summary)

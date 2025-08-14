@@ -111,6 +111,10 @@ taskboard-manager[data-theme="course"]::part(icon-button)
     --icon-primary-color: var(--text-icon-button);
     --icon-secondary-color: var(--surface-0);
 }
+taskboard-manager[data-theme="course"]::part(icon-button):hover
+{
+    --icon-primary-color: var(--text-icon-button-highlight);
+}
 
 taskboard-manager[data-theme="course"]::part(dialog)
 {

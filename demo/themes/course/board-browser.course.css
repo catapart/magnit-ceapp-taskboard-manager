@@ -62,7 +62,7 @@ taskboard-manager[data-theme="course"]::part(filter-regex-button)
 }
 taskboard-manager[data-theme="course"]::part(filter-regex-button):hover
 {
-    --icon-primary-color: var(--text-surface);
+    --icon-primary-color: var(--text-icon-button-highlight);
 }
 taskboard-manager[data-theme="course"]::part(filter-regex-button active)
 {
@@ -81,7 +81,7 @@ taskboard-manager[data-theme="course"]::part(filter-search-button)
 }
 taskboard-manager[data-theme="course"]::part(filter-search-button):hover
 {
-    --icon-primary-color: var(--text-icon-button);
+    --icon-primary-color: var(--text-icon-button-highlight);
 }
 
 taskboard-manager[data-theme="course"]::part(board-browser-cancel)

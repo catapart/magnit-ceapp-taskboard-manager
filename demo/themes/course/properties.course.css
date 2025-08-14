@@ -1,20 +1,7 @@
 @media (prefers-color-scheme: light) 
 {
-    taskboard-manager[data-theme="course"] 
+    taskboard-manager[data-theme="course"].scheme
     {
-        --accent-1: oklch(74.61% 0.171 253.56); /* primary */
-        --accent-2: oklch(52.49% 0.113 253.98); /* dark */
-        --accent-3: oklch(88.37% 0.07258208750520016 253.803287); /* light */
-
-
-        /* --text-disabled: #555;
-        --text-1: #666;
-        --text-2: #999;
-        --text-3: #CFCFCF;
-        --text-highlight: var(--accent-1);
-        --text-hover: #DDD;
-        --text-active: #E2E2E2;
-        --text-accent: #EEE; */
 
         /* Imported theme colors */
 
@@ -46,60 +33,95 @@
         --clr-surface-tonal-a40: #c5bcb5;
         --clr-surface-tonal-a50: #b7afaa;
 
+
         /* End imported theme colors */
-
-        /* Custom theme colors */
-        --text-surface: var(--clr-dark-a0);
-        --text-primary: var(--clr-dark-a0);
-
-        /* --color-base-100: oklch(97% 0.0035 67.78);
-        --color-base-200: oklch(95% 0.0081 61.42);
-        --color-base-300: oklch(90% 0.0081 61.42);
-        --color-base-content: oklch(40% 0.0081 61.42);
-        --color-primary: oklch(23.27% 0.0249 284.3);
-        --color-primary-content: oklch(94.22% 0.2505 117.44);
-        --color-secondary: oklch(23.27% 0.0249 284.3);
-        --color-secondary-content: oklch(73.92% 0.2135 50.94);
-        --color-accent: oklch(23.27% 0.0249 284.3);
-        --color-accent-content: oklch(88.92% 0.2061 189.9);
-        --color-neutral: oklch(20% 0 0);
-        --color-neutral-content: oklch(80% 0.0081 61.42);
-        --color-info: oklch(80.39% 0.1148 241.68);
-        --color-info-content: oklch(30.39% 0.1148 241.68);
-        --color-success: oklch(73.92% 0.0901 136.87);
-        --color-success-content: oklch(23.92% 0.0901 136.87);
-        --color-warning: oklch(82% 0.189 84.429);
-        --color-warning-content: oklch(43.92% 0.1085 80);
-        --color-error: oklch(63% 0.237 25.331);
-        --color-error-content: oklch(25% 0.092 26.042); */
     }
-}
-@media (prefers-color-scheme: dark) {
-    
-    taskboard-manager[data-theme="course"] 
+    taskboard-manager[data-theme="course"]
     {
-
         --accent-1: oklch(74.61% 0.171 253.56); /* primary */
         --accent-2: oklch(52.49% 0.113 253.98); /* dark */
         --accent-3: oklch(88.37% 0.07258208750520016 253.803287); /* light */
+
+
+
         
 
-        /* --background-1: #161616;
-        --background-2: #1F1F1F;
-        --background-3: #252525;
-        --background-4: #2E2E2E;
-        --background-5: #3D3D3D;
-        --background-6: #464646; */
+        /* Custom theme colors */
+        --accent-0: var(--clr-primary-a40);
+        /* --accent-1: var(--clr-primary-a20); */
 
-        /* --text-disabled: #555;
-        --text-1: #666;
-        --text-2: #999;
-        --text-3: #CFCFCF;
-        --text-highlight: var(--accent-1);
-        --text-hover: #DDD;
-        --text-active: #E2E2E2;
-        --text-accent: #EEE; */
+        --gap-large: 32px;
+        --gap: 14px;
+        --gap-small: calc(1rem - 6px);
+        --gap-smaller: calc(.5rem - 3px);
+        
+        --smaller-gap: calc(.5rem - 3px);
+        --small-gap: calc(1rem - 6px);
 
+        --text-surface: var(--clr-dark-a0);
+        --text-button: var(--clr-dark-a0);
+        --text-icon-button: var(--clr-dark-a0);
+        --text-icon-button-highlight: var(--clr-primary-a30);
+        --text-menu-highlight: var(--clr-primary-a20);
+        --text-remove-button: var(--clr-surface-a30);
+        --text-import-remove-button: var(--clr-surface-a50);
+        --text-remove-button-highlight: var(--text-surface);
+        --text-tab: var(--text-suface);
+        --text-page-header: var(--clr-primary-a40);
+        --text-select: var(--clr-dark-a0);
+        --text-input: var(--clr-dark-a0);
+        --text-input-disabled: rgb(255 255 255 / .5);
+        --text-anchor: var(--clr-primary-a20);
+
+        --text-decoration-anchor: none;
+        --text-decoration-anchor-highlight: underline;
+
+        --icon-option: var(--clr-primary-a40);
+        --icon-tab: var(--clr-primary-a40);
+
+        --surface-0: var(--clr-surface-a0);
+        --surface-input: var(--clr-surface-a10);
+        --surface-input-disabled: rgb(40 40 40 / .4);
+        --surface-button: var(--clr-primary-a20);
+        --surface-button-disabled: var(--clr-surface-a50);
+        --surface-icon-button: transparent;
+        --surface-menu: var(--clr-surface-a10);
+        --surface-menu-item-highlight: var(--clr-surface-a30);
+        --surface-menu-item-highlight-selected: var(--clr-primary-a0);
+        --surface-option: var(--clr-surface-a20);
+        --surface-group-button: var(--clr-surface-a10);
+        --surface-group-button-highlight: var(--clr-surface-a20);
+        --surface-card: var(--clr-surface-a10);
+        --surface-list-header: var(--clr-surface-a20);
+        --surface-dialog: var(--clr-surface-a10);
+        --surface-panel: var(--clr-surface-a0);
+        --surface-tab: var(--clr-surface-a20);
+        --surface-fieldset: var(--clr-surface-a0);
+        --surface-select: var(--clr-surface-a10);
+        --surface-shortcut: var(--clr-surface-a10);
+        --surface-shortcut-2: var(--clr-surface-a20);
+        --surface-key: var(--clr-surface-a10);
+        --surface-list-item: var(--clr-surface-a20);
+        --surface-list-item-content: var(--clr-surface-a0);
+
+        --border-outline: var(--clr-surface-a30);
+        --border-icon-button: solid 1px var(--border-outline);
+        --border-menu: none;
+        --border-panel: solid 1px var(--clr-surface-a30);
+        /* --border-card: solid 1px var(--border-outline); */
+        --border-card: none;
+        --border-remove-button: none;
+        --border-dialog: solid 1px var(--border-outline);
+        --border-fieldset: solid 1px var(--clr-surface-a30);
+        --border-select: solid 1px var(--clr-surface-a30);
+        --border-input: none;
+    }
+}
+@media (prefers-color-scheme: dark) 
+{
+    
+    taskboard-manager[data-theme="course"].scheme
+    {
 
         /* Imported theme colors */
 
@@ -132,6 +154,15 @@
         --clr-surface-tonal-a50: #96928d;
 
         /* End imported theme colors */
+    }
+    taskboard-manager[data-theme="course"] 
+    {
+
+        --accent-1: oklch(74.61% 0.171 253.56); /* primary */
+        --accent-2: oklch(52.49% 0.113 253.98); /* dark */
+        --accent-3: oklch(88.37% 0.07258208750520016 253.803287); /* light */
+
+
 
         /* Custom theme colors */
         --accent-0: var(--clr-primary-a40);
@@ -148,6 +179,7 @@
         --text-surface: var(--clr-light-a0);
         --text-button: var(--clr-dark-a0);
         --text-icon-button: var(--clr-primary-a20);
+        --text-icon-button-highlight: var(--clr-primary-a30);
         --text-menu-highlight: var(--clr-primary-a20);
         --text-remove-button: var(--clr-surface-a30);
         --text-import-remove-button: var(--clr-surface-a50);
@@ -200,69 +232,44 @@
         --border-fieldset: solid 1px var(--clr-surface-a30);
         --border-select: solid 1px var(--clr-surface-a30);
         --border-input: none;
-        
-        --border-radius-button: 8px;
-        --border-radius-card: 12px;
-        --border-radius-dialog: 8px;
-        --border-radius-panel: 8px;
-        --border-radius-tab: 8px;
-        --border-radius-input: 30px;
-        --border-radius-select: 8px;
-
-        --padding-dialog: 1rem;
-        --padding-input: 5px 10px;
-        --padding-card: .75rem;
-        --padding-button: 5px 10px;
-
-        /* --surface-0: #121212;
-        --surface-1: #282828;
-        --surface-3: #3f3f3f;
-        --surface-4: #575757;
-        --surface-5: #717171;
-
-        --text-0: #ffffff;
-        --text-1: #8b8b8b;
-
-        --tone-0: #68bdba;
-        --tone-1: #7bc4c1;
-        --tone-2: #8cccc9;
-        --tone-3: #9ed3d1;
-        --tone-4: #aedad8;
-        --tone-5: #bfe2e0;
-
-        --tone-surface-0: #1b2120;
-        --tone-surface-1: #303635;
-        --tone-surface-2: #394a48;
-        --tone-surface-3: #5e6362;
-        --tone-surface-4: #777b7a;
-        --tone-surface-5: #909493;
-
-
-         --color-base-100: oklch(14% 0.004 49.25);
-        --color-base-200: oklch(21% 0.006 56.043);
-        --color-base-300: oklch(26% 0.007 34.298);
-        --color-base-content: oklch(97% 0.001 106.424);
-        --color-primary: oklch(86% 0.005 56.366);
-        --color-primary-content: oklch(14% 0.004 49.25);
-        --color-secondary: oklch(87% 0.169 91.605);
-        --color-secondary-content: oklch(27% 0.077 45.635);
-        --color-accent: oklch(89% 0.196 126.665);
-        --color-accent-content: oklch(27% 0.072 132.109);
-        --color-neutral: oklch(37% 0.01 67.558);
-        --color-neutral-content: oklch(98% 0.001 106.423);
-        --color-info: oklch(71% 0.143 215.221);
-        --color-info-content: oklch(98% 0.019 200.873);
-        --color-success: oklch(64% 0.2 131.684);
-        --color-success-content: oklch(98% 0.031 120.757);
-        --color-warning: oklch(79% 0.184 86.047);
-        --color-warning-content: oklch(98% 0.026 102.212);
-        --color-error: oklch(63% 0.237 25.331);
-        --color-error-content: oklch(97% 0.014 343.198); */
     }
 }
 
 taskboard-manager[data-theme="course"]
 {
+
+    /* Imported theme colors */
+
+    /** Base colors */
+    --clr-dark-a0: #000000;
+    --clr-light-a0: #ffffff;
+
+    /** Theme primary colors */
+    --clr-primary-a0: light-dark(#fa9e3c, #d49306);
+    --clr-primary-a10: light-dark(#ed9b46, #db9e32);
+    --clr-primary-a20: light-dark(#e0984f, #e2aa4f);
+    --clr-primary-a30: light-dark(#d49457, #e8b668);
+    --clr-primary-a40: light-dark(#c7915f, #eec281);
+    --clr-primary-a50: light-dark(#b98e66, #f3ce9a);
+
+    /** Theme surface colors */
+    --clr-surface-a0: light-dark(#fff7f5, #121212);
+    --clr-surface-a10: light-dark(#f0e9e7, #282828);
+    --clr-surface-a20: light-dark(#e1dbda, #3f3f3f);
+    --clr-surface-a30: light-dark(#d3cecc, #575757);
+    --clr-surface-a40: light-dark(#c5c0bf, #717171);
+    --clr-surface-a50: light-dark(#b6b3b2, #8b8b8b);
+
+    /** Theme tonal surface colors */
+    --clr-surface-tonal-a0: light-dark(#ffeee2, #241e15);
+    --clr-surface-tonal-a10: light-dark(#f0e1d7, #39332a);
+    --clr-surface-tonal-a20: light-dark(#e2d5cb, #4f4941);
+    --clr-surface-tonal-a30: light-dark(#d3c8c0, #666059);
+    --clr-surface-tonal-a40: light-dark(#c5bcb5, #7d7973);
+    --clr-surface-tonal-a50: light-dark(#b7afaa, #96928d);
+
+    /* End imported theme colors */
+
 
     --brand-1: var(--accent-1);; /* primary */
     --brand-2: var(--accent-2);; /* dark */
@@ -286,4 +293,176 @@ taskboard-manager[data-theme="course"]
 
     --button-hover-background: var(--background-4);
     --button-hover-color: var(--text-2);
+        
+    --border-radius-button: 8px;
+    --border-radius-card: 12px;
+    --border-radius-dialog: 8px;
+    --border-radius-panel: 8px;
+    --border-radius-tab: 8px;
+    --border-radius-input: 30px;
+    --border-radius-select: 8px;
+
+    --padding-dialog: 1rem;
+    --padding-input: 5px 10px;
+    --padding-card: .75rem;
+    --padding-button: 5px 10px;
+}
+
+taskboard-manager[data-theme="course"].scheme-light
+{
+    --accent-1: oklch(74.61% 0.171 253.56); /* primary */
+    --accent-2: oklch(52.49% 0.113 253.98); /* dark */
+    --accent-3: oklch(88.37% 0.07258208750520016 253.803287); /* light */
+
+
+
+    
+
+    /* Custom theme colors */
+    --accent-0: var(--clr-primary-a40);
+    /* --accent-1: var(--clr-primary-a20); */
+
+    --gap-large: 32px;
+    --gap: 14px;
+    --gap-small: calc(1rem - 6px);
+    --gap-smaller: calc(.5rem - 3px);
+    
+    --smaller-gap: calc(.5rem - 3px);
+    --small-gap: calc(1rem - 6px);
+
+    --text-surface: var(--clr-dark-a0);
+    --text-button: var(--clr-dark-a0);
+    --text-icon-button: var(--clr-dark-a0);
+    --text-icon-button-highlight: var(--clr-primary-a30);
+    --text-menu-highlight: var(--clr-primary-a20);
+    --text-remove-button: var(--clr-surface-a30);
+    --text-import-remove-button: var(--clr-surface-a50);
+    --text-remove-button-highlight: var(--text-surface);
+    --text-tab: var(--text-suface);
+    --text-page-header: var(--clr-primary-a40);
+    --text-select: var(--clr-dark-a0);
+    --text-input: var(--clr-dark-a0);
+    --text-input-disabled: rgb(255 255 255 / .5);
+    --text-anchor: var(--clr-primary-a20);
+
+    --text-decoration-anchor: none;
+    --text-decoration-anchor-highlight: underline;
+
+    --icon-option: var(--clr-primary-a40);
+    --icon-tab: var(--clr-primary-a40);
+
+    --surface-0: var(--clr-surface-a0);
+    --surface-input: var(--clr-surface-a10);
+    --surface-input-disabled: rgb(40 40 40 / .4);
+    --surface-button: var(--clr-primary-a20);
+    --surface-button-disabled: var(--clr-surface-a50);
+    --surface-icon-button: transparent;
+    --surface-menu: var(--clr-surface-a10);
+    --surface-menu-item-highlight: var(--clr-surface-a30);
+    --surface-menu-item-highlight-selected: var(--clr-primary-a0);
+    --surface-option: var(--clr-surface-a20);
+    --surface-group-button: var(--clr-surface-a10);
+    --surface-group-button-highlight: var(--clr-surface-a20);
+    --surface-card: var(--clr-surface-a10);
+    --surface-list-header: var(--clr-surface-a20);
+    --surface-dialog: var(--clr-surface-a10);
+    --surface-panel: var(--clr-surface-a0);
+    --surface-tab: var(--clr-surface-a20);
+    --surface-fieldset: var(--clr-surface-a0);
+    --surface-select: var(--clr-surface-a10);
+    --surface-shortcut: var(--clr-surface-a10);
+    --surface-shortcut-2: var(--clr-surface-a20);
+    --surface-key: var(--clr-surface-a10);
+    --surface-list-item: var(--clr-surface-a20);
+    --surface-list-item-content: var(--clr-surface-a0);
+
+    --border-outline: var(--clr-surface-a30);
+    --border-icon-button: solid 1px var(--border-outline);
+    --border-menu: none;
+    --border-panel: solid 1px var(--clr-surface-a30);
+    /* --border-card: solid 1px var(--border-outline); */
+    --border-card: none;
+    --border-remove-button: none;
+    --border-dialog: solid 1px var(--border-outline);
+    --border-fieldset: solid 1px var(--clr-surface-a30);
+    --border-select: solid 1px var(--clr-surface-a30);
+    --border-input: none;
+}
+taskboard-manager[data-theme="course"].scheme-dark
+{
+
+    --accent-1: oklch(74.61% 0.171 253.56); /* primary */
+    --accent-2: oklch(52.49% 0.113 253.98); /* dark */
+    --accent-3: oklch(88.37% 0.07258208750520016 253.803287); /* light */
+
+
+
+    /* Custom theme colors */
+    --accent-0: var(--clr-primary-a40);
+    /* --accent-1: var(--clr-primary-a20); */
+
+    --gap-large: 32px;
+    --gap: 14px;
+    --gap-small: calc(1rem - 6px);
+    --gap-smaller: calc(.5rem - 3px);
+    
+    --smaller-gap: calc(.5rem - 3px);
+    --small-gap: calc(1rem - 6px);
+
+    --text-surface: var(--clr-light-a0);
+    --text-button: var(--clr-dark-a0);
+    --text-icon-button: var(--clr-primary-a20);
+    --text-icon-button-highlight: var(--clr-primary-a30);
+    --text-menu-highlight: var(--clr-primary-a20);
+    --text-remove-button: var(--clr-surface-a30);
+    --text-import-remove-button: var(--clr-surface-a50);
+    --text-remove-button-highlight: var(--text-surface);
+    --text-tab: var(--text-suface);
+    --text-page-header: var(--clr-primary-a40);
+    --text-select: var(--clr-light-a0);
+    --text-input: var(--clr-light-a0);
+    --text-input-disabled: rgb(255 255 255 / .5);
+    --text-anchor: var(--clr-primary-a20);
+
+    --text-decoration-anchor: none;
+    --text-decoration-anchor-highlight: underline;
+
+    --icon-option: var(--clr-primary-a40);
+    --icon-tab: var(--clr-primary-a40);
+
+    --surface-0: var(--clr-surface-a0);
+    --surface-input: var(--clr-surface-a10);
+    --surface-input-disabled: rgb(40 40 40 / .4);
+    --surface-button: var(--clr-primary-a20);
+    --surface-button-disabled: var(--clr-surface-a50);
+    --surface-icon-button: transparent;
+    --surface-menu: var(--clr-surface-a10);
+    --surface-menu-item-highlight: var(--clr-surface-a30);
+    --surface-menu-item-highlight-selected: var(--clr-primary-a0);
+    --surface-option: var(--clr-surface-a20);
+    --surface-group-button: var(--clr-surface-a10);
+    --surface-group-button-highlight: var(--clr-surface-a20);
+    --surface-card: var(--clr-surface-a10);
+    --surface-list-header: var(--clr-surface-a20);
+    --surface-dialog: var(--clr-surface-a10);
+    --surface-panel: var(--clr-surface-a0);
+    --surface-tab: var(--clr-surface-a20);
+    --surface-fieldset: var(--clr-surface-a0);
+    --surface-select: var(--clr-surface-a10);
+    --surface-shortcut: var(--clr-surface-a10);
+    --surface-shortcut-2: var(--clr-surface-a20);
+    --surface-key: var(--clr-surface-a10);
+    --surface-list-item: var(--clr-surface-a20);
+    --surface-list-item-content: var(--clr-surface-a0);
+
+    --border-outline: var(--clr-surface-a30);
+    --border-icon-button: solid 1px var(--border-outline);
+    --border-menu: none;
+    /* --border-card: solid 1px var(--border-outline); */
+    --border-card: none;
+    --border-remove-button: none;
+    --border-dialog: solid 1px var(--border-outline);
+    --border-fieldset: solid 1px var(--clr-surface-a30);
+    --border-select: solid 1px var(--clr-surface-a30);
+    --border-input: none;
 }
