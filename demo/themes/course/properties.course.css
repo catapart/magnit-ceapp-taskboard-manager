@@ -293,8 +293,8 @@ taskboard-manager[data-theme="course"]
     --input-background: var(--background-1);
     --background: var(--background-1);
 
-    --icon-primary-color: var(--text-1);
-    --icon-secondary-color: rgb(0 0 0 / .4);
+    --icon-primary-color: var(--text-surface);
+    --icon-secondary-color: var(--surface-0);
 
     --button-hover-background: var(--background-4);
     --button-hover-color: var(--text-2);

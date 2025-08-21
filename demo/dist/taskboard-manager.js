@@ -2625,11 +2625,11 @@ input[type="text"]
     align-self: flex-end;
 }
 
-:host([style*="color-scheme: light;"]) svg.copy
+/* :host([style*="color-scheme: light;"]) svg.copy
 {
     --icon-primary-color: canvas;
     --icon-secondary-color: canvastext;
-}
+} */
 
 @media (max-width: 450px) 
 {
@@ -2648,11 +2648,11 @@ input[type="text"]
 }
 @media (prefers-color-scheme: light) 
 {
-    :host(:not([style*="color-scheme: dark;"])) svg.copy
+    /* :host(:not([style*="color-scheme: dark;"])) svg.copy
     {
         --icon-primary-color: canvas;
         --icon-secondary-color: canvastext;
-    }
+    } */
 }
 @media (prefers-color-scheme: dark) 
 {
@@ -6517,11 +6517,11 @@ form-field [part="container"]:has([slot="postfix"]) [part="field-label"]
 } */
 
 
-:host([style*="color-scheme: light;"]) svg.copy
+/* :host([style*="color-scheme: light;"]) svg.copy
 {
     --icon-primary-color: canvas;
     --icon-secondary-color: canvastext;
-}
+} */
 
 
 @media (min-width: 800px) 
@@ -6567,18 +6567,18 @@ form-field [part="container"]:has([slot="postfix"]) [part="field-label"]
 }
 @media (prefers-color-scheme: light) 
 {
-    :host(:not([style*="color-scheme: dark;"])) svg.copy
+    /* :host(:not([style*="color-scheme: dark;"])) svg.copy
     {
         --icon-primary-color: canvas;
         --icon-secondary-color: canvastext;
-    }
+    } */
 }
 @media (prefers-color-scheme: dark) 
 {
-    :host(:not([style*="color-scheme: light;"])) details
+    /* :host(:not([style*="color-scheme: light;"])) details
     {
         --board-details-background: rgb(255 255 255 / .05);
-    }
+    } */
 }`;
 
 // src/components/board-settings/board-settings.html?raw
