@@ -165,10 +165,13 @@ export class DataPanelElement extends HTMLElement
         [...deletedItemsElement.children].forEach(item => { if(!(item instanceof HTMLTemplateElement)) { item.remove(); } });
         deletedItemsElement.append(...deletedItems);
     }
-    async clearData()
+    async clearData(confirm: boolean = true)
     {
-        const confirmed = await FeedbackService.getConfirmation('Are you sure you want to delete all data associated with the app? This CAN NOT be undone.', 'danger');
-        if(confirmed == false) { return; }
+        if(confirm == true)
+        {
+            const confirmed = await FeedbackService.getConfirmation('Are you sure you want to delete all data associated with the app? This CAN NOT be undone.', 'danger');
+            if(confirmed == false) { return; }
+        }
         this.#closeBoard();
         await DataService.clearAllData();
         this.#refreshBoardCollections();

@@ -115,9 +115,9 @@ export class ConfigPanelElement extends HTMLElement
     {
         return this.findElement<HistoryPanelElement>('history-panel').addActionHistoryEntry(action, type, properties);
     }
-    async clearData()
+    async clearData(confirm: boolean = true)
     {
-        return this.findElement<DataPanelElement>('data-panel').clearData();
+        return this.findElement<DataPanelElement>('data-panel').clearData(confirm);
     }
     async #onKeyDown(event: KeyboardEvent)
     {

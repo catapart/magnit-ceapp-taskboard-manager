@@ -323,9 +323,9 @@ export class TaskboardManagerElement extends HTMLElement
         });
     }
 
-    async clearData()
+    async clearData(confirm: boolean = true)
     {
-        return this.findElement<ConfigPanelElement>('config-panel').clearData();
+        return this.findElement<ConfigPanelElement>('config-panel').clearData(confirm);
     }
     // async clearHistory()
     // {
