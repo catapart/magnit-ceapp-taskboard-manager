@@ -185,7 +185,7 @@ taskboard-manager[data-theme="course"]::part(deleted-item)
 }
 taskboard-manager[data-theme="course"]::part(deleted-item):hover
 {
-    background: rgb(0 0 0 / .3);
+    background: rgb(0 0 0 / .1);
 }
 taskboard-manager[data-theme="course"]::part(restore-button)
 ,taskboard-manager[data-theme="course"]::part(deleted-item-remove-button)
@@ -200,9 +200,9 @@ taskboard-manager[data-theme="course"]::part(restore-button)
 taskboard-manager[data-theme="course"]::part(restore-button):hover
 ,taskboard-manager[data-theme="course"]::part(deleted-item-remove-button):hover
 {
-    background: solid 1px var(--icon-tab);
-    border: solid 1px var(--icon-tab);
-    --icon-primary-color: var(--icon-tab);
+    background: var(--surface-button);
+    border: solid 1px var(--surface-button);
+    --icon-primary-color: var(--text-surface);
 }
 taskboard-manager[data-theme="course"]::part(action-history-entry)
 {
@@ -278,5 +278,20 @@ taskboard-manager[data-theme="course"]::part(cc0-link):hover
     taskboard-manager[data-theme="course"]::part(data-clear-fieldset)
     {
         grid-column: 1;
+    }
+}
+
+@media (prefers-color-scheme: dark) 
+{
+    taskboard-manager[data-theme="course"]:not(.scheme-light)::part(deleted-item):hover
+    {
+        background: rgb(0 0 0 / .3);
+    }
+    taskboard-manager[data-theme="course"]:not(.scheme-light)::part(restore-button):hover
+    ,taskboard-manager[data-theme="course"]:not(.scheme-light)::part(deleted-item-remove-button):hover
+    {
+        background: solid 1px var(--icon-tab);
+        border: solid 1px var(--icon-tab);
+        --icon-primary-color: var(--icon-tab);
     }
 }
