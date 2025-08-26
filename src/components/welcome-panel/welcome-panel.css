@@ -3,6 +3,8 @@
     align-self: center;
     justify-self: center;
     padding: 1em;
+    max-width: 600px;
+    overflow: hidden;
 }
 
 #recent-boards
@@ -22,11 +24,20 @@
     align-items: center;
     justify-content: space-between;
     padding: 3px 7px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 #recent-boards a:hover
 {
     background-color: highlight;
     color: highlighttext;
+}
+#recent-boards a .board-item-name
+{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 #recent-boards::part(placeholder)
 {

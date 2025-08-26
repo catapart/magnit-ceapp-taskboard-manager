@@ -29,3 +29,17 @@ taskboard-manager[data-theme="course"]::part(recent-board-remove-button)
     grid-row: 1;
     z-index: 1;
 }
+
+@media (max-width: 665px)
+{
+    taskboard-manager[data-theme="course"]::part(welcome-page)
+    {
+        padding: 0;
+        max-width: 100vw;
+    }
+
+    taskboard-manager[data-theme="course"]::part(welcome-fieldset)
+    {
+        padding: var(--small-gap);
+    }
+}

@@ -69,8 +69,14 @@ collection-browser::part(add-button)
 
 @media (max-width: 665px) 
 {
-    #filter::part(input)
+    #board-browser-header
     {
-        width: 157px;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto 1fr;
+    }
+
+    #filter
+    {
+        grid-column: span 2;
     }
 }
