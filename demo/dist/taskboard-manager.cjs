@@ -10777,6 +10777,7 @@ var TaskboardManagerElement = class extends HTMLElement {
     const listId = list.dataset.tasklistId;
     const card = new TaskCardElement();
     list.append(card);
+    list.toggleAttribute("collapsed", false);
     this.#registerTaskCard(card, listId, order);
   }
   //#endregion API
