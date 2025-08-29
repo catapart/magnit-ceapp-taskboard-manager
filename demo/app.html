@@ -14,26 +14,118 @@
             align-items: stretch;
             justify-content: flex-start;
         }
+
+        .accent-color .value
+        {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: var(--gap-small);
+        }
+
+        .option.accent
+        {
+            display: inline-grid;
+            gap: var(--gap-small);
+            justify-items: center;
+            width: 48px;
+            padding: var(--gap-small);
+            border-radius: 5px;
+            border: solid 1px transparent;
+        }
+        .option.accent:hover
+        {
+            background-color: rgb(0 0 0 / .2);
+            border-color: rgb(0 0 0 / .3);
+        }
+        .option.accent .display
+        {
+            display: block;
+            overflow: hidden;
+            --size: 25px;
+            width: var(--size);
+            height: var(--size);
+            border-radius: 50%;
+            background-color: var(--accent-color, rgb(0 0 0));
+        }
     </style>
 </head>
 <body>
     <taskboard-manager id="app" data-theme="course" update-url>
         <span slot="custom-settings-legend">Display</span>
         <div class="custom-settings" slot="custom-settings">
-            <form-field class="field" label="Theme">
+            <form-field class="field theme" label="Theme">
                 <select id="theme-select"></select>
                 <div id="theme-description"></div>
             </form-field>
-            <!-- <form-field class="field" label="Accent Color">
-                <input type="color" value="" />
-            </form-field> -->
+            <div class="form-field field accent-color">
+                <label class="container">
+                    <span class="field-label">Accent Color</span>
+                    <span class="value">
+                        <a class="option accent red" style="--accent-color: #D40D06;">
+                            <span class="display">
+                                <span class="light"></span>
+                                <span class="dark"></span>
+                            </span>
+                            <span class="label color">Red</span>
+                        </a>
+                        <a class="option accent orange" style="--accent-color: #EB8C17;">
+                            <span class="display">
+                                <span class="light"></span>
+                                <span class="dark"></span>
+                            </span>
+                            <span class="label color">Orange</span>
+                        </a>
+                        <a class="option accent yellow" style="--accent-color: #D49306;">
+                            <span class="display">
+                                <span class="light"></span>
+                                <span class="dark"></span>
+                            </span>
+                            <span class="label color">Yellow</span>
+                        </a>
+                        <a class="option accent green" style="--accent-color: #86B33E;">
+                            <span class="display">
+                                <span class="light"></span>
+                                <span class="dark"></span>
+                            </span>
+                            <span class="label color">Green</span>
+                        </a>
+                        <a class="option accent blue" style="--accent-color: #1A82BA;">
+                            <span class="display">
+                                <span class="light"></span>
+                                <span class="dark"></span>
+                            </span>
+                            <span class="label color">Blue</span>
+                        </a>
+                        <a class="option accent purple" style="--accent-color: #822BD9;">
+                            <span class="display">
+                                <span class="light"></span>
+                                <span class="dark"></span>
+                            </span>
+                            <span class="label color">Purple</span>
+                        </a>
+                        <a class="option accent pink" style="--accent-color: #DB7FAF;">
+                            <span class="display">
+                                <span class="light"></span>
+                                <span class="dark"></span>
+                            </span>
+                            <span class="label color">Pink</span>
+                        </a>
+                        <a class="option accent gray" style="--accent-color: #A5ADB5;">
+                            <span class="display">
+                                <span class="light"></span>
+                                <span class="dark"></span>
+                            </span>
+                            <span class="label color">Gray</span>
+                        </a>
+                    </span>
+                </label>
+            </div>
         </div>
     </taskboard-manager>
     <script type="module" src="./dist/taskboard-manager.js"></script>
     <script type="module">
         const stylesheets = {};
         const themes = [
-            // { id: 'compact', label: "Compact", description: "The Compact theme..." },
             { 
                 id: 'course',
                 label: "Course",
@@ -100,6 +192,20 @@
                     document.head.appendChild(link);
                 }
             });
+
+
+            const accentColorValue = document.querySelector('.accent-color .value');
+            accentColorValue.addEventListener('click', (event) =>
+            {
+                const composedPath = event.composedPath();
+
+                const option = composedPath.find(item => item instanceof HTMLAnchorElement && item.classList.contains('accent'));
+                if(option != null)
+                {
+                    taskboardManager.style.setProperty('--accent-color-1', option.style.getPropertyValue('--accent-color'));
+                }
+            });
+
         });
     </script>
 </body>
