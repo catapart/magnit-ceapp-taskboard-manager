@@ -28,6 +28,7 @@ taskboard-manager[data-theme="course"]::part(board)
 taskboard-manager[data-theme="course"]::part(board):hover
 {
     background: transparent;
+    color: var(--text-surface);
 }
 taskboard-manager[data-theme="course"]::part(board):hover:before
 {
@@ -37,12 +38,12 @@ taskboard-manager[data-theme="course"]::part(board):hover:before
     grid-column: 1 / 4;
     grid-row: 1;
 
-    background: var(--surface-menu-item-highlight);
+    background: rgb(0 0 0 / .2);
     padding: .375rem .75rem;
     border-radius: var(--border-radius-button);
     translate: -.75rem 0;
     z-index: 0;
-    opacity: .5;
+    opacity: 1;
 }
 taskboard-manager[data-theme="course"]::part(menu-item-handle)
 {
@@ -75,6 +76,10 @@ taskboard-manager[data-theme="course"]::part(board-edit-button)
     grid-column: 3;
     z-index: 1;
 }
+/* taskboard-manager[data-theme="course"]::part(board-edit-button):hover
+{
+    --icon-primary-color: var(--text-icon-button-highlight);
+} */
 taskboard-manager[data-theme="course"]::part(board selected)
 {
     background-color: transparent;
@@ -83,12 +88,46 @@ taskboard-manager[data-theme="course"]::part(board selected)
 taskboard-manager[data-theme="course"]::part(board selected):hover:before
 {
     background-color: var(--surface-menu-item-highlight-selected);
-    opacity: .1;
+    opacity: .2;
 }
 
 taskboard-manager[data-theme="course"]::part(app-menu-branding)
 {
     grid-column: span 2;
+}
+
+@media (prefers-color-scheme: dark) 
+{
+    taskboard-manager[data-theme="course"]::part(board):hover:before
+    {
+        background: var(--surface-menu-item-highlight);
+        opacity: .5;
+    }
+    taskboard-manager[data-theme="course"]::part(board selected):hover:before
+    {
+        background-color: var(--surface-menu-item-highlight-selected);
+        opacity: .1;
+    }
+}
+taskboard-manager[data-theme="course"].scheme-light::part(board):hover:before
+{
+    background: rgb(0 0 0 / .2);
+    opacity: 1;
+}
+taskboard-manager[data-theme="course"].scheme-light::part(board selected):hover:before
+{
+    background-color: var(--surface-menu-item-highlight-selected);
+    opacity: .2;
+}
+taskboard-manager[data-theme="course"].scheme-dark::part(board):hover:before
+{
+    background: var(--surface-menu-item-highlight);
+    opacity: .5;
+}
+taskboard-manager[data-theme="course"].scheme-dark::part(board selected):hover:before
+{
+    background-color: var(--surface-menu-item-highlight-selected);
+    opacity: .1;
 }
 
 @media (min-width: 665px) 
@@ -154,5 +193,9 @@ taskboard-manager[data-theme="course"]::part(app-menu-branding)
     {
         background: var(--surface-option);
         padding: 5px 10px;
+    }
+    taskboard-manager[data-theme="course"]::part(board recent)
+    {
+        background: transparent;
     }
 }

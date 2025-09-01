@@ -132,6 +132,9 @@ export class TaskboardManagerElement extends HTMLElement
     {
         const value = (scheme == 'browser') ? 'light dark' : scheme;
         this.style.setProperty('color-scheme', value);
+        const className = `scheme-${value.replace(' ', '-')}`;
+        this.classList.remove('scheme-light', 'scheme-dark', 'scheme-inherit', 'scheme-light-dark');
+        this.classList.add(className);
         const boardSettings = this.findElement<BoardSettingsElement>('board-settings');
         boardSettings.style.setProperty('color-scheme', value);
         const tasklistSettings = [...boardSettings.shadowRoot!.querySelectorAll('.tasklist-settings')] as TaskListElement[];
@@ -320,9 +323,9 @@ export class TaskboardManagerElement extends HTMLElement
         });
     }
 
-    async clearData()
+    async clearData(confirm: boolean = true)
     {
-        return this.findElement<ConfigPanelElement>('config-panel').clearData();
+        return this.findElement<ConfigPanelElement>('config-panel').clearData(confirm);
     }
     // async clearHistory()
     // {
@@ -334,6 +337,7 @@ export class TaskboardManagerElement extends HTMLElement
         const listId = list.dataset.tasklistId!;
         const card = new TaskCardElement();
         list.append(card);
+        list.toggleAttribute('collapsed', false);
         this.#registerTaskCard(card, listId, order);
     }
     //#endregion API
