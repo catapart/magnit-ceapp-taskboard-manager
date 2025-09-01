@@ -1,5 +1,12 @@
 # @magnit-ceapp/taskboard-manager
 
+## 0.0.5
+
+### Patch Changes
+
+- 49903e1: implemented accent colors
+- 9068c8d: updated addTask to uncollapse the parent list
+
 ## 0.0.4
 
 ### Patch Changes
