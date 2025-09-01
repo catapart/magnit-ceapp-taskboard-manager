@@ -6,48 +6,6 @@
     <title>Taskboard Manager App Demo</title>
     <link rel="stylesheet" href="./app.css">
     <link rel="stylesheet" href="./themes/course/course.theme.css">
-    <style>
-        taskboard-manager::part(custom-settings-fieldset)
-        {
-            color: inherit;
-            display: grid;
-            align-items: stretch;
-            justify-content: flex-start;
-        }
-
-        .accent-color .value
-        {
-            display: inline-flex;
-            flex-wrap: wrap;
-            gap: var(--gap-small);
-        }
-
-        .option.accent
-        {
-            display: inline-grid;
-            gap: var(--gap-small);
-            justify-items: center;
-            width: 48px;
-            padding: var(--gap-small);
-            border-radius: 5px;
-            border: solid 1px transparent;
-        }
-        .option.accent:hover
-        {
-            background-color: rgb(0 0 0 / .2);
-            border-color: rgb(0 0 0 / .3);
-        }
-        .option.accent .display
-        {
-            display: block;
-            overflow: hidden;
-            --size: 25px;
-            width: var(--size);
-            height: var(--size);
-            border-radius: 50%;
-            background-color: var(--accent-color, rgb(0 0 0));
-        }
-    </style>
 </head>
 <body>
     <taskboard-manager id="app" data-theme="course" update-url>
@@ -143,7 +101,18 @@
                 description: `The Web Gothic theme is a minimalist theme that uses its styles to handle layout and mimic the default colors and highlighting of browser elements. You can think of the web gothic theme as \"turning off\" the themes and going back to an \"unstyled\" version of the app.
                 This theme is lightweight and nostalgic, but it is mostly useful for creating your own custom themes.`
             },
-        ]
+        ];
+        const accentColorsMap = new Map([
+            ['#d40d06', ['#de3e24', '#e75c3d', '#ee7557', '#f58d71', '#faa48c']],
+            ['#eb8c17', ['#f09939', '#f5a553', '#f9b26c', '#fcbf84', '#fecb9c']],
+            ['#d49306', ['#db9e32', '#e2aa4f', '#e8b668', '#eec281', '#f3ce9a']],
+            ['#86b33e', ['#94bb55', '#a2c46a', '#b0cc80', '#bdd595', '#cbdda9']],
+            ['#1a82ba', ['#458fc2', '#619cc9', '#7aaad1', '#91b8d9', '#a8c6e0']],
+            ['#822bd9', ['#9347de', '#a35fe3', '#b276e8', '#c08dec', '#cda3f0']],
+            ['#db7faf', ['#e08eb8', '#e59cc0', '#e9aac9', '#edb8d2', '#f1c6db']],
+            ['#a5adb5', ['#afb6bd', '#b8bfc5', '#c2c8cd', '#ccd1d5', '#d6dade']],
+        ]);
+
         document.addEventListener('DOMContentLoaded', () =>
         {
             const taskboardManager = document.getElementById('app');
@@ -166,6 +135,20 @@
                 // themeSelect.value = 'web-gothic';
                 themeSelect.dispatchEvent(new Event('change'));
             });
+
+            const themeKey = localStorage.getItem('accent-color');
+            if(themeKey != null)
+            {
+                const accents = accentColorsMap.get(themeKey.toLowerCase());
+                if(accents == null) { console.log('no accent found'); return; }
+
+                taskboardManager.style.setProperty('--accent-color-1', themeKey);
+                for(let i = 0; i < accents.length; i++)
+                {
+                    const accent = accents[i];
+                    taskboardManager.style.setProperty(`--accent-color-${i+2}`, accent);
+                }
+            }
 
             themeSelect.addEventListener('change', () =>
             {
@@ -193,17 +176,34 @@
                 }
             });
 
-
             const accentColorValue = document.querySelector('.accent-color .value');
             accentColorValue.addEventListener('click', (event) =>
             {
                 const composedPath = event.composedPath();
 
                 const option = composedPath.find(item => item instanceof HTMLAnchorElement && item.classList.contains('accent'));
-                if(option != null)
+                if(option == null) { return; }
+
+                const firstAccent = option.style.getPropertyValue('--accent-color');
+                if(firstAccent == null) { return; }                
+
+                taskboardManager.style.setProperty('--accent-color-1', firstAccent);
+
+                const accents = accentColorsMap.get(firstAccent.toLowerCase());
+                if(accents == null) { console.log('no accent found'); return; }
+
+                for(let i = 0; i < accents.length; i++)
                 {
-                    taskboardManager.style.setProperty('--accent-color-1', option.style.getPropertyValue('--accent-color'));
+                    const accent = accents[i];
+                    taskboardManager.style.setProperty(`--accent-color-${i+2}`, accent);
                 }
+
+                localStorage.setItem('accent-color', firstAccent);
+
+
+                
+
+
             });
 
         });
