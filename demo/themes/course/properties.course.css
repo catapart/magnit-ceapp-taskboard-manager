@@ -126,13 +126,6 @@ taskboard-manager[data-theme="course"]
 
     taskboard-manager[data-theme="course"]:not(.scheme-light)
     {
-        --clr-primary-a0: var(--accent-color-1, #1a82ba);
-        --clr-primary-a10: var(--accent-color-2, #458fc2);
-        --clr-primary-a20: var(--accent-color-3, #619cc9);
-        --clr-primary-a30: var(--accent-color-4, #7aaad1);
-        --clr-primary-a40: var(--accent-color-5, #91b8d9);
-        --clr-primary-a50: var(--accent-color-6, #a8c6e0);
-
         --clr-surface-a0: #121212;
         --clr-surface-a10: #282828;
         --clr-surface-a20: #3f3f3f;
@@ -151,13 +144,6 @@ taskboard-manager[data-theme="course"]
 }
 taskboard-manager[data-theme="course"].scheme-dark
 {
-    --clr-primary-a0: var(--accent-color-1, #1a82ba);
-    --clr-primary-a10: var(--accent-color-2, #458fc2);
-    --clr-primary-a20: var(--accent-color-3, #619cc9);
-    --clr-primary-a30: var(--accent-color-4, #7aaad1);
-    --clr-primary-a40: var(--accent-color-5, #91b8d9);
-    --clr-primary-a50: var(--accent-color-6, #a8c6e0);
-
     --clr-surface-a0: #121212;
     --clr-surface-a10: #282828;
     --clr-surface-a20: #3f3f3f;

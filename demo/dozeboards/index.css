@@ -1,0 +1,134 @@
+html
+{
+    color-scheme: light dark;
+    height: 100%;
+    width: 100%;
+}
+
+html
+,body
+{
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+}
+
+taskboard-manager
+{
+    flex: 1;
+    overflow: hidden;
+
+    --accent-color-1: #86b33e;
+    --accent-color-2: #94bb55;
+    --accent-color-3: #a2c46a;
+    --accent-color-4: #b0cc80;
+    --accent-color-5: #bdd595;
+    --accent-color-6: #cbdda9;
+}
+
+taskboard-manager .custom-settings
+{
+    display: grid;
+    gap: var(--small-gap, 7px);
+}
+
+taskboard-manager .field .container
+{
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: var(--small-gap, 7px);
+    align-items: center;
+}
+
+taskboard-manager #theme-description
+{
+    margin-left: calc(90px + (var(--small-gap, 7px) * 2));
+}
+
+taskboard-manager .field-label
+{
+    text-align: right;
+}
+
+
+taskboard-manager[data-theme="course"] a
+,taskboard-manager[data-theme="course"]::part(a)
+{
+    color: var(--text-anchor);
+    text-decoration: var(--text-decoration-anchor);
+}
+taskboard-manager[data-theme="course"] a:hover
+,taskboard-manager[data-theme="course"]::part(a):hover
+{
+    text-decoration: var(--text-decoration-anchor-highlight);
+}
+
+taskboard-manager::part(custom-settings-fieldset)
+{
+    color: inherit;
+    display: grid;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.accent-color .value
+{
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--gap-small);
+}
+
+.option.accent
+{
+    display: inline-grid;
+    gap: var(--gap-small);
+    justify-items: center;
+    width: 48px;
+    padding: var(--gap-small);
+    border-radius: 5px;
+    border: solid 1px transparent;
+    color: inherit;
+    user-select: none;
+}
+.option.accent:hover
+{
+    background-color: rgb(0 0 0 / .2);
+    border-color: rgb(0 0 0 / .3);
+}
+.option.accent .display
+{
+    display: block;
+    overflow: hidden;
+    --size: 25px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background-color: var(--accent-color, rgb(0 0 0));
+}
+
+@media (max-width: 665px) 
+{
+
+    taskboard-manager .field-label
+    {
+        text-align: left;
+    }
+    taskboard-manager .field .container
+    {
+        grid-template-columns: 1fr;
+    }
+    taskboard-manager #theme-description
+    {
+        margin-left: 0;
+        text-align: center;
+    }
+}
