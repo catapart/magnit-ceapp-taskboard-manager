@@ -11,9 +11,10 @@ import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToP
 
 export type AppMenuProperties =
 {
-    addBoard: () => Promise<TaskBoardRecord>,
-    editBoard: (boardId: string) => void,
-    openBoard: (id: string) => void,
+    addBoard: () => Promise<TaskBoardRecord>;
+    editBoard: (boardId: string) => void;
+    openBoard: (id: string) => void;
+    getCurrentBoardId: () => string|undefined;
 }
 
 const COMPONENT_STYLESHEET = new CSSStyleSheet();
@@ -53,11 +54,13 @@ export class AppMenuElement extends HTMLElement
     #addBoard!: () => Promise<TaskBoardRecord>;
     #editBoard!: (boardId: string) => void;
     #openBoard!: (id: string) => void;
+    #getCurrentBoardId!: () => string|undefined;
     init(options: AppMenuProperties)
     {
         this.#addBoard = options.addBoard;
         this.#editBoard = options.editBoard;
         this.#openBoard = options.openBoard;
+        this.#getCurrentBoardId = options.getCurrentBoardId;
 
         this.addEventListener('click', this.#onClick.bind(this));
         this.addEventListener('keydown', this.#onKeyDown.bind(this));
@@ -71,11 +74,17 @@ export class AppMenuElement extends HTMLElement
 
     updateBoards(boards: TaskBoardRecord[])
     {
+        const currentBoardId = this.#getCurrentBoardId();
         const menuItems: HTMLAnchorElement[] = [];
         for(let i = 0; i < boards.length; i++)
         {
             const boardRecord = boards[i];
             const menuItem = this.#createBoardMenuItem(boardRecord);
+            if(boardRecord.id == currentBoardId)
+            {
+                menuItem.classList.add('selected');
+                menuItem.part.add('selected');
+            }
             menuItems.push(menuItem);
         }
 
