@@ -26,6 +26,13 @@ taskboard-manager
 {
     flex: 1;
     overflow: hidden;
+
+    --accent-color-1: #86b33e;
+    --accent-color-2: #94bb55;
+    --accent-color-3: #a2c46a;
+    --accent-color-4: #b0cc80;
+    --accent-color-5: #bdd595;
+    --accent-color-6: #cbdda9;
 }
 
 taskboard-manager .custom-settings
@@ -54,13 +61,58 @@ taskboard-manager .field-label
 
 
 taskboard-manager[data-theme="course"] a
+,taskboard-manager[data-theme="course"]::part(a)
 {
     color: var(--text-anchor);
     text-decoration: var(--text-decoration-anchor);
 }
 taskboard-manager[data-theme="course"] a:hover
+,taskboard-manager[data-theme="course"]::part(a):hover
 {
     text-decoration: var(--text-decoration-anchor-highlight);
+}
+
+taskboard-manager::part(custom-settings-fieldset)
+{
+    color: inherit;
+    display: grid;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.accent-color .value
+{
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--gap-small);
+}
+
+.option.accent
+{
+    display: inline-grid;
+    gap: var(--gap-small);
+    justify-items: center;
+    width: 48px;
+    padding: var(--gap-small);
+    border-radius: 5px;
+    border: solid 1px transparent;
+    color: inherit;
+    user-select: none;
+}
+.option.accent:hover
+{
+    background-color: rgb(0 0 0 / .2);
+    border-color: rgb(0 0 0 / .3);
+}
+.option.accent .display
+{
+    display: block;
+    overflow: hidden;
+    --size: 25px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background-color: var(--accent-color, rgb(0 0 0));
 }
 
 @media (max-width: 665px) 

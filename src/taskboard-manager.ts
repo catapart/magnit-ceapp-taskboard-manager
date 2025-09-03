@@ -224,6 +224,23 @@ export class TaskboardManagerElement extends HTMLElement
     {        
         this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}#board-settings`);
     }
+    getCurrentBoardId()
+    {
+        const path = this.findElement<PathRouterElement>('app-router').path;
+        if(path == null) { return undefined; }
+        if(path.startsWith('board'))
+        {
+            const id = path.split('/')[1];
+            if(id == null) { return undefined; }
+            if(id.indexOf('#') != -1)
+            {
+                const boardId = id.split('#')[0];
+                return boardId;
+            }
+            return id;
+        }
+        return undefined;
+    }
     async openBoardSettings(id: string)
     {
         // await this.initPromise;
@@ -337,6 +354,7 @@ export class TaskboardManagerElement extends HTMLElement
         const listId = list.dataset.tasklistId!;
         const card = new TaskCardElement();
         list.append(card);
+        list.toggleAttribute('collapsed', false);
         this.#registerTaskCard(card, listId, order);
     }
     //#endregion API
@@ -359,6 +377,7 @@ export class TaskboardManagerElement extends HTMLElement
             addBoard: this.addBoard.bind(this),
             editBoard: this.editBoard.bind(this),
             openBoard: this.openBoard.bind(this),
+            getCurrentBoardId: this.getCurrentBoardId.bind(this),
         });
 
         // welcome panel
