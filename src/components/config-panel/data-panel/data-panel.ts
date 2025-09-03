@@ -172,7 +172,7 @@ export class DataPanelElement extends HTMLElement
             const confirmed = await FeedbackService.getConfirmation('Are you sure you want to delete all data associated with the app? This CAN NOT be undone.', 'danger');
             if(confirmed == false) { return; }
         }
-        this.#closeBoard();
+        await this.#closeBoard();
         await DataService.clearAllData();
         this.#refreshBoardCollections();
         this.#refreshRecentBoards();
