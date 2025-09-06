@@ -29,7 +29,7 @@ export class BoardChannel extends DataChannel<TaskBoardRecord>
             listData[0].boardId = board.id;
             listData[0].order = i;
             listData[0].name = DEFAULT_LISTS[i].name;
-            listData[0].description = DEFAULT_LISTS[i].description;
+            // listData[0].description = DEFAULT_LISTS[i].description;
             listData[0].color = DEFAULT_LISTS[i].color;
             lists.push(listData);
         }

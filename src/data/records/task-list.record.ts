@@ -15,7 +15,7 @@ export class TaskListRecord extends DataRecord
     order: number = -1;
     color: string = "#1C67E8";
     name: string = "New List";
-    description: string = "";
+    // description: string = "";
     colorDisplay: TaskListColorDisplay = TaskListColorDisplay.Element;
     useCustomBackgroundColor: boolean = false;
     backgroundColor: string = "#f9faf5";

@@ -667,15 +667,18 @@ export class TaskboardManagerElement extends HTMLElement
 
         // console.log(boardActionProperties, listActionProperties);
 
-        if(boardActionProperties != null && imageUpdates.length > 0)
+        if(boardActionProperties != null)
         {
-            if(boardActionProperties.backgroundImages != null)
+            if(imageUpdates.length > 0)
             {
-                boardActionProperties.backgroundImages = boardActionProperties.backgroundImages.concat(imageUpdates);
-            }
-            else if(boardActionProperties.backgroundImages == null)
-            {
-                boardActionProperties.backgroundImages = imageUpdates;
+                if(boardActionProperties.backgroundImages != null)
+                {
+                    boardActionProperties.backgroundImages = boardActionProperties.backgroundImages.concat(imageUpdates);
+                }
+                else if(boardActionProperties.backgroundImages == null)
+                {
+                    boardActionProperties.backgroundImages = imageUpdates;
+                }
             }
 
             await configPanel.addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.Board, boardActionProperties);
@@ -1095,8 +1098,8 @@ export class TaskboardManagerElement extends HTMLElement
                 element.style.removeProperty('flex-grow');
             }
 
-            const listTitle = (list.description == null || list.description.trim() == "") ? list.name : list.description;
-            element.setAttribute('title', listTitle);
+            // const listTitle = (list.description == null || list.description.trim() == "") ? list.name : list.description;
+            element.setAttribute('title', list.name);
 
             if(list.useCustomBackgroundColor == true)
             {
