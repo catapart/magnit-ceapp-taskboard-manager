@@ -267,7 +267,7 @@ export class HistoryPanelElement extends HTMLElement
         </span>`;
         return element;
     }
-    async #handleActionEntryReverse(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
+    async #handleActionEntryReverse(targetEntry: HTMLElement, targetIndex: number)
     {
         const actionType = targetEntry.querySelector('.action-type')?.textContent?.toLowerCase();
         const recordType = targetEntry.querySelector('.target-type')?.textContent?.toLowerCase()
@@ -316,7 +316,7 @@ export class HistoryPanelElement extends HTMLElement
         
         await DataService.saveAppSetting(AppSettingKey.ActiveEntryIndex, (targetIndex > -1) ? targetIndex : null);
     }
-    async #handleActionEntryActivate(targetEntry: HTMLElement, previousEntry: HTMLElement|undefined, targetIndex: number, previousEntryIndex: number)
+    async #handleActionEntryActivate(targetEntry: HTMLElement, targetIndex: number)
     {
         const previouslyActive = [...targetEntry.parentElement!.querySelectorAll('[part="active"]')] as HTMLElement[];
         for(let i = 0; i < previouslyActive.length; i++)
@@ -427,88 +427,103 @@ export class HistoryPanelElement extends HTMLElement
         const actionHistory = this.findElement<ActionHistoryElement>('action-history');
         this.#prepareHistoryEntries(actionHistory, startIndex);
     }
-    async #actionHistory_onBack(target: HTMLElement, previous: HTMLElement|undefined, all: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
+    async #actionHistory_onBack(target: HTMLElement, previous: HTMLElement|undefined, toReverse: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
     {
         let refreshBoards = false;
-        let refreshDeletedItems = false;
+        // let refreshDeletedItems = false;
 
-        const isLastUpdate = all.indexOf(target) == all.length - 1;
-        if(isLastUpdate == true)
+        // const actionHistory = this.findElement<ActionHistoryElement>('action-history');
+        // const items = [...actionHistory.children];
+
+        // console.log(target, toReverse);
+
+        for(let i = 0; i < toReverse.length; i++)
         {
-            const recordType = target.querySelector('.target-type')?.textContent?.toLowerCase();
+            const entry = toReverse[i];
+            const recordType = entry.querySelector('.target-type')?.textContent?.toLowerCase();
             if(recordType == 'board')
             {
                 refreshBoards = true;
             }
-            refreshDeletedItems = true;
+            await this.#handleActionEntryReverse(entry, targetIndex);
         }
 
-        await this.#handleActionEntryReverse(target, previous, targetIndex, previousActiveEntryIndex);
         if(refreshBoards == true)
         {
             this.#refreshBoardCollections();
         }
-        if(refreshDeletedItems == true)
-        {
+        // if(refreshDeletedItems == true)
+        // {
             this.#refreshCache();
-        }
+        // }
     }
-    async #actionHistory_onForward(target: HTMLElement, previous: HTMLElement|undefined, all: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
+    async #actionHistory_onForward(target: HTMLElement, previous: HTMLElement|undefined, toActivate: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
     {
         let refreshBoards = false;
-        let refreshDeletedItems = false;
+        // let refreshDeletedItems = false;
 
-        const isLastUpdate = all.indexOf(target) == all.length - 1;
-        if(isLastUpdate == true)
+        // const isLastUpdate = all.indexOf(target) == all.length - 1;
+        // if(isLastUpdate == true)
+        // {
+        //     const recordType = target.querySelector('.target-type')?.textContent?.toLowerCase();
+        //     if(recordType == 'board')
+        //     {
+        //         refreshBoards = true;
+        //     }
+        //     refreshDeletedItems = true;
+        // }
+
+        for(let i = 0; i < toActivate.length; i++)
         {
-            const recordType = target.querySelector('.target-type')?.textContent?.toLowerCase();
+            const entry = toActivate[i];
+            const recordType = entry.querySelector('.target-type')?.textContent?.toLowerCase();
             if(recordType == 'board')
             {
                 refreshBoards = true;
             }
-            refreshDeletedItems = true;
+            await this.#handleActionEntryActivate(entry, targetIndex);
         }
-        await this.#handleActionEntryActivate(target, previous, targetIndex, previousActiveEntryIndex);
+        // await this.#handleActionEntryActivate(target, previous, targetIndex, previousActiveEntryIndex);
         if(refreshBoards == true)
         {
             this.#refreshBoardCollections();
         }
-        if(refreshDeletedItems == true)
-        {
+        // if(refreshDeletedItems == true)
+        // {
             this.#refreshCache();
-        }
+        // }
     }
     //#endregion Handlers
 
-    #applyPartAttributes()
-    {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll(':not(form-field,.postfix,.prefix,.container, .field-label)[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            const classedElement = classedElements[i];
-            classedElement.part.add(...classedElements[i].classList);
-        }
-        const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
-        for(let i = 0; i < formFieldElements.length; i++)
-        {
-            const formFieldElement = formFieldElements[i];
-            const inputId = formFieldElement.id;
+    // #applyPartAttributes()
+    // {
+    //     const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
+    //     for(let i = 0; i < identifiedElements.length; i++)
+    //     {
+    //         identifiedElements[i].part.add(identifiedElements[i].id);
+    //     }
+    //     const classedElements = [...this.shadowRoot!.querySelectorAll(':not(form-field,.postfix,.prefix,.container, .field-label)[class]')];
+    //     for(let i = 0; i < classedElements.length; i++)
+    //     {
+    //         const classedElement = classedElements[i];
+    //         classedElement.part.add(...classedElements[i].classList);
+    //     }
+    //     const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
+    //     for(let i = 0; i < formFieldElements.length; i++)
+    //     {
+    //         const formFieldElement = formFieldElements[i];
+    //         const inputId = formFieldElement.id;
             
-            const container = formFieldElement.querySelector('.container')!;
-            container.part.add('container', 'field-container', `${inputId}-container`);
-            const label = formFieldElement.querySelector('.field-label')!;
-            label.part.add('container', 'field-label', `${inputId}-label`);
-            const prefix = formFieldElement.querySelector('.prefix')!;
-            prefix.part.add('container', 'field-prefix', `${inputId}-prefix`);
-            const postfix = formFieldElement.querySelector('.postfix')!;
-            postfix.part.add('container', 'field-postfix', `${inputId}-postfix`);
-        }
-    }
+    //         const container = formFieldElement.querySelector('.container')!;
+    //         container.part.add('container', 'field-container', `${inputId}-container`);
+    //         const label = formFieldElement.querySelector('.field-label')!;
+    //         label.part.add('container', 'field-label', `${inputId}-label`);
+    //         const prefix = formFieldElement.querySelector('.prefix')!;
+    //         prefix.part.add('container', 'field-prefix', `${inputId}-prefix`);
+    //         const postfix = formFieldElement.querySelector('.postfix')!;
+    //         postfix.part.add('container', 'field-postfix', `${inputId}-postfix`);
+    //     }
+    // }
     //#endregion Internal
 }
 
