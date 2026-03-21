@@ -24,10 +24,10 @@ An app to manage kanban-style task boards built as a custom html element
 https://catapart.github.io/magnit-ceapp-taskboard-manager
 ### Demos:
 #### Single Page App:
-A simple implementation of the custom element as a Single Page App. Stores data on your local device using IndexedDB. Does not sync data with a server.
+A simple implementation of the custom element as a Single Page App. Stores data on your local device using IndexedDB. Does not sync data with a server.  
 https://catapart.github.io/magnit-ceapp-taskboard-manager/app
 #### Progressive Web App:
-A PWA implementation of the custom element. PWAs can be installed to use indefinitely (no server access needed after initial download). This implementation navigates using the browser's url, but that feature is not a requirement of using the custom element as a PWA.
+A PWA implementation of the custom element. PWAs can be installed to use indefinitely (no server access needed after initial download). This implementation navigates using the browser's url, but that feature is not a requirement of using the custom element as a PWA.  
 https://catapart.github.io/magnit-ceapp-taskboard-manager/app/pwa
 
 ### Documentation:
