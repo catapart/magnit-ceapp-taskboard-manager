@@ -4,9 +4,9 @@ import sharedStyles from '../../../styles/shared.css?raw';
 // html
 import html from './data-panel.html?raw';
 // icons
-import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
+import { defineIcons, IconKey } from '../../../assets/icons/icons.asset';
 import { EditableListElement } from '@magnit-ce/editable-list';
-import { BasicActionProperties, HistoryEntryTargetType, PropertiesType, PropertyUpdate } from '../../../data/history/history-entry-data';
+import { type BasicActionProperties, HistoryEntryTargetCategory, type HistoryEntryTargetCategoryType, type PropertiesType, type PropertyUpdate } from '../../../data/history/history-entry-data';
 import { createOptionElement, snapToStep } from '../../../resources/utils';
 import { AppSettingKey, DataService } from '../../../data/data.service';
 import { TaskBoardRecord } from '../../../data/records/task-board.record';
@@ -29,7 +29,7 @@ export type DataPanelProperties =
     refreshBoardCollections: () => void;
     refreshRecentBoards: () => void;
     closeBoard: () => void;
-    addActionHistoryEntry: <T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>) => void;
+    addActionHistoryEntry: <T extends HistoryEntryTargetCategoryType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>) => void;
 }
 
 
@@ -39,11 +39,11 @@ COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.File,
-    IconType.Import,
-    IconType.Trash,
-    IconType.ConfirmCheck,
-    IconType.Restore,
+    IconKey.File,
+    IconKey.Import,
+    IconKey.Trash,
+    IconKey.ConfirmCheck,
+    IconKey.Restore,
 )}`;
 
 const COMPONENT_TAG_NAME = 'data-panel';
@@ -89,7 +89,7 @@ export class DataPanelElement extends HTMLElement
     #refreshActionHistory!: () => void;
     #refreshBoardCollections!: () => void;
     #refreshRecentBoards!: () => void;
-    #addActionHistoryEntry!: <T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>) => void;
+    #addActionHistoryEntry!: <T extends HistoryEntryTargetCategoryType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>) => void;
     async init(options: DataPanelProperties)
     {
         this.#openImportManager = options.openImportManager;
@@ -172,7 +172,7 @@ export class DataPanelElement extends HTMLElement
             const confirmed = await FeedbackService.getConfirmation('Are you sure you want to delete all data associated with the app? This CAN NOT be undone.', 'danger');
             if(confirmed == false) { return; }
         }
-        this.#closeBoard();
+        await this.#closeBoard();
         await DataService.clearAllData();
         this.#refreshBoardCollections();
         this.#refreshRecentBoards();
@@ -324,7 +324,7 @@ export class DataPanelElement extends HTMLElement
         }
     }
 
-    async #restoreDeletedItem(targetType: HistoryEntryTargetType|null, recordId: string, timestamp: number)
+    async #restoreDeletedItem(targetType: HistoryEntryTargetCategoryType|null, recordId: string, timestamp: number)
     {
         if(targetType == null)
         {
@@ -353,7 +353,7 @@ export class DataPanelElement extends HTMLElement
         };
         await this.#addActionHistoryEntry(HistoryEntryType.Update, targetType, properties);
         
-        if(targetType == HistoryEntryTargetType.Board)
+        if(targetType == HistoryEntryTargetCategory.Board)
         {
             this.#openBoard(recordId);
             this.#refreshBoardCollections();
@@ -462,11 +462,11 @@ export class DataPanelElement extends HTMLElement
         const timestamp = item.getAttribute('data-timestamp');
 
         const targetType = (recordType == 'board')
-        ? HistoryEntryTargetType.Board
+        ? HistoryEntryTargetCategory.Board
         : (recordType == 'list')
-        ? HistoryEntryTargetType.List
+        ? HistoryEntryTargetCategory.List
         : (recordType == 'task')
-        ? HistoryEntryTargetType.Task
+        ? HistoryEntryTargetCategory.Task
         : null;
 
         this.#restoreDeletedItem(targetType, recordId, timestamp);

@@ -13,30 +13,31 @@ const IMAGE_ERROR_MESSAGE = DATA_ERROR_MESSAGE.replace('[subject]', 'Image');
 const HISTORY_ERROR_MESSAGE = DATA_ERROR_MESSAGE.replace('[subject]', 'History');
 const SETTINGS_ERROR_MESSAGE = DATA_ERROR_MESSAGE.replace('[subject]', 'Settings');
 
-export enum ErrorMessageType
+export const ErrorMessageCategory =
 {
-    UNKNOWN = 'UNKNOWN',
-    BOARD = 'BOARD',
-    LIST = 'LIST',
-    TASK = 'TASK',
-    IMAGE = 'IMAGE',
-    HISTORY = 'HISTORY',
-    SETTINGS = 'SETTINGS',
-}
+    UNKNOWN: 'UNKNOWN',
+    BOARD: 'BOARD',
+    LIST: 'LIST',
+    TASK: 'TASK',
+    IMAGE: 'IMAGE',
+    HISTORY: 'HISTORY',
+    SETTINGS: 'SETTINGS',
+} as const;
+export type ErrorMessageCategoryType = typeof ErrorMessageCategory[keyof typeof ErrorMessageCategory];
 
 
 export abstract class FeedbackService
 {
     static #manager: TaskboardManagerElement;
 
-    static ErrorMessages: { [key in ErrorMessageType]: string } = {
-        [ErrorMessageType.UNKNOWN]: UNKNOWN_ERROR_MESSAGE,
-        [ErrorMessageType.BOARD]: BOARD_ERROR_MESSAGE,
-        [ErrorMessageType.LIST]: LIST_ERROR_MESSAGE,
-        [ErrorMessageType.TASK]: TASK_ERROR_MESSAGE,
-        [ErrorMessageType.IMAGE]: IMAGE_ERROR_MESSAGE,
-        [ErrorMessageType.HISTORY]: HISTORY_ERROR_MESSAGE,
-        [ErrorMessageType.SETTINGS]: SETTINGS_ERROR_MESSAGE
+    static ErrorMessages: { [key in ErrorMessageCategoryType]: string } = {
+        [ErrorMessageCategory.UNKNOWN]: UNKNOWN_ERROR_MESSAGE,
+        [ErrorMessageCategory.BOARD]: BOARD_ERROR_MESSAGE,
+        [ErrorMessageCategory.LIST]: LIST_ERROR_MESSAGE,
+        [ErrorMessageCategory.TASK]: TASK_ERROR_MESSAGE,
+        [ErrorMessageCategory.IMAGE]: IMAGE_ERROR_MESSAGE,
+        [ErrorMessageCategory.HISTORY]: HISTORY_ERROR_MESSAGE,
+        [ErrorMessageCategory.SETTINGS]: SETTINGS_ERROR_MESSAGE
     }
 
     static init(taskboardManager: TaskboardManagerElement)
@@ -67,7 +68,7 @@ export abstract class FeedbackService
             }, { once: true });
         });
     }
-    static showErrorMessageDialog(error: ErrorMessageType)
+    static showErrorMessageDialog(error: ErrorMessageCategoryType)
     {
         this.showMessageDialog(FeedbackService.ErrorMessages[error], 'danger');
     }
@@ -85,7 +86,7 @@ export abstract class FeedbackService
         FeedbackService.#manager.getElement<PathRouterElement>('confirmation-router').navigate(type);
         return new Promise<void>((resolve) => 
         {
-            FeedbackService.#manager.getElement<HTMLDialogElement>('confirmation-dialog-form').addEventListener('submit', (event) =>
+            FeedbackService.#manager.getElement<HTMLDialogElement>('confirmation-dialog-form').addEventListener('submit', (_event) =>
             {
                 dialog.classList.remove('message');
                 resolve();

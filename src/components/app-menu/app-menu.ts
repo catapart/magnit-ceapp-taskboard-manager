@@ -4,7 +4,7 @@ import sharedStyles from '../../styles/shared.css?raw';
 // html
 import html from './app-menu.html?raw';
 // icons
-import { defineIcons, IconType } from '../../assets/icons/icons.asset';
+import { defineIcons, IconKey } from '../../assets/icons/icons.asset';
 import { TaskBoardRecord } from '../../data/records/task-board.record';
 import { DataService } from '../../data/data.service';
 import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../libs/ce-part-utils/ce-part-utils';
@@ -23,11 +23,11 @@ COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.LogoMark,
-    IconType.MagnifyingGlass,
-    IconType.Gear,
-    IconType.PlusIcon,
-    IconType.Stylus
+    IconKey.LogoMark,
+    IconKey.MagnifyingGlass,
+    IconKey.Gear,
+    IconKey.PlusIcon,
+    IconKey.Stylus
 )}`;
 
 const COMPONENT_TAG_NAME = 'app-menu';

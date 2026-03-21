@@ -1,10 +1,9 @@
 import { extendableType } from "../data";
 import { CustomImageRecord } from "../records/custom-image.record";
 import { TaskBoardRecord } from "../records/task-board.record";
-import { TaskListRecord } from "../records/task-list.record";
 import { TaskSettingsRecord } from "../records/task-settings.record";
-import { ExportedImage, ImageExport } from "./exported-image";
-import { ExportedList, ListExport } from "./exported-list";
+import { type ExportedImage, ImageExport } from "./exported-image";
+import { type ExportedList, ListExport } from "./exported-list";
 
 export type ExportedBoard =  Partial<TaskBoardRecord> &
 {

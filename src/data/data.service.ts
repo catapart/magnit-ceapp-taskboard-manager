@@ -1,6 +1,6 @@
 import { DataRecord } from "record-setter";
 import { BoardSettingsElement } from "../components/board-settings/board-settings";
-import { FeedbackService, ErrorMessageType } from "../services/feedback.service";
+import { FeedbackService, ErrorMessageCategory, type ErrorMessageCategoryType } from "../services/feedback.service";
 import { TaskboardManagerElement } from "../taskboard-manager";
 import { BoardChannel } from "./channels/board.channel";
 import { CustomImageChannel } from "./channels/custom-image.channel";
@@ -19,21 +19,22 @@ import { DEFAULT_PERSIST_DAYS } from "../components/config-panel/data-panel/data
 import { TaskListChannel } from "./channels/task-list.channel";
 import { TaskChannel } from "./channels/task.channel";
 import { HistoryEntryRecord } from "./records/history-entry.record";
-import { HistoryEntryData, HistoryEntryTargetType } from "./history/history-entry-data";
+import { HistoryEntryData, type HistoryEntryTargetCategoryType } from "./history/history-entry-data";
 import { HistoryEntryType } from "@magnit-ce/action-history";
 
 
 export const MILLISECONDSINDAY = 1000 * 60 * 60 * 24;
-export enum AppSettingKey
+export const AppSettingKey =
 {
-    ActiveEntryIndex = 'activeEntryIndex',
-    HistoryLength = 'historyLength',
-    DaysToPersistData = 'daysToPersistData',
-    RecentBoards = 'recentBoards',
-    RecentBoardsMax = 'recentBoardsMax',
-    ColorScheme = 'color-scheme',
-    Language = 'language',
-}
+    ActiveEntryIndex: 'activeEntryIndex',
+    HistoryLength: 'historyLength',
+    DaysToPersistData: 'daysToPersistData',
+    RecentBoards: 'recentBoards',
+    RecentBoardsMax: 'recentBoardsMax',
+    ColorScheme: 'color-scheme',
+    Language: 'language',
+} as const;
+export type AppSettingKeyType = typeof AppSettingKey[keyof typeof AppSettingKey];
 
 export abstract class DataService
 {
@@ -83,36 +84,36 @@ export abstract class DataService
     //#region Boards
     static async getAllBoardRecords()
     {
-        const boardChannel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageType.BOARD);
+        const boardChannel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageCategory.BOARD);
         return (await boardChannel.getAll()).filter(item => item.deletedTimestamp == null);
     }
     static async getBoardRecords(...ids: string[])
     {
         if(ids.length == 0) { return []; }
 
-        const channel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageType.BOARD);
+        const channel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageCategory.BOARD);
         return (await channel.getItems(ids)).filter(item => item.deletedTimestamp == null);
     }
     static async getBoardRecord(id: string)
     {
-        const channel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageType.BOARD);
+        const channel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageCategory.BOARD);
         return channel.get(id);
     }
     static async getBoardLists(id: string)
     {
-        const channel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageType.BOARD);
+        const channel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageCategory.BOARD);
         return channel.getTaskLists(id);
     }
     static async getBoardTasks(id: string)
     {
-        const channel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageType.BOARD);
+        const channel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageCategory.BOARD);
         return channel.getTasks(id);
     }
     static async createBoard(order: number)
     {
-        const boardChannel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageType.BOARD);
-        const listChannel = this.#getChannel(this.#data.lists, ErrorMessageType.LIST);
-        const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, ErrorMessageType.BOARD);
+        const boardChannel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageCategory.BOARD);
+        const listChannel = this.#getChannel(this.#data.lists, ErrorMessageCategory.LIST);
+        const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, ErrorMessageCategory.BOARD);
 
         const [ board, taskSettings, listData ] = await boardChannel.create();
         board.order = order;
@@ -135,12 +136,12 @@ export abstract class DataService
     {
         if(items.length == 0) { return; }
 
-        const boardChannel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageType.BOARD);
+        const boardChannel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageCategory.BOARD);
         return boardChannel.saveItems(items);
     }
     static async deleteBoard(id: string)
     {
-        const channel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageType.BOARD);
+        const channel = DataService.#getChannel<BoardChannel>(DataService.data.boards, ErrorMessageCategory.BOARD);
         return channel.delete(id);
     }
 
@@ -149,26 +150,26 @@ export abstract class DataService
     //#region Lists
     static async createList(list?: TaskListRecord, settings?: TaskSettingsRecord)
     {
-        const taskLists = this.#getChannel<TaskListChannel>(this.#data.lists, ErrorMessageType.LIST);
+        const taskLists = this.#getChannel<TaskListChannel>(this.#data.lists, ErrorMessageCategory.LIST);
         return taskLists.create(list, settings);
     }
     static async getListRecord(id: string)
     {
-        const channel = DataService.#getChannel<TaskListChannel>(DataService.data.lists, ErrorMessageType.LIST);
+        const channel = DataService.#getChannel<TaskListChannel>(DataService.data.lists, ErrorMessageCategory.LIST);
         return channel.get(id);
     }
     static async saveListRecords(...items: TaskListRecord[])
     {
         if(items.length == 0) { return; }
 
-        const channel = DataService.#getChannel<TaskListChannel>(DataService.data.lists, ErrorMessageType.LIST);
+        const channel = DataService.#getChannel<TaskListChannel>(DataService.data.lists, ErrorMessageCategory.LIST);
         return channel.saveItems(items);
     }
     static async deleteListRecords(...ids: string[])
     {
         if(ids.length == 0) { return; }
 
-        const channel = DataService.#getChannel<TaskListChannel>(DataService.data.lists, ErrorMessageType.LIST);
+        const channel = DataService.#getChannel<TaskListChannel>(DataService.data.lists, ErrorMessageCategory.LIST);
         return channel.deleteItems(ids);
     }
     //#endregion Lists
@@ -178,20 +179,20 @@ export abstract class DataService
     {
         if(ids.length == 0) { return []; }
 
-        const channel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageType.BOARD);
+        const channel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageCategory.BOARD);
         const items = (await channel.getItems(ids));
         return items.filter(item => item != null && item.deletedTimestamp == null);
     }
     static async getTaskSettingsRecord(id: string)
     {
-        const channel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageType.BOARD);
+        const channel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageCategory.BOARD);
         return channel.get(id);
     }
     static async saveTaskSettingsRecords(...items: TaskSettingsRecord[])
     {
         if(items.length == 0) { return; }
 
-        const channel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageType.SETTINGS);
+        const channel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageCategory.SETTINGS);
         return channel.saveItems(items);
     }
     //#endregion Task Settings
@@ -199,33 +200,33 @@ export abstract class DataService
     //#region Tasks
     static async createTask(boardId: string, listId: string)
     {
-        const tasks = this.#getChannel<TaskChannel>(this.#data.tasks, ErrorMessageType.TASK);
+        const tasks = this.#getChannel<TaskChannel>(this.#data.tasks, ErrorMessageCategory.TASK);
         return tasks.create(boardId, listId);
     }
     static async getTaskRecord(id: string)
     {
-        const channel = DataService.#getChannel<TaskChannel>(DataService.data.tasks, ErrorMessageType.TASK);
+        const channel = DataService.#getChannel<TaskChannel>(DataService.data.tasks, ErrorMessageCategory.TASK);
         return channel.get(id);
     }
     static async getTaskRecords(...ids: string[])
     {
         if(ids.length == 0) { return []; }
 
-        const channel = DataService.#getChannel<TaskChannel>(DataService.data.tasks, ErrorMessageType.TASK);
+        const channel = DataService.#getChannel<TaskChannel>(DataService.data.tasks, ErrorMessageCategory.TASK);
         return (await channel.getItems(ids)).filter(item => item.deletedTimestamp == null);
     }
     static async saveTaskRecords(...items: TaskRecord[])
     {
         if(items.length == 0) { return; }
 
-        const channel = DataService.#getChannel<TaskChannel>(DataService.data.tasks, ErrorMessageType.TASK);
+        const channel = DataService.#getChannel<TaskChannel>(DataService.data.tasks, ErrorMessageCategory.TASK);
         return channel.saveItems(items);
     }
     static async deleteTaskRecords(...ids: string[])
     {
         if(ids.length == 0) { return; }
 
-        const channel = DataService.#getChannel<TaskChannel>(DataService.data.tasks, ErrorMessageType.TASK);
+        const channel = DataService.#getChannel<TaskChannel>(DataService.data.tasks, ErrorMessageCategory.TASK);
         return channel.deleteItems(ids);
     }
     //#endregion Tasks
@@ -233,7 +234,7 @@ export abstract class DataService
     //#region Images
     static async getImageRecord(id: string)
     {
-        const channel = DataService.#getChannel<CustomImageChannel>(DataService.data.customImages, ErrorMessageType.IMAGE);
+        const channel = DataService.#getChannel<CustomImageChannel>(DataService.data.customImages, ErrorMessageCategory.IMAGE);
         return channel.get(id);
     }
     //#endregion
@@ -242,41 +243,41 @@ export abstract class DataService
 
     static getHistoryEntries()
     {
-        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
+        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageCategory.HISTORY);
         return channel.getAll('timestamp');
     }
     static getHistoryEntry(id: string)
     {
-        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
+        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageCategory.HISTORY);
         return channel.get(id);
     }
-    static createHistoryEntry<T extends HistoryEntryTargetType>(data: HistoryEntryData<T>, action: HistoryEntryType)
+    static createHistoryEntry<T extends HistoryEntryTargetCategoryType>(data: HistoryEntryData<T>, action: HistoryEntryType)
     {
-        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
+        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageCategory.HISTORY);
         return channel.create(data, action);
     }
-    static saveHistoryEntry<T extends HistoryEntryTargetType>(entry: HistoryEntryRecord<T>)
+    static saveHistoryEntry<T extends HistoryEntryTargetCategoryType>(entry: HistoryEntryRecord<T>)
     {
-        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
+        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageCategory.HISTORY);
         return channel.save(entry);
     }
-    static saveHistoryEntries<T extends HistoryEntryTargetType>(...entries: HistoryEntryRecord<T>[])
+    static saveHistoryEntries<T extends HistoryEntryTargetCategoryType>(...entries: HistoryEntryRecord<T>[])
     {
-        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
+        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageCategory.HISTORY);
         return channel.saveItems(entries);
     }
     static deleteHistoryEntriesIfExists(ids: string[])
     {
-        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
+        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageCategory.HISTORY);
         return channel.deleteIfExists(ids);
     }
     static deleteHistoryEntries(...ids: string[])
     {
-        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageType.HISTORY);
+        const channel = this.#getChannel(this.#data.historyEntries, ErrorMessageCategory.HISTORY);
         return channel.deleteItems(ids);
     }
     
-    static async reverseUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
+    static async reverseUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetCategoryType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
     {
         if(currentEntry.data.properties.updates != null)
         {
@@ -299,7 +300,7 @@ export abstract class DataService
 
         if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
         {
-            const taskSettingsChannel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageType.SETTINGS);
+            const taskSettingsChannel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageCategory.SETTINGS);
             const settingsTarget = await taskSettingsChannel.get(currentEntry.data.properties.taskSettings.id);
             if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
             for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
@@ -311,7 +312,7 @@ export abstract class DataService
 
         if(currentEntry.data.properties.backgroundImages != null)
         {
-            const imagesChannel = DataService.#getChannel<CustomImageChannel>(DataService.data.customImages, ErrorMessageType.IMAGE);
+            const imagesChannel = DataService.#getChannel<CustomImageChannel>(DataService.data.customImages, ErrorMessageCategory.IMAGE);
             const updatedImages: CustomImageRecord[] = [];
             const deletedImageIds: string[] = [];
             for(let i = 0; i < currentEntry.data.properties.backgroundImages.length; i++)
@@ -335,7 +336,7 @@ export abstract class DataService
             await imagesChannel.deleteItems(deletedImageIds);
         }
     }
-    static async activateUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
+    static async activateUpdate(channel: BoardChannel | TaskListChannel | TaskChannel | CustomImageChannel, currentEntry: HistoryEntryRecord<HistoryEntryTargetCategoryType>, target: CustomImageRecord | TaskRecord | TaskListRecord | TaskBoardRecord)
     {
         if(currentEntry.data.properties.updates != null)
         {
@@ -358,7 +359,7 @@ export abstract class DataService
 
         if(currentEntry.data.properties.taskSettings != null && currentEntry.data.properties.taskSettings.updates != null)
         {
-            const taskSettingsChannel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageType.SETTINGS);
+            const taskSettingsChannel = DataService.#getChannel<TaskSettingsChannel>(DataService.data.taskSettings, ErrorMessageCategory.SETTINGS);
             const settingsTarget = await taskSettingsChannel.get(currentEntry.data.properties.taskSettings.id);
             if(settingsTarget == null) { throw new Error('Unable to find target record.'); }
             for(const [key, value] of currentEntry.data.properties.taskSettings.updates)
@@ -370,7 +371,7 @@ export abstract class DataService
 
         if(currentEntry.data.properties.backgroundImages != null)
         {
-            const imagesChannel = DataService.#getChannel<CustomImageChannel>(DataService.data.customImages, ErrorMessageType.IMAGE);
+            const imagesChannel = DataService.#getChannel<CustomImageChannel>(DataService.data.customImages, ErrorMessageCategory.IMAGE);
             // doesn't clear from image cache when undo after remove
             const updatedImages: CustomImageRecord[] = [];
             const restoredImageIds: string[] = [];
@@ -400,10 +401,10 @@ export abstract class DataService
     //#region Cache
     static async getDeletedItems()
     {
-        const boardChannel = this.#getChannel(this.#data.boards, ErrorMessageType.BOARD);
-        const listChannel = this.#getChannel(this.#data.lists, ErrorMessageType.LIST);
-        const taskChannel = this.#getChannel(this.#data.tasks, ErrorMessageType.TASK);
-        const imageChannel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
+        const boardChannel = this.#getChannel(this.#data.boards, ErrorMessageCategory.BOARD);
+        const listChannel = this.#getChannel(this.#data.lists, ErrorMessageCategory.LIST);
+        const taskChannel = this.#getChannel(this.#data.tasks, ErrorMessageCategory.TASK);
+        const imageChannel = this.#getChannel(this.#data.customImages, ErrorMessageCategory.IMAGE);
 
         const boards = await boardChannel.getAll();
         const lists = await listChannel.getAll();
@@ -419,22 +420,22 @@ export abstract class DataService
     }
     static saveImage(item: CustomImageRecord)
     {
-        const channel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
+        const channel = this.#getChannel(this.#data.customImages, ErrorMessageCategory.IMAGE);
         return channel.save(item);
     }
     static createImageFromImage(image: File)
     {
-        const channel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
+        const channel = this.#getChannel(this.#data.customImages, ErrorMessageCategory.IMAGE);
         return channel.createFromImage(image);
     }
     static deleteImage(id: string, overrideSoftDelete: boolean = false)
     {
-        const channel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
+        const channel = this.#getChannel(this.#data.customImages, ErrorMessageCategory.IMAGE);
         return channel.delete(id, overrideSoftDelete);
     }
     static deleteImages(...ids: string[])
     {
-        const channel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
+        const channel = this.#getChannel(this.#data.customImages, ErrorMessageCategory.IMAGE);
         return channel.deleteItems(ids);
     }
     //#endregion Cache
@@ -444,9 +445,9 @@ export abstract class DataService
     {
         const exportBackgroundImage = target.findElement<BoardSettingsElement>('board-settings').findElement<HTMLInputElement>('export-background-image').checked;
         
-        const boardChannel = this.#getChannel(this.#data.boards, ErrorMessageType.BOARD);
-        const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, ErrorMessageType.BOARD);
-        const imageChannel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
+        const boardChannel = this.#getChannel(this.#data.boards, ErrorMessageCategory.BOARD);
+        const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, ErrorMessageCategory.BOARD);
+        const imageChannel = this.#getChannel(this.#data.customImages, ErrorMessageCategory.IMAGE);
 
         const board = await boardChannel.get(id);
         if(board == null) { throw new Error(`Error loading board from id: ${id}`); }
@@ -509,11 +510,11 @@ export abstract class DataService
     {
         try
         {
-            const boardChannel = this.#getChannel(this.#data.boards, ErrorMessageType.BOARD);
-            const listChannel = this.#getChannel(this.#data.lists, ErrorMessageType.LIST);
-            const taskChannel = this.#getChannel(this.#data.tasks, ErrorMessageType.TASK);
-            const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, ErrorMessageType.BOARD);
-            const imageChannel = this.#getChannel(this.#data.customImages, ErrorMessageType.IMAGE);
+            const boardChannel = this.#getChannel(this.#data.boards, ErrorMessageCategory.BOARD);
+            const listChannel = this.#getChannel(this.#data.lists, ErrorMessageCategory.LIST);
+            const taskChannel = this.#getChannel(this.#data.tasks, ErrorMessageCategory.TASK);
+            const taskSettingsChannel = this.#getChannel(this.#data.taskSettings, ErrorMessageCategory.BOARD);
+            const imageChannel = this.#getChannel(this.#data.customImages, ErrorMessageCategory.IMAGE);
 
             const [ board, lists, tasks, settings, images ] = await this.#data.naturalizeForeignData(boardData, order);
 
@@ -544,11 +545,11 @@ export abstract class DataService
     //#region Utilities
     static async removeExpiredData()
     {
-        const boardChannel = DataService.#getChannel(DataService.#data.boards, ErrorMessageType.BOARD);
-        const listChannel = DataService.#getChannel(DataService.#data.lists, ErrorMessageType.LIST);
-        const taskChannel = DataService.#getChannel(DataService.#data.tasks, ErrorMessageType.TASK);
-        const taskSettingsChannel = DataService.#getChannel(DataService.#data.taskSettings, ErrorMessageType.BOARD);
-        const imageChannel = DataService.#getChannel(DataService.#data.customImages, ErrorMessageType.IMAGE);
+        const boardChannel = DataService.#getChannel(DataService.#data.boards, ErrorMessageCategory.BOARD);
+        const listChannel = DataService.#getChannel(DataService.#data.lists, ErrorMessageCategory.LIST);
+        const taskChannel = DataService.#getChannel(DataService.#data.tasks, ErrorMessageCategory.TASK);
+        const taskSettingsChannel = DataService.#getChannel(DataService.#data.taskSettings, ErrorMessageCategory.BOARD);
+        const imageChannel = DataService.#getChannel(DataService.#data.customImages, ErrorMessageCategory.IMAGE);
 
         const daysToPersistData = (await DataService.getAppSetting(AppSettingKey.DaysToPersistData)) ?? DEFAULT_PERSIST_DAYS;
         const comparisonTime = Date.now() - (parseInt(daysToPersistData) * MILLISECONDSINDAY);
@@ -573,7 +574,7 @@ export abstract class DataService
     //#endregion Utilities
 
     //#region Internal
-    static #getChannel<T extends DataChannel>(channel: T|undefined, errorType: ErrorMessageType = ErrorMessageType.UNKNOWN)
+    static #getChannel<T extends DataChannel>(channel: T|undefined, errorType: ErrorMessageCategoryType = ErrorMessageCategory.UNKNOWN)
     {
         if(DataService.data.isInitialized == false || channel == null)
         {

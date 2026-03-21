@@ -12,11 +12,11 @@ import { CustomImageChannel } from "./channels/custom-image.channel";
 import { BoardExport } from "./foreign/exported-board";
 import { HistoryEntryRecord } from "./records/history-entry.record";
 import { HistoryEntryChannel } from "./channels/history-entry.channel";
-import { HistoryEntryTargetType, PropertyUpdate } from "./history/history-entry-data";
-import { BoardActionProperties } from "./history/board-action-properties";
-import { ListActionProperties } from "./history/list-action-properties";
-import { TaskSettingsActionProperties } from "./history/task-settings-action-properties";
-import { CustomImageActionProperties } from "./history/custom-image-action-properties";
+import { type PropertyUpdate } from "./history/history-entry-data";
+import { type BoardActionProperties } from "./history/board-action-properties";
+import { type ListActionProperties } from "./history/list-action-properties";
+import { type TaskSettingsActionProperties } from "./history/task-settings-action-properties";
+import { type CustomImageActionProperties } from "./history/custom-image-action-properties";
 
 const DEFAULT_SCHEMA = 
 {
@@ -146,7 +146,14 @@ export class TaskboardManagerElementData
     , image?: { existing: CustomImageRecord|null, updated: CustomImageRecord|null })
     {
         const boardDiff = Object.fromEntries(Object.entries(board.existing)
-        .filter(([key, value]) => value !== (board.updated as unknown as any)[key]));
+        .filter(([key, value]) => 
+        {
+            if(key.toLowerCase().indexOf('color') != -1 && typeof value == 'string' && value.startsWith('#'))
+            {
+                return value.toLowerCase() !== (board.updated as unknown as any)[key].toLowerCase();
+            }
+            return value !== (board.updated as unknown as any)[key];
+        }));
         const board_changedValues: Map<string, PropertyUpdate> = new Map();
         for(const [key, value] of Object.entries(boardDiff))
         {
@@ -227,7 +234,14 @@ export class TaskboardManagerElementData
 
                 
                 const listDiff: { [key: string]: string|number|boolean } = Object.fromEntries(Object.entries(existingList)
-                .filter(([key, value]) => value !== (updatedList as unknown as any)[key]));
+                .filter(([key, value]) => 
+                {
+                    if(key.toLowerCase().indexOf('color') != -1 && typeof value == 'string' && value.startsWith('#'))
+                    {
+                        return value.toLowerCase() !== (updatedList as unknown as any)[key].toLowerCase();
+                    }
+                    return value !== (updatedList as unknown as any)[key];
+                }));
 
                 const list_changedValues: Map<string, PropertyUpdate> = new Map();
                 for(const [key, value] of Object.entries(listDiff))
@@ -260,7 +274,14 @@ export class TaskboardManagerElementData
                 if(existingSettings == null || updatedSettings == null) { continue; }
                 
                 const settingsDiff: { [key: string]: string|number|boolean } = Object.fromEntries(Object.entries(existingSettings)
-                .filter(([key, value]) => value !== (updatedSettings as unknown as any)[key]));
+                .filter(([key, value]) => 
+                {
+                    if(key.toLowerCase().indexOf('color') != -1 && typeof value == 'string' && value.startsWith('#'))
+                    {
+                        return value.toLowerCase() !== (updatedSettings as unknown as any)[key].toLowerCase();
+                    }
+                    return value !== (updatedSettings as unknown as any)[key];
+                }));
 
                 const settings_changedValues: Map<string, PropertyUpdate> = new Map();
                 for(const [key, value] of Object.entries(settingsDiff))
@@ -423,7 +444,7 @@ export class TaskboardManagerElementData
                 list.order = listData.order ?? i;
                 list.color = listData.color ?? list.color;
                 list.name = listData.name ?? list.name;
-                list.description = listData.description ?? list.description;
+                // list.description = listData.description ?? list.description;
                 list.colorDisplay = listData.colorDisplay ?? list.colorDisplay;
                 list.useCustomBackgroundColor = listData.useCustomBackgroundColor ?? list.useCustomBackgroundColor;
                 list.backgroundColor = listData.backgroundColor ?? list.backgroundColor;

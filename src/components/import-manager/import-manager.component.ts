@@ -5,7 +5,7 @@ import sharedStyles from '../../styles/shared.css?raw';
 import { BoardExport } from '../../data/foreign/exported-board';
 import { RecordSetter } from 'record-setter';
 import { RecordTreeElement } from '@magnit-ce/record-tree';
-import { defineIcons, IconType } from '../../assets/icons/icons.asset';
+import { defineIcons, IconKey } from '../../assets/icons/icons.asset';
 import { assignClassAndIdToPart, assignInputTypeToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../libs/ce-part-utils/ce-part-utils';
 
 const ID_PROPERTIES = new Set(['id', 'listId', 'taskSettingsId', 'backgroundImageId', 'boardId']);
@@ -17,7 +17,7 @@ ${sharedStyles}
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.Import,
+    IconKey.Import,
 )}`;
 
 const COMPONENT_TAG_NAME = 'import-manager';

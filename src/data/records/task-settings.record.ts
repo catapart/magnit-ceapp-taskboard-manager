@@ -1,16 +1,17 @@
 import { DataRecord } from "record-setter";
 
-export enum TaskColorDisplay 
+export const TaskColorDisplay =
 {
-    Hidden = 'hidden',
-    Element = 'element',
-    Borders = 'border',
-    TopBorder = 'top-border',
-    RightBorder = 'right-border',
-    BottomBorder = 'bottom-border',
-    LeftBorder = 'left-border',
-    Background = "background",
-}
+    Hidden: 'hidden',
+    Element: 'element',
+    Borders: 'border',
+    TopBorder: 'top-border',
+    RightBorder: 'right-border',
+    BottomBorder: 'bottom-border',
+    LeftBorder: 'left-border',
+    Background: "background",
+} as const;
+export type TaskColorDisplayType = typeof TaskColorDisplay[keyof typeof TaskColorDisplay];
 
 export type TaskBorderRadiusUnit = 'px'|'%';
 export type TaskSettingsParentRecordCategory = 'list'|'board';
@@ -21,7 +22,7 @@ export class TaskSettingsRecord extends DataRecord
 
     centerCheckbox: boolean = true;
 
-    colorDisplay: TaskColorDisplay = TaskColorDisplay.Element;
+    colorDisplay: TaskColorDisplayType = TaskColorDisplay.Element;
 
     useCustomBackgroundColor: boolean = false;
     customBackgroundColor: string = "#f9faf5";

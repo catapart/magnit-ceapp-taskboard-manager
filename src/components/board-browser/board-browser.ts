@@ -4,20 +4,15 @@ import sharedStyles from '../../styles/shared.css?raw';
 // html
 import html from './board-browser.html?raw';
 // icons
-import { defineIcons, IconType } from '../../assets/icons/icons.asset';
+import { defineIcons, IconKey } from '../../assets/icons/icons.asset';
 import { TaskBoardRecord } from '../../data/records/task-board.record';
 import { CaptionedThumbnailElement } from '@magnit-ce/captioned-thumbnail';
 import { CollectionBrowserElement } from '@magnit-ce/collection-browser';
 import { CollectionFilterElement } from '@magnit-ce/collection-filter';
-import { MessageCardElement, MessageCardType } from '@magnit-ce/message-card';
-import { PathRouterElement } from '@magnit-ce/path-router';
 import { assignClassAndIdToPart, assignInputTypeToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../libs/ce-part-utils/ce-part-utils';
 
-export enum BoardBrowserAttributes
-{
-}
 
-export type BoardBrowserProperties = { [key in BoardBrowserAttributes]: string } &
+export type BoardBrowserProperties = 
 {
     onNavigate: (path: string) => void;
 };
@@ -28,17 +23,15 @@ COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.TaskBoard,
-    IconType.ConfirmCheck,
-    IconType.CancelCross,
+    IconKey.TaskBoard,
+    IconKey.ConfirmCheck,
+    IconKey.CancelCross,
 )}`;
 
 const COMPONENT_TAG_NAME = 'board-browser';
 export class BoardBrowserElement extends HTMLElement
 {
-    static observedAttributes = [
-        ...Object.values(BoardBrowserAttributes),
-    ];
+    static observedAttributes = [];
 
     componentParts: Map<string, HTMLElement> = new Map();
     getElement<T extends HTMLElement = HTMLElement>(id: string)
@@ -78,7 +71,7 @@ export class BoardBrowserElement extends HTMLElement
     }
 
     
-    boardBrowserOkButton_onClick(event: Event)
+    boardBrowserOkButton_onClick(_event: Event)
     {
         const selected = this.findElement<CollectionBrowserElement>('collection-browser').getSelected();
         if(selected == null)

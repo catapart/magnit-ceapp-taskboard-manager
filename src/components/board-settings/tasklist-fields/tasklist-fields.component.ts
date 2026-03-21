@@ -1,5 +1,5 @@
-import { defineIcons, Icons, IconType } from '../../../assets/icons/icons.asset';
-import { TaskListColorDisplay, TaskListRecord } from '../../../data/records/task-list.record';
+import { defineIcons, IconKey } from '../../../assets/icons/icons.asset';
+import { TaskListColorDisplay, TaskListRecord, type TaskListColorDisplayType } from '../../../data/records/task-list.record';
 import { TaskSettingsRecord } from '../../../data/records/task-settings.record';
 import { assignClassAndIdToPart, assignFormFieldPartAttributes, assignInputTypeToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../../libs/ce-part-utils/ce-part-utils';
 import { TaskFieldsComponent } from '../task-fields/task-fields.component';
@@ -16,9 +16,9 @@ ${style}
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.CancelCross,
-    IconType.Copy,
-    IconType.UndoRedo
+    IconKey.CancelCross,
+    IconKey.Copy,
+    IconKey.UndoRedo
 )}`;
 
 const COMPONENT_TAG_NAME = 'tasklist-fields';
@@ -111,7 +111,7 @@ export class TaskListFieldsComponent extends HTMLElement
         taskList.fontColor = this.findElement<HTMLInputElement>('tasklist-font-color').value;
         taskList.useCustomWidth = this.findElement<HTMLInputElement>('tasklist-width-field').getAttribute('optional-value') == "true";
         taskList.width = parseFloat(this.findElement<HTMLInputElement>('tasklist-width').value);
-        taskList.colorDisplay = this.findElement<HTMLInputElement>('tasklist-color-display').value as TaskListColorDisplay;
+        taskList.colorDisplay = this.findElement<HTMLInputElement>('tasklist-color-display').value as TaskListColorDisplayType;
 
         const taskSettings = this.findElement<TaskFieldsComponent>('task-settings').getRecord();
         taskSettings.parentRecordType = 'list';
@@ -129,36 +129,36 @@ export class TaskListFieldsComponent extends HTMLElement
     //#endregion Management
 
     //#region Internal
-    #applyPartAttributes()
-    {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            classedElements[i].part.add(...classedElements[i].classList);
-        }
-        const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
-        for(let i = 0; i < formFieldElements.length; i++)
-        {
-            const formFieldElement = formFieldElements[i];
-            const fieldId = formFieldElement.id;
+    // #applyPartAttributes()
+    // {
+    //     const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
+    //     for(let i = 0; i < identifiedElements.length; i++)
+    //     {
+    //         identifiedElements[i].part.add(identifiedElements[i].id);
+    //     }
+    //     const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
+    //     for(let i = 0; i < classedElements.length; i++)
+    //     {
+    //         classedElements[i].part.add(...classedElements[i].classList);
+    //     }
+    //     const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
+    //     for(let i = 0; i < formFieldElements.length; i++)
+    //     {
+    //         const formFieldElement = formFieldElements[i];
+    //         const fieldId = formFieldElement.id;
             
-            const container = formFieldElement.querySelector('.container');
-            container?.part.add('container', 'field-container', `${fieldId}-container`);
-            const label = formFieldElement.querySelector('.field-label');
-            label?.part.add('label', 'field-label', `${fieldId}-label`);
-            const prefix = formFieldElement.querySelector('.prefix');
-            prefix?.part.add('prefix', 'field-prefix', `${fieldId}-prefix`);
-            const postfix = formFieldElement.querySelector('.postfix');
-            postfix?.part.add('postfix', 'field-postfix', `${fieldId}-postfix`);
-            const enabledCheckbox = formFieldElement.querySelector('.enabled-checkbox');
-            enabledCheckbox?.part.add('enabled-checkbox', 'field-enabled-checkbox', `${fieldId}-enabled-checkbox`);
-        }
-    }
+    //         const container = formFieldElement.querySelector('.container');
+    //         container?.part.add('container', 'field-container', `${fieldId}-container`);
+    //         const label = formFieldElement.querySelector('.field-label');
+    //         label?.part.add('label', 'field-label', `${fieldId}-label`);
+    //         const prefix = formFieldElement.querySelector('.prefix');
+    //         prefix?.part.add('prefix', 'field-prefix', `${fieldId}-prefix`);
+    //         const postfix = formFieldElement.querySelector('.postfix');
+    //         postfix?.part.add('postfix', 'field-postfix', `${fieldId}-postfix`);
+    //         const enabledCheckbox = formFieldElement.querySelector('.enabled-checkbox');
+    //         enabledCheckbox?.part.add('enabled-checkbox', 'field-enabled-checkbox', `${fieldId}-enabled-checkbox`);
+    //     }
+    // }
     //#endregion Internal
 }
 

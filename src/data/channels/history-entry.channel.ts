@@ -1,12 +1,12 @@
 import { RecordSetter } from "record-setter";
 import { DataChannel } from "./data.channel";
 import { HistoryEntryRecord } from "../records/history-entry.record";
-import { HistoryEntryData, HistoryEntryTargetType } from "../history/history-entry-data";
+import { HistoryEntryData, type HistoryEntryTargetCategoryType } from "../history/history-entry-data";
 import { HistoryEntryType } from "@magnit-ce/action-history";
 
-export class HistoryEntryChannel extends DataChannel<HistoryEntryRecord<HistoryEntryTargetType>>
+export class HistoryEntryChannel extends DataChannel<HistoryEntryRecord<HistoryEntryTargetCategoryType>>
 {
-    create(data: HistoryEntryData<HistoryEntryTargetType>, action?: HistoryEntryType)
+    create(data: HistoryEntryData<HistoryEntryTargetCategoryType>, action?: HistoryEntryType)
     {
         const record = new HistoryEntryRecord();
         record.id = RecordSetter.generateId();

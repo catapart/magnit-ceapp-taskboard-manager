@@ -7,7 +7,7 @@ import componentStyle from './taskboard-manager.css?raw';
 // html
 import html from './taskboard-manager.html?raw';
 // icons
-import { defineIcons, IconType } from './assets/icons/icons.asset';
+import { defineIcons, IconKey } from './assets/icons/icons.asset';
 
 // component definitions
 import './components/import-manager/import-manager.component';
@@ -39,9 +39,9 @@ import { TaskListColorDisplay, TaskListRecord } from './data/records/task-list.r
 import { TaskColorDisplay, TaskSettingsRecord } from './data/records/task-settings.record';
 import { BoardExport } from './data/foreign/exported-board';
 import { TaskBoardRecord } from './data/records/task-board.record';
-import { HistoryEntryTargetType, PropertyUpdate } from './data/history/history-entry-data';
-import { ListActionProperties } from './data/history/list-action-properties';
-import { CustomImageActionProperties } from './data/history/custom-image-action-properties';
+import { HistoryEntryTargetCategory, type PropertyUpdate } from './data/history/history-entry-data';
+import { type ListActionProperties } from './data/history/list-action-properties';
+import { type CustomImageActionProperties } from './data/history/custom-image-action-properties';
 import { TaskListElement } from '@magnit-ce/task-list';
 import { TaskCardElement } from '@magnit-ce/task-card';
 import { PathRouterElement, RoutePageElement} from '@magnit-ce/path-router';
@@ -57,7 +57,7 @@ import { BoardSettingsElement } from './components/board-settings/board-settings
 import { ConfigPanelElement } from './components/config-panel/config-panel';
 import { AppSettingKey, DataService, MILLISECONDSINDAY } from './data/data.service';
 import { FeedbackService } from './services/feedback.service';
-import { ColorScheme } from './components/config-panel/settings-panel/settings-panel';
+import { type ColorScheme } from './components/config-panel/settings-panel/settings-panel';
 import { assignPartsAsExportPartsAttribute } from './libs/ce-part-utils/ce-part-utils';
 
 
@@ -74,14 +74,14 @@ ${componentStyle}`);
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.LogoMark,
-    IconType.LogoType,
-    IconType.Logo,
-    IconType.PlusIcon,
-    IconType.Stylus,
-    IconType.TaskBoard,
-    IconType.UndoRedo,
-    IconType.CloseCross,
+    IconKey.LogoMark,
+    IconKey.LogoType,
+    IconKey.Logo,
+    IconKey.PlusIcon,
+    IconKey.Stylus,
+    IconKey.TaskBoard,
+    IconKey.UndoRedo,
+    IconKey.CloseCross,
 )}`;
 
 const COMPONENT_TAG_NAME = 'taskboard-manager';
@@ -212,7 +212,7 @@ export class TaskboardManagerElement extends HTMLElement
         const board = await DataService.createBoard(order);
 
         await this.findElement<ConfigPanelElement>('config-panel')
-        .addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Board, { id: board.id });
+        .addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetCategory.Board, { id: board.id });
 
         this.refreshBoardCollections();
         // await this.findElement<AppMenuElement>('app-menu-container').refresh();
@@ -299,7 +299,7 @@ export class TaskboardManagerElement extends HTMLElement
 
         const configPanel = this.findElement<ConfigPanelElement>('config-panel');
         const welcomePanel = this.findElement<WelcomePanelElement>('welcome-panel');
-        const entry = await configPanel.addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Board, { id: boardId });
+        const entry = await configPanel.addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetCategory.Board, { id: boardId });
         this.refreshBoardCollections();
         configPanel.refreshCache();
         await welcomePanel.removeBoardFromRecentBoards(boardId);
@@ -487,7 +487,7 @@ export class TaskboardManagerElement extends HTMLElement
             this.findElement('welcome-panel').shadowRoot!.querySelector<HTMLElement>('#recent-boards')!
         ]);
         this.findElement<PathRouterElement>('app-router').addEventListener('pathchange', this.#router_onPathChange.bind(this));
-        window.addEventListener('popstate', async (event) =>
+        window.addEventListener('popstate', async (_event) =>
         {
             this.#historyIsUpdating = true;
             const { windowPath, windowHash } = this.#parseWindowPath();
@@ -667,24 +667,27 @@ export class TaskboardManagerElement extends HTMLElement
 
         // console.log(boardActionProperties, listActionProperties);
 
-        if(boardActionProperties != null && imageUpdates.length > 0)
+        if(boardActionProperties != null)
         {
-            if(boardActionProperties.backgroundImages != null)
+            if(imageUpdates.length > 0)
             {
-                boardActionProperties.backgroundImages = boardActionProperties.backgroundImages.concat(imageUpdates);
-            }
-            else if(boardActionProperties.backgroundImages == null)
-            {
-                boardActionProperties.backgroundImages = imageUpdates;
+                if(boardActionProperties.backgroundImages != null)
+                {
+                    boardActionProperties.backgroundImages = boardActionProperties.backgroundImages.concat(imageUpdates);
+                }
+                else if(boardActionProperties.backgroundImages == null)
+                {
+                    boardActionProperties.backgroundImages = imageUpdates;
+                }
             }
 
-            await configPanel.addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.Board, boardActionProperties);
+            await configPanel.addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetCategory.Board, boardActionProperties);
         }
 
         for(let i = 0; i < listActionProperties.length; i++)
         {
             const actionProperties = listActionProperties[i];
-            await configPanel.addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.List, actionProperties);
+            await configPanel.addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetCategory.List, actionProperties);
         }
 
         const existingListIds = new Set(existingTaskLists.filter(item => item != undefined).map(item => item.id));
@@ -693,13 +696,13 @@ export class TaskboardManagerElement extends HTMLElement
         for(let i = 0; i < addedLists.length; i++)
         {
             const addedList = addedLists[i];
-            await configPanel.addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.List, { id: addedList.id });
+            await configPanel.addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetCategory.List, { id: addedList.id });
         }
         const removedLists = existingTaskLists.filter(item => item != undefined && !currentListIds.has(item.id));
         for(let i = 0; i < removedLists.length; i++)
         {
             const removedList = removedLists[i];
-            await configPanel.addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.List, { id: removedList.id });
+            await configPanel.addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetCategory.List, { id: removedList.id });
         }
     }
     #addUndoNotification(message: string, entryId: string)
@@ -783,7 +786,7 @@ export class TaskboardManagerElement extends HTMLElement
             updates
         };
 
-        await this.findElement<ConfigPanelElement>('config-panel').addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.List, properties);
+        await this.findElement<ConfigPanelElement>('config-panel').addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetCategory.List, properties);
     }
     async #updateTaskRecord(taskComponent: TaskCardElement, parentList: TaskListElement)
     {
@@ -829,7 +832,7 @@ export class TaskboardManagerElement extends HTMLElement
             updates
         };
 
-        await this.findElement<ConfigPanelElement>('config-panel').addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetType.Task, properties);
+        await this.findElement<ConfigPanelElement>('config-panel').addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetCategory.Task, properties);
     }
     async #registerTaskCard(card: TaskCardElement, listId: string, order: number)
     {
@@ -859,7 +862,7 @@ export class TaskboardManagerElement extends HTMLElement
         task.order = order;
         await DataService.saveTaskRecords(task);
 
-        this.findElement<ConfigPanelElement>('config-panel').addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetType.Task, { id: task.id });
+        this.findElement<ConfigPanelElement>('config-panel').addActionHistoryEntry(HistoryEntryType.Create, HistoryEntryTargetCategory.Task, { id: task.id });
 
         return task;
     }
@@ -875,7 +878,7 @@ export class TaskboardManagerElement extends HTMLElement
 
         await DataService.deleteTaskRecords(id);
 
-        const entry = await this.findElement<ConfigPanelElement>('config-panel').addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetType.Task, { id });
+        const entry = await this.findElement<ConfigPanelElement>('config-panel').addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetCategory.Task, { id });
         if(entry != null)
         {
             this.#addUndoNotification("A task was just deleted", entry.getAttribute('data-entry-id')!);
@@ -1095,8 +1098,8 @@ export class TaskboardManagerElement extends HTMLElement
                 element.style.removeProperty('flex-grow');
             }
 
-            const listTitle = (list.description == null || list.description.trim() == "") ? list.name : list.description;
-            element.setAttribute('title', listTitle);
+            // const listTitle = (list.description == null || list.description.trim() == "") ? list.name : list.description;
+            element.setAttribute('title', list.name);
 
             if(list.useCustomBackgroundColor == true)
             {
@@ -1666,19 +1669,19 @@ export class TaskboardManagerElement extends HTMLElement
 
         return { windowPath, windowHash }
     }
-    #parseWindowPath_pwa()
-    {    
-        let windowPath = window.location.pathname;
-        if(windowPath.startsWith('/')) { windowPath = windowPath.substring(1); }
-        if(this.#rootPath != "" && windowPath.startsWith(this.#rootPath)) { windowPath = windowPath.substring(this.#rootPath.length + 1); }
-        windowPath = windowPath.trim();
+    // #parseWindowPath_pwa()
+    // {    
+    //     let windowPath = window.location.pathname;
+    //     if(windowPath.startsWith('/')) { windowPath = windowPath.substring(1); }
+    //     if(this.#rootPath != "" && windowPath.startsWith(this.#rootPath)) { windowPath = windowPath.substring(this.#rootPath.length + 1); }
+    //     windowPath = windowPath.trim();
 
-        let windowHash = window.location.hash;
-        if(windowHash.startsWith('#')) { windowHash = windowHash.substring(1); }
-        windowHash = windowHash.trim();
+    //     let windowHash = window.location.hash;
+    //     if(windowHash.startsWith('#')) { windowHash = windowHash.substring(1); }
+    //     windowHash = windowHash.trim();
 
-        return { windowPath, windowHash }
-    }
+    //     return { windowPath, windowHash }
+    // }
 
     #canAddList()
     {

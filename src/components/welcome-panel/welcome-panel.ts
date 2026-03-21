@@ -4,18 +4,19 @@ import sharedStyles from '../../styles/shared.css?raw';
 // html
 import html from './welcome-panel.html?raw';
 // icons
-import { defineIcons, IconType } from '../../assets/icons/icons.asset';
+import { defineIcons, IconKey } from '../../assets/icons/icons.asset';
 import { TaskBoardRecord } from '../../data/records/task-board.record';
-import { RecentBoardData } from '../../data/types/recent-board-data.type';
+import { type RecentBoardData } from '../../data/types/recent-board-data.type';
 import { AppSettingKey, DataService } from '../../data/data.service';
 import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../libs/ce-part-utils/ce-part-utils';
 
-export enum WelcomePanelAttributes
+export const WelcomePanelAttributes =
 {
-    pathId = 'path-id',
-}
+    pathId: 'path-id',
+} as const;
+export type WelcomePanelAttributesType = typeof WelcomePanelAttributes[keyof typeof WelcomePanelAttributes];
 
-export type WelcomePanelProperties = Partial<{ [key in WelcomePanelAttributes]: string }> &
+export type WelcomePanelProperties = Partial<{ [key in WelcomePanelAttributesType]: string }> &
 {
     addBoard: () => Promise<TaskBoardRecord>,
     openBoard: (id: string) => void,
@@ -27,11 +28,11 @@ COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.LogoMark,
-    IconType.LogoType,
-    IconType.Logo,
-    IconType.PlusIcon,
-    IconType.CloseCross,
+    IconKey.LogoMark,
+    IconKey.LogoType,
+    IconKey.Logo,
+    IconKey.PlusIcon,
+    IconKey.CloseCross,
 )}`;
 
 const COMPONENT_TAG_NAME = 'welcome-panel';

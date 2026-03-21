@@ -1,21 +1,22 @@
-import { BoardActionProperties } from "./board-action-properties";
+import { type BoardActionProperties } from "./board-action-properties";
 
-export enum HistoryEntryTargetType
+export const HistoryEntryTargetCategory =
 {
-    Board = 'board',
-    List = 'list',
-    Task = 'task',
-    Image = 'image'
-}
+    Board: 'board',
+    List: 'list',
+    Task: 'task',
+    Image: 'image'
+} as const;
+export type HistoryEntryTargetCategoryType = typeof HistoryEntryTargetCategory[keyof typeof HistoryEntryTargetCategory];
 
-export type PropertiesType<T extends HistoryEntryTargetType> = 
-T extends HistoryEntryTargetType.Board 
+export type PropertiesType<T extends HistoryEntryTargetCategoryType> = 
+T extends typeof HistoryEntryTargetCategory.Board 
 ? BoardActionProperties 
-: T extends HistoryEntryTargetType.List 
+: T extends typeof HistoryEntryTargetCategory.List 
 ? BoardActionProperties
-:T extends HistoryEntryTargetType.Task 
+:T extends typeof HistoryEntryTargetCategory.Task 
 ? BoardActionProperties 
-: T extends HistoryEntryTargetType.Image 
+: T extends typeof HistoryEntryTargetCategory.Image 
 ? BoardActionProperties
 : Record<string, never>;
 
@@ -23,7 +24,7 @@ export type PropertyUpdate = { from: string|number|boolean|null|undefined, to: s
 
 export type BasicActionProperties = { id: string, updates?: Map<string, PropertyUpdate> };
 
-export class HistoryEntryData<T extends HistoryEntryTargetType = HistoryEntryTargetType.Board>
+export class HistoryEntryData<T extends HistoryEntryTargetCategoryType = typeof HistoryEntryTargetCategory.Board>
 {
     targetType: T;
     properties: PropertiesType<T>;

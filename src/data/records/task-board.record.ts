@@ -1,11 +1,12 @@
 import { DataRecord } from "record-setter";
 
-export enum TaskBoardBackgroundDisplay
+export const TaskBoardBackgroundDisplay =
 {
-    Stretch = 'stretch',
-    Center = 'center',
-    Tile = 'tile',
-}
+    Stretch: 'stretch',
+    Center: 'center',
+    Tile: 'tile',
+} as const;
+export type TaskBoardBackgroundDisplayType = typeof TaskBoardBackgroundDisplay[keyof typeof TaskBoardBackgroundDisplay];
 
 export class TaskBoardRecord extends DataRecord
 {
@@ -13,7 +14,7 @@ export class TaskBoardRecord extends DataRecord
     color: string = "#531CE8";
     order: number = -1;
     backgroundImageId: string = "";
-    backgroundDisplay: TaskBoardBackgroundDisplay = TaskBoardBackgroundDisplay.Stretch;
+    backgroundDisplay: TaskBoardBackgroundDisplayType = TaskBoardBackgroundDisplay.Stretch;
     backgroundOffsetX: number = 0;
     backgroundOffsetY: number = 0;
     useCustomBackgroundColor: boolean = false;

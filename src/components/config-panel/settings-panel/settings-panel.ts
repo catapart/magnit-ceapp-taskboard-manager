@@ -4,7 +4,7 @@ import sharedStyles from '../../../styles/shared.css?raw';
 // html
 import html from './settings-panel.html?raw';
 // icons
-import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
+import { defineIcons, IconKey } from '../../../assets/icons/icons.asset';
 import { AppSettingKey, DataService } from '../../../data/data.service';
 import { FeedbackService } from '../../../services/feedback.service';
 import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../../libs/ce-part-utils/ce-part-utils';
@@ -22,10 +22,10 @@ COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.LogoMark,
-    IconType.MagnifyingGlass,
-    IconType.Gear,
-    IconType.PlusIcon
+    IconKey.LogoMark,
+    IconKey.MagnifyingGlass,
+    IconKey.Gear,
+    IconKey.PlusIcon
 )}`;
 
 const COMPONENT_TAG_NAME = 'settings-panel';

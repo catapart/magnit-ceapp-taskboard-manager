@@ -2,21 +2,20 @@
   "name": "@magnit-ceapp/taskboard-manager",
   "version": "0.0.6",
   "description": "An app to manage kanban-style task boards built as a custom html element",
-  "type": "module",
-  "main": "index.js",
-  "module": "dist/taskboard-manager.mjs",
+  "main": "dist/taskboard-manager.umd.js",
+  "module": "dist/taskboard-manager.js",
   "types": "dist/taskboard-manager.d.ts",
+  "type": "module",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/taskboard-manager.ts --format cjs,esm --dts --clean",
-    "copyToDemo": "node -e \"const fs = require('fs'); fs.cpSync('dist', 'demo/dist', {recursive: true});\"",
-    "dev": "npm run build && node -e \"const fs = require('fs'); fs.cpSync('dist', '../magnit-ceapp-taskboard-manager-tests/libs', {recursive: true});\"",
-    "minify": "tsup src/taskboard-manager.ts --format esm --config ./tsup.config.min.ts --outDir ./dist --minify",
-    "lint": "tsup src/taskboard-manager.ts --format esm --tsconfig ./tsconfig.lint.json",
-    "package": "npm run build && npm run minify && npm run copyToDemo",
-    "release": "npm run package && changeset publish"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "build-tests": "vite build --config vite.config.tests.ts",
+    "changeset": "npx @changesets/cli",
+    "release": "npm run build && npx @changesets/cli publish"
   },
   "keywords": [
     "custom",
@@ -31,17 +30,22 @@
     "kanban",
     "tasklist"
   ],
+  "devDependencies": {
+    "@changesets/cli": "^2.27.7",
+    "@magnit-ce/test-runner": "^0.0.8",
+    "@rollup/plugin-terser": "^1.0.0",
+    "ce-part-utils": "^0.0.4",
+    "changesets": "^1.0.2",
+    "glob": "^13.0.0",
+    "typescript": "^5.5.3",
+    "vite": "^8.0.0",
+    "vite-plugin-dts": "^4.5.4"
+  },
   "author": "catapart",
   "license": "CC0-1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/catapart/magnitce-editable-list"
-  },
-  "devDependencies": {
-    "@changesets/cli": "^2.27.7",
-    "minify": "^11.4.0",
-    "tsup": "^8.2.3",
-    "typescript": "^5.5.4"
+    "url": "https://github.com/catapart/magnit-ceapp-taskboard-manager"
   },
   "dependencies": {
     "@magnit-ce/action-history": "^0.0.7",
@@ -52,7 +56,7 @@
     "@magnit-ce/fileimage-input": "^0.0.4",
     "@magnit-ce/form-field": "^0.0.7",
     "@magnit-ce/message-card": "^0.0.3",
-    "@magnit-ce/path-router": "^0.3.2",
+    "@magnit-ce/path-router": "^0.3.3",
     "@magnit-ce/record-tree": "^0.0.15",
     "@magnit-ce/task-board": "^0.0.4",
     "@magnit-ce/task-card": "^0.0.25",

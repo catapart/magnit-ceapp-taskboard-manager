@@ -1,10 +1,10 @@
 {
   "id": "/",
   "scope": "/",
-  "name": "My Boards",
+  "name": "DozeBoards",
   "display": "standalone",
   "start_url": "/",
-  "short_name": "My Boards",
+  "short_name": "DozeBoards",
   "theme_color": "#00B4D8",
   "description": "An app for managing tasks with 'kanban-like', lane-based task boards.",
   "orientation": "any",
