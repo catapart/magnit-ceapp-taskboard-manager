@@ -1,5 +1,5 @@
 import { RecordSetter } from "record-setter";
-import { TaskSettingsParentRecordCategory, TaskSettingsRecord } from "../records/task-settings.record";
+import { TaskSettingsRecord, type TaskSettingsParentRecordCategory } from "../records/task-settings.record";
 import { DataChannel } from "./data.channel";
 
 export class TaskSettingsChannel extends DataChannel<TaskSettingsRecord>

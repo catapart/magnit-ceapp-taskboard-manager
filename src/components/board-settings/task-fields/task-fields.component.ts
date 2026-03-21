@@ -1,4 +1,4 @@
-import { TaskBorderRadiusUnit, TaskColorDisplay, TaskSettingsRecord } from '../../../data/records/task-settings.record';
+import { type TaskBorderRadiusUnit, TaskColorDisplay, type TaskColorDisplayType, TaskSettingsRecord } from '../../../data/records/task-settings.record';
 import { assignClassAndIdToPart, assignFormFieldPartAttributes, assignInputTypeToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../../libs/ce-part-utils/ce-part-utils';
 import sharedStyles from '../../../styles/shared.css?raw';
 import formFieldStyle from '../form-field.css?raw';
@@ -129,7 +129,7 @@ export class TaskFieldsComponent extends HTMLElement
         settings.borderRadiusValue = parseFloat(this.findElement<HTMLInputElement>('task-border-radius').value);
         settings.borderRadiusUnit = this.findElement<HTMLInputElement>('task-border-radius-unit').value as TaskBorderRadiusUnit
 
-        settings.colorDisplay = this.findElement<HTMLInputElement>('task-color-display').value as TaskColorDisplay;
+        settings.colorDisplay = this.findElement<HTMLInputElement>('task-color-display').value as TaskColorDisplayType;
 
         settings.centerCheckbox = this.findElement<HTMLInputElement>('task-center-checkbox').checked;
         settings.centerRemoveButton = this.findElement<HTMLInputElement>('task-center-remove-button').checked;
@@ -152,36 +152,36 @@ export class TaskFieldsComponent extends HTMLElement
     //#endregion API
 
     //#region Internal
-    #applyPartAttributes()
-    {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            classedElements[i].part.add(...classedElements[i].classList);
-        }
-        const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
-        for(let i = 0; i < formFieldElements.length; i++)
-        {
-            const formFieldElement = formFieldElements[i];
-            const fieldId = formFieldElement.id;
+    // #applyPartAttributes()
+    // {
+    //     const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
+    //     for(let i = 0; i < identifiedElements.length; i++)
+    //     {
+    //         identifiedElements[i].part.add(identifiedElements[i].id);
+    //     }
+    //     const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
+    //     for(let i = 0; i < classedElements.length; i++)
+    //     {
+    //         classedElements[i].part.add(...classedElements[i].classList);
+    //     }
+    //     const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
+    //     for(let i = 0; i < formFieldElements.length; i++)
+    //     {
+    //         const formFieldElement = formFieldElements[i];
+    //         const fieldId = formFieldElement.id;
             
-            const container = formFieldElement.querySelector('.container');
-            container?.part.add('container', 'field-container', `${fieldId}-container`);
-            const label = formFieldElement.querySelector('.field-label');
-            label?.part.add('label', 'field-label', `${fieldId}-label`);
-            const prefix = formFieldElement.querySelector('.prefix');
-            prefix?.part.add('prefix', 'field-prefix', `${fieldId}-prefix`);
-            const postfix = formFieldElement.querySelector('.postfix');
-            postfix?.part.add('postfix', 'field-postfix', `${fieldId}-postfix`);
-            const enabledCheckbox = formFieldElement.querySelector('.enabled-checkbox');
-            enabledCheckbox?.part.add('enabled-checkbox', 'field-enabled-checkbox', `${fieldId}-enabled-checkbox`);
-        }
-    }
+    //         const container = formFieldElement.querySelector('.container');
+    //         container?.part.add('container', 'field-container', `${fieldId}-container`);
+    //         const label = formFieldElement.querySelector('.field-label');
+    //         label?.part.add('label', 'field-label', `${fieldId}-label`);
+    //         const prefix = formFieldElement.querySelector('.prefix');
+    //         prefix?.part.add('prefix', 'field-prefix', `${fieldId}-prefix`);
+    //         const postfix = formFieldElement.querySelector('.postfix');
+    //         postfix?.part.add('postfix', 'field-postfix', `${fieldId}-postfix`);
+    //         const enabledCheckbox = formFieldElement.querySelector('.enabled-checkbox');
+    //         enabledCheckbox?.part.add('enabled-checkbox', 'field-enabled-checkbox', `${fieldId}-enabled-checkbox`);
+    //     }
+    // }
     //#endregion Internal
 }
 

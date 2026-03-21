@@ -4,7 +4,7 @@ import sharedStyles from '../../styles/shared.css?raw';
 // html
 import html from './config-panel.html?raw';
 // icons
-import { defineIcons, IconType } from '../../assets/icons/icons.asset';
+import { defineIcons, IconKey } from '../../assets/icons/icons.asset';
 
 
 import './settings-panel/settings-panel';
@@ -15,10 +15,9 @@ import { HistoryPanelElement } from './history-panel/history-panel';
 import { DataPanelElement } from './data-panel/data-panel';
 import { AboutPanelElement } from './about-panel/about-panel';
 import { HistoryEntryType } from '@magnit-ce/action-history';
-import { ColorScheme, SettingsPanelElement } from './settings-panel/settings-panel';
-import { HistoryEntryTargetType, PropertiesType } from '../../data/history/history-entry-data';
+import { type ColorScheme, SettingsPanelElement } from './settings-panel/settings-panel';
+import { type HistoryEntryTargetCategoryType, type PropertiesType } from '../../data/history/history-entry-data';
 import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../libs/ce-part-utils/ce-part-utils';
-import { PathRouterElement } from '@magnit-ce/path-router';
 
 
 export type ConfigPanelProperties = 
@@ -38,10 +37,10 @@ COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.Gear,
-    IconType.Data,
-    IconType.Clock,
-    IconType.Info,
+    IconKey.Gear,
+    IconKey.Data,
+    IconKey.Clock,
+    IconKey.Info,
 )}`;
 
 const COMPONENT_TAG_NAME = 'config-panel';
@@ -111,7 +110,7 @@ export class ConfigPanelElement extends HTMLElement
     {
         this.findElement<HistoryPanelElement>('history-panel').redo();
     }
-    addActionHistoryEntry<T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
+    addActionHistoryEntry<T extends HistoryEntryTargetCategoryType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
     {
         return this.findElement<HistoryPanelElement>('history-panel').addActionHistoryEntry(action, type, properties);
     }

@@ -4,13 +4,13 @@ import sharedStyles from '../../../styles/shared.css?raw';
 // html
 import html from './history-panel.html?raw';
 // icons
-import { defineIcons, IconType } from '../../../assets/icons/icons.asset';
+import { defineIcons, IconKey } from '../../../assets/icons/icons.asset';
 import { ActionHistoryElement, ATTRIBUTENAME_ACTIVE, ATTRIBUTENAME_REVERSED, HistoryEntryType } from '@magnit-ce/action-history';
 import { createOptionElement, snapToStep } from '../../../resources/utils';
 import { AppSettingKey, DataService } from '../../../data/data.service';
 import { HistoryEntryRecord } from '../../../data/records/history-entry.record';
 import { FeedbackService } from '../../../services/feedback.service';
-import { HistoryEntryData, HistoryEntryTargetType, PropertiesType } from '../../../data/history/history-entry-data';
+import { HistoryEntryData, type HistoryEntryTargetCategoryType, type PropertiesType } from '../../../data/history/history-entry-data';
 import { assignClassAndIdToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../../libs/ce-part-utils/ce-part-utils';
 
 export const HistoryLengthValues = [0, 30, 50, 100, 150];
@@ -31,9 +31,9 @@ COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.ConfirmCheck,
-    IconType.UndoRedo,
-    IconType.Trash,
+    IconKey.ConfirmCheck,
+    IconKey.UndoRedo,
+    IconKey.Trash,
 )}`;
 
 const COMPONENT_TAG_NAME = 'history-panel';
@@ -149,7 +149,7 @@ export class HistoryPanelElement extends HTMLElement
         this.findElement<ActionHistoryElement>('action-history').forward();
     }
 
-    async addActionHistoryEntry<T extends HistoryEntryTargetType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
+    async addActionHistoryEntry<T extends HistoryEntryTargetCategoryType>(action: HistoryEntryType, type: T, properties: PropertiesType<T>)
     {
         const historyLength = parseFloat(await DataService.getAppSetting(AppSettingKey.HistoryLength) ?? DEFAULT_HISTORY_LENGTH);
         if(historyLength == 0) { return; }
@@ -427,7 +427,7 @@ export class HistoryPanelElement extends HTMLElement
         const actionHistory = this.findElement<ActionHistoryElement>('action-history');
         this.#prepareHistoryEntries(actionHistory, startIndex);
     }
-    async #actionHistory_onBack(target: HTMLElement, previous: HTMLElement|undefined, toReverse: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
+    async #actionHistory_onBack(_target: HTMLElement, _previous: HTMLElement|undefined, toReverse: HTMLElement[], targetIndex: number, _previousActiveEntryIndex: number)
     {
         let refreshBoards = false;
         // let refreshDeletedItems = false;
@@ -457,7 +457,7 @@ export class HistoryPanelElement extends HTMLElement
             this.#refreshCache();
         // }
     }
-    async #actionHistory_onForward(target: HTMLElement, previous: HTMLElement|undefined, toActivate: HTMLElement[], targetIndex: number, previousActiveEntryIndex: number)
+    async #actionHistory_onForward(_target: HTMLElement, _previous: HTMLElement|undefined, toActivate: HTMLElement[], targetIndex: number, _previousActiveEntryIndex: number)
     {
         let refreshBoards = false;
         // let refreshDeletedItems = false;

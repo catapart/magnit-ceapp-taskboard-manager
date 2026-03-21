@@ -4,9 +4,9 @@ import sharedStyles from '../../styles/shared.css?raw';
 // html
 import html from './board-settings.html?raw';
 // icons
-import { defineIcons, IconType } from '../../assets/icons/icons.asset';
+import { defineIcons, IconKey } from '../../assets/icons/icons.asset';
 import { TaskListFieldsComponent } from './tasklist-fields/tasklist-fields.component';
-import { TaskBoardBackgroundDisplay, TaskBoardRecord } from '../../data/records/task-board.record';
+import { TaskBoardRecord, type TaskBoardBackgroundDisplayType } from '../../data/records/task-board.record';
 import { TaskListRecord } from '../../data/records/task-list.record';
 import { TaskSettingsRecord } from '../../data/records/task-settings.record';
 import { TaskFieldsComponent } from './task-fields/task-fields.component';
@@ -15,7 +15,7 @@ import { CustomImageRecord } from '../../data/records/custom-image.record';
 import { DataService } from '../../data/data.service';
 import { FeedbackService } from '../../services/feedback.service';
 import { MessageCardType } from '@magnit-ce/message-card';
-import { CustomImageActionProperties } from '../../data/history/custom-image-action-properties';
+import { type CustomImageActionProperties } from '../../data/history/custom-image-action-properties';
 import { assignClassAndIdToPart, assignFormFieldPartAttributes, assignInputTypeToPart, assignPartsAsExportPartsAttribute, assignTagToPart } from '../../libs/ce-part-utils/ce-part-utils';
 
 export type BoardSettingsProperties = 
@@ -35,17 +35,17 @@ COMPONENT_STYLESHEET.replaceSync(`${sharedStyles}
 
 const COMPONENT_TEMPLATE = `${html}
 ${defineIcons(
-    IconType.Gear,
-    IconType.Export,
-    IconType.PlusIcon,
-    IconType.Image,
-    IconType.Color,
-    IconType.Task,
-    IconType.TaskList,
-    IconType.TaskBoard,
-    IconType.CloseCross,
-    IconType.Trash,
-    IconType.Copy,
+    IconKey.Gear,
+    IconKey.Export,
+    IconKey.PlusIcon,
+    IconKey.Image,
+    IconKey.Color,
+    IconKey.Task,
+    IconKey.TaskList,
+    IconKey.TaskBoard,
+    IconKey.CloseCross,
+    IconKey.Trash,
+    IconKey.Copy,
 )}`;
 
 const COMPONENT_TAG_NAME = 'board-settings';
@@ -216,7 +216,7 @@ export class BoardSettingsElement extends HTMLElement
         board.useCustomFontColor = this.findElement<HTMLInputElement>('board-font-color-field').getAttribute('optional-value') == "true";
         board.fontColor = this.findElement<HTMLInputElement>('board-font-color').value;
 
-        board.backgroundDisplay = this.findElement<HTMLInputElement>('board-background-image-display').value as TaskBoardBackgroundDisplay;
+        board.backgroundDisplay = this.findElement<HTMLInputElement>('board-background-image-display').value as TaskBoardBackgroundDisplayType;
         board.backgroundOffsetX = parseInt(this.findElement<HTMLInputElement>('board-background-image-offset-x').value);
         board.backgroundOffsetY = parseInt(this.findElement<HTMLInputElement>('board-background-image-offset-y').value);
 
@@ -545,36 +545,36 @@ export class BoardSettingsElement extends HTMLElement
     //#endregion Management
 
     //#region Internal
-    #applyPartAttributes()
-    {
-        const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
-        for(let i = 0; i < identifiedElements.length; i++)
-        {
-            identifiedElements[i].part.add(identifiedElements[i].id);
-        }
-        const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
-        for(let i = 0; i < classedElements.length; i++)
-        {
-            classedElements[i].part.add(...classedElements[i].classList);
-        }
-        const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
-        for(let i = 0; i < formFieldElements.length; i++)
-        {
-            const formFieldElement = formFieldElements[i];
-            const fieldId = formFieldElement.id;
+    // #applyPartAttributes()
+    // {
+    //     const identifiedElements = [...this.shadowRoot!.querySelectorAll('[id]')];
+    //     for(let i = 0; i < identifiedElements.length; i++)
+    //     {
+    //         identifiedElements[i].part.add(identifiedElements[i].id);
+    //     }
+    //     const classedElements = [...this.shadowRoot!.querySelectorAll('[class]')];
+    //     for(let i = 0; i < classedElements.length; i++)
+    //     {
+    //         classedElements[i].part.add(...classedElements[i].classList);
+    //     }
+    //     const formFieldElements = [...this.shadowRoot!.querySelectorAll('form-field')];
+    //     for(let i = 0; i < formFieldElements.length; i++)
+    //     {
+    //         const formFieldElement = formFieldElements[i];
+    //         const fieldId = formFieldElement.id;
             
-            const container = formFieldElement.querySelector('.container');
-            container?.part.add('container', 'field-container', `${fieldId}-container`);
-            const label = formFieldElement.querySelector('.field-label');
-            label?.part.add('label', 'field-label', `${fieldId}-label`);
-            const prefix = formFieldElement.querySelector('.prefix');
-            prefix?.part.add('prefix', 'field-prefix', `${fieldId}-prefix`);
-            const postfix = formFieldElement.querySelector('.postfix');
-            postfix?.part.add('postfix', 'field-postfix', `${fieldId}-postfix`);
-            const enabledCheckbox = formFieldElement.querySelector('.enabled-checkbox');
-            enabledCheckbox?.part.add('enabled-checkbox', 'field-enabled-checkbox', `${fieldId}-enabled-checkbox`);
-        }
-    }
+    //         const container = formFieldElement.querySelector('.container');
+    //         container?.part.add('container', 'field-container', `${fieldId}-container`);
+    //         const label = formFieldElement.querySelector('.field-label');
+    //         label?.part.add('label', 'field-label', `${fieldId}-label`);
+    //         const prefix = formFieldElement.querySelector('.prefix');
+    //         prefix?.part.add('prefix', 'field-prefix', `${fieldId}-prefix`);
+    //         const postfix = formFieldElement.querySelector('.postfix');
+    //         postfix?.part.add('postfix', 'field-postfix', `${fieldId}-postfix`);
+    //         const enabledCheckbox = formFieldElement.querySelector('.enabled-checkbox');
+    //         enabledCheckbox?.part.add('enabled-checkbox', 'field-enabled-checkbox', `${fieldId}-enabled-checkbox`);
+    //     }
+    // }
     //#endregion Internal
 }
 

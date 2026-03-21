@@ -12,11 +12,11 @@ import { CustomImageChannel } from "./channels/custom-image.channel";
 import { BoardExport } from "./foreign/exported-board";
 import { HistoryEntryRecord } from "./records/history-entry.record";
 import { HistoryEntryChannel } from "./channels/history-entry.channel";
-import { HistoryEntryTargetType, PropertyUpdate } from "./history/history-entry-data";
-import { BoardActionProperties } from "./history/board-action-properties";
-import { ListActionProperties } from "./history/list-action-properties";
-import { TaskSettingsActionProperties } from "./history/task-settings-action-properties";
-import { CustomImageActionProperties } from "./history/custom-image-action-properties";
+import { type PropertyUpdate } from "./history/history-entry-data";
+import { type BoardActionProperties } from "./history/board-action-properties";
+import { type ListActionProperties } from "./history/list-action-properties";
+import { type TaskSettingsActionProperties } from "./history/task-settings-action-properties";
+import { type CustomImageActionProperties } from "./history/custom-image-action-properties";
 
 const DEFAULT_SCHEMA = 
 {
