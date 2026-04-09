@@ -59,6 +59,7 @@ import { AppSettingKey, DataService, MILLISECONDSINDAY } from './data/data.servi
 import { FeedbackService } from './services/feedback.service';
 import { type ColorScheme } from './components/config-panel/settings-panel/settings-panel';
 import { assignPartsAsExportPartsAttribute } from './libs/ce-part-utils/ce-part-utils';
+import { HistoryPanelElement } from './components/config-panel/history-panel/history-panel';
 
 
 const DEFAULT_APP_VERSION = "--.--.--";
@@ -220,9 +221,25 @@ export class TaskboardManagerElement extends HTMLElement
 
         return board;
     }
-    editBoard(boardId: string)
-    {        
-        this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}#board-settings`);
+    async saveBoard(board: TaskBoardRecord)
+    {
+        await DataService.saveBoardRecords(board);
+        
+        await this.findElement<ConfigPanelElement>('config-panel')
+        .addActionHistoryEntry(HistoryEntryType.Update, HistoryEntryTargetCategory.Board, { id: board.id });
+
+        return board;
+    }
+    async deleteBoard(boardId: string)
+    {
+        await DataService.deleteBoard(boardId);
+        
+        await this.findElement<ConfigPanelElement>('config-panel')
+        .addActionHistoryEntry(HistoryEntryType.Delete, HistoryEntryTargetCategory.Board, { id: boardId });
+
+        this.refreshBoardCollections();
+        // await this.findElement<AppMenuElement>('app-menu-container').refresh();
+        await this.findElement<WelcomePanelElement>('welcome-panel').refresh();
     }
     getCurrentBoardId()
     {
@@ -241,7 +258,11 @@ export class TaskboardManagerElement extends HTMLElement
         }
         return undefined;
     }
-    async openBoardSettings(id: string)
+    async openBoardSettings(boardId: string)
+    {        
+        this.findElement<PathRouterElement>('app-router').navigate(`board/${boardId}#board-settings`);
+    }
+    async updateBoardSettings(id: string)
     {
         // await this.initPromise;
 
@@ -357,6 +378,12 @@ export class TaskboardManagerElement extends HTMLElement
         list.toggleAttribute('collapsed', false);
         this.#registerTaskCard(card, listId, order);
     }
+
+    async removeHistoryEntries(...ids: string[])
+    {
+        await DataService.deleteHistoryEntries(...ids);
+        return this.findElement<ConfigPanelElement>('config-panel').findElement<HistoryPanelElement>('history-panel').refresh();
+    }
     //#endregion API
 
     //#region Internal
@@ -375,7 +402,7 @@ export class TaskboardManagerElement extends HTMLElement
         // app menu
         this.findElement<AppMenuElement>('app-menu-container').init({
             addBoard: this.addBoard.bind(this),
-            editBoard: this.editBoard.bind(this),
+            editBoard: this.openBoardSettings.bind(this),
             openBoard: this.openBoard.bind(this),
             getCurrentBoardId: this.getCurrentBoardId.bind(this),
         });
@@ -1520,7 +1547,7 @@ export class TaskboardManagerElement extends HTMLElement
             throw new Error('Unable to determine the selected board\'s id');
         }
 
-        this.openBoardSettings(properties.id as string);
+        this.updateBoardSettings(properties.id as string);
     }
     async #importDialog_import_onClick()
     {
