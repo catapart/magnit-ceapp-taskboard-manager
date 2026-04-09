@@ -1,5 +1,11 @@
 # @magnit-ceapp/taskboard-manager
 
+## 0.0.6
+
+### Patch Changes
+
+- abea55e: fixed issue with board menu items being deselected after saving board
+
 ## 0.0.5
 
 ### Patch Changes
