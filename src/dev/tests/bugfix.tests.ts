@@ -117,12 +117,18 @@ export default {
 
         // asses
         const isSuccessful: boolean = board != null;
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
         const result = document.createElement('div');
         result.innerHTML = `${/*${isSuccessful ? ICON_SUCCESS : ICON_FAIL}*/''}
         <span class="label">The "${boardName}" board ${isSuccessful == true ? `was ` : `was not `} restored ${isSuccessful == true ? `as expected` : `correctly`}.</span>`;
 
-        // remove history items
+        // cleanup
+
+        //     delete the board
+        await SubjectManager.deleteBoard(testBoard.id);
+
+        //     remove history items
         const entries = await SubjectManager.getHistoryEntries();
         const filteredEntries = entries.filter(item => item.textContent.includes(testBoard.id));
         const entryIds = filteredEntries.map(item => item.dataset.entryId!);

@@ -759,13 +759,15 @@ export class TaskboardManagerElement extends HTMLElement
         notification.classList.add('notification');
         messageButton.addEventListener('click', () =>
         {
-            const entry = this.getElement<ActionHistoryElement>('action-history').querySelector(`[data-entry-id="${entryId}"]`) as HTMLElement;
+            const configPanel = this.findElement<ConfigPanelElement>('config-panel');
+            const historyPanel = configPanel.findElement<HistoryPanelElement>('history-panel');
+            const entry = historyPanel.shadowRoot!.querySelector(`[data-entry-id="${entryId}"]`) as HTMLElement;
             if(entry == null)
             {
                 FeedbackService.showErrorMessageCard(`An error occurred restoring a record. The record was not restored`);
                 return;
             }
-            this.getElement<ActionHistoryElement>('action-history').reverseEntry(entry);
+            historyPanel.findElement<ActionHistoryElement>('action-history').reverseEntry(entry);
             notification.dispatchEvent(new CustomEvent(MessageCardEvent.Cancel));
             notification.remove();
         });
