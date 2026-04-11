@@ -1,5 +1,11 @@
 # @magnit-ceapp/taskboard-manager
 
+## 0.0.7
+
+### Patch Changes
+
+- f64f5c0: fixed issue with undo not working from notification
+
 ## 0.0.6
 
 ### Patch Changes
