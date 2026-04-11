@@ -41,13 +41,12 @@ export default defineConfig({
             ),
             external: (source: string, importer: string | undefined, isResolved: boolean) =>
             {
-                if(source.includes('taskboard-manager.ts') || source.includes('taskboard-manager.js') || source.includes('taskboard-manager.min.js')) { return true; }
+                if(source.includes('../libs')) { return true; }
             },
             output: {
                 entryFileNames: '[name].js',
                 format: 'es',
-                dir: 'public/tests',
-                inlineDynamicImports: false,                
+                dir: 'public/tests',             
             }
         }
     },
@@ -55,11 +54,22 @@ export default defineConfig({
         name: 'regex-string-replace',
         // 'transform' hook applies to individual modules during the build
         transform(code, id) {
-            const libraryMatch = code.match(/['"].*?taskboard-manager.*?["']/g);
+            const testRunnerMatch = code.match(/@magnit-ce\/test-runner/g);
+            if(testRunnerMatch != null)
+            {
+                code = code.replace(testRunnerMatch[0], '../libs/test-runner.min.js');
+            }
+            const libraryMatch = code.matchAll(/\.\.\/\.\.\/.*/g);
             if(libraryMatch == null) { return null; }
-            // console.log(libraryMatch);
-            const result = code.replace(libraryMatch[0], '"../libs/taskboard-manager.min.js"');
-            // console.log(result);
+            const matches = Array.from(libraryMatch);
+
+            let result = code;
+            for(let i = 0; i < matches.length; i++)
+            {
+                const match = matches[i];
+                // console.log(id, match[0]);
+                result = result.replace(match[0], '../libs/taskboard-manager.min.js"');
+            }
             return {
                 code: result,
                 map: null // Optional: provide a source map

@@ -27,6 +27,11 @@
         svg {
             display: none;
         }
+
+        test-runner::part(subject)
+        {
+            display: grid;
+        }
     </style>
     <noscript>
         <style>
@@ -68,8 +73,9 @@
     </header>
     <main>
         <test-runner>
-            <div class="message">Automated testing has not been prepared for this library.</div>
-
+            <code-tests src="./public/tests/bugfix.tests.js" label="Bug Fixes" open></code-tests>
+            <!-- <code-tests src="./public/tests/action-history.tests.js" label="Action History" open></code-tests> -->
+            <taskboard-manager></taskboard-manager>
         </test-runner>
         <noscript>
             <div class="noscript message warn">
