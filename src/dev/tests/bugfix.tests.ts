@@ -1,5 +1,4 @@
 import { type TestContext } from "@magnit-ce/test-runner";
-import { HistoryPanelElement } from "../../components/config-panel/history-panel/history-panel";
 import { NavigationKey, SUBJECT, SubjectManager, testBoard } from "./resources";
 import type { ConfigPanelElement } from "../../components/config-panel/config-panel";
 import type { BoardSettingsElement } from "../../components/board-settings/board-settings";

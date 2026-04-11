@@ -1,9 +1,5 @@
-import { Hook, prompt, type TestContext } from "@magnit-ce/test-runner";
-import type { TaskboardManagerElement } from "../../taskboard-manager";
-import { HistoryPanelElement } from "../../components/config-panel/history-panel/history-panel";
-import type { TaskBoardRecord } from "../../data/records/task-board.record";
-import { NavigationKey, SUBJECT, SubjectManager, testBoard } from "./resources";
-import type { ConfigPanelElement } from "../../components/config-panel/config-panel";
+import { Hook, type TestContext } from "@magnit-ce/test-runner";
+import { SubjectManager, testBoard } from "./resources";
 
 
 export default {

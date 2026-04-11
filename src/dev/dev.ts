@@ -4,16 +4,16 @@
 import '@magnit-ce/test-runner';
 import '../taskboard-manager';
 
-if(document.readyState == 'loading')
-{
-    document.addEventListener('DOMContentLoaded', init);
-}
-else
-{
-    init();
-}
+// if(document.readyState == 'loading')
+// {
+//     document.addEventListener('DOMContentLoaded', init);
+// }
+// else
+// {
+//     init();
+// }
 
-async function init()
-{
-    console.log('hello world');
-}
+// async function init()
+// {
+//     console.log('hello world');
+// }
