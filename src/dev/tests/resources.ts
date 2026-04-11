@@ -1,4 +1,5 @@
 import { AppMenuElement } from "../../components/app-menu/app-menu";
+import type { BoardSettingsElement } from "../../components/board-settings/board-settings";
 import { ConfigPanelElement } from "../../components/config-panel/config-panel";
 import type { HistoryPanelElement } from "../../components/config-panel/history-panel/history-panel";
 import type { TaskBoardRecord } from "../../data/records/task-board.record";
@@ -20,6 +21,7 @@ export const SUBJECT: TaskboardManagerElement = document.querySelector('taskboar
 export const NavigationKey = 
 {
     HistoryPanel: 'history',
+    BoardSettings: 'board-settings',
 } as const;
 export type NavigationKeyType = typeof NavigationKey[keyof typeof NavigationKey];
 
@@ -40,15 +42,15 @@ export const SubjectManager =
     {
         return SUBJECT.deleteBoard(boardId);
     },
-    navigate(key: NavigationKeyType)
+    navigate(key: NavigationKeyType, data?: any)
     {
         return new Promise<void>(async (resolve) =>
         {
+            const menu = SUBJECT.findElement<AppMenuElement>('app-menu-container');
             if(key == NavigationKey.HistoryPanel)
             {
                 console.log(key);
                 // open config
-                const menu = SUBJECT.findElement<AppMenuElement>('app-menu-container');
                 const configButton = menu.findElement<HTMLButtonElement>('open-settings-button');
                 configButton.click();
                 setTimeout(() =>
@@ -61,6 +63,18 @@ export const SubjectManager =
                     {
                         resolve();
                     }, 100);
+                }, 250);
+            }
+            else if(key == NavigationKey.BoardSettings)
+            {
+                const boardData: { id: string } = data;
+                const board = menu.shadowRoot!.querySelector(`.board[data-route="board/${boardData.id}"]`)!;
+                const editButton = board.querySelector<HTMLButtonElement>('.board-edit-button')!;
+
+                editButton.click();
+                setTimeout(() =>
+                {
+                    resolve();
                 }, 250);
             }
         });
