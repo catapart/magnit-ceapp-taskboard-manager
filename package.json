@@ -1,6 +1,6 @@
 {
   "name": "@magnit-ceapp/taskboard-manager",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "An app to manage kanban-style task boards built as a custom html element",
   "main": "dist/taskboard-manager.umd.js",
   "module": "dist/taskboard-manager.js",
